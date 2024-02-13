@@ -81,11 +81,33 @@ class dxWithMx():
                 dfMx.columns=dfMx.columns.to_flat_index()
                 
                 self.V3_WBLZ=pd.merge(df,dfMx,left_on='tk',right_index=True)
-                
+              
+            # Graph bauen    
             self.G=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_VBEL'].reset_index(), source='NAME_i', target='NAME_k', edge_attr=True) 
             nodeDct=self.V3_KNOT.to_dict(orient='index')    
             nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
             nx.set_node_attributes(self.G,nodeDctNx)
+            
+            # Darstellungskoordinaten des Netzes bezogen auf untere linke Ecke == 0,0
+            vKnot=self.dx.dataFrames['V3_KNOT']            
+            vKnotNet=vKnot[    
+            (vKnot['ID_CONT']==vKnot['IDPARENT_CONT'])
+            ]
+            xMin=vKnotNet['XKOR'].min()
+            yMin=vKnotNet['YKOR'].min()            
+            self.nodeposDctNx={name:(x-xMin
+                          ,y-yMin)
+                           for name,x,y in zip(vKnotNet['NAME']
+                                              ,vKnotNet['XKOR']
+                                              ,vKnotNet['YKOR']
+                                              )
+            }
+            
+            # Graph Signalmodell bauen
+            self.GSig=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_RVBEL'].reset_index(), source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
+            nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
+            nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
+            nx.set_node_attributes(self.GSig,nodeDctNx)
       
         except dxWithMxError:
             raise            

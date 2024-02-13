@@ -534,6 +534,14 @@ class Dx():
 
                 extV = extV.merge(dfRef.add_suffix('_'+refName), left_on=fkRefStr, right_on='pk' +
                                   '_'+refName, how='left').filter(items=extV.columns.to_list()+['NAME'+'_'+refName])
+            
+                
+            # Knotennamen
+            vKNOT=self.dataFrames['V_BVZ_KNOT']
+            extV=pd.merge(extV,vKNOT.add_suffix('_i')[['tk_i','NAME_i']], left_on='fkKI', right_on='tk_i')
+            extV=pd.merge(extV,vKNOT.add_suffix('_k')[['tk_k','NAME_k']], left_on='fkKK', right_on='tk_k')
+            
+            
             self.dataFrames['V3_ROHR'] = extV
 
             # V3_SWVT
@@ -665,6 +673,12 @@ class Dx():
                 dfRef = self.dataFrames[dfRefStr]
                 extV_BVZ_FWVB = extV_BVZ_FWVB.merge(dfRef.add_suffix(
                     '_'+refName), left_on=fkRefStr, right_on='pk'+'_'+refName, how='left').filter(items=extV_BVZ_FWVB.columns.to_list()+['NAME'+'_'+refName])
+                
+            # Knotennamen
+            extV_BVZ_FWVB=pd.merge(extV_BVZ_FWVB,vKNOT.add_suffix('_i')[['tk_i','NAME_i']], left_on='fkKI', right_on='tk_i')
+            extV_BVZ_FWVB=pd.merge(extV_BVZ_FWVB,vKNOT.add_suffix('_k')[['tk_k','NAME_k']], left_on='fkKK', right_on='tk_k')
+                          
+                
             self.dataFrames['V3_FWVB'] = extV_BVZ_FWVB
 
             # V3_:ROHR,KNOT,FWVB: filterTemplateObjects
@@ -1563,7 +1577,7 @@ class Dx():
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
             return df
 
-    def update(self,dfUpd):               
+    def update(self,dfUpd,updInverseValue=None):               
         """
         Updates (nur für SQLite Datenbanken)
         
@@ -1576,6 +1590,9 @@ class Dx():
                 * attribValue i.e. 6.55
                 * xk i.e. 'tk'
                 * xkValue i.e. 5423055592859548388
+            * updInverseValue:
+                * wenn nicht NULL, werden alle Komplemente auf den Wert gesetzt
+                
         
         Raises
         ------
@@ -1621,19 +1638,39 @@ class Dx():
             try:                
                 for index, row in dfUpd.iterrows():
                     sqlCmd = '''UPDATE {table:s} SET {attrib:s} = ? WHERE {xk:s} = ?'''.format(table=row['table'],attrib=row['attrib'],xk=row['xk'])
-                    logStrSql="sqlCmd: {sqlCmd:s}: {attribValue:s} {xkValue:s} ...".format(sqlCmd=sqlCmd,attribValue=str(row['attribValue']),xkValue=str(row['xkValue']))
+                    logStrSql="sqlCmd: {sqlCmd:s}:  attribValue:{attribValue:s} xkValue:{xkValue:s} ...".format(sqlCmd=sqlCmd,attribValue=str(row['attribValue']),xkValue=str(row['xkValue']))
                     logger.debug("{:s}{:s}".format(logStr,logStrSql))
                     updateFct(con,sqlCmd,row['xkValue'],row['attribValue'])
+                    
+                if updInverseValue!= None:
+                    
+                    for (table,attrib,xk),rowDummy in dfUpd.groupby(by=['table','attrib','xk']).count().iterrows():                            
+                        logger.debug("{:s}UpdInverse: {:s} {:s} {:s}".format(logStr,table,attrib,xk))
+                        tabDf=self.dataFrames[table]
+                        tabDf=tabDf[~pd.isnull(tabDf[xk])]
+                        tabDf=tabDf[~tabDf[xk].isin([-1,'-1'])]
+                        dfUpdInv=tabDf[~tabDf[xk].isin(dfUpd['xkValue'])]
+                    
+                        for index,row in dfUpdInv.iterrows():
+                             sqlCmd = '''UPDATE {table:s} SET {attrib:s} = ? WHERE {xk:s} = ?'''.format(table=table,attrib=attrib,xk=xk)
+                             logStrSql="sqlCmd: {sqlCmd:s}: attribValue:{attribValue:s} xkValue:{xkValue:s} ...".format(sqlCmd=sqlCmd,attribValue=str(updInverseValue),xkValue=str(row[xk]))
+                             logger.debug("{:s}{:s}".format(logStr,logStrSql))
+                             updateFct(con,sqlCmd,row[xk],updInverseValue)
+                                
+
+                    
             except Exception as e:
-                logStrTmp = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
-                logger.error("{:s} Last sqlCmd: {:s}".format(logStrTmp,logStrSql))
+                logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+                    logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+                logger.error(logStrFinal)
+
             finally:
                 con.close()
 
         except Exception as e:
            logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
                logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
-           logger.debug(logStrFinal)
+           logger.error(logStrFinal)
     
         finally:
            logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))       
