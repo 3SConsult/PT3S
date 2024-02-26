@@ -1103,8 +1103,8 @@ class Dx():
                     V3_RVBEL.loc[index, 'OBJTYPE_i'] = s['OBJTYPE_SRC']
                     # V3_RVBEL.loc[index,'OBJID_i']=s['OBJID_SRC']
                     V3_RVBEL.loc[index, 'Kn_i'] = s['Kn_SRC']
-                    V3_RVBEL.loc[index, 'KnExt_i'] = s['Kn_SRC'] + \
-                        '_'+s['OBJTYPE_SRC']
+                    V3_RVBEL.loc[index, 'KnExt_i'] = str(s['Kn_SRC']) + \
+                        '_'+str(s['OBJTYPE_SRC'])
                     V3_RVBEL.loc[index, 'NAME_CONT_i'] = s['NAME_CONT_SRC']
 
                 

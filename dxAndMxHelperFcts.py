@@ -57,7 +57,7 @@ class dxWithMxError(Exception):
 class dxWithMx():
     """Wrapper for dx with attached mx
     """
-    def __init__(self,dx,mx):
+    def __init__(self,dx,mx,dxMxOnly=False):
         
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
@@ -66,11 +66,15 @@ class dxWithMx():
             self.dx = dx
             self.mx = mx
             
+            if dxMxOnly:
+                pass
+            
             self.dfLAYR=dxDecodeObjsData.Layr(self.dx)
             self.dfWBLZ=dxDecodeObjsData.Wblz(self.dx)
                         
             if self.mx != None:                
                 V3sErg=self.dx.MxAdd(mx)
+                # pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
                 self.V3_ROHR=V3sErg['V3_ROHR']
                 self.V3_KNOT=V3sErg['V3_KNOT']
                 self.V3_FWVB=V3sErg['V3_FWVB']
@@ -81,33 +85,45 @@ class dxWithMx():
                 dfMx.columns=dfMx.columns.to_flat_index()
                 
                 self.V3_WBLZ=pd.merge(df,dfMx,left_on='tk',right_index=True)
-              
-            # Graph bauen    
-            self.G=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_VBEL'].reset_index(), source='NAME_i', target='NAME_k', edge_attr=True) 
-            nodeDct=self.V3_KNOT.to_dict(orient='index')    
-            nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
-            nx.set_node_attributes(self.G,nodeDctNx)
             
-            # Darstellungskoordinaten des Netzes bezogen auf untere linke Ecke == 0,0
-            vKnot=self.dx.dataFrames['V3_KNOT']            
-            vKnotNet=vKnot[    
-            (vKnot['ID_CONT']==vKnot['IDPARENT_CONT'])
-            ]
-            xMin=vKnotNet['XKOR'].min()
-            yMin=vKnotNet['YKOR'].min()            
-            self.nodeposDctNx={name:(x-xMin
-                          ,y-yMin)
-                           for name,x,y in zip(vKnotNet['NAME']
-                                              ,vKnotNet['XKOR']
-                                              ,vKnotNet['YKOR']
-                                              )
-            }
+            try:
+                # Graph bauen    
+                self.G=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_VBEL'].reset_index(), source='NAME_i', target='NAME_k', edge_attr=True) 
+                nodeDct=self.V3_KNOT.to_dict(orient='index')    
+                nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
+                nx.set_node_attributes(self.G,nodeDctNx)
+                
+                # Darstellungskoordinaten des Netzes bezogen auf untere linke Ecke == 0,0
+                vKnot=self.dx.dataFrames['V3_KNOT']            
+                vKnotNet=vKnot[    
+                (vKnot['ID_CONT']==vKnot['IDPARENT_CONT'])
+                ]
+                xMin=vKnotNet['XKOR'].min()
+                yMin=vKnotNet['YKOR'].min()            
+                self.nodeposDctNx={name:(x-xMin
+                              ,y-yMin)
+                               for name,x,y in zip(vKnotNet['NAME']
+                                                  ,vKnotNet['XKOR']
+                                                  ,vKnotNet['YKOR']
+                                                  )
+                }
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.warning("{0:s}{1:s}".format(logStr,'NetworkX Graph G bauen fehlgeschlagen. G und/oder nodeposDctNx betroffen. ')) 
+                
+                
             
-            # Graph Signalmodell bauen
-            self.GSig=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_RVBEL'].reset_index(), source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
-            nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
-            nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
-            nx.set_node_attributes(self.GSig,nodeDctNx)
+            try:
+                # Graph Signalmodell bauen
+                self.GSig=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_RVBEL'].reset_index(), source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
+                nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
+                nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
+                nx.set_node_attributes(self.GSig,nodeDctNx)
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.warning("{0:s}{1:s}".format(logStr,'NetworkX Graph GSig bauen fehlgeschlagen. GSig betroffen. '))             
       
         except dxWithMxError:
             raise            
@@ -124,7 +140,7 @@ class readDxAndMxError(Exception):
     def __str__(self):
         return repr(self.value)
 
-def readDxAndMx(dbFile):
+def readDxAndMx(dbFile,maxRecords=None):
     """
     Returns:
         dxWithMx
@@ -147,6 +163,10 @@ def readDxAndMx(dbFile):
         except:
             import Dx    
 
+
+        dx=None
+        mx=None
+        
         # von wo wurde geladen ...
         importlib.reload(Dx)        
 
@@ -200,19 +220,14 @@ def readDxAndMx(dbFile):
         
         ### Modellergebnisse lesen
         try:
-            mx=Mx.Mx(mx1File)
+            mx=Mx.Mx(mx1File,maxRecords=maxRecords)
         except Mx.MxError:
             logStrFinal="{logStr:s}mx1File: {mx1File:s}: MxError!".format(logStr=logStr,mx1File=mx1File)     
             raise readDxAndMxError(logStrFinal)       
             
-        
-        
-
     except Exception as e:
         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
         logger.error(logStrFinal)         
     finally:
         logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))  
-    
-    
-    return dxWithMx(dx,mx)
+        return dxWithMx(dx,mx)

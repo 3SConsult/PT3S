@@ -731,10 +731,10 @@ class Mx():
 
         * StatTimeTminTmaxInVecsOnly (default: True):
                     * only 1st TIME, TMIN and TMAX are stored in base.Y.vec.h5-File     
-                    * if True all TIMES are stored
+                    * if False all TIMES are stored
                         * dauert lange sowie riesiger Speicherplatzbedarf
                         * True hat keinen Einfluss auf die Befuellung von dfVecAggs
-                        * True lohnt nicht, da getMxsVecsFileData nur langsam liest und readMxsVecsFileData viel schneller ist
+                        * False lohnt nicht, da getMxsVecsFileData nur langsam liest und readMxsVecsFileData viel schneller ist
 
     Attributes:
         * states
