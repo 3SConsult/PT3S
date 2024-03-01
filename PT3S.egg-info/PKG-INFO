@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: PT3S
-Version: 90.14.10.0.dev1
+Version: 90.14.11.0.dev1
 Summary: Python Tools 3S
 Home-page: https://github.com/aw3s/PT3S
 Author: PT3S
@@ -20,6 +20,7 @@ Requires-Dist: contextily
 Requires-Dist: py7zr
 Requires-Dist: folium
 Requires-Dist: mapclassify
+Requires-Dist: sqlalchemy
 
 .
 

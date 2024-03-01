@@ -868,7 +868,13 @@ class Dx():
                         #logger.debug(
                         #    "{0:s}vRUES:: Referenz zu pk nicht leer aber tk findet mindestens genausoviel Treffer ...".format(logStr))
                         vRUESDefs = df2
-
+                        
+                        
+                # Kontrollausgaben
+                logger.debug("{logStr:s}vRUESDefs: {vRUESDefs:s}".format(logStr=logStr,vRUESDefs=vRUESDefs.to_string()))      
+                
+                logger.debug("{logStr:s}V3_RKNOT: {V3_RKNOT:s}".format(logStr=logStr,V3_RKNOT=V3_RKNOT.to_string()))      
+                   
                 def get_UE_SRC(UeName  # Name der Ue deren SRC gesucht wird
                                , dfUes  # alle Ues (Defs und Refs)
                                , dfUesDefs  # alle Signalverbindungen die Ues definieren
@@ -902,6 +908,7 @@ class Dx():
                                         )
                     else:
                         pass
+                        # Log wieder AUS
                         #logger.debug("Die SRC der Ue {:s} gefunden -die Ue-Def:\n{:s}".format(
                         #    UeName, str(df[['IDUE', 'pk', 'rkRUES', 'fkKi', 'fkKk']].iloc[0])))
 
@@ -916,8 +923,11 @@ class Dx():
                                      , vRUES  # Ues
                                      , vRUESDefs  # Ue-Definitionen per Kante
                                      )
+                    
+                    #logger.debug("{logStr:s}dfX: {dfX:s}".format(logStr=logStr,dfX=dfX.to_string()))      
+                                        
                     # df['fkKi'] ist die SRC
-                    df=pd.DataFrame()
+                    df=pd.DataFrame()                                        
                     
                     df = V3_RKNOT[V3_RKNOT['pk'] == dfX['fkKi'].iloc[0]]
                     if df.empty:
@@ -938,12 +948,12 @@ class Dx():
                             df = df2
                     
                     if df.empty:                        
-                         logger.debug("{:s}{:12s} {:s}: UE-Symbol ohne Referenz?!".format(logStr,row['IDUE'],row['NAME_CONT']))        
+                         logger.info("{:s}{:12s} {:s}: UE-Symbol ohne Referenz?!".format(logStr,row['IDUE'],row['NAME_CONT']))        
 
                          dct = {'pk_DEF': row['pk'], 'tk_DEF': row['tk'], 'IDUE_DEF': row['IDUE']                           #
                                 , 'OBJTYPE_SRC': None, 'OBJID_SRC': None, 'Kn_SRC': None, 'NAME_CONT_SRC': None
                                 }
-                         dcts.append(dct) #?!
+                         ### dcts.append(dct) #?!
                                                      
                     else:
 
@@ -1631,16 +1641,23 @@ class Dx():
             def updateFct(con,sql,OBJID,VALUE):
                 """
                 """
+                
+                rowsAffected=None
+                
                 cur = con.cursor()
                 cur.execute(sql,(VALUE,OBJID))
+                rowsAffected=cur.rowcount
                 con.commit()
+
+                return rowsAffected
                                     
             try:                
                 for index, row in dfUpd.iterrows():
                     sqlCmd = '''UPDATE {table:s} SET {attrib:s} = ? WHERE {xk:s} = ?'''.format(table=row['table'],attrib=row['attrib'],xk=row['xk'])
                     logStrSql="sqlCmd: {sqlCmd:s}:  attribValue:{attribValue:s} xkValue:{xkValue:s} ...".format(sqlCmd=sqlCmd,attribValue=str(row['attribValue']),xkValue=str(row['xkValue']))
                     logger.debug("{:s}{:s}".format(logStr,logStrSql))
-                    updateFct(con,sqlCmd,row['xkValue'],row['attribValue'])
+                    rowsAffected=updateFct(con,sqlCmd,row['xkValue'],row['attribValue'])
+                    logger.debug("{:s}rowsAffected: {:s}".format(logStr,str(rowsAffected)))
                     
                 if updInverseValue!= None:
                     
@@ -1655,10 +1672,9 @@ class Dx():
                              sqlCmd = '''UPDATE {table:s} SET {attrib:s} = ? WHERE {xk:s} = ?'''.format(table=table,attrib=attrib,xk=xk)
                              logStrSql="sqlCmd: {sqlCmd:s}: attribValue:{attribValue:s} xkValue:{xkValue:s} ...".format(sqlCmd=sqlCmd,attribValue=str(updInverseValue),xkValue=str(row[xk]))
                              logger.debug("{:s}{:s}".format(logStr,logStrSql))
-                             updateFct(con,sqlCmd,row[xk],updInverseValue)
-                                
-
-                    
+                             rowsAffected=updateFct(con,sqlCmd,row[xk],updInverseValue)
+                             logger.debug("{:s}rowsAffected: {:s}".format(logStr,str(rowsAffected)))
+                                                    
             except Exception as e:
                 logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
                     logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
@@ -1688,7 +1704,7 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
 
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
     logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
-
+    
     # BV, BZ, BVZ #################
 
     sql = 'select * from '+BV
@@ -1704,19 +1720,34 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
     except pd.io.sql.DatabaseError as e:
         logStrFinal = "{0:s}sql: {1:s}: Fehler?!".format(logStr, sql)
         raise DxError(logStrFinal)
+        
+
+    logger.debug(
+    "{0:s}Quelle BV: {1:s} Quelle BZ: {2:s} BV Zeilen: {3:d} BZ Zeilen: {4:d}".format(logStr, BV, BZ, dfBV.shape[0], dfBZ.shape[0]))            
+        
 
     dfBVZ = pd.merge(dfBZ, dfBV, left_on=['fk'], right_on=[
                      'pk'], suffixes=('_BZ', ''))
+    
+    #logger.debug("{0:s}dfBVZ: {1:s}".format(logStr,dfBVZ.to_string()))    
 
     if 'tk' in dfBV.columns.to_list():
         dfBVZ_tk = pd.merge(dfBZ, dfBV, left_on=['fk'], right_on=[
                             'tk'], suffixes=('_BZ', ''))
 
-        if dfBVZ_tk.shape[0] >= dfBVZ.shape[0]:
+        if dfBVZ_tk.shape[0] > dfBVZ.shape[0]:
+            logger.info("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat mit tk > als mit pk. tk-Resultat wird verwendet.".format(logStr, BV, BZ))
             dfBVZ = dfBVZ_tk
+        elif dfBVZ_tk.shape[0] == dfBVZ.shape[0]:
+            pass
+        else:
+            pass
 
     if dfBVZ.empty:
-        logger.debug("{0:s}{1:s} {2:s} BVZ LEER ?!".format(logStr, BV, BZ))
+        logger.warning("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER ?!".format(logStr, BV, BZ))
+    else:
+        logger.debug(
+        "{0:s}BVZ resultierende Zeilen: {1:d}".format(logStr, dfBVZ.shape[0]))            
 
     newCols = dfBVZ.columns.to_list()
     dfBVZ = dfBVZ.filter(items=[col for col in dfBV.columns.to_list(
@@ -1724,11 +1755,15 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
 
     # CONT etc. #############################
     dfBVZ = fHelperCONTetc(dfBVZ, BV, BZ, dfViewModelle, dfCONT, pairType)
+    
+    dfBVZ=dfBVZ.reset_index(drop=True)
 
     if dfBVZ.empty:
+        logger.warning("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER nach CONT etc?!".format(logStr, BV, BZ))
+    else:
         logger.debug(
-            "{0:s}{1:s} {2:s} BVZ LEER nach CONT?!".format(logStr, BV, BZ))
-
+        "{0:s}BVZ resultierende Zeilen nach CONT etc.: {1:d}".format(logStr, dfBVZ.shape[0]))              
+        
     logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
     return dfBV, dfBZ, dfBVZ
 
@@ -1738,17 +1773,13 @@ def fHelperCONTetc(dfBVZ, BV, BZ, dfViewModelle, dfCONT, pairType):
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
     logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
 
-    logger.debug(
-        "{0:s}Quelle dfBVZ BV: {1:s} Quelle dfBVZ BZ: {2:s}".format(logStr, BV, BZ))
-
     # CONT etc. #############################
 
     cols = dfBVZ.columns.to_list()
 
     if 'fkDE_BZ' in cols:
         dfOrig = dfBVZ
-        df = pd.merge(dfBVZ, dfViewModelle, left_on=['fkDE_BZ'], right_on=[
-                      'fkBZ'], suffixes=('', '_VMBZ'))
+        df = pd.merge(dfBVZ, dfViewModelle, left_on='fkDE_BZ', right_on='fkBZ', suffixes=('', '_VMBZ'))
         if df.empty:
             logger.debug("{0:s}{1:s}".format(
                 logStr, 'fkDE_BZ ist vmtl. kein BZ-Schluessel, da es sich vmtl. um keine BZ-Eigenschaft handelt sondern um eine BV-Eigenschaft; Spalten werden umbenannt und es wird nach BV-DE gesucht ...'))
@@ -1769,16 +1800,17 @@ def fHelperCONTetc(dfBVZ, BV, BZ, dfViewModelle, dfCONT, pairType):
                 logger.debug("{0:s}{1:s}".format(
                     logStr, 'fkDE ist nicht in den Spalten?!'))
 
-    elif 'fkDE' in cols:  # (und 'fkDE_BZ' gibt es nicht)
-        df = pd.merge(dfBVZ, dfViewModelle, left_on=['fkDE'], right_on=[
-                      'fkBASIS'], suffixes=('', '_VMBASIS'), how='left')
-        df = pd.merge(df, dfViewModelle, left_on=['fkDE'], right_on=[
-                      'fkVARIANTE'], suffixes=('', '_VMVARIANTE'), how='left')
     else:
-        df = dfBVZ
-
+        if 'fkDE' in cols:  
+            df = pd.merge(dfBVZ, dfViewModelle, left_on=['fkDE'], right_on=[
+                          'fkBASIS'], suffixes=('', '_VMBASIS'), how='left')
+            df = pd.merge(df, dfViewModelle, left_on=['fkDE'], right_on=[
+                          'fkVARIANTE'], suffixes=('', '_VMVARIANTE'), how='left')
+        else:
+            df = dfBVZ
+        
     if 'fkCONT' in cols:
-        dfTmp = df
+        dfTmp = df.copy(deep=True)
         df = pd.merge(df, dfCONT.add_suffix('_CONT'), left_on=['fkCONT'], right_on=['pk_CONT']
                       # ,suffixes=('','_CONT')
                       )

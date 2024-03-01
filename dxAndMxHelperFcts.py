@@ -21,6 +21,8 @@ import networkx as nx
 import importlib
 import glob
 
+import math
+
 # ---
 # --- PT3S Imports
 # ---
@@ -71,28 +73,90 @@ class dxWithMx():
             
             self.dfLAYR=dxDecodeObjsData.Layr(self.dx)
             self.dfWBLZ=dxDecodeObjsData.Wblz(self.dx)
+            self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)
                         
             if self.mx != None:                
                 V3sErg=self.dx.MxAdd(mx)
-                # pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+                
                 self.V3_ROHR=V3sErg['V3_ROHR']
                 self.V3_KNOT=V3sErg['V3_KNOT']
                 self.V3_FWVB=V3sErg['V3_FWVB']
+                                
+                try:                                    
+                    t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+                    QMAV=('STAT'
+                                ,'ROHR~*~*~*~QMAV'
+                                ,t0
+                                ,t0
+                                )
+                    self.V3_ROHR['QMAVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[QMAV]) ,axis=1)                                                         
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QMAVAbs=Abs(STAT ROHR~*~*~*~QMAV) in V3_ROHR failed.'))   
+                    
+                try:                                                        
+                    VAV=('STAT'
+                                ,'ROHR~*~*~*~VAV'
+                                ,t0
+                                ,t0
+                                )
+                    self.V3_ROHR['VAVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[VAV]) ,axis=1)                                                         
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col VAVAbs=Abs(STAT ROHR~*~*~*~VAV) in V3_ROHR failed.'))       
+                    
+                try:                                                        
+                    PHR=('STAT'
+                                ,'ROHR~*~*~*~PHR'
+                                ,t0
+                                ,t0
+                                )
+                    self.V3_ROHR['PHRAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[PHR]) ,axis=1)                                                         
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PHRAbs=Abs(STAT ROHR~*~*~*~PHR) in V3_ROHR failed.'))     
+
+                try:                                                        
+                    JV=('STAT'
+                                ,'ROHR~*~*~*~JV'
+                                ,t0
+                                ,t0
+                                )
+                    self.V3_ROHR['JVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[JV]) ,axis=1)                                                         
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.'))                              
+                    
                 
-                V_WBLZ=self.dx.dataFrames['V_WBLZ']
-                df=V_WBLZ[['pk','fkDE','rk','tk','BESCHREIBUNG','NAME','TYP','AKTIV','IDIM']]
-                dfMx=mx.getVecAggsResultsForObjectType(Sir3sVecIDReExp='^WBLZ~\*~\*~\*~')
-                dfMx.columns=dfMx.columns.to_flat_index()
-                
-                self.V3_WBLZ=pd.merge(df,dfMx,left_on='tk',right_index=True)
-            
+                try:                
+                    V_WBLZ=self.dx.dataFrames['V_WBLZ']
+                    df=V_WBLZ[['pk','fkDE','rk','tk','BESCHREIBUNG','NAME','TYP','AKTIV','IDIM']]
+                    dfMx=mx.getVecAggsResultsForObjectType(Sir3sVecIDReExp='^WBLZ~\*~\*~\*~')
+                    dfMx.columns=dfMx.columns.to_flat_index()
+                    
+                    self.V3_WBLZ=pd.merge(df,dfMx,left_on='tk',right_index=True)
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_WBLZ failed.')) 
+                                
             try:
                 # Graph bauen    
                 self.G=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_VBEL'].reset_index(), source='NAME_i', target='NAME_k', edge_attr=True) 
                 nodeDct=self.V3_KNOT.to_dict(orient='index')    
                 nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
-                nx.set_node_attributes(self.G,nodeDctNx)
-                
+                nx.set_node_attributes(self.G,nodeDctNx)                               
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G failed.')) 
+
+
+            try:               
                 # Darstellungskoordinaten des Netzes bezogen auf untere linke Ecke == 0,0
                 vKnot=self.dx.dataFrames['V3_KNOT']            
                 vKnotNet=vKnot[    
@@ -110,10 +174,8 @@ class dxWithMx():
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
-                logger.warning("{0:s}{1:s}".format(logStr,'NetworkX Graph G bauen fehlgeschlagen. G und/oder nodeposDctNx betroffen. ')) 
-                
-                
-            
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDctNx failed.')) 
+                                            
             try:
                 # Graph Signalmodell bauen
                 self.GSig=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_RVBEL'].reset_index(), source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
@@ -123,7 +185,7 @@ class dxWithMx():
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
-                logger.warning("{0:s}{1:s}".format(logStr,'NetworkX Graph GSig bauen fehlgeschlagen. GSig betroffen. '))             
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))             
       
         except dxWithMxError:
             raise            

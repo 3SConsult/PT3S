@@ -10,3 +10,4 @@ contextily
 py7zr
 folium
 mapclassify
+sqlalchemy

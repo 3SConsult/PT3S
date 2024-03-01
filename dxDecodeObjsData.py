@@ -297,3 +297,184 @@ def Wblz(dx):
         return df    
     
     pass
+
+
+def Agsn(dx):
+    """Returns a df with decoded V_AGSN-Content.
+
+    Args:
+        dx: Dx-Instance 
+            used: dx.dataFrames['V_AGSN']
+                
+    Returns:
+        df:
+            one row per AGSN and OBJ
+            
+            AGSN:
+            'pk'
+           ,'tk'
+           ,'LFDNR' (numeric)
+           ,'NAME'
+           ,'XL':
+               0: 
+               1: SL (the stuff before \n)
+               2: RL (the stuff after \n)
+           
+            OBJ:
+           ,'Pos': Position of OBJ in AGSN starting with 0
+           ,'TYPE'
+           ,'ID'
+               
+    """
+    
+    logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
+    logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+    
+    try: 
+        
+        df=pd.DataFrame()
+        
+        df=dx.dataFrames['V_AGSN']
+        
+        df['OBJSDec']=df.apply(lambda row: row['OBJS'].decode('utf-8') if not pd.isnull(row['OBJS']) else None,axis=1)
+        
+        def fVLRL(OBJSDec,idx=0):    
+            try:
+                if pd.isnull(OBJSDec):
+                    s=None
+                else:        
+                    l=OBJSDec.split('\n')
+                    s=l[idx]
+                    s=s.lstrip().rstrip()
+            except Exception as e:
+                s=None        
+            finally:
+                return s      
+            
+        df['OBJSDecSL']=df.apply(lambda row: fVLRL(row['OBJSDec'],0),axis=1)
+        df['OBJSDecRL']=df.apply(lambda row: fVLRL(row['OBJSDec'],1),axis=1)
+        
+        def fOBJTypeOBJId(OBJSDec):
+            pass
+            try:
+                if pd.isnull(OBJSDec):
+                    l=None
+                else:
+                    l=[i for i in re.findall(r"([A-Z]{4})~(\d+)",OBJSDec)]
+            except Exception as e:
+                l=None                
+            finally:
+                return l      
+            
+        df['OBJSDecLst']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDec']),axis=1)
+        df['OBJSDecLstSL']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDecSL']),axis=1)
+        df['OBJSDecLstRL']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDecRL']),axis=1)
+        
+        dfAGSNs=[]
+        for index,row in df.iterrows():
+            pass
+            try:
+                if row['OBJSDecLst'] != None:
+                    
+                    
+                    dfAGSN=pd.DataFrame(row['OBJSDecLst'],columns =['TYPE','ID']).reset_index().rename(columns={'index':'Pos'})
+                    dfAGSN['pk']=row['pk']
+                    dfAGSN['tk']=row['tk']
+                    dfAGSN['NAME']=row['NAME']
+                    dfAGSN['LFDNR']=row['LFDNR']
+                    dfAGSN['XL']=0
+                    
+                    dfAGSNs.append(dfAGSN)
+                    
+                    if row['OBJSDecLstSL'] != None:
+                        dfAGSN=pd.DataFrame(row['OBJSDecLstSL'],columns =['TYPE','ID']).reset_index().rename(columns={'index':'Pos'})
+                        dfAGSN['pk']=row['pk']
+                        dfAGSN['tk']=row['tk']
+                        dfAGSN['NAME']=row['NAME']
+                        dfAGSN['LFDNR']=row['LFDNR']
+                        dfAGSN['XL']=1     
+        
+                        dfAGSNs.append(dfAGSN)
+                        
+                    if row['OBJSDecLstRL'] != None:
+                        dfAGSN=pd.DataFrame(row['OBJSDecLstRL'],columns =['TYPE','ID']).reset_index().rename(columns={'index':'Pos'})
+                        dfAGSN['pk']=row['pk']
+                        dfAGSN['tk']=row['tk']
+                        dfAGSN['NAME']=row['NAME']
+                        dfAGSN['LFDNR']=row['LFDNR']
+                        dfAGSN['XL']=2     
+        
+                        dfAGSNs.append(dfAGSN)                
+                                            
+                    #print(dfN)
+            except Exception as e:
+                pass
+                print(e)
+                
+            finally:
+                pass        
+        
+        df=pd.concat(dfAGSNs).reset_index(drop=True)
+        
+        df[['LFDNR']] = df[['LFDNR']].apply(pd.to_numeric)
+                         
+    except Exception as e:
+        logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))          
+        logger.debug(logStrFinal) 
+        
+                                                                          
+    finally:
+        logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
+        return df    
+    
+    
+def setLayerContentTo(layerName
+                     ,m
+                     ,df):
+    """
+    layerName: Layer to update (Layer content is set to df's TYPE and ID)
+    m: m.dfLAYR and m.dx.update are used
+    df: cols TYPE and ID are used
+    """
+    
+    
+    logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
+    logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+    
+    try: 
+        
+        xk=m.dfLAYR[m.dfLAYR['NAME'].isin([layerName])]['tk'].iloc[0]
+       
+        dfUpd=df.copy(deep=True)
+        
+        dfUpd['table']='LAYR'
+        dfUpd['attrib']='OBJS'
+        dfUpd['attribValue']=dfUpd.apply(lambda row: "{:s}~{:s}\t".format(row['TYPE'],row['ID']).encode('utf-8'),axis=1)
+        dfUpd['xk']='tk'
+        dfUpd['xkValue']=xk    
+        
+        dfUpd2=dfUpd.groupby(by=['xkValue']).agg({'xkValue': 'first'
+                                           ,'table': 'first'
+                                           ,'attrib': 'first'
+                                           ,'xk': 'first'
+                                           , 'attribValue': 'sum'}).reset_index(drop=True)
+        dfUpd2['attribValue']=dfUpd2['attribValue'].apply(lambda x: x.rstrip())
+          
+        m.dx.update(dfUpd2)            
+ 
+                         
+    except Exception as e:
+        logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))          
+        logger.warning(logStrFinal) 
+        
+                                                                          
+    finally:
+        logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
+        return       
+    
+    
+    
+    
+    
+
+    
