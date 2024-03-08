@@ -6,6 +6,9 @@ Created on Tue Jan 30 10:36:59 2024
 """
 
 import os
+from os import access, R_OK
+from os.path import isfile
+
 import sys
 
 import re
@@ -22,6 +25,11 @@ import importlib
 import glob
 
 import math
+
+import pickle
+
+
+
 
 # ---
 # --- PT3S Imports
@@ -59,7 +67,7 @@ class dxWithMxError(Exception):
 class dxWithMx():
     """Wrapper for dx with attached mx
     """
-    def __init__(self,dx,mx,dxMxOnly=False):
+    def __init__(self,dx,mx):
         
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
@@ -68,9 +76,9 @@ class dxWithMx():
             self.dx = dx
             self.mx = mx
             
-            if dxMxOnly:
-                pass
-            
+            modellName, ext = os.path.splitext(self.dx.dbFile)
+            logger.info("{0:s}{1:s}: processing dx and mx ...".format(logStr,os.path.basename(modellName))) 
+                                    
             self.dfLAYR=dxDecodeObjsData.Layr(self.dx)
             self.dfWBLZ=dxDecodeObjsData.Wblz(self.dx)
             self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)
@@ -89,7 +97,8 @@ class dxWithMx():
                                 ,t0
                                 ,t0
                                 )
-                    self.V3_ROHR['QMAVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[QMAV]) ,axis=1)                                                         
+                    self.V3_ROHR['QMAVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[QMAV]) ,axis=1)      
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['QMAVAbs'] ok so far."))                                                      
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
@@ -101,7 +110,8 @@ class dxWithMx():
                                 ,t0
                                 ,t0
                                 )
-                    self.V3_ROHR['VAVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[VAV]) ,axis=1)                                                         
+                    self.V3_ROHR['VAVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[VAV]) ,axis=1)       
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['VAVAbs'] ok so far."))                                                         
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
@@ -113,7 +123,8 @@ class dxWithMx():
                                 ,t0
                                 ,t0
                                 )
-                    self.V3_ROHR['PHRAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[PHR]) ,axis=1)                                                         
+                    self.V3_ROHR['PHRAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[PHR]) ,axis=1)     
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['PHRAbs'] ok so far."))                                                           
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
@@ -125,20 +136,37 @@ class dxWithMx():
                                 ,t0
                                 ,t0
                                 )
-                    self.V3_ROHR['JVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[JV]) ,axis=1)                                                         
+                    self.V3_ROHR['JVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[JV]) ,axis=1)      
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['JVAbs'] ok so far."))                                                          
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.'))                              
                     
+                try:                                    
+                     
+                     W=('STAT'
+                                 ,'FWVB~*~*~*~W'
+                                 ,t0
+                                 ,t0
+                                 )
+                     self.V3_FWVB['W']=self.V3_FWVB[W]
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['W'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col W in V3_FWVB failed.'))   
                 
                 try:                
                     V_WBLZ=self.dx.dataFrames['V_WBLZ']
                     df=V_WBLZ[['pk','fkDE','rk','tk','BESCHREIBUNG','NAME','TYP','AKTIV','IDIM']]
                     dfMx=mx.getVecAggsResultsForObjectType(Sir3sVecIDReExp='^WBLZ~\*~\*~\*~')
-                    dfMx.columns=dfMx.columns.to_flat_index()
-                    
-                    self.V3_WBLZ=pd.merge(df,dfMx,left_on='tk',right_index=True)
+                    if dfMx.empty:
+                        logger.debug("{0:s}{1:s}".format(logStr,'Adding MX-Results to V3_WBLZ: no such results.'))           
+                    else:
+                        dfMx.columns=dfMx.columns.to_flat_index()                    
+                        self.V3_WBLZ=pd.merge(df,dfMx,left_on='tk',right_index=True)
+                        logger.debug("{0:s}{1:s}".format(logStr,'Adding MX-Results to V3_WBLZ ok so far.'))                 
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
@@ -149,7 +177,9 @@ class dxWithMx():
                 self.G=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_VBEL'].reset_index(), source='NAME_i', target='NAME_k', edge_attr=True) 
                 nodeDct=self.V3_KNOT.to_dict(orient='index')    
                 nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
-                nx.set_node_attributes(self.G,nodeDctNx)                               
+                nx.set_node_attributes(self.G,nodeDctNx)     
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G ok so far.'))                           
+                
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
@@ -171,6 +201,7 @@ class dxWithMx():
                                                   ,vKnotNet['YKOR']
                                                   )
                 }
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDctNx ok so far.'))    
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
@@ -182,6 +213,7 @@ class dxWithMx():
                 nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
                 nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
                 nx.set_node_attributes(self.GSig,nodeDctNx)
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig ok so far.'))    
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
@@ -202,10 +234,42 @@ class readDxAndMxError(Exception):
     def __str__(self):
         return repr(self.value)
 
-def readDxAndMx(dbFile,maxRecords=None):
-    """
+def readDxAndMx(dbFile
+                ,forceSir3sRead=False
+                ,preventPklDump=False
+                ,maxRecords=None
+                ,mxsVecsResults2MxDf=None):
+    """ Reads Model and Results.
+    Args:
+        dbFile: modell.db3 or modell.mdb
+                Database: read into  ==> Dx-Object
+                Results: read into ==> Mx-Object (corresponding M-1-0-1.1 results are read if available)
+                    corresponding := using SYSTEMKONFIG and VIEW_MODELLE the M-1-0-1.1 resultfile is determined 
+        forceSir3sRead:
+            False (default):
+                if dbFilename-dx.pkl     exists and is newer than               dbFile, dbFilename-dx.pkl     is read instead of dbFile
+                if dbFilename-mx-....pkl exists and is newer than corresponding mxFile, dbFilename-mx-....pkl is read instead of mxFile
+                if dbFilename-mx.pkl     exists and is newer than corresponding mxFile, dbFilename-mx.pkl     is read instead of constructing m
+            True:
+                dbFile is read even if dbFilename-dx.pkl     exists and is newer than               dbFile
+                mxFile is read even if dbFilename-mx-....pkl exists and is newer than corresponding mxFile
+        preventPklDump:
+            False (default):
+                if dbFile is read, dbFilename-dx.pkl     is written
+                if mxFile is read, dbFilename-mx-....pkl is written
+                if mxFile is read, dbFilename-m.pkl      is written
+            True:
+                no pklDumps are written; existing pklDumps are deleted           
+        maxRecords:
+            None (default): read MX-Results 
+            >0: read MX-Results, but only maxRecord Times (use maxRecord=1 to read only STAT)
+            0: do not read MX-Results
+        mxsVecsResults2MxDf:
+            None (default): mx.df contains no Results which in SIR 3S are called Vector-Results
+            list with regExps for Vector-Results requested to be in mx.df; i.e. ['ROHR~','',...]
+            Note that integrating Vector-Results in mx.df can increase mx.df's memory-usage significantly; running out of physical memory available is possible ...
     Returns:
-        dxWithMx
+        dxWithMx-Object
     """
     
     import os
@@ -220,25 +284,77 @@ def readDxAndMx(dbFile,maxRecords=None):
     
     try:
         
-        try:
-            from PT3S import Dx
-        except:
-            import Dx    
-
-
         dx=None
         mx=None
-        
-        # von wo wurde geladen ...
-        importlib.reload(Dx)        
+            
+        dbFileDxPklRead=False
+        dbFilename,ext=os.path.splitext(dbFile)
+        dbFileDxPkl="{:s}-dx.pkl".format(dbFilename)        
+                
+        if not forceSir3sRead:            
+            # Pkl existiert
+            if os.path.exists(dbFileDxPkl):                
+                # ist eine Datei und lesbar
+                if isfile(dbFileDxPkl) and access(dbFileDxPkl,R_OK):
+                    # ist neuer als die Modelldatenbank
+                    if os.path.getctime(dbFile) < os.path.getctime(dbFileDxPkl):
+                        logger.info("{logStr:s}{dbFileDxPkl:s} newer than dbFile and therefore read ...".format(
+                             logStr=logStr
+                            ,dbFileDxPkl=dbFileDxPkl
+                            ,dbFile=dbFile
+                            )
+                            )
+                        try:
+                            with open(dbFileDxPkl,'rb') as f:  
+                                dx=pickle.load(f)  
+                            dbFileDxPklRead=True
+                        except:                            
+                            logger.info("{logStr:s}{dbFileDxPkl:s} read error! - reading SIR 3S raw data ...".format(
+                                 logStr=logStr
+                                ,dbFileDxPkl=dbFileDxPkl                                
+                                )
+                                )
 
+                            
+                                    
         ### Modell lesen
-        try:
-            dx=Dx.Dx(dbFile)
-        except Dx.DxError:
-            logStrFinal="{logStr:s}dbFile: {dbFile:s}: DxError!".format(logStr=logStr,dbFile=dbFile)     
-            raise readDxAndMxError(logStrFinal)  
-
+        if not dbFileDxPklRead:
+            try:
+                dx=Dx.Dx(dbFile)
+            except Dx.DxError:
+                logStrFinal="{logStr:s}dbFile: {dbFile:s}: DxError!".format(logStr=logStr,dbFile=dbFile)     
+                raise readDxAndMxError(logStrFinal)  
+            
+            if not preventPklDump:
+                if isfile(dbFileDxPkl):
+                    logger.info("{logStr:s}{dbFileDxPkl:s} exists and is overwritten...".format(
+                         logStr=logStr
+                        ,dbFileDxPkl=dbFileDxPkl                        
+                        )
+                        )
+                else:
+                    logger.info("{logStr:s}{dbFileDxPkl:s} is written ...".format(
+                         logStr=logStr
+                        ,dbFileDxPkl=dbFileDxPkl                        
+                        )
+                        )                                                                
+                with open(dbFileDxPkl,'wb') as f:  
+                    pickle.dump(dx,f)           
+                    
+            else:
+                if isfile(dbFileDxPkl):
+                          logger.info("{logStr:s}{dbFileDxPkl:s} exists and is deleted...".format(
+                               logStr=logStr
+                              ,dbFileDxPkl=dbFileDxPkl                        
+                              )
+                              )
+                          os.remove(dbFileDxPkl)                    
+                                                
+        ### Ergebnisse nicht lesen?!         
+        if maxRecords==0:            
+            logStrFinal="{logStr:s}dbFile: {dbFile:s}: maxRecords==0: do not read MX-Results...".format(logStr=logStr,dbFile=dbFile)     
+            raise readDxAndMxError(logStrFinal)               
+                             
         ### mx Datenquelle bestimmen
         logger.debug("{logStrPrefix:s}dbFile rel: {dbFile:s}".format(logStrPrefix=logStr,dbFile=dx.dbFile))
         dbFile=os.path.abspath(dx.dbFile)
@@ -251,26 +367,23 @@ def readDxAndMx(dbFile,maxRecords=None):
         wDir=os.path.abspath(os.path.join(os.path.dirname(dbFile),wDirDb))
         logger.debug("{logStrPrefix:s}  wDir abs: {wDir:s}".format(logStrPrefix=logStr,wDir=wDir))
 
+    
+        # SYSTEMKONFIG ID 3:
         # Modell-Pk des in QGIS anzuzeigenden Modells (wird von den QGIS-Views ausgewertet)
         # diese xk wird hier verwendet um das Modell in der DB zu identifizieren dessen Ergebnisse geliefert werden sollen
-        modelXk=sk[sk['ID'].isin([3,3.])]['WERT'].iloc[0]
-
-        # Ergebnisverz. von modelXk
-        vm=dx.dataFrames['VIEW_MODELLE']
-        vms=vm[vm['pk'].isin([modelXk])].iloc[0]   
-        
-        #wDirMxDb=os.path.join(
-        #     os.path.join(
-        #     os.path.join(wDirDb,vms.Basis),vms.Variante),vms.BZ)        
-        
+        try:
+            vm=dx.dataFrames['VIEW_MODELLE']
+            modelXk=sk[sk['ID'].isin([3,3.])]['WERT'].iloc[0]
+            vms=vm[vm['pk'].isin([modelXk])].iloc[0]   
+        except:
+            logger.debug("{logStr:s} SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which results are expected in mx. Now the 1st Model in VIEW_MODELLE is used...".format(logStr=logStr))
+            vms=vm.iloc[0]  
+                                
         wDirMx=os.path.join(
             os.path.join(
             os.path.join(wDir,vms.Basis),vms.Variante),vms.BZ)
         logger.debug("{logStrPrefix:s}wDirMx abs: {wDirMx:s}".format(logStrPrefix=logStr,wDirMx=wDirMx))
-        
-        #wDirMxRel=os.path.relpath(wDirMx,start=wDir)
-        #logger.debug("{logStrPrefix:s}wDirMx rel: {wDirMx:s}".format(logStrPrefix=logStr,wDirMx=wDirMxRel))
-        
+                        
         wDirMxMx1Content=glob.glob(os.path.join(wDirMx,'*.MX1'))
         wDirMxMx1Content=sorted(wDirMxMx1Content) 
 
@@ -280,16 +393,206 @@ def readDxAndMx(dbFile,maxRecords=None):
         mx1File= wDirMxMx1Content[0]
         logger.debug("{logStrPrefix:s}mx1File: {mx1File:s}".format(logStrPrefix=logStr,mx1File=mx1File))
         
-        ### Modellergebnisse lesen
-        try:
-            mx=Mx.Mx(mx1File,maxRecords=maxRecords)
-        except Mx.MxError:
-            logStrFinal="{logStr:s}mx1File: {mx1File:s}: MxError!".format(logStr=logStr,mx1File=mx1File)     
-            raise readDxAndMxError(logStrFinal)       
+        
+        dbFileMxPklRead=False
+        dbFileMxPkl="{:s}-mx-{:s}.pkl".format(dbFilename,re.sub('\W+','_',os.path.relpath(mx1File)))        
+        
+        logger.debug("{logStrPrefix:s}zugeh. dbFileMxPkl-File: {dbFileMxPkl:s}".format(logStrPrefix=logStr,dbFileMxPkl=dbFileMxPkl))
+                
+        if not forceSir3sRead:            
+            # Pkl existiert
+            if os.path.exists(dbFileMxPkl):                
+                # ist eine Datei und lesbar
+                if isfile(dbFileMxPkl) and access(dbFileMxPkl,R_OK):
+                    # ist neuer als mx1File
+                    if os.path.getctime(mx1File) < os.path.getctime(dbFileMxPkl):
+                        logger.info("{logStr:s}{dbFileMxPkl:s} newer than mxFile and therefore read ...".format(
+                             logStr=logStr
+                            ,dbFileMxPkl=dbFileMxPkl
+                            ,mx1File=os.path.basename(os.path.relpath(mx1File))
+                            )
+                            )
+                        try:
+                            with open(dbFileMxPkl,'rb') as f:  
+                                mx=pickle.load(f)  
+                            dbFileMxPklRead=True       
+                        except:                            
+                            logger.info("{logStr:s}{dbFileMxPkl:s} read error! - reading SIR 3S raw data ...".format(
+                                 logStr=logStr
+                                ,dbFileMxPkl=dbFileMxPkl                                
+                                )
+                                )                        
+                        
+                        
+        
+        if not dbFileMxPklRead:
+        
+            ### Modellergebnisse lesen
+            try:
+                mx=Mx.Mx(mx1File,maxRecords=maxRecords)
+                logger.debug("{0:s}{1:s}".format(logStr,'MX read ok so far.'))   
+            except Mx.MxError:
+                logStrFinal="{logStr:s}mx1File: {mx1File:s}: MxError!".format(logStr=logStr,mx1File=mx1File)     
+                raise readDxAndMxError(logStrFinal)     
+                
+            ### Vector-Results
+            if mxsVecsResults2MxDf != None:
+                try:                
+                    df=mx.readMxsVecsResultsForObjectType(Sir3sVecIDReExp=mxsVecsResults2MxDf,flatIndex=False)                    
+                    logger.debug("{logStr:s} df from readMxsVecsResultsForObjectType: {dfStr:s}".format(logStr=logStr,dfStr=df.head(5).to_string()))
+                    
+                    # Kanalweise bearbeiten
+                    vecChannels=sorted(list(set(df.index.get_level_values(1))))
+                    
+                    V3_VBEL=dx.dataFrames['V3_VBEL']
+                    
+                    
+                    mxVecChannelDfs={}
+                    for vecChannel in vecChannels:
+                        
+                        #print(vecChannel)
+                        
+                        dfVecChannel=df.loc[(slice(None),vecChannel,slice(None),slice(None)),:]
+                        dfVecChannel.index=dfVecChannel.index.get_level_values(2).rename('TIME')
+                        dfVecChannel=dfVecChannel.dropna(axis=1,how='all')
+                        
+                        mObj=re.search(Mx.regExpSir3sVecIDObjAtr,vecChannel)                    
+                        OBJTYPE,ATTRTYPE=mObj.groups()
+                               
+                        # Zeiten aendern wg. spaeterem concat mit mx.df
+                        dfVecChannel.index=[pd.Timestamp(t,tz='UTC') for t in dfVecChannel.index]
+                        
+                        if OBJTYPE == 'KNOT':
+                            dfOBJT=dx.dataFrames['V_BVZ_KNOT'][['tk','NAME']]
+                            dfOBJT.index=dfOBJT['tk']
+                            colRenDctToNamesMxDf={col:"{:s}~{!s:s}~*~{:s}~{:s}".format(OBJTYPE,dfOBJT.loc[col,'NAME'],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}
+                        else:    
+                            dfOBJT=V3_VBEL[['pk','NAME_i','NAME_k']].loc[(OBJTYPE,slice(None)),:]
+                            dfOBJT.index=dfOBJT.index.get_level_values(1) # die OBJID; xk
+                            colRenDctToNamesMxDf={col:"{:s}~{!s:s}~{!s:s}~{:s}~{:s}".format(OBJTYPE,dfOBJT.loc[col,'NAME_i'],dfOBJT.loc[col,'NAME_k'],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}
+                                  
+                        dfVecChannel=dfVecChannel.rename(columns=colRenDctToNamesMxDf)
+                        
+                        mxVecChannelDfs[vecChannel]=dfVecChannel         
+                                            
+                    l=mx.df.columns.to_list()
+                    logger.debug("{:s} Anzahl der Spalten vor Ergaenzung der Vektorspalten: {:d}".format(logStr,len(l)))
+                        
+                    mx.df=pd.concat([mx.df]
+                    +list(mxVecChannelDfs.values())               
+                    ,axis=1)
+                    
+                    l=mx.df.columns.to_list()
+                    logger.debug("{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten: {:d}".format(logStr,len(l)))                
+                    
+                    # Test auf mehrfach vorkommende Spaltennamen                
+                    l=mx.df.loc[:,mx.df.columns.duplicated()].columns.to_list()
+                    if len(l)>0:
+                        logger.debug("{:s} Anzahl der Spaltennamen die mehrfach vorkommen: {:d}; eliminieren der mehrfach vorkommenden ... ".format(logStr,len(l)))
+                        mx.df = mx.df.loc[:,~mx.df.columns.duplicated()]
+                           
+                    l=mx.df.columns.to_list()    
+                    logger.debug("{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten und nach eliminieren der mehrfach vorkommenden: {:d}".format(logStr,len(l)))
+                        
+                        
+                except Mx.MxError:
+                    logStrFinal="{logStr:s}mxsVecsResults2MxDf failed".format(logStr=logStr)     
+                    raise readDxAndMxError(logStrFinal)             
+        
+        
+            if not preventPklDump:
+                if isfile(dbFileMxPkl):
+                    logger.info("{logStr:s}{dbFileMxPkl:s} exists and is overwritten...".format(
+                         logStr=logStr
+                        ,dbFileMxPkl=dbFileMxPkl                        
+                        )
+                        )
+                else:
+                    logger.info("{logStr:s}{dbFileMxPkl:s} is written ...".format(
+                         logStr=logStr
+                        ,dbFileMxPkl=dbFileMxPkl                        
+                        )
+                        )                                                                
+                with open(dbFileMxPkl,'wb') as f:  
+                    pickle.dump(mx,f)     
+            else:
+                if isfile(dbFileMxPkl):
+                      logger.info("{logStr:s}{dbFileMxPkl:s} exists and is deleted...".format(
+                           logStr=logStr
+                          ,dbFileMxPkl=dbFileMxPkl                        
+                          )
+                          )
+                      os.remove(dbFileMxPkl)
+                      
+                        
+
+        dbFileDxMxPklRead=False
+        dbFileDxMxPkl="{:s}-m.pkl".format(dbFilename)        
+        
+        logger.debug("{logStrPrefix:s}zugeh. dbFileDxMxPkl-File: {dbFileDxMxPkl:s}".format(logStrPrefix=logStr,dbFileDxMxPkl=dbFileDxMxPkl))
+                
+        if not forceSir3sRead:            
+            # Pkl existiert
+            if os.path.exists(dbFileDxMxPkl):                
+                # ist eine Datei und lesbar
+                if isfile(dbFileDxMxPkl) and access(dbFileDxMxPkl,R_OK):
+                    # ist neuer als mx1File
+                    if os.path.getctime(mx1File) < os.path.getctime(dbFileDxMxPkl):
+                        logger.info("{logStr:s}{dbFileDxMxPkl:s} newer than {mx1File:s} and is therefore read ...".format(
+                             logStr=logStr
+                            ,dbFileDxMxPkl=dbFileDxMxPkl
+                            ,mx1File=os.path.basename(os.path.relpath(mx1File))
+                            )
+                            )                        
+                        try:
+                           with open(dbFileDxMxPkl,'rb') as f:  
+                               m=pickle.load(f)  
+                           dbFileDxMxPklRead=True    
+                        except:                            
+                            logger.info("{logStr:s}{dbFileDxMxPkl:s} read error! - processing dx and mx ...".format(
+                                 logStr=logStr
+                                ,dbFileDxMxPkl=dbFileDxMxPkl                                
+                                )
+                                )                            
+                        
+                        
+        if not dbFileDxMxPklRead:
+            #
+            m = dxWithMx(dx,mx)
             
+            if not preventPklDump:
+                if isfile(dbFileDxMxPkl):
+                    logger.info("{logStr:s}{dbFileDxMxPkl:s} exists and is overwritten...".format(
+                         logStr=logStr
+                        ,dbFileDxMxPkl=dbFileDxMxPkl                        
+                        )
+                        )
+                else:
+                    logger.info("{logStr:s}{dbFileDxMxPkl:s} is written ...".format(
+                         logStr=logStr
+                        ,dbFileDxMxPkl=dbFileDxMxPkl                        
+                        )
+                        )                                                                
+                with open(dbFileDxMxPkl,'wb') as f:  
+                    pickle.dump(m,f)       
+            
+            else:
+                if isfile(dbFileDxMxPkl):
+                          logger.info("{logStr:s}{dbFileDxMxPkl:s} exists and is deleted...".format(
+                               logStr=logStr
+                              ,dbFileDxMxPkl=dbFileDxMxPkl                        
+                              )
+                              )
+                          os.remove(dbFileDxMxPkl)
+            
+        else:
+            pass
+ 
+     ### Modellergebnisse lesen                        
+        
     except Exception as e:
         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
         logger.error(logStrFinal)         
     finally:
         logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))  
-        return dxWithMx(dx,mx)
+        return m

@@ -223,7 +223,7 @@ class Dx():
                     raise DxError(logStrFinal)
 
             # das dbFile existiert und ist lesbar
-            logger.debug("{:s}dbFile (abspath): {:s} existiert und ist lesbar".format(
+            logger.info("{:s}dbFile (abspath): {:s} exists readable ...".format(
                 logStr, os.path.abspath(dbFile)))
 
             self.dbFile = dbFile
@@ -519,7 +519,8 @@ class Dx():
             )+['NAME', 'DN', 'DI', 'DA', 'S', 'KT', 'PN'])
             df.rename(columns={'NAME': 'NAME_DTRO'}, inplace=True)
             
-            df['V']=df.apply(lambda row: math.pow(row['DI']/1000,2)*math.pi/4,axis=1)
+            df['Am2']=df.apply(lambda row: math.pow(row['DI']/1000,2)*math.pi/4,axis=1)
+            df['Vm3']=df.apply(lambda row: row['Am2']*row['L'] ,axis=1)
             
             self.dataFrames['V_BVZ_ROHR'] = df
 
@@ -1736,7 +1737,7 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
                             'tk'], suffixes=('_BZ', ''))
 
         if dfBVZ_tk.shape[0] > dfBVZ.shape[0]:
-            logger.info("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat mit tk > als mit pk. tk-Resultat wird verwendet.".format(logStr, BV, BZ))
+            logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat mit tk > als mit pk. tk-Resultat wird verwendet.".format(logStr, BV, BZ))
             dfBVZ = dfBVZ_tk
         elif dfBVZ_tk.shape[0] == dfBVZ.shape[0]:
             pass
@@ -1744,7 +1745,7 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
             pass
 
     if dfBVZ.empty:
-        logger.warning("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER ?!".format(logStr, BV, BZ))
+        logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER ?!".format(logStr, BV, BZ))
     else:
         logger.debug(
         "{0:s}BVZ resultierende Zeilen: {1:d}".format(logStr, dfBVZ.shape[0]))            
@@ -1759,7 +1760,7 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
     dfBVZ=dfBVZ.reset_index(drop=True)
 
     if dfBVZ.empty:
-        logger.warning("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER nach CONT etc?!".format(logStr, BV, BZ))
+        logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER nach CONT etc?!".format(logStr, BV, BZ))
     else:
         logger.debug(
         "{0:s}BVZ resultierende Zeilen nach CONT etc.: {1:d}".format(logStr, dfBVZ.shape[0]))              

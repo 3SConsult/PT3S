@@ -26,11 +26,11 @@ else:
     logger.debug("{0:s}{1:s}{2:s}{3:s}".format('in MODULEFILE: Not __main__ Context: ','__name__: ',__name__," .")) 
 
 
-#try:
-#    from PT3S import Dx
-#except ImportError:
-#    logger.debug("{0:s}{1:s}".format('ImportError: ','from PT3S import Dx - trying import Dx instead ... maybe pip install -e . is active ...')) 
-#    import Dx
+class dxObjsDataError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
 
 def Layr(dx):
     """Returns a df with decoded V_LAYR-Content.
@@ -244,52 +244,60 @@ def Wblz(dx):
             except:
                 continue        
         
-        df=pd.concat(dfs)
         
-        df=df.sort_values(by=['NAME','pk','tk'])
+        if len(dfs)==0:            
+            logStrFinal="{logStr:s}no WBLZs available ...".format(logStr=logStr)     
+            logger.debug(logStrFinal) 
+            #raise dxObjsDataError(logStrFinal)    
+            
+        else:
         
-        df=df.reset_index(drop=True)
-        
-        #WblzDesKnotens
-        
-        #Anz
-        
-        #Namen
-        dfg=df.groupby(by=['ID'])['NAME'].agg(list)           
-        df=pd.merge(df,dfg,left_on=['ID'],right_index=True,suffixes=('','_X'))
-        df.rename(columns={'NAME_X':'BilanzenDesKnotensNamen'},inplace=True)
-        df['BilanzenDesKnotensNamen']=df.apply(lambda row: sorted(row['BilanzenDesKnotensNamen']),axis=1)
-        #Anz
-        df['BilanzenDesKnotensAnz']=df.apply(lambda row: len(row['BilanzenDesKnotensNamen']),axis=1)        
-        
-
-        df=df.reset_index(drop=True)
-        
-        df=pd.merge(df,dx.dataFrames['V_BVZ_KNOT'],left_on='ID',right_on='tk',suffixes=('','_X')).filter(items=df.columns.to_list()+['NAME_X']).rename(columns={'NAME_X':'KNAM'})
-      
-        df=df[[
-          'pk'
-         ,'tk'        
-         ,'NAME'
-         
-         #,'AnzDerObjekteInGruppe'
-         #,'AnzDerObjekteDesTypsInGruppe'    
-         
-         ,'TYPE'
-         ,'ID'
-         ,'KNAM'
-         
-         #,'NrDesObjektesDesTypsInGruppe'
-         #,'NrDesObjektesInGruppe'
-         ,'BilanzenDesKnotensNamen'
-         ,'BilanzenDesKnotensAnz'          
-          ]]        
-       
+            df=pd.concat(dfs)
+            
+            df=df.sort_values(by=['NAME','pk','tk'])
+            
+            df=df.reset_index(drop=True)
+            
+            #WblzDesKnotens
+            
+            #Anz
+            
+            #Namen
+            dfg=df.groupby(by=['ID'])['NAME'].agg(list)           
+            df=pd.merge(df,dfg,left_on=['ID'],right_index=True,suffixes=('','_X'))
+            df.rename(columns={'NAME_X':'BilanzenDesKnotensNamen'},inplace=True)
+            df['BilanzenDesKnotensNamen']=df.apply(lambda row: sorted(row['BilanzenDesKnotensNamen']),axis=1)
+            #Anz
+            df['BilanzenDesKnotensAnz']=df.apply(lambda row: len(row['BilanzenDesKnotensNamen']),axis=1)        
+            
+    
+            df=df.reset_index(drop=True)
+            
+            df=pd.merge(df,dx.dataFrames['V_BVZ_KNOT'],left_on='ID',right_on='tk',suffixes=('','_X')).filter(items=df.columns.to_list()+['NAME_X']).rename(columns={'NAME_X':'KNAM'})
+          
+            df=df[[
+              'pk'
+             ,'tk'        
+             ,'NAME'
+             
+             #,'AnzDerObjekteInGruppe'
+             #,'AnzDerObjekteDesTypsInGruppe'    
+             
+             ,'TYPE'
+             ,'ID'
+             ,'KNAM'
+             
+             #,'NrDesObjektesDesTypsInGruppe'
+             #,'NrDesObjektesInGruppe'
+             ,'BilanzenDesKnotensNamen'
+             ,'BilanzenDesKnotensAnz'          
+              ]]        
+           
             
      
     except Exception as e:
         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))          
-        logger.debug(logStrFinal) 
+        logger.info(logStrFinal) 
         
                                                                           
     finally:

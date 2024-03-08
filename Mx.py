@@ -476,13 +476,24 @@ import doctest
 
 # Sir3sID regExp Example
 reSir3sIDSep='~'
+
 reSir3sID='(?P<OBJTYPE>\S+)'+reSir3sIDSep+'(?P<NAME1>[\S ]*)'+reSir3sIDSep+'(?P<NAME2>\S*)'+reSir3sIDSep+'(?P<OBJTYPE_PK>\d+)'+reSir3sIDSep+'(?P<ATTRTYPE>\S+)'    
 reSir3sIDcompiled=re.compile(reSir3sID) 
+
+# Wording OBJID
+reMxID='(?P<OBJTYPE>\S+)'+reSir3sIDSep+'(?P<NAME1>[\S ]*)'+reSir3sIDSep+'(?P<NAME2>\S*)'+reSir3sIDSep+'(?P<OBJID>\d+)'+reSir3sIDSep+'(?P<ATTRTYPE>\S+)'    
+reMxIDcompiled=re.compile(reMxID) 
+
+#
 reSir3sIDoPK='(?P<OBJTYPE>\S+)'+reSir3sIDSep+'(?P<NAME1>[\S ]*)'+reSir3sIDSep+'(?P<NAME2>\S*)'+reSir3sIDSep+'(?P<ATTRTYPE>\S+)'    
 reSir3sIDoPKcompiled=re.compile(reSir3sIDoPK) 
+# Wording XK 
+reSir3sIDoXK='(?P<OBJTYPE>\S+)'+reSir3sIDSep+'(?P<NAME1>[\S ]*)'+reSir3sIDSep+'(?P<NAME2>\S*)'+reSir3sIDSep+'(?P<ATTRTYPE>\S+)'    
+reSir3sIDoXKcompiled=re.compile(reSir3sIDoXK) 
 
 regExpSir3sVecID='(?P<OBJTYPE>\S+)'+reSir3sIDSep+'(?P<NAME1>\S*)'+reSir3sIDSep+'(?P<NAME2>\S*)'+reSir3sIDSep+'(?P<OBJTYPE_PK>\S*)'+reSir3sIDSep+'(?P<ATTRTYPE>\S+)'
 regExpSir3sRohrVecAttrType='\S+VEC\S*'
+regExpSir3sVecIDObjAtr='(\S+)'+reSir3sIDSep+'\*'+reSir3sIDSep+'\*'+reSir3sIDSep+'\*'+reSir3sIDSep+'(\S+)'  
 
 try:
     from PT3S import Xm
@@ -2124,7 +2135,7 @@ class Mx():
             logger.debug("{0:s}Mxs: {1:s} opening ...".format(logStr,mxsFile))                
             with open(mxsFile,'rb') as f:
                  # Mxs exists ...
-                logger.debug("{0:s}Mxs: {1:s} reading ...".format(logStr,mxsFile))                
+                logger.info("{0:s}Mxs: {1:s} reading ...".format(logStr,os.path.relpath(mxsFile)))                
                 # Mxs reading ...
                 dfMxs,timesWrittenToMxsVecs=self._readMxsFile(f,mxsVecsH5StorePtr=mxsVecH5Store,firstTime=firstTime,maxRecords=maxRecords,StatTimeTminTmaxInVecsOnly=StatTimeTminTmaxInVecsOnly)                                     
                            
@@ -3331,9 +3342,11 @@ class Mx():
         
             # alle vorhandenen Kanaele
             Sir3sIDs=sorted(self.dfVecAggs.index.get_level_values(1).unique().to_list())
+            #logger.debug("{:s}Sir3sIDs available: {!s:s}".format(logStr,Sir3sIDs)) 
+                    
             # alle verlangten Kanaele 1 OBJTYPEs 
             Sir3sIDsMatching=[Sir3sID for Sir3sID in Sir3sIDs if re.search(Sir3sVecIDReExp,Sir3sID) != None]
-            logger.debug("{:s}Sir3sIDsMatching: {!s:s}".format(logStr,Sir3sIDsMatching)) 
+            logger.debug("{:s}Sir3sIDsMatching for {:s}: {!s:s}".format(logStr,Sir3sVecIDReExp,Sir3sIDsMatching)) 
     
             OBJTYPE=re.match(regExpSir3sVecID,Sir3sIDsMatching[0]).group('OBJTYPE')
 
@@ -3502,7 +3515,7 @@ class Mx():
                 
                 if len(aSir3sIDsMatching) > 0:
     
-                    logger.debug("{:s}Sir3sIDsMatching of {:s}: {!s:s}".format(logStr,aSir3sVecIDReExp,aSir3sIDsMatching)) 
+                    logger.debug("{:s}Sir3sIDsMatching for {:s}: {!s:s}".format(logStr,aSir3sVecIDReExp,aSir3sIDsMatching)) 
         
                     OBJTYPE=re.match(regExpSir3sVecID,aSir3sIDsMatching[0]).group('OBJTYPE')     
                     if OBJTYPE=='ROHR':
@@ -3511,7 +3524,7 @@ class Mx():
                         for ID in IDs:            
                             ATTRTYPE=re.match(regExpSir3sVecID,ID).group('ATTRTYPE')
                             if re.search(regExpSir3sRohrVecAttrType,ATTRTYPE) != None:                                        
-                                logger.debug("{:s}: Innenpunktkanal: {!s:s} eliminiert".format(logStr,ID)) 
+                                logger.debug("{:s}Innenpunktkanal: {!s:s} eliminiert".format(logStr,ID)) 
                                 aSir3sIDsMatching.remove(ID)
                     
                     # Liste ergänzen
@@ -3525,7 +3538,9 @@ class Mx():
                     # fuer diese regexp gibt es keine Ergebnisse!
                     logger.debug("{:s}Sir3sIDsMatching of {:s}: KEIN ERGEBNIS VORHANDEN!".format(logStr,aSir3sVecIDReExp)) 
 
-            logger.debug("{:s}Sir3sIDsMatching: {!s:s}".format(logStr,Sir3sIDsMatching)) 
+            logger.debug("{:s}Sir3sIDsMatching total: {!s:s}".format(logStr,Sir3sIDsMatching)) 
+            
+            logger.debug("{:s}Reading MX to extract the Vector-Results ...".format(logStr)) 
 
             # ueber alle Zeiten 
             dfLst=[]             
@@ -3537,7 +3552,7 @@ class Mx():
                 if idx==0:
                     cols=dfVecs.columns.to_list()
 
-                    logger.debug("{:s}cols: {!s:s}".format(logStr,cols)) 
+                    logger.debug("{:s}1st-Time read: cols: {!s:s}".format(logStr,cols)) 
 
                     arrays2=[['TIME']*len(cols),cols]
                     tuples2=list(zip(*arrays2))        
