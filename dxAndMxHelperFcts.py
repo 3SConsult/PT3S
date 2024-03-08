@@ -538,7 +538,7 @@ def readDxAndMx(dbFile
                 if isfile(dbFileDxMxPkl) and access(dbFileDxMxPkl,R_OK):
                     # ist neuer als mx1File
                     if os.path.getctime(mx1File) < os.path.getctime(dbFileDxMxPkl):
-                        logger.info("{logStr:s}{dbFileDxMxPkl:s} newer than {mx1File:s} and is therefore read ...".format(
+                        logger.info("{logStr:s}{dbFileDxMxPkl:s} newer than {mx1File:s} and therefore read ...".format(
                              logStr=logStr
                             ,dbFileDxMxPkl=dbFileDxMxPkl
                             ,mx1File=os.path.basename(os.path.relpath(mx1File))
