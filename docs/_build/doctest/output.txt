@@ -1,0 +1,68 @@
+Results of doctest builder run on 2024-03-15 18:26:20
+=====================================================
+
+Document: functions
+-------------------
+**********************************************************************
+File "..\dxAndMxHelperFcts.py", line ?, in default
+Failed example:
+    m = dxAndMxHelperFcts.readDxAndMx(r'Examples/DistrictHeating.db3')
+Exception raised:
+    Traceback (most recent call last):
+      File "C:\Users\jablonski\AppData\Local\anaconda3\Lib\doctest.py", line 1355, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        m = dxAndMxHelperFcts.readDxAndMx(r'Examples/DistrictHeating.db3')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "C:\Users\jablonski\3S\PT3S\dxAndMxHelperFcts.py", line 649, in readDxAndMx
+        return m
+               ^
+    UnboundLocalError: cannot access local variable 'm' where it is not associated with a value
+**********************************************************************
+File "..\dxAndMxHelperFcts.py", line ?, in default
+Failed example:
+    m
+Exception raised:
+    Traceback (most recent call last):
+      File "C:\Users\jablonski\AppData\Local\anaconda3\Lib\doctest.py", line 1355, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[2]>", line 1, in <module>
+        m
+    NameError: name 'm' is not defined
+**********************************************************************
+1 items had failures:
+   2 of   3 in default
+3 tests in 1 items.
+1 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: index
+---------------
+**********************************************************************
+File "index.rst", line 40, in default
+Failed example:
+    m=dxAndMxHelperFcts.readDxAndMx('Examples/DistrictHeating.db3')
+Exception raised:
+    Traceback (most recent call last):
+      File "C:\Users\jablonski\AppData\Local\anaconda3\Lib\doctest.py", line 1355, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        m=dxAndMxHelperFcts.readDxAndMx('Examples/DistrictHeating.db3')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "C:\Users\jablonski\3S\PT3S\dxAndMxHelperFcts.py", line 649, in readDxAndMx
+        return m
+               ^
+    UnboundLocalError: cannot access local variable 'm' where it is not associated with a value
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Doctest summary
+===============
+    5 tests
+    3 failures in tests
+    0 failures in setup code
+    0 failures in cleanup code

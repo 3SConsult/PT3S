@@ -92,13 +92,13 @@
     <span class="kn">import</span> <span class="nn">dxDecodeObjsData</span>
 
 
-<div class="viewcode-block" id="dxWithMxError"><a class="viewcode-back" href="../usage.html#dxAndMxHelperFcts.dxWithMxError">[docs]</a><span class="k">class</span> <span class="nc">dxWithMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="dxWithMxError"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.dxWithMxError">[docs]</a><span class="k">class</span> <span class="nc">dxWithMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="dxWithMx"><a class="viewcode-back" href="../usage.html#dxAndMxHelperFcts.dxWithMx">[docs]</a><span class="k">class</span> <span class="nc">dxWithMx</span><span class="p">():</span>
+<div class="viewcode-block" id="dxWithMx"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.dxWithMx">[docs]</a><span class="k">class</span> <span class="nc">dxWithMx</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for dx with attached mx</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">):</span>
@@ -262,17 +262,61 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;_Done.&#39;</span><span class="p">))</span>            </div>
         
-<div class="viewcode-block" id="readDxAndMxError"><a class="viewcode-back" href="../usage.html#dxAndMxHelperFcts.readDxAndMxError">[docs]</a><span class="k">class</span> <span class="nc">readDxAndMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="readDxAndMxError"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMxError">[docs]</a><span class="k">class</span> <span class="nc">readDxAndMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="readDxAndMx"><a class="viewcode-back" href="../usage.html#dxAndMxHelperFcts.readDxAndMx">[docs]</a><span class="k">def</span> <span class="nf">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span>
+<div class="viewcode-block" id="readDxAndMx"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMx">[docs]</a><span class="k">def</span> <span class="nf">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span>
                 <span class="p">,</span><span class="n">forceSir3sRead</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">maxRecords</span><span class="o">=</span><span class="kc">None</span>
                 <span class="p">,</span><span class="n">mxsVecsResults2MxDf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads Model and Results.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        dbFile (str): modell.db3 or modell.mdb</span>
+<span class="sd">            - Database: read into  ==&gt; Dx-Object</span>
+<span class="sd">            - Results: read into ==&gt; Mx-Object (corresponding M-1-0-1.1 results are read if available)</span>
+<span class="sd">                - corresponding := using SYSTEMKONFIG and VIEW_MODELLE the M-1-0-1.1 resultfile is determined </span>
+<span class="sd">        forceSir3sRead (bool, optional): Defaults to False.</span>
+<span class="sd">            - if dbFilename-dx.pkl exists and is newer than dbFile, dbFilename-dx.pkl is read instead of dbFile</span>
+<span class="sd">            - if dbFilename-mx-....pkl exists and is newer than corresponding mxFile, dbFilename-mx-....pkl is read instead of mxFile</span>
+<span class="sd">            - if dbFilename-mx.pkl exists and is newer than corresponding mxFile, dbFilename-mx.pkl is read instead of constructing m</span>
+<span class="sd">            - if True, dbFile is read even if dbFilename-dx.pkl exists and is newer than dbFile, and mxFile is read even if dbFilename-mx-....pkl exists and is newer than corresponding mxFile</span>
+<span class="sd">        preventPklDump (bool, optional): Defaults to False.</span>
+<span class="sd">            - if dbFile is read, dbFilename-dx.pkl is written</span>
+<span class="sd">            - if mxFile is read, dbFilename-mx-....pkl is written</span>
+<span class="sd">            - if mxFile is read, dbFilename-m.pkl is written</span>
+<span class="sd">            - if True, no pklDumps are written; existing pklDumps are deleted</span>
+<span class="sd">        </span>
+<span class="sd">        maxRecords (list, optional): Defaults to None.</span>
+<span class="sd">            - Read MX-Results. </span>
+<span class="sd">            - If &gt;0, read MX-Results, but only maxRecord Times (use maxRecord=1 to read only STAT). </span>
+<span class="sd">            - If 0, do not read MX-Results.</span>
+<span class="sd">        </span>
+<span class="sd">        mxsVecsResults2MxDf (list, optional): Defaults to None.</span>
+<span class="sd">            - mx.df contains no Results which in SIR 3S are called Vector-Results. </span>
+<span class="sd">            - List with regExps for Vector-Results requested to be in mx.df; i.e. [&#39;ROHR~&#39;,&#39;&#39;,...]. </span>
+<span class="sd">            - Note that integrating Vector-Results in mx.df can increase mx.df&#39;s memory-usage significantly; running out of physical memory available is possible.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    dxWithMx-Object</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; try:</span>
+<span class="sd">    ...     from PT3S import dxAndMxHelperFcts</span>
+<span class="sd">    ... except ImportError:</span>
+<span class="sd">    ...     import dxAndMxHelperFcts</span>
+<span class="sd">    &gt;&gt;&gt; m = dxAndMxHelperFcts.readDxAndMx(r&#39;Examples/DistrictHeating.db3&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; m</span>
+<span class="sd">    &lt;PT3S.dxAndMxHelperFcts.dxWithMx at 0x1e595c23550&gt;       </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="w">    </span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Reads Model and Results.</span>
 <span class="sd">    Args:</span>
 <span class="sd">        dbFile: modell.db3 or modell.mdb</span>
@@ -303,7 +347,14 @@
 <span class="sd">            list with regExps for Vector-Results requested to be in mx.df; i.e. [&#39;ROHR~&#39;,&#39;&#39;,...]</span>
 <span class="sd">            Note that integrating Vector-Results in mx.df can increase mx.df&#39;s memory-usage significantly; running out of physical memory available is possible ...</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        dxWithMx-Object</span>
+<span class="sd">        dxWithMx-Object    </span>
+<span class="sd">    &gt;&gt;&gt; try:</span>
+<span class="sd">    ...     from PT3S import dxAndMxHelperFcts</span>
+<span class="sd">    ... except ImportError:</span>
+<span class="sd">    ...     import dxAndMxHelperFcts</span>
+<span class="sd">    &gt;&gt;&gt; m = dxAndMxHelperFcts.readDxAndMx(r&#39;Examples/DistrictHeating.db3&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; m</span>
+<span class="sd">    &lt;PT3S.dxAndMxHelperFcts.dxWithMx at 0x1e595c23550&gt;        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="kn">import</span> <span class="nn">os</span>
@@ -651,7 +702,7 @@
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Functions</a></li>
 </ul>
 
 <div class="relations">

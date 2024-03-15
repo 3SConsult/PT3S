@@ -1,7 +1,7 @@
-Usage
+Functions
 ================================
-
-PT3S is used as...
 
 .. automodule:: dxAndMxHelperFcts
    :members:
+   
+   

@@ -11,7 +11,7 @@ Welcome to PT3S's documentation!
    :caption: Contents:
    
    installation
-   usage
+   functions
 
 Indices and tables
 ==================
@@ -20,3 +20,17 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. code-block:: python
+
+   >>> # Das ist ein Kommentar
+   >>> x = 5
+   >>> print(x)
+   5
+
+:Example:
+
+>>> try:
+...     from PT3S import dxAndMxHelperFcts
+... except:
+...     import dxAndMxHelperFcts
+>>> m=dxAndMxHelperFcts.readDxAndMx('Examples/DistrictHeating.db3')
