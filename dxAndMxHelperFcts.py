@@ -28,6 +28,8 @@ import math
 
 import pickle
 
+from datetime import datetime
+
 
 
 
@@ -297,11 +299,19 @@ def readDxAndMx(dbFile
                 # ist eine Datei und lesbar
                 if isfile(dbFileDxPkl) and access(dbFileDxPkl,R_OK):
                     # ist neuer als die Modelldatenbank
-                    if os.path.getctime(dbFile) < os.path.getctime(dbFileDxPkl):
+                    tDb=os.path.getmtime(dbFile)
+                    tPkl=os.path.getmtime(dbFileDxPkl)
+                    
+                    logger.debug("{:s} tDb: {:s} tPkl: {:s}".format(logStr
+                                                                      ,datetime.fromtimestamp(tDb).strftime('%Y-%m-%d %H:%M:%S')
+                                                                      ,datetime.fromtimestamp(tPkl).strftime('%Y-%m-%d %H:%M:%S')                                                                      
+                                                                      ))    
+                    
+                    if tDb < tPkl:
                         logger.info("{logStr:s}{dbFileDxPkl:s} newer than dbFile and therefore read ...".format(
                              logStr=logStr
                             ,dbFileDxPkl=dbFileDxPkl
-                            ,dbFile=dbFile
+                            #,dbFile=dbFile
                             )
                             )
                         try:
@@ -405,11 +415,19 @@ def readDxAndMx(dbFile
                 # ist eine Datei und lesbar
                 if isfile(dbFileMxPkl) and access(dbFileMxPkl,R_OK):
                     # ist neuer als mx1File
-                    if os.path.getctime(mx1File) < os.path.getctime(dbFileMxPkl):
+                    tMx=os.path.getmtime(mx1File)
+                    tPkl=os.path.getmtime(dbFileMxPkl)                    
+                                        
+                    logger.debug("{:s} tMx: {:s} tPkl: {:s}".format(logStr
+                                                  ,datetime.fromtimestamp(tMx).strftime('%Y-%m-%d %H:%M:%S')
+                                                  ,datetime.fromtimestamp(tPkl).strftime('%Y-%m-%d %H:%M:%S')                                                                      
+                                                  ))                        
+                                        
+                    if tMx < tPkl:
                         logger.info("{logStr:s}{dbFileMxPkl:s} newer than mxFile and therefore read ...".format(
                              logStr=logStr
                             ,dbFileMxPkl=dbFileMxPkl
-                            ,mx1File=os.path.basename(os.path.relpath(mx1File))
+                            #,mx1File=os.path.basename(os.path.relpath(mx1File))
                             )
                             )
                         try:
