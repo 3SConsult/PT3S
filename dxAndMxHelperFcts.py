@@ -241,6 +241,37 @@ def readDxAndMx(dbFile
                 ,preventPklDump=False
                 ,maxRecords=None
                 ,mxsVecsResults2MxDf=None):
+
+    """
+    Reads model and results from a database file and returns a dxWithMx object.
+
+    Args:
+        dbFile (str): 
+            Path to the database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object and the results into an Mx object. The corresponding M-1-0-1.1 results are read if available.
+
+        forceSir3sRead (bool, optional, default=False): 
+            Determines whether to force reading from the database file even if a newer pickle file exists.
+
+        preventPklDump (bool, optional, default=False): 
+            Determines whether to prevent dumping to pickle files. If True, no pickle dumps are written and existing pickle dumps are deleted.
+
+        maxRecords (int, optional, default=None): 
+            Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecord=1 to read only STAT.
+
+        mxsVecsResults2MxDf (list, optional, default=None): 
+            List of regular expressions for Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage.
+
+    Returns:
+        dxWithMx: An object containing the model and results.
+
+    Note:
+        This function uses SYSTEMKONFIG and VIEW_MODELLE to determine the M-1-0-1.1 result file.
+        Integrating Vector-Results in mx.df can increase mx.df's memory-usage significantly.
+    """
+
+
+
+
     """ Reads Model and Results.
     Args:
         dbFile: modell.db3 or modell.mdb

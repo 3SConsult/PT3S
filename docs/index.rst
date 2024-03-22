@@ -6,31 +6,38 @@
 Welcome to PT3S's documentation!
 ================================
 
+.. image:: Sir3S_Splash.jpg
+   :alt: SIR 3S Splash
+   :width: 400
+   :align: center
+
+
+.. include:: ../README.rst
+
+Contents:
+---------
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
-   
+
    installation
    functions
+   releases
 
-Indices and tables
-==================
+Indices and tables:
+-------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
 
-.. code-block:: python
-
-   >>> # Das ist ein Kommentar
-   >>> x = 5
-   >>> print(x)
-   5
-
-:Example:
+Example:
+--------
 
 >>> try:
 ...     from PT3S import dxAndMxHelperFcts
 ... except:
 ...     import dxAndMxHelperFcts
 >>> m=dxAndMxHelperFcts.readDxAndMx('Examples/DistrictHeating.db3')
+
+

@@ -1,7 +1,6 @@
 Functions
 ================================
 
-.. automodule:: dxAndMxHelperFcts
-   :members:
+.. autofunction:: dxAndMxHelperFcts.readDxAndMx
    
    

@@ -27,9 +27,11 @@ templates_path = [r'C:\Users\jablonski\3S\PT3S']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+def setup(app):
+    app.add_css_file('my_theme.css')
