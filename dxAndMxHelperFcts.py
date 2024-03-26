@@ -236,73 +236,41 @@ class readDxAndMxError(Exception):
     def __str__(self):
         return repr(self.value)
 
-def readDxAndMx(dbFile
-                ,forceSir3sRead=False
+def readDxAndMx(dbFile            
                 ,preventPklDump=False
+                ,forceSir3sRead=False
                 ,maxRecords=None
                 ,mxsVecsResults2MxDf=None):
 
     """
-    Reads model and results from a database file and returns a dxWithMx object.
+    Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.
 
     Args:
         dbFile (str): 
-            Path to the database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object and the results into an Mx object. The corresponding M-1-0-1.1 results are read if available.
-
-        forceSir3sRead (bool, optional, default=False): 
-            Determines whether to force reading from the database file even if a newer pickle file exists.
+            Path to SIR 3S' database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object. The corresponding results are read into an Mx object if available. 
 
         preventPklDump (bool, optional, default=False): 
-            Determines whether to prevent dumping to pickle files. If True, no pickle dumps are written and existing pickle dumps are deleted.
+            Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S' sources are read and no pickles are written.
+
+        forceSir3sRead (bool, optional, default=False): 
+            Determines whether to force reading from SIR 3S' sources even if newer pickles exists. By default pickles are read if newer than SIR 3S' sources.
 
         maxRecords (int, optional, default=None): 
             Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecord=1 to read only STAT.
 
         mxsVecsResults2MxDf (list, optional, default=None): 
-            List of regular expressions for Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage.
+            List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [
+                                        'ROHR~\*~\*~\*~PHR',
+                                        'ROHR~\*~\*~\*~FS',
+                                        'ROHR~\*~\*~\*~DSI',
+                                        'ROHR~\*~\*~\*~DSK'                                        
+                                    ]
 
     Returns:
-        dxWithMx: An object containing the model and results.
+        dxWithMx: An object containing the SIR 3S model and SIR 3S results.
 
     Note:
-        This function uses SYSTEMKONFIG and VIEW_MODELLE to determine the M-1-0-1.1 result file.
-        Integrating Vector-Results in mx.df can increase mx.df's memory-usage significantly.
-    """
-
-
-
-
-    """ Reads Model and Results.
-    Args:
-        dbFile: modell.db3 or modell.mdb
-                Database: read into  ==> Dx-Object
-                Results: read into ==> Mx-Object (corresponding M-1-0-1.1 results are read if available)
-                    corresponding := using SYSTEMKONFIG and VIEW_MODELLE the M-1-0-1.1 resultfile is determined 
-        forceSir3sRead:
-            False (default):
-                if dbFilename-dx.pkl     exists and is newer than               dbFile, dbFilename-dx.pkl     is read instead of dbFile
-                if dbFilename-mx-....pkl exists and is newer than corresponding mxFile, dbFilename-mx-....pkl is read instead of mxFile
-                if dbFilename-mx.pkl     exists and is newer than corresponding mxFile, dbFilename-mx.pkl     is read instead of constructing m
-            True:
-                dbFile is read even if dbFilename-dx.pkl     exists and is newer than               dbFile
-                mxFile is read even if dbFilename-mx-....pkl exists and is newer than corresponding mxFile
-        preventPklDump:
-            False (default):
-                if dbFile is read, dbFilename-dx.pkl     is written
-                if mxFile is read, dbFilename-mx-....pkl is written
-                if mxFile is read, dbFilename-m.pkl      is written
-            True:
-                no pklDumps are written; existing pklDumps are deleted           
-        maxRecords:
-            None (default): read MX-Results 
-            >0: read MX-Results, but only maxRecord Times (use maxRecord=1 to read only STAT)
-            0: do not read MX-Results
-        mxsVecsResults2MxDf:
-            None (default): mx.df contains no Results which in SIR 3S are called Vector-Results
-            list with regExps for Vector-Results requested to be in mx.df; i.e. ['ROHR~','',...]
-            Note that integrating Vector-Results in mx.df can increase mx.df's memory-usage significantly; running out of physical memory available is possible ...
-    Returns:
-        dxWithMx-Object
+        Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which M-1-0-1.1 result is read into Mx.
     """
     
     import os
@@ -322,7 +290,16 @@ def readDxAndMx(dbFile
             
         dbFileDxPklRead=False
         dbFilename,ext=os.path.splitext(dbFile)
-        dbFileDxPkl="{:s}-dx.pkl".format(dbFilename)        
+        dbFileDxPkl="{:s}-dx.pkl".format(dbFilename)   
+        
+        if preventPklDump:
+            if isfile(dbFileDxPkl):
+              logger.info("{logStr:s}{dbFileDxPkl:s} exists and is deleted...".format(
+                   logStr=logStr
+                  ,dbFileDxPkl=dbFileDxPkl                        
+                  )
+                  )
+              os.remove(dbFileDxPkl)           
                 
         if not forceSir3sRead:            
             # Pkl existiert
@@ -383,13 +360,14 @@ def readDxAndMx(dbFile
                     pickle.dump(dx,f)           
                     
             else:
-                if isfile(dbFileDxPkl):
-                          logger.info("{logStr:s}{dbFileDxPkl:s} exists and is deleted...".format(
-                               logStr=logStr
-                              ,dbFileDxPkl=dbFileDxPkl                        
-                              )
-                              )
-                          os.remove(dbFileDxPkl)                    
+                pass
+                # if isfile(dbFileDxPkl):
+                #           logger.info("{logStr:s}{dbFileDxPkl:s} exists and is deleted...".format(
+                #                logStr=logStr
+                #               ,dbFileDxPkl=dbFileDxPkl                        
+                #               )
+                #               )
+                #           os.remove(dbFileDxPkl)                    
                                                 
         ### Ergebnisse nicht lesen?!         
         if maxRecords==0:            
@@ -439,7 +417,16 @@ def readDxAndMx(dbFile
         dbFileMxPkl="{:s}-mx-{:s}.pkl".format(dbFilename,re.sub('\W+','_',os.path.relpath(mx1File)))        
         
         logger.debug("{logStrPrefix:s}zugeh. dbFileMxPkl-File: {dbFileMxPkl:s}".format(logStrPrefix=logStr,dbFileMxPkl=dbFileMxPkl))
-                
+        
+        if preventPklDump:
+            if isfile(dbFileMxPkl):
+                  logger.info("{logStr:s}{dbFileMxPkl:s} exists and is deleted...".format(
+                       logStr=logStr
+                      ,dbFileMxPkl=dbFileMxPkl                        
+                      )
+                      )
+                  os.remove(dbFileMxPkl)        
+                        
         if not forceSir3sRead:            
             # Pkl existiert
             if os.path.exists(dbFileMxPkl):                
@@ -565,18 +552,27 @@ def readDxAndMx(dbFile
                 with open(dbFileMxPkl,'wb') as f:  
                     pickle.dump(mx,f)     
             else:
-                if isfile(dbFileMxPkl):
-                      logger.info("{logStr:s}{dbFileMxPkl:s} exists and is deleted...".format(
-                           logStr=logStr
-                          ,dbFileMxPkl=dbFileMxPkl                        
-                          )
-                          )
-                      os.remove(dbFileMxPkl)
-                      
-                        
+                pass
+                # if isfile(dbFileMxPkl):
+                #       logger.info("{logStr:s}{dbFileMxPkl:s} exists and is deleted...".format(
+                #            logStr=logStr
+                #           ,dbFileMxPkl=dbFileMxPkl                        
+                #           )
+                #           )
+                #       os.remove(dbFileMxPkl)
+                                              
 
         dbFileDxMxPklRead=False
         dbFileDxMxPkl="{:s}-m.pkl".format(dbFilename)        
+        
+        if preventPklDump:        
+                if isfile(dbFileDxMxPkl):
+                          logger.info("{logStr:s}{dbFileDxMxPkl:s} exists and is deleted...".format(
+                               logStr=logStr
+                              ,dbFileDxMxPkl=dbFileDxMxPkl                        
+                              )
+                              )
+                          os.remove(dbFileDxMxPkl)        
         
         logger.debug("{logStrPrefix:s}zugeh. dbFileDxMxPkl-File: {dbFileDxMxPkl:s}".format(logStrPrefix=logStr,dbFileDxMxPkl=dbFileDxMxPkl))
                 
@@ -626,13 +622,14 @@ def readDxAndMx(dbFile
                     pickle.dump(m,f)       
             
             else:
-                if isfile(dbFileDxMxPkl):
-                          logger.info("{logStr:s}{dbFileDxMxPkl:s} exists and is deleted...".format(
-                               logStr=logStr
-                              ,dbFileDxMxPkl=dbFileDxMxPkl                        
-                              )
-                              )
-                          os.remove(dbFileDxMxPkl)
+                pass
+                # if isfile(dbFileDxMxPkl):
+                #           logger.info("{logStr:s}{dbFileDxMxPkl:s} exists and is deleted...".format(
+                #                logStr=logStr
+                #               ,dbFileDxMxPkl=dbFileDxMxPkl                        
+                #               )
+                #               )
+                #           os.remove(dbFileDxMxPkl)
             
         else:
             pass
