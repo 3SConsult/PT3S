@@ -31,13 +31,4 @@ Indices and tables:
 * :ref:`modindex`
 * :ref:`search`
 
-Example:
---------
-
->>> try:
-...     from PT3S import dxAndMxHelperFcts
-... except:
-...     import dxAndMxHelperFcts
->>> m=dxAndMxHelperFcts.readDxAndMx('Examples/DistrictHeating.db3')
-
-
+.. include:: Example1.rst

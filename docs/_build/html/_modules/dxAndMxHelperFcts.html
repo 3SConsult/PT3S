@@ -1,18 +1,16 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>dxAndMxHelperFcts &#8212; PT3S 90.14.15.0.dev1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b3523f8e" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=cb25574f" />
+    <script src="../_static/documentation_options.js?v=cdfdd26d"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
@@ -94,13 +92,13 @@
     <span class="kn">import</span> <span class="nn">dxDecodeObjsData</span>
 
 
-<div class="viewcode-block" id="dxWithMxError"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.dxWithMxError">[docs]</a><span class="k">class</span> <span class="nc">dxWithMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">dxWithMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="dxWithMx"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.dxWithMx">[docs]</a><span class="k">class</span> <span class="nc">dxWithMx</span><span class="p">():</span>
+<span class="k">class</span> <span class="nc">dxWithMx</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for dx with attached mx</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">):</span>
@@ -262,82 +260,54 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span> 
             <span class="k">raise</span> <span class="n">dxWithMxError</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span>                       
         <span class="k">finally</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;_Done.&#39;</span><span class="p">))</span>            </div>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;_Done.&#39;</span><span class="p">))</span>            
         
-<div class="viewcode-block" id="readDxAndMxError"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMxError">[docs]</a><span class="k">class</span> <span class="nc">readDxAndMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">readDxAndMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="readDxAndMx"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMx">[docs]</a><span class="k">def</span> <span class="nf">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span>
-                <span class="p">,</span><span class="n">forceSir3sRead</span><span class="o">=</span><span class="kc">False</span>
+<div class="viewcode-block" id="readDxAndMx">
+<a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMx">[docs]</a>
+<span class="k">def</span> <span class="nf">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span>            
                 <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">,</span><span class="n">forceSir3sRead</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">maxRecords</span><span class="o">=</span><span class="kc">None</span>
                 <span class="p">,</span><span class="n">mxsVecsResults2MxDf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Reads model and results from a database file and returns a dxWithMx object.</span>
-
+<span class="sd">    Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
 <span class="sd">        dbFile (str): </span>
-<span class="sd">            Path to the database file (&#39;modell.db3&#39; or &#39;modell.mdb&#39;). The database is read into a Dx object and the results into an Mx object. The corresponding M-1-0-1.1 results are read if available.</span>
-
-<span class="sd">        forceSir3sRead (bool, optional, default=False): </span>
-<span class="sd">            Determines whether to force reading from the database file even if a newer pickle file exists.</span>
-
+<span class="sd">            Path to SIR 3S&#39; database file (&#39;modell.db3&#39; or &#39;modell.mdb&#39;). The database is read into a Dx object. The corresponding results are read into an Mx object if available. </span>
+<span class="sd">    </span>
 <span class="sd">        preventPklDump (bool, optional, default=False): </span>
-<span class="sd">            Determines whether to prevent dumping to pickle files. If True, no pickle dumps are written and existing pickle dumps are deleted.</span>
-
+<span class="sd">            Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S&#39; sources are read and no pickles are written.</span>
+<span class="sd">    </span>
+<span class="sd">        forceSir3sRead (bool, optional, default=False): </span>
+<span class="sd">            Determines whether to force reading from SIR 3S&#39; sources even if newer pickles exists. By default pickles are read if newer than SIR 3S&#39; sources.</span>
+<span class="sd">    </span>
 <span class="sd">        maxRecords (int, optional, default=None): </span>
-<span class="sd">            Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecord=1 to read only STAT.</span>
-
+<span class="sd">            Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecords=1 to read only STAT.</span>
+<span class="sd">    </span>
 <span class="sd">        mxsVecsResults2MxDf (list, optional, default=None): </span>
-<span class="sd">            List of regular expressions for Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage.</span>
-
+<span class="sd">            List of regular expressions for SIR 3S&#39; Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [</span>
+<span class="sd">                                        &#39;ROHR~\*~\*~\*~PHR&#39;,</span>
+<span class="sd">                                        &#39;ROHR~\*~\*~\*~FS&#39;,</span>
+<span class="sd">                                        &#39;ROHR~\*~\*~\*~DSI&#39;,</span>
+<span class="sd">                                        &#39;ROHR~\*~\*~\*~DSK&#39;</span>
+<span class="sd">                                        </span>
+<span class="sd">                                    ]</span>
+<span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">        dxWithMx: An object containing the model and results.</span>
-
+<span class="sd">        dxWithMx: An object containing the SIR 3S model and SIR 3S results.</span>
+<span class="sd">    </span>
 <span class="sd">    Note:</span>
-<span class="sd">        This function uses SYSTEMKONFIG and VIEW_MODELLE to determine the M-1-0-1.1 result file.</span>
-<span class="sd">        Integrating Vector-Results in mx.df can increase mx.df&#39;s memory-usage significantly.</span>
+<span class="sd">        Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which M-1-0-1.1 result is read into Mx.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-
-
-
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Reads Model and Results.</span>
-<span class="sd">    Args:</span>
-<span class="sd">        dbFile: modell.db3 or modell.mdb</span>
-<span class="sd">                Database: read into  ==&gt; Dx-Object</span>
-<span class="sd">                Results: read into ==&gt; Mx-Object (corresponding M-1-0-1.1 results are read if available)</span>
-<span class="sd">                    corresponding := using SYSTEMKONFIG and VIEW_MODELLE the M-1-0-1.1 resultfile is determined </span>
-<span class="sd">        forceSir3sRead:</span>
-<span class="sd">            False (default):</span>
-<span class="sd">                if dbFilename-dx.pkl     exists and is newer than               dbFile, dbFilename-dx.pkl     is read instead of dbFile</span>
-<span class="sd">                if dbFilename-mx-....pkl exists and is newer than corresponding mxFile, dbFilename-mx-....pkl is read instead of mxFile</span>
-<span class="sd">                if dbFilename-mx.pkl     exists and is newer than corresponding mxFile, dbFilename-mx.pkl     is read instead of constructing m</span>
-<span class="sd">            True:</span>
-<span class="sd">                dbFile is read even if dbFilename-dx.pkl     exists and is newer than               dbFile</span>
-<span class="sd">                mxFile is read even if dbFilename-mx-....pkl exists and is newer than corresponding mxFile</span>
-<span class="sd">        preventPklDump:</span>
-<span class="sd">            False (default):</span>
-<span class="sd">                if dbFile is read, dbFilename-dx.pkl     is written</span>
-<span class="sd">                if mxFile is read, dbFilename-mx-....pkl is written</span>
-<span class="sd">                if mxFile is read, dbFilename-m.pkl      is written</span>
-<span class="sd">            True:</span>
-<span class="sd">                no pklDumps are written; existing pklDumps are deleted           </span>
-<span class="sd">        maxRecords:</span>
-<span class="sd">            None (default): read MX-Results </span>
-<span class="sd">            &gt;0: read MX-Results, but only maxRecord Times (use maxRecord=1 to read only STAT)</span>
-<span class="sd">            0: do not read MX-Results</span>
-<span class="sd">        mxsVecsResults2MxDf:</span>
-<span class="sd">            None (default): mx.df contains no Results which in SIR 3S are called Vector-Results</span>
-<span class="sd">            list with regExps for Vector-Results requested to be in mx.df; i.e. [&#39;ROHR~&#39;,&#39;&#39;,...]</span>
-<span class="sd">            Note that integrating Vector-Results in mx.df can increase mx.df&#39;s memory-usage significantly; running out of physical memory available is possible ...</span>
-<span class="sd">    Returns:</span>
-<span class="sd">        dxWithMx-Object</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="kn">import</span> <span class="nn">os</span>
     <span class="kn">import</span> <span class="nn">importlib</span>
@@ -356,7 +326,16 @@
             
         <span class="n">dbFileDxPklRead</span><span class="o">=</span><span class="kc">False</span>
         <span class="n">dbFilename</span><span class="p">,</span><span class="n">ext</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">dbFile</span><span class="p">)</span>
-        <span class="n">dbFileDxPkl</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">-dx.pkl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dbFilename</span><span class="p">)</span>        
+        <span class="n">dbFileDxPkl</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">-dx.pkl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dbFilename</span><span class="p">)</span>   
+        
+        <span class="k">if</span> <span class="n">preventPklDump</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">dbFileDxPkl</span><span class="p">):</span>
+              <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}{dbFileDxPkl:s}</span><span class="s2"> exists and is deleted...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                   <span class="n">logStr</span><span class="o">=</span><span class="n">logStr</span>
+                  <span class="p">,</span><span class="n">dbFileDxPkl</span><span class="o">=</span><span class="n">dbFileDxPkl</span>                        
+                  <span class="p">)</span>
+                  <span class="p">)</span>
+              <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dbFileDxPkl</span><span class="p">)</span>           
                 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">forceSir3sRead</span><span class="p">:</span>            
             <span class="c1"># Pkl existiert</span>
@@ -417,13 +396,14 @@
                     <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>           
                     
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">dbFileDxPkl</span><span class="p">):</span>
-                          <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}{dbFileDxPkl:s}</span><span class="s2"> exists and is deleted...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                               <span class="n">logStr</span><span class="o">=</span><span class="n">logStr</span>
-                              <span class="p">,</span><span class="n">dbFileDxPkl</span><span class="o">=</span><span class="n">dbFileDxPkl</span>                        
-                              <span class="p">)</span>
-                              <span class="p">)</span>
-                          <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dbFileDxPkl</span><span class="p">)</span>                    
+                <span class="k">pass</span>
+                <span class="c1"># if isfile(dbFileDxPkl):</span>
+                <span class="c1">#           logger.info(&quot;{logStr:s}{dbFileDxPkl:s} exists and is deleted...&quot;.format(</span>
+                <span class="c1">#                logStr=logStr</span>
+                <span class="c1">#               ,dbFileDxPkl=dbFileDxPkl                        </span>
+                <span class="c1">#               )</span>
+                <span class="c1">#               )</span>
+                <span class="c1">#           os.remove(dbFileDxPkl)                    </span>
                                                 
         <span class="c1">### Ergebnisse nicht lesen?!         </span>
         <span class="k">if</span> <span class="n">maxRecords</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>            
@@ -473,7 +453,16 @@
         <span class="n">dbFileMxPkl</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">-mx-</span><span class="si">{:s}</span><span class="s2">.pkl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dbFilename</span><span class="p">,</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\W+&#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">mx1File</span><span class="p">)))</span>        
         
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStrPrefix:s}</span><span class="s2">zugeh. dbFileMxPkl-File: </span><span class="si">{dbFileMxPkl:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStrPrefix</span><span class="o">=</span><span class="n">logStr</span><span class="p">,</span><span class="n">dbFileMxPkl</span><span class="o">=</span><span class="n">dbFileMxPkl</span><span class="p">))</span>
-                
+        
+        <span class="k">if</span> <span class="n">preventPklDump</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">dbFileMxPkl</span><span class="p">):</span>
+                  <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}{dbFileMxPkl:s}</span><span class="s2"> exists and is deleted...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                       <span class="n">logStr</span><span class="o">=</span><span class="n">logStr</span>
+                      <span class="p">,</span><span class="n">dbFileMxPkl</span><span class="o">=</span><span class="n">dbFileMxPkl</span>                        
+                      <span class="p">)</span>
+                      <span class="p">)</span>
+                  <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dbFileMxPkl</span><span class="p">)</span>        
+                        
         <span class="k">if</span> <span class="ow">not</span> <span class="n">forceSir3sRead</span><span class="p">:</span>            
             <span class="c1"># Pkl existiert</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dbFileMxPkl</span><span class="p">):</span>                
@@ -599,18 +588,27 @@
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dbFileMxPkl</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  
                     <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>     
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">dbFileMxPkl</span><span class="p">):</span>
-                      <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}{dbFileMxPkl:s}</span><span class="s2"> exists and is deleted...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                           <span class="n">logStr</span><span class="o">=</span><span class="n">logStr</span>
-                          <span class="p">,</span><span class="n">dbFileMxPkl</span><span class="o">=</span><span class="n">dbFileMxPkl</span>                        
-                          <span class="p">)</span>
-                          <span class="p">)</span>
-                      <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dbFileMxPkl</span><span class="p">)</span>
-                      
-                        
+                <span class="k">pass</span>
+                <span class="c1"># if isfile(dbFileMxPkl):</span>
+                <span class="c1">#       logger.info(&quot;{logStr:s}{dbFileMxPkl:s} exists and is deleted...&quot;.format(</span>
+                <span class="c1">#            logStr=logStr</span>
+                <span class="c1">#           ,dbFileMxPkl=dbFileMxPkl                        </span>
+                <span class="c1">#           )</span>
+                <span class="c1">#           )</span>
+                <span class="c1">#       os.remove(dbFileMxPkl)</span>
+                                              
 
         <span class="n">dbFileDxMxPklRead</span><span class="o">=</span><span class="kc">False</span>
         <span class="n">dbFileDxMxPkl</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">-m.pkl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dbFilename</span><span class="p">)</span>        
+        
+        <span class="k">if</span> <span class="n">preventPklDump</span><span class="p">:</span>        
+                <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">dbFileDxMxPkl</span><span class="p">):</span>
+                          <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}{dbFileDxMxPkl:s}</span><span class="s2"> exists and is deleted...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                               <span class="n">logStr</span><span class="o">=</span><span class="n">logStr</span>
+                              <span class="p">,</span><span class="n">dbFileDxMxPkl</span><span class="o">=</span><span class="n">dbFileDxMxPkl</span>                        
+                              <span class="p">)</span>
+                              <span class="p">)</span>
+                          <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dbFileDxMxPkl</span><span class="p">)</span>        
         
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStrPrefix:s}</span><span class="s2">zugeh. dbFileDxMxPkl-File: </span><span class="si">{dbFileDxMxPkl:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStrPrefix</span><span class="o">=</span><span class="n">logStr</span><span class="p">,</span><span class="n">dbFileDxMxPkl</span><span class="o">=</span><span class="n">dbFileDxMxPkl</span><span class="p">))</span>
                 
@@ -660,13 +658,14 @@
                     <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>       
             
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">dbFileDxMxPkl</span><span class="p">):</span>
-                          <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}{dbFileDxMxPkl:s}</span><span class="s2"> exists and is deleted...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                               <span class="n">logStr</span><span class="o">=</span><span class="n">logStr</span>
-                              <span class="p">,</span><span class="n">dbFileDxMxPkl</span><span class="o">=</span><span class="n">dbFileDxMxPkl</span>                        
-                              <span class="p">)</span>
-                              <span class="p">)</span>
-                          <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dbFileDxMxPkl</span><span class="p">)</span>
+                <span class="k">pass</span>
+                <span class="c1"># if isfile(dbFileDxMxPkl):</span>
+                <span class="c1">#           logger.info(&quot;{logStr:s}{dbFileDxMxPkl:s} exists and is deleted...&quot;.format(</span>
+                <span class="c1">#                logStr=logStr</span>
+                <span class="c1">#               ,dbFileDxMxPkl=dbFileDxMxPkl                        </span>
+                <span class="c1">#               )</span>
+                <span class="c1">#               )</span>
+                <span class="c1">#           os.remove(dbFileDxMxPkl)</span>
             
         <span class="k">else</span><span class="p">:</span>
             <span class="k">pass</span>
@@ -679,6 +678,7 @@
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;_Done.&#39;</span><span class="p">))</span>  
         <span class="k">return</span> <span class="n">m</span></div>
+
 </pre></div>
 
           </div>
@@ -738,7 +738,7 @@
       &copy;2024, 3S Consult GmbH.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

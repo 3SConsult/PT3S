@@ -8,6 +8,7 @@
 
 import os
 import sys
+import subprocess
 sys.path.insert(0, os.path.abspath(r'C:\Users\jablonski\3S\PT3S'))
 
 
@@ -19,7 +20,7 @@ release = '90.14.15.0.dev1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.todo', 'sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.viewcode', 'sphinx.ext.doctest']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.viewcode', 'sphinx.ext.doctest','nbsphinx']
 
 todo_include_todos=True
 
@@ -32,6 +33,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
-
+# This function will be called before Sphinx starts to build documents.
 def setup(app):
-    app.add_css_file('my_theme.css')
+    # Call nbconvert via subprocess to convert your notebook to rst format
+    subprocess.call(['jupyter', 'nbconvert', '--to', 'rst','Example1.ipynb'])
+    subprocess.call(['jupyter', 'nbconvert', '--to', 'rst','Example2.ipynb'])
+
+

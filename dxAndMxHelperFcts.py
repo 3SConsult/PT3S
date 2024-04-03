@@ -244,34 +244,36 @@ def readDxAndMx(dbFile
 
     """
     Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.
-
+    
     Args:
         dbFile (str): 
             Path to SIR 3S' database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object. The corresponding results are read into an Mx object if available. 
-
+    
         preventPklDump (bool, optional, default=False): 
             Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S' sources are read and no pickles are written.
-
+    
         forceSir3sRead (bool, optional, default=False): 
             Determines whether to force reading from SIR 3S' sources even if newer pickles exists. By default pickles are read if newer than SIR 3S' sources.
-
+    
         maxRecords (int, optional, default=None): 
-            Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecord=1 to read only STAT.
-
+            Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecords=1 to read only STAT.
+    
         mxsVecsResults2MxDf (list, optional, default=None): 
             List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [
                                         'ROHR~\*~\*~\*~PHR',
                                         'ROHR~\*~\*~\*~FS',
                                         'ROHR~\*~\*~\*~DSI',
-                                        'ROHR~\*~\*~\*~DSK'                                        
+                                        'ROHR~\*~\*~\*~DSK'
+                                        
                                     ]
-
+    
     Returns:
         dxWithMx: An object containing the SIR 3S model and SIR 3S results.
-
+    
     Note:
         Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which M-1-0-1.1 result is read into Mx.
     """
+
     
     import os
     import importlib
