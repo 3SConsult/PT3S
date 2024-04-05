@@ -1,0 +1,98 @@
+
+
+
+
+
+
+
+
+
+import os
+import geopandas
+import logging
+
+try:
+    from PT3S import dxAndMxHelperFcts
+except:
+    import dxAndMxHelperFcts
+
+#import sys
+#dev_path = r'C:\Users\jablonski\3S\PT3S'
+#sys.path.insert(0, os.path.abspath(dev_path))
+#import dxAndMxHelperFcts
+
+
+
+
+
+logger = logging.getLogger()  
+
+logFileName= r"Example2.log" 
+
+loglevel = logging.DEBUG
+logging.basicConfig(filename=logFileName
+                        ,filemode='w'
+                        ,level=loglevel
+                        ,format="%(asctime)s ; %(name)-60s ; %(levelname)-7s ; %(message)s")    
+
+fileHandler = logging.FileHandler(logFileName)     
+
+logger.addHandler(fileHandler)
+
+consoleHandler = logging.StreamHandler()
+consoleHandler.setFormatter(logging.Formatter("%(levelname)-7s ; %(message)s"))
+consoleHandler.setLevel(logging.INFO)
+logger.addHandler(consoleHandler)
+
+
+
+
+
+dbFilename="Wärmenetz-Planungsbeispiel"
+
+
+
+
+
+m=dxAndMxHelperFcts.readDxAndMx(dbFile=os.path.join('../Examples/'+dbFilename+'.db3')
+                                ,preventPklDump=True
+                               )
+
+
+
+
+
+V3_FWVB=m.V3_FWVB
+V3_ROHR=m.V3_ROHR
+
+
+
+
+
+# vorher "QGIS Export" in SIR 3S
+# in Oldenburg muss die aufkommende Frage mit Nein beantwortet werden
+
+
+V3_FWVB = V3_FWVB.dropna(subset=['GEOMWKB'])
+V3_ROHR = V3_ROHR.dropna(subset=['GEOMWKB'])
+
+
+crs='EPSG:25832' 
+
+gs=geopandas.GeoSeries.from_wkb(V3_FWVB['GEOMWKB'],crs=crs)
+gdf_FWVB=geopandas.GeoDataFrame(V3_FWVB,geometry=gs,crs=crs)
+
+gs=geopandas.GeoSeries.from_wkb(V3_ROHR['GEOMWKB'],crs=crs)
+gdf_ROHR=geopandas.GeoDataFrame(V3_ROHR,geometry=gs,crs=crs)
+
+
+ma=gdf_ROHR[gdf_ROHR['KVR'].isin([1.,None])].loc[:,['geometry', 'QMAVAbs']].explore(color = 'grey')
+gdf_FWVB.loc[:,['geometry','W']].explore(color='red',m=ma)
+
+
+#gdf_ROHR=m.gdf_ROHR
+#gdf_FWVB=m.gdf_FWVB
+
+
+#ma=gdf_ROHR[gdf_ROHR['KVR'].isin([1.,None])].loc[:,['geometry', 'QMAVAbs']].explore(color = 'grey')
+#gdf_FWVB.loc[:,['geometry','W']].explore(color='red',m=ma)

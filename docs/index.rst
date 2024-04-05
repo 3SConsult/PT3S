@@ -31,4 +31,6 @@ Indices and tables:
 * :ref:`modindex`
 * :ref:`search`
 
-.. include:: Example1.rst
+.. raw:: html
+
+   <iframe src="Example2.html" width="100%" height="500px"></iframe>

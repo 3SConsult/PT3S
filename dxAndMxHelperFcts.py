@@ -28,6 +28,8 @@ import math
 
 import pickle
 
+import geopandas
+
 from datetime import datetime
 
 
@@ -172,7 +174,23 @@ class dxWithMx():
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_WBLZ failed.')) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_WBLZ failed.'))
+                
+                try:
+                    crs='EPSG:25832' 
+                
+                    gs=geopandas.GeoSeries.from_wkb(self.V3_FWVB['GEOMWKB'],crs=crs)
+                    self.gdf_FWVB=geopandas.GeoDataFrame(self.V3_FWVB,geometry=gs,crs=crs)
+                
+                    gs=geopandas.GeoSeries.from_wkb(self.V3_ROHR['GEOMWKB'],crs=crs)
+                    self.gdf_ROHR=geopandas.GeoDataFrame(self.V3_ROHR,geometry=gs,crs=crs)
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of gdf_FWVB and gdf_ROHR ok so far."))  
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing gdf_FWVB and gdf_ROHR failed.'))
+
+                
                                 
             try:
                 # Graph bauen    

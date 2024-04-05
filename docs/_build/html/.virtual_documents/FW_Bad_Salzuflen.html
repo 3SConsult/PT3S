@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>&lt;no title&gt; &#8212; PT3S 90.14.15.0.dev1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b3523f8e" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=cb25574f" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=53475a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=53475a3b" />
+    <script src="../_static/documentation_options.js?v=cdfdd26d"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p>import logging
+import os
+import sys</p>
+<p>import pandas as pd
+import sqlite3</p>
+<p>import geopandas
+import numpy as np
+import math
+import importlib
+import re</p>
+<p>import doctest</p>
+<p>import matplotlib.pyplot as plt
+#import matplotlib.dates as mdates</p>
+<p>import matplotlib</p>
+<p>import matplotlib.patches as mpatches</p>
+<p>#import matplotlib.gridspec as gridspec</p>
+<p>#from matplotlib import cm
+#from matplotlib.colors import ListedColormap
+#import matplotlib.font_manager as font_manager
+#import matplotlib.patheffects as path_effects</p>
+<p>#import contextily as cx</p>
+<p>import pickle</p>
+<p>import xml.etree.ElementTree as ET</p>
+<p>logger = logging.getLogger(‘FW Bad Salzuflen’)</p>
+<p>logFileName= r”FW Bad Salzuflen.log”</p>
+<p>loglevel = logging.DEBUG
+logging.basicConfig(filename=logFileName</p>
+<blockquote>
+<div><p>,filemode=’w’
+,level=loglevel
+,format=”%(asctime)s ; %(name)-60s ; %(levelname)-7s ; %(message)s”)</p>
+</div></blockquote>
+<p>fileHandler = logging.FileHandler(logFileName)</p>
+<p>logger.addHandler(fileHandler)</p>
+<p>consoleHandler = logging.StreamHandler()
+consoleHandler.setFormatter(logging.Formatter(“%(levelname)-7s ; %(message)s”))
+consoleHandler.setLevel(logging.INFO)
+logger.addHandler(consoleHandler)</p>
+<p>dbFilename=”FW Bad Salzuflen”</p>
+<dl>
+<dt>try:</dt><dd><p>from PT3S import dxAndMxHelperFcts</p>
+</dd>
+<dt>except:</dt><dd><blockquote>
+<div><p>import dxAndMxHelperFcts</p>
+</div></blockquote>
+<p>importlib.reload(dxAndMxHelperFcts)</p>
+</dd>
+</dl>
+<p>m=dxAndMxHelperFcts.readDxAndMx(dbFile=os.path.join(‘.’,dbFilename+’.db3’))</p>
+<p>dfLAYR=m.dfLAYR</p>
+<p>dfLAYR.head()</p>
+<p>dfUpd=dfLAYR[dfLAYR[‘TYPE’].isin([‘KNOT’])].head()[[‘TYPE’,’ID’]]
+dfUpd</p>
+<p>xk=dfLAYR[dfLAYR[‘NAME’].isin([‘Test’])][‘tk’].iloc[0]</p>
+<p>#sorted(dfLAYR[‘NAME’].unique())</p>
+<p>dfUpd[‘table’]=’LAYR’</p>
+<p>dfUpd[‘attrib’]=’OBJS’</p>
+<p>dfUpd[‘xk’]=’tk’</p>
+<p>dfUpd[‘xkValue’]=xk</p>
+<p>dfUpd[‘attribValue’]=dfUpd.apply(lambda row: “{:s}~{:s}t”.format(row[‘TYPE’],row[‘ID’]).encode(‘utf-8’),axis=1)</p>
+<p>dfUpd</p>
+<p>dfUpd.dtypes</p>
+<dl class="simple">
+<dt>dfUpd2=dfUpd.groupby(by=[‘xkValue’]).agg({‘xkValue’: ‘first’</dt><dd><p>,’table’: ‘first’
+,’attrib’: ‘first’
+,’xk’: ‘first’
+, ‘attribValue’: ‘sum’}).reset_index(drop=True)</p>
+</dd>
+</dl>
+<p>dfUpd2[‘attribValue’]=dfUpd2[‘attribValue’].apply(lambda x: x.rstrip())
+dfUpd2</p>
+<p>#m.dx.update(dfUpd2)</p>
+<p>dfWBLZ=m.dfWBLZ</p>
+<p>dfWBLZ.head()</p>
+<p>m.V3_WBLZ</p>
+<p>dx=m.dx</p>
+<p>mx=m.mx</p>
+<p>V3_FWVB=dx.dataFrames[‘FWVB’]
+# kann zu diesem “Skriptzeitpunkt” nur Sachdaten enthalten da SIR 3S ja in der Modell-DB keine Ergebnisse mehr abspeichert</p>
+<p>sorted(V3_FWVB.columns.to_list())</p>
+<p>V3_FWVB.describe()</p>
+<p>V3_FWVB.head(10)</p>
+<p>V3_FWVB.head(2)</p>
+<p>mx.df.columns
+#mx.df enthält aus Lesezeit- und auch Arbeitsspeichergründen keine “Vektorergebnisse”</p>
+<p># enthält “Vektorergebnisse” für STAT, TMIN, TNAX:
+mx.dfVecAggs.index</p>
+<p>mx.dfVecAggs.index</p>
+<p>V3_FWVB=m.V3_FWVB</p>
+<p># dito:
+V3_ROHR=m.V3_ROHR
+V3_KNOT=m.V3_KNOT</p>
+<p>V3_VBEL=m.dx.dataFrames[‘V3_VBEL’]</p>
+<p>V3_VBEL.head()</p>
+<p>#V3_VBEL.columns.to_list()</p>
+<p>#V3_VBEL.loc[(‘FWVB’,slice(None)),:].reset_index().head().columns.to_list()</p>
+<p>df_FWVB=V3_VBEL.loc[(‘FWVB’,slice(None)),:].reset_index()[[‘OBJID’,’NAME_i’,’NAME_k’,’fkKI’,’fkKK’,’W0’,’fkLFKT’]]</p>
+<p>df_FWVB.head()</p>
+<p>dfx=pd.merge(df_FWVB,dx.dataFrames[‘V_BVZ_LFKT’],left_on=’fkLFKT’, right_on=’pk’,suffixes=(‘’,’_LFKT’)).filter(items=df_FWVB.columns.to_list()+[‘NAME’]).rename(columns={‘NAME’:’LFKT_NAME’})</p>
+<p>df_FWVB.shape,dfx.shape</p>
+<p>df_FWVB=dfx</p>
+<p>df_ROHR=V3_VBEL.loc[(‘ROHR’,slice(None)),:].reset_index()[[‘OBJID’,’NAME_i’,’NAME_k’,’fkKI’,’fkKK’,’BESCHREIBUNG’]]</p>
+<p>df_ROHR.head()</p>
+<p># QMAVAbs: Rohrdurchfluss absolut stationär
+# dW: Sollleistung-Istleistung stationär</p>
+<p>t0=pd.Timestamp(mx.df.index[0].strftime(‘%Y-%m-%d %X.%f’))</p>
+<dl class="simple">
+<dt>QMAV=(‘STAT’</dt><dd><p>,’ROHR~*~*~*~QMAV’
+,t0
+,t0
+)</p>
+</dd>
+</dl>
+<p>QMAV</p>
+<p>V3_ROHR[‘QMAVAbs’]=V3_ROHR.apply(lambda row: math.fabs(row[QMAV]) ,axis=1)</p>
+<dl class="simple">
+<dt>WSOLL=(‘STAT’</dt><dd><p>,’FWVB~*~*~*~WSOLL’
+,t0
+,t0
+)</p>
+</dd>
+</dl>
+<p>WSOLL</p>
+<dl class="simple">
+<dt>W=(‘STAT’</dt><dd><p>,’FWVB~*~*~*~W’
+,t0
+,t0
+)</p>
+</dd>
+</dl>
+<p>W</p>
+<p>V3_FWVB[‘dW’]=V3_FWVB.apply(lambda row: row[WSOLL]-row[W] ,axis=1)</p>
+<p>V3_FWVB.groupby(by=’NAME_LFKT’).sum()[‘dW’].filter(regex=’^PrN’)</p>
+<p>V3_FWVB[‘W’]=V3_FWVB[W] # geopandas mag keine nicht flachen Spaltennamen …</p>
+<p>V3_FWVB[‘dummy’]=1</p>
+<p># vorher “QGIS Export” in SIR 3S
+# in Oldenburg muss die aufkommende Frage mit Nein beantwortet werden</p>
+<p>crs=’EPSG:25832’</p>
+<p>gs=geopandas.GeoSeries.from_wkb(V3_FWVB[‘GEOMWKB’],crs=crs)
+gdf_FWVB=geopandas.GeoDataFrame(V3_FWVB,geometry=gs,crs=crs)</p>
+<p>gs=geopandas.GeoSeries.from_wkb(V3_ROHR[‘GEOMWKB’],crs=crs)
+gdf_ROHR=geopandas.GeoDataFrame(V3_ROHR,geometry=gs,crs=crs)</p>
+<p>ma=gdf_ROHR[gdf_ROHR[‘KVR’].isin([1.,None])].loc[:,[‘geometry’, ‘QMAVAbs’]].explore(color = ‘grey’)
+gdf_FWVB.loc[:,[‘geometry’,’W’]].explore(color=’red’,m=ma)</p>
+<p># man kann sich mehr Mühe geben …</p>
+<p>cmap_color_ROHR=’DI’
+norm_min_ROHR=gdf_ROHR[cmap_color_ROHR].min()
+norm_max_ROHR=gdf_ROHR[cmap_color_ROHR].max()
+norm_ROHR_color = plt.Normalize(vmin=norm_min_ROHR, vmax=norm_max_ROHR)
+colors_ROHR = [‘lightgray’, ‘dimgray’]
+cmap_ROHR = matplotlib.colors.LinearSegmentedColormap.from_list(‘ROHR’, colors_ROHR, N = 256)
+cmap_ROHR</p>
+<p>cmap_color_ROHRErg=’QMAVAbs’
+norm_min_ROHRErg=gdf_ROHR[cmap_color_ROHRErg].min()
+norm_max_ROHRErg=gdf_ROHR[cmap_color_ROHRErg].max()
+norm_ROHRErg_color = plt.Normalize(vmin=norm_min_ROHRErg, vmax=norm_max_ROHRErg)
+colors_ROHRErg = [‘darkgreen’,’magenta’]
+cmap_ROHRErg = matplotlib.colors.LinearSegmentedColormap.from_list(‘ROHRErg’, colors_ROHRErg, N = 256)
+cmap_ROHRErg</p>
+<p>cmap_color_FWVB=’W’
+norm_min_FWVB=gdf_FWVB[gdf_FWVB[‘NAME_CONT’].isin([‘M-1-0-1’])][cmap_color_FWVB].min()
+norm_max_FWVB=gdf_FWVB[gdf_FWVB[‘NAME_CONT’].isin([‘M-1-0-1’])][cmap_color_FWVB].max()
+norm_FWVB_color = plt.Normalize(vmin=norm_min_FWVB, vmax=norm_max_FWVB)
+colors_FWVB = [‘oldlace’, ‘orange’]
+cmap_FWVB = matplotlib.colors.LinearSegmentedColormap.from_list(‘FWVB’, colors_FWVB, N = 256)
+cmap_FWVB</p>
+<p>cmap_ROHRFac=0.0125*1.5
+cmap_FWVBFac=0.0125</p>
+<p>ma=gdf_FWVB[gdf_FWVB[‘NAME_CONT’].isin([‘M-1-0-1’])].loc[:,[‘W’,’geometry’]].sort_values(by=[‘W’],ascending=False).explore(
+style_kwds=dict(</p>
+<blockquote>
+<div><dl>
+<dt>style_function=</dt><dd><dl>
+<dt>lambda x: {</dt><dd><blockquote>
+<div><blockquote>
+<div><p>‘weight’: x[‘properties’][‘W’]*cmap_FWVBFac</p>
+</div></blockquote>
+<dl class="simple">
+<dt>,’color’:  matplotlib.colors.to_hex(cmap_FWVB(norm_FWVB_color(x[‘properties’][‘W’])))</dt><dd><p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>),</p>
+</dd>
+</dl>
+</dd>
+<dt>marker_kwds=dict(#radius=0.25,</dt><dd><blockquote>
+<div><p>fill=False</p>
+</div></blockquote>
+<p>,color=’black’
+),</p>
+</dd>
+</dl>
+<p>marker_type=”circle_marker”,</p>
+</div></blockquote>
+<p>)</p>
+<p>m2=gdf_ROHR[gdf_ROHR[‘KVR’].isin([1])].loc[:,[‘DI’,’geometry’]].sort_values(by=[‘DI’],ascending=True).explore(
+m=ma,
+style_kwds=dict(</p>
+<blockquote>
+<div><dl>
+<dt>style_function=</dt><dd><dl>
+<dt>lambda x: {</dt><dd><blockquote>
+<div><blockquote>
+<div><p>‘weight’: x[‘properties’][‘DI’]*cmap_ROHRFac</p>
+</div></blockquote>
+<dl class="simple">
+<dt>,’color’:  matplotlib.colors.to_hex(cmap_ROHR(norm_ROHR_color(x[‘properties’][‘DI’])))</dt><dd><p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>),</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>)
+gdf_ROHR[gdf_ROHR[‘KVR’].isin([1])].loc[:,[cmap_color_ROHRErg,’geometry’]].sort_values(by=[cmap_color_ROHRErg],ascending=True).explore(
+m=m2,
+style_kwds=dict(</p>
+<blockquote>
+<div><dl>
+<dt>style_function=</dt><dd><dl>
+<dt>lambda x: {</dt><dd><blockquote>
+<div><blockquote>
+<div><p>‘weight’: x[‘properties’][cmap_color_ROHRErg]*cmap_ROHRFac</p>
+</div></blockquote>
+<dl class="simple">
+<dt>,’color’:  matplotlib.colors.to_hex(cmap_ROHRErg(norm_ROHRErg_color(x[‘properties’][cmap_color_ROHRErg])))</dt><dd><p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>),</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>)</p>
+<p># wenn man Karten-interaktiv arbeiten will sollte man zu QGIS gehen
+# Skripting wie gezeigt hat seine Stärken in der generierenden Analyse und der Generierung von Reports
+# nicht nur NFDs sondern auch Zeitkurven, Längsschnitte und Kombis der Darstellungsformen auf einem (PDF-)Blatt oder in einem PDF-Buch</p>
+<p># dank der transparenten Datenstruktur von SIR 3S kann ja jede Anwenderin außerhalb von SIR 3S nehmen was sie will …</p>
+<dl class="simple">
+<dt>try:</dt><dd><p>from PT3S import Rm</p>
+</dd>
+<dt>except:</dt><dd><p>import Rm</p>
+</dd>
+</dl>
+<p># von wo wurde geladen …
+importlib.reload(Rm)</p>
+<dl class="simple">
+<dt>try:</dt><dd><p>from PT3S import pNFD</p>
+</dd>
+<dt>except:</dt><dd><p>import pNFD</p>
+</dd>
+</dl>
+<p># von wo wurde geladen …
+importlib.reload(pNFD)</p>
+<p>#gdf_ROHR.columns.to_list()</p>
+<p>cmap_color_ROHR=’DI’
+norm_min_ROHR=gdf_ROHR[cmap_color_ROHR].min()
+norm_max_ROHR=gdf_ROHR[cmap_color_ROHR].max()
+norm_ROHR_color = plt.Normalize(vmin=norm_min_ROHR, vmax=norm_max_ROHR)
+colors_ROHR = [‘oldlace’, ‘orange’]
+cmap_ROHR2 = matplotlib.colors.LinearSegmentedColormap.from_list(‘ROHR’, colors_ROHR, N = 256)
+cmap_ROHR2</p>
+<dl>
+<dt>def plotLogo(axSrc</dt><dd><blockquote>
+<div><blockquote>
+<div><p>,dfSrc
+,logoFile=r”C:Userswolters3SHuMSimKI-MoptrunkBad SalzuflenVersion 1SimKI-Mop Logo.png”
+,dxAxesLogo=.125</p>
+</div></blockquote>
+<p>,leftLogo=.875
+,bottomLogo=.025
+,dxAxesBlocksyms=.125*0.25</p>
+<blockquote>
+<div><p>):</p>
+</div></blockquote>
+</div></blockquote>
+<p>import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image</p>
+<p># Logo SimKI ###################
+img = np.asarray(Image.open(logoFile))
+dxIm=1266#1800.
+dyIm=1244#1698.</p>
+<p>dyAxesLogo=dyIm/dxIm*dxAxesLogo</p>
+<p>import matplotlib
+ax= plt.axes([leftLogo,bottomLogo, dxAxesLogo, dyAxesLogo])
+ax.imshow(img,aspect=’equal’,alpha=.5)
+ax.axis(‘off’)</p>
+<p># Logo Blocksymbole #############################
+erzFile=r”C:Userswolters3SHuMSimKI-MoptrunkBad SalzuflenVersion 1bhkw.png”
+img = np.asarray(Image.open(erzFile))</p>
+<p>dxIm=186
+dyIm=148</p>
+<p>dyAxesBlocksyms=dyIm/dxIm*dxAxesBlocksyms</p>
+<p>#  Blatt #################</p>
+<p>left,right=axSrc.get_xlim()
+bottom,top=axSrc.get_ylim()
+#print(left,right)</p>
+<p>dxSrc=right-left
+dySrc=top-bottom</p>
+<p># Blocksymbole</p>
+<p>for index, row in dfSrc.iterrows():</p>
+<blockquote>
+<div><p>X=row[‘XKOR’]
+Y=row[‘YKOR’]
+XRel=(X-left)/dxSrc - dxAxesBlocksyms/2
+YRel=(Y-bottom)/dySrc - dyAxesBlocksyms/2</p>
+<dl class="simple">
+<dt>ax= plt.axes([XRel</dt><dd><p>,YRel
+, dxAxesBlocksyms, dyAxesBlocksyms])</p>
+</dd>
+</dl>
+<p>ax.imshow(img,aspect=’equal’,alpha=.5)
+ax.axis(‘off’)</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>#gdf_ROHR</p>
+<p>dfLAYR[dfLAYR[‘NAME’].isin([‘Verbund Staatsb.-Hoffmann VL’])][‘ID’].values</p>
+<blockquote>
+<div><dl>
+<dt>gdf_ROHR_Vb_StaatsHoff = gdf_ROHR[</dt><dd><blockquote>
+<div><p>gdf_ROHR[‘tk’].isin(dfLAYR[dfLAYR[‘NAME’].isin([‘Verbund Staatsb.-Hoffmann VL’])][‘ID’].values)</p>
+</div></blockquote>
+<p>]#.sort_values(by=[‘DI’],ascending=True)</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>gdf_ROHR_Vb_StaatsHoff2 = gdf_ROHR[</dt><dd><blockquote>
+<div><p>gdf_ROHR[‘tk’].isin(dfLAYR[dfLAYR[‘NAME’].isin([‘Verbund Staatsb.-Hoffmann 2 VL’])][‘ID’].values)</p>
+</div></blockquote>
+<p>]#.sort_values(by=[‘DI’],ascending=True)</p>
+</dd>
+<dt>gdf_ROHR_Vb_ZiegelStaats = gdf_ROHR[</dt><dd><blockquote>
+<div><p>gdf_ROHR[‘tk’].isin(dfLAYR[dfLAYR[‘NAME’].isin([‘Verbund ZiegelStaatsb. VL’])][‘ID’].values)</p>
+</div></blockquote>
+<p>]#.sort_values(by=[‘DI’],ascending=True)</p>
+</dd>
+</dl>
+<p>gdf_ROHR_Vb=pd.concat([gdf_ROHR_Vb_StaatsHoff,gdf_ROHR_Vb_StaatsHoff2,gdf_ROHR_Vb_ZiegelStaats]).sort_values(by=[‘DI’],ascending=True)</p>
+<p>gdf_ROHR_Vb[‘DI’].describe()</p>
+<p>gdf_ROHR_Vb.shape</p>
+<p># von wo wurde geladen …
+importlib.reload(pNFD)</p>
+<p>#gdf_FWVB.columns.to_list()</p>
+<p># Plotten
+fig=plt.figure(figsize=Rm.DINA2q,dpi=Rm.dpiSize)</p>
+<p>ax=fig.gca()</p>
+<dl>
+<dt>attr_colors_ROHR_Sach_patches,attr_colors_ROHR_Erg_patches,attr_colors_FWVB_Sach_patches,attr_colors_FWVB_Erg_patches,dummy=pNFD.pNFD_FW(</dt><dd><blockquote>
+<div><p>ax=ax,</p>
+<p># ROHR
+gdf_ROHR = gdf_ROHR[</p>
+<blockquote>
+<div><p>(gdf_ROHR[‘KVR’].isin([1]))
+&amp;
+(gdf_ROHR[‘QMAVAbs’]&gt;0.10)</p>
+</div></blockquote>
+<p>].sort_values(by=[‘DI’],ascending=True)</p>
+</div></blockquote>
+<p>,norm_min_ROHR_Sach=0
+,norm_max_ROHR_Sach=300
+,attr_colors_ROHR_Sach_patches_fmt=”{:4.0f}”
+,attr_colors_ROHR_Sach_patchValues=[25,100,150,200,250,300]</p>
+<p>,attr_colors_ROHR_Erg=’QMAVAbs’
+,lws_ROHR_Erg_Sach=False
+,norm_max_ROHR_Erg=300
+,attr_colors_ROHR_Erg_patches_fmt=”{:4.0f}”
+,attr_colors_ROHR_Erg_patchValues=[25,100,150,200,250,300]</p>
+<blockquote>
+<div><p># FWVB</p>
+</div></blockquote>
+<dl class="simple">
+<dt>,gdf_FWVB = gdf_FWVB[</dt><dd><p>gdf_FWVB[‘NAME_CONT’].isin([‘M-1-0-1’])
+&amp;
+gdf_FWVB[‘W0’]&gt;0.01</p>
+</dd>
+</dl>
+<p>].sort_values(by=[‘W’],ascending=False)
+,attr_colors_FWVB_Erg=’W’
+,norm_min_FWVB_Erg = 500
+,attr_colors_FWVB_Erg_patchValues= [500,1000,2000,3000,4000,5000,6000]
+,attr_colors_FWVB_Erg_patches_fmt=”{:4.0f}”</p>
+<p>,MapOn=False</p>
+<p>)</p>
+</dd>
+<dt>attr_colors_ROHR_Sach_patchesVb,dummy,dummy,dummy,dummy=pNFD.pNFD_FW(</dt><dd><blockquote>
+<div><p>ax=ax,</p>
+<p>gdf_ROHR = gdf_ROHR_Vb.sort_values(by=[‘DI’],ascending=True)</p>
+</div></blockquote>
+<p>,attr_colors_ROHR_Erg=None
+,norm_min_ROHR_Sach=0
+,norm_max_ROHR_Sach=300
+,colors_ROHR_Sach = [‘oldlace’, ‘orange’]
+,attr_colors_ROHR_Sach_patches_fmt=”{:4.0f}”
+,attr_colors_ROHR_Sach_patchValues=[200,250]</p>
+<p>,MapOn=False
+)</p>
+</dd>
+<dt>attr_colors_ROHR_Sach_patchesX,dummy,attr_colors_FWVB_Sach_patchesX,dummy,dummy=pNFD.pNFD_FW(</dt><dd><blockquote>
+<div><blockquote>
+<div><p>ax=ax,</p>
+<dl class="simple">
+<dt>gdf_ROHR = gdf_ROHR [</dt><dd><p>(gdf_ROHR[‘KVR’].isin([1]))
+&amp;
+~(gdf_ROHR[‘QMAVAbs’]&gt;0.10)
+&amp;
+~(gdf_ROHR[‘tk’].isin(gdf_ROHR_Vb[‘tk’].values))
+&amp;
+~(gdf_ROHR[‘tk’].isin(dfLAYR[dfLAYR[‘NAME’].isin([‘Verbund ZiegelStaatsb. 2 VL’])][‘ID’].values))</p>
+</dd>
+</dl>
+<p>].sort_values(by=[‘DI’],ascending=True)</p>
+</div></blockquote>
+<p>,attr_colors_ROHR_Erg=None
+,norm_min_ROHR_Sach=0
+,norm_max_ROHR_Sach=300
+,colors_ROHR_Sach = [‘lightsteelblue’, ‘cornflowerblue’]
+,attr_colors_ROHR_Sach_zOrder=6
+,attr_colors_ROHR_Sach_patches_fmt=”{:4.0f}”
+,attr_colors_ROHR_Sach_patchValues=[25,100,150,200,250,300]</p>
+</div></blockquote>
+<p># ,attr_colors_ROHR_Sach_patchValues=[200,250]</p>
+<blockquote>
+<div><blockquote>
+<div><p># FWVB</p>
+</div></blockquote>
+<dl class="simple">
+<dt>,gdf_FWVB = gdf_FWVB[</dt><dd><p>(gdf_FWVB[‘NAME_CONT’].isin([‘M-1-0-1’]))
+&amp;
+~(gdf_FWVB[‘W0’]&gt;0.01)</p>
+</dd>
+</dl>
+<p>]#.sort_values(by=[‘W0’],ascending=False)
+,attr_colors_FWVB_Sach=’dummy’
+,attr_colors_FWVB_Sach_zOrder=5
+,attr_ms_FWVB_Sach=’dummy’
+,colors_FWVB_Sach = [‘lavender’, ‘powderblue’]
+#,norm_min_FWVB_Sach=0.9
+#,norm_max_FWVB_Sach=1.1
+,fac_ms_FWVB=8000./15
+#,norm_min_FWVB_Erg = 0
+,attr_colors_FWVB_Sach_patchValues= [1]
+,attr_colors_FWVB_Sach_patches_fmt=”{:4.0f}”</p>
+<p>,MapOn=False
+)</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>trenn_patchDNIst = mpatches.Patch(color=’white’, label=’DN (innen) breitenskaliert nach DN:’,alpha=.01)
+trenn_patchQIst = mpatches.Patch(color=’white’, label=’Fluss t/h breitenskaliert nach t/h (0-max.Fluss=Breite DN 300) dargestellt auf DN (innen):’,alpha=.01)
+trenn_patchW = mpatches.Patch(color=’white’, label=’Kunden SimKI-Mop: (Anschluss-)Leistung realtiv zueinander (max. := 6000) größenskaliert nach Leistung:’,alpha=.01)
+trenn_patchDN = mpatches.Patch(color=’white’, label=’in SimKI-Mop zu berücksichtigende Verbundleitungen breitenskaliert nach DN:’,alpha=.01)</p>
+<p>trenn_attr_colors_ROHR_Sach_patchesX=mpatches.Patch(color=’white’, label=’Leitungen in SimKI-Mop vsl. nicht zu berücksichtigen:’,alpha=.01)
+trenn_attr_colors_FWVB_Sach_patchesX=mpatches.Patch(color=’white’, label=’Kunden in SimKI-Mop vsl. nicht zu berücksichtigen:’,alpha=.01)</p>
+<p>ax.legend(handles=</p>
+<blockquote>
+<div><blockquote>
+<div><p>[trenn_patchDNIst]+attr_colors_ROHR_Sach_patches</p>
+</div></blockquote>
+<p>+[trenn_patchQIst]+attr_colors_ROHR_Erg_patches
++[trenn_patchW]+attr_colors_FWVB_Erg_patches
++[trenn_patchDN]+attr_colors_ROHR_Sach_patchesVb
++[trenn_attr_colors_ROHR_Sach_patchesX]+attr_colors_ROHR_Sach_patchesX
++[trenn_attr_colors_FWVB_Sach_patchesX]+attr_colors_FWVB_Sach_patchesX</p>
+</div></blockquote>
+<dl class="simple">
+<dt>#             +[trenn_patchW]+attr_colors_FWVB_Erg_patches2</dt><dd><p>,loc=’upper left’
+,facecolor=’white’, framealpha=.01)</p>
+</dd>
+</dl>
+<p>plotLogo(ax
+,V3_KNOT[~pd.isnull(V3_KNOT[‘NAME_CONT_VKNO’])][[‘NAME_CONT_VKNO’</p>
+<blockquote>
+<div><dl class="simple">
+<dt># ,’NAME’</dt><dd><p>,’XKOR’,’YKOR’]].groupby(by=[‘NAME_CONT_VKNO’]).mean())</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>import contextily as cx
+cx.add_basemap(ax, crs=gdf_ROHR.crs.to_string(), source = cx.providers.CartoDB.Positron, zoom = 15)</p>
+<p>plt.tight_layout()</p>
+<p>plt.savefig(‘NFDBsp.pdf’,dpi=2*Rm.dpiSize)
+plt.savefig(‘NFDBsp.png’,dpi=2*Rm.dpiSize)</p>
+<p>axAlt=ax
+axAlt.get_xlim()</p>
+<p>sorted([col for col in mx.df if re.search(‘^WBLZ’,col)])</p>
+<p>tMaxG2=mx.df[‘WBLZ~G2Staats~~5196639304551047703~WES’].idxmax().tz_convert(None)+pd.Timedelta(‘1 hour’)</p>
+<p>G2StaatsNodeIDs=dfWBLZ[dfWBLZ[‘NAME’].isin([‘G2Staats’])][‘ID’].values</p>
+<dl class="simple">
+<dt>gdf_ROHR_G2Staats = gdf_ROHR[</dt><dd><p>(gdf_ROHR[‘fkKI’].isin(G2StaatsNodeIDs))
+&amp;
+(gdf_ROHR[‘fkKK’].isin(G2StaatsNodeIDs))
+&amp;
+(gdf_ROHR[‘QMAVAbs’]&gt;0.10)
+&amp;
+(gdf_ROHR[‘KVR’].isin([1]))</p>
+</dd>
+</dl>
+<p>]</p>
+<dl class="simple">
+<dt>gdf_FWVB_G2Staats = gdf_FWVB[</dt><dd><p>(gdf_FWVB[‘fkKI’].isin(G2StaatsNodeIDs))
+&amp;
+(gdf_FWVB[‘fkKK’].isin(G2StaatsNodeIDs))
+&amp;
+(gdf_FWVB[‘NAME_CONT’].isin([‘M-1-0-1’]))
+&amp;
+(gdf_FWVB[‘W0’]&gt;0.01)</p>
+</dd>
+</dl>
+<p>]</p>
+<p>G1HoffLohNodeIDs=dfWBLZ[dfWBLZ[‘NAME’].isin([‘G1HoffLoh’])][‘ID’].values</p>
+<dl class="simple">
+<dt>gdf_ROHR_G1HoffLoh = gdf_ROHR[</dt><dd><p>(gdf_ROHR[‘fkKI’].isin(G1HoffLohNodeIDs))
+&amp;
+(gdf_ROHR[‘fkKK’].isin(G1HoffLohNodeIDs))
+&amp;
+(gdf_ROHR[‘QMAVAbs’]&gt;0.10)
+&amp;
+(gdf_ROHR[‘KVR’].isin([1]))</p>
+</dd>
+</dl>
+<p>]</p>
+<dl class="simple">
+<dt>gdf_FWVB_G1HoffLoh = gdf_FWVB[</dt><dd><p>(gdf_FWVB[‘fkKI’].isin(G1HoffLohNodeIDs))
+&amp;
+(gdf_FWVB[‘fkKK’].isin(G1HoffLohNodeIDs))
+&amp;
+(gdf_FWVB[‘NAME_CONT’].isin([‘M-1-0-1’]))
+&amp;
+(gdf_FWVB[‘W0’]&gt;0.01)</p>
+</dd>
+</dl>
+<p>]</p>
+<p>G3ZiegelNodeIDs=dfWBLZ[dfWBLZ[‘NAME’].isin([‘G3Ziegel’])][‘ID’].values</p>
+<dl class="simple">
+<dt>gdf_ROHR_G3Ziegel = gdf_ROHR[</dt><dd><p>(gdf_ROHR[‘fkKI’].isin(G3ZiegelNodeIDs))
+&amp;
+(gdf_ROHR[‘fkKK’].isin(G3ZiegelNodeIDs))
+&amp;
+(gdf_ROHR[‘QMAVAbs’]&gt;0.10)
+&amp;
+(gdf_ROHR[‘KVR’].isin([1]))</p>
+</dd>
+</dl>
+<p>]</p>
+<dl class="simple">
+<dt>gdf_FWVB_G3Ziegel = gdf_FWVB[</dt><dd><p>(gdf_FWVB[‘fkKI’].isin(G3ZiegelNodeIDs))
+&amp;
+(gdf_FWVB[‘fkKK’].isin(G3ZiegelNodeIDs))
+&amp;
+(gdf_FWVB[‘NAME_CONT’].isin([‘M-1-0-1’]))
+&amp;
+(gdf_FWVB[‘W0’]&gt;0.01)</p>
+</dd>
+</dl>
+<p>]</p>
+<p>tA=pd.Timestamp(mx.df.index[0].strftime(‘%Y-%m-%d %X.%f’))
+tE=pd.Timestamp(mx.df.index[-1].strftime(‘%Y-%m-%d %X.%f’))</p>
+<p>idxWES=(‘TMAX’,’WBLZ~*~*~*~WES’,tA,tE)
+idxWVB=(‘TMAX’,’WBLZ~*~*~*~WVB’,tA,tE)
+#idxWVERL=(‘TMAX’,’WBLZ~*~*~*~WVERL’,tA,tE)</p>
+<p>m.V3_WBLZ#[m.V3_WBLZ[‘NAME’]==’G2Staats’]</p>
+<p># Plotten
+fig=plt.figure(figsize=Rm.DINA2q,dpi=Rm.dpiSize)</p>
+<p>ax=fig.gca()</p>
+<dl>
+<dt>for gdfR,gdfF,cm in zip([gdf_ROHR_G2Staats,gdf_ROHR_G1HoffLoh,gdf_ROHR_G3Ziegel],[gdf_FWVB_G2Staats,gdf_FWVB_G1HoffLoh,gdf_FWVB_G3Ziegel],[[‘pink’, ‘hotpink’],[‘plum’, ‘violet’],[‘lightblue’, ‘lightskyblue’]]):</dt><dd><blockquote>
+<div><dl class="simple">
+<dt>attr_colors_ROHR_Sach_patches,attr_colors_ROHR_Erg_patches,attr_colors_FWVB_Sach_patches,attr_colors_FWVB_Erg_patches,dummy=pNFD.pNFD_FW(</dt><dd><p>ax=ax</p>
+</dd>
+</dl>
+<p># ROHR</p>
+</div></blockquote>
+<p>,gdf_ROHR = gdfR.sort_values(by=[‘DI’],ascending=True)   # kleine zuerst (große ueber kleine)</p>
+<p>,attr_colors_ROHR_Erg=None
+,norm_min_ROHR_Sach=0
+,norm_max_ROHR_Sach=300
+,colors_ROHR_Sach = cm#[‘pink’, ‘hotpink’]
+,attr_colors_ROHR_Sach_patches_fmt=”{:4.0f}”
+,attr_colors_ROHR_Sach_patchValues=[25,100,150,200,250,300]</p>
+<blockquote>
+<div><p># FWVB</p>
+</div></blockquote>
+<p>,gdf_FWVB = gdfF.sort_values(by=[‘W’],ascending=False) # große zuerst (kleine ueber große)
+,attr_colors_FWVB_Erg=’W’
+,norm_min_FWVB_Erg = 500
+,attr_colors_FWVB_Erg_patches_fmt=”{:4.0f}”
+,attr_colors_FWVB_Erg_patchValues= [500,1000,2000,3000,4000,5000,6000]</p>
+<p>,MapOn=False</p>
+<p>)</p>
+</dd>
+</dl>
+<p>s=m.V3_WBLZ[m.V3_WBLZ[‘NAME’]==’G2Staats’].iloc[0]
+patchG2Staats = mpatches.Patch(color=’hotpink’, label=’ Wärmebilanz Staatsbad:n {tMax:s}n {WESTxt:s} {WES:5.2f} MW n {WVBTxt:s} {WVB:5.2f} MW n {WVERLTxt:s} {WVERL:5.2f}n {WpKmTxt:s} {WpKm:5.2f} n {WpVolTxt:s} {WpVol:5.2f}’.format(</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>tMax=str(tMaxG2)</p>
+</div></blockquote>
+<p>,WES=s[idxWES]
+,WVB=s[idxWVB]
+,WVERL=(s[idxWES]-s[idxWVB])/s[idxWES]*100
+,WpKm=s[idxWVB]/(gdf_ROHR_G2Staats[‘L’].sum()/1000)
+,WpVol=s[idxWVB]/(gdf_ROHR_G2Staats[‘V’].sum())
+,WESTxt=’Erzeugung:’.ljust(18)
+,WVBTxt=’Last:’.ljust(18)
+,WVERLTxt=’Verluste in %:’.ljust(18)
+,WpKmTxt=’MW pro km Ltg.:’.ljust(18)
+,WpVolTxt=’MW pro m3 Heizw.:’.ljust(18)
+)</p>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<p>s=m.V3_WBLZ[m.V3_WBLZ[‘NAME’]==’G1HoffLoh’].iloc[0]
+patchG1HoffLoh = mpatches.Patch(color=’violet’, label=’ Wärmebilanz Hoffmann/Lohfeld:n STWBSU Planstandn {WESTxt:s} {WES:5.2f} MW n {WVBTxt:s} {WVB:5.2f} MW n {WVERLTxt:s} {WVERL:5.2f}n {WpKmTxt:s} {WpKm:5.2f} n {WpVolTxt:s} {WpVol:5.2f}’.format(</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>tMax=str(tMaxG2)</p>
+</div></blockquote>
+<p>,WES=s[idxWES]
+,WVB=s[idxWVB]
+,WVERL=(s[idxWES]-s[idxWVB])/s[idxWES]*100
+,WpKm=s[idxWVB]/(gdf_ROHR_G2Staats[‘L’].sum()/1000)
+,WpVol=s[idxWVB]/(gdf_ROHR_G2Staats[‘V’].sum())
+,WESTxt=’Erzeugung:’.ljust(18)
+,WVBTxt=’Last:’.ljust(18)
+,WVERLTxt=’Verluste in %:’.ljust(18)
+,WpKmTxt=’MW pro km Ltg.:’.ljust(18)
+,WpVolTxt=’MW pro m3 Heizw.:’.ljust(18)
+)</p>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<p>s=m.V3_WBLZ[m.V3_WBLZ[‘NAME’]==’G3Ziegel’].iloc[0]
+patchG3Ziegel  = mpatches.Patch(color=’lightskyblue’, label=’ Wärmebilanz Ziegelstr.:n STWBSU Planstandn {WESTxt:s} {WES:5.2f} MW n {WVBTxt:s} {WVB:5.2f} MW n {WVERLTxt:s} {WVERL:5.2f}n {WpKmTxt:s} {WpKm:5.2f} n {WpVolTxt:s} {WpVol:5.2f}’.format(</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>tMax=str(tMaxG2)</p>
+</div></blockquote>
+<p>,WES=s[idxWES]
+,WVB=s[idxWVB]
+,WVERL=(s[idxWES]-s[idxWVB])/s[idxWES]*100
+,WpKm=s[idxWVB]/(gdf_ROHR_G2Staats[‘L’].sum()/1000)
+,WpVol=s[idxWVB]/(gdf_ROHR_G2Staats[‘V’].sum())
+,WESTxt=’Erzeugung:’.ljust(18)
+,WVBTxt=’Last:’.ljust(18)
+,WVERLTxt=’Verluste in %:’.ljust(18)
+,WpKmTxt=’MW pro km Ltg.:’.ljust(18)
+,WpVolTxt=’MW pro m3 Heizw.:’.ljust(18)
+)</p>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<p>import matplotlib.font_manager as font_manager
+font = font_manager.FontProperties(family=’monospace’,</p>
+<blockquote>
+<div><p>weight=’bold’,
+style=’normal’, size=16)</p>
+</div></blockquote>
+<dl>
+<dt>G2StaatsL=ax.legend(handles=</dt><dd><blockquote>
+<div><blockquote>
+<div><p>[patchG2Staats]</p>
+</div></blockquote>
+<p>,loc=’upper right’</p>
+</div></blockquote>
+<p>#   ,facecolor=’white’
+,prop=font
+, framealpha=.01)</p>
+</dd>
+<dt>G1HoffLohL=ax.legend(handles=</dt><dd><blockquote>
+<div><blockquote>
+<div><p>[patchG1HoffLoh]</p>
+</div></blockquote>
+<p>,loc=’upper right’
+,bbox_to_anchor=(0.5, 0., 0.5, 0.75)</p>
+</div></blockquote>
+<p>#   ,facecolor=’white’
+,prop=font
+, framealpha=.01)</p>
+</dd>
+<dt>G3ZiegelL=ax.legend(handles=</dt><dd><blockquote>
+<div><blockquote>
+<div><p>[patchG3Ziegel]</p>
+</div></blockquote>
+<p>,loc=’upper left’</p>
+</div></blockquote>
+<p>#   ,facecolor=’white’
+,prop=font
+, framealpha=.01)</p>
+</dd>
+</dl>
+<p>from matplotlib import pyplot
+pyplot.gca().add_artist(G2StaatsL)
+pyplot.gca().add_artist(G1HoffLohL)</p>
+<p>ax.set_xlim(axAlt.get_xlim())
+ax.set_ylim(axAlt.get_ylim())</p>
+<p>plotLogo(ax
+,V3_KNOT[~pd.isnull(V3_KNOT[‘NAME_CONT_VKNO’])][[‘NAME_CONT_VKNO’</p>
+<blockquote>
+<div><dl class="simple">
+<dt># ,’NAME’</dt><dd><p>,’XKOR’,’YKOR’]].groupby(by=[‘NAME_CONT_VKNO’]).mean())</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>import contextily as cx
+cx.add_basemap(ax, crs=gdf_ROHR.crs.to_string(), source = cx.providers.CartoDB.Positron, zoom = 15)</p>
+<p>plt.tight_layout()</p>
+<p>plt.savefig(‘NFDBspMitWblz.pdf’,dpi=2*Rm.dpiSize)
+plt.savefig(‘NFDBspMitWblz.png’,dpi=2*Rm.dpiSize)</p>
+<p>dfLAYR.head()</p>
+<p>s=”KNOT~123t”.encode(‘utf-8’)+”KNOT~456t”.encode(‘utf-8’)
+s</p>
+<p>s.decode(‘utf-8’).split(’t’)</p>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">PT3S</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, 3S Consult GmbH.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/.virtual_documents/FW_Bad_Salzuflen.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -7,6 +7,8 @@
     <title>dxAndMxHelperFcts &#8212; PT3S 90.14.15.0.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b3523f8e" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=cb25574f" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=53475a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=53475a3b" />
     <script src="../_static/documentation_options.js?v=cdfdd26d"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -59,6 +61,8 @@
 <span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">import</span> <span class="nn">pickle</span>
+
+<span class="kn">import</span> <span class="nn">geopandas</span>
 
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
@@ -204,7 +208,23 @@
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
-                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing V3_WBLZ failed.&#39;</span><span class="p">))</span> 
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing V3_WBLZ failed.&#39;</span><span class="p">))</span>
+                
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;EPSG:25832&#39;</span> 
+                
+                    <span class="n">gs</span><span class="o">=</span><span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="o">.</span><span class="n">from_wkb</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">[</span><span class="s1">&#39;GEOMWKB&#39;</span><span class="p">],</span><span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gdf_FWVB</span><span class="o">=</span><span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">,</span><span class="n">geometry</span><span class="o">=</span><span class="n">gs</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
+                
+                    <span class="n">gs</span><span class="o">=</span><span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="o">.</span><span class="n">from_wkb</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="s1">&#39;GEOMWKB&#39;</span><span class="p">],</span><span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gdf_ROHR</span><span class="o">=</span><span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">,</span><span class="n">geometry</span><span class="o">=</span><span class="n">gs</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s2">&quot;Constructing of gdf_FWVB and gdf_ROHR ok so far.&quot;</span><span class="p">))</span>  
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing gdf_FWVB and gdf_ROHR failed.&#39;</span><span class="p">))</span>
+
+                
                                 
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1"># Graph bauen    </span>

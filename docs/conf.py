@@ -33,10 +33,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+html_css_files = ['custom.css']
+
 # This function will be called before Sphinx starts to build documents.
 def setup(app):
-    # Call nbconvert via subprocess to convert your notebook to rst format
-    subprocess.call(['jupyter', 'nbconvert', '--to', 'rst','Example1.ipynb'])
-    subprocess.call(['jupyter', 'nbconvert', '--to', 'rst','Example2.ipynb'])
+    app.add_css_file('custom.css')
 
 
