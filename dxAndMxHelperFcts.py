@@ -93,6 +93,8 @@ class dxWithMx():
                 self.V3_ROHR=V3sErg['V3_ROHR']
                 self.V3_KNOT=V3sErg['V3_KNOT']
                 self.V3_FWVB=V3sErg['V3_FWVB']
+                
+                # ROHR 
                                 
                 try:                                    
                     t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
@@ -146,9 +148,9 @@ class dxWithMx():
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.'))                              
-                    
-                try:                                    
-                     
+                                        
+                # FWVB  
+                try:                                                         
                      W=('STAT'
                                  ,'FWVB~*~*~*~W'
                                  ,t0
@@ -160,6 +162,48 @@ class dxWithMx():
                      logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                      logger.debug(logStrTmp) 
                      logger.debug("{0:s}{1:s}".format(logStr,'Constructing col W in V3_FWVB failed.'))   
+                     
+                try:                                             
+                     QM=('STAT'
+                                 ,'FWVB~*~*~*~QM'
+                                 ,t0
+                                 ,t0
+                                 )
+                     self.V3_FWVB['QM']=self.V3_FWVB[QM]
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['QM'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_FWVB failed.'))     
+                     
+                try:     
+                     TI=('STAT'
+                                 ,'FWVB~*~*~*~TI'
+                                 ,t0
+                                 ,t0
+                                 )
+                     self.V3_FWVB['TI']=self.V3_FWVB[TI]
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TI'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TI in V3_FWVB failed.'))    
+
+                try:     
+                     TK=('STAT'
+                                 ,'FWVB~*~*~*~TK'
+                                 ,t0
+                                 ,t0
+                                 )
+                     self.V3_FWVB['TK']=self.V3_FWVB[TK]
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TK'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TK in V3_FWVB failed.'))    
+                     
+                
+                # WBLZ
                 
                 try:                
                     V_WBLZ=self.dx.dataFrames['V_WBLZ']

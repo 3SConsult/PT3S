@@ -1211,7 +1211,7 @@ class Dx():
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
     # ,readFromMxs=False):
-    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExp='^KNOT~\*~\*~\*~PH$'):
+    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExp='^KNOT~\*~\*~\*~PH$', multiIndex=False):
         """
         adds Vec-Results using mx' getVecAggsResultsForObjectType to V3_KNOT, V3_ROHR, V3_FWVB, ggf. weitere
 
@@ -1250,9 +1250,18 @@ class Dx():
                     # die zur Ergänzung gewünschten Ergebnisspalten von Knoten
                     dfKnotRes = dfKnotRes.loc[:, (slice(
                         None), Sir3sIDsMatching, slice(None), slice(None))]
-                    dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
+                    
+                    if not multiIndex:
+                        dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
+                    else:
+                        pass
+                        #ni
 
-                dfRes.columns = dfRes.columns.to_flat_index()
+                if not multiIndex:
+                    dfRes.columns = dfRes.columns.to_flat_index()
+                else:
+                    pass
+                    #ni
 
                 # Sachspalten lesen
                 df = self.dataFrames[dfName]
@@ -1604,14 +1613,13 @@ class Dx():
             * updInverseValue:
                 * wenn nicht NULL, werden alle Komplemente auf den Wert gesetzt
                 
-        
         Raises
         ------
         DxError
 
         Returns
         -------
-        None
+            * rowsAffectedTotal
 
         """
 
@@ -1651,7 +1659,9 @@ class Dx():
                 con.commit()
 
                 return rowsAffected
-                                    
+                       
+            rowsAffectedTotal=0  
+            
             try:                
                 for index, row in dfUpd.iterrows():
                     sqlCmd = '''UPDATE {table:s} SET {attrib:s} = ? WHERE {xk:s} = ?'''.format(table=row['table'],attrib=row['attrib'],xk=row['xk'])
@@ -1659,6 +1669,7 @@ class Dx():
                     logger.debug("{:s}{:s}".format(logStr,logStrSql))
                     rowsAffected=updateFct(con,sqlCmd,row['xkValue'],row['attribValue'])
                     logger.debug("{:s}rowsAffected: {:s}".format(logStr,str(rowsAffected)))
+                    rowsAffectedTotal=rowsAffectedTotal+rowsAffected
                     
                 if updInverseValue!= None:
                     
@@ -1675,6 +1686,7 @@ class Dx():
                              logger.debug("{:s}{:s}".format(logStr,logStrSql))
                              rowsAffected=updateFct(con,sqlCmd,row[xk],updInverseValue)
                              logger.debug("{:s}rowsAffected: {:s}".format(logStr,str(rowsAffected)))
+                             rowsAffectedTotal=rowsAffectedTotal+rowsAffected
                                                     
             except Exception as e:
                 logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
@@ -1690,7 +1702,8 @@ class Dx():
            logger.error(logStrFinal)
     
         finally:
-           logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))       
+           logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))      
+           return rowsAffectedTotal
 
 
 def fHelperSqlText(sql, ext='.db3'):
