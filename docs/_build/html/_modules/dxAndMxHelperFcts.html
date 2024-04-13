@@ -105,7 +105,7 @@
 <span class="k">class</span> <span class="nc">dxWithMx</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for dx with attached mx</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         
         <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Start.&#39;</span><span class="p">))</span> 
@@ -127,6 +127,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">=</span><span class="n">V3sErg</span><span class="p">[</span><span class="s1">&#39;V3_ROHR&#39;</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">V3_KNOT</span><span class="o">=</span><span class="n">V3sErg</span><span class="p">[</span><span class="s1">&#39;V3_KNOT&#39;</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="o">=</span><span class="n">V3sErg</span><span class="p">[</span><span class="s1">&#39;V3_FWVB&#39;</span><span class="p">]</span>
+                
+                <span class="c1"># ROHR </span>
                                 
                 <span class="k">try</span><span class="p">:</span>                                    
                     <span class="n">t0</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1">.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">))</span>
@@ -180,9 +182,9 @@
                     <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.&#39;</span><span class="p">))</span>                              
-                    
-                <span class="k">try</span><span class="p">:</span>                                    
-                     
+                                        
+                <span class="c1"># FWVB  </span>
+                <span class="k">try</span><span class="p">:</span>                                                         
                      <span class="n">W</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span>
                                  <span class="p">,</span><span class="s1">&#39;FWVB~*~*~*~W&#39;</span>
                                  <span class="p">,</span><span class="n">t0</span>
@@ -194,6 +196,48 @@
                      <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
                      <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
                      <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing col W in V3_FWVB failed.&#39;</span><span class="p">))</span>   
+                     
+                <span class="k">try</span><span class="p">:</span>                                             
+                     <span class="n">QM</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span>
+                                 <span class="p">,</span><span class="s1">&#39;FWVB~*~*~*~QM&#39;</span>
+                                 <span class="p">,</span><span class="n">t0</span>
+                                 <span class="p">,</span><span class="n">t0</span>
+                                 <span class="p">)</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">[</span><span class="s1">&#39;QM&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">[</span><span class="n">QM</span><span class="p">]</span>
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s2">&quot;Constructing of V3_FWVB[&#39;QM&#39;] ok so far.&quot;</span><span class="p">))</span>                                                      
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                     <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing col QM in V3_FWVB failed.&#39;</span><span class="p">))</span>     
+                     
+                <span class="k">try</span><span class="p">:</span>     
+                     <span class="n">TI</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span>
+                                 <span class="p">,</span><span class="s1">&#39;FWVB~*~*~*~TI&#39;</span>
+                                 <span class="p">,</span><span class="n">t0</span>
+                                 <span class="p">,</span><span class="n">t0</span>
+                                 <span class="p">)</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">[</span><span class="s1">&#39;TI&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">[</span><span class="n">TI</span><span class="p">]</span>
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s2">&quot;Constructing of V3_FWVB[&#39;TI&#39;] ok so far.&quot;</span><span class="p">))</span>                                                      
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                     <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing col TI in V3_FWVB failed.&#39;</span><span class="p">))</span>    
+
+                <span class="k">try</span><span class="p">:</span>     
+                     <span class="n">TK</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span>
+                                 <span class="p">,</span><span class="s1">&#39;FWVB~*~*~*~TK&#39;</span>
+                                 <span class="p">,</span><span class="n">t0</span>
+                                 <span class="p">,</span><span class="n">t0</span>
+                                 <span class="p">)</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">[</span><span class="s1">&#39;TK&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">[</span><span class="n">TK</span><span class="p">]</span>
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s2">&quot;Constructing of V3_FWVB[&#39;TK&#39;] ok so far.&quot;</span><span class="p">))</span>                                                      
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                     <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
+                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing col TK in V3_FWVB failed.&#39;</span><span class="p">))</span>    
+                     
+                
+                <span class="c1"># WBLZ</span>
                 
                 <span class="k">try</span><span class="p">:</span>                
                     <span class="n">V_WBLZ</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;V_WBLZ&#39;</span><span class="p">]</span>
@@ -210,8 +254,21 @@
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing V3_WBLZ failed.&#39;</span><span class="p">))</span>
                 
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">crs</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>               
+                        <span class="n">dfSG</span><span class="o">=</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;SIRGRAF&#39;</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="s1">&#39;SRID2&#39;</span> <span class="ow">in</span> <span class="n">dfSG</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">dfSG</span><span class="p">[</span><span class="s1">&#39;SRID2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">crs</span> <span class="o">=</span> <span class="s1">&#39;EPSG:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dfSG</span><span class="p">[</span><span class="s1">&#39;SRID2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">crs</span> <span class="o">=</span> <span class="s1">&#39;EPSG:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dfSG</span><span class="p">[</span><span class="s1">&#39;SRID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2"> </span><span class="si">{2:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;crs reading successful: &#39;</span><span class="p">,</span> <span class="n">crs</span><span class="p">))</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;crs reading error&#39;</span><span class="p">))</span>  
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2"> </span><span class="si">{2:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;crs give value used: &#39;</span><span class="p">,</span> <span class="n">crs</span><span class="p">))</span>
+                
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;EPSG:25832&#39;</span> 
+                    <span class="c1">#crs=&#39;EPSG:25832&#39; </span>
                 
                     <span class="n">gs</span><span class="o">=</span><span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="o">.</span><span class="n">from_wkb</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">[</span><span class="s1">&#39;GEOMWKB&#39;</span><span class="p">],</span><span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">gdf_FWVB</span><span class="o">=</span><span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_FWVB</span><span class="p">,</span><span class="n">geometry</span><span class="o">=</span><span class="n">gs</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
@@ -294,7 +351,8 @@
                 <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">forceSir3sRead</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">maxRecords</span><span class="o">=</span><span class="kc">None</span>
-                <span class="p">,</span><span class="n">mxsVecsResults2MxDf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                <span class="p">,</span><span class="n">mxsVecsResults2MxDf</span><span class="o">=</span><span class="kc">None</span>
+                <span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.</span>
@@ -320,6 +378,9 @@
 <span class="sd">                                        &#39;ROHR~\*~\*~\*~DSK&#39;</span>
 <span class="sd">                                        </span>
 <span class="sd">                                    ]</span>
+<span class="sd">    </span>
+<span class="sd">        crs (str, optional, default=None):</span>
+<span class="sd">            (=coordinate reference system) Determines depicted geographic space on maps (Possible value:&#39;EPSG:25832&#39;). If None, crs will be read from the dbFile.      </span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
 <span class="sd">        dxWithMx: An object containing the SIR 3S model and SIR 3S results.</span>
@@ -659,7 +720,7 @@
                         
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dbFileDxMxPklRead</span><span class="p">:</span>
             <span class="c1">#</span>
-            <span class="n">m</span> <span class="o">=</span> <span class="n">dxWithMx</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">)</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">dxWithMx</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">,</span><span class="n">crs</span><span class="p">)</span>
             
             <span class="k">if</span> <span class="ow">not</span> <span class="n">preventPklDump</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">dbFileDxMxPkl</span><span class="p">):</span>
@@ -689,6 +750,8 @@
             
         <span class="k">else</span><span class="p">:</span>
             <span class="k">pass</span>
+        
+        
  
      <span class="c1">### Modellergebnisse lesen                        </span>
         

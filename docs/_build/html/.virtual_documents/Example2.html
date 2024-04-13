@@ -43,10 +43,12 @@ import logging</p>
 <dt>except:</dt><dd><p>import dxAndMxHelperFcts</p>
 </dd>
 </dl>
-<p>#import sys
-#dev_path = r’C:Usersjablonski3SPT3S’
-#sys.path.insert(0, os.path.abspath(dev_path))
-#import dxAndMxHelperFcts</p>
+<p>#Entwicklungsversion von PT3S
+import sys
+dev_path = r’C:Usersjablonski3SPT3S’
+sys.path.insert(0, os.path.abspath(dev_path))
+import dxAndMxHelperFcts
+import inspect</p>
 <p>logger = logging.getLogger()</p>
 <p>logFileName= r”Example2.log”</p>
 <p>loglevel = logging.DEBUG
@@ -76,17 +78,12 @@ V3_ROHR=m.V3_ROHR</p>
 # in Oldenburg muss die aufkommende Frage mit Nein beantwortet werden</p>
 <p>V3_FWVB = V3_FWVB.dropna(subset=[‘GEOMWKB’])
 V3_ROHR = V3_ROHR.dropna(subset=[‘GEOMWKB’])</p>
-<p>crs=’EPSG:25832’</p>
-<p>gs=geopandas.GeoSeries.from_wkb(V3_FWVB[‘GEOMWKB’],crs=crs)
-gdf_FWVB=geopandas.GeoDataFrame(V3_FWVB,geometry=gs,crs=crs)</p>
-<p>gs=geopandas.GeoSeries.from_wkb(V3_ROHR[‘GEOMWKB’],crs=crs)
-gdf_ROHR=geopandas.GeoDataFrame(V3_ROHR,geometry=gs,crs=crs)</p>
+<p>gdf_ROHR=m.gdf_ROHR
+gdf_FWVB=m.gdf_FWVB</p>
+<p>gdf_ROHR = gdf_ROHR.dropna(subset=[‘geometry’, ‘QMAVAbs’, ‘KVR’])
+gdf_FWVB = gdf_FWVB.dropna(subset=[‘geometry’, ‘W’])</p>
 <p>ma=gdf_ROHR[gdf_ROHR[‘KVR’].isin([1.,None])].loc[:,[‘geometry’, ‘QMAVAbs’]].explore(color = ‘grey’)
 gdf_FWVB.loc[:,[‘geometry’,’W’]].explore(color=’red’,m=ma)</p>
-<p>#gdf_ROHR=m.gdf_ROHR
-#gdf_FWVB=m.gdf_FWVB</p>
-<p>#ma=gdf_ROHR[gdf_ROHR[‘KVR’].isin([1.,None])].loc[:,[‘geometry’, ‘QMAVAbs’]].explore(color = ‘grey’)
-#gdf_FWVB.loc[:,[‘geometry’,’W’]].explore(color=’red’,m=ma)</p>
 
 
           </div>

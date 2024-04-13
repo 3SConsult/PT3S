@@ -71,7 +71,7 @@ class dxWithMxError(Exception):
 class dxWithMx():
     """Wrapper for dx with attached mx
     """
-    def __init__(self,dx,mx):
+    def __init__(self,dx,mx,crs=None):
         
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
@@ -220,9 +220,20 @@ class dxWithMx():
                     logger.debug(logStrTmp) 
                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_WBLZ failed.'))
                 
-                try:
-                    crs='EPSG:25832' 
+                if not crs:
+                    try:               
+                        dfSG=dx.dataFrames['SIRGRAF']
+                        if 'SRID2' in dfSG.columns and dfSG['SRID2'].iloc[1] is not None:
+                            crs = 'EPSG:' + str(int(dfSG['SRID2'].iloc[1]))
+                        else:
+                            crs = 'EPSG:' + str(int(dfSG['SRID'].iloc[1]))
+                        logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs reading successful: ', crs))
+                    except:
+                        logger.debug("{0:s}{1:s}".format(logStr,'crs reading error'))  
+                else:
+                    logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs give value used: ', crs))
                 
+                try:
                     gs=geopandas.GeoSeries.from_wkb(self.V3_FWVB['GEOMWKB'],crs=crs)
                     self.gdf_FWVB=geopandas.GeoDataFrame(self.V3_FWVB,geometry=gs,crs=crs)
                 
@@ -302,7 +313,8 @@ def readDxAndMx(dbFile
                 ,preventPklDump=False
                 ,forceSir3sRead=False
                 ,maxRecords=None
-                ,mxsVecsResults2MxDf=None):
+                ,mxsVecsResults2MxDf=None
+                ,crs=None):
 
     """
     Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.
@@ -328,6 +340,9 @@ def readDxAndMx(dbFile
                                         'ROHR~\*~\*~\*~DSK'
                                         
                                     ]
+    
+        crs (str, optional, default=None):
+            (=coordinate reference system) Determines depicted geographic space on maps (Possible value:'EPSG:25832'). If None, crs will be read from the dbFile.      
     
     Returns:
         dxWithMx: An object containing the SIR 3S model and SIR 3S results.
@@ -664,10 +679,20 @@ def readDxAndMx(dbFile
                                 )
                                 )                            
                         
+        #Alternative crs 
+        #if crs:
+        #    try:               
+        #        dx.dataFrames['SIRGRAF']['SRID'].iloc[1]=crs
+        #        dx.dataFrames['SIRGRAF']['SRID2'].iloc[1]=crs
+        #        logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs reading successful: ', crs))
+        #    except:
+        #        logger.debug("{0:s}{1:s}".format(logStr,'crs reading error'))  
+        #else:
+        #    logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs ok so far: ', crs))                
                         
         if not dbFileDxMxPklRead:
             #
-            m = dxWithMx(dx,mx)
+            m = dxWithMx(dx,mx,crs)
             
             if not preventPklDump:
                 if isfile(dbFileDxMxPkl):
@@ -697,6 +722,8 @@ def readDxAndMx(dbFile
             
         else:
             pass
+        
+        
  
      ### Modellergebnisse lesen                        
         

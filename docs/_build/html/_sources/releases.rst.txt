@@ -5,4 +5,11 @@ Releases
 ---------------
     readDxAndMx:
         preventPklDump:
-            True now forces SIR 3S sources to be read because pickles are deleted if existing before timecheck pickles vs. SIR 3S sources is performed
+            True now forces SIR 3S sources to be read because pickles are deleted if existing before timecheck pickles vs. SIR 3S sources is performed.
+        dxWithMx (readDxAndMx):
+            V3_FWVB: new columns: QM, TI, TK
+    Dx:
+        update:
+            returns now rowsAffectedTotal
+    
+            
