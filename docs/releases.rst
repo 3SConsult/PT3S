@@ -3,16 +3,15 @@ Releases
 
 90.14.18.0.dev1
 ---------------
+    readDxAndMx:
 
-readDxAndMx:
-
-    mxsVecsResults2MxDfVecAggs: new
-        (list, optional, default=None): 
-            List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs.
-        
-    crs: new   
-        (str, optional, default=None):
-            (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from the dbFile.                          
+        mxsVecsResults2MxDfVecAggs: new
+            (list, optional, default=None): 
+                List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs.
+            
+        crs: new   
+            (str, optional, default=None):
+                (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from the dbFile.                          
         
     dxWithMx:
         new: geopandas-Dfs: gdf_KNOT, gdf_ROHR, gdf_FWVB
