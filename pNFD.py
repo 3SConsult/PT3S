@@ -161,8 +161,9 @@ def pNFD_FW(
 
                 ,colors_KNOT_ErgNeg = ['yellowgreen','sienna']
                 # wenn nicht None, dann werden negative Werte mit dieser Farbe gezeichnet
-                # beide Farbskalen (die dann pos. und diese neg.) werden dann voll ausgenutzt, wenn norm_max_KNOT_Erg nicht vorgegeben wird          
-                # die Groesse erstreckt sich ueber den Absolutwert d.h. z.B. -.25 ist so gross wie +.25 
+                # norm_max_KNOT_Erg nicht vorgegeben:
+                #   beide Farbskalen (die pos. und diese neg.) werden voll ausgenutzt
+                #   die Groesse erstreckt sich ueber den Absolutwert d.h. z.B. -.25 ist so gross wie +.25 
 
                 ,fac_ms_KNOT = None  # fac_ms_FWVB oder 8000.  wenn beides undefiniert
 
@@ -480,17 +481,16 @@ def pNFD_FW(
             attr_colors_KNOT_Erg_patchesNeg=[]                      
             if not gdf_KNOT.empty and attr_colors_KNOT_Erg != None:
 
-                minValue=gdf_KNOT[attr_colors_KNOT_Erg].astype(float).min()
+                ##minValue=gdf_KNOT[attr_colors_KNOT_Erg].astype(float).min()
                 
                 # Erstellen der Colormaps 
                 cmap_KNOTErg = matplotlib.colors.LinearSegmentedColormap.from_list('cmap_KNOTErg', colors_KNOT_Erg, N = 256)     
+                minValue=gdf_KNOT[attr_colors_KNOT_Erg].astype(float).min()
                 if colors_KNOT_ErgNeg != None and minValue <0:                    
-                    cmap_KNOTErgNeg = matplotlib.colors.LinearSegmentedColormap.from_list('cmap_KNOTErgNeg', colors_KNOT_ErgNeg, N = 256)  
-                    
-                # Funktionsweise Farbskalen: Werte ]0,1[ erhalten die Randfarben 0,1
+                    cmap_KNOTErgNeg = matplotlib.colors.LinearSegmentedColormap.from_list('cmap_KNOTErgNeg', colors_KNOT_ErgNeg, N = 256)                      
+                # Funktionsweise Farbskalen nach Normierung: Werte ]0,1[ erhalten die Randfarben 0,1
             
-                # Normierung fuer Groesse
-                # auch Normierung fuer Farbe, wenn mit einer Farbe gezeichnet wird
+                # Normierungen fuer Groesse und Farbe                
                 if norm_min_KNOT_Erg == None:       
                     if colors_KNOT_ErgNeg != None and minValue <0:
                         norm_min_KNOT_Erg=0.
@@ -498,9 +498,7 @@ def pNFD_FW(
                         norm_min_KNOT_Erg=gdf_KNOT[attr_colors_KNOT_Erg].astype(float).min()    
                 if norm_max_KNOT_Erg == None:
                     if colors_KNOT_ErgNeg != None and minValue <0:
-                        norm_max_KNOT_Erg=max(gdf_KNOT[attr_colors_KNOT_Erg].astype(float).max(),-gdf_KNOT[attr_colors_KNOT_Erg].astype(float).min())
-
-                        # Farbnormierungen
+                        norm_max_KNOT_Erg=max(gdf_KNOT[attr_colors_KNOT_Erg].astype(float).max(),-gdf_KNOT[attr_colors_KNOT_Erg].astype(float).min())                        
                         norm_KNOTErg_color=plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=gdf_KNOT[attr_colors_KNOT_Erg].astype(float).max())  
                         norm_KNOTErgNeg_color=plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=-gdf_KNOT[attr_colors_KNOT_Erg].astype(float).min())  
                     else:
@@ -508,15 +506,9 @@ def pNFD_FW(
                 else:                    
                     # Farbnormierungen
                     norm_KNOTErg_color=plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=norm_max_KNOT_Erg)  
-                    norm_KNOTErgNeg_color=plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=norm_max_KNOT_Erg)  
-                    
-
-
-
+                    norm_KNOTErgNeg_color=plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=norm_max_KNOT_Erg)                      
                 norm_KNOTErg_Size = plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=norm_max_KNOT_Erg)  
-
                 # Werte ]vmin,vmax[ erhalten Werte ]0,1[ entsprechend der Normierung [0,1] mit [vmin,vmax]
-
                 logger.debug("{:s}norm_KNOTErg_Size: norm_min_KNOT_Erg={:15.6f} norm_max_KNOT_Erg={:15.6f} .".format(logStr,norm_min_KNOT_Erg,norm_max_KNOT_Erg)) 
 
                 # Groesse
@@ -526,10 +518,7 @@ def pNFD_FW(
                     else:
                         fac_ms_KNOT=8000.                
 
-                if colors_KNOT_ErgNeg != None and minValue <0:
-                    ## Farbnormierungen
-                    #norm_KNOTErg_color=plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=gdf_KNOT[attr_colors_KNOT_Erg].astype(float).max())  
-                    #norm_KNOTErgNeg_color=plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=-gdf_KNOT[attr_colors_KNOT_Erg].astype(float).min())  
+                if colors_KNOT_ErgNeg != None and minValue <0:                    
 
                     gdf=gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)>=0]
                     if not gdf.empty:
