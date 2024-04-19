@@ -8,8 +8,8 @@
     <title>&lt;no title&gt; &#8212; PT3S 90.14.15.0.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b3523f8e" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=cb25574f" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=53475a3b" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=53475a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=77093b28" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=77093b28" />
     <script src="../_static/documentation_options.js?v=cdfdd26d"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -43,12 +43,7 @@ import logging</p>
 <dt>except:</dt><dd><p>import dxAndMxHelperFcts</p>
 </dd>
 </dl>
-<p>#Entwicklungsversion von PT3S
-import sys
-dev_path = r’C:Usersjablonski3SPT3S’
-sys.path.insert(0, os.path.abspath(dev_path))
-import dxAndMxHelperFcts
-import inspect</p>
+<p>pt3s_path = os.path.dirname(os.path.abspath(dxAndMxHelperFcts.__file__))</p>
 <p>logger = logging.getLogger()</p>
 <p>logFileName= r”Example2.log”</p>
 <p>loglevel = logging.DEBUG
@@ -66,18 +61,12 @@ consoleHandler.setLevel(logging.INFO)
 logger.addHandler(consoleHandler)</p>
 <p>dbFilename=”Wärmenetz-Planungsbeispiel”</p>
 <dl>
-<dt>m=dxAndMxHelperFcts.readDxAndMx(dbFile=os.path.join(‘../Examples/’+dbFilename+’.db3’)</dt><dd><blockquote>
+<dt>m=dxAndMxHelperFcts.readDxAndMx(dbFile=os.path.join(pt3s_path+’/Examples/’+dbFilename+’.db3’)</dt><dd><blockquote>
 <div><p>,preventPklDump=True</p>
 </div></blockquote>
 <p>)</p>
 </dd>
 </dl>
-<p>V3_FWVB=m.V3_FWVB
-V3_ROHR=m.V3_ROHR</p>
-<p># vorher “QGIS Export” in SIR 3S
-# in Oldenburg muss die aufkommende Frage mit Nein beantwortet werden</p>
-<p>V3_FWVB = V3_FWVB.dropna(subset=[‘GEOMWKB’])
-V3_ROHR = V3_ROHR.dropna(subset=[‘GEOMWKB’])</p>
 <p>gdf_ROHR=m.gdf_ROHR
 gdf_FWVB=m.gdf_FWVB</p>
 <p>gdf_ROHR = gdf_ROHR.dropna(subset=[‘geometry’, ‘QMAVAbs’, ‘KVR’])
@@ -104,6 +93,7 @@ gdf_FWVB.loc[:,[‘geometry’,’W’]].explore(color=’red’,m=ma)</p>
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../functions.html">Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
 </ul>

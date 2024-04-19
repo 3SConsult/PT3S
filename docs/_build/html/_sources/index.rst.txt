@@ -21,6 +21,7 @@ Contents:
    :maxdepth: 2
 
    installation
+   examples
    functions
    releases
 
@@ -30,7 +31,3 @@ Indices and tables:
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-.. raw:: html
-
-   <iframe src="Example2.html" width="100%" height="500px"></iframe>

@@ -388,7 +388,7 @@ def readDxAndMx(dbFile
                                         'ROHR~\*~\*~\*~DSK'
                                         
                                     ]
-
+    
         mxsVecsResults2MxDfVecAggs (list, optional, default=None): 
             List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [
                                         3,

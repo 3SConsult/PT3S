@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath(r'C:\Users\jablonski\3S\PT3S'))
 project = 'PT3S'
 copyright = '2024, 3S Consult GmbH'
 author = '3S Consult GmbH'
-release = '90.14.15.0.dev1'
+release = '90.14.18.0.dev1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -25,7 +25,7 @@ extensions = ['sphinx.ext.todo', 'sphinx.ext.autodoc', 'sphinx.ext.coverage', 's
 todo_include_todos=True
 
 templates_path = [r'C:\Users\jablonski\3S\PT3S']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints', '.virtual_documents', 'Planungsbeispiel.ipynb']
 
 
 # -- Options for HTML output -------------------------------------------------
