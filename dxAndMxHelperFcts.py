@@ -69,7 +69,7 @@ class dxWithMxError(Exception):
         return repr(self.value)
 
 class dxWithMx():
-    """Wrapper for dx with attached mx
+    """Wrapper for dx with attached mx.
     """
     def __init__(self,dx,mx,crs=None):
         
@@ -220,6 +220,8 @@ class dxWithMx():
                     logger.debug(logStrTmp) 
                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_WBLZ failed.'))
                 
+                #gdfs
+                
                 if not crs:
                     try:               
                         dfSG=dx.dataFrames['SIRGRAF']
@@ -239,13 +241,17 @@ class dxWithMx():
                 
                     gs=geopandas.GeoSeries.from_wkb(self.V3_ROHR['GEOMWKB'],crs=crs)
                     self.gdf_ROHR=geopandas.GeoDataFrame(self.V3_ROHR,geometry=gs,crs=crs)
+                    
+                    gs=geopandas.GeoSeries.from_wkb(self.V3_KNOT['GEOMWKB'],crs=crs)
+                    self.gdf_KNOT=geopandas.GeoDataFrame(self.V3_KNOT,geometry=gs,crs=crs)
+                    
                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of gdf_FWVB and gdf_ROHR ok so far."))  
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing gdf_FWVB and gdf_ROHR failed.'))
 
-                
+            # G    
                                 
             try:
                 # Graph bauen    
@@ -281,7 +287,9 @@ class dxWithMx():
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
                 logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDctNx failed.')) 
-                                            
+               
+            # GSig
+                             
             try:
                 # Graph Signalmodell bauen
                 self.GSig=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_RVBEL'].reset_index(), source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
@@ -302,6 +310,45 @@ class dxWithMx():
             raise dxWithMxError(logStrFinal)                       
         finally:
             logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))            
+
+
+    def setLayerContentTo(self,layerName,df):
+        """
+        Updates layerName to df's-Content. df's cols TYPE and ID are used.               
+        """        
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        
+        try: 
+                  
+           xk=self.dfLAYR[self.dfLAYR['NAME'].isin([layerName])]['tk'].iloc[0]
+            
+           dfUpd=df.copy(deep=True)
+            
+           dfUpd['table']='LAYR'
+           dfUpd['attrib']='OBJS'
+           dfUpd['attribValue']=dfUpd.apply(lambda row: "{:s}~{:s}\t".format(row['TYPE'],row['ID']).encode('utf-8'),axis=1)
+           dfUpd['xk']='tk'
+           dfUpd['xkValue']=xk    
+            
+           dfUpd2=dfUpd.groupby(by=['xkValue']).agg({'xkValue': 'first'
+                                               ,'table': 'first'
+                                               ,'attrib': 'first'
+                                               ,'xk': 'first'
+                                               , 'attribValue': 'sum'}).reset_index(drop=True)
+           dfUpd2['attribValue']=dfUpd2['attribValue'].apply(lambda x: x.rstrip())
+              
+           self.dx.update(dfUpd2)               
+        
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))            
         
 class readDxAndMxError(Exception):
     def __init__(self, value):
@@ -314,6 +361,7 @@ def readDxAndMx(dbFile
                 ,forceSir3sRead=False
                 ,maxRecords=None
                 ,mxsVecsResults2MxDf=None
+                ,mxsVecsResults2MxDfVecAggs=None
                 ,crs=None):
 
     """
@@ -340,12 +388,34 @@ def readDxAndMx(dbFile
                                         'ROHR~\*~\*~\*~DSK'
                                         
                                     ]
+
+        mxsVecsResults2MxDfVecAggs (list, optional, default=None): 
+            List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [
+                                        3,
+                                        42,
+                                        666                                        
+                                    ]
     
         crs (str, optional, default=None):
-            (=coordinate reference system) Determines depicted geographic space on maps (Possible value:'EPSG:25832'). If None, crs will be read from the dbFile.      
+            (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from the dbFile.
     
     Returns:
         dxWithMx: An object containing the SIR 3S model and SIR 3S results.
+            Model: Dx object:
+                dx.dataFrames[...]: pandas-Dfs from dbFile
+            Results: Mx object:
+                mx.df: pandas-Df from mxFile
+            
+            pandas-Dfs with Model- and Result-data:
+                V3_ROHR: Pipes
+                V3_FWVB: Housestations District Heating
+                V3_KNOT: Modes 
+                
+            geopandas-Dfs based upon the Dfs above:
+                gdf_ROHR: Pipes
+                gdf_FWVB: Housestations District Heating
+                gdf_KNOT: Nodes 
+        
     
     Note:
         Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which M-1-0-1.1 result is read into Mx.
@@ -440,14 +510,7 @@ def readDxAndMx(dbFile
                     
             else:
                 pass
-                # if isfile(dbFileDxPkl):
-                #           logger.info("{logStr:s}{dbFileDxPkl:s} exists and is deleted...".format(
-                #                logStr=logStr
-                #               ,dbFileDxPkl=dbFileDxPkl                        
-                #               )
-                #               )
-                #           os.remove(dbFileDxPkl)                    
-                                                
+                                                               
         ### Ergebnisse nicht lesen?!         
         if maxRecords==0:            
             logStrFinal="{logStr:s}dbFile: {dbFile:s}: maxRecords==0: do not read MX-Results...".format(logStr=logStr,dbFile=dbFile)     
@@ -550,7 +613,7 @@ def readDxAndMx(dbFile
                 logStrFinal="{logStr:s}mx1File: {mx1File:s}: MxError!".format(logStr=logStr,mx1File=mx1File)     
                 raise readDxAndMxError(logStrFinal)     
                 
-            ### Vector-Results
+            ### Vector-Results 2 MxDf
             if mxsVecsResults2MxDf != None:
                 try:                
                     df=mx.readMxsVecsResultsForObjectType(Sir3sVecIDReExp=mxsVecsResults2MxDf,flatIndex=False)                    
@@ -614,6 +677,22 @@ def readDxAndMx(dbFile
                     logStrFinal="{logStr:s}mxsVecsResults2MxDf failed".format(logStr=logStr)     
                     raise readDxAndMxError(logStrFinal)             
         
+            ### Vector-Results 2 MxDfVecAggs
+            if mxsVecsResults2MxDfVecAggs != None:
+                try:         
+                    for idxTime in mxsVecsResults2MxDfVecAggs:
+                        try:
+                            aTime=mx.df.index[idxTime]
+                        except:
+                            logger.info(f"{logStr}: Requested Timestep {idxTime} not in MX-Results.")  
+                            continue
+                        
+                        df,tL,tR=mx.getVecAggs(time1st=aTime,aTIME=True)
+                                            
+                except Mx.MxError:
+                    logStrFinal="{logStr:s}mxsVecsResults2MxDf failed".format(logStr=logStr)     
+                    raise readDxAndMxError(logStrFinal)             
+
         
             if not preventPklDump:
                 if isfile(dbFileMxPkl):
@@ -632,15 +711,7 @@ def readDxAndMx(dbFile
                     pickle.dump(mx,f)     
             else:
                 pass
-                # if isfile(dbFileMxPkl):
-                #       logger.info("{logStr:s}{dbFileMxPkl:s} exists and is deleted...".format(
-                #            logStr=logStr
-                #           ,dbFileMxPkl=dbFileMxPkl                        
-                #           )
-                #           )
-                #       os.remove(dbFileMxPkl)
-                                              
-
+                                             
         dbFileDxMxPklRead=False
         dbFileDxMxPkl="{:s}-m.pkl".format(dbFilename)        
         
@@ -678,18 +749,7 @@ def readDxAndMx(dbFile
                                 ,dbFileDxMxPkl=dbFileDxMxPkl                                
                                 )
                                 )                            
-                        
-        #Alternative crs 
-        #if crs:
-        #    try:               
-        #        dx.dataFrames['SIRGRAF']['SRID'].iloc[1]=crs
-        #        dx.dataFrames['SIRGRAF']['SRID2'].iloc[1]=crs
-        #        logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs reading successful: ', crs))
-        #    except:
-        #        logger.debug("{0:s}{1:s}".format(logStr,'crs reading error'))  
-        #else:
-        #    logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs ok so far: ', crs))                
-                        
+                                                    
         if not dbFileDxMxPklRead:
             #
             m = dxWithMx(dx,mx,crs)

@@ -1218,13 +1218,15 @@ class Dx():
         returns dct V3s; keys: V3_KNOT, V3_ROHR, V3_FWVB, ggf. weitere
         source: V3_KNOT, V3_ROHR, V3_FWVB, ggf. weitere      
 
-        columns: 
-            * Bsp.: V3s['V3_FWVB'][('TMAX', 'FWVB~*~*~*~P1', pd.Timestamp('2022-01-21 09:00:00'), pd.Timestamp('2022-01-21 09:01:00'))]
-
-        V3_ROHR and V3_FWVB:
-            if addNodeData: V3_KNOT ResData matching addNodeDataSir3sVecIDReExp is added as columns named with postfix _i and _k:
-            * Bsp.: V3s['V3_FWVB']["('TMAX', 'KNOT~*~*~*~PH', Timestamp('2022-01-21 09:00:00'), Timestamp('2022-01-21 09:01:00'))_k"]
-
+        columns multiIndex=False: 
+            einzelne Strings (Sachdaten) und Tupel (Ergebnisdaten)
+            bei addNodeData sind bei den VBEL die ergaenzten Knotenergebnisspalten auch Strings mit _i/_k am Ende
+            
+        columns multiIndex=True:
+            es wird ein 4-Level Multiindex geliefert
+            bei den Sachdaten: (...,None,None,None)
+            bei den Ergebnissen: z.B.('TIME','ROHR~*~*~*~ZAUS',Timestamp('2024-09-01 08:00:00'),Timestamp('2024-09-01 08:00:00'))
+            bei VBEL ergaenzten Knoten-Ergebnissen: z.B.('TIME','KNOT~*~*~*~PH_i',Timestamp('2024-09-01 08:00:00'),Timestamp('2024-09-01 08:00:00'))
         """
 
         logStr = "{0:s}.{1:s}: ".format(
@@ -1251,34 +1253,96 @@ class Dx():
                     dfKnotRes = dfKnotRes.loc[:, (slice(
                         None), Sir3sIDsMatching, slice(None), slice(None))]
                     
-                    if not multiIndex:
+                    if not multiIndex or True:
                         dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
                     else:
                         pass
                         #ni
 
-                if not multiIndex:
+                if not multiIndex or True:
                     dfRes.columns = dfRes.columns.to_flat_index()
                 else:
                     pass
                     #ni
 
-                # Sachspalten lesen
+                #Sachspalten lesen
                 df = self.dataFrames[dfName]
 
-                # Ergebnisspalten ergänzen
-                V3[dfName] = df.merge(
-                    dfRes, left_on='tk', right_index=True, how='left')  # inner
+                # Ergebnisspalten ergänzen                
+                if not multiIndex or True:
+                    V3[dfName] = df.merge(
+                        dfRes, left_on='tk', right_index=True, how='left')  # inner
+                else:
+                    pass
+                    #ni
 
             if addNodeData:
 
                 for dfName in ['V3_ROHR', 'V3_FWVB']:
                     df = V3[dfName]
+                    
                     df = pd.merge(df, dfKnotRes.add_suffix(
                         '_i'), left_on='fkKI', right_index=True, how='left')   # inner
                     df = pd.merge(df, dfKnotRes.add_suffix(
                         '_k'), left_on='fkKK', right_index=True, how='left')   # inner
+                                    
+                                        
                     V3[dfName] = df
+                    
+            if multiIndex:
+                # ohne multiIndex bestehen die Spalten aus einzelnen Strings (Sachdaten) und Tupeln (Ergebnisdaten)
+                # bei addNodeData sind bei den VBEL die ergaenzten Knotenergebnisspalten auch Strings mit _i/_k am Ende
+                # um nun einen multiIndex liefern zu koennen, muessen alle Spalten auf eine einheitliche Tuple-Form gebracht werden
+
+                def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:00:00'), Timestamp('2024-09-01 08:00:00'))_i"
+                                        ,colPost='_i'):
+                    
+                    colRstrip=col.replace(colPost,'')
+                    colStrip=colRstrip[1:-1]            
+                    colStrip=colStrip.replace("'",'')            
+                    colTupleLst=str(colStrip).split(',')
+                                
+                    colTuple=(colTupleLst[0].strip()
+                             ,colTupleLst[1].strip()+colPost
+                             ,pd.Timestamp(colTupleLst[2].strip().replace('Timestamp','')[1:-1])
+                             ,pd.Timestamp(colTupleLst[3].strip().replace('Timestamp','')[1:-1])
+                    )
+                    return colTuple
+                
+                def fGetMultiindexTupleFromV3Col(col):
+                    
+                    if isinstance(col,tuple):        
+                        return col
+                    
+                    elif isinstance(col,str):
+                        
+                        # ergaenzte Knotenwerte
+                        
+                        mObj=re.search('\)(?P<Postfix>_i)$',col)        
+                        if mObj != None:        
+                            return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
+                        
+                        mObj=re.search('\)(?P<Postfix>_k)$',col)        
+                        if mObj != None:                
+                            return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
+                            
+                        # keine ergaenzte Knotenwerte    
+                        return (col,None,None,None)   
+
+                
+                for dfName in ['V3_ROHR', 'V3_FWVB']:
+                    df = V3[dfName]
+                    df.columns=pd.MultiIndex.from_tuples(
+                        [fGetMultiindexTupleFromV3Col(col) for col in df.columns.to_list()]
+                        ,names=['1','2','3','4'])
+                    V3[dfName] = df
+                
+                df = V3['V3_KNOT']
+                df.columns=pd.MultiIndex.from_tuples(
+                    [fGetMultiindexTupleFromV3Col(col) for col in df.columns.to_list()]
+                    ,names=['1','2','3','4'])
+                V3['V3_KNOT']=df
+                
 
         except Exception as e:
             logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
