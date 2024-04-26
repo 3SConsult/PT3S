@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Functions &#8212; PT3S 90.14.18.0.dev1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+    <script src="_static/documentation_options.js?v=c9f58c65"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Releases" href="releases.html" />
+    <link rel="prev" title="Examples" href="examples.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.readDxAndMx">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Link to this definition">¶</a></dt>
+<dd><p>Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.</p>
+<dl>
+<dt>Args:</dt><dd><dl>
+<dt>dbFile (str): </dt><dd><p>Path to SIR 3S’ database file (‘modell.db3’ or ‘modell.mdb’). The database is read into a Dx object. The corresponding results are read into an Mx object if available.</p>
+</dd>
+<dt>preventPklDump (bool, optional, default=False): </dt><dd><p>Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S’ sources are read and no pickles are written.</p>
+</dd>
+<dt>forceSir3sRead (bool, optional, default=False): </dt><dd><p>Determines whether to force reading from SIR 3S’ sources even if newer pickles exists. By default pickles are read if newer than SIR 3S’ sources.</p>
+</dd>
+<dt>maxRecords (int, optional, default=None): </dt><dd><p>Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecords=1 to read only STAT.</p>
+</dd>
+<dt>mxsVecsResults2MxDf (list, optional, default=None): </dt><dd><dl>
+<dt>List of regular expressions for SIR 3S’ Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [</dt><dd><blockquote>
+<div><p>‘ROHR~*~*~*~PHR’,
+‘ROHR~*~*~*~FS’,
+‘ROHR~*~*~*~DSI’,
+‘ROHR~*~*~*~DSK’</p>
+</div></blockquote>
+<p>]</p>
+</dd>
+</dl>
+</dd>
+<dt>mxsVecsResults2MxDfVecAggs (list, optional, default=None): </dt><dd><dl>
+<dt>List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [</dt><dd><blockquote>
+<div><p>3,
+42,
+666</p>
+</div></blockquote>
+<p>]</p>
+</dd>
+</dl>
+</dd>
+<dt>crs (str, optional, default=None):</dt><dd><p>(=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from the dbFile.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dxWithMx: An object containing the SIR 3S model and SIR 3S results.</dt><dd><dl class="simple">
+<dt>Model: Dx object:</dt><dd><p>dx.dataFrames[…]: pandas-Dfs from dbFile</p>
+</dd>
+<dt>Results: Mx object:</dt><dd><p>mx.df: pandas-Df from mxFile</p>
+</dd>
+<dt>pandas-Dfs with Model- and Result-data:</dt><dd><p>V3_ROHR: Pipes
+V3_FWVB: Housestations District Heating
+V3_KNOT: Modes</p>
+</dd>
+<dt>geopandas-Dfs based upon the Dfs above:</dt><dd><p>gdf_ROHR: Pipes
+gdf_FWVB: Housestations District Heating
+gdf_KNOT: Nodes</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>Note:</dt><dd><p>Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which M-1-0-1.1 result is read into Mx.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PT3S</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dxAndMxHelperFcts.readDxAndMx"><code class="docutils literal notranslate"><span class="pre">readDxAndMx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="examples.html" title="previous chapter">Examples</a></li>
+      <li>Next: <a href="releases.html" title="next chapter">Releases</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, 3S Consult GmbH.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/functions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
