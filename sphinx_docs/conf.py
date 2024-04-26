@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath(r'C:\Users\jablonski\3S\PT3S'))
 project = 'PT3S'
 copyright = '2024, 3S Consult GmbH'
 author = '3S Consult GmbH'
-release = '90.14.18.0.dev1'
+release = '90.14.19.0.dev1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

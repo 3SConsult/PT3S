@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='90.14.18.0.dev1',
+    version='90.14.19.0.dev1',
 
     description='Python Tools 3S',
     long_description=long_description,
@@ -104,7 +104,12 @@ setup(
             ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX2'               
             ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX3'               
             ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MXS'               
-        
+            
+            ,'Examples\Wärmenetz-Planungsbeispiel.db3'
+            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MX1'
+            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.MX2'
+            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MX3'
+            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MXS'
            #,'Lx.ipynb'
         #   ,'NFD Module Test.ipynb'
         #   ,'NFD Module Test.html'
