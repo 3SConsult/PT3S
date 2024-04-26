@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Installation &#8212; PT3S 90.14.15.0.dev1 documentation</title>
+    <title>Installation &#8212; PT3S 90.14.18.0.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
-    <script src="_static/documentation_options.js?v=cdfdd26d"></script>
+    <script src="_static/documentation_options.js?v=c9f58c65"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -36,31 +36,43 @@
             
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<p>If you’re working in a Jupyter notebook or a similar environment, remember to place a ‘!’ before each command. This tells the environment to run the command as a shell command, not as a Python command.</p>
 <section id="how-to-install-pt3s">
 <h2>How to install PT3S<a class="headerlink" href="#how-to-install-pt3s" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Step: Install Anaconda <a class="reference external" href="https://www.anaconda.com/download">https://www.anaconda.com/download</a></p></li>
-<li><p>Step: Type !pip install PT3S</p></li>
+<li><p>Step: Download Anaconda from <a class="reference external" href="https://www.anaconda.com/download">https://www.anaconda.com/download</a></p></li>
+<li><p>Step: Run the installer and follow the setup instructions</p></li>
+<li><p>Step: Open your terminal or command prompt</p></li>
+<li><p>Step: Run the following command to install PT3S: <cite>pip install PT3S</cite></p></li>
 </ol>
 </section>
 <section id="update-to-newest-version">
 <h2>Update to newest Version<a class="headerlink" href="#update-to-newest-version" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Step: !pip install PT3S -U –no-deps</p></li>
+<li><p>Step: Open your terminal or command prompt</p></li>
+<li><p>Step: Run the following command to update PT3S: <cite>pip install PT3S -U –no-deps</cite></p></li>
 </ol>
 </section>
 <section id="for-developers">
 <h2>For Developers<a class="headerlink" href="#for-developers" title="Link to this heading">¶</a></h2>
-<p>If you’re working in a Jupyter notebook or a similar environment, remember to place a ‘!’ before each Git command. This tells the environment to run the command as a shell command, not as a Python command.</p>
-<section id="clone-pt3s-github-repository">
-<h3>Clone PT3S-GitHub Repository<a class="headerlink" href="#clone-pt3s-github-repository" title="Link to this heading">¶</a></h3>
+<section id="install-and-configure-git-on-your-computer">
+<h3>Install and Configure Git on your Computer<a class="headerlink" href="#install-and-configure-git-on-your-computer" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Step: Download Git from <a class="reference external" href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></p></li>
+<li><p>Step: Run the installer and follow the setup instructions</p></li>
+<li><p>Step: Configure your username: <cite>git config –global user.name “Your Name”</cite></p></li>
+<li><p>Step: Configure your email: <cite>git config –global user.email “your.email&#64;example.com”</cite></p></li>
+</ol>
+</section>
+<section id="clone-github-repository">
+<h3>Clone GitHub Repository<a class="headerlink" href="#clone-github-repository" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Navigate to your project folder: <cite>cd “path_to_your_project_folder”</cite></p></li>
 <li><p>Clone the GitHub Repository to your local folder: <cite>git clone https://github.com/aw3s/PT3S</cite></p></li>
 </ol>
 </section>
-<section id="fetch-current-github-commit">
-<h3>Fetch Current GitHub Commit<a class="headerlink" href="#fetch-current-github-commit" title="Link to this heading">¶</a></h3>
+<section id="get-latest-version-from-github">
+<h3>Get latest Version from GitHub<a class="headerlink" href="#get-latest-version-from-github" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Fetch the latest changes from the origin: <cite>git fetch origin</cite></p></li>
 <li><p>Merge the fetched changes into your current branch: <cite>git merge origin/master</cite></p></li>
