@@ -101,7 +101,7 @@ setup(
         
             ,'Examples\DistrictHeating.db3'
             ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX1'       
-            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX2'               
+            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.MX2'               
             ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX3'               
             ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MXS'               
             
