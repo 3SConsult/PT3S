@@ -61,5 +61,5 @@ Current Method to Create Documentation
 
 The new documentation can be found at https://aw3s.github.io/PT3S/index.html
 
-Note: The copying process will be automated in the future
+Note: The copying process will be automated in the future.
 
