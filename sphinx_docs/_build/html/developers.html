@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>For Developers &#8212; PT3S 90.14.19.0.dev1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+    <script src="_static/documentation_options.js?v=c9f58c65"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Releases" href="releases.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="for-developers">
+<h1>For Developers<a class="headerlink" href="#for-developers" title="Link to this heading">¶</a></h1>
+<p>This section provides resources and instructions for developers who want to contribute to PT3S or use it in their own projects.</p>
+<ul class="simple">
+<li><p><strong>GitHub Repository:</strong> You can find the source code and contribute to the project on our <a class="reference external" href="https://github.com/aw3s/PT3S">GitHub page</a>.</p></li>
+<li><p><strong>PyPI Project:</strong> The PT3S package is also available on <a class="reference external" href="https://pypi.org/project/PT3S">PyPI</a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re working in a Jupyter notebook or a similar environment, remember to place a ‘!’ before each command. This tells the environment to run the command as a shell command, not as a Python command.</p>
+</div>
+<section id="setting-up-git-on-your-computer">
+<h2>Setting Up Git on Your Computer<a class="headerlink" href="#setting-up-git-on-your-computer" title="Link to this heading">¶</a></h2>
+<p>Follow these steps to install and configure Git:</p>
+<ol class="arabic">
+<li><p><strong>Download Git:</strong> Visit the official Git website at <a class="reference external" href="https://git-scm.com/downloads">https://git-scm.com/downloads</a> and download the version that is compatible with your operating system.</p></li>
+<li><p><strong>Install Git:</strong> Launch the downloaded installer and follow the setup wizard to complete the installation.</p></li>
+<li><p><strong>Configure Your GitHub Username:</strong> Open your terminal or command prompt and enter the following command, replacing “Your Name” with your actual GitHub username:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Your Name&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Configure Your GitHub Email:</strong> Similarly, set your GitHub email using the following command, replacing “<a class="reference external" href="mailto:your&#46;email&#37;&#52;&#48;example&#46;com">your<span>&#46;</span>email<span>&#64;</span>example<span>&#46;</span>com</a>” with your actual email:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;your.email@example.com&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re pushing your first commit to GitHub, you might be prompted to authenticate your GitHub account. This usually involves entering your GitHub account credentials in a browser dialogue window that pops up. This is a standard security measure to ensure you have the necessary permissions to push to the repository.</p>
+</div>
+</section>
+<section id="working-with-github">
+<h2>Working with GitHub<a class="headerlink" href="#working-with-github" title="Link to this heading">¶</a></h2>
+<section id="clone-github-repository">
+<h3>Clone GitHub Repository<a class="headerlink" href="#clone-github-repository" title="Link to this heading">¶</a></h3>
+<p>To clone a GitHub repository to your local folder, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Navigate to the parent folder of your project folder:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command followed by the path to your parent project folder.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;path_to_your_parent_project_folder&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Clone the GitHub Repository:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> command followed by the URL of the repository.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/aw3s/PT3S
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="get-latest-version-from-github">
+<h3>Get Latest Version from GitHub<a class="headerlink" href="#get-latest-version-from-github" title="Link to this heading">¶</a></h3>
+<p>To fetch the latest changes from the origin and merge them into your current branch, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Fetch the latest changes from the origin:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">origin</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
+</pre></div>
+</div>
+</li>
+<li><p><strong>Merge the fetched changes into your current branch:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">origin/master</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>merge<span class="w"> </span>origin/master
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="commit-your-changes-to-the-github-repository">
+<h3>Commit Your Changes to the GitHub Repository<a class="headerlink" href="#commit-your-changes-to-the-github-repository" title="Link to this heading">¶</a></h3>
+<p>To commit your changes to the GitHub repository, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Add files to the staging area:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> command followed by the name of the file. Use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span></code> to add all files.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>Dx.py
+<span class="c1"># or</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+<li><p><strong>Create a new commit with a descriptive message:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;commit_message&quot;</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;commit_message&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Push your commit to the GitHub Repository:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">master</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="working-with-pypi">
+<h2>Working with PyPI<a class="headerlink" href="#working-with-pypi" title="Link to this heading">¶</a></h2>
+<section id="upload-a-new-version-to-pypi">
+<h3>Upload a New Version to PyPI<a class="headerlink" href="#upload-a-new-version-to-pypi" title="Link to this heading">¶</a></h3>
+<p>Follow these steps to upload a new version of your project to PyPI:</p>
+<ol class="arabic">
+<li><p><strong>Navigate to Your Project Directory:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command followed by the path to your project directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>project
+</pre></div>
+</div>
+</li>
+<li><p><strong>Delete Old Distributions:</strong> Remove all old distributions in your <code class="docutils literal notranslate"><span class="pre">dist</span></code> directory.</p></li>
+<li><p><strong>Create a New Source Distribution:</strong> Use the <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span></code> command to create a new source distribution of your package.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>setup.py<span class="w"> </span>sdist
+</pre></div>
+</div>
+</li>
+<li><p><strong>Generate an API Token on PyPI:</strong> Log into your PyPI account and navigate to your Account Settings. Select “API Tokens” and then “Add API Token”. Provide a token name and select the scopes this token should have access to. Click “Create Token” and make sure to copy your new token.</p></li>
+<li><p><strong>(Optional) Set Your PyPI API Token as an Environment Variable:</strong> You can do this by running the following command in your console, replacing <code class="docutils literal notranslate"><span class="pre">your_token</span></code> with your actual token.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TWINE_USERNAME</span><span class="o">=</span>__token__
+<span class="nb">export</span><span class="w"> </span><span class="nv">TWINE_PASSWORD</span><span class="o">=</span>your_token
+</pre></div>
+</div>
+</li>
+<li><p><strong>Upload the Distribution with Twine:</strong> Use the <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">dist/*</span></code> command to upload the distribution.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/*
+</pre></div>
+</div>
+</li>
+<li><p><strong>(Alternative to Step 5) Enter API Token When Prompted:</strong> If you didn’t set your PyPI API token as an environment variable in step 5, you will be prompted to enter it after running the command in step 6. Simply enter your API token when asked.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to keep your API token secure and do not hard-code it in your scripts or code. It’s best to set it as an environment variable or store it in a secret configuration file.</p>
+</div>
+</section>
+</section>
+<section id="creating-documentation">
+<h2>Creating Documentation<a class="headerlink" href="#creating-documentation" title="Link to this heading">¶</a></h2>
+<p>To create documentation, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Edit the documentation:</strong> Make your changes in the PT3S/sphinx_docs directory.</p></li>
+<li><p><strong>Navigate to the PT3S/sphinx_docs directory:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/sphinx_docs
+</pre></div>
+</div>
+</li>
+<li><p><strong>Make an HTML build:</strong> Use the <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">html</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="se">\m</span>ake.bat<span class="w"> </span>html
+</pre></div>
+</div>
+</li>
+<li><p><strong>Copy all contents:</strong> After finishing all editing, copy all contents from PT3S/sphinx_docs/_build/html to PT3S/docs.</p></li>
+<li><p><strong>Copy the _static directory:</strong> Copy the PT3S/sphinx_docs/_static directory to PT3S/docs.</p></li>
+<li><p><strong>Commit the changes.</strong></p></li>
+</ol>
+<p>The new documentation can be found at <a class="reference external" href="https://aw3s.github.io/PT3S/index.html">https://aw3s.github.io/PT3S/index.html</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The process of copying will be automated in the future. Please manually do it for now.</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PT3S</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">For Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-git-on-your-computer">Setting Up Git on Your Computer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-github">Working with GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-pypi">Working with PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-documentation">Creating Documentation</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="releases.html" title="previous chapter">Releases</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, 3S Consult GmbH.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/developers.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

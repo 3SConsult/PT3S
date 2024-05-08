@@ -36,70 +36,35 @@
             
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>If you’re working in a Jupyter notebook or a similar environment, remember to place a ‘!’ before each command. This tells the environment to run the command as a shell command, not as a Python command.</p>
+</div>
 <section id="how-to-install-pt3s">
-<h2>How to install PT3S<a class="headerlink" href="#how-to-install-pt3s" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Download Anaconda from <a class="reference external" href="https://www.anaconda.com/download">https://www.anaconda.com/download</a></p></li>
-<li><p>Run the installer and follow the setup instructions</p></li>
-<li><p>Open your terminal or command prompt</p></li>
-<li><p>Run the following command to install PT3S: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">PT3S</span></code></p></li>
+<h2>How to Install PT3S<a class="headerlink" href="#how-to-install-pt3s" title="Link to this heading">¶</a></h2>
+<p>Follow these steps to install PT3S:</p>
+<ol class="arabic">
+<li><p><strong>Download Anaconda:</strong> Visit the official Anaconda website at <a class="reference external" href="https://www.anaconda.com/download">https://www.anaconda.com/download</a> and download the version that is compatible with your operating system.</p></li>
+<li><p><strong>Install Anaconda:</strong> Launch the downloaded installer and follow the setup wizard to complete the installation.</p></li>
+<li><p><strong>Open Terminal or Command Prompt:</strong> You can do this by searching for “terminal” or “command prompt” in your computer’s search bar.</p></li>
+<li><p><strong>Install PT3S:</strong> Run the following command to install PT3S:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>PT3S
+</pre></div>
+</div>
+</li>
 </ol>
 </section>
-<section id="update-to-newest-version">
-<h2>Update to newest Version<a class="headerlink" href="#update-to-newest-version" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Open your terminal or command prompt</p></li>
-<li><p>Run the following command to update PT3S: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">PT3S</span> <span class="pre">-U</span> <span class="pre">--no-deps</span></code></p></li>
+<section id="update-to-the-newest-version">
+<h2>Update to the Newest Version<a class="headerlink" href="#update-to-the-newest-version" title="Link to this heading">¶</a></h2>
+<p>To update PT3S to the newest version, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Open Terminal or Command Prompt:</strong> You can do this by searching for “terminal” or “command prompt” in your computer’s search bar.</p></li>
+<li><p><strong>Update PT3S:</strong> Run the following command to update PT3S:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>PT3S<span class="w"> </span>-U<span class="w"> </span>--no-deps
+</pre></div>
+</div>
+</li>
 </ol>
-</section>
-<section id="for-developers">
-<h2>For Developers<a class="headerlink" href="#for-developers" title="Link to this heading">¶</a></h2>
-<section id="install-and-configure-git-on-your-computer">
-<h3>Install and Configure Git on your Computer<a class="headerlink" href="#install-and-configure-git-on-your-computer" title="Link to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Download Git from <a class="reference external" href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></p></li>
-<li><p>Run the installer and follow the setup instructions</p></li>
-<li><p>Configure your username: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span> <span class="pre">user.name</span> <span class="pre">&quot;Your</span> <span class="pre">Name&quot;</span></code></p></li>
-<li><p>Configure your email: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span> <span class="pre">user.email</span> <span class="pre">&quot;your.email&#64;example.com&quot;</span></code></p></li>
-</ol>
-</section>
-<section id="clone-github-repository">
-<h3>Clone GitHub Repository<a class="headerlink" href="#clone-github-repository" title="Link to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Navigate to your project folder: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">&quot;path_to_your_project_folder&quot;</span></code></p></li>
-<li><p>Clone the GitHub Repository to your local folder: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/aw3s/PT3S</span></code></p></li>
-</ol>
-</section>
-<section id="get-latest-version-from-github">
-<h3>Get latest Version from GitHub<a class="headerlink" href="#get-latest-version-from-github" title="Link to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Fetch the latest changes from the origin: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">origin</span></code></p></li>
-<li><p>Merge the fetched changes into your current branch: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">origin/master</span></code></p></li>
-</ol>
-</section>
-<section id="commit-your-changes-to-the-github-repository">
-<h3>Commit Your Changes to the GitHub Repository<a class="headerlink" href="#commit-your-changes-to-the-github-repository" title="Link to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Add files to the staging area: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">Dx.py</span></code> (Use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span></code> to add all files)</p></li>
-<li><p>Create a new commit with a descriptive message: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;commit_message&quot;</span></code></p></li>
-<li><p>Push your commit to the GitHub Repository: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">master</span></code></p></li>
-</ol>
-</section>
-<section id="current-method-to-create-documentation">
-<h3>Current Method to Create Documentation<a class="headerlink" href="#current-method-to-create-documentation" title="Link to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Edit documentation in PT3S/sphinx_docs</p></li>
-<li><p>Navigate to PT3S/sphinx_docs: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/sphinx_docs</span></code></p></li>
-<li><p>Make html build: <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">html</span></code></p></li>
-<li><p>After finishing all editing:</p></li>
-<li><p>Copy all contents from PT3S/sphinx_docs/_build/html to PT3S/docs</p></li>
-<li><p>Copy PT3S/sphinx_docs/_static to PT3S/docs</p></li>
-<li><p>Commit changes</p></li>
-</ol>
-<p>The new documentation can be found at <a class="reference external" href="https://aw3s.github.io/PT3S/index.html">https://aw3s.github.io/PT3S/index.html</a></p>
-<p>Note: The copying process will be automated in the future</p>
-</section>
 </section>
 </section>
 
@@ -122,14 +87,14 @@
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-install-pt3s">How to install PT3S</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#update-to-newest-version">Update to newest Version</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#for-developers">For Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-install-pt3s">How to Install PT3S</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-to-the-newest-version">Update to the Newest Version</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">For Developers</a></li>
 </ul>
 
 <div class="relations">

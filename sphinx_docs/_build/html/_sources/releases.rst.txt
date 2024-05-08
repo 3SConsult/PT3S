@@ -1,6 +1,10 @@
 Releases
 ================================
 
+90.14.19.0.dev1
+---------------
+    db3 and mx files necessary for documentation use are now include in the package
+
 90.14.18.0.dev1
 ---------------
     readDxAndMx:
