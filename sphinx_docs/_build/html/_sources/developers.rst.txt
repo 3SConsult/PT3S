@@ -44,11 +44,11 @@ Clone GitHub Repository
 
 To clone a GitHub repository to your local folder, follow these steps:
 
-1. **Navigate to the parent folder of your project folder:** Use the ``cd`` command followed by the path to your parent project folder.
+1. **Navigating to the Parent Directory of Your Project:** Use the ``cd`` command followed by the path to the parent directory of your project (This is the directory that contains your project folder).
 
    .. code-block:: bash
 
-      cd "path_to_your_parent_project_folder"
+      cd "path_to_your_parent_project_directory"
 
 2. **Clone the GitHub Repository:** Use the ``git clone`` command followed by the URL of the repository.
 
