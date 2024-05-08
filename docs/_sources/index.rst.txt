@@ -14,6 +14,8 @@ Welcome to PT3S's documentation!
 
 .. include:: ../README.rst
 
+This documentation is designed to help you get up and running with PT3S, understand its functions, and keep up with the latest releases.
+
 Contents:
 ---------
 
@@ -24,6 +26,7 @@ Contents:
    examples
    functions
    releases
+   developers
 
 Indices and tables:
 -------------------
