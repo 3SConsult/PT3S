@@ -73,6 +73,8 @@ To fetch the latest changes from the origin and merge them into your current bra
 
       git merge origin/master
 
+.. _commit-changes-label:
+
 Commit Your Changes to the GitHub Repository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -161,14 +163,10 @@ To create documentation, follow these steps:
 
       .\make.bat html
 
-4. **Copy all contents:** After finishing all editing, copy all contents from PT3S/sphinx_docs/_build/html to PT3S/docs.
-
-5. **Copy the _static directory:** Copy the PT3S/sphinx_docs/_static directory to PT3S/docs.
-
-6. **Commit the changes.**
+4. **Commit the changes.** Commit alle files from PT3S/sphinx_docs to GitHub (:ref:`commit-changes-label`).
 
 The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_.
 
 .. note::
 
-   The process of copying will be automated in the future. Please manually do it for now.
+   The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by a GitHub workflow and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
