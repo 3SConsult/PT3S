@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='90.14.19.0.dev1',
+    version='90.14.20.0.dev1',
 
     description='Python Tools 3S',
     long_description=long_description,

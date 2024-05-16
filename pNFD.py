@@ -70,12 +70,13 @@ def cmpTIMEs( df=pd.DataFrame() # a V3sErg=dx.MxAdd(mx) df i.e. v3sKNOT=V3sErg['
     finally:
             logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))     
 
-def pNFD_FW(     
+def pNFD_FW(                   
                  ax=None
                 ,axTitle=None
-                ,gdf_ROHR=pd.DataFrame()      
-                ,gdf_FWVB=pd.DataFrame()         
-                ,gdf_KNOT=pd.DataFrame()                                 
+                
+                ,gdf_ROHR=geopandas.GeoDataFrame()      
+                ,gdf_FWVB=geopandas.GeoDataFrame()         
+                ,gdf_KNOT=geopandas.GeoDataFrame()                                 
              
                 # Layout ROHR
             
@@ -151,13 +152,20 @@ def pNFD_FW(
                 # die Groesse erstreckt sich ueber den gesamten Wertebereich d.h. z.B. -.25 ist so gross wie +.25                
 
             
-                # Layout KNOTen
+                # Layout NODES (KNOTen)
                 ,attr_colors_KNOT_Erg=None 
                 ,attr_colors_KNOT_Erg_patches_fmt="pDiff +{:4.2f} bar"        
-                ,attr_colors_KNOT_ErgNeg_patches_fmt="pDiff -{:4.2f} bar"                           
+                ,attr_colors_KNOT_ErgNeg_patches_fmt="pDiff -{:4.2f} bar"  
+                ,attr_colors_KNOT_Erg_patchValues=None                         
                 ,colors_KNOT_Erg = ['yellow','red']
+                ,marker_KNOT_Erg='.'
                 ,norm_min_KNOT_Erg = None 
                 ,norm_max_KNOT_Erg = None  
+                
+                ,size_min_KNOT_Erg=None      
+                ,size_max_KNOT_Erg=None  
+                
+                ,attr_colors_KNOT_Erg_zOrder=5
 
                 ,colors_KNOT_ErgNeg = ['yellowgreen','sienna']
                 # wenn nicht None, dann werden negative Werte mit dieser Farbe gezeichnet
@@ -174,17 +182,64 @@ def pNFD_FW(
 
                 ):
     
-        """   
-        zeichnet ROHRe; Sachdatum und ggf. Ergebnis auf Sachdatum
-        zeichnet ggf. FWVB; Sachdatum und ggf. Ergebnis auf Sachdatum
-        zeichnet ggf. KNOTen Ergebnis
-        
-        Returns:
-                attr_colors_ROHR_Sach_patches: Legendeneinträge
-                attr_colors_ROHR_Erg_patches: Legendeneinträge     
-                attr_colors_FWVB_Sach_patches: Legendeneinträge
-                attr_colors_FWVB_Erg_patches: Legendeneinträge                 
         """
+        Plots geopandas-Dfs: gdf_ROHR, gdf_FWVB, gdf_KNOT.
+       
+        
+        Args:
+            gdf_ROHR (gdf, optional, default=empty gdf)         
+            gdf_FWVB (gdf, optional, default=empty gdf)    
+            gdf_KNOT (gdf, optional, default=empty gdf)      
+            
+            Layout KNOT (Nodes):
+                attr_colors_KNOT_Erg (col in gdf_KNOT, default=None)                          
+                colors_KNOT_Erg (LinearSegmentedColormap.from_list(...), default=['yellow','red'])
+                fac_ms_KNOT (factor for markersize, default=None ==> fac_ms_FWVB or 8.000 if fac_ms_FWVB==None)
+                
+                gdf_KNOT[attr_colors_KNOT_Erg].min(): markersize=0 * fac_ms_KNOT/'yellow'
+                gdf_KNOT[attr_colors_KNOT_Erg].max(): markersize=1 * fac_ms_KNOT/'red'
+                
+                norm_min_KNOT_Erg (default=None):
+                    gdf_KNOT[attr_colors_KNOT_Erg]<=norm_min_KNOT_Erg markersize<=0 * fac_ms_KNOT/'yellow'                    
+                norm_max_KNOT_Erg (default=None)        
+                    gdf_KNOT[attr_colors_KNOT_Erg]>=norm_max_KNOT_Erg markersize>=1 * fac_ms_KNOT/'red'  
+                    
+                size_min_KNOT_Erg (]0,1[, default=None):
+                    markersize>= size_min_KNOT_Erg * fac_ms_KNOT 
+                size_max_KNOT_Erg (]0,1[, default=None):        
+                    markersize<= size_max_KNOT_Erg * fac_ms_KNOT
+                    
+                attr_colors_KNOT_Erg_zOrder (default=5; ROHR_Sach=3,ROHR_Erg=4,FWVB_Sach=1,FWVB_Erg=2) 
+                
+                marker_KNOT_Erg (default='.')
+                
+                attr_colors_KNOT_Erg_patchValues (default=None)
+                attr_colors_KNOT_Erg_patches_fmt (default='pDiff +{:4.2f} bar')        
+                
+                
+             #        
+            
+             ,colors_KNOT_ErgNeg = ['yellowgreen','sienna']
+             # wenn nicht None, dann werden negative Werte mit dieser Farbe gezeichnet
+             # norm_max_KNOT_Erg nicht vorgegeben:
+             #   beide Farbskalen (die pos. und diese neg.) werden voll ausgenutzt
+             #   die Groesse erstreckt sich ueber den Absolutwert d.h. z.B. -.25 ist so gross wie +.25 
+            
+               
+             
+            
+             ,attr_colors_KNOT_ErgNeg_patches_fmt="pDiff -{:4.2f} bar"               
+                
+        Returns:            
+             attr_colors_ROHR_Sach_patches: Legendeneinträge
+             attr_colors_ROHR_Erg_patches: Legendeneinträge     
+             attr_colors_FWVB_Sach_patches: Legendeneinträge
+             attr_colors_FWVB_Erg_patches: Legendeneinträge    
+             attr_colors_KNOT_Erg_patches: Legendeneinträge    
+        
+        """    
+    
+
 
         logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
@@ -462,7 +517,7 @@ def pNFD_FW(
                             colors=cmap_FWVBErg(.666)
 
                         gdf_FWVB.plot(ax = ax
-                                    ,zorder = 2 
+                                    ,zorder = 2
                                     ,marker = '.'                           
                                     ,markersize = markersizes          
                                     ,color = colors#cmap_FWVBErg(norm_FWVBErg_color(gdf_FWVB[attr_colors_FWVB_Erg].astype(float))) 
@@ -523,7 +578,7 @@ def pNFD_FW(
                     gdf=gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)>=0]
                     if not gdf.empty:
                         gdf.plot(ax = ax
-                                    ,zorder = 2 
+                                    ,zorder = attr_colors_KNOT_Erg_zOrder 
                                     ,marker = '.'                           
                                     ,markersize = norm_KNOTErg_Size(gdf[attr_colors_KNOT_Erg].astype(float)) * fac_ms_KNOT   
                                     ,color = cmap_KNOTErg(norm_KNOTErg_color(gdf[attr_colors_KNOT_Erg].astype(float))) 
@@ -561,12 +616,45 @@ def pNFD_FW(
                         
                 else:
                     
+                    msFactor=norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))   
+                                        
+                    if size_min_KNOT_Erg!= None and size_min_KNOT_Erg>0 and size_min_KNOT_Erg<1:   
+                        if size_max_KNOT_Erg==None or size_max_KNOT_Erg>size_min_KNOT_Erg:
+                            for idx,(index,row) in enumerate(gdf_KNOT.iterrows()):
+                                if msFactor[idx] < size_min_KNOT_Erg:
+                                        msFactor[idx]=size_min_KNOT_Erg                                         
+                    if size_max_KNOT_Erg!= None and size_max_KNOT_Erg>0 and size_max_KNOT_Erg<1:
+                        if size_min_KNOT_Erg==None or size_min_KNOT_Erg<size_max_KNOT_Erg:
+                            for idx,(index,row) in enumerate(gdf_KNOT.iterrows()):
+                                if msFactor[idx] > size_max_KNOT_Erg:
+                                        msFactor[idx]=size_max_KNOT_Erg      
+                                        
+                    logger.debug(f"{logStr}min. ms Factor: {msFactor[np.logical_not(np.isnan(msFactor))].min()} * fac_ms_KNOT max. ms Factor: {msFactor[np.logical_not(np.isnan(msFactor))].max()} * fac_ms_KNOT")
+                    
                     gdf_KNOT.plot(ax = ax
-                                ,zorder = 2 
-                                ,marker = '.'                           
-                                ,markersize = norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float).apply(lambda x: math.fabs(x))) * fac_ms_KNOT   
+                                ,zorder = attr_colors_KNOT_Erg_zOrder 
+                                ,marker = marker_KNOT_Erg                        
+                                ,markersize = msFactor * fac_ms_KNOT      
                                 ,color = cmap_KNOTErg(norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))) 
-                                )    
+                                )   
+                    
+                    # Legendeneinräge                                                     
+                    if attr_colors_KNOT_Erg_patchValues == None:
+                         norm_diff_KNOT_Erg=norm_max_KNOT_Erg-norm_min_KNOT_Erg
+                         attr_colors_KNOT_Erg_patchValues=np.arange(norm_min_KNOT_Erg,norm_max_KNOT_Erg+1,norm_diff_KNOT_Erg/4)                 
+                    attr_colors_KNOT_Erg_patches = [mpatches.Patch(
+                                                     color=cmap_KNOTErg(norm_KNOTErg_Size(value))
+                                                    ,label=attr_colors_KNOT_Erg_patches_fmt.format(value)
+                                                    ) 
+                                                    for value in attr_colors_KNOT_Erg_patchValues
+                                                    ]
+                    #attr_colors_KNOT_Erg_patches[-1].set_label("{:s} (max.: {:4.2f})".format(
+                    #      attr_colors_KNOT_Erg_patches[-1].get_label()
+                    #     ,gdf_KNOT[attr_colors_KNOT_Erg].max()
+                    #    )
+                    #    )
+                        
+                    
 
 
 

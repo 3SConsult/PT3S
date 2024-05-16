@@ -1,9 +1,18 @@
 Releases
 ================================
 
+90.14.20.0.dev1
+---------------
+    readDxAndMx:
+
+        fix:
+            m is constructed (instead of reading m-pickle) if SIR 3S' dbFile is newer than m-pickle; in previous releases m-pickle was read even if dbFile is newer
+        new:
+            INFO: if SIR 3S' dbFile is newer than SIR 3S' mxFile; in this case the results are maybe dated or (worse) incompatible to the model 
+            
 90.14.19.0.dev1
 ---------------
-    db3 and mx files necessary for documentation use are now include in the package
+    SIR 3S db3 and mx files used in Examples are now included in the package.
 
 90.14.18.0.dev1
 ---------------
