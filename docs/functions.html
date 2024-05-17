@@ -49,7 +49,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dxAndMxHelperFcts.readDxAndMx"><code class="docutils literal notranslate"><span class="pre">readDxAndMx()</span></code></a></li>
@@ -87,17 +87,17 @@
 <h1>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.readDxAndMx">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Link to this definition"></a></dt>
 <dd><p>Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.</p>
 <dl>
 <dt>Args:</dt><dd><dl>
 <dt>dbFile (str): </dt><dd><p>Path to SIR 3S’ database file (‘modell.db3’ or ‘modell.mdb’). The database is read into a Dx object. The corresponding results are read into an Mx object if available.</p>
 </dd>
-<dt>preventPklDump (bool, optional, default=False): </dt><dd><p>Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S’ sources are read and no pickles are written.</p>
+<dt>preventPklDump (bool, optional, default=False): </dt><dd><p>Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S’ sources are read and no pickles are written. If False 3 pickles are written or overwritten if older than SIR 3S’ sources.</p>
 </dd>
 <dt>forceSir3sRead (bool, optional, default=False): </dt><dd><p>Determines whether to force reading from SIR 3S’ sources even if newer pickles exists. By default pickles are read if newer than SIR 3S’ sources.</p>
 </dd>
-<dt>maxRecords (int, optional, default=None): </dt><dd><p>Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecords=1 to read only STAT.</p>
+<dt>maxRecords (int, optional, default=None): </dt><dd><p>Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecords=1 to read only STAT (steady state result).</p>
 </dd>
 <dt>mxsVecsResults2MxDf (list, optional, default=None): </dt><dd><dl>
 <dt>List of regular expressions for SIR 3S’ Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [</dt><dd><blockquote>
@@ -120,19 +120,22 @@
 </dd>
 </dl>
 </dd>
-<dt>crs (str, optional, default=None):</dt><dd><p>(=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from the dbFile.</p>
+<dt>crs (str, optional, default=None):</dt><dd><p>(=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p>
+</dd>
+<dt>logPathOutputFct (fct, optional, default=os.path.relpath):</dt><dd><p>logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p>
 </dd>
 </dl>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
 <dt>dxWithMx: An object containing the SIR 3S model and SIR 3S results.</dt><dd><dl class="simple">
-<dt>Model: Dx object:</dt><dd><p>dx.dataFrames[…]: pandas-Dfs from dbFile</p>
+<dt>Model: Dx object:</dt><dd><p>dx.dataFrames[…]: pandas-Dfs from SIR 3S’ database file</p>
 </dd>
-<dt>Results: Mx object:</dt><dd><p>mx.df: pandas-Df from mxFile</p>
+<dt>Results: Mx object:</dt><dd><p>mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)
+mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p>
 </dd>
 <dt>pandas-Dfs with Model- and Result-data:</dt><dd><p>V3_ROHR: Pipes
 V3_FWVB: Housestations District Heating
-V3_KNOT: Modes</p>
+V3_KNOT: Nodes</p>
 </dd>
 <dt>geopandas-Dfs based upon the Dfs above:</dt><dd><p>gdf_ROHR: Pipes
 gdf_FWVB: Housestations District Heating
@@ -142,7 +145,7 @@ gdf_KNOT: Nodes</p>
 </dd>
 </dl>
 </dd>
-<dt>Note:</dt><dd><p>Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which M-1-0-1.1 result is read into Mx.</p>
+<dt>Note:</dt><dd><p>Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.</p>
 </dd>
 </dl>
 </dd></dl>

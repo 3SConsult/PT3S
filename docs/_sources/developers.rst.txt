@@ -9,7 +9,7 @@ This section provides resources and instructions for developers who want to cont
 
 .. note::
 
-   If you're working in a Jupyter notebook or a similar environment, remember to place a '!' before each command. This tells the environment to run the command as a shell command, not as a Python command.
+   If you are working with a Spyder Console or in a similar environment, remember to place a '!' before each command. This tells the environment to run the command as a shell command, not as a Python command.
 
 Setting Up Git on Your Computer
 -------------------------------
@@ -155,7 +155,7 @@ To create documentation, follow these steps:
 
    .. code-block:: bash
 
-      cd /sphinx_docs
+      cd .../sphinx_docs
 
 3. **Make an HTML build:** Use the ``.\make.bat html`` command.
 

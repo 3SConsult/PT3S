@@ -49,13 +49,14 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Releases</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dev1">90.14.19.0.dev1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">90.14.18.0.dev1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">90.14.17.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev1">90.14.20.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">90.14.19.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">90.14.18.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">90.14.17.0.dev1</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="developers.html">For Developers</a></li>
@@ -88,13 +89,27 @@
   <section id="releases">
 <h1>Releases<a class="headerlink" href="#releases" title="Link to this heading"></a></h1>
 <section id="dev1">
-<h2>90.14.19.0.dev1<a class="headerlink" href="#dev1" title="Link to this heading"></a></h2>
+<h2>90.14.20.0.dev1<a class="headerlink" href="#dev1" title="Link to this heading"></a></h2>
 <blockquote>
-<div><p>db3 and mx files necessary for documentation use are now include in the package</p>
+<div><p>readDxAndMx:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>fix:</dt><dd><p>m is constructed (instead of reading m-pickle) if SIR 3S’ dbFile is newer than m-pickle; in previous releases m-pickle was read even if dbFile is newer</p>
+</dd>
+<dt>new:</dt><dd><p>INFO: if SIR 3S’ dbFile is newer than SIR 3S’ mxFile; in this case the results are maybe dated or (worse) incompatible to the model</p>
+</dd>
+</dl>
+</div></blockquote>
 </div></blockquote>
 </section>
 <section id="id1">
-<h2>90.14.18.0.dev1<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>90.14.19.0.dev1<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>SIR 3S db3 and mx files used in Examples are now included in the package.</p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h2>90.14.18.0.dev1<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>readDxAndMx:</p>
 <blockquote>
@@ -118,8 +133,8 @@ new: setLayerContentTo</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id2">
-<h2>90.14.17.0.dev1<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="id3">
+<h2>90.14.17.0.dev1<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>readDxAndMx:</p>
 <blockquote>
