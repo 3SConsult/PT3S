@@ -25,7 +25,7 @@ extensions = ['sphinx.ext.todo', 'sphinx.ext.autodoc', 'sphinx.ext.coverage', 's
 todo_include_todos=True
 
 templates_path = [r'C:\Users\jablonski\3S\PT3S']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints', '.virtual_documents', 'Planungsbeispiel.ipynb']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints', '.virtual_documents', 'Planungsbeispiel.ipynb','Example0.ipynb','Example1.ipynb','Example2.ipynb']
 
 
 # -- Options for HTML output -------------------------------------------------

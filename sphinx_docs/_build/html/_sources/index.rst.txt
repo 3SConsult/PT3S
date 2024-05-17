@@ -22,7 +22,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   installation
+   started
    examples
    functions
    releases
