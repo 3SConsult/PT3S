@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imports &mdash; PT3S 90.14.19.0.dev1 documentation</title>
+  <title>Imports &mdash; PT3S 90.14.20.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
@@ -89,11 +89,12 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Rm</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
+    <span class="kn">import</span> <span class="nn">Rm</span>
 </pre></div>
 </div>
 </div>
@@ -101,7 +102,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt3s_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt3s_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">Rm</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -134,8 +135,8 @@
 </div>
 </div>
 </section>
-<section id="Model">
-<h1>Model<a class="headerlink" href="#Model" title="Link to this heading"></a></h1>
+<section id="Model-and-Time-Curves">
+<h1>Model and Time Curves<a class="headerlink" href="#Model-and-Time-Curves" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -144,34 +145,56 @@
 </pre></div>
 </div>
 </div>
-</section>
-<section id="Read-Model-and-Results">
-<h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Link to this heading"></a></h1>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pt3s_path</span><span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span><span class="o">+</span><span class="n">dbFilename</span><span class="o">+</span><span class="s1">&#39;.db3&#39;</span><span class="p">)</span>
-                                <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span>
-                               <span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">csvFilename</span><span class="o">=</span><span class="s2">&quot;time_curves&quot;</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+</section>
+<section id="Read-Model-and-Time-Curves">
+<h1>Read Model and Time Curves<a class="headerlink" href="#Read-Model-and-Time-Curves" title="Link to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Dx.__init__: dbFile (abspath): c:\users\jablonski\3s\pt3s\Examples\Wärmenetz-Planungsbeispiel.db3 exists readable ...
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-INFO    ; dxWithMx.__init__: Wärmenetz-Planungsbeispiel: processing dx and mx ...
-</pre></div></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_path</span><span class="o">=</span><span class="n">pt3s_path</span><span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span><span class="o">+</span><span class="n">csvFilename</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span>
+</pre></div>
+</div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">dx</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">read_multiple_time_curves</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;ISO-8859-1&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+    <span class="n">dataframes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current_lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">curve_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;;&#39;</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_lines</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">sub</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">current_lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span>  <span class="c1"># Skip the first two lines</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Only take the first two columns</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Zeitstempel&#39;</span><span class="p">,</span> <span class="n">curve_name</span><span class="p">]</span>  <span class="c1"># Rename the columns</span>
+                <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+                <span class="n">current_lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;Zeitkurven&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">curve_name</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Extract the curve name</span>
+            <span class="n">current_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">current_lines</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">sub</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">current_lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span>  <span class="c1"># Skip the first two lines</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Only take the first two columns</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Zeitstempel&#39;</span><span class="p">,</span> <span class="n">curve_name</span><span class="p">]</span>  <span class="c1"># Rename the columns</span>
+        <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dataframes</span>
 </pre></div>
 </div>
 </div>
@@ -179,45 +202,20 @@ INFO    ; dxWithMx.__init__: Wärmenetz-Planungsbeispiel: processing dx and mx .
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfSPLZ</span><span class="o">=</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;SPLZ&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_curves_dataframes</span> <span class="o">=</span> <span class="n">read_multiple_time_curves</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layout</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dfSPLZ</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;LAYOUT_XML&#39;</span><span class="p">],</span> <span class="s1">&#39;iso-8859-1&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layout</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_curves_dataframes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&#39;&lt;Layout&gt;\r\n  &lt;DIAGRAM&gt;\r\n    &lt;PK_DB&gt;4718861549405273673&lt;/PK_DB&gt;\r\n    &lt;RK_DB&gt;4718861549405273673&lt;/RK_DB&gt;\r\n    &lt;TITLE&gt;MW&lt;/TITLE&gt;\r\n  &lt;/DIAGRAM&gt;\r\n  &lt;Y_AXIS&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;USE_DEF_SETTINGS&gt;0&lt;/USE_DEF_SETTINGS&gt;\r\n    &lt;YMIN&gt;0&lt;/YMIN&gt;\r\n    &lt;YMAX&gt;25&lt;/YMAX&gt;\r\n    &lt;INTERVALS&gt;20&lt;/INTERVALS&gt;\r\n    &lt;PRECISION&gt;2&lt;/PRECISION&gt;\r\n    &lt;LABEL&gt;MW&lt;/LABEL&gt;\r\n  &lt;/Y_AXIS&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Last MW&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5264590091044306787&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;128&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;2&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Erzeugung MW&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5406900845843913244&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;33023&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;5&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;1,2&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Last MW&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5285435993968256312&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;8388863&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;1&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Wärmeverluste MW&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;4641129577739806961&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;16711935&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;4&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Wärmeverluste in % Erzeugung&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5239162294104102253&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;16711935&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;3&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;100&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n&lt;/Layout&gt;&#39;
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfSPLZ</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -239,109 +237,139 @@ INFO    ; dxWithMx.__init__: Wärmenetz-Planungsbeispiel: processing dx and mx .
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>pk</th>
-      <th>fkDE</th>
-      <th>rk</th>
-      <th>NAME</th>
-      <th>LFDNR</th>
-      <th>AKTIV</th>
-      <th>CP01</th>
-      <th>CP02</th>
-      <th>CP05</th>
-      <th>CP12</th>
-      <th>CP13</th>
-      <th>CP21</th>
-      <th>CP24</th>
-      <th>CP25</th>
-      <th>CP26</th>
-      <th>LAYOUT_XML</th>
-      <th>DELETED</th>
-      <th>SELECT1</th>
+      <th>Zeitstempel</th>
+      <th>Umwälzmenge;\n</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>-1</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
+      <td>2023-02-13 00:00:00,000</td>
+      <td>287,090057373047</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>4718861549405273673</td>
-      <td>5306805303452857793</td>
-      <td>4718861549405273673</td>
-      <td>MW</td>
-      <td>2.0</td>
-      <td>101.0</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>b'&lt;Layout&gt;\r\n  &lt;DIAGRAM&gt;\r\n    &lt;PK_DB&gt;4718861549405273673&lt;/PK_DB&gt;\r\n    &lt;RK_DB&gt;4718861549405273673&lt;/RK_DB&gt;\r\n    &lt;TITLE&gt;MW&lt;/TITLE&gt;\r\n  &lt;/DIAGRAM&gt;\r\n  &lt;Y_AXIS&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;USE_DEF_SETTINGS&gt;0&lt;/USE_DEF_SETTINGS&gt;\r\n    &lt;YMIN&gt;0&lt;/YMIN&gt;\r\n    &lt;YMAX&gt;25&lt;/YMAX&gt;\r\n    &lt;INTERVALS&gt;20&lt;/INTERVALS&gt;\r\n    &lt;PRECISION&gt;2&lt;/PRECISION&gt;\r\n    &lt;LABEL&gt;MW&lt;/LABEL&gt;\r\n  &lt;/Y_AXIS&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Last MW&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5264590091044306787&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;128&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;2&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Erzeugung MW&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5406900845843913244&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;33023&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;5&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;1,2&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Last MW&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5285435993968256312&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;8388863&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;1&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;W\xe4rmeverluste MW&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;4641129577739806961&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;16711935&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;4&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4718861549405273673&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;W\xe4rmeverluste in % Erzeugung&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5239162294104102253&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;16711935&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;3&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;100&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n&lt;/Layout&gt;'</td>
-      <td>None</td>
-      <td>None</td>
+      <td>2023-02-13 01:00:00,000</td>
+      <td>290,241271972656</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>4660424275847929620</td>
-      <td>5306805303452857793</td>
-      <td>4660424275847929620</td>
-      <td>Umwälzmenge</td>
-      <td>3.0</td>
-      <td>101.0</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>b'&lt;Layout&gt;\r\n  &lt;DIAGRAM&gt;\r\n    &lt;PK_DB&gt;4660424275847929620&lt;/PK_DB&gt;\r\n    &lt;RK_DB&gt;4660424275847929620&lt;/RK_DB&gt;\r\n    &lt;TITLE&gt;Umw\xe4lzmenge&lt;/TITLE&gt;\r\n  &lt;/DIAGRAM&gt;\r\n  &lt;Y_AXIS&gt;\r\n    &lt;FK_DIAGRAM&gt;4660424275847929620&lt;/FK_DIAGRAM&gt;\r\n    &lt;USE_DEF_SETTINGS&gt;0&lt;/USE_DEF_SETTINGS&gt;\r\n    &lt;YMIN&gt;0&lt;/YMIN&gt;\r\n    &lt;YMAX&gt;600&lt;/YMAX&gt;\r\n    &lt;INTERVALS&gt;20&lt;/INTERVALS&gt;\r\n    &lt;PRECISION&gt;2&lt;/PRECISION&gt;\r\n    &lt;LABEL&gt;Umw\xe4lzmenge&lt;/LABEL&gt;\r\n  &lt;/Y_AXIS&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4660424275847929620&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Umw\xe4lzmenge t/h&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5473065616998409436&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;65280&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;5&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;1,2&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;1&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4660424275847929620&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;Erzeugung (Verlauf, qualitativ)&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5406900845843913244&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;33023&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;1&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;20&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;1&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4660424275847929620&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;T-VL (Verlauf, qualitativ)&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;5063697676773096103&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;255&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;1&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;5&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;0&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n  &lt;LINE&gt;\r\n    &lt;FK_DIAGRAM&gt;4660424275847929620&lt;/FK_DIAGRAM&gt;\r\n    &lt;LINE_TYPE&gt;1&lt;/LINE_TYPE&gt;\r\n    &lt;LABEL&gt;T-RL (Verlauf, qualitativ)&lt;/LABEL&gt;\r\n    &lt;DATAPOINT&gt;4911896072497221876&lt;/DATAPOINT&gt;\r\n    &lt;LINE_COLOR&gt;16711680&lt;/LINE_COLOR&gt;\r\n    &lt;CONST_NIVEAU_VALUE&gt;0&lt;/CONST_NIVEAU_VALUE&gt;\r\n    &lt;LINE_STYLE&gt;1&lt;/LINE_STYLE&gt;\r\n    &lt;DYNAMIC&gt;0&lt;/DYNAMIC&gt;\r\n    &lt;LINE_WIDTH&gt;0,4&lt;/LINE_WIDTH&gt;\r\n    &lt;FACTOR&gt;5&lt;/FACTOR&gt;\r\n    &lt;ADDEND&gt;0&lt;/ADDEND&gt;\r\n    &lt;STEPLINE&gt;0&lt;/STEPLINE&gt;\r\n  &lt;/LINE&gt;\r\n&lt;/Layout&gt;'</td>
-      <td>None</td>
-      <td>None</td>
+      <td>2023-02-13 02:00:00,000</td>
+      <td>294,834533691406</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2023-02-13 03:00:00,000</td>
+      <td>309,798828125</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2023-02-13 04:00:00,000</td>
+      <td>347,568023681641</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2023-02-13 05:00:00,000</td>
+      <td>451,154174804688</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2023-02-13 06:00:00,000</td>
+      <td>564,955627441406</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2023-02-13 07:00:00,000</td>
+      <td>531,596801757813</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2023-02-13 08:00:00,000</td>
+      <td>532,365844726563</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2023-02-13 09:00:00,000</td>
+      <td>520,33642578125</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2023-02-13 10:00:00,000</td>
+      <td>510,222839355469</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2023-02-13 11:00:00,000</td>
+      <td>483,421020507813</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2023-02-13 12:00:00,000</td>
+      <td>474,486602783203</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>2023-02-13 13:00:00,000</td>
+      <td>467,309143066406</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>2023-02-13 14:00:00,000</td>
+      <td>481,614715576172</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>2023-02-13 15:00:00,000</td>
+      <td>489,022155761719</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>2023-02-13 16:00:00,000</td>
+      <td>523,484252929688</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>2023-02-13 17:00:00,000</td>
+      <td>534,832336425781</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2023-02-13 18:00:00,000</td>
+      <td>538,20654296875</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2023-02-13 19:00:00,000</td>
+      <td>532,766906738281</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>2023-02-13 20:00:00,000</td>
+      <td>517,863403320313</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>2023-02-13 21:00:00,000</td>
+      <td>464,067535400391</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>2023-02-13 22:00:00,000</td>
+      <td>360,230316162109</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>2023-02-13 23:00:00,000</td>
+      <td>305,787841796875</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>2023-02-14 00:00:00,000</td>
+      <td>305,787139892578</td>
     </tr>
   </tbody>
 </table>
 </div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">dx</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfMX_ALL</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span>
-</pre></div>
-</div>
 </div>
 </section>
 

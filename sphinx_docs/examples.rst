@@ -26,3 +26,13 @@ You can view the Notebook `here <Example1.html>`_.
 
    
 You can download the Notebook file :download:`here <Example1.ipynb>`.
+
+.. _ex2:
+
+Example 2: Time Curves
+----------------------
+
+You can view the Notebook `here <Example2.html>`_.
+
+   
+You can download the Notebook file :download:`here <Example2.ipynb>`.
