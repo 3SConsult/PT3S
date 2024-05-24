@@ -16,7 +16,7 @@ Setting Up Git on Your Computer
 
 Follow these steps to install and configure Git:
 
-1. **Download Git:** Visit the official Git website at `https://git-scm.com/downloads <https://git-scm.com/downloads>`_ and download the version that is compatible with your operating system.
+1. **Download Git:** Visit the `official Git website <https://git-scm.com/downloads>`_ and download the version that is compatible with your operating system.
 
 2. **Install Git:** Launch the downloaded installer and follow the setup wizard to complete the installation.
 
@@ -26,7 +26,7 @@ Follow these steps to install and configure Git:
 
       git config --global user.name "Your Name"
 
-4. **Configure Your GitHub Email:** Similarly, set your GitHub email using the following command, replacing "your.email@example.com" with your actual email:
+4. **Configure Your GitHub Email:** Similarly, set your GitHub email using the following command, replacing ``your.email@example.com`` with your actual email:
 
    .. code-block:: bash
 
@@ -61,13 +61,19 @@ Get Latest Version from GitHub
 
 To fetch the latest changes from the origin and merge them into your current branch, follow these steps:
 
-1. **Fetch the latest changes from the origin:** Use the ``git fetch origin`` command.
+1. **Navigate to project directory:** Use the ``cd`` command followed by the path to the directory of your project (This directory should contain an invisible .git folder).
+
+   .. code-block:: bash
+
+      cd "path_to_your_parent_project_directory"
+      
+2. **Fetch the latest changes from the origin:** Use the ``git fetch origin`` command.
 
    .. code-block:: bash
 
       git fetch origin
 
-2. **Merge the fetched changes into your current branch:** Use the ``git merge origin/master`` command.
+3. **Merge the fetched changes into your current branch:** Use the ``git merge origin/master`` command.
 
    .. code-block:: bash
 
@@ -165,7 +171,7 @@ To create documentation, follow these steps:
 
 4. **Commit the changes.** Commit alle files from PT3S/sphinx_docs to GitHub (:ref:`commit-changes-label`).
 
-The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_.
+The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_
 
 .. note::
 

@@ -50,20 +50,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#why-python-and-pt3s-are-valuable-when-working-with-sir-3s">Why Python and PT3S are valuable when Working with SIR 3S</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-anaconda">Getting Started with Anaconda</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-install-anaconda">How to Install Anaconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#working-with-jupyterlab">Working with JupyterLab</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#how-to-start-jupyterlab-and-open-notebooks">How to Start JupyterLab and Open Notebooks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#how-to-work-with-notebooks">How to Work with Notebooks</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#why-jupyter-notebooks-python-and-pt3s-are-valuable-when-working-with-sir-3s">Why Jupyter Notebooks, Python and PT3S are valuable when Working with SIR 3S</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-anaconda">Install Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-start-jupyterlab">How to Start JupyterLab</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started-with-pt3s">Getting Started with PT3S</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-install-pt3s">How to Install PT3S</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-update-to-the-newest-pt3s-version">How to Update to the Newest PT3S Version</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-import-pt3s-into-notebooks">How to Import PT3S into Notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-pt3s">Install PT3S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-pt3s">Update PT3S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-pt3s-into-notebooks">Import PT3S into Notebooks</a></li>
 </ul>
 </li>
 </ul>
@@ -100,21 +93,20 @@
              
   <section id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
-<section id="why-python-and-pt3s-are-valuable-when-working-with-sir-3s">
-<h2>Why Python and PT3S are valuable when Working with SIR 3S<a class="headerlink" href="#why-python-and-pt3s-are-valuable-when-working-with-sir-3s" title="Link to this heading"></a></h2>
-<p>In progress…</p>
+<section id="why-jupyter-notebooks-python-and-pt3s-are-valuable-when-working-with-sir-3s">
+<h2>Why Jupyter Notebooks, Python and PT3S are valuable when Working with SIR 3S<a class="headerlink" href="#why-jupyter-notebooks-python-and-pt3s-are-valuable-when-working-with-sir-3s" title="Link to this heading"></a></h2>
+<p>SIR 3S has its core competencies, cannot do everything and cannot want to do everything. Almost everything that SIR 3S does not (yet) offer in Pre- and Postprocessing can be done with Jupyter notebooks. When working with SIR 3S, switching to Jupyter notebooks (from Excel, QGIS, etc.) can be a game changer moment. We do not recommend replacing tools like Excel or QGIS with Jupyter notebooks. For SIR 3S users with programming experience, it is worth taking a look at the power of Jupyter notebooks and Python.</p>
+<p>There are several reasons why Jupyter notebooks and Python are so popular. They offer a unique blend of interactivity, readability, ease of use, and powerful functionalities, making them a go-to tool for data scientists, analysts, and anyone working with data exploration and analysis.</p>
+<p>At the moment, PT3S is just a collection of functions intended to simplify the use of SIR 3S model data and SIR 3S calculation results in notebooks.</p>
+<p>PT3S is only of interest to users with access to SIR 3S models.</p>
+<p>And for users of pipe network calculation software who are looking for a new software that works with Jupyter notebooks and Python. PT3S comes with SIR 3S sample models. SIR 3S itself is not part of PT3S.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have already installed Anaconda (Jupyterlab) and PT3S and you are familiar with their general usage, you can visit the <a class="reference internal" href="developers.html"><span class="doc">For Developers</span></a> page for more technical information, such as how to contribute to PT3S.</p>
 </div>
 </section>
-<section id="getting-started-with-anaconda">
-<h2>Getting Started with Anaconda<a class="headerlink" href="#getting-started-with-anaconda" title="Link to this heading"></a></h2>
-<p>Anaconda is a free and open-source distribution of the Python and R programming languages for scientific computing. It is designed for data science, machine learning applications, large-scale data processing, predictive analytics, and more. It simplifies package management and deployment and includes several useful programs, such as JupyterLab and Spyder.</p>
-<p>Currently, 3S Consult utilizes JupyterLab for editing and displaying both imported and exported data from SIR 3S, and Spyder for coding PT3S. More details on PT3S Contribution can be found at <a class="reference internal" href="developers.html"><span class="doc">For Developers</span></a>.</p>
-<p>For more detailed information, visit the <a class="reference external" href="https://docs.anaconda.com/">official Anaconda documentation website</a>.</p>
-<section id="how-to-install-anaconda">
-<h3>How to Install Anaconda<a class="headerlink" href="#how-to-install-anaconda" title="Link to this heading"></a></h3>
+<section id="install-anaconda">
+<h2>Install Anaconda<a class="headerlink" href="#install-anaconda" title="Link to this heading"></a></h2>
 <p>To install Anaconda, follow these steps:</p>
 <ol class="arabic simple">
 <li><p><strong>Download Anaconda:</strong> Visit the <a class="reference external" href="https://www.anaconda.com/download">official Anaconda download website</a> and skip the registration process. Download the version that is compatible with your operating system.</p></li>
@@ -131,12 +123,9 @@
 <div class="line"><br /></div>
 </div>
 </section>
-<section id="working-with-jupyterlab">
-<h3>Working with JupyterLab<a class="headerlink" href="#working-with-jupyterlab" title="Link to this heading"></a></h3>
-<section id="how-to-start-jupyterlab-and-open-notebooks">
-<span id="startandopennotebooks"></span><h4>How to Start JupyterLab and Open Notebooks<a class="headerlink" href="#how-to-start-jupyterlab-and-open-notebooks" title="Link to this heading"></a></h4>
-<p>Currently, 3S Consult utilizes JupyterLab to author Notebooks, that are saved as ipynb files.</p>
-<p>To open JupyterLab and have certain Notebooks at hand, follow these steps:</p>
+<section id="how-to-start-jupyterlab">
+<span id="startandopennotebooks"></span><h2>How to Start JupyterLab<a class="headerlink" href="#how-to-start-jupyterlab" title="Link to this heading"></a></h2>
+<p>To start JupyterLab and have certain Notebooks at hand, follow these steps:</p>
 <ol class="arabic">
 <li><p><strong>Locate Notebook directory:</strong> Find the parent directory of the Notebook or multiple Notebooks, you want to open, and copy the path  (This directory can also contain non-ipynb files).</p></li>
 <li><p><strong>Open Anaconda Powershell Prompt:</strong> This is located in your <a class="reference internal" href="#anaconda-folder">Anaconda3 folder</a>.</p></li>
@@ -164,78 +153,36 @@
 </li>
 </ol>
 </section>
-<section id="how-to-work-with-notebooks">
-<span id="workwithnotebooks"></span><h4>How to Work with Notebooks<a class="headerlink" href="#how-to-work-with-notebooks" title="Link to this heading"></a></h4>
-<p>In progress…</p>
-</section>
-</section>
-</section>
 <section id="getting-started-with-pt3s">
 <h2>Getting Started with PT3S<a class="headerlink" href="#getting-started-with-pt3s" title="Link to this heading"></a></h2>
-<section id="how-to-install-pt3s">
-<h3>How to Install PT3S<a class="headerlink" href="#how-to-install-pt3s" title="Link to this heading"></a></h3>
-<p>To install PT3S to the newest version, follow these steps (Two Possibilities give):</p>
-<ol class="arabic">
-<li><p><strong>Possibility: Install via Terminal:</strong></p>
-<blockquote>
-<div><ol class="arabic">
-<li><p><strong>Open Terminal or Command Prompt:</strong> You can do this by searching for “terminal” or “command prompt” in your computer’s search bar.</p></li>
-<li><p><strong>Install PT3S:</strong> Run the following command to install PT3S:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>PT3S
-</pre></div>
-</div>
-</li>
-</ol>
-</div></blockquote>
-</li>
-<li><p><strong>Possibility: Install via Example0:</strong></p>
-<blockquote>
-<div><ol class="arabic simple">
+<section id="install-pt3s">
+<h3>Install PT3S<a class="headerlink" href="#install-pt3s" title="Link to this heading"></a></h3>
+<p>To install PT3S using this documentation, follow these steps:</p>
+<ol class="arabic simple">
 <li><p><strong>Download Example0:</strong> Download Example0.ipynb from <a class="reference internal" href="examples.html#ex0"><span class="std std-ref">Example 0: Installation</span></a>.</p></li>
-<li><p><strong>Open Example0.ipynb via JupyterLab:</strong> Instructions on how to open ipnyb files are explained in detail at <a class="reference internal" href="#startandopennotebooks"><span class="std std-ref">How to Start JupyterLab and Open Notebooks</span></a>.</p></li>
-<li><p><strong>Run 2nd cell:</strong> Instructions on how to work with Notebooks are explained in detail at <a class="reference internal" href="#workwithnotebooks"><span class="std std-ref">How to Work with Notebooks</span></a>.</p></li>
+<li><p><strong>Open Example0.ipynb via JupyterLab:</strong> Instructions on how to open ipnyb files are explained in detail at <a class="reference internal" href="#startandopennotebooks"><span class="std std-ref">How to Start JupyterLab</span></a>.</p></li>
+<li><p><strong>Run 2nd cell:</strong></p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/3_pt3s_install_example0.png"><img alt="pt3s_install_example0" class="align-center" src="_images/3_pt3s_install_example0.png" style="width: 100%;" /></a>
-</div></blockquote>
-</li>
-</ol>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 </section>
-<section id="how-to-update-to-the-newest-pt3s-version">
-<h3>How to Update to the Newest PT3S Version<a class="headerlink" href="#how-to-update-to-the-newest-pt3s-version" title="Link to this heading"></a></h3>
-<p>To update PT3S to the newest version, follow these steps (Two Possibilities give):</p>
-<ol class="arabic">
-<li><p><strong>Possibility: Update via Terminal:</strong></p>
-<blockquote>
-<div><ol class="arabic">
-<li><p><strong>Open Terminal or Command Prompt:</strong> You can do this by searching for “terminal” or “command prompt” in your computer’s search bar.</p></li>
-<li><p><strong>Update PT3S:</strong> Run the following command to update PT3S:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>PT3S<span class="w"> </span>-U<span class="w"> </span>--no-deps
-</pre></div>
-</div>
-</li>
-</ol>
-</div></blockquote>
-</li>
-<li><p><strong>Possibility: Update via Example0:</strong></p>
-<blockquote>
-<div><ol class="arabic simple">
+<section id="update-pt3s">
+<h3>Update PT3S<a class="headerlink" href="#update-pt3s" title="Link to this heading"></a></h3>
+<p>To update PT3S to the newest version using this documentation, follow these steps:</p>
+<ol class="arabic simple">
 <li><p><strong>Download Example0:</strong> Download Example0.ipynb from <a class="reference internal" href="examples.html#ex0"><span class="std std-ref">Example 0: Installation</span></a>.</p></li>
-<li><p><strong>Open Example0.ipynb via JupyterLab:</strong> Instructions on how to open ipnyb files are explained in detail at <a class="reference internal" href="#startandopennotebooks"><span class="std std-ref">How to Start JupyterLab and Open Notebooks</span></a>.</p></li>
-<li><p><strong>Run 4th cell:</strong> Instructions on how to work with Notebooks are explained in detail at <a class="reference internal" href="#workwithnotebooks"><span class="std std-ref">How to Work with Notebooks</span></a>.</p></li>
+<li><p><strong>Open Example0.ipynb via JupyterLab:</strong> Instructions on how to open ipnyb files are explained in detail at <a class="reference internal" href="#startandopennotebooks"><span class="std std-ref">How to Start JupyterLab</span></a>.</p></li>
+<li><p><strong>Run 4th cell:</strong></p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/4_pt3s_update_example0.png"><img alt="pt3s_update_example0" class="align-center" src="_images/4_pt3s_update_example0.png" style="width: 100%;" /></a>
-</div></blockquote>
-</li>
-</ol>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 </section>
-<section id="how-to-import-pt3s-into-notebooks">
-<h3>How to Import PT3S into Notebooks<a class="headerlink" href="#how-to-import-pt3s-into-notebooks" title="Link to this heading"></a></h3>
+<section id="import-pt3s-into-notebooks">
+<h3>Import PT3S into Notebooks<a class="headerlink" href="#import-pt3s-into-notebooks" title="Link to this heading"></a></h3>
 <p>To import PT3S into your Notebook, use the following commands.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>try:
@@ -249,8 +196,8 @@ except:
 <blockquote>
 <div><ol class="arabic simple">
 <li><p><strong>Download Example0:</strong> Download Example0.ipynb from <a class="reference internal" href="examples.html#ex0"><span class="std std-ref">Example 0: Installation</span></a>.</p></li>
-<li><p><strong>Open Example0.ipynb via JupyterLab:</strong> Instructions on how to open ipnyb files are explained in detail at <a class="reference internal" href="#startandopennotebooks"><span class="std std-ref">How to Start JupyterLab and Open Notebooks</span></a>.</p></li>
-<li><p><strong>Run 6th cell:</strong> Instructions on how to work with Notebooks are explained in detail at <a class="reference internal" href="#workwithnotebooks"><span class="std std-ref">How to Work with Notebooks</span></a>.</p></li>
+<li><p><strong>Open Example0.ipynb via JupyterLab:</strong> Instructions on how to open ipnyb files are explained in detail at <a class="reference internal" href="#startandopennotebooks"><span class="std std-ref">How to Start JupyterLab</span></a>.</p></li>
+<li><p><strong>Run 6th cell:</strong></p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/5_pt3s_import_example0.png"><img alt="pt3s_update_example0" class="align-center" src="_images/5_pt3s_import_example0.png" style="width: 100%;" /></a>
 </div></blockquote>

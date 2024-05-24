@@ -108,14 +108,14 @@
 <h2>Setting Up Git on Your Computer<a class="headerlink" href="#setting-up-git-on-your-computer" title="Link to this heading"></a></h2>
 <p>Follow these steps to install and configure Git:</p>
 <ol class="arabic">
-<li><p><strong>Download Git:</strong> Visit the official Git website at <a class="reference external" href="https://git-scm.com/downloads">https://git-scm.com/downloads</a> and download the version that is compatible with your operating system.</p></li>
+<li><p><strong>Download Git:</strong> Visit the <a class="reference external" href="https://git-scm.com/downloads">official Git website</a> and download the version that is compatible with your operating system.</p></li>
 <li><p><strong>Install Git:</strong> Launch the downloaded installer and follow the setup wizard to complete the installation.</p></li>
 <li><p><strong>Configure Your GitHub Username:</strong> Open your terminal or command prompt and enter the following command, replacing “Your Name” with your actual GitHub username:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Your Name&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Configure Your GitHub Email:</strong> Similarly, set your GitHub email using the following command, replacing “<a class="reference external" href="mailto:your&#46;email&#37;&#52;&#48;example&#46;com">your<span>&#46;</span>email<span>&#64;</span>example<span>&#46;</span>com</a>” with your actual email:</p>
+<li><p><strong>Configure Your GitHub Email:</strong> Similarly, set your GitHub email using the following command, replacing <code class="docutils literal notranslate"><span class="pre">your.email&#64;example.com</span></code> with your actual email:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;your.email@example.com&quot;</span>
 </pre></div>
 </div>
@@ -148,6 +148,11 @@
 <h3>Get Latest Version from GitHub<a class="headerlink" href="#get-latest-version-from-github" title="Link to this heading"></a></h3>
 <p>To fetch the latest changes from the origin and merge them into your current branch, follow these steps:</p>
 <ol class="arabic">
+<li><p><strong>Navigate to project directory:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command followed by the path to the directory of your project (This directory should contain an invisible .git folder).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;path_to_your_parent_project_directory&quot;</span>
+</pre></div>
+</div>
+</li>
 <li><p><strong>Fetch the latest changes from the origin:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">origin</span></code> command.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
 </pre></div>
@@ -238,7 +243,7 @@ git<span class="w"> </span>add<span class="w"> </span>.
 </li>
 <li><p><strong>Commit the changes.</strong> Commit alle files from PT3S/sphinx_docs to GitHub (<a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a>).</p></li>
 </ol>
-<p>The new documentation can be found at <a class="reference external" href="https://aw3s.github.io/PT3S/index.html">https://aw3s.github.io/PT3S/index.html</a>.</p>
+<p>The new documentation can be found at <a class="reference external" href="https://aw3s.github.io/PT3S/index.html">https://aw3s.github.io/PT3S/index.html</a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by a GitHub workflow and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.</p>
