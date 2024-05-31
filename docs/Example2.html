@@ -84,12 +84,32 @@
   <section id="Imports">
 <h1>Imports<a class="headerlink" href="#Imports" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">ticker</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">Polygon</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FuncFormatter</span>
+<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span><span class="p">,</span> <span class="n">MinuteLocator</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">ticker</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Rm</span>
@@ -102,7 +122,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt3s_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">Rm</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt3s_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -180,7 +200,7 @@
             <span class="k">if</span> <span class="n">current_lines</span><span class="p">:</span>
                 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">sub</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">current_lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span>  <span class="c1"># Skip the first two lines</span>
                 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Only take the first two columns</span>
-                <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Zeitstempel&#39;</span><span class="p">,</span> <span class="n">curve_name</span><span class="p">]</span>  <span class="c1"># Rename the columns</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Datetime&#39;</span><span class="p">,</span> <span class="n">curve_name</span><span class="p">]</span>  <span class="c1"># Rename the columns</span>
                 <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
                 <span class="n">current_lines</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -191,7 +211,7 @@
     <span class="k">if</span> <span class="n">current_lines</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">sub</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">current_lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span>  <span class="c1"># Skip the first two lines</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Only take the first two columns</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Zeitstempel&#39;</span><span class="p">,</span> <span class="n">curve_name</span><span class="p">]</span>  <span class="c1"># Rename the columns</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Datetime&#39;</span><span class="p">,</span> <span class="n">curve_name</span><span class="p">]</span>  <span class="c1"># Rename the columns</span>
         <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">dataframes</span>
@@ -207,15 +227,15 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[140]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_curves_dataframes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_curves_dataframes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[140]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -237,140 +257,384 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Zeitstempel</th>
+      <th>Datetime</th>
       <th>Umwälzmenge;\n</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2023-02-13 00:00:00,000</td>
-      <td>287,090057373047</td>
+      <td>2023-02-13 00:00:00</td>
+      <td>287.090057</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2023-02-13 01:00:00,000</td>
-      <td>290,241271972656</td>
+      <td>2023-02-13 01:00:00</td>
+      <td>290.241272</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2023-02-13 02:00:00,000</td>
-      <td>294,834533691406</td>
+      <td>2023-02-13 02:00:00</td>
+      <td>294.834534</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2023-02-13 03:00:00,000</td>
-      <td>309,798828125</td>
+      <td>2023-02-13 03:00:00</td>
+      <td>309.798828</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2023-02-13 04:00:00,000</td>
-      <td>347,568023681641</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>2023-02-13 05:00:00,000</td>
-      <td>451,154174804688</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>2023-02-13 06:00:00,000</td>
-      <td>564,955627441406</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2023-02-13 07:00:00,000</td>
-      <td>531,596801757813</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>2023-02-13 08:00:00,000</td>
-      <td>532,365844726563</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>2023-02-13 09:00:00,000</td>
-      <td>520,33642578125</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>2023-02-13 10:00:00,000</td>
-      <td>510,222839355469</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>2023-02-13 11:00:00,000</td>
-      <td>483,421020507813</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>2023-02-13 12:00:00,000</td>
-      <td>474,486602783203</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>2023-02-13 13:00:00,000</td>
-      <td>467,309143066406</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>2023-02-13 14:00:00,000</td>
-      <td>481,614715576172</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>2023-02-13 15:00:00,000</td>
-      <td>489,022155761719</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>2023-02-13 16:00:00,000</td>
-      <td>523,484252929688</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>2023-02-13 17:00:00,000</td>
-      <td>534,832336425781</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>2023-02-13 18:00:00,000</td>
-      <td>538,20654296875</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>2023-02-13 19:00:00,000</td>
-      <td>532,766906738281</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>2023-02-13 20:00:00,000</td>
-      <td>517,863403320313</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>2023-02-13 21:00:00,000</td>
-      <td>464,067535400391</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>2023-02-13 22:00:00,000</td>
-      <td>360,230316162109</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>2023-02-13 23:00:00,000</td>
-      <td>305,787841796875</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>2023-02-14 00:00:00,000</td>
-      <td>305,787139892578</td>
+      <td>2023-02-13 04:00:00</td>
+      <td>347.568024</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
+</section>
+<section id="Plotting">
+<h1>Plotting<a class="headerlink" href="#Plotting" title="Link to this heading"></a></h1>
+<section id="Prepare-Data">
+<h2>Prepare Data<a class="headerlink" href="#Prepare-Data" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[126]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datetime_format</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S,</span><span class="si">%f</span><span class="s1">&#39;</span>
+
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">time_curves_dataframes</span><span class="p">:</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S,</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Mapping for ax Functions</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Define-Functions">
+<h2>Define Functions<a class="headerlink" href="#Define-Functions" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[141]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fyP</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Druck in bar&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">25</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">fyT</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltLDSHelperY</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temperatur in °C&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">144</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">144</span><span class="p">,</span><span class="mi">25</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">fyQ</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">120</span><span class="p">):</span>
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltLDSHelperY</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Durchfluss in m3/h&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3840</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3840</span><span class="p">,</span><span class="mi">25</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">fyW</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">180</span><span class="p">):</span>
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltLDSHelperY</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Wärmeleistung in MW&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">6</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">fyNY</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">240</span><span class="p">):</span>
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltLDSHelperY</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Drehzahl in Y&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">25</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">fyNrpm</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">240</span><span class="p">):</span>
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltLDSHelperY</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Drehzahl in rpm&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2400</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2400</span><span class="p">,</span><span class="mi">25</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">fyUmwMe</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltLDSHelperY</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Umwälzmenge in ###&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span><span class="mi">25</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[171]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plotAll</span><span class="p">(</span><span class="n">dfs</span>
+            <span class="p">,</span><span class="n">should_plot</span>
+            <span class="p">,</span><span class="n">Startzeit</span><span class="o">=</span><span class="n">time_curves_dataframes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="p">,</span><span class="n">Endzeit</span><span class="o">=</span><span class="n">time_curves_dataframes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">0</span><span class="p">]):</span>
+
+    <span class="c1"># Create a new figure and axis</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+    <span class="c1"># Set y-axis ticks and labels</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([])</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dfs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">should_plot</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="n">ax_i</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+            <span class="n">fyW</span><span class="p">(</span><span class="n">ax_i</span><span class="p">,</span> <span class="n">i</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span><span class="c1">#Mapping needed</span>
+            <span class="n">ax_i</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dfs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)],</span> <span class="n">lw</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+
+    <span class="c1">#if Wärmeleistung:</span>
+    <span class="c1">#    ax1 = ax0.twinx()</span>
+    <span class="c1">#    fyW(ax1, 0)</span>
+    <span class="c1">#    ax1.plot(dfs[0].iloc[:, 0], dfs[0].iloc[:, 1], color=&#39;blue&#39;, lw=plt.rcParams[&#39;lines.linewidth&#39;]*2, ls=&#39;solid&#39;)</span>
+
+    <span class="c1">#if Temperatur:#Not really a Temp</span>
+    <span class="c1">#    ax2 = ax0.twinx()</span>
+    <span class="c1">#    fyUmwMe(ax2, 60)</span>
+    <span class="c1">#    ax2.plot(dfs[1].iloc[:, 0], dfs[1].iloc[:, 1], color=&#39;red&#39;, lw=plt.rcParams[&#39;lines.linewidth&#39;]*2, ls=&#39;solid&#39;)</span>
+
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">Startzeit</span><span class="p">,</span> <span class="n">Endzeit</span><span class="p">)</span>
+
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltHelperX</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">dateFormat</span><span class="o">=</span><span class="s1">&#39;%Hh:%Mm&#39;</span><span class="p">,</span> <span class="n">byminute</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">yPos</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Set the title of the plot</span>
+    <span class="n">Name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Prozessdaten West </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y %m </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">plotTitle</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;West von </span><span class="si">{</span><span class="n">Startzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y %m </span><span class="si">%d</span><span class="s1"> %Hh %Mm %Ss&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> bis </span><span class="si">{</span><span class="n">Endzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y %m </span><span class="si">%d</span><span class="s1"> %Hh %Mm %Ss&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">plotTitle</span><span class="p">)</span>
+
+    <span class="c1"># Adjust the layout</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+
+    <span class="c1"># Show the plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[172]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plotAll</span><span class="p">(</span><span class="n">time_curves_dataframes</span><span class="p">,</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example2_20_0.png" src="_images/Example2_20_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[178]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="c1"># Create TimePicker widgets for selecting specific times</span>
+<span class="n">Zeitpunkt</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">TimePicker</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Zeitpunkt:&#39;</span><span class="p">)</span>
+<span class="n">Startzeit</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">TimePicker</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">min</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Startzeit:&#39;</span><span class="p">)</span>
+<span class="n">Endzeit</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">TimePicker</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Endzeit:&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create a dictionary to hold the checkboxes for measurement options</span>
+<span class="n">checkboxes</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Dynamically create checkboxes based on the second column names of the dataframes</span>
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">time_curves_dataframes</span><span class="p">:</span>
+    <span class="n">column_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">checkboxes</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">column_name</span><span class="p">)</span>
+
+<span class="c1"># Function to update the plot based on the widgets&#39; values</span>
+<span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># Convert widget times to datetime.datetime objects</span>
+    <span class="n">start_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">Startzeit</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">end_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">Endzeit</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="c1"># Prepare a list of selected measurements based on the checkboxes</span>
+    <span class="n">selected_measurements</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">checkbox</span> <span class="ow">in</span> <span class="n">checkboxes</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">checkbox</span><span class="o">.</span><span class="n">value</span><span class="p">]</span>
+
+    <span class="c1"># Call the plotAll function with the selected parameters</span>
+    <span class="n">plotAll</span><span class="p">(</span><span class="n">time_curves_dataframes</span><span class="p">,</span> <span class="n">start_datetime</span><span class="p">,</span> <span class="n">end_datetime</span><span class="p">,</span> <span class="n">selected_measurements</span><span class="p">)</span>
+
+<span class="c1"># Observe changes in the widgets and update the plot accordingly</span>
+<span class="n">Startzeit</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_plot</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">Endzeit</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_plot</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">checkbox</span> <span class="ow">in</span> <span class="n">checkboxes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">checkbox</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_plot</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+
+<span class="c1"># Display the widgets</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Zeitpunkt</span><span class="p">,</span> <span class="n">Startzeit</span><span class="p">,</span> <span class="n">Endzeit</span><span class="p">,</span> <span class="o">*</span><span class="n">checkboxes</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="c1"># Initial plot</span>
+<span class="n">update_plot</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "83a4cf376a6d4bf6acceb34427276905", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "cfe6871827a840298aec72c1b3d86a11", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "981c872e03664036a908b98078da220d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a993d70f66b948cd98cbd30cff47be9d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8ff7b8f0681546598f9d98d0eb630ec6", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5fdb8499ccc5400fafd70220854c986b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[178], line 40</span>
+<span class="ansi-green-fg">     37</span> display(Zeitpunkt, Startzeit, Endzeit, <span style="color: rgb(98,98,98)">*</span>checkboxes<span style="color: rgb(98,98,98)">.</span>values())
+<span class="ansi-green-fg">     39</span> <span style="color: rgb(95,135,135)"># Initial plot</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 40</span> update_plot()
+
+Cell <span class="ansi-green-intense-fg ansi-bold">In[178], line 28</span>, in <span class="ansi-cyan-fg">update_plot</span><span class="ansi-blue-intense-fg ansi-bold">(_)</span>
+<span class="ansi-green-fg">     25</span> selected_measurements <span style="color: rgb(98,98,98)">=</span> [key <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> key, checkbox <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> checkboxes<span style="color: rgb(98,98,98)">.</span>items() <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> checkbox<span style="color: rgb(98,98,98)">.</span>value]
+<span class="ansi-green-fg">     27</span> <span style="color: rgb(95,135,135)"># Call the plotAll function with the selected parameters</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 28</span> plotAll(time_curves_dataframes, start_datetime, end_datetime, selected_measurements)
+
+Cell <span class="ansi-green-intense-fg ansi-bold">In[171], line 17</span>, in <span class="ansi-cyan-fg">plotAll</span><span class="ansi-blue-intense-fg ansi-bold">(dfs, should_plot, Startzeit, Endzeit)</span>
+<span class="ansi-green-fg">     14</span> colors <span style="color: rgb(98,98,98)">=</span> [<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">blue</span><span style="color: rgb(175,0,0)">&#39;</span>, <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">red</span><span style="color: rgb(175,0,0)">&#39;</span>, <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">green</span><span style="color: rgb(175,0,0)">&#39;</span>, <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">orange</span><span style="color: rgb(175,0,0)">&#39;</span>, <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">purple</span><span style="color: rgb(175,0,0)">&#39;</span>]
+<span class="ansi-green-fg">     16</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> i, df <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">enumerate</span>(dfs):
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 17</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> should_plot[i]:
+<span class="ansi-green-fg">     18</span>         ax_i <span style="color: rgb(98,98,98)">=</span> ax0<span style="color: rgb(98,98,98)">.</span>twinx()
+<span class="ansi-green-fg">     19</span>         fyW(ax_i, i<span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">60</span>)
+
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>: &#39;datetime.datetime&#39; object is not subscriptable
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example2_21_7.png" src="_images/Example2_21_7.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[177]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">interactive</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Assume &#39;time_curves_dataframes&#39; is a list of dataframes available in your context</span>
+<span class="c1"># Assume &#39;plotAll&#39; function is defined as per the previous discussion</span>
+
+<span class="c1"># Create TimePicker widgets for selecting specific times</span>
+<span class="n">Startzeit_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">TimePicker</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Startzeit:&#39;</span><span class="p">)</span>
+<span class="n">Endzeit_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">TimePicker</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">59</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Endzeit:&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create a dictionary to hold the checkboxes for measurement options</span>
+<span class="n">checkboxes</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">time_curves_dataframes</span><span class="p">:</span>
+    <span class="n">column_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">checkboxes</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">column_name</span><span class="p">)</span>
+
+<span class="c1"># Function to convert TimePicker values to datetime objects</span>
+<span class="k">def</span> <span class="nf">get_datetime</span><span class="p">(</span><span class="n">time_picker</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">time_picker</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="c1"># Function to collect the states of the checkboxes</span>
+<span class="k">def</span> <span class="nf">get_should_plot</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">checkbox</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">checkbox</span> <span class="ow">in</span> <span class="n">checkboxes</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+<span class="c1"># Use the interactive function to link widgets to the plotAll function</span>
+<span class="n">interactive_plot</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">plotAll</span><span class="p">,</span>
+                               <span class="n">dfs</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">fixed</span><span class="p">(</span><span class="n">time_curves_dataframes</span><span class="p">),</span>
+                               <span class="n">should_plot</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">fixed</span><span class="p">(</span><span class="n">get_should_plot</span><span class="p">()),</span>
+                               <span class="n">Startzeit</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">fixed</span><span class="p">(</span><span class="n">get_datetime</span><span class="p">(</span><span class="n">Startzeit_widget</span><span class="p">)),</span>
+                               <span class="n">Endzeit</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">fixed</span><span class="p">(</span><span class="n">get_datetime</span><span class="p">(</span><span class="n">Endzeit_widget</span><span class="p">)))</span>
+
+<span class="c1"># Display the widgets and the interactive plot</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Startzeit_widget</span><span class="p">,</span> <span class="n">Endzeit_widget</span><span class="p">,</span> <span class="o">*</span><span class="n">checkboxes</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">interactive_plot</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">ImportError</span>                               Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[177], line 3</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">ipywidgets</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">widgets</span>
+<span class="ansi-green-fg">      2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">IPython</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">display</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> display
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 3</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">IPython</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">display</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> interactive
+<span class="ansi-green-fg">      4</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">datetime</span>
+<span class="ansi-green-fg">      5</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">matplotlib</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">pyplot</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">plt</span>
+
+<span class="ansi-red-intense-fg ansi-bold">ImportError</span>: cannot import name &#39;interactive&#39; from &#39;IPython.display&#39; (C:\Users\jablonski\AppData\Local\anaconda3\Lib\site-packages\IPython\display.py)
+</pre></div></div>
+</div>
+</section>
 </section>
 
 
