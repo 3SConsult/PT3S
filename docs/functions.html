@@ -53,6 +53,7 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dxAndMxHelperFcts.readDxAndMx"><code class="docutils literal notranslate"><span class="pre">readDxAndMx()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dxAndMxHelperFcts.readMx"><code class="docutils literal notranslate"><span class="pre">readMx()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
@@ -146,6 +147,27 @@ gdf_KNOT: Nodes</p>
 </dl>
 </dd>
 <dt>Note:</dt><dd><p>Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.readMx">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootdire</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readMx" title="Link to this definition"></a></dt>
+<dd><p>Reads SIR 3S results and returns a Mx object.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>rootdire (str): </dt><dd><p>Path to root directory of the Model. The results are read into a Mx object via the mx files.</p>
+</dd>
+<dt>logPathOutputFct (fct, optional, default=os.path.relpath):</dt><dd><p>logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Results: Mx object:</dt><dd><p>mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)
+mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
