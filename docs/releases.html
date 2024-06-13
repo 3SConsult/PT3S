@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Releases &mdash; PT3S 90.14.20.0.dev1 documentation</title>
+  <title>Releases &mdash; PT3S 90.14.21.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
@@ -53,10 +53,11 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Releases</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dev1">90.14.20.0.dev1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">90.14.19.0.dev1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">90.14.18.0.dev1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">90.14.17.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev1">90.14.21.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">90.14.20.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">90.14.19.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">90.14.18.0.dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">90.14.17.0.dev1</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="developers.html">For Developers</a></li>
@@ -89,7 +90,32 @@
   <section id="releases">
 <h1>Releases<a class="headerlink" href="#releases" title="Link to this heading"></a></h1>
 <section id="dev1">
-<h2>90.14.20.0.dev1<a class="headerlink" href="#dev1" title="Link to this heading"></a></h2>
+<h2>90.14.21.0.dev1<a class="headerlink" href="#dev1" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>new:</p>
+<p>readMx:</p>
+<blockquote>
+<div><p>Reads SIR 3S results and returns a Mx object.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>rootdire (str):</dt><dd><p>Path to root directory of the Model. The results are read into a Mx object via the mx files.</p>
+</dd>
+<dt>logPathOutputFct (fct, optional, default=os.path.relpath):</dt><dd><p>logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Results: Mx object:</dt><dd><p>mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)
+mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="id1">
+<h2>90.14.20.0.dev1<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>readDxAndMx:</p>
 <blockquote>
@@ -102,14 +128,14 @@
 </div></blockquote>
 </div></blockquote>
 </section>
-<section id="id1">
-<h2>90.14.19.0.dev1<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="id2">
+<h2>90.14.19.0.dev1<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>SIR 3S db3 and mx files used in Examples are now included in the package.</p>
 </div></blockquote>
 </section>
-<section id="id2">
-<h2>90.14.18.0.dev1<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="id3">
+<h2>90.14.18.0.dev1<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>readDxAndMx:</p>
 <blockquote>
@@ -133,8 +159,8 @@ new: setLayerContentTo</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id3">
-<h2>90.14.17.0.dev1<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="id4">
+<h2>90.14.17.0.dev1<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>readDxAndMx:</p>
 <blockquote>
