@@ -859,3 +859,73 @@ def readDxAndMx(dbFile
     finally:
         logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))  
         return m
+
+
+
+
+
+
+
+
+class readMxError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+def readMx(rootdire
+           ,logPathOutputFct=os.path.relpath):
+        
+    """
+    Reads SIR 3S results and returns a Mx object.
+    
+    Args:
+        rootdire (str): 
+            Path to root directory of the Model. The results are read into a Mx object via the mx files.
+                
+        logPathOutputFct (fct, optional, default=os.path.relpath):
+            logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
+    
+    Returns:
+        Results: Mx object:
+            mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
+            mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
+            
+    """
+    
+    import os
+    
+    mx=None
+    
+    logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
+    logger.debug("{0:s}{1:s}".format(logStr,'Start.'))   
+    
+    try:
+        wDirMx = rootdire + '\\B1\\V0\\BZ1'
+        logger.debug("{logStrPrefix:s}wDirMx from abspath of wDir from dbFile: {wDirMx:s}".format(
+            logStrPrefix=logStr,wDirMx=wDirMx))
+        
+        wDirMxMx1Content=glob.glob(os.path.join(wDirMx,'*.MX1'))
+        wDirMxMx1Content=sorted(wDirMxMx1Content) 
+
+        if len(wDirMxMx1Content)>1:
+            logger.debug("{logStrPrefix:s}Mehr als 1 ({anz:d}) MX1 in wDirMx vorhanden.".format(
+                logStrPrefix=logStr,anz=len(wDirMxMx1Content)))
+        mx1File= wDirMxMx1Content[0]
+        logger.debug("{logStrPrefix:s}mx1File: {mx1File:s}".format(
+            logStrPrefix=logStr
+            ,mx1File=logPathOutputFct(mx1File)))
+        
+    except:
+        logger.info("MX1 filepath problem".format(
+             logStr=logStr))
+        
+    try:
+        mx=Mx.Mx(mx1File)
+        logger.debug("{0:s}{1:s}".format(logStr,'MX read ok so far.'"{mx1File}"))   
+    except Mx.MxError:  
+        logger.info("MX1 file not read".format(
+             logStr=logStr))
+    
+    
+    return mx
