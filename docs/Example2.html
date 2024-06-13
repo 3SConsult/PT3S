@@ -92,8 +92,6 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -105,6 +103,13 @@
 <span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FuncFormatter</span>
 <span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span><span class="p">,</span> <span class="n">MinuteLocator</span>
 <span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">ticker</span>
+
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">output_file</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span><span class="p">,</span> <span class="n">LinearAxis</span><span class="p">,</span> <span class="n">Range1d</span>
+<span class="kn">from</span> <span class="nn">bokeh.palettes</span> <span class="kn">import</span> <span class="n">Spectral10</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
@@ -161,7 +166,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbPath</span><span class="o">=</span><span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">3S</span><span class="se">\\</span><span class="s2">SIR 3S</span><span class="se">\\</span><span class="s2">Modelle</span><span class="se">\\</span><span class="s2">Beispiele</span><span class="se">\\</span><span class="s2">Wasser</span><span class="se">\\</span><span class="s2">Manual</span><span class="se">\\</span><span class="s2">Modellstände</span><span class="se">\\</span><span class="s2">&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;WDBeispiel_Wasser_STAND9&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -169,20 +174,18 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Beispiel_Wasser_STAND9&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rootdire</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\WDBeispiel_Wasser_STAND9&quot;</span>
 </pre></div>
 </div>
 </div>
 </section>
-<section id="Read-Model-and-Results">
-<h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Link to this heading"></a></h1>
+<section id="Read-Results">
+<h1>Read Results<a class="headerlink" href="#Read-Results" title="Link to this heading"></a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dbPath</span><span class="o">+</span><span class="n">dbFilename</span><span class="o">+</span><span class="s1">&#39;.db3&#39;</span><span class="p">)</span> <span class="c1">#XML converted to db3</span>
-                                <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span>
-                               <span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mx</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readMx</span><span class="p">(</span><span class="n">rootdire</span><span class="o">=</span><span class="n">rootdire</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -191,18 +194,14 @@
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; Dx.__init__: dbFile (abspath): C:\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\Beispiel_Wasser_STAND9.db3 exists readable ...
-INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\Beispiel_Wasser_STAND9.db3 is newer than ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.2.MX1: SIR 3S&#39; dbFile is newer than SIR 3S&#39; mxFile; in this case the results are maybe dated or (worse) incompatible to the model
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.2.MXS reading ...
-INFO    ; dxWithMx.__init__: Beispiel_Wasser_STAND9: processing dx and mx ...
-INFO    ; dxWithMx.__init__: Constructing NetworkX Graph GSig failed.
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -261,24 +260,24 @@ INFO    ; dxWithMx.__init__: Constructing NetworkX Graph GSig failed.
     <span class="c1">#Druck</span>
     <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyP</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~K0011~~5471942051669438823~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH K0011&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~5143521_i~~5166327497394449628~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 5143521_i&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~791393_3_k~~5667818255300782920~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 791393_3_k&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~1629686_0_i~~5262999985134416180~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 1629686_0_i&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
 
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~K0011~~5471942051669438823~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~5143521_i~~5166327497394449628~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~791393_3_k~~5667818255300782920~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~1629686_0_i~~5262999985134416180~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>
-
-    <span class="c1">#Volumenstrom</span>
+    <span class="c1"># Volumenstrom</span>
     <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyQ</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~5659089154378919131~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0006~K0004&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0011~PST_out~5430537691154258843~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0011~PST_out&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
 
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~5659089154378919131~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0011~PST_out~5430537691154258843~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
-
-    <span class="c1">#RSK-Stellung</span>
+    <span class="c1"># RSK-Stellung</span>
     <span class="n">ax3</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyRSK</span><span class="p">(</span><span class="n">ax3</span><span class="p">)</span>
-
-    <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~5303247238968995258~PHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~5303247238968995258~PHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PHI K0013~K0014&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
 
     <span class="c1"># Set the x-axis limits</span>
     <span class="n">Startzeit</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
@@ -286,7 +285,13 @@ INFO    ; dxWithMx.__init__: Constructing NetworkX Graph GSig failed.
 
     <span class="n">ax0</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">Startzeit</span><span class="p">,</span> <span class="n">Endzeit</span><span class="p">)</span>
 
-    <span class="n">Rm</span><span class="o">.</span><span class="n">pltHelperX</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">dateFormat</span><span class="o">=</span><span class="s1">&#39;%Hh:%Mm:%Ss&#39;</span><span class="p">,</span> <span class="n">bysecond</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">],</span> <span class="n">yPos</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltHelperX</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">dateFormat</span><span class="o">=</span><span class="s1">&#39;%Hh:%Mm:%Ss&#39;</span><span class="p">,</span> <span class="n">bysecond</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">yPos</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Curves for &#39;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39; from &#39;</span><span class="o">+</span><span class="n">Startzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; to &quot;</span><span class="o">+</span><span class="n">Endzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">))</span>
+
+    <span class="c1">#Create printable Output</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Example2_Output.pdf&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Example2_Output.png&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -310,6 +315,8 @@ INFO    ; dxWithMx.__init__: Constructing NetworkX Graph GSig failed.
 </section>
 <section id="Interactive-Plot">
 <h2>Interactive Plot<a class="headerlink" href="#Interactive-Plot" title="Link to this heading"></a></h2>
+<section id="Using-Widgets">
+<h3>Using Widgets<a class="headerlink" href="#Using-Widgets" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -351,27 +358,28 @@ INFO    ; dxWithMx.__init__: Constructing NetworkX Graph GSig failed.
         <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyP</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 
-        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~K0011~~5471942051669438823~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~5143521_i~~5166327497394449628~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
-        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~791393_3_k~~5667818255300782920~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~1629686_0_i~~5262999985134416180~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~K0011~~5471942051669438823~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH K0011&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~5143521_i~~5166327497394449628~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 5143521_i&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~791393_3_k~~5667818255300782920~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 791393_3_k&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~1629686_0_i~~5262999985134416180~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 1629686_0_i&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">Volumenstrom</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">Achsen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
-        <span class="n">Achsen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyQ</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
-        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~5659089154378919131~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0011~PST_out~5430537691154258843~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~5659089154378919131~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0006~K0004&#39;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0011~PST_out~5430537691154258843~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0011~PST_out&#39;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">RSK_Stellung</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">Achsen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
-        <span class="n">Achsen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="n">ax3</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyRSK</span><span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
-        <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~5303247238968995258~PHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~5303247238968995258~PHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PHI K0013~K0014&#39;</span><span class="p">)</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
 
     <span class="c1"># Set the x-axis limits</span>
     <span class="n">Startzeit</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">Startzeit_widget</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
@@ -380,7 +388,9 @@ INFO    ; dxWithMx.__init__: Constructing NetworkX Graph GSig failed.
 
     <span class="n">ax0</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">Startzeit</span><span class="p">,</span> <span class="n">Endzeit</span><span class="p">)</span>
 
-    <span class="n">Rm</span><span class="o">.</span><span class="n">pltHelperX</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">dateFormat</span><span class="o">=</span><span class="s1">&#39;%Hh:%Mm:%Ss&#39;</span><span class="p">,</span> <span class="n">bysecond</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">],</span> <span class="n">yPos</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">Rm</span><span class="o">.</span><span class="n">pltHelperX</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">dateFormat</span><span class="o">=</span><span class="s1">&#39;%Hh:%Mm:%Ss&#39;</span><span class="p">,</span> <span class="n">bysecond</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">yPos</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Curves for &#39;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39; from &#39;</span><span class="o">+</span><span class="n">Startzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; to &quot;</span><span class="o">+</span><span class="n">Endzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">))</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -420,7 +430,7 @@ INFO    ; dxWithMx.__init__: Constructing NetworkX Graph GSig failed.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">widgets_interact</span><span class="p">)</span> <span class="c1">#The display of the interactive plot does not work in the documentation, because a python kernel must run it. To view the interactive plot, download the script and run it.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">widgets_interact</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -428,16 +438,71 @@ INFO    ; dxWithMx.__init__: Constructing NetworkX Graph GSig failed.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "095abdc84e9145059de5cc1c6e478681", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9a136ae7aaf442cbb3654a59b54e5e9f", "version_major": 2, "version_minor": 0}</script></div>
 </div>
+The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. To view the interactive plot, download the script and run it.</section>
+<section id="Using-Bokeh">
+<h3>Using Bokeh<a class="headerlink" href="#Using-Bokeh" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfDx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;SPLZ&#39;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">plot_druck</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_volumenstrom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_rsk_stellung</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="n">source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># List of columns to plot</span>
+    <span class="n">cols_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNOT~K0011~~5471942051669438823~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~5143521_i~~5166327497394449628~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~791393_3_k~~5667818255300782920~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~1629686_0_i~~5262999985134416180~PH&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_druck</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="n">cols_to_plot_2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~5659089154378919131~QM&#39;</span><span class="p">,</span> <span class="s1">&#39;VENT~K0011~PST_out~5430537691154258843~QM&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_volumenstrom</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="n">cols_to_plot_3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~5303247238968995258~PHI&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_rsk_stellung</span> <span class="k">else</span> <span class="p">[]</span>
+
+    <span class="c1"># Define the plot size</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">1366</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">x_axis_type</span><span class="o">=</span><span class="s2">&quot;datetime&quot;</span><span class="p">,</span> <span class="n">y_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+    <span class="c1"># Adding a line for each column to the plot</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols_to_plot</span><span class="p">):</span>
+        <span class="c1"># Use a different color for each line from the Spectral10 palette</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">Spectral10</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+
+    <span class="c1"># Add a label to the y axis</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="s1">&#39;Druck in bar&#39;</span> <span class="k">if</span> <span class="n">plot_druck</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="c1"># Create a new y range for the second set of columns</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">extra_y_ranges</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Volumenstrom in m^3/h&quot;</span><span class="p">:</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span> <span class="k">if</span> <span class="n">plot_volumenstrom</span> <span class="k">else</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>  <span class="c1"># Adjust the range according to your data</span>
+                        <span class="s2">&quot;RSK-Stellung in °&quot;</span><span class="p">:</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span> <span class="k">if</span> <span class="n">plot_rsk_stellung</span> <span class="k">else</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>  <span class="c1"># Adjust the range according to your data</span>
+
+    <span class="c1"># Adding a line for each column in the second set to the plot with the new y range</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols_to_plot_2</span><span class="p">):</span>
+        <span class="c1"># Use a different color for each line from the Spectral10 palette</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">Spectral10</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_to_plot</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;Volumenstrom in m^3/h&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Adding a line for each column in the third set to the plot with the new y range</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols_to_plot_3</span><span class="p">):</span>
+        <span class="c1"># Use a different color for each line from the Spectral10 palette</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">Spectral10</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_to_plot</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_to_plot_2</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;RSK-Stellung in °&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Add a second y axis to the left that corresponds to the new y range</span>
+    <span class="k">if</span> <span class="n">plot_volumenstrom</span><span class="p">:</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">LinearAxis</span><span class="p">(</span><span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;Volumenstrom in m^3/h&quot;</span><span class="p">,</span> <span class="n">axis_label</span><span class="o">=</span><span class="s1">&#39;Volumenstrom in m^3/h&#39;</span><span class="p">),</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">plot_rsk_stellung</span><span class="p">:</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">LinearAxis</span><span class="p">(</span><span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;RSK-Stellung in °&quot;</span><span class="p">,</span> <span class="n">axis_label</span><span class="o">=</span><span class="s1">&#39;RSK-Stellung in °&#39;</span><span class="p">),</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Show the plot</span>
+    <span class="n">show</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_data</span><span class="p">(</span><span class="n">plot_druck</span><span class="o">=</span><span class="kc">True</span>
+          <span class="p">,</span><span class="n">plot_volumenstrom</span><span class="o">=</span><span class="kc">True</span>
+          <span class="p">,</span><span class="n">plot_rsk_stellung</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+The depiction of the interactive Bokeh plot does not work in the documentation, because it is opened in a browser window. To view the interactive plot, download the script and run it.</section>
 </section>
 </section>
 
