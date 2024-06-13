@@ -1,6 +1,27 @@
 Releases
 ================================
 
+90.14.21.0.dev1
+---------------
+    
+    new:
+    
+    readMx:
+
+        Reads SIR 3S results and returns a Mx object.
+        
+        Args:
+            rootdire (str): 
+                Path to root directory of the Model. The results are read into a Mx object via the mx files.
+                    
+            logPathOutputFct (fct, optional, default=os.path.relpath):
+                logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
+        
+        Returns:
+            Results: Mx object:
+                mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
+                mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
+
 90.14.20.0.dev1
 ---------------
     readDxAndMx:
