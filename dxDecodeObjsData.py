@@ -16,6 +16,8 @@ import pandas as pd
 
 import numpy as np
 
+import networkx as nx
+
 # ---
 # --- PT3S Imports
 # ---
@@ -306,33 +308,36 @@ def Wblz(dx):
     
     pass
 
-
 def Agsn(dx):
-    """Returns a df with decoded V_AGSN-Content.
+    """Returns a df with decoded and supplemented V_AGSN-Content.
 
     Args:
         dx: Dx-Instance 
-            used: dx.dataFrames['V_AGSN']
+            used: V_AGSN, V3_VBEL
                 
     Returns:
         df:
-            one row per AGSN and OBJ
+            one row for AGSN and OBJ (edge)
+            AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
             
-            AGSN:
-            'pk'
-           ,'tk'
-           ,'LFDNR' (numeric)
-           ,'NAME'
-           ,'XL':
-               0: 
-               1: SL (the stuff before \n)
-               2: RL (the stuff after \n)
-           
             OBJ:
-           ,'Pos': Position of OBJ in AGSN starting with 0
-           ,'TYPE'
-           ,'ID'
-               
+                'Pos': Position of OBJ (of the edge) in AGSN starting with 0
+                'TYPE' (of the edge)
+                'ID' (of the edge)
+
+            AGSN:
+                'pk'
+                'tk'
+                'LFDNR' (numeric)
+                'NAME'
+                'XL':
+                   0: everything
+                   1: SL (the stuff before \n)
+                   2: RL (the stuff after \n)     
+
+            supplemented Cols:
+                compNr: component-Number starting with 1
+                nextNODE: nextNODE in cut-direction
     """
     
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
@@ -354,29 +359,28 @@ def Agsn(dx):
                     l=OBJSDec.split('\n')
                     s=l[idx]
                     s=s.lstrip().rstrip()
-            except Exception as e:
+            except: # Exception as e:
                 s=None        
             finally:
                 return s      
             
-        df['OBJSDecSL']=df.apply(lambda row: fVLRL(row['OBJSDec'],0),axis=1)
-        df['OBJSDecRL']=df.apply(lambda row: fVLRL(row['OBJSDec'],1),axis=1)
+        df['OBJSDecSL']=df.apply(lambda row: fVLRL(row['OBJSDec'],0),axis=1) # vor \n
+        df['OBJSDecRL']=df.apply(lambda row: fVLRL(row['OBJSDec'],1),axis=1) # nach \n
         
-        def fOBJTypeOBJId(OBJSDec):
-            pass
+        def fOBJTypeOBJId(OBJSDec):        
             try:
                 if pd.isnull(OBJSDec):
                     l=None
                 else:
                     l=[i for i in re.findall(r"([A-Z]{4})~(\d+)",OBJSDec)]
-            except Exception as e:
+            except: # Exception as e:
                 l=None                
             finally:
                 return l      
             
-        df['OBJSDecLst']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDec']),axis=1)
-        df['OBJSDecLstSL']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDecSL']),axis=1)
-        df['OBJSDecLstRL']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDecRL']),axis=1)
+        df['OBJSDecLst']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDec']),axis=1) # alles
+        df['OBJSDecLstSL']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDecSL']),axis=1) # VL
+        df['OBJSDecLstRL']=df.apply(lambda row: fOBJTypeOBJId(row['OBJSDecRL']),axis=1) # RL
         
         dfAGSNs=[]
         for index,row in df.iterrows():
@@ -413,8 +417,7 @@ def Agsn(dx):
                         dfAGSN['XL']=2     
         
                         dfAGSNs.append(dfAGSN)                
-                                            
-                    #print(dfN)
+                                                        
             except Exception as e:
                 pass
                 print(e)
@@ -425,7 +428,118 @@ def Agsn(dx):
         df=pd.concat(dfAGSNs).reset_index(drop=True)
         
         df[['LFDNR']] = df[['LFDNR']].apply(pd.to_numeric)
-                         
+        
+        # supplement AGSN-Data
+        df['compNr']=None
+        df['nextNODE']=None
+        
+        df=pd.merge(df
+           ,dx.dataFrames['V3_VBEL']           
+           ,left_on=['TYPE','ID']  
+           ,right_index=True 
+           ,suffixes=('', '_VBEL')
+        )
+        
+        df.sort_values(by=['LFDNR','pk','XL','Pos'],inplace=True)
+        df.reset_index(inplace=True)
+        
+        # damit die SIR 3S Elementrichtung nach (ungerichteter) Graphenbildung in NetworkX im dataDict verfuegbar ist
+        df['SIR3S_i']=df['NAME_i']
+        df['SIR3S_k']=df['NAME_k']        
+        
+        # damit neue df-Spalten per .loc aus NetworkX im dataDict-Daten befüllbar sind
+        df['index']=df.index
+        
+        # 
+        
+        # Schnittknotensequenz ermitteln
+        
+        for nr in df['LFDNR'].unique():                
+                
+                # ueber alle Layer
+                for ly in df[df['LFDNR']==nr]['XL'].unique():                                        
+
+                    dfSchnitt=df[(df['LFDNR']==nr) & (df['XL']==ly)]                                      
+                    logger.debug("{0:s}Schnitt: {1:s} Nr: {2:s} Layer: {3:s}".format(logStr
+                                                                           ,str(dfSchnitt['NAME'].iloc[0])
+                                                                           ,str(dfSchnitt['LFDNR'].iloc[0])
+                                                                           ,str(dfSchnitt['XL'].iloc[0])
+                                                                          )) 
+                    
+                    dfSchnitt=dfSchnitt.reset_index() 
+                
+                    GSchnitt=nx.from_pandas_edgelist(dfSchnitt, source='NAME_i', target='NAME_k', edge_attr=True,create_using=nx.MultiGraph())
+                    
+                    # ueber alle zusammenhaengenen Komponenten
+                    iComp=0
+                    for comp in nx.connected_components(GSchnitt):
+                        iComp+=1
+
+                        logger.debug("{0:s}CompNr.: {1:s}".format(logStr,str(iComp))) 
+                        
+                        # Graph der Komponente
+                        GSchnittComp=GSchnitt.subgraph(comp)
+                        
+                        GSchnittEdgeLst=sorted(GSchnittComp.edges(data=True), key=lambda x: x[2]['Pos'])                        
+                        
+                        # erste und letzte Kante lt. Schnittdefinition
+                        u,v, datadict = GSchnittEdgeLst[0]
+                        sourceKi=u
+                        sourceKk=v
+                        
+                        u,v, datadict = GSchnittEdgeLst[-1]
+                        targetKi=u
+                        targetKk=v                        
+                                                                          
+                        logger.debug("{0:s}First: i: {1:s} k:{2:s} ".format(logStr,sourceKi,sourceKk)) 
+                        logger.debug("{0:s}Last: i: {1:s} k:{2:s} ".format(logStr,targetKi,targetKk)) 
+                        
+                        # Pfad zwischen den Knoten der ersten und letzten Kante (4 Möglichkeiten)
+                        # der laengste Pfad geht unabhängig von der Kantenrichtung vom ersten bis zum letzten Knoten des Schnittes
+                        nlComp=nx.shortest_path(GSchnittComp,sourceKi,targetKk)
+                        nlCompTmp=nx.shortest_path(GSchnittComp,sourceKk,targetKk)
+                        if len(nlCompTmp)>len(nlComp):
+                            nlComp=nlCompTmp
+                        nlCompTmp=nx.shortest_path(GSchnittComp,sourceKi,targetKi)
+                        if len(nlCompTmp)>len(nlComp):
+                            nlComp=nlCompTmp
+                        nlCompTmp=nx.shortest_path(GSchnittComp,sourceKk,targetKi)
+                        if len(nlCompTmp)>len(nlComp):
+                            nlComp=nlCompTmp                                
+                        logger.debug("{0:s}Pfad: Start: {1:s} > Ende: {2:s}".format(logStr,nlComp[0],nlComp[-1]))                         
+                        
+                        # Graphen zur Schnittknotensequenz 
+                        GSchnittCompSP=GSchnittComp.subgraph(nlComp)
+                        
+                        # index-Liste der Kanten der Schnittknotensequenz 
+                        idxLst=[]                        
+                        
+                        for u,v, datadict in sorted(GSchnittCompSP.edges(data=True), key=lambda x: x[2]['Pos']):              
+                            idxLst.append(datadict['index'])
+                            # SP-Kanten Ausgabe
+                                                  
+                        compNr=np.empty(GSchnittCompSP.number_of_edges(),dtype=int) 
+                        compNr.fill(iComp)
+                        
+                        df.loc[idxLst,'compNr']=compNr                        
+                        df.loc[idxLst,'nextNODE']=nlComp[1:]  
+                                                                                        
+        df=df[[
+                'Pos'
+               ,'TYPE'
+               ,'ID'
+
+
+               ,'pk'
+               ,'tk'
+               ,'LFDNR' 
+               ,'NAME'
+               ,'XL'            
+            
+               ,'compNr' 
+               ,'nextNODE'                    
+        ]]
+                                                                                       
     except Exception as e:
         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))          
         logger.debug(logStrFinal) 
@@ -434,7 +548,6 @@ def Agsn(dx):
     finally:
         logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
         return df    
-    
     
 def setLayerContentTo(layerName
                      ,m

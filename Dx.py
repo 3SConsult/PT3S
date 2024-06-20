@@ -46,6 +46,10 @@ except ImportError:
     import Xm
 
 
+#vVBEL_edges =['ROHR','VENT','FWVB','FWES','PUMP','KLAP','REGV','PREG','MREG','DPRG','PGRP']
+#vVBEL_edgesD=[''    ,'DN'  ,''    ,'DN'  ,''    ,'DN'  ,'DN'  ,'DN'  ,'DN'  ,'DN'  ,'']
+
+
 class DxError(Exception):
     def __init__(self, value):
         self.value = value
@@ -1139,8 +1143,9 @@ class Dx():
 
     def MxSync(self, mx):
         """
-        adds mx2Idx to V3_KNOT, V3_ROHR, V3_FWVB, ggf. weitere
-        adds mx2NofPts to V3_ROHR        
+        adds mx2Idx to V3_KNOT, V3_ROHR, V3_FWVB, etc.
+        adds mx2NofPts to V3_ROHR  
+        adds mx2Idx to V3_VBEL
         """
 
         logStr = "{0:s}.{1:s}: ".format(
@@ -1201,6 +1206,59 @@ class Dx():
 
                 # Spalte mx2Idx anlegen
                 df['mx2Idx'] = pd.Series(mxXkIdx)
+        
+            # V3_VBEL
+            # ####################
+    
+            try: 
+    
+                # new col mx2Idx in dfVBEL
+                dfVBEL=self.dataFrames['V3_VBEL']
+                dfVBEL=dfVBEL.assign(mx2Idx=lambda x: -1)
+                dfVBEL['mx2Idx'].astype('int64',copy=False)
+    
+                # all edges
+                for edge in [edge for edge in 
+                             #['ROHR','VENT','FWVB','FWES','PUMP','KLAP','REGV','PREG','MREG','DPRG','PGRP']
+                             dfVBEL.index.unique(level=0).to_list()
+                             ]:
+                     try:                     
+                         # die Schluessel
+                         xksEDGEMx=mx.mx2Df[
+                                    (mx.mx2Df['ObjType'].str.match(edge))
+                             ]['Data'].iloc[0]
+    
+                         # der Schluesselbezug
+                         xkTypeMx=mx.mx2Df[
+                                    (mx.mx2Df['ObjType'].str.match(edge))
+                             ]['AttrType'].iloc[0].strip()
+    
+                         # Sequenz der Schluessel in V3_VBEL   
+                         if xkTypeMx == 'tk':
+                            xksEDGEXm=dfVBEL.loc[(edge,),:].index.get_level_values(0).values #dfVBEL.loc[(edge,),xkTypeMx]
+                         else:
+                            # pk
+                            xksEDGEXm=dfVBEL.loc[(edge,),'pk'].values#dfVBEL.loc[(edge,),:].index
+    
+                         logger.debug("{0:s}{1:s}: xkTypeMx: {2:s}".format(logStr,edge,xkTypeMx))   
+                         logger.debug("{0:s}{1:s}: xksEDGEXm: {2:s}".format(logStr,edge,str(xksEDGEXm.values.tolist())))   
+                         logger.debug("{0:s}{1:s}: xksEDGEMx: {2:s}".format(logStr,edge,str(xksEDGEMx)))      
+                                          
+                         mxXkEDGEIdx=[xksEDGEMx.index(xk) for xk in xksEDGEXm]
+                         
+                         dfVBEL.loc[(edge,),'mx2Idx']=mxXkEDGEIdx
+    
+                     except Exception as e:
+                        logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: mx2Idx for {:s} failed. mx2Idx = -1.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)            
+                        logger.debug(logStrEdge) 
+                                                                                                                   
+            except Exception as e:
+                logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))            
+                logger.error(logStrFinal) 
+                              
+            finally:
+                logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
+                self.dataFrames['V3_VBEL']=dfVBEL
 
         except Exception as e:
             logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
@@ -1210,7 +1268,7 @@ class Dx():
         finally:
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
-    # ,readFromMxs=False):
+
     def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExp='^KNOT~\*~\*~\*~PH$', multiIndex=False):
         """
         adds Vec-Results using mx' getVecAggsResultsForObjectType to V3_KNOT, V3_ROHR, V3_FWVB, ggf. weitere

@@ -67,7 +67,7 @@ class dxWithMxError(Exception):
         self.value = value
     def __str__(self):
         return repr(self.value)
-
+    
 class dxWithMx():
     """Wrapper for dx with attached mx.
     """
@@ -80,16 +80,31 @@ class dxWithMx():
             self.dx = dx
             self.mx = mx
             
-            modellName, ext = os.path.splitext(self.dx.dbFile)
-            logger.info("{0:s}{1:s}: processing dx and mx ...".format(logStr,os.path.basename(modellName))) 
-                                    
             self.dfLAYR=dxDecodeObjsData.Layr(self.dx)
             self.dfWBLZ=dxDecodeObjsData.Wblz(self.dx)
-            self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)
+            self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)            
                         
-            if self.mx != None:                
-                V3sErg=self.dx.MxAdd(mx)
+            self.V3_ROHR=dx.dataFrames['V3_ROHR']
+            self.V3_KNOT=dx.dataFrames['V3_KNOT']
+            self.V3_FWVB=dx.dataFrames['V3_FWVB']
+            self.V3_VBEL=dx.dataFrames['V3_VBEL']
+                                                            
+            if isinstance(self.mx,Mx.Mx):  
                 
+                modellName, ext = os.path.splitext(self.dx.dbFile)
+                logger.info("{0:s}{1:s}: processing dx and mx ...".format(logStr,os.path.basename(modellName)))                 
+                
+                # mx2Idx to V3_KNOT, V3_ROHR, V3_FWVB, etc.
+                # mx2NofPts to V3_ROHR  
+                # mx2Idx to V3_VBEL
+                self.dx.MxSync(self.mx)
+                self.V3_ROHR=dx.dataFrames['V3_ROHR']
+                self.V3_KNOT=dx.dataFrames['V3_KNOT']
+                self.V3_FWVB=dx.dataFrames['V3_FWVB']    
+                self.V3_VBEL=dx.dataFrames['V3_VBEL'] 
+                                
+                # Vec-Results to V3_KNOT, V3_ROHR, V3_FWVB, etc.
+                V3sErg=self.dx.MxAdd(mx)                
                 self.V3_ROHR=V3sErg['V3_ROHR']
                 self.V3_KNOT=V3sErg['V3_KNOT']
                 self.V3_FWVB=V3sErg['V3_FWVB']
@@ -355,6 +370,12 @@ class readDxAndMxError(Exception):
         self.value = value
     def __str__(self):
         return repr(self.value)
+    
+class readDxAndMxGoto(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
 
 def readDxAndMx(dbFile            
                 ,preventPklDump=False
@@ -373,15 +394,17 @@ def readDxAndMx(dbFile
         dbFile (str): 
             Path to SIR 3S' database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object. The corresponding results are read into an Mx object if available. 
     
+        maxRecords (int, optional, default=None): 
+            Use maxRecords=0 to read only the model.
+            Use maxRecords=1 to read only STAT (the steady state result).
+            Maximum number of MX-Results to read. If None, all results are read.
+    
         preventPklDump (bool, optional, default=False): 
             Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S' sources are read and no pickles are written. If False 3 pickles are written or overwritten if older than SIR 3S' sources.
     
         forceSir3sRead (bool, optional, default=False): 
             Determines whether to force reading from SIR 3S' sources even if newer pickles exists. By default pickles are read if newer than SIR 3S' sources.
-    
-        maxRecords (int, optional, default=None): 
-            Maximum number of MX-Results to read. If None, all results are read. If 0, no results are read. Use maxRecords=1 to read only STAT (steady state result).
-    
+        
         mxsVecsResults2MxDf (list, optional, default=None): 
             List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [
                                         'ROHR~\*~\*~\*~PHR',
@@ -407,11 +430,23 @@ def readDxAndMx(dbFile
     Returns:
         dxWithMx: An object containing the SIR 3S model and SIR 3S results.
             Model: Dx object:
-                dx.dataFrames[...]: pandas-Dfs from SIR 3S' database file
+                dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
+                
+                Dfs derived from SIR 3S' tables above':
+                    V3_VBEL: edge data
+                    V3_KNOT: node data
+                    * NetworkX Example:
+                        * vVbel=self.dataFrames['V3_VBEL'].reset_index()
+                        * G=nx.from_pandas_edgelist(df=vVbel, source='NAME_i', target='NAME_k', edge_attr=True) 
+                        * vKnot=self.dataFrames['V3_KNOT']
+                        * nodeDct=vKnot.to_dict(orient='index')
+                        * nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
+                        * nx.set_node_attributes(G,nodeDctNx)                
+                
             Results: Mx object:
                 mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
                 mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
-            
+                            
             pandas-Dfs with Model- and Result-data:
                 V3_ROHR: Pipes
                 V3_FWVB: Housestations District Heating
@@ -429,7 +464,7 @@ def readDxAndMx(dbFile
 
     
     import os
-    import importlib
+    #import importlib
     import glob
     
     dx=None
@@ -520,11 +555,12 @@ def readDxAndMx(dbFile
                 pass
                                                                
         ### Ergebnisse nicht lesen?!         
-        if maxRecords==0:            
-            logStrFinal="{logStr:s}dbFile: {dbFile:s}: maxRecords==0: do not read MX-Results...".format(
+        if maxRecords==0:        
+            m = dxWithMx(dx,None,crs)
+            logStrFinal="{logStr:s}dbFile: {dbFile:s}: maxRecords==0: do not read MX-Results.".format(
                 logStr=logStr
                 ,dbFile=logPathOutputFct(dbFile))     
-            raise readDxAndMxError(logStrFinal)               
+            raise readDxAndMxGoto(logStrFinal)               
                              
         ### mx Datenquelle bestimmen
         logger.debug("{logStrPrefix:s}dx.dbFile literally: {dbFile:s}".format(
@@ -612,17 +648,18 @@ def readDxAndMx(dbFile
                     logger.info("{logStr:s}{xmlFile:s} is newer than {mx1File:s}: SirCalc's xmlFile is newer than SIR 3S' mxFile; in this case the results are dated or (worse) incompatible to the model".format(
                          logStr=logStr                    
                         ,xmlFile=logPathOutputFct(xmlFile)
-                        ,dbFile=logPathOutputFct(dbFile)
+                        ,mx1File=logPathOutputFct(mx1File)
                         )
                         )   
         else:
-            logStrFinal="{logStr:s}no {mx1File:s} for {dbFile:s}".format(
-                logStr=logStr
-                ,mx1File=logPathOutputFct(mx1File)
-                ,dbFile=logPathOutputFct(dbFile)
-                )     
-            raise readDxAndMxError(logStrFinal)     
-                    
+             m = dxWithMx(dx,None,crs)
+             logStrFinal="{logStr:s}dbFile: {dbFile:s} no {mx1File:s}.".format(
+                 logStr=logStr
+                 ,mx1File=logPathOutputFct(mx1File)
+                 ,dbFile=logPathOutputFct(dbFile)
+                 )     
+             raise readDxAndMxGoto(logStrFinal)             
+                                        
         if not forceSir3sRead:            
             # Pkl existiert
             if os.path.exists(dbFileMxPkl):                
@@ -666,7 +703,8 @@ def readDxAndMx(dbFile
             except Mx.MxError:
                 logStrFinal="{logStr:s}mx1File: {mx1File:s}: MxError!".format(
                     logStr=logStr
-                    ,mx1File=logPathOutputFct(mx1File))     
+                    ,mx1File=logPathOutputFct(mx1File)) 
+                m = dxWithMx(dx,None,crs)
                 raise readDxAndMxError(logStrFinal)     
                 
             ### Vector-Results 2 MxDf
@@ -773,18 +811,18 @@ def readDxAndMx(dbFile
         dbFileDxMxPkl="{:s}-m.pkl".format(dbFilename)        
         
         if preventPklDump:        
-                if isfile(dbFileDxMxPkl):
-                          logger.info("{logStr:s}{dbFileDxMxPkl:s} exists and is deleted...".format(
-                               logStr=logStr
-                              ,dbFileDxMxPkl=logPathOutputFct(dbFileDxMxPkl)                        
-                              )
-                              )
-                          os.remove(dbFileDxMxPkl)        
-        
-        logger.debug("{logStrPrefix:s}zugeh. dbFileDxMxPkl-File: {dbFileDxMxPkl:s}".format(
-            logStrPrefix=logStr
-            ,dbFileDxMxPkl=logPathOutputFct(dbFileDxMxPkl)
-            ))
+            if isfile(dbFileDxMxPkl):
+                      logger.info("{logStr:s}{dbFileDxMxPkl:s} exists and is deleted...".format(
+                           logStr=logStr
+                          ,dbFileDxMxPkl=logPathOutputFct(dbFileDxMxPkl)                        
+                          )
+                          )
+                      os.remove(dbFileDxMxPkl)        
+        else:
+            logger.debug("{logStrPrefix:s}corresp. dbFileDxMxPkl-File: {dbFileDxMxPkl:s}".format(
+                logStrPrefix=logStr
+                ,dbFileDxMxPkl=logPathOutputFct(dbFileDxMxPkl)
+                ))
                 
         if not forceSir3sRead:            
             # Pkl existiert
@@ -849,10 +887,10 @@ def readDxAndMx(dbFile
         else:
             pass
         
-        
- 
-     ### Modellergebnisse lesen                        
-        
+                               
+    except readDxAndMxGoto:        
+        logger.info(logStrFinal)    
+
     except Exception as e:
         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
         logger.error(logStrFinal)         
