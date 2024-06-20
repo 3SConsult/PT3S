@@ -10,7 +10,7 @@ There are several reasons why Jupyter notebooks and Python are so popular. They 
 
 At the moment, PT3S is just a collection of functions intended to simplify the use of SIR 3S model data and SIR 3S calculation results in notebooks. 
 
-PT3S is only of interest to users with access to SIR 3S models.
+**PT3S is only of interest to users with access to SIR 3S models.**
 
 And for users of pipe network calculation software who are looking for a new software that works with Jupyter notebooks and Python. PT3S comes with SIR 3S sample models. SIR 3S itself is not part of PT3S.
 
@@ -75,12 +75,13 @@ A JupyterLab browser tab should now open.
        :alt: jupyterlab_open_notebook
        :width: 100%
        :align: center 
+|
 
 Getting Started with PT3S
 -------------------------
 
 Install PT3S
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
 
 To install PT3S using this documentation, follow these steps:
 
@@ -88,7 +89,7 @@ To install PT3S using this documentation, follow these steps:
     
 2. **Open Example0.ipynb via JupyterLab:** Instructions on how to open ipnyb files are explained in detail at :ref:`startandopennotebooks`.
     
-3. **Run 2nd cell:**
+3. **Run 2nd cell:** ``pip install PT3S``
 
 .. image:: 3_pt3s_install_example0.png
    :alt: pt3s_install_example0
@@ -105,7 +106,7 @@ To update PT3S to the newest version using this documentation, follow these step
 
 2. **Open Example0.ipynb via JupyterLab:** Instructions on how to open ipnyb files are explained in detail at :ref:`startandopennotebooks`.
 
-3. **Run 4th cell:**
+3. **Run 4th cell:** ``pip install PT3S -U --no-deps``
 
 .. image:: 4_pt3s_update_example0.png
    :alt: pt3s_update_example0
@@ -116,9 +117,9 @@ To update PT3S to the newest version using this documentation, follow these step
 Import PT3S into Notebooks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To import PT3S into your Notebook, use the following commands.
+To import a certain PT3S module into your Notebook, use the following commands. The dxAndMxHelperFcts module, which is used in the example, contains basic PT3S functions.
 
-   .. code-block:: bash
+   .. code-block:: python
 
     try:
         from PT3S import dxAndMxHelperFcts
@@ -131,7 +132,7 @@ To try this inside an Example Notebook, follow these steps:
     
     2. **Open Example0.ipynb via JupyterLab:** Instructions on how to open ipnyb files are explained in detail at :ref:`startandopennotebooks`.
     
-    3. **Run 6th cell:**
+    3. **Run 6th cell:** 
     
     .. image:: 5_pt3s_import_example0.png
        :alt: pt3s_update_example0

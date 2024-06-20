@@ -7,6 +7,7 @@
   <title>Releases &mdash; PT3S 90.14.21.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
 
@@ -20,6 +21,8 @@
         <script src="_static/documentation_options.js?v=c9f58c65"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -91,94 +94,111 @@
 <h1>Releases<a class="headerlink" href="#releases" title="Link to this heading"></a></h1>
 <section id="dev1">
 <h2>90.14.21.0.dev1<a class="headerlink" href="#dev1" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>new:</p>
-<p>readMx:</p>
-<blockquote>
-<div><p>Reads SIR 3S results and returns a Mx object.</p>
+<p><strong>New:</strong></p>
+<ul>
+<li><dl>
+<dt>readMx:</dt><dd><p>Reads SIR 3S results and returns a Mx object.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><dl class="simple">
-<dt>rootdire (str):</dt><dd><p>Path to root directory of the Model. The results are read into a Mx object via the mx files.</p>
+<dt>Args:</dt><dd><ul class="simple">
+<li><p>rootdire (str): Path to root directory of the Model. The results are read into a Mx object via the mx files.</p></li>
+<li><p>logPathOutputFct (fct, optional, default=os.path.relpath): logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p></li>
+</ul>
 </dd>
-<dt>logPathOutputFct (fct, optional, default=os.path.relpath):</dt><dd><p>logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>Results: Mx object:</dt><dd><ul>
+<li><p>mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)</p></li>
+<li><p>mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </dd>
 </dl>
 </dd>
-<dt>Returns:</dt><dd><dl class="simple">
-<dt>Results: Mx object:</dt><dd><p>mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)
-mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p>
-</dd>
 </dl>
-</dd>
-</dl>
-</div></blockquote>
-</div></blockquote>
+</li>
+</ul>
 </section>
 <section id="id1">
 <h2>90.14.20.0.dev1<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>readDxAndMx:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>fix:</dt><dd><p>m is constructed (instead of reading m-pickle) if SIR 3S’ dbFile is newer than m-pickle; in previous releases m-pickle was read even if dbFile is newer</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>readDxAndMx:</dt><dd><dl class="simple">
+<dt><strong>Fix:</strong></dt><dd><ul>
+<li><p>m is constructed (instead of reading m-pickle) if SIR 3S’ dbFile is newer than m-pickle; in previous releases m-pickle was read even if dbFile is newer</p></li>
+</ul>
 </dd>
-<dt>new:</dt><dd><p>INFO: if SIR 3S’ dbFile is newer than SIR 3S’ mxFile; in this case the results are maybe dated or (worse) incompatible to the model</p>
+<dt><strong>New:</strong></dt><dd><ul>
+<li><p>INFO: if SIR 3S’ dbFile is newer than SIR 3S’ mxFile; in this case the results are maybe dated or (worse) incompatible to the model</p></li>
+</ul>
 </dd>
 </dl>
-</div></blockquote>
-</div></blockquote>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 <section id="id2">
 <h2>90.14.19.0.dev1<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>SIR 3S db3 and mx files used in Examples are now included in the package.</p>
-</div></blockquote>
+<p><strong>New:</strong></p>
+<ul class="simple">
+<li><p>SIR 3S db3 and mx files used in Examples are now included in the package.</p></li>
+</ul>
 </section>
 <section id="id3">
 <h2>90.14.18.0.dev1<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>readDxAndMx:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>mxsVecsResults2MxDfVecAggs: new</dt><dd><dl class="simple">
-<dt>(list, optional, default=None):</dt><dd><p>List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs.</p>
-</dd>
-</dl>
-</dd>
-<dt>crs: new</dt><dd><dl class="simple">
-<dt>(str, optional, default=None):</dt><dd><p>(=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from the dbFile.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>readDxAndMx:</dt><dd><dl class="simple">
+<dt><strong>New:</strong></dt><dd><ul>
+<li><p>mxsVecsResults2MxDfVecAggs: (list, optional, default=None): List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs.</p></li>
+<li><p>crs: (str, optional, default=None): (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from the dbFile.</p></li>
+</ul>
 </dd>
 </dl>
 </dd>
 </dl>
-</div></blockquote>
-<dl class="simple">
-<dt>dxWithMx:</dt><dd><p>new: geopandas-Dfs: gdf_KNOT, gdf_ROHR, gdf_FWVB
-new: setLayerContentTo</p>
+</li>
+<li><dl class="simple">
+<dt>dxWithMx:</dt><dd><dl class="simple">
+<dt><strong>New:</strong></dt><dd><ul>
+<li><p>geopandas-Dfs: gdf_KNOT, gdf_ROHR, gdf_FWVB</p></li>
+<li><p>setLayerContentTo</p></li>
+</ul>
 </dd>
 </dl>
-</div></blockquote>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 <section id="id4">
 <h2>90.14.17.0.dev1<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>readDxAndMx:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>preventPklDump:</dt><dd><p>True now forces SIR 3S sources to be read because pickles are deleted if existing before timecheck pickles vs. SIR 3S sources is performed.</p>
-</dd>
-<dt>dxWithMx (readDxAndMx):</dt><dd><p>V3_FWVB: new columns: QM, TI, TK</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>readDxAndMx:</dt><dd><dl class="simple">
+<dt><strong>New:</strong></dt><dd><ul>
+<li><p>preventPklDump: True now forces SIR 3S sources to be read because pickles are deleted if existing before timecheck pickles vs. SIR 3S sources is performed.</p></li>
+<li><p>dxWithMx (readDxAndMx): V3_FWVB: new columns: QM, TI, TK</p></li>
+</ul>
 </dd>
 </dl>
-</div></blockquote>
-<dl class="simple">
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
 <dt>Dx:</dt><dd><dl class="simple">
-<dt>update:</dt><dd><p>returns now rowsAffectedTotal</p>
+<dt><strong>Update:</strong></dt><dd><ul>
+<li><p>returns now rowsAffectedTotal</p></li>
+</ul>
 </dd>
 </dl>
 </dd>
 </dl>
-</div></blockquote>
+</li>
+</ul>
 </section>
 </section>
 

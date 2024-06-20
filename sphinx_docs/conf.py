@@ -20,7 +20,7 @@ release = '90.14.21.0.dev1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.todo', 'sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.viewcode', 'sphinx.ext.doctest','nbsphinx']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.viewcode', 'sphinx.ext.doctest','nbsphinx','sphinx_copybutton']
 
 todo_include_todos=True
 

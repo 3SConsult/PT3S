@@ -389,79 +389,58 @@ def readDxAndMx(dbFile
 
     """
     Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.
-    
-    Args:
-        dbFile (str): 
-            Path to SIR 3S' database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object. The corresponding results are read into an Mx object if available. 
-    
-        maxRecords (int, optional, default=None): 
-            Use maxRecords=0 to read only the model.
-            Use maxRecords=1 to read only STAT (the steady state result).
-            Maximum number of MX-Results to read. If None, all results are read.
-    
-        preventPklDump (bool, optional, default=False): 
-            Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S' sources are read and no pickles are written. If False 3 pickles are written or overwritten if older than SIR 3S' sources.
-    
-        forceSir3sRead (bool, optional, default=False): 
-            Determines whether to force reading from SIR 3S' sources even if newer pickles exists. By default pickles are read if newer than SIR 3S' sources.
-        
-        mxsVecsResults2MxDf (list, optional, default=None): 
-            List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [
-                                        'ROHR~\*~\*~\*~PHR',
-                                        'ROHR~\*~\*~\*~FS',
-                                        'ROHR~\*~\*~\*~DSI',
-                                        'ROHR~\*~\*~\*~DSK'
-                                        
-                                    ]
-    
-        mxsVecsResults2MxDfVecAggs (list, optional, default=None): 
-            List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [
-                                        3,
-                                        42,
-                                        666                                        
-                                    ]
-    
-        crs (str, optional, default=None):
-            (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
-            
-        logPathOutputFct (fct, optional, default=os.path.relpath):
-            logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
-    
-    Returns:
-        dxWithMx: An object containing the SIR 3S model and SIR 3S results.
-            Model: Dx object:
-                dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
-                
-                Dfs derived from SIR 3S' tables above':
-                    V3_VBEL: edge data
-                    V3_KNOT: node data
-                    * NetworkX Example:
-                        * vVbel=self.dataFrames['V3_VBEL'].reset_index()
-                        * G=nx.from_pandas_edgelist(df=vVbel, source='NAME_i', target='NAME_k', edge_attr=True) 
-                        * vKnot=self.dataFrames['V3_KNOT']
-                        * nodeDct=vKnot.to_dict(orient='index')
-                        * nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
-                        * nx.set_node_attributes(G,nodeDctNx)                
-                
-            Results: Mx object:
-                mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
-                mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
-                            
-            pandas-Dfs with Model- and Result-data:
-                V3_ROHR: Pipes
-                V3_FWVB: Housestations District Heating
-                V3_KNOT: Nodes 
-                
-            geopandas-Dfs based upon the Dfs above:
-                gdf_ROHR: Pipes
-                gdf_FWVB: Housestations District Heating
-                gdf_KNOT: Nodes 
-        
-    
-    Note:
-        Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.
-    """
 
+    :param dbFile: Path to SIR 3S' database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object. The corresponding results are read into an Mx object if available.
+    :type dbFile: str
+    :param preventPklDump: Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S' sources are read and no pickles are written. If False 3 pickles are written or overwritten if older than SIR 3S' sources.
+    :type preventPklDump: bool, optional, default=False
+    :param forceSir3sRead: Determines whether to force reading from SIR 3S' sources even if newer pickles exists. By default pickles are read if newer than SIR 3S' sources.
+    :type forceSir3sRead: bool, optional, default=False
+    :param maxRecords: Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read.
+    :type maxRecords: int, optional, default=None
+    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']
+    :type mxsVecsResults2MxDf: list, optional, default=None
+    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]
+    :type mxsVecsResults2MxDfVecAggs: list, optional, default=None
+    :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
+    :type crs: str, optional, default=None
+    :param logPathOutputFct: logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
+    :type logPathOutputFct: function, optional
+
+    :return: An object containing the SIR 3S model and SIR 3S results.
+    :rtype: dxWithMx
+
+    .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.
+        
+        The returned dxWithMx object has the following structure:
+    
+            - Model: Dx object:
+                - dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
+                - Dfs derived from SIR 3S' tables above:
+                    - V3_VBEL: edge data
+                    - V3_KNOT: node data
+                    - NetworkX Example:
+                        - vVbel=self.dataFrames['V3_VBEL'].reset_index()
+                        - G=nx.from_pandas_edgelist(df=vVbel, source='NAME_i', target='NAME_k', edge_attr=True) 
+                        - vKnot=self.dataFrames['V3_KNOT']
+                        - nodeDct=vKnot.to_dict(orient='index')
+                        - nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
+                        - nx.set_node_attributes(G,nodeDctNx)                
+    
+            - Results: Mx object:
+                - mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
+                - mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
+    
+            - pandas-Dfs with Model- and Result-data:
+                - V3_ROHR: Pipes
+                - V3_FWVB: Housestations District Heating
+                - V3_KNOT: Nodes 
+    
+            - geopandas-Dfs based upon the Dfs above:
+                - gdf_ROHR: Pipes
+                - gdf_FWVB: Housestations District Heating
+                - gdf_KNOT: Nodes 
+    """
     
     import os
     #import importlib
@@ -900,70 +879,73 @@ def readDxAndMx(dbFile
 
 
 
-
-
-
-
-
 class readMxError(Exception):
     def __init__(self, value):
         self.value = value
     def __str__(self):
         return repr(self.value)
 
-def readMx(rootdire
-           ,logPathOutputFct=os.path.relpath):
-        
+def readMx(rootdir, logPathOutputFct=os.path.relpath):
     """
     Reads SIR 3S results and returns a Mx object.
-    
-    Args:
-        rootdire (str): 
-            Path to root directory of the Model. The results are read into a Mx object via the mx files.
-                
-        logPathOutputFct (fct, optional, default=os.path.relpath):
-            logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
-    
-    Returns:
-        Results: Mx object:
-            mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
-            mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
-            
+
+    :param rootdir: Path to root directory of the Model. The results are read into a Mx object via the mx files.
+    :type rootdir: str
+    :param logPathOutputFct: logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.
+    :type logPathOutputFct: function, optional
+
+    :return: Mx object with two attributes: 
+             - mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
+             - mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
+    :rtype: Mx object
     """
-    
-    import os
     
     mx=None
     
-    logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
-    logger.debug("{0:s}{1:s}".format(logStr,'Start.'))   
+    logStrPrefix = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
+    logger.debug("{0:s}Start.".format(logStrPrefix))   
     
     try:
-        wDirMx = rootdire + '\\B1\\V0\\BZ1'
-        logger.debug("{logStrPrefix:s}wDirMx from abspath of wDir from dbFile: {wDirMx:s}".format(
-            logStrPrefix=logStr,wDirMx=wDirMx))
+        # Use glob to find all MX1 files in the directory
+        mx1_files = glob.glob(os.path.join(rootdir, '**', '*.MX1'), recursive=True)
+
+        # Get the parent directories of the MX1 files
+        parent_dirs = set(os.path.dirname(file) for file in mx1_files)
+
+        # Check the number of directories found
+        if len(parent_dirs) > 1:
+            logger.error("{0:s}Mehr als ein Verzeichnis mit MX1-Dateien gefunden.".format(logStrPrefix))
+            for dir in parent_dirs:
+                logger.error("{0:s}Verzeichnis: {1:s}".format(logStrPrefix, dir))
+            raise readMxError("Mehr als ein Verzeichnis mit MX1-Dateien gefunden.")
+        elif len(parent_dirs) == 1:
+            wDirMx = list(parent_dirs)[0]
+        else:
+            logger.error("{0:s}Keine Verzeichnisse mit MX1-Dateien gefunden.".format(logStrPrefix))
+            raise readMxError("Keine Verzeichnisse mit MX1-Dateien gefunden.")
+    except Exception as e:
+        logger.error("{0:s}Ein Fehler ist aufgetreten beim Suchen von MX1-Verzeichnissen: {1:s}".format(logStrPrefix, str(e)))
+        raise
+    
+    try:
+        logger.debug("{0:s}wDirMx von abspath von wDir von dbFile: {1:s}".format(logStrPrefix, wDirMx))
         
         wDirMxMx1Content=glob.glob(os.path.join(wDirMx,'*.MX1'))
         wDirMxMx1Content=sorted(wDirMxMx1Content) 
 
         if len(wDirMxMx1Content)>1:
-            logger.debug("{logStrPrefix:s}Mehr als 1 ({anz:d}) MX1 in wDirMx vorhanden.".format(
-                logStrPrefix=logStr,anz=len(wDirMxMx1Content)))
+            logger.debug("{0:s}Mehr als 1 ({1:d}) MX1 in wDirMx vorhanden.".format(logStrPrefix, len(wDirMxMx1Content)))
         mx1File= wDirMxMx1Content[0]
-        logger.debug("{logStrPrefix:s}mx1File: {mx1File:s}".format(
-            logStrPrefix=logStr
-            ,mx1File=logPathOutputFct(mx1File)))
+        logger.debug("{0:s}mx1File: {1:s}".format(logStrPrefix, logPathOutputFct(mx1File)))
         
     except:
-        logger.info("MX1 filepath problem".format(
-             logStr=logStr))
+        logger.info("{0:s}Problem mit dem MX1-Dateipfad".format(logStrPrefix))
         
     try:
         mx=Mx.Mx(mx1File)
-        logger.debug("{0:s}{1:s}".format(logStr,'MX read ok so far.'"{mx1File}"))   
+        logger.debug("{0:s}MX wurde bisher erfolgreich gelesen. {1:s}".format(logStrPrefix, mx1File))   
     except Mx.MxError:  
-        logger.info("MX1 file not read".format(
-             logStr=logStr))
+        logger.info("{0:s}MX1-Datei konnte nicht gelesen werden".format(logStrPrefix))
     
     
     return mx

@@ -9,7 +9,7 @@ This section provides resources and instructions for developers who want to cont
 
 .. note::
 
-   If you are working with a Spyder Console or in a similar environment, remember to place a '!' before each command. This tells the environment to run the command as a shell command, not as a Python command.
+   If you are working with a Spyder Console or in a similar environment, remember to place a '!' before each command. This tells the environment to run the command as a shell command, not as a Python command. For instance, write ``!git clone`` instead of ``git clone``.
 
 Setting Up Git on Your Computer
 -------------------------------
@@ -108,52 +108,86 @@ To commit your changes to the GitHub repository, follow these steps:
      
 Working with PyPI
 -----------------     
+         
+.. _version-control-label:    
+          
+Version Control
+~~~~~~~~~~~~~~~
+
+Before uploading a new release to PyPI, follow these steps:
+
+1. **Document the Release:** Describe new additions or fixes, that are included in this release, to the sphinx_docs/releases.rst file and then follow the steps of :ref:`generating-documentation-label`.
+
+   .. code-block:: rst
+   
+      90.14.20.0.dev1
+      ---------------
+      - readDxAndMx:
+          **Fix:**
+              - m is constructed (instead of reading m-pickle) if SIR 3S' dbFile is newer than m-pickle; in previous releases m-pickle was read even if dbFile is newer
+          **New:**
+              - INFO: if SIR 3S' dbFile is newer than SIR 3S' mxFile; in this case the results are maybe dated or (worse) incompatible to the model 
+        
+      90.14.19.0.dev1
+      ---------------
+      **New:**
+
+      - SIR 3S db3 and mx files used in Examples are now included in the package.
+          
+For further examples on how to document your additions and fixes, visit the :doc:`releases` page.
+
+2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, sphinx_docs/conf.py
+  
         
 Upload a New Version to PyPI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Follow these steps to upload a new version of your project to PyPI:
 
-1. **Navigate to Your Project Directory:** Use the ``cd`` command followed by the path to your project directory.
+1. **Version Control:** Make sure you have documented your changes and changed the release number in all necessary files according to :ref:`version-control-label`.
+
+2. **Navigate to Your Project Directory:** Use the ``cd`` command followed by the path to your project directory.
 
    .. code-block:: bash
 
       cd project
 
-2. **Delete Old Distributions:** Remove all old distributions in your ``dist`` directory.
+3. **Delete Old Distributions:** Remove all old distributions in your ``dist`` directory.
 
-3. **Create a New Source Distribution:** Use the ``python setup.py sdist`` command to create a new source distribution of your package.
+4. **Create a New Source Distribution:** Use the ``python setup.py sdist`` command to create a new source distribution of your package.
 
    .. code-block:: bash
 
       python setup.py sdist
 
-4. **Generate an API Token on PyPI:** Log into your PyPI account and navigate to your Account Settings. Select "API Tokens" and then "Add API Token". Provide a token name and select the scopes this token should have access to. Click "Create Token" and make sure to copy your new token.
+5. **Generate an API Token on PyPI:** Log into your PyPI account and navigate to your Account Settings. Select "API Tokens" and then "Add API Token". Provide a token name and select the scopes this token should have access to. Click "Create Token" and make sure to copy your new token.
 
-5. **(Optional) Set Your PyPI API Token as an Environment Variable:** You can do this by running the following command in your console, replacing ``your_token`` with your actual token.
+6. **(Optional) Set Your PyPI API Token as an Environment Variable:** You can do this by running the following command in your console, replacing ``your_token`` with your actual token.
 
    .. code-block:: bash
 
       export TWINE_USERNAME=__token__
       export TWINE_PASSWORD=your_token
 
-6. **Upload the Distribution with Twine:** Use the ``python -m twine upload dist/*`` command to upload the distribution.
+7. **Upload the Distribution with Twine:** Use the ``python -m twine upload dist/*`` command to upload the distribution.
 
    .. code-block:: bash
 
       python -m twine upload dist/*
 
-7. **(Alternative to Step 5) Enter API Token When Prompted:** If you didn't set your PyPI API token as an environment variable in step 5, you will be prompted to enter it after running the command in step 6. Simply enter your API token when asked.
+8. **(Alternative to Step 5) Enter API Token When Prompted:** If you didn't set your PyPI API token as an environment variable in step 5, you will be prompted to enter it after running the command in step 6. Simply enter your API token when asked.
 
  
 .. note::
 
    Make sure to keep your API token secure and do not hard-code it in your scripts or code. It's best to set it as an environment variable or store it in a secret configuration file.
 
-Creating Documentation
-----------------------
+.. _generating-documentation-label:
 
-To create documentation, follow these steps:
+Generating the Documentation
+----------------------------
+
+To generate documentation, follow these steps:
 
 1. **Edit the documentation:** Make your changes in the PT3S/sphinx_docs directory.
 

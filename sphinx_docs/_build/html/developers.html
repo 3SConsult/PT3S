@@ -7,6 +7,7 @@
   <title>For Developers &mdash; PT3S 90.14.21.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
 
@@ -20,6 +21,8 @@
         <script src="_static/documentation_options.js?v=c9f58c65"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -61,10 +64,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#working-with-pypi">Working with PyPI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-control">Version Control</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#upload-a-new-version-to-pypi">Upload a New Version to PyPI</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-documentation">Creating Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-the-documentation">Generating the Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -102,7 +106,7 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you are working with a Spyder Console or in a similar environment, remember to place a ‘!’ before each command. This tells the environment to run the command as a shell command, not as a Python command.</p>
+<p>If you are working with a Spyder Console or in a similar environment, remember to place a ‘!’ before each command. This tells the environment to run the command as a shell command, not as a Python command. For instance, write <code class="docutils literal notranslate"><span class="pre">!git</span> <span class="pre">clone</span></code> instead of <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>.</p>
 </div>
 <section id="setting-up-git-on-your-computer">
 <h2>Setting Up Git on Your Computer<a class="headerlink" href="#setting-up-git-on-your-computer" title="Link to this heading"></a></h2>
@@ -191,10 +195,38 @@ git<span class="w"> </span>add<span class="w"> </span>.
 </section>
 <section id="working-with-pypi">
 <h2>Working with PyPI<a class="headerlink" href="#working-with-pypi" title="Link to this heading"></a></h2>
+<section id="version-control">
+<span id="version-control-label"></span><h3>Version Control<a class="headerlink" href="#version-control" title="Link to this heading"></a></h3>
+<p>Before uploading a new release to PyPI, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Document the Release:</strong> Describe new additions or fixes, that are included in this release, to the sphinx_docs/releases.rst file and then follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">90.14.20.0.dev1</span>
+<span class="gh">---------------</span>
+<span class="m">-</span> readDxAndMx:
+    <span class="gs">**Fix:**</span>
+        <span class="m">-</span> m is constructed (instead of reading m-pickle) if SIR 3S&#39; dbFile is newer than m-pickle; in previous releases m-pickle was read even if dbFile is newer
+    <span class="gs">**New:**</span>
+        <span class="m">-</span> INFO: if SIR 3S&#39; dbFile is newer than SIR 3S&#39; mxFile; in this case the results are maybe dated or (worse) incompatible to the model
+
+<span class="gh">90.14.19.0.dev1</span>
+<span class="gh">---------------</span>
+<span class="gs">**New:**</span>
+
+<span class="m">-</span> SIR 3S db3 and mx files used in Examples are now included in the package.
+</pre></div>
+</div>
+</li>
+</ol>
+<p>For further examples on how to document your additions and fixes, visit the <a class="reference internal" href="releases.html"><span class="doc">Releases</span></a> page.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, sphinx_docs/conf.py</p></li>
+</ol>
+</section>
 <section id="upload-a-new-version-to-pypi">
 <h3>Upload a New Version to PyPI<a class="headerlink" href="#upload-a-new-version-to-pypi" title="Link to this heading"></a></h3>
 <p>Follow these steps to upload a new version of your project to PyPI:</p>
 <ol class="arabic">
+<li><p><strong>Version Control:</strong> Make sure you have documented your changes and changed the release number in all necessary files according to <a class="reference internal" href="#version-control-label"><span class="std std-ref">Version Control</span></a>.</p></li>
 <li><p><strong>Navigate to Your Project Directory:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command followed by the path to your project directory.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>project
 </pre></div>
@@ -226,9 +258,9 @@ git<span class="w"> </span>add<span class="w"> </span>.
 </div>
 </section>
 </section>
-<section id="creating-documentation">
-<h2>Creating Documentation<a class="headerlink" href="#creating-documentation" title="Link to this heading"></a></h2>
-<p>To create documentation, follow these steps:</p>
+<section id="generating-the-documentation">
+<span id="generating-documentation-label"></span><h2>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Link to this heading"></a></h2>
+<p>To generate documentation, follow these steps:</p>
 <ol class="arabic">
 <li><p><strong>Edit the documentation:</strong> Make your changes in the PT3S/sphinx_docs directory.</p></li>
 <li><p><strong>Navigate to the PT3S/sphinx_docs directory:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command.</p>

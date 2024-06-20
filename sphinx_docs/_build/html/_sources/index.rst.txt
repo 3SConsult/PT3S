@@ -8,13 +8,11 @@ Welcome to PT3S's documentation!
 
 .. image:: Sir3S_Splash.jpg
    :alt: SIR 3S Splash
-   :width: 400
+   :width: 100%
    :align: center
+|
 
-
-.. include:: ../README.rst
-
-This documentation is designed to help you get up and running with PT3S, understand its functions, and keep up with the latest releases.
+**PT3S is only of interest to users with access to SIR 3S models.**
 
 Contents:
 ---------
@@ -32,5 +30,4 @@ Indices and tables:
 -------------------
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
