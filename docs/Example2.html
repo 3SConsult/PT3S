@@ -7,6 +7,7 @@
   <title>Imports &mdash; PT3S 90.14.21.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
       <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
@@ -21,6 +22,8 @@
         <script src="_static/documentation_options.js?v=c9f58c65"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -111,6 +114,8 @@
 <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span><span class="p">,</span> <span class="n">LinearAxis</span><span class="p">,</span> <span class="n">Range1d</span>
 <span class="kn">from</span> <span class="nn">bokeh.palettes</span> <span class="kn">import</span> <span class="n">Spectral10</span>
 
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
 <span class="k">except</span><span class="p">:</span>
@@ -174,7 +179,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rootdire</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\WDBeispiel_Wasser_STAND9&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rootdir</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\WDBeispiel_Wasser_STAND9&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -185,7 +190,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mx</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readMx</span><span class="p">(</span><span class="n">rootdire</span><span class="o">=</span><span class="n">rootdire</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mx</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readMx</span><span class="p">(</span><span class="n">rootdir</span><span class="o">=</span><span class="n">rootdir</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -226,8 +231,8 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
     <span class="n">Rm</span><span class="o">.</span><span class="n">pltLDSHelperY</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Volumenstrom in m3/h&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">5</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">48</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="mi">13</span><span class="p">),[])))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
 
@@ -236,7 +241,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
     <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;RSK-Stellung in °&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">10</span><span class="p">),[])))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">13</span><span class="p">),[])))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
 </pre></div>
@@ -341,7 +346,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">interaktive_grafik</span><span class="p">(</span><span class="n">Startzeit</span><span class="p">,</span> <span class="n">Endzeit</span><span class="p">,</span> <span class="n">Druck</span><span class="p">,</span> <span class="n">Volumenstrom</span><span class="p">,</span> <span class="n">RSK_Stellung</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">interactive_plot</span><span class="p">(</span><span class="n">Startzeit</span><span class="p">,</span> <span class="n">Endzeit</span><span class="p">,</span> <span class="n">Druck</span><span class="p">,</span> <span class="n">Volumenstrom</span><span class="p">,</span> <span class="n">RSK_Stellung</span><span class="p">):</span>
 
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
 
@@ -350,10 +355,8 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
     <span class="n">ax0</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 
     <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
-    <span class="n">Achsen</span><span class="o">=</span><span class="p">[]</span>
 
     <span class="k">if</span> <span class="n">Druck</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">Achsen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
         <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyP</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
@@ -365,7 +368,6 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
         <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">Volumenstrom</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">Achsen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
         <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyQ</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
@@ -374,7 +376,6 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
         <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">RSK_Stellung</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">Achsen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
         <span class="n">ax3</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyRSK</span><span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
@@ -400,7 +401,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">widgets_interact</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">interaktive_grafik</span><span class="p">,</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">widgets_interact</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">interactive_plot</span><span class="p">,</span>
                                        <span class="n">Startzeit</span><span class="o">=</span><span class="n">Startzeit_widget</span><span class="p">,</span>
                                        <span class="n">Endzeit</span><span class="o">=</span><span class="n">Endzeit_widget</span><span class="p">,</span>
                                        <span class="n">Druck</span><span class="o">=</span><span class="n">Druck</span><span class="p">,</span>
@@ -415,7 +416,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-    <span class="n">interaktive_grafik</span><span class="p">(</span><span class="n">Druck</span><span class="o">=</span><span class="n">Druck</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">Volumenstrom</span><span class="o">=</span><span class="n">Volumenstrom</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">RSK_Stellung</span><span class="o">=</span><span class="n">RSK_Stellung</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+    <span class="n">interactive_plot</span><span class="p">(</span><span class="n">Druck</span><span class="o">=</span><span class="n">Druck</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">Volumenstrom</span><span class="o">=</span><span class="n">Volumenstrom</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">RSK_Stellung</span><span class="o">=</span><span class="n">RSK_Stellung</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
                        <span class="n">Startzeit</span><span class="o">=</span><span class="n">Startzeit</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">Endzeit</span><span class="o">=</span><span class="n">Endzeit</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
 <span class="n">Startzeit_widget</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_plot</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
@@ -438,13 +439,29 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0e05a36a6f224fa4ac499b7b895fb91a", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0e20a684f0d64fb9a10ccf6cd72bcdb2", "version_major": 2, "version_minor": 0}</script></div>
 </div>
-The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. To view the interactive plot, download the script and run it.</section>
+The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\sphinx_docs\7_example2_interactive_widget_plot.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example2_25_0.png" src="_images/Example2_25_0.png" />
+</div>
+</div>
+</section>
 <section id="Using-Bokeh">
 <h3>Using Bokeh<a class="headerlink" href="#Using-Bokeh" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">plot_druck</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_volumenstrom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_rsk_stellung</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -493,7 +510,7 @@ The depiction of the interactive Widget plot does not work in the documentation,
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_data</span><span class="p">(</span><span class="n">plot_druck</span><span class="o">=</span><span class="kc">True</span>
@@ -502,7 +519,23 @@ The depiction of the interactive Widget plot does not work in the documentation,
 </pre></div>
 </div>
 </div>
-The depiction of the interactive Bokeh plot does not work in the documentation, because it is opened in a browser window. To view the interactive plot, download the script and run it.</section>
+The depiction of the interactive Bokeh plot does not work in the documentation, because it is opened in a browser window. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\sphinx_docs\8_example2_interactive_bokeh_plot.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example2_30_0.png" src="_images/Example2_30_0.png" />
+</div>
+</div>
+</section>
 </section>
 </section>
 

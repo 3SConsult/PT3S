@@ -7,6 +7,7 @@
   <title>Install PT3S &mdash; PT3S 90.14.21.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
       <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
@@ -21,6 +22,8 @@
         <script src="_static/documentation_options.js?v=c9f58c65"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -96,7 +99,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Requirement already satisfied: PT3S in c:\users\jablonski\3s\pt3s (90.14.19.0.dev1)
+Requirement already satisfied: PT3S in c:\users\jablonski\3s\pt3s (90.14.21.0.dev1)
 Requirement already satisfied: tables in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from PT3S) (3.9.2)
 Requirement already satisfied: pandas in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from PT3S) (2.1.4)
 Requirement already satisfied: numpy in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from PT3S) (1.26.4)
@@ -141,7 +144,7 @@ Requirement already satisfied: typing-extensions&gt;=4.6.0 in c:\users\jablonski
 Requirement already satisfied: greenlet!=0.4.17 in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from sqlalchemy-&gt;PT3S) (3.0.1)
 Requirement already satisfied: numexpr&gt;=2.6.2 in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from tables-&gt;PT3S) (2.8.7)
 Requirement already satisfied: py-cpuinfo in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from tables-&gt;PT3S) (9.0.0)
-Requirement already satisfied: attrs&gt;=19.2.0 in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from fiona&gt;=1.8.21-&gt;geopandas-&gt;PT3S) (23.1.0)
+Requirement already satisfied: attrs&gt;=19.2.0 in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from fiona&gt;=1.8.21-&gt;geopandas-&gt;PT3S) (23.2.0)
 Requirement already satisfied: certifi in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from fiona&gt;=1.8.21-&gt;geopandas-&gt;PT3S) (2024.2.2)
 Requirement already satisfied: click~=8.0 in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from fiona&gt;=1.8.21-&gt;geopandas-&gt;PT3S) (8.1.7)
 Requirement already satisfied: click-plugins&gt;=1.0 in c:\users\jablonski\appdata\local\anaconda3\lib\site-packages (from fiona&gt;=1.8.21-&gt;geopandas-&gt;PT3S) (1.1.1)
@@ -181,14 +184,14 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Requirement already satisfied: PT3S in c:\users\jablonski\3s\pt3s (90.14.19.0.dev1)
+Requirement already satisfied: PT3S in c:\users\jablonski\3s\pt3s (90.14.21.0.dev1)
 Note: you may need to restart the kernel to use updated packages.
 </pre></div></div>
 </div>
 </section>
-<section id="Import-PT3S">
-<h1>Import PT3S<a class="headerlink" href="#Import-PT3S" title="Link to this heading"></a></h1>
-<div class="nbinput nblast docutils container">
+<section id="Import-dxAndMxHelperFcts">
+<h1>Import dxAndMxHelperFcts<a class="headerlink" href="#Import-dxAndMxHelperFcts" title="Link to this heading"></a></h1>
+The dxAndMxHelperFcts module contains basic PT3S functions.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>

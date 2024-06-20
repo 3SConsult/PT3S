@@ -7,6 +7,7 @@
   <title>Getting Started &mdash; PT3S 90.14.21.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
 
@@ -20,6 +21,8 @@
         <script src="_static/documentation_options.js?v=c9f58c65"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -98,7 +101,7 @@
 <p>SIR 3S has its core competencies, cannot do everything and cannot want to do everything. Almost everything that SIR 3S does not (yet) offer in Pre- and Postprocessing can be done with Jupyter notebooks. When working with SIR 3S, switching to Jupyter notebooks (from Excel, QGIS, etc.) can be a game changer moment. We do not recommend replacing tools like Excel or QGIS with Jupyter notebooks. For SIR 3S users with programming experience, it is worth taking a look at the power of Jupyter notebooks and Python.</p>
 <p>There are several reasons why Jupyter notebooks and Python are so popular. They offer a unique blend of interactivity, readability, ease of use, and powerful functionalities, making them a go-to tool for data scientists, analysts, and anyone working with data exploration and analysis.</p>
 <p>At the moment, PT3S is just a collection of functions intended to simplify the use of SIR 3S model data and SIR 3S calculation results in notebooks.</p>
-<p>PT3S is only of interest to users with access to SIR 3S models.</p>
+<p><strong>PT3S is only of interest to users with access to SIR 3S models.</strong></p>
 <p>And for users of pipe network calculation software who are looking for a new software that works with Jupyter notebooks and Python. PT3S comes with SIR 3S sample models. SIR 3S itself is not part of PT3S.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -152,6 +155,9 @@
 </div></blockquote>
 </li>
 </ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 </section>
 <section id="getting-started-with-pt3s">
 <h2>Getting Started with PT3S<a class="headerlink" href="#getting-started-with-pt3s" title="Link to this heading"></a></h2>
@@ -161,7 +167,7 @@
 <ol class="arabic simple">
 <li><p><strong>Download Example0:</strong> Download Example0.ipynb from <a class="reference internal" href="examples.html#ex0"><span class="std std-ref">Example 0: Installation</span></a>.</p></li>
 <li><p><strong>Open Example0.ipynb via JupyterLab:</strong> Instructions on how to open ipnyb files are explained in detail at <a class="reference internal" href="#startandopennotebooks"><span class="std std-ref">How to Start JupyterLab</span></a>.</p></li>
-<li><p><strong>Run 2nd cell:</strong></p></li>
+<li><p><strong>Run 2nd cell:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">PT3S</span></code></p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/3_pt3s_install_example0.png"><img alt="pt3s_install_example0" class="align-center" src="_images/3_pt3s_install_example0.png" style="width: 100%;" /></a>
 <div class="line-block">
@@ -174,7 +180,7 @@
 <ol class="arabic simple">
 <li><p><strong>Download Example0:</strong> Download Example0.ipynb from <a class="reference internal" href="examples.html#ex0"><span class="std std-ref">Example 0: Installation</span></a>.</p></li>
 <li><p><strong>Open Example0.ipynb via JupyterLab:</strong> Instructions on how to open ipnyb files are explained in detail at <a class="reference internal" href="#startandopennotebooks"><span class="std std-ref">How to Start JupyterLab</span></a>.</p></li>
-<li><p><strong>Run 4th cell:</strong></p></li>
+<li><p><strong>Run 4th cell:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">PT3S</span> <span class="pre">-U</span> <span class="pre">--no-deps</span></code></p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/4_pt3s_update_example0.png"><img alt="pt3s_update_example0" class="align-center" src="_images/4_pt3s_update_example0.png" style="width: 100%;" /></a>
 <div class="line-block">
@@ -183,12 +189,12 @@
 </section>
 <section id="import-pt3s-into-notebooks">
 <h3>Import PT3S into Notebooks<a class="headerlink" href="#import-pt3s-into-notebooks" title="Link to this heading"></a></h3>
-<p>To import PT3S into your Notebook, use the following commands.</p>
+<p>To import a certain PT3S module into your Notebook, use the following commands. The dxAndMxHelperFcts module, which is used in the example, contains basic PT3S functions.</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>try:
-<span class="w">    </span>from<span class="w"> </span>PT3S<span class="w"> </span>import<span class="w"> </span>dxAndMxHelperFcts
-except:
-<span class="w">    </span>import<span class="w"> </span>dxAndMxHelperFcts
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
 </pre></div>
 </div>
 </div></blockquote>
