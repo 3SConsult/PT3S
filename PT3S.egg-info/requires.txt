@@ -11,3 +11,8 @@ py7zr
 folium
 mapclassify
 sqlalchemy
+ipython
+bokeh
+matplotlib
+ipywidgets
+Pillow

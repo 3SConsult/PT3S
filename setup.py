@@ -78,7 +78,13 @@ setup(
         'py7zr',
         'folium',
         'mapclassify',  
-        'sqlalchemy'
+        'sqlalchemy',
+        'ipython',
+        'bokeh',
+        'matplotlib',
+        'ipywidgets',
+        'Pillow'
+        
     ],    
     
     # List additional groups of dependencies here (e.g. development
@@ -110,6 +116,11 @@ setup(
             ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.MX2'
             ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MX3'
             ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MXS'
+            
+            ,'Examples\Beispiel_Wasser_STAND9.db3'
+            
+            ,'Examples\Images\1_example2_interactive_widget_plot.png'
+            ,'Examples\Images\2_example2_interactive_bokeh_plot.png'
            #,'Lx.ipynb'
         #   ,'NFD Module Test.ipynb'
         #   ,'NFD Module Test.html'

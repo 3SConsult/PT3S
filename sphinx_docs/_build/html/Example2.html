@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imports &mdash; PT3S 90.14.21.0.dev1 documentation</title>
+  <title>Imports &mdash; PT3S 90.14.22.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -175,11 +175,11 @@
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+The mx files needed for this Example are too big to be includede in PT3S. To run this Notebook, you need to calculate PT3S/Examples/Beispiel_Wasser_STAND9.db3 using SIR 3S and create the rootdir PT3S/Examples/WDBeispiel_Wasser_STAND9.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rootdir</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\WDBeispiel_Wasser_STAND9&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rootdir</span><span class="o">=</span><span class="n">pt3s_path</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\WDBeispiel_Wasser_STAND9&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -199,7 +199,7 @@
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiele\Wasser\Manual\Modellstände\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.2.MXS reading ...
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.2.MXS reading ...
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -239,7 +239,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
 <span class="k">def</span> <span class="nf">fyRSK</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">120</span><span class="p">):</span>
     <span class="n">Rm</span><span class="o">.</span><span class="n">pltLDSHelperY</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;outward&quot;</span><span class="p">,</span><span class="n">offset</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;RSK-Stellung in °&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;RSK-Stellung in %&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">13</span><span class="p">),[])))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
@@ -314,7 +314,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example2_16_0.png" src="_images/Example2_16_0.png" />
+<img alt="_images/Example2_17_0.png" src="_images/Example2_17_0.png" />
 </div>
 </div>
 </section>
@@ -439,13 +439,13 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\..\..\3S\SIR 3S\Modelle\Beispiel
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0e20a684f0d64fb9a10ccf6cd72bcdb2", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "040f176c665a43bc9903d77c28a047bd", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\sphinx_docs\7_example2_interactive_widget_plot.png&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">pt3s_path</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\1_example2_interactive_widget_plot.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -454,7 +454,7 @@ The depiction of the interactive Widget plot does not work in the documentation,
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example2_25_0.png" src="_images/Example2_25_0.png" />
+<img alt="_images/Example2_26_0.png" src="_images/Example2_26_0.png" />
 </div>
 </div>
 </section>
@@ -486,7 +486,7 @@ The depiction of the interactive Widget plot does not work in the documentation,
 
     <span class="c1"># Create a new y range for the second set of columns</span>
     <span class="n">p</span><span class="o">.</span><span class="n">extra_y_ranges</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Volumenstrom in m^3/h&quot;</span><span class="p">:</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span> <span class="k">if</span> <span class="n">plot_volumenstrom</span> <span class="k">else</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>  <span class="c1"># Adjust the range according to your data</span>
-                        <span class="s2">&quot;RSK-Stellung in °&quot;</span><span class="p">:</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span> <span class="k">if</span> <span class="n">plot_rsk_stellung</span> <span class="k">else</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>  <span class="c1"># Adjust the range according to your data</span>
+                        <span class="s2">&quot;RSK-Stellung in %&quot;</span><span class="p">:</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span> <span class="k">if</span> <span class="n">plot_rsk_stellung</span> <span class="k">else</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>  <span class="c1"># Adjust the range according to your data</span>
 
     <span class="c1"># Adding a line for each column in the second set to the plot with the new y range</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols_to_plot_2</span><span class="p">):</span>
@@ -496,13 +496,13 @@ The depiction of the interactive Widget plot does not work in the documentation,
     <span class="c1"># Adding a line for each column in the third set to the plot with the new y range</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols_to_plot_3</span><span class="p">):</span>
         <span class="c1"># Use a different color for each line from the Spectral10 palette</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">Spectral10</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_to_plot</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_to_plot_2</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;RSK-Stellung in °&quot;</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">Spectral10</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_to_plot</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_to_plot_2</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;RSK-Stellung in %&quot;</span><span class="p">)</span>
 
     <span class="c1"># Add a second y axis to the left that corresponds to the new y range</span>
     <span class="k">if</span> <span class="n">plot_volumenstrom</span><span class="p">:</span>
         <span class="n">p</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">LinearAxis</span><span class="p">(</span><span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;Volumenstrom in m^3/h&quot;</span><span class="p">,</span> <span class="n">axis_label</span><span class="o">=</span><span class="s1">&#39;Volumenstrom in m^3/h&#39;</span><span class="p">),</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">plot_rsk_stellung</span><span class="p">:</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">LinearAxis</span><span class="p">(</span><span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;RSK-Stellung in °&quot;</span><span class="p">,</span> <span class="n">axis_label</span><span class="o">=</span><span class="s1">&#39;RSK-Stellung in °&#39;</span><span class="p">),</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">LinearAxis</span><span class="p">(</span><span class="n">y_range_name</span><span class="o">=</span><span class="s2">&quot;RSK-Stellung in %&quot;</span><span class="p">,</span> <span class="n">axis_label</span><span class="o">=</span><span class="s1">&#39;RSK-Stellung in %&#39;</span><span class="p">),</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
 
     <span class="c1"># Show the plot</span>
     <span class="n">show</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -523,7 +523,7 @@ The depiction of the interactive Bokeh plot does not work in the documentation, 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\sphinx_docs\8_example2_interactive_bokeh_plot.png&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">pt3s_path</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\2_example2_interactive_bokeh_plot.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -532,7 +532,7 @@ The depiction of the interactive Bokeh plot does not work in the documentation, 
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example2_30_0.png" src="_images/Example2_30_0.png" />
+<img alt="_images/Example2_31_0.png" src="_images/Example2_31_0.png" />
 </div>
 </div>
 </section>

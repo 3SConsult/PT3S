@@ -1,6 +1,10 @@
 Getting Started
 ===============
 
+Welcome to the Getting Started guide for PT3S! This guide is your first step towards understanding and utilizing PT3S. The purpose of PT3S and its applications will be explained.
+
+In this guide, we will walk you through the initial setup process and equip you with the necessary resources to explore PT3S further.
+
 Why Jupyter Notebooks, Python and PT3S are valuable when Working with SIR 3S
 ----------------------------------------------------------------------------
 
@@ -139,3 +143,7 @@ To try this inside an Example Notebook, follow these steps:
        :width: 100%
        :align: center 
 |
+
+Congratulations on successfully installing and importing PT3S! You now have the power of PT3S’s functions at your fingertips. To delve deeper into these functions and their applications, we invite you to explore the :doc:`functions` page.
+
+PT3S is versatile and caters to a variety of use cases. To gain insights into these use cases and understand how PT3S can be leveraged in different scenarios, we encourage you to visit the :doc:`examples` page.

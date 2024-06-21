@@ -1,7 +1,7 @@
 For Developers
 ==============
 
-This section provides resources and instructions for developers who want to contribute to PT3S or use it in their own projects. 
+Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S or use it in their own projects. 
 
 - **GitHub Repository:** You can find the source code and contribute to the project on our `GitHub page <https://github.com/aw3s/PT3S>`_.
 
