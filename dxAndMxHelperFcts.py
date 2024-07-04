@@ -946,6 +946,7 @@ def readMx(rootdir, logPathOutputFct=os.path.relpath):
         logger.debug("{0:s}MX wurde bisher erfolgreich gelesen. {1:s}".format(logStrPrefix, mx1File))   
     except Mx.MxError:  
         logger.info("{0:s}MX1-Datei konnte nicht gelesen werden".format(logStrPrefix))
-    
+    finally:
+        logger.debug("{0:s}_Done.".format(logStrPrefix)) 
     
     return mx

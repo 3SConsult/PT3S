@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='90.14.22.0.dev1',
+    version='90.14.23.0.dev1',
 
     description='Python Tools 3S',
     long_description=long_description,
@@ -83,7 +83,8 @@ setup(
         'bokeh',
         'matplotlib',
         'ipywidgets',
-        'Pillow'
+        'Pillow',
+        'selenium'
         
     ],    
     
@@ -105,19 +106,26 @@ setup(
            ,'PT3S.html'
         #   ,'PT3S.pdf' 
         
-            ,'Examples\DistrictHeating.db3'
-            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX1'       
-            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.MX2'               
-            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX3'               
-            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MXS'               
+            #,'Examples\DistrictHeating.db3'
+            #,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX1'       
+            #,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.MX2'               
+            #,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX3'               
+            #,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MXS'   
+            #,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.XML'            
             
             ,'Examples\Wärmenetz-Planungsbeispiel.db3'
             ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MX1'
             ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.MX2'
             ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MX3'
             ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MXS'
+            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.XML'
             
             ,'Examples\Beispiel_Wasser_STAND9.db3'
+            ,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.1.MX1'
+            ,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.MX2'
+            ,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.1.MX3'
+            ,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.1.MXS'
+            ,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.XML'
             
             ,'Examples\Images\1_example2_interactive_widget_plot.png'
             ,'Examples\Images\2_example2_interactive_bokeh_plot.png'

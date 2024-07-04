@@ -16,3 +16,4 @@ bokeh
 matplotlib
 ipywidgets
 Pillow
+selenium
