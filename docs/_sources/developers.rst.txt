@@ -160,23 +160,15 @@ Follow these steps to upload a new version of your project to PyPI:
 
       python setup.py sdist
 
-5. **Generate an API Token on PyPI:** Log into your PyPI account and navigate to your Account Settings. Select "API Tokens" and then "Add API Token". Provide a token name and select the scopes this token should have access to. Click "Create Token" and make sure to copy your new token.
+5. **Generate an API Token on PyPI:** Log into your PyPI account and navigate to your Account Settings. Find "API Tokens" and then "Add API Token". Provide a token name and select the scopes this token should have access to (include PT3S). Click "Create Token" and make sure to copy your new token. This token can be used for all your future PT3S Uploads.
 
-6. **(Optional) Set Your PyPI API Token as an Environment Variable:** You can do this by running the following command in your console, replacing ``your_token`` with your actual token.
-
-   .. code-block:: bash
-
-      export TWINE_USERNAME=__token__
-      export TWINE_PASSWORD=your_token
-
-7. **Upload the Distribution with Twine:** Use the ``python -m twine upload dist/*`` command to upload the distribution.
+6. **Upload the Distribution with Twine:** Use the ``python -m twine upload dist/*`` command to upload the distribution.
 
    .. code-block:: bash
 
       python -m twine upload dist/*
 
-8. **(Alternative to Step 5) Enter API Token When Prompted:** If you didn't set your PyPI API token as an environment variable in step 5, you will be prompted to enter it after running the command in step 6. Simply enter your API token when asked.
-
+7. **Enter API Token When Prompted:** You will be prompted to enter your API Token after running the command in step 6. Simply enter your API token when asked.
  
 .. note::
 

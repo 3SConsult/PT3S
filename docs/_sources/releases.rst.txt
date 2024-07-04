@@ -3,6 +3,18 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.23.0.dev1
+---------------
+**Fix:**
+
+- readMx:
+    Logging _Done added
+
+- Selenium as install req
+
+- XML and Mx1 File included included with content, all other result files blank
+
+
 90.14.22.0.dev1
 ---------------
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.21.0.dev1 documentation</title>
+  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.22.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -1034,7 +1034,8 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">MX wurde bisher erfolgreich gelesen. </span><span class="si">{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStrPrefix</span><span class="p">,</span> <span class="n">mx1File</span><span class="p">))</span>   
     <span class="k">except</span> <span class="n">Mx</span><span class="o">.</span><span class="n">MxError</span><span class="p">:</span>  
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">MX1-Datei konnte nicht gelesen werden&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStrPrefix</span><span class="p">))</span>
-    
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">_Done.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStrPrefix</span><span class="p">))</span> 
     
     <span class="k">return</span> <span class="n">mx</span></div>
 
