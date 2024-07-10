@@ -12,7 +12,7 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 
 - Selenium as install req
 
-- XML and Mx1 File included included with content, all other result files blank
+- Examples: XML and Mx1 File included with content, all other result files blank
 
 
 90.14.22.0.dev1

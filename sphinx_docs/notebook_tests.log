@@ -1,0 +1,336 @@
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Anforderungen aus setup.py installiert.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Anforderungen aus setup.py installiert.
+INFO:root:Notebook Example1.ipynb geöffnet.
+DEBUG:asyncio:Using proactor: IocpProactor
+DEBUG:asyncio:Using proactor: IocpProactor
+ERROR:root:Fehler beim Ausführen von Example1.ipynb: An error occurred while executing the following cell:
+------------------
+gdf_ROHR = m.gdf_ROHR.dropna(subset=['geometry'])
+gdf_FWVB = m.gdf_FWVB.dropna(subset=['geometry'])
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [1;32mIn[10], line 1[0m
+[1;32m----> 1[0m gdf_ROHR [38;5;241m=[39m m[38;5;241m.[39mgdf_ROHR[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+[0;32m      2[0m gdf_FWVB [38;5;241m=[39m m[38;5;241m.[39mgdf_FWVB[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+
+[1;31mAttributeError[0m: 'NoneType' object has no attribute 'gdf_ROHR'
+
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Installiere Paket: p
+INFO:root:Installiere Paket: e
+INFO:root:Installiere Paket: p
+INFO:root:Installiere Paket: p
+INFO:root:Installiere Paket: e
+INFO:root:Installiere Paket: r
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Installiere Paket: tables
+INFO:root:Installiere Paket: pandas
+INFO:root:Installiere Paket: numpy
+INFO:root:Installiere Paket: h5py
+INFO:root:Installiere Paket: pyodbc
+INFO:root:Installiere Paket: geopandas
+INFO:root:Installiere Paket: networkx
+INFO:root:Installiere Paket: shapely
+INFO:root:Installiere Paket: contextily
+INFO:root:Installiere Paket: py7zr
+INFO:root:Installiere Paket: folium
+INFO:root:Installiere Paket: mapclassify
+INFO:root:Installiere Paket: sqlalchemy
+INFO:root:Installiere Paket: ipython
+INFO:root:Installiere Paket: bokeh
+INFO:root:Installiere Paket: matplotlib
+INFO:root:Installiere Paket: ipywidgets
+INFO:root:Installiere Paket: Pillow
+INFO:root:Installiere Paket: selenium
+INFO:root:Anforderungen aus setup.py installiert.
+INFO:root:Notebook Example1.ipynb geöffnet.
+DEBUG:asyncio:Using proactor: IocpProactor
+ERROR:root:Fehler beim Ausführen von Example1.ipynb: An error occurred while executing the following cell:
+------------------
+gdf_ROHR = m.gdf_ROHR.dropna(subset=['geometry'])
+gdf_FWVB = m.gdf_FWVB.dropna(subset=['geometry'])
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [1;32mIn[10], line 1[0m
+[1;32m----> 1[0m gdf_ROHR [38;5;241m=[39m m[38;5;241m.[39mgdf_ROHR[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+[0;32m      2[0m gdf_FWVB [38;5;241m=[39m m[38;5;241m.[39mgdf_FWVB[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+
+[1;31mAttributeError[0m: 'NoneType' object has no attribute 'gdf_ROHR'
+
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Installiere Paket: tables
+INFO:root:Installiere Paket: pandas
+INFO:root:Installiere Paket: numpy
+INFO:root:Installiere Paket: h5py
+INFO:root:Installiere Paket: pyodbc
+INFO:root:Installiere Paket: geopandas
+INFO:root:Installiere Paket: networkx
+INFO:root:Installiere Paket: shapely
+INFO:root:Installiere Paket: contextily
+INFO:root:Installiere Paket: py7zr
+INFO:root:Installiere Paket: folium
+INFO:root:Installiere Paket: mapclassify
+INFO:root:Installiere Paket: sqlalchemy
+INFO:root:Installiere Paket: ipython
+INFO:root:Installiere Paket: bokeh
+INFO:root:Installiere Paket: matplotlib
+INFO:root:Installiere Paket: ipywidgets
+INFO:root:Installiere Paket: Pillow
+INFO:root:Installiere Paket: selenium
+INFO:root:Anforderungen aus setup.py+PT3S installiert.
+INFO:root:Notebook Example1.ipynb geöffnet.
+DEBUG:asyncio:Using proactor: IocpProactor
+ERROR:root:Fehler beim Ausführen von Example1.ipynb: An error occurred while executing the following cell:
+------------------
+gdf_ROHR = m.gdf_ROHR.dropna(subset=['geometry'])
+gdf_FWVB = m.gdf_FWVB.dropna(subset=['geometry'])
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [1;32mIn[10], line 1[0m
+[1;32m----> 1[0m gdf_ROHR [38;5;241m=[39m m[38;5;241m.[39mgdf_ROHR[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+[0;32m      2[0m gdf_FWVB [38;5;241m=[39m m[38;5;241m.[39mgdf_FWVB[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+
+[1;31mAttributeError[0m: 'NoneType' object has no attribute 'gdf_ROHR'
+
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Installiere Paket: tables
+INFO:root:Installiere Paket: pandas
+INFO:root:Installiere Paket: numpy
+INFO:root:Installiere Paket: h5py
+INFO:root:Installiere Paket: pyodbc
+INFO:root:Installiere Paket: geopandas
+INFO:root:Installiere Paket: networkx
+INFO:root:Installiere Paket: shapely
+INFO:root:Installiere Paket: contextily
+INFO:root:Installiere Paket: py7zr
+INFO:root:Installiere Paket: folium
+INFO:root:Installiere Paket: mapclassify
+INFO:root:Installiere Paket: sqlalchemy
+INFO:root:Installiere Paket: ipython
+INFO:root:Installiere Paket: bokeh
+INFO:root:Installiere Paket: matplotlib
+INFO:root:Installiere Paket: ipywidgets
+INFO:root:Installiere Paket: Pillow
+INFO:root:Installiere Paket: selenium
+INFO:root:Anforderungen aus setup.py+PT3S installiert.
+INFO:root:Notebook Example1.ipynb geöffnet.
+DEBUG:asyncio:Using proactor: IocpProactor
+DEBUG:traitlets:Instantiating kernel 'Python 3 (ipykernel)' with kernel provisioner: local-provisioner
+DEBUG:traitlets:Starting kernel: ['C:/Users/jablonski/AppData/Local/anaconda3\\python.exe', '-m', 'ipykernel_launcher', '-f', 'C:\\Users\\jablonski\\AppData\\Local\\Temp\\tmpr5f_9rw3.json', '--HistoryManager.hist_file=:memory:']
+DEBUG:traitlets:Connecting to: tcp://127.0.0.1:53915
+DEBUG:traitlets:connecting iopub channel to tcp://127.0.0.1:53912
+DEBUG:traitlets:Connecting to: tcp://127.0.0.1:53912
+DEBUG:traitlets:connecting shell channel to tcp://127.0.0.1:53911
+DEBUG:traitlets:Connecting to: tcp://127.0.0.1:53911
+DEBUG:traitlets:connecting stdin channel to tcp://127.0.0.1:53913
+DEBUG:traitlets:Connecting to: tcp://127.0.0.1:53913
+DEBUG:traitlets:connecting heartbeat channel to tcp://127.0.0.1:53914
+DEBUG:asyncio:Using proactor: IocpProactor
+DEBUG:traitlets:connecting control channel to tcp://127.0.0.1:53915
+DEBUG:traitlets:Connecting to: tcp://127.0.0.1:53915
+DEBUG:traitlets:Skipping non-executing cell 0
+DEBUG:traitlets:Executing cell:
+import os
+import geopandas
+import logging
+import pandas as pd
+import io
+import subprocess
+from PIL import Image
+
+import folium
+from folium.plugins import HeatMap
+
+try:
+    from PT3S import dxAndMxHelperFcts
+except:
+    import dxAndMxHelperFcts
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': 'import os\nimport geopandas\nimport logging\nimport pandas as pd\nimport io\nimport subprocess\nfrom PIL import Image\n\nimport folium\nfrom folium.plugins import HeatMap\n\ntry:\n    from PT3S import dxAndMxHelperFcts\nexcept:\n    import dxAndMxHelperFcts', 'execution_count': 1}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Executing cell:
+pt3s_path = os.path.dirname(os.path.abspath(dxAndMxHelperFcts.__file__))
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': 'pt3s_path = os.path.dirname(os.path.abspath(dxAndMxHelperFcts.__file__))', 'execution_count': 2}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Skipping non-executing cell 3
+DEBUG:traitlets:Executing cell:
+logger = logging.getLogger()  
+
+logFileName= r"Example1.log" 
+
+loglevel = logging.DEBUG
+logging.basicConfig(filename=logFileName
+                        ,filemode='w'
+                        ,level=loglevel
+                        ,format="%(asctime)s ; %(name)-60s ; %(levelname)-7s ; %(message)s")    
+
+fileHandler = logging.FileHandler(logFileName)     
+
+logger.addHandler(fileHandler)
+
+consoleHandler = logging.StreamHandler()
+consoleHandler.setFormatter(logging.Formatter("%(levelname)-7s ; %(message)s"))
+consoleHandler.setLevel(logging.INFO)
+logger.addHandler(consoleHandler)
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': 'logger = logging.getLogger()  \n\nlogFileName= r"Example1.log" \n\nloglevel = logging.DEBUG\nlogging.basicConfig(filename=logFileName\n                        ,filemode=\'w\'\n                        ,level=loglevel\n                        ,format="%(asctime)s ; %(name)-60s ; %(levelname)-7s ; %(message)s")    \n\nfileHandler = logging.FileHandler(logFileName)     \n\nlogger.addHandler(fileHandler)\n\nconsoleHandler = logging.StreamHandler()\nconsoleHandler.setFormatter(logging.Formatter("%(levelname)-7s ; %(message)s"))\nconsoleHandler.setLevel(logging.INFO)\nlogger.addHandler(consoleHandler)', 'execution_count': 3}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Skipping non-executing cell 5
+DEBUG:traitlets:Executing cell:
+dbFilename="WÃ¤rmenetz-Planungsbeispiel"
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': 'dbFilename="WÃ¤rmenetz-Planungsbeispiel"', 'execution_count': 4}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Skipping non-executing cell 7
+DEBUG:traitlets:Executing cell:
+SirCalc = r"C:\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe"
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': 'SirCalc = r"C:\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe"', 'execution_count': 5}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Skipping non-executing cell 9
+DEBUG:traitlets:Skipping non-executing cell 10
+DEBUG:traitlets:Executing cell:
+calculate=True
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': 'calculate=True', 'execution_count': 6}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Executing cell:
+SirCalcXml = os.path.join(pt3s_path, "Examples", "WDWÃ¤rmenetz-Planungsbeispiel", "B1", "V0", "BZ1", "M-1-0-1.XML")
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': 'SirCalcXml = os.path.join(pt3s_path, "Examples", "WDWÃ¤rmenetz-Planungsbeispiel", "B1", "V0", "BZ1", "M-1-0-1.XML")', 'execution_count': 7}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Executing cell:
+if calculate:
+    with subprocess.Popen([SirCalc, SirCalcXml]) as process:
+        process.wait()
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': 'if calculate:\n    with subprocess.Popen([SirCalc, SirCalcXml]) as process:\n        process.wait()', 'execution_count': 8}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Skipping non-executing cell 14
+DEBUG:traitlets:Executing cell:
+m=dxAndMxHelperFcts.readDxAndMx(dbFile=os.path.join(pt3s_path+'/Examples/'+dbFilename+'.db3')
+                                ,preventPklDump=True
+                               )
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': "m=dxAndMxHelperFcts.readDxAndMx(dbFile=os.path.join(pt3s_path+'/Examples/'+dbFilename+'.db3')\n                                ,preventPklDump=True\n                               )", 'execution_count': 9}
+DEBUG:traitlets:msg_type: stream
+DEBUG:traitlets:content: {'name': 'stderr', 'text': "ERROR   ; Dx.__init__: Exception: Line: 227: <class 'Dx.DxError'>: 'Dx.__init__: dbFile: c:\\\\users\\\\jablonski\\\\3s\\\\pt3s/Examples/WÃ¤rmenetz-Planungsbeispiel.db3: Not existing!'\n"}
+DEBUG:traitlets:msg_type: stream
+DEBUG:traitlets:content: {'name': 'stderr', 'text': "ERROR   ; dxAndMxHelperFcts.readDxAndMx: Exception: Line: 515: <class 'dxAndMxHelperFcts.readDxAndMxError'>: 'dxAndMxHelperFcts.readDxAndMx: dbFile: ..\\\\Examples\\\\WÃ¤rmenetz-Planungsbeispiel.db3: DxError!'\n"}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Skipping non-executing cell 16
+DEBUG:traitlets:Executing cell:
+gdf_ROHR = m.gdf_ROHR.dropna(subset=['geometry'])
+gdf_FWVB = m.gdf_FWVB.dropna(subset=['geometry'])
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'busy'}
+DEBUG:traitlets:msg_type: execute_input
+DEBUG:traitlets:content: {'code': "gdf_ROHR = m.gdf_ROHR.dropna(subset=['geometry'])\ngdf_FWVB = m.gdf_FWVB.dropna(subset=['geometry'])", 'execution_count': 10}
+DEBUG:traitlets:msg_type: error
+DEBUG:traitlets:content: {'traceback': ['\x1b[1;31m---------------------------------------------------------------------------\x1b[0m', '\x1b[1;31mAttributeError\x1b[0m                            Traceback (most recent call last)', "Cell \x1b[1;32mIn[10], line 1\x1b[0m\n\x1b[1;32m----> 1\x1b[0m gdf_ROHR \x1b[38;5;241m=\x1b[39m m\x1b[38;5;241m.\x1b[39mgdf_ROHR\x1b[38;5;241m.\x1b[39mdropna(subset\x1b[38;5;241m=\x1b[39m[\x1b[38;5;124m'\x1b[39m\x1b[38;5;124mgeometry\x1b[39m\x1b[38;5;124m'\x1b[39m])\n\x1b[0;32m      2\x1b[0m gdf_FWVB \x1b[38;5;241m=\x1b[39m m\x1b[38;5;241m.\x1b[39mgdf_FWVB\x1b[38;5;241m.\x1b[39mdropna(subset\x1b[38;5;241m=\x1b[39m[\x1b[38;5;124m'\x1b[39m\x1b[38;5;124mgeometry\x1b[39m\x1b[38;5;124m'\x1b[39m])\n", "\x1b[1;31mAttributeError\x1b[0m: 'NoneType' object has no attribute 'gdf_ROHR'"], 'ename': 'AttributeError', 'evalue': "'NoneType' object has no attribute 'gdf_ROHR'"}
+DEBUG:traitlets:msg_type: status
+DEBUG:traitlets:content: {'execution_state': 'idle'}
+DEBUG:traitlets:Destroying zmq context for <jupyter_client.asynchronous.client.AsyncKernelClient object at 0x000002673449D610>
+ERROR:root:Fehler beim Ausführen von Example1.ipynb: An error occurred while executing the following cell:
+------------------
+gdf_ROHR = m.gdf_ROHR.dropna(subset=['geometry'])
+gdf_FWVB = m.gdf_FWVB.dropna(subset=['geometry'])
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [1;32mIn[10], line 1[0m
+[1;32m----> 1[0m gdf_ROHR [38;5;241m=[39m m[38;5;241m.[39mgdf_ROHR[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+[0;32m      2[0m gdf_FWVB [38;5;241m=[39m m[38;5;241m.[39mgdf_FWVB[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+
+[1;31mAttributeError[0m: 'NoneType' object has no attribute 'gdf_ROHR'
+
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Virtuelle Umgebung erstellt.
+INFO:root:Installiere Paket: tables
+INFO:root:Installiere Paket: pandas
+INFO:root:Installiere Paket: numpy
+INFO:root:Installiere Paket: h5py
+INFO:root:Installiere Paket: pyodbc
+INFO:root:Installiere Paket: geopandas
+INFO:root:Installiere Paket: networkx
+INFO:root:Installiere Paket: shapely
+INFO:root:Installiere Paket: contextily
+INFO:root:Installiere Paket: py7zr
+INFO:root:Installiere Paket: folium
+INFO:root:Installiere Paket: mapclassify
+INFO:root:Installiere Paket: sqlalchemy
+INFO:root:Installiere Paket: ipython
+INFO:root:Installiere Paket: bokeh
+INFO:root:Installiere Paket: matplotlib
+INFO:root:Installiere Paket: ipywidgets
+INFO:root:Installiere Paket: Pillow
+INFO:root:Installiere Paket: selenium
+INFO:root:Anforderungen aus setup.py installiert.
+INFO:root:Das Skript Example0.ipynb wurde erfolgreich ausgeführt.
+INFO:root:Das Skript Example1.ipynb wurde erfolgreich ausgeführt.
+INFO:root:Das Skript Example2.ipynb wurde erfolgreich ausgeführt.
+INFO:root:Notebook Example1.ipynb geöffnet.
+DEBUG:asyncio:Using proactor: IocpProactor
+ERROR:root:Fehler beim Ausführen von Example1.ipynb: An error occurred while executing the following cell:
+------------------
+gdf_ROHR = m.gdf_ROHR.dropna(subset=['geometry'])
+gdf_FWVB = m.gdf_FWVB.dropna(subset=['geometry'])
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [1;32mIn[10], line 1[0m
+[1;32m----> 1[0m gdf_ROHR [38;5;241m=[39m m[38;5;241m.[39mgdf_ROHR[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+[0;32m      2[0m gdf_FWVB [38;5;241m=[39m m[38;5;241m.[39mgdf_FWVB[38;5;241m.[39mdropna(subset[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mgeometry[39m[38;5;124m'[39m])
+
+[1;31mAttributeError[0m: 'NoneType' object has no attribute 'gdf_ROHR'
+
