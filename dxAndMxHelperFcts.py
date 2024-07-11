@@ -389,6 +389,9 @@ def readDxAndMx(dbFile
 
     """
     Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.
+    
+    Use maxRecords=0 to read only the model.
+    Use maxRecords=1 to read only STAT (the steady state result).
 
     :param dbFile: Path to SIR 3S' database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object. The corresponding results are read into an Mx object if available.
     :type dbFile: str
@@ -412,7 +415,7 @@ def readDxAndMx(dbFile
 
     .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.
         
-        The returned dxWithMx object has the following structure:
+        The returned dxWithMx object has the following structure i.e. Dfs:
     
             - Model: Dx object:
                 - dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
@@ -440,6 +443,16 @@ def readDxAndMx(dbFile
                 - gdf_ROHR: Pipes
                 - gdf_FWVB: Housestations District Heating
                 - gdf_KNOT: Nodes 
+                    
+            - Dfs containing decoded BLOB-Data:
+                - dfLAYR: one row per LAYR (Layer) and OBJ
+                - dfWBLZ: one row per WBLZ (Heat balance) and OBJ
+                - dfAGSN: one row for AGSN and OBJ (edge); AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
+
+        The returned dxWithMx object has almost no functions yet - except:
+                - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df
+             
+
     """
     
     import os

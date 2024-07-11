@@ -8,7 +8,7 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 **Fix:**
 
 - readMx:
-    Logging _Done added
+    Logging: _Done added
 
 - Selenium as install req
 
