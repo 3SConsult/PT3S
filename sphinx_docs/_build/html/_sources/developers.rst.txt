@@ -116,7 +116,7 @@ Version Control
 
 Before uploading a new release to PyPI, follow these steps:
 
-1. **Document the Release:** Describe new additions or fixes, that are included in this release, to the sphinx_docs/releases.rst file and then follow the steps of :ref:`generating-documentation-label`.
+1. **Document the Release:** Describe new additions or fixes, that are included in this release, to the PT3S/sphinx_docs/releases.rst file.
 
    .. code-block:: rst
    
@@ -136,7 +136,9 @@ Before uploading a new release to PyPI, follow these steps:
           
 For further examples on how to document your additions and fixes, visit the :doc:`releases` page.
 
-2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, sphinx_docs/conf.py
+2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py
+
+3. **Generate the Documentation:** Follow the steps of :ref:`generating-documentation-label`.
   
         
 Upload a New Version to PyPI

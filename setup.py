@@ -106,12 +106,12 @@ setup(
            ,'PT3S.html'
         #   ,'PT3S.pdf' 
         
-            #,'Examples\DistrictHeating.db3'
-            #,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX1'       
-            #,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.MX2'               
-            #,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX3'               
-            #,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MXS'   
-            #,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.XML'            
+            ,'Examples\DistrictHeating.db3'
+            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX1'       
+            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.MX2'               
+            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX3'               
+            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MXS'   
+            ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.XML'            
             
             ,'Examples\Wärmenetz-Planungsbeispiel.db3'
             ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MX1'

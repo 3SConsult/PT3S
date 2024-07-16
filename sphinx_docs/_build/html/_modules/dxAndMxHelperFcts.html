@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.22.0.dev1 documentation</title>
+  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.24.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -474,6 +474,9 @@
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.</span>
+<span class="sd">    </span>
+<span class="sd">    Use maxRecords=0 to read only the model.</span>
+<span class="sd">    Use maxRecords=1 to read only STAT (the steady state result).</span>
 
 <span class="sd">    :param dbFile: Path to SIR 3S&#39; database file (&#39;modell.db3&#39; or &#39;modell.mdb&#39;). The database is read into a Dx object. The corresponding results are read into an Mx object if available.</span>
 <span class="sd">    :type dbFile: str</span>
@@ -497,7 +500,7 @@
 
 <span class="sd">    .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.</span>
 <span class="sd">        </span>
-<span class="sd">        The returned dxWithMx object has the following structure:</span>
+<span class="sd">        The returned dxWithMx object has the following structure i.e. Dfs:</span>
 <span class="sd">    </span>
 <span class="sd">            - Model: Dx object:</span>
 <span class="sd">                - dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S&#39; tables in database file</span>
@@ -525,6 +528,16 @@
 <span class="sd">                - gdf_ROHR: Pipes</span>
 <span class="sd">                - gdf_FWVB: Housestations District Heating</span>
 <span class="sd">                - gdf_KNOT: Nodes </span>
+<span class="sd">                    </span>
+<span class="sd">            - Dfs containing decoded BLOB-Data:</span>
+<span class="sd">                - dfLAYR: one row per LAYR (Layer) and OBJ</span>
+<span class="sd">                - dfWBLZ: one row per WBLZ (Heat balance) and OBJ</span>
+<span class="sd">                - dfAGSN: one row for AGSN and OBJ (edge); AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</span>
+
+<span class="sd">        The returned dxWithMx object has almost no functions yet - except:</span>
+<span class="sd">                - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df</span>
+<span class="sd">             </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="kn">import</span> <span class="nn">os</span>

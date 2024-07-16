@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imports &mdash; PT3S 90.14.23.0.dev1 documentation</title>
+  <title>Imports &mdash; PT3S 90.14.24.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -87,7 +87,7 @@
   <section id="Imports">
 <h1>Imports<a class="headerlink" href="#Imports" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -176,7 +176,7 @@ Fehler beim Ausführen des Skripts Planungsbeispiel.ipynb.
 <section id="Example1">
 <h2>Example1<a class="headerlink" href="#Example1" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">directory</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1&quot;</span>
@@ -202,7 +202,7 @@ Fehler beim Ausführen des Skripts Planungsbeispiel.ipynb.
 <section id="Example2">
 <h2>Example2<a class="headerlink" href="#Example2" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">directory</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1&quot;</span>
@@ -223,11 +223,28 @@ Fehler beim Ausführen des Skripts Planungsbeispiel.ipynb.
 </pre></div>
 </div>
 </div>
+</section>
+<section id="Example-3">
+<h2>Example 3<a class="headerlink" href="#Example-3" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">directory</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\Examples\DistrictHeating\B1\V0\BZ1&quot;</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;M-1-0-1.1.MX3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;M-1-0-1.1.MXS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;M-1-0-1.1.vec.h5&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;M-1-0-1.ilog&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;M-1-0-1.log&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;M-1-0-1.MX2&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+
+    <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

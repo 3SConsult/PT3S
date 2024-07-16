@@ -3,6 +3,13 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.24.0.dev1
+---------------
+
+**New:**
+
+- DistrictHeating db3+Mx included in package for Example3
+
 90.14.23.0.dev1
 ---------------
 **Fix:**
