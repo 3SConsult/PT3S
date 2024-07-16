@@ -36,3 +36,14 @@ You can view the Notebook `here <Example2.html>`_.
 
    
 You can download the Notebook file :download:`here <Example2.ipynb>`.
+
+Example 3: Longitudinal Section
+--------------------------------
+
+.. note::
+    This Example is still in the works.
+
+You can view the Notebook `here <Example3.html>`_.
+
+   
+You can download the Notebook file :download:`here <Example3.ipynb>`.
