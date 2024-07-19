@@ -32,6 +32,8 @@ import geopandas
 
 from datetime import datetime
 
+import subprocess
+
 
 
 
@@ -390,8 +392,9 @@ def readDxAndMx(dbFile
     """
     Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.
     
-    Use maxRecords=0 to read only the model.
-    Use maxRecords=1 to read only STAT (the steady state result).
+    Use maxRecords=0  to read only the model.
+    Use maxRecords=1  to read only STAT (the steady state result).
+    Use maxRecords=-1 to (re-)calculate the model by SirCalc.
 
     :param dbFile: Path to SIR 3S' database file ('modell.db3' or 'modell.mdb'). The database is read into a Dx object. The corresponding results are read into an Mx object if available.
     :type dbFile: str
@@ -399,7 +402,7 @@ def readDxAndMx(dbFile
     :type preventPklDump: bool, optional, default=False
     :param forceSir3sRead: Determines whether to force reading from SIR 3S' sources even if newer pickles exists. By default pickles are read if newer than SIR 3S' sources.
     :type forceSir3sRead: bool, optional, default=False
-    :param maxRecords: Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read.
+    :param maxRecords: Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below C:\3S).
     :type maxRecords: int, optional, default=None
     :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']
     :type mxsVecsResults2MxDf: list, optional, default=None
@@ -553,27 +556,16 @@ def readDxAndMx(dbFile
                 logStr=logStr
                 ,dbFile=logPathOutputFct(dbFile))     
             raise readDxAndMxGoto(logStrFinal)     
-        else:
-            pass
+                    
+        ### mx Datenquelle bestimmen
+                
+        #!
+        dbFile=os.path.abspath(dx.dbFile)        
         
-            #!
-            dbFile=os.path.abspath(dx.dbFile)        
-        
-            logger.debug("{logStrPrefix:s}detecting MX-Source for dx.dbFile (abspath) {dbFile:s} ...".format(
+        logger.debug("{logStrPrefix:s}detecting MX-Source for dx.dbFile (abspath) {dbFile:s} ...".format(
                 logStrPrefix=logStr
                 ,dbFile=dbFile))        
-            
-                            
-        ### mx Datenquelle bestimmen
-        
-        #logger.debug("{logStrPrefix:s}dx.dbFile literally: {dbFile:s}".format(
-        #    logStrPrefix=logStr
-        #   ,dbFile=dx.dbFile))
-        
-        #logger.debug("{logStrPrefix:s}abspath of dx.dbFile: {dbFile:s}".format(
-        #    logStrPrefix=logStr
-        #    ,dbFile=dbFile))
-
+                                        
         # wDir der Db
         sk=dx.dataFrames['SYSTEMKONFIG']
         wDirDb=sk[sk['ID'].isin([1,1.])]['WERT'].iloc[0]
@@ -631,6 +623,17 @@ def readDxAndMx(dbFile
                       os.remove(dbFileMxPkl)        
                            
             tDb=os.path.getmtime(dbFile)  
+            
+            # SirCalcXml
+            wDirMxXmlContent=glob.glob(os.path.join(wDirMx,'*.XML'))
+            if len(wDirMxXmlContent) > 0:
+                wDirMxXmlContent=sorted(wDirMxXmlContent) 
+                xmlFile= wDirMxXmlContent[0]
+                tXml=os.path.getmtime(xmlFile)       
+            else:                    
+                logger.debug("{logStr:s}SirCalc's xmlFile not existing.".format(logStr=logStr))  
+                            
+            # mx1
             if os.path.exists(mx1File):  
                 tMx=os.path.getmtime(mx1File)
                 if tDb>tMx:
@@ -639,24 +642,47 @@ def readDxAndMx(dbFile
                         ,mx1File=logPathOutputFct(mx1File)
                         ,dbFile=logPathOutputFct(dbFile)
                         )
-                        )   
-                    wDirMxXmlContent=glob.glob(os.path.join(wDirMx,'*.XML'))
+                        )                     
                     if len(wDirMxXmlContent) > 0:
                         wDirMxXmlContent=sorted(wDirMxXmlContent) 
-                        xmlFile= wDirMxXmlContent[0]
-                        tXml=os.path.getmtime(xmlFile)
+                        xmlFile= wDirMxXmlContent[0]                        
                         if tMx>=tXml:
                             pass
-                        else:
-                            pass
+                        else:                            
                             logger.info("{logStr:s}\n+{xmlFile:s} is newer than\n+{mx1File:s}:\n+SirCalc's xmlFile is newer than SIR 3S' mx1File\n+in this case the results are maybe dated or (worse) incompatible to the model".format(
                                  logStr=logStr                    
                                 ,xmlFile=logPathOutputFct(xmlFile)
                                 ,mx1File=logPathOutputFct(mx1File)
                                 )
                                 )
-                    else:                    
-                        logger.debug("{logStr:s}SirCalc's xmlFile not existing.".format(logStr=logStr))  
+            ### Ergebnisse neu berechnen  
+            if maxRecords != None:
+                if maxRecords<0 and len(wDirMxMx1Content)>0 and len(wDirMxXmlContent) > 0:
+                    
+                    SirCalcFiles = []
+                    installDir  = r"C:\\3S" 
+                    installName = "SirCalc.exe"
+                    SirCalcOptions="/rstnSpezial /InteraktRgMax100 /InteraktThMax50"
+                    
+                    for file,_,_ in os.walk(installDir):
+                        SirCalcFiles.extend(glob.glob(os.path.join(file,installName))) 
+                    
+                    SirCalcFiles = [f  for f in reversed(sorted(SirCalcFiles,key=lambda file: os.path.getmtime(file)) )]
+                    
+                    if len(SirCalcFiles)==0:                    
+                        logger.info("{logStrPrefix:s}SirCalc not found. No (re-)calculation.".format(
+                        logStrPrefix=logStr                    
+                        ))                    
+                    
+                    else:
+                        SirCalcFile=SirCalcFiles[0]
+                        logger.info("{logStrPrefix:s}running {SirCalc:s} ...".format(
+                        logStrPrefix=logStr
+                        ,SirCalc=SirCalcFile
+                        ))
+                                                    
+                        with subprocess.Popen([SirCalcFile,xmlFile,SirCalcOptions]) as process:
+                            process.wait()
 
         else:
              logger.info("{logStrPrefix:s}No MX1-File(s) in wDir. Continue without MX ...".format(
@@ -708,9 +734,7 @@ def readDxAndMx(dbFile
             try:
                 mx=Mx.Mx(mx1File,maxRecords=maxRecords)
                 logger.debug("{0:s}{1:s}".format(logStr,'MX read ok so far.'))   
-                
-             
-                
+                                             
             except Mx.MxError:
                 logger.info("{0:s}{1:s}".format(logStr,'MX read failed. Continue without MX ...'))   
             

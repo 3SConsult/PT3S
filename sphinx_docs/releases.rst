@@ -6,11 +6,23 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 90.14.25.0.dev1
 ---------------
 
+**New:**
+
+- readDxAndMx:
+    - maxRecords=-1: Use maxRecords=-1 to (re-)calculate the model by SirCalc.
+
+**Fix:**
+
+- Mx:
+    - False (non existing) Exception propagation in case of Mx-Read-Failures.
+
 **Changed:**
 
 - Dx:
-    - Logging
-    - processing of PGRP_PUMP, PGRP_PUMP_BZ, RMES_DPTS, RMES_DPTS_BZ
+    - Logging clear out
+    
+- Mx:
+    - Logging clear out
     
 
 90.14.24.0.dev1

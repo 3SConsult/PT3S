@@ -4,26 +4,26 @@
 
 import shapely
 import geopandas
-import doctest
-import unittest
-import argparse
+#import doctest
+#import unittest
+#import argparse
 import sqlite3
 import pyodbc
 import math
-import glob
+#import glob
 import logging
-import struct
-import base64
-import time
-import h5py
-import tables
+#import struct
+#import base64
+#import time
+#import h5py
+#import tables
 import numpy as np
 import pandas as pd
 import re
 import sys
 import os
-import warnings
-__version__ = '90.14.3.0.dev1'
+#import warnings
+__version__ = '90.14.25.0.dev1'
 
 # warnings.filterwarnings("ignore")
 
@@ -1182,8 +1182,9 @@ class Dx():
                         "{:s}resType: {:s} hat keine mx2-Eintraege.".format(logStr, resType))
                     continue
                 else:
-                    logger.debug(
-                        "{:s}resType: {:s} ...".format(logStr, resType))
+                    pass
+                    #logger.debug(
+                    #    "{:s}resType: {:s} ...".format(logStr, resType))
 
                 # mx2Idx ergaenzen
 
@@ -1243,13 +1244,28 @@ class Dx():
                              #['ROHR','VENT','FWVB','FWES','PUMP','KLAP','REGV','PREG','MREG','DPRG','PGRP']
                              dfVBEL.index.unique(level=0).to_list()
                              ]:
-                     try:                     
+                     try:    
+                         
+                         
+                         if mx.mx2Df[mx.mx2Df['ObjType'].str.match(edge)].empty:
+                             logger.debug(
+                                 "{:s}resType: {:s} hat keine mx2-Eintraege.".format(logStr, edge))
+                             continue
+                         else:
+                             pass
+                             #logger.debug(
+                             #    "{:s}resType: {:s} ...".format(logStr, resType))
+                         
+                         
+                         
+                         
+                         
                          # die Schluessel
                          xksEDGEMx=mx.mx2Df[
                                     (mx.mx2Df['ObjType'].str.match(edge))
                              ]['Data'].iloc[0]
     
-                         # der Schluesselbezug
+                         # der Schluesselbezug 'tk' oder 'xk'
                          xkTypeMx=mx.mx2Df[
                                     (mx.mx2Df['ObjType'].str.match(edge))
                              ]['AttrType'].iloc[0].strip()
@@ -1261,9 +1277,9 @@ class Dx():
                             # pk
                             xksEDGEXm=dfVBEL.loc[(edge,),'pk'].values#dfVBEL.loc[(edge,),:].index
     
-                         logger.debug("{0:s}{1:s}: xkTypeMx: {2:s}".format(logStr,edge,xkTypeMx))   
-                         logger.debug("{0:s}{1:s}: xksEDGEXm: {2:s}".format(logStr,edge,str(xksEDGEXm.values.tolist())))   
-                         logger.debug("{0:s}{1:s}: xksEDGEMx: {2:s}".format(logStr,edge,str(xksEDGEMx)))      
+                         #logger.debug("{0:s}{1:s}: xkTypeMx: {2:s}".format(logStr,edge,xkTypeMx))   
+                         #logger.debug("{0:s}{1:s}: xksEDGEXm: {2:s}".format(logStr,edge,str(xksEDGEXm.tolist())))   
+                         #logger.debug("{0:s}{1:s}: xksEDGEMx: {2:s}".format(logStr,edge,str(xksEDGEMx)))      
                                           
                          mxXkEDGEIdx=[xksEDGEMx.index(xk) for xk in xksEDGEXm]
                          
@@ -1278,7 +1294,7 @@ class Dx():
                 logger.error(logStrFinal) 
                               
             finally:
-                logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
+                #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
                 self.dataFrames['V3_VBEL']=dfVBEL
 
         except Exception as e:
@@ -1367,6 +1383,43 @@ class Dx():
                                     
                                         
                     V3[dfName] = df
+                                            
+            # V3_VBEL
+            # ####################
+    
+            dfVBEL=self.dataFrames['V3_VBEL']
+    
+            # new col mx2Idx in dfVBEL
+            #dfVBEL=self.dataFrames['V3_VBEL']
+            #dfVBEL=dfVBEL.assign(mx2Idx=lambda x: -1)
+            #dfVBEL['mx2Idx'].astype('int64',copy=False)
+
+            # all edges
+            for edge in [edge for edge in 
+                          #['ROHR','VENT','FWVB','FWES','PUMP','KLAP','REGV','PREG','MREG','DPRG','PGRP']
+                          dfVBEL.index.unique(level=0).to_list()
+                          ]:
+                  try:    
+                     
+                     
+                      if mx.mx2Df[mx.mx2Df['ObjType'].str.match(edge)].empty:
+                          logger.debug(
+                              "{:s}resType: {:s} hat keine mx2-Eintraege.".format(logStr, edge))
+                          continue
+                      else:
+                          pass
+                          #logger.debug(
+                          #    "{:s}resType: {:s} ...".format(logStr, resType))
+                     
+                     
+                     
+                     
+                      #dfVBEL.loc[(edge,),'mx2Idx']=mxXkEDGEIdx
+
+                  except Exception as e:
+                    logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: mx2Idx for {:s} failed. mx2Idx = -1.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)            
+                    logger.debug(logStrEdge)             
+            
                     
             if multiIndex:
                 # ohne multiIndex bestehen die Spalten aus einzelnen Strings (Sachdaten) und Tupeln (Ergebnisdaten)
@@ -1422,6 +1475,7 @@ class Dx():
                     ,names=['1','2','3','4'])
                 V3['V3_KNOT']=df
                 
+            return V3
 
         except Exception as e:
             logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
@@ -1430,7 +1484,7 @@ class Dx():
             raise DxError(logStrFinal)
         finally:
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
-            return V3
+            #return V3
 
     def ShpAdd(self, shapeFile, crs='EPSG:25832', onlyObjectsInContainerLst=['M-1-0-1'], addNodeData=False, NodeDataKey='pk'):
         """

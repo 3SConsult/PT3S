@@ -436,14 +436,14 @@ True
 >>> mx.delFiles()
 """
 
-__version__='90.12.4.34.dev1'
+__version__='90.14.25.0.dev1'
 
 import warnings # 3.6
 #...\Anaconda3\lib\site-packages\h5py\__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
 #   from ._conv import register_converters as _register_converters
 #...\PT3S\Mx.py:1: FutureWarning: pandas.tslib is deprecated and will be removed in a future version.
 #   You can access Timestamp as pandas.Timestamp
-warnings.simplefilter(action='ignore', category=FutureWarning)
+#warnings.simplefilter(action='ignore', category=FutureWarning)
 
 import os
 import sys
@@ -453,9 +453,9 @@ import re
 import struct
 import zipfile
 import pandas as pd
-import h5py
+#import h5py
 import tables
-import math
+#import math
 
 import logging
 # ---
@@ -1010,12 +1010,12 @@ class Mx():
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
 
         try:             
-            logger.debug("{0:s}mx1File: {1:s} reading ...".format(logStr,self.mx1File))    
+            #logger.debug("{0:s}mx1File: {1:s} reading ...".format(logStr,self.mx1File))    
             # read mx1File To Dataframe
             Mx1Tree = ET.parse(self.mx1File)
             Mx1Root = Mx1Tree.getroot()
 
-            logger.debug("{0:s}mx1File: {1:s} parsing ...".format(logStr,self.mx1File))    
+            #logger.debug("{0:s}mx1File: {1:s} parsing ...".format(logStr,self.mx1File))    
             all_records = []
             for mxChannel in Mx1Root.findall('XL1'): # returns a list containing all matching elements in document order
                 record = {}
@@ -1063,9 +1063,9 @@ class Mx():
             #pd.set_option('display.max_rows',None)
             #pd.set_option('display.max_colwidth',666666)   
             #pd.set_option('display.width',666666666)
-            logger.debug("{0:s}\n{1!s}".format(logStr
-                                             ,self.mx1Df.head().to_string()
-                                             ))    
+            #logger.debug("{0:s}\n{1!s}".format(logStr
+            #                                 ,self.mx1Df.head().to_string()
+            #                                 ))    
                                                                             
         except MxError:
             raise            
@@ -1090,7 +1090,7 @@ class Mx():
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
 
         try: 
-            logger.debug("{0:s}mx2File: {1:s} parsing ...".format(logStr,self.mx2File))    
+            #logger.debug("{0:s}mx2File: {1:s} parsing ...".format(logStr,self.mx2File))    
 
             headerFmtString='12s12s4si28xi'
             with open(self.mx2File,'rb') as f:               
@@ -1102,7 +1102,7 @@ class Mx():
 
                     if headerLength!=64:
                         if headerLength != 0:
-                            logger.error("{:s}:headerLength: {:d} != 0?".format(logStr,headeLength))      
+                            logger.error("{:s}:headerLength: {:d} != 0?".format(logStr,headerLength))      
                         self.mx2Df=pd.DataFrame(all_records)                       
                         break
 
@@ -1145,20 +1145,20 @@ class Mx():
                                                            
                     offsetToNextHeader=offsetToNextHeader+64+DataLength
                     if f.tell() != offsetToNextHeader:
-                        logger.error("{:s}:offsetToNextHeader: {:d} != {:d}?".format(logStr,offsetToNextHeader,f.tell()))     
+                        #logger.error("{:s}:offsetToNextHeader: {:d} != {:d}?".format(logStr,offsetToNextHeader,f.tell()))     
                         f.seek(offsetToNextHeader)                    
 
-                    logger.debug("{:s}ObjType:{:s} AttrType:{:s} DataType:{:s} DataTypeLength:{:>3d} DataLength:{:>8d} Data[0]:{!s:>20s} Data[-1]:{!s:>20s} offsetToNextHeader:{:>11d}".format(logStr
-                           ,ObjType #headerData[0]
-                           ,AttrType #headerData[1]
-                           ,DataType #headerData[2]
-                           ,DataTypeLength #headerData[3]
-                           ,DataLength #headerData[4]
-                           ,Data[0]
-                           ,Data[-1]
-                           ,offsetToNextHeader
-                           )
-                                 )    
+                    #logger.debug("{:s}ObjType:{:s} AttrType:{:s} DataType:{:s} DataTypeLength:{:>3d} DataLength:{:>8d} Data[0]:{!s:>20s} Data[-1]:{!s:>20s} offsetToNextHeader:{:>11d}".format(logStr
+                    #       ,ObjType #headerData[0]
+                    #       ,AttrType #headerData[1]
+                    #       ,DataType #headerData[2]
+                    #       ,DataTypeLength #headerData[3]
+                    #       ,DataLength #headerData[4]
+                    #       ,Data[0]
+                    #       ,Data[-1]
+                    #       ,offsetToNextHeader
+                    #       )
+                    #             )    
                                                             
         except MxError:
             raise            
@@ -1191,7 +1191,7 @@ class Mx():
 
             for row in self.mx1Df.itertuples():
 
-                idxChannel=int(row.Index)
+                #idxChannel=int(row.Index)
 
                 fmtItem='' # End of Loop: self.mxRecordStructUnpackFmtString+=fmtItem
 
@@ -1349,7 +1349,7 @@ class Mx():
             self.unpackIdxTIMESTAMP=self.mx1Df['unpackIdx'][
                 self.mx1Df['ATTRTYPE']=='TIMESTAMP'
                 ].iloc[0]    
-            logger.debug("{:s}idxTIMESTAMP={:d} (idx in MX1) unpackIdxTIMESTAMP={:d} (idx in recordData).".format(logStr,self.idxTIMESTAMP,self.unpackIdxTIMESTAMP))                    
+            #logger.debug("{:s}idxTIMESTAMP={:d} (idx in MX1) unpackIdxTIMESTAMP={:d} (idx in recordData).".format(logStr,self.idxTIMESTAMP,self.unpackIdxTIMESTAMP))                    
 
             # SNAPSHOTTYPE
             self.idxSNAPSHOTTYPE=self.mx1Df['Sir3sID'][
@@ -1358,7 +1358,7 @@ class Mx():
             self.unpackIdxSNAPSHOTTYPE=self.mx1Df['unpackIdx'][               
                 self.mx1Df['ATTRTYPE']=='SNAPSHOTTYPE'
                 ].iloc[0]    
-            logger.debug("{:s}idxSNAPSHOTTYPE={:d} (idx in MX1) unpackIdxSNAPSHOTTYPE={:d} (idx in recordData).".format(logStr,self.idxSNAPSHOTTYPE,self.unpackIdxSNAPSHOTTYPE))         
+            #logger.debug("{:s}idxSNAPSHOTTYPE={:d} (idx in MX1) unpackIdxSNAPSHOTTYPE={:d} (idx in recordData).".format(logStr,self.idxSNAPSHOTTYPE,self.unpackIdxSNAPSHOTTYPE))         
             
             # columnNames used in Pandas        
             self.mxColumnNames=[]  
@@ -1376,14 +1376,14 @@ class Mx():
             idxTIMESTAMP=self.mxColumnNames.index(sir3sIdTimestamp)#'ALLG~~~-1~TIMESTAMP')
             del self.mxColumnNames[idxTIMESTAMP] 
             columns=len(self.mxColumnNames)
-            logger.debug("{0:s}NOfColumns (without TIMESTAMP): {1:d}.".format(logStr,columns))                
-            logger.debug("{0:s}NOfColumnsVecs: {1:d}.".format(logStr,len(self.mxColumnNamesVecs)))                  
+            #logger.debug("{0:s}NOfColumns (without TIMESTAMP): {1:d}.".format(logStr,columns))                
+            #logger.debug("{0:s}NOfColumnsVecs: {1:d}.".format(logStr,len(self.mxColumnNamesVecs)))                  
 
             # unpack Idx of Non Vector Channels (without unpack Idx of TIMESTAMP)
             self.idxUnpackNonVectorChannels=[self.mx1Df['unpackIdx'].iloc[idx] for idx,isVectorChannel in enumerate(self.mx1Df['isVectorChannel']) if not isVectorChannel]
             self.idxUnpackNonVectorChannels.remove(self.unpackIdxTIMESTAMP) 
             idxUnpackNonVectorChannelsLen=len(self.idxUnpackNonVectorChannels)
-            logger.debug("{:s}idxUnpackNonVectorChannelsLen: {:d}.".format(logStr,idxUnpackNonVectorChannelsLen))
+            #logger.debug("{:s}idxUnpackNonVectorChannelsLen: {:d}.".format(logStr,idxUnpackNonVectorChannelsLen))
 
             # check NonVectorChannels
             if idxUnpackNonVectorChannelsLen != columns:
@@ -1392,7 +1392,7 @@ class Mx():
             # unpack Idx of Vector Channels
             self.idxUnpackVectorChannels=[self.mx1Df['unpackIdx'].iloc[idx] for idx,isVectorChannel in enumerate(self.mx1Df['isVectorChannel']) if isVectorChannel]
             idxUnpackVectorChannelsLen=len(self.idxUnpackVectorChannels)
-            logger.debug("{:s}idxUnpackVectorChannelsLen: {:d}.".format(logStr,idxUnpackVectorChannelsLen))
+            #logger.debug("{:s}idxUnpackVectorChannelsLen: {:d}.".format(logStr,idxUnpackVectorChannelsLen))
 
             # check AllValueChannels
             rows,cols=self.mx1Df.shape
@@ -1403,11 +1403,11 @@ class Mx():
             # Idx of Non Vector Channels
             self.idxOfNonVectorChannels=[idx for idx,isVectorChannel in enumerate(self.mx1Df['isVectorChannel']) if not isVectorChannel]
             self.idxOfNonVectorChannels.remove(self.idxTIMESTAMP) 
-            logger.debug("{:s}idxOfNonVectorChannels: Len: {:d}.".format(logStr,len(self.idxOfNonVectorChannels)))
+            #logger.debug("{:s}idxOfNonVectorChannels: Len: {:d}.".format(logStr,len(self.idxOfNonVectorChannels)))
 
             # Idx of Vector Channels
             self.idxOfVectorChannels=[idx for idx,isVectorChannel in enumerate(self.mx1Df['isVectorChannel']) if isVectorChannel]
-            logger.debug("{:s}idxOfVectorChannels:    Len: {:d}.".format(logStr,len(self.idxOfVectorChannels)))
+            #logger.debug("{:s}idxOfVectorChannels:    Len: {:d}.".format(logStr,len(self.idxOfVectorChannels)))
 
             # check AllChannels
             allChannels=len(self.idxOfNonVectorChannels)+len(self.idxOfVectorChannels)
@@ -1785,7 +1785,7 @@ class Mx():
         """
 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        #logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
 
         try:
                                            
@@ -1826,7 +1826,8 @@ class Mx():
             logger.error(logStrFinal) 
             raise MxError(logStrFinal)                            
         finally:
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))                                                 
+            pass
+            #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))                                                 
 
     def _readMxsFileSingleRecord(self,mxsFilePtr,MxRecordLength,fPos):
         """
@@ -1840,7 +1841,7 @@ class Mx():
         """
 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        #logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
 
         try:   
                 cVerso=None
@@ -1851,7 +1852,7 @@ class Mx():
             
                 # Position 
                 if mxsFilePtr.tell()!=fPos:
-                    logger.debug("{0:s}Moving fPos to {:d} (Record Nr. {:d})".format(logStr,fPos,fPos/MxRecordLength))  
+                    logger.debug("{:s}Moving fPos to {:d} (Record Nr. {:d})".format(logStr,fPos,fPos/MxRecordLength))  
                     mxsFilePtr.seek(fPos)
                
                 # read record                        
@@ -1921,7 +1922,7 @@ class Mx():
                 # process SNAPSHOTTYPE
                 try:
                     cSNAPSHOTTYPE=recordData[self.unpackIdxSNAPSHOTTYPE].decode('utf-8')                                                                                                                                                                                                                                                                   
-                except Exception as e:
+                except Exception:
                     logStrFinal="{0:s}process SNAPSHOTTYPE failed. Error.".format(logStr)
                     logger.error(logStrFinal)                            
                     raise MxError(logStrFinal)  
@@ -1940,6 +1941,8 @@ class Mx():
                     logger.error(logStrFinal) 
                     raise MxError(logStrFinal)                                                                                                          
 
+                return cVerso, time, cSNAPSHOTTYPE, values, valuesVecs
+
         except EOFError:
             logger.debug("{0:s}EOFError raised.".format(logStr))  
             raise EOFError                                                                                                                                                                                                                                                                                                                                                       
@@ -1952,8 +1955,9 @@ class Mx():
             logger.error(logStrFinal) 
             raise MxError(logStrFinal)                            
         finally:
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))     
-            return cVerso, time, cSNAPSHOTTYPE, values, valuesVecs
+            pass
+            #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))     
+            #return cVerso, time, cSNAPSHOTTYPE, values, valuesVecs
 
     def _checkMxsVecsFile(self,fullCheck=False):
         """Returns (firstTime,lastTime,NOfTimes).
@@ -2612,7 +2616,7 @@ class Mx():
             #fuer h5Key Ermittlung
             h5KeysRequested=[]
             firstTime=self.df.index[0]
-            lastTime=self.df.index[-1]
+            #lastTime=self.df.index[-1]
 
             if timesReq == None:
                 key=getMicrosecondsFromRefTime(refTime=firstTime,time=firstTime)
@@ -2887,7 +2891,7 @@ class Mx():
         """
 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        #logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
 
         try:
             df=pd.DataFrame()
@@ -2924,6 +2928,8 @@ class Mx():
             if returnMultiIndex:
                 dfT=df.transpose(copy=True)
                 df=pd.DataFrame(dfT.values,index=mIndex,columns=dfT.columns)
+                
+            return df
                                           
         except MxError:
             raise
@@ -2931,9 +2937,10 @@ class Mx():
             logStrFinal="{:s}h5File: {:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,h5File,sys.exc_info()[-1].tb_lineno,type(e),str(e))
             logger.error(logStrFinal) 
             raise MxError(logStrFinal)                           
-        finally:                      
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
-            return df
+        finally:    
+            pass                  
+            #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
+            ###return df
 
     def getRohrVektorkanaeleIpkt(self):
         """
@@ -3344,7 +3351,7 @@ class Mx():
         """
        
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        #logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
 
         try:           
             
@@ -3357,7 +3364,7 @@ class Mx():
                     
             # alle verlangten Kanaele 1 OBJTYPEs 
             Sir3sIDsMatching=[Sir3sID for Sir3sID in Sir3sIDs if re.search(Sir3sVecIDReExp,Sir3sID) != None]
-            logger.debug("{:s}Sir3sIDsMatching for {:s}: {!s:s}".format(logStr,Sir3sVecIDReExp,Sir3sIDsMatching)) 
+            #logger.debug("{:s}Sir3sIDsMatching for {:s}: {!s:s}".format(logStr,Sir3sVecIDReExp,Sir3sIDsMatching)) 
     
             OBJTYPE=re.match(regExpSir3sVecID,Sir3sIDsMatching[0]).group('OBJTYPE')
 
@@ -3367,7 +3374,7 @@ class Mx():
                 for ID in IDs:            
                     ATTRTYPE=re.match(regExpSir3sVecID,ID).group('ATTRTYPE')
                     if re.search(regExpSir3sRohrVecAttrType,ATTRTYPE) != None:                                        
-                        logger.debug("{:s}: Innenpunktkanal: {!s:s} eliminiert".format(logStr,ID)) 
+                        #logger.debug("{:s}: Innenpunktkanal: {!s:s} eliminiert".format(logStr,ID)) 
                         Sir3sIDsMatching.remove(ID)
                 
             # alle vorhandenen Ergebnisse aller verlangten Kanaele
@@ -3383,16 +3390,19 @@ class Mx():
             df.rename(columns={i:mx2Idx[i] for i in df.columns.to_list()},inplace=True)
             # transponieren
             df=df.transpose()
+            
+            return df
                                                      
         except MxError:
             raise
         except Exception as e:
-            logStrFinal="{:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,aggType(e),str(e))
+            logStrFinal="{:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
             logger.error(logStrFinal) 
             raise MxError(logStrFinal)                           
-        finally:                      
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
-            return df
+        finally:      
+            pass                
+            #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
+            #return df
         
     def getVecAggsResultsForAttributeType(self,Sir3sVecIDReExp='QMA{0,1}V{0,1}$'):
         """
@@ -3424,6 +3434,10 @@ class Mx():
             if len(setATTRTYPEs)>1:                
                 logger.debug("{:s} ATTRTYPEs: {!s:s}: mehr als 1 Attributtyp?!".format(logStr,setATTRTYPEs)) 
                 #raise MxError
+                ATTRTYPE_Common=sorted(list(setATTRTYPEs))[0]
+            else:                
+                ATTRTYPE_Common=ATTRTYPEs[0]
+            logger.debug("{:s} choosen Name of 'common' ATTR: {:s}.".format(logStr,ATTRTYPE_Common)) 
                 
     
             # alle vorhandenen Ergebnisse aller verlangten Kanaele
@@ -3457,7 +3471,7 @@ class Mx():
                 
                 dfOBJTYPE.columns=dfOBJTYPE.columns.to_flat_index() 
                 
-                dfOBJTYPE.rename(columns={dfOBJTYPE.columns.to_list()[0]:ATTRTYPE},inplace=True)
+                dfOBJTYPE.rename(columns={dfOBJTYPE.columns.to_list()[0]:ATTRTYPE_Common},inplace=True)
                 
                 dfOBJTYPE['OBJTYPE']=OBJTYPE
                 
@@ -3472,7 +3486,7 @@ class Mx():
         except MxError:
             raise
         except Exception as e:
-            logStrFinal="{:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,aggType(e),str(e))
+            logStrFinal="{:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
             logger.error(logStrFinal) 
             raise MxError(logStrFinal)                           
         finally:                      
@@ -3510,7 +3524,7 @@ class Mx():
         try:           
             
             timesAvailable=self.df.index.to_list()
-            MxRecordLength=struct.calcsize(self.mxRecordStructFmtString)
+            #MxRecordLength=struct.calcsize(self.mxRecordStructFmtString)
             
             if isinstance(Sir3sVecIDReExp,list):
                 # Liste von RegExp; kann sich um verschiedene OBJTYPEs handeln
@@ -3632,7 +3646,7 @@ class Mx():
         except MxError:
             raise
         except Exception as e:
-            logStrFinal="{:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,aggType(e),str(e))
+            logStrFinal="{:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
             logger.error(logStrFinal) 
             raise MxError(logStrFinal)                           
         finally:                      
@@ -3696,9 +3710,9 @@ class Mx():
                             logStrFinal="{:s}mxsDumpFile: {:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,mxsDumpFile,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                             logger.debug(logStrFinal)   
                             logger.debug("{:s}mxsDumpFile: {:s}: TimeNr. {:>6d} with TIMESTAMP: {:s}: Not found in H5-Content. Using H5-Content read before.".format(logStr,mxsDumpFile,TimeStampsDumped,scenTimeStr))    
-                            dfVecs=dfVecsOld                            
+                            #dfVecs=dfVecsOld                            
                         else:
-                            dfVecsOld=dfVecs
+                            #dfVecsOld=dfVecs
                             TimeStampsFoundInH5=TimeStampsFoundInH5+1
                         finally:
                             for row in dfVecs.itertuples(index=False):
