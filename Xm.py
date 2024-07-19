@@ -984,7 +984,7 @@ class Xm():
             """
 
             logStr = "{0:s}.{1:s} (classmethod): ".format(__class__.__name__, sys._getframe().f_code.co_name)
-            logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+            #logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
         
             try:                    
                 arrays=[]
@@ -1000,7 +1000,7 @@ class Xm():
                 logger.debug(logStrFinal)    
                 df=pd.DataFrame()
             finally:
-                logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
+                #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
                 return df   
 
     @classmethod            

@@ -187,7 +187,7 @@ class Dx():
 
         logStr = "{0:s}.{1:s}: ".format(
             self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+        logger.debug("{0:s}{1:s}".format(logStr, 'Start.#########'))
 
         try:
             if os.path.exists(dbFile):
@@ -306,7 +306,7 @@ class Dx():
 
             logger.debug("{0:s}viewNames: {1:s}".format(
                 logStr, str(viewNames)))
-            allViews = set(viewNames)
+            #allViews = set(viewNames)
 
             # pandas DataFrames
             self.dataFrames = {}
@@ -338,34 +338,34 @@ class Dx():
                 logger.error(logStrFinal)
                 raise DxError(logStrFinal)
 
-            try:
-                dfKNOT = pd.read_sql(fHelperSqlText('select * from KNOT'), con)
-            except pd.io.sql.DatabaseError as e:
-                logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
-                    logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
-                logger.error(logStrFinal)
-                raise DxError(logStrFinal)
+            # try:
+            #     dfKNOT = pd.read_sql(fHelperSqlText('select * from KNOT'), con)
+            # except pd.io.sql.DatabaseError as e:
+            #     logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+            #         logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+            #     logger.error(logStrFinal)
+            #     raise DxError(logStrFinal)
 
             # Paare
             for pairType in ['_BZ', '_ROWS', '_ROWT', '_ROWD']:
                 logger.debug(
-                    "{0:s}pairType: {1:s}: ####".format(logStr, pairType))
+                    "{0:s}pair-tables: pairType: {1:s}:".format(logStr, pairType))
                 #tablePairsBVBZ=[(re.search('(?P<BV>[A-Z,1,2]+)('+pairType+')$',table_info.table_name).group('BV'),table_info.table_name) for table_info in cur.tables(tableType='TABLE') if re.search('(?P<BV>[A-Z,1,2]+)('+pairType+')$',table_info.table_name) != None]
-                tablePairsBVBZ = [(re.search('(?P<BV>[A-Z,1,2]+)('+pairType+')$', table_name).group('BV'), table_name)
+                tablePairsBVBZ = [(re.search('(?P<BV>[A-Z,1,2,_]+)('+pairType+')$', table_name).group('BV'), table_name)
                                   for table_name in tableNames if re.search('(?P<BV>[A-Z,1,2]+)('+pairType+')$', table_name) != None]
                 for (BV, BZ) in tablePairsBVBZ:
 
                     if BV not in tableNames:
                         logger.debug(
-                            "{0:s}BV: {1:s}: Tabelle gibt es nicht. Falsche Paar-Ermittlung? Weiter. ".format(logStr, BV))
+                            "{0:s}BV: {1:s}: BV-Tabelle gibt es nicht (BZ: {2:s}). Falsche Paar-Ermittlung? Weiter. ".format(logStr, BV,BZ))
                         continue
                     if BZ not in tableNames:
                         logger.debug(
-                            "{0:s}BZ: {1:s}: Tabelle gibt es nicht. Falsche Paar-Ermittlung? Weiter. ".format(logStr, BZ))
+                            "{0:s}BZ: {1:s}: BZ-Tabelle gibt es nicht (BZ: {2:s}). Falsche Paar-Ermittlung? Weiter. ".format(logStr, BZ, BV))
                         continue
 
-                    if BZ == 'PGRP_PUMP_BZ':  # BV: PUMP BVZ: PGRP_PUMP_BZ V: V_PUMP - Falsch!; wird unten ergaenzt
-                        continue
+                    #if BZ == 'PGRP_PUMP_BZ':  # BV: PUMP BVZ: PGRP_PUMP_BZ V: V_PUMP - Falsch!; wird unten ergaenzt
+                    #    continue
 
                     # TabellenNamen in entspr. Mengen abspeichern
                     pairTables.add(BV)
@@ -378,7 +378,7 @@ class Dx():
                         con, BV, BZ, dfViewModelle, dfCONT, pairType, ext)
 
                     rows, cols = dfBVZ.shape
-                    logger.debug("{0:s}BV: {1:s} BVZ: {2:s} V: {3:s} fertig mit {4:d} Zeilen und {5:d} Spalten.".format(
+                    logger.debug("{0:s}BV: {1:12s} BVZ: {2:12s} V: {3:15s} constructed with {4:8d} rows and {5:3d} cols.".format(
                         logStr, BV, BZ, VName, rows, cols))
 
                     self.dataFrames[BV] = dfBV
@@ -397,23 +397,23 @@ class Dx():
                         pairViews_ROWD.add(VName)
 
             # BVZ-Paare Nachzuegler
-            for (BV, BZ) in [('PGRP_PUMP', 'PGRP_PUMP_BZ'), ('RMES_DPTS', 'RMES_DPTS_BZ')]:
+            # for (BV, BZ) in [('PGRP_PUMP', 'PGRP_PUMP_BZ'), ('RMES_DPTS', 'RMES_DPTS_BZ')]:
 
-                dfBV, dfBZ, dfBVZ = fHelper(
-                    con, BV, BZ, dfViewModelle, dfCONT, '_BZ', ext)
+            #     dfBV, dfBZ, dfBVZ = fHelper(
+            #         con, BV, BZ, dfViewModelle, dfCONT, '_BZ', ext)
 
-                VName = 'V_BVZ_'+BV
-                self.dataFrames[VName] = dfBVZ
+            #     VName = 'V_BVZ_'+BV
+            #     self.dataFrames[VName] = dfBVZ
 
-                rows, cols = dfBVZ.shape
-                logger.debug("{0:s}BV: {1:s} BVZ: {2:s} V: {3:s} fertig mit {4:d} Zeilen und {5:d} Spalten.".format(
-                    logStr, BV, BZ, VName, rows, cols))
+            #     rows, cols = dfBVZ.shape
+            #     logger.debug("{0:s}BV: {1:s} BVZ: {2:s} V: {3:s} fertig mit {4:d} Zeilen und {5:d} Spalten.".format(
+            #         logStr, BV, BZ, VName, rows, cols))
 
-                pairTables.add(BV)
-                pairTables.add(BZ)
+            #     pairTables.add(BV)
+            #     pairTables.add(BZ)
 
-                pairViews.add(VName)
-                pairViews_BZ.add(VName)
+            #     pairViews.add(VName)
+            #     pairViews_BZ.add(VName)
 
             # Nicht-Paare
             notInPairTables = sorted(allTables-pairTables)
@@ -428,6 +428,10 @@ class Dx():
             # erwartete SIR 3S Tabellen, die nicht Paare sind
             notPairTables = set()
             notPairViews = set()
+            
+            logger.debug(
+            "{0:s}tables which are not pair-tables:".format(logStr))            
+            
             for tableName in notInPairTablesW:
 
                 if tableName not in tableNames:
@@ -449,7 +453,14 @@ class Dx():
                                     'erwartete SIR 3S Tabellen, die nicht Paare sind')
 
                 VName = 'V_'+tableName
-                logger.debug("{0:s}V: {1:s}".format(logStr, VName))
+                
+                rows, cols = df.shape
+                logger.debug("{0:s}table: {1:16s} V: {2:20s} constructed with {3:8d} rows and {4:3d} cols.".format(
+                    logStr, tableName, VName, rows, cols))                
+                
+                
+                
+                #logger.debug("{0:s}V: {1:s}".format(logStr, VName))
                 self.dataFrames[VName] = df
                 notPairViews.add(VName)
 
@@ -504,7 +515,7 @@ class Dx():
 
             # V_BVZ_ROHR um u.a. DN erweitern
             # #############################################################
-            logger.debug("{0:s}{1:s} erweitern...".format(
+            logger.debug("{0:s}expanding {1:s} with NAME_DTRO, DN, DI, DA, S, KT, PN, Am2, Vm3 ...".format(
                 logStr, 'V_BVZ_ROHR'))
 
             if 'pk_BZ' in self.dataFrames['V_BVZ_DTRO'].keys():
@@ -530,8 +541,9 @@ class Dx():
 
             # weitere Erweiterungen zu V3_ROHR
             # #############################################################
-            logger.debug(
-                "{0:s}weitere Erweiterung zu {1:s} ...".format(logStr, 'V3_ROHR'))
+            logger.debug("{0:s}V3_ROHR: expanding {1:s} with  NAME_LTGR, NAME_STRASSE, tk_i, NAME_i, tk_k, NAME_k ...".format(
+                logStr, 'V_BVZ_ROHR'))            
+                                
             extV = df
 
             for dfRefStr, fkRefStr, refName in zip(['LTGR', 'STRASSE'], ['fkLTGR', 'fkSTRASSE'], ['LTGR', 'STRASSE']):
@@ -551,14 +563,14 @@ class Dx():
 
             # V3_SWVT
             # #############################################################
-            logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_SWVT'))
+            logger.debug("{0:s}{1:s}: expanding V_BVZ_SWVT ...".format(logStr, 'V3_SWVT'))
 
             # 1 Zeile pro RSLW der aktiv eine SWVT referenziert
             # NAME_SWVT_Nr gibt an, um die wie-vielte Referenz derselben SWVT es sich handelt
             # NAME_SWVT_NrMax gibt die max. Anzahl der Referenzierungen an; typischerwweise sollte NAME_SWVT_NrMax=1 sein für alle SWVT
             # (ZEIT, count)	... (W, max) sind Aggregate der referenzierten SWVT
 
-            vRSLW = self.dataFrames['V_BVZ_RSLW']
+            #vRSLW = self.dataFrames['V_BVZ_RSLW']
 
             # .sort_values(by=['pk','NAME','ZEIT'])
             vSWVT = self.dataFrames['V_BVZ_SWVT']
@@ -585,7 +597,7 @@ class Dx():
 
             # V3_ROWT
             # #############################################################
-            logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_ROWT'))
+            logger.debug("{0:s}{1:s}: combining ROWT_tables like V_BVZ_LFKT, V_BVZ_PVAR, ...".format(logStr, 'V3_ROWT'))
             valColName = {'V_BVZ_LFKT': 'LF', 'V_BVZ_PHI1': 'PHI', 'V_BVZ_PUMD': 'N', 'V_BVZ_PVAR': 'PH', 'V_BVZ_QVAR': 'QM', 'V_BVZ_TEVT': 'T'
                           }
             dfs = []
@@ -621,13 +633,15 @@ class Dx():
 
             # V3_TFKT
             # #############################################################
-            logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_TFKT'))
+            logger.debug("{0:s}{1:s}: ...".format(logStr, 'V3_TFKT'))
             self.dataFrames['V3_TFKT'] = self.dataFrames['V_BVZ_TFKT'][[
                 'NAME', 'X', 'Y']].pivot_table(index='X', columns='NAME', values='Y', aggfunc='last')
 
             # V3_RSLW_SWVT
             # #############################################################
-            logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_RSLW_SWVT'))
+            logger.debug("{0:s}{1:s}: combining RSLW and SWVT ...".format(logStr, 'V3_RSLW_SWVT'))
+
+            vRSLW = self.dataFrames['V_BVZ_RSLW']
 
             vRSLW_SWVTAll = pd.merge(vRSLW, vSWVT.add_suffix(
                 '_SWVT'), left_on='fkSWVT', right_on='pk_SWVT')
@@ -657,7 +671,7 @@ class Dx():
 
             # V3_KNOT
             # #############################################################
-            logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_KNOT'))
+            logger.debug("{0:s}{1:s}: expanding V_BVZ_KNOT with NAME_LFKT, NAME_PVAR, NAME_PZON,NAME_QVAR,NAME_UTMP,NAME_FSTF,NAME_FQPS ...".format(logStr, 'V3_KNOT'))
 
             vKNOT = pd.merge(self.dataFrames['V_BVZ_KNOT'], self.dataFrames['V_VKNO'].add_suffix(
                 '_VKNO'), left_on='tk', right_on='fkKNOT_VKNO', how='left')
@@ -672,7 +686,7 @@ class Dx():
 
             # V3_FWVB
             # #############################################################
-            logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_FWVB'))
+            logger.debug("{0:s}{1:s}: expanding V_BVZ_FWVB with NAME_LFKT, NAME_ZEP1VL, NAME_ZEP1RL, NAME_TEVT, NAME_TRFT, tk_i, NAME_i, tk_k, NAME_k, ...".format(logStr, 'V3_FWVB'))
             extV_BVZ_FWVB = self.dataFrames['V_BVZ_FWVB']
             for dfRefStr, fkRefStr, refName in zip(['LFKT', 'ZEP1', 'ZEP1', 'TEVT', 'TRFT'], ['fkLFKT', 'fkZEP1VL', 'fkZEP1RL', 'fkTEVT', 'fkTRFT'], ['LFKT', 'ZEP1VL', 'ZEP1RL', 'TEVT', 'TRFT']):
                 dfRef = self.dataFrames[dfRefStr]
@@ -693,7 +707,7 @@ class Dx():
 
             # #############################################################
             # VBEL (V3_VBEL) - "alle" Verbindungselementdaten des hydr. Prozessmodells; Knotendaten mit _i und _k
-            logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_VBEL'))
+            logger.debug("{0:s}{1:s}: ...".format(logStr, 'V3_VBEL'))
 
             vVBEL_UnionList = []
             for vName in self.viewSets['pairViews_BZ']:
@@ -703,21 +717,22 @@ class Dx():
 
                 dfVBEL = self.dataFrames[vName]
                 if 'fkKI' in dfVBEL.columns.to_list():
+                    
                     df = pd.merge(dfVBEL, vKNOT.add_suffix('_i'), left_on='fkKI', right_on='tk_i'
                                   )
 
-                    logger.debug("{0:s}{1:s} in VBEL-View mit fkKI ({2:d},{3:d}) ...".format(
-                        logStr, OBJTYPE, df.shape[0], df.shape[1]))
+                    #logger.debug("{0:s}{1:s} in VBEL-View mit fkKI ({2:d},{3:d}) ...".format(
+                    #    logStr, OBJTYPE, df.shape[0], df.shape[1]))
 
                     if df.empty:
                         df = pd.merge(dfVBEL, vKNOT.add_suffix('_i'), left_on='fkKI', right_on='pk_i'
                                       )
-                        if not df.empty:
-                            logger.debug("{0:s}{1:s} in VBEL-View mit fkKI per pk! ({2:d},{3:d}) ...".format(
-                                logStr, OBJTYPE, df.shape[0], df.shape[1]))
-                        else:
-                            logger.debug("{0:s}{1:s} in VBEL-View mit fkKI LEER! ({2:d},{3:d}) ...".format(
-                                logStr, OBJTYPE, df.shape[0], df.shape[1]))
+                        #if not df.empty:
+                        #    logger.debug("{0:s}{1:s} in VBEL-View mit fkKI per pk! ({2:d},{3:d}) ...".format(
+                        #        logStr, OBJTYPE, df.shape[0], df.shape[1]))
+                        #else:
+                        #    logger.debug("{0:s}{1:s} in VBEL-View mit fkKI LEER! ({2:d},{3:d}) ...".format(
+                        #        logStr, OBJTYPE, df.shape[0], df.shape[1]))
 
                     if 'fkKK' in df.columns.to_list():
                         df = pd.merge(df, vKNOT.add_suffix('_k'), left_on='fkKK', right_on='tk_k'
@@ -726,20 +741,23 @@ class Dx():
                         if df.empty:
                             df = pd.merge(dfVBEL, vKNOT.add_suffix('_k'), left_on='fkKK', right_on='pk_k'
                                           )
-                            if not df.empty:
-                                logger.debug("{0:s}{1:s} in VBEL-View mit fkKI und fkKK per pk! ({2:d},{3:d}) ...".format(
-                                    logStr, OBJTYPE, df.shape[0], df.shape[1]))
-                            else:
-                                logger.debug("{0:s}{1:s} in VBEL-View mit fkKI und fkKK LEER! ({2:d},{3:d}) ...".format(
-                                    logStr, OBJTYPE, df.shape[0], df.shape[1]))
+                            #if not df.empty:
+                            #    logger.debug("{0:s}{1:s} in VBEL-View mit fkKI und fkKK per pk! ({2:d},{3:d}) ...".format(
+                            #        logStr, OBJTYPE, df.shape[0], df.shape[1]))
+                            #else:
+                            #    logger.debug("{0:s}{1:s} in VBEL-View mit fkKI und fkKK LEER! ({2:d},{3:d}) ...".format(
+                            #        logStr, OBJTYPE, df.shape[0], df.shape[1]))
 
                         # m=re.search('^(V_BVZ_)(\w+)',vName)
                         # OBJTYPE=m.group(2)
                         df = df.assign(OBJTYPE=lambda x: OBJTYPE)
 
-                        logger.debug("{0:s}{1:s} final in VBEL-View mit fkKI und fkKK ({2:d},{3:d}) ...".format(
-                            logStr, OBJTYPE, df.shape[0], df.shape[1]))
+                        if df.shape[0] > 0:
+                            logger.debug("{0:s}{1:s} final in V3_VBEL-View ({2:d},{3:d}) ...".format(
+                                logStr, OBJTYPE, df.shape[0], df.shape[1]))
+                            
                         vVBEL_UnionList.append(df)
+                        
                     elif 'KNOTK' in df.columns.to_list():
                         # Nebenschlusselement
                         pass
@@ -749,8 +767,8 @@ class Dx():
                         # OBJTYPE=m.group(2)
                         df = df.assign(OBJTYPE=lambda x: OBJTYPE)
 
-                        logger.debug(
-                            "{0:s}{1:s} (Nebenschluss) in VBEL-View ...".format(logStr, OBJTYPE))
+                        #logger.debug(
+                        #    "{0:s}{1:s} (Nebenschluss) in VBEL-View ...".format(logStr, OBJTYPE))
                         vVBEL_UnionList.append(df)
 
             vVBEL = pd.concat(vVBEL_UnionList)
@@ -876,9 +894,9 @@ class Dx():
                         
                         
                 # Kontrollausgaben
-                logger.debug("{logStr:s}vRUESDefs: {vRUESDefs:s}".format(logStr=logStr,vRUESDefs=vRUESDefs.to_string()))      
+                #logger.debug("{logStr:s}vRUESDefs: {vRUESDefs:s}".format(logStr=logStr,vRUESDefs=vRUESDefs.to_string()))      
                 
-                logger.debug("{logStr:s}V3_RKNOT: {V3_RKNOT:s}".format(logStr=logStr,V3_RKNOT=V3_RKNOT.to_string()))      
+                #logger.debug("{logStr:s}V3_RKNOT: {V3_RKNOT:s}".format(logStr=logStr,V3_RKNOT=V3_RKNOT.to_string()))      
                    
                 def get_UE_SRC(UeName  # Name der Ue deren SRC gesucht wird
                                , dfUes  # alle Ues (Defs und Refs)
@@ -971,22 +989,23 @@ class Dx():
                 vRUESDefsSRCs = pd.DataFrame.from_dict(dcts)
                 
                 # UE-Symbole ohne Referenzen sind hier nicht enthalten
-                logger.debug("{logStr:s}vRUESDefsSRCs: {vRUESDefsSRCs:s}".format(logStr=logStr,vRUESDefsSRCs=vRUESDefsSRCs.sort_values(by=['IDUE_DEF']).to_string())) 
+                #logger.debug("{logStr:s}vRUESDefsSRCs: {vRUESDefsSRCs:s}".format(logStr=logStr,vRUESDefsSRCs=vRUESDefsSRCs.sort_values(by=['IDUE_DEF']).to_string())) 
                 
                 # Ausgabe, wo das Ue nicht so heisst wie die Quelle ...
                 for index, row in vRUESDefsSRCs.sort_values(by=['IDUE_DEF']).iterrows():
                     
                     if row['IDUE_DEF'] != row['Kn_SRC']:
-                        logger.debug("{logStr:s}IDUE_DEF: {IDUE_DEF!s:s} != Kn_SRC: {Kn_SRC!s:s} - ggf. ungewollt? ...".format(logStr=logStr
-                                ,IDUE_DEF=row['IDUE_DEF']
-                                ,Kn_SRC=row['Kn_SRC']
-                                    )) 
+                        pass
+                        #logger.debug("{logStr:s}IDUE_DEF: {IDUE_DEF!s:s} != Kn_SRC: {Kn_SRC!s:s} - ggf. ungewollt? ...".format(logStr=logStr
+                        #        ,IDUE_DEF=row['IDUE_DEF']
+                        #        ,Kn_SRC=row['Kn_SRC']
+                        #            )) 
                     
                 # fuer alle Defs die wahre Quelle angeben
                 #vRUES: self.dataFrames['V_BVZ_RUES']
                 V3_RUES = pd.merge(vRUES.copy(deep=True), vRUESDefsSRCs, left_on='IDUE', right_on='IDUE_DEF', how='left')
                 
-                logger.debug("{logStr:s}V3_RUES Schritt 1: {V3_RUES:s}".format(logStr=logStr,V3_RUES=V3_RUES[['NAME_CONT','IDUE','IDUE_DEF','Kn_SRC','rkRUES']].sort_values(by=['IDUE_DEF']).to_string())) 
+                #logger.debug("{logStr:s}V3_RUES Schritt 1: {V3_RUES:s}".format(logStr=logStr,V3_RUES=V3_RUES[['NAME_CONT','IDUE','IDUE_DEF','Kn_SRC','rkRUES']].sort_values(by=['IDUE_DEF']).to_string())) 
 
                 # fuer alle Refs ebenfalls die wahre Quelle angeben
                 for index, row in V3_RUES.iterrows():
@@ -1013,16 +1032,17 @@ class Dx():
                                                 
                         if Treffer == 0:
 
-                            logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, KEIN Treffer?!".format(logStr=logStr                                
-                                    ,rkRUES=row['rkRUES']                                    
-                                        ))   
+                            #logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, KEIN Treffer?!".format(logStr=logStr                                
+                            #        ,rkRUES=row['rkRUES']                                    
+                            #            ))   
                             continue
                                                                     
                         if Treffer > 1:
-                            logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, MEHR als 1 Treffer: {Treffer:d}?!".format(logStr=logStr                                
-                                    ,rkRUES=row['rkRUES']
-                                    ,Treffer=Treffer
-                                        ))                              
+                            pass
+                            #logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, MEHR als 1 Treffer: {Treffer:d}?!".format(logStr=logStr                                
+                            #        ,rkRUES=row['rkRUES']
+                            #        ,Treffer=Treffer
+                            #            ))                              
                                                 
                         s = dfx.iloc[0]                            
     
@@ -1034,10 +1054,11 @@ class Dx():
 
                         
                 self.dataFrames['V3_RRUES'] = V3_RUES
-                logger.debug("{logStr:s}V3_RUES Final: {V3_RUES:s}".format(logStr=logStr,V3_RUES=V3_RUES[['NAME_CONT','NAME_CONT_SRC','OBJTYPE_SRC','IDUE','IDUE_DEF','Kn_SRC','rkRUES','pk_DEF']].sort_values(by=['IDUE_DEF']).to_string()))                 
+                #logger.debug("{logStr:s}V3_RRUES final: {V3_RUES:s}".format(logStr=logStr
+                #                                                            ,V3_RUES=V3_RUES[['NAME_CONT','NAME_CONT_SRC','OBJTYPE_SRC','IDUE','IDUE_DEF','Kn_SRC','rkRUES','pk_DEF']].sort_values(by=['IDUE_DEF']).to_string()))                 
 
                 # RKNOT voruebergehend erweitern um RUES um nachfolgend alle Kanten ausreferenzieren zu koennen
-                logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_KNOT erweitern um RRUES'))
+                #logger.debug("{0:s}expanding V3_KNOT with V3_RRUES temporarily to construct V3_RVBEL ...".format(logStr))
 
                 V3_RKNOT = self.dataFrames['V3_RKNOT']
                 vRUES = self.dataFrames['V_BVZ_RUES']
@@ -1051,7 +1072,7 @@ class Dx():
                                      'OBJTYPE', 'Kn', 'BESCHREIBUNG', 'pk', 'tk', 'NAME_CONT', 'IDUE', 'IOTYP']]]).reset_index(drop=True)
                 
                 # alle RXXX-Kanten
-                logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_RVBEL'))
+                logger.debug("{0:s}{1:s}: ...".format(logStr, 'V3_RVBEL'))
                 
                 howMode = 'left'
                 V_CRGL = self.dataFrames['V_CRGL']
@@ -1084,7 +1105,7 @@ class Dx():
 
                 
                 # RUES-Verbindungen zur Quelle hin aufloesen ...                
-                logger.debug("{0:s}{1:s} RUES-Verbindungen zur Quelle hin aufloesen ...".format(logStr, 'V3_RVBEL'))
+                #logger.debug("{0:s}{1:s} RUES-Verbindungen zur Quelle hin aufloesen ...".format(logStr, 'V3_RVBEL'))
 
                 V3_RVBEL = V3_RVBEL.reset_index()
                 V3_RRUES = self.dataFrames['V3_RRUES']
@@ -1139,7 +1160,7 @@ class Dx():
             logger.error(logStrFinal)
             raise DxError(logStrFinal)
         finally:
-            logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
+            logger.debug("{0:s}{1:s}".format(logStr, '_Done.#########'))
 
     def MxSync(self, mx):
         """
@@ -1504,7 +1525,7 @@ class Dx():
 
         logStr = "{0:s}.{1:s}: ".format(
             self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+        #logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
 
         try:
             for dfName in ['V3_KNOT', 'V3_ROHR', 'V3_FWVB']:
@@ -1524,7 +1545,8 @@ class Dx():
             logger.error(logStrFinal)
             raise DxError(logStrFinal)
         finally:
-            logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
+            pass
+            #logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
     def _vROHRVecs(self, vROHR, mx):
         """Adds MX-ROHR-VEC-Results in dfVecAggs as cols to df.
@@ -1839,7 +1861,7 @@ def fHelperSqlText(sql, ext='.db3'):
 def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
 
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
-    logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+    #logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
     
     # BV, BZ, BVZ #################
 
@@ -1858,8 +1880,8 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
         raise DxError(logStrFinal)
         
 
-    logger.debug(
-    "{0:s}Quelle BV: {1:s} Quelle BZ: {2:s} BV Zeilen: {3:d} BZ Zeilen: {4:d}".format(logStr, BV, BZ, dfBV.shape[0], dfBZ.shape[0]))            
+    #logger.debug(
+    #"{0:s}Quelle BV: {1:s} Quelle BZ: {2:s} BV Zeilen: {3:d} BZ Zeilen: {4:d}".format(logStr, BV, BZ, dfBV.shape[0], dfBZ.shape[0]))            
         
 
     dfBVZ = pd.merge(dfBZ, dfBV, left_on=['fk'], right_on=[
@@ -1872,7 +1894,7 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
                             'tk'], suffixes=('_BZ', ''))
 
         if dfBVZ_tk.shape[0] > dfBVZ.shape[0]:
-            logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat mit tk > als mit pk. tk-Resultat wird verwendet.".format(logStr, BV, BZ))
+            #logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat mit tk > als mit pk. tk-Resultat wird verwendet.".format(logStr, BV, BZ))
             dfBVZ = dfBVZ_tk
         elif dfBVZ_tk.shape[0] == dfBVZ.shape[0]:
             pass
@@ -1880,10 +1902,12 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
             pass
 
     if dfBVZ.empty:
-        logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER ?!".format(logStr, BV, BZ))
+        pass
+        #logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER ?!".format(logStr, BV, BZ))
     else:
-        logger.debug(
-        "{0:s}BVZ resultierende Zeilen: {1:d}".format(logStr, dfBVZ.shape[0]))            
+        pass
+        #logger.debug(
+        #"{0:s}BVZ resultierende Zeilen: {1:d}".format(logStr, dfBVZ.shape[0]))            
 
     newCols = dfBVZ.columns.to_list()
     dfBVZ = dfBVZ.filter(items=[col for col in dfBV.columns.to_list(
@@ -1895,19 +1919,21 @@ def fHelper(con, BV, BZ, dfViewModelle, dfCONT, pairType, ext):
     dfBVZ=dfBVZ.reset_index(drop=True)
 
     if dfBVZ.empty:
-        logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER nach CONT etc?!".format(logStr, BV, BZ))
+        pass
+        #logger.debug("{0:s}BV: {1:s} BZ: {2:s}: BVZ-Resultat LEER nach CONT etc?!".format(logStr, BV, BZ))
     else:
-        logger.debug(
-        "{0:s}BVZ resultierende Zeilen nach CONT etc.: {1:d}".format(logStr, dfBVZ.shape[0]))              
+        pass
+        #logger.debug(
+        #"{0:s}BVZ resultierende Zeilen nach CONT etc.: {1:d}".format(logStr, dfBVZ.shape[0]))              
         
-    logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
+    #logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
     return dfBV, dfBZ, dfBVZ
 
 
 def fHelperCONTetc(dfBVZ, BV, BZ, dfViewModelle, dfCONT, pairType):
 
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
-    logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+    #logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
 
     # CONT etc. #############################
 
@@ -1917,15 +1943,15 @@ def fHelperCONTetc(dfBVZ, BV, BZ, dfViewModelle, dfCONT, pairType):
         dfOrig = dfBVZ
         df = pd.merge(dfBVZ, dfViewModelle, left_on='fkDE_BZ', right_on='fkBZ', suffixes=('', '_VMBZ'))
         if df.empty:
-            logger.debug("{0:s}{1:s}".format(
-                logStr, 'fkDE_BZ ist vmtl. kein BZ-Schluessel, da es sich vmtl. um keine BZ-Eigenschaft handelt sondern um eine BV-Eigenschaft; Spalten werden umbenannt und es wird nach BV-DE gesucht ...'))
+            #logger.debug("{0:s}{1:s}".format(
+            #    logStr, 'fkDE_BZ ist vmtl. kein BZ-Schluessel, da es sich vmtl. um keine BZ-Eigenschaft handelt sondern um eine BV-Eigenschaft; Spalten werden umbenannt und es wird nach BV-DE gesucht ...'))
             renDct = {col: col.replace('_BZ', '_BV') for col in df.columns.to_list(
             ) if re.search('_BZ$', col) != None}
             dfOrig.rename(columns=renDct, inplace=True)
 
             if 'fkDE' in cols:
-                logger.debug("{0:s}{1:s}".format(
-                    logStr, 'fkDE ist auch in den Spalten ...'))
+                #logger.debug("{0:s}{1:s}".format(
+                #    logStr, 'fkDE ist auch in den Spalten ...'))
 
                 df = pd.merge(dfOrig, dfViewModelle, left_on=['fkDE'], right_on=[
                               'fkBASIS'], suffixes=('', '_VMBASIS'), how='left')
@@ -1965,8 +1991,9 @@ def fHelperCONTetc(dfBVZ, BV, BZ, dfViewModelle, dfCONT, pairType):
             rowsXk, colsXk = dfXk.shape
             if rowsXk > rows:
                 if rowsTk == rowsXk:
-                    logger.debug(
-                        "{:s}rowsXk: {:d} rowsTk: {:d} rowsPk: {:d} - pk-Menge ist nicht leer; aber tk zieht alle.".format(logStr, rowsXk, rowsTk, rows))
+                    pass
+                    #logger.debug(
+                    #    "{:s}rowsXk: {:d} rowsTk: {:d} rowsPk: {:d} - pk-Menge ist nicht leer; aber tk zieht alle.".format(logStr, rowsXk, rowsTk, rows))
                 else:
                     # tk zieht auch nicht die volle Menge
                     logger.debug(
@@ -1979,10 +2006,10 @@ def fHelperCONTetc(dfBVZ, BV, BZ, dfViewModelle, dfCONT, pairType):
                 'pk'])['ZEIT'].cumcount(ascending=True)+1
         else:
             logger.debug(
-                "{0:s}pairType ROWT: df hat keine Spalte ZEIT?!".format(logStr))
+                "{0:s}pairType ROWT: df {1:s} hat keine Spalte ZEIT? Keine Sortierung nach Zeit.".format(logStr,BV))
             df = dfBVZ
 
     dfBVZ = df
 
-    logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
+    #logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
     return dfBVZ

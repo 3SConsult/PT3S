@@ -830,7 +830,7 @@ class Mx():
     def __init__(self,mx1File,NoH5Read=False,NoMxsRead=False,maxRecords=None,StatTimeTminTmaxInVecsOnly=True): 
         
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        logger.debug("{0:s}{1:s}".format(logStr,'Start.#########')) 
         
         try: 
 
@@ -917,19 +917,27 @@ class Mx():
                     mxsFileTime=os.path.getmtime(self.mxsFile)
                     if(mxsFileTime>=mx1FileTime) and not NoMxsRead: # nach pip install tragen die Dateien denselben Zeitstempel; deswegen >= statt nur >
                         logger.debug("{:s}mxsFile {:s} exists _and is newer than mx1File {:s} _and NoMxsRead False:".format(logStr,self.mxsFile,self.mx1File))     
-                        logger.debug("{:s}The mxsFile is read.".format(logStr))   
-                        self.setResultsToMxsFile(NewH5Vec=NoH5Read,maxRecords=maxRecords,StatTimeTminTmaxInVecsOnly=StatTimeTminTmaxInVecsOnly)  # wenn kein H5 gelesen werden soll, dann soll auch das H5Vec neu angelegt werden
+                        logger.debug("{:s}mxsFile is read.".format(logStr))   
+                        self.setResultsToMxsFile(NewH5Vec=NoH5Read,maxRecords=maxRecords,StatTimeTminTmaxInVecsOnly=StatTimeTminTmaxInVecsOnly)  # wenn kein H5 gelesen werden soll, dann soll auch das H5Vec neu angelegt werden                        
+                    else:
+                        logStringFinal="{:s}mxsFile {:s} older than mx1File.".format(logStr,self.mxsFile)
+                        logger.error(logStringFinal)
+                        raise MxError(logStringFinal)                                            
+                else:                    
+                    logStringFinal="{:s}mxsFile {:s} not existing.".format(logStr,self.mxsFile)
+                    logger.error(logStringFinal)
+                    raise MxError(logStringFinal)
             else:                
                 self.FromH5(h5File=self.h5File)
                              
-        except MxError:
+        except MxError:                
             raise            
         except Exception as e:
             logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
             logger.error(logStrFinal) 
-            raise MxError(logStrFinal)                       
+            raise                     
         finally:
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))     
+            logger.debug("{0:s}{1:s}".format(logStr,'_Done.#########'))     
 
     def delFiles(self): 
         """Deletes Files constructed by MX during Init and Usage.
@@ -1051,12 +1059,12 @@ class Mx():
 
             logger.debug("{0:s}mx1Df after some generated Columns: Shape: {1!s}.".format(logStr,self.mx1Df.shape))    
 
-            pd.set_option('display.max_columns',None)
-            pd.set_option('display.max_rows',None)
-            pd.set_option('display.max_colwidth',666666)   
-            pd.set_option('display.width',666666666)
+            #pd.set_option('display.max_columns',None)
+            #pd.set_option('display.max_rows',None)
+            #pd.set_option('display.max_colwidth',666666)   
+            #pd.set_option('display.width',666666666)
             logger.debug("{0:s}\n{1!s}".format(logStr
-                                             ,repr(self.mx1Df)#.replace('\\n','\\n   ')
+                                             ,self.mx1Df.head().to_string()
                                              ))    
                                                                             
         except MxError:
@@ -1648,6 +1656,7 @@ class Mx():
             fPos=mxsFilePtr.tell()
 
             # ueber alle Zeiten
+            time_read_finally=None
             while fPos < file_size:   
 
                 try:
@@ -1748,15 +1757,20 @@ class Mx():
                         )                                                                     
 
             # the returned mxsFile (non Vectordata only) as DataFrame
-            df = pd.DataFrame.from_records(mxValues,index=mxTimes,columns=self.mxColumnNames)                
-            logger.debug("{0:s}df.shape(): {1!s}.".format(logStr,df.shape))   
+            try:
+                #df = None
+                df = pd.DataFrame.from_records(mxValues,index=mxTimes,columns=self.mxColumnNames)                
+                logger.debug("{0:s}df.shape(): {1!s}.".format(logStr,df.shape))   
+            except Exception as e:            
+                logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.error(logStrFinal) 
+                raise MxError(logStrFinal)                 
                                                                                   
-        except MxError:
-            raise
+        except MxError:            
+            pass
         except Exception as e:
             logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-            logger.error(logStrFinal) 
-            raise MxError(logStrFinal)                            
+            logger.error(logStrFinal)         
         finally:
             logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))     
             return df,timesWrittenToMxsVecs
@@ -2138,7 +2152,7 @@ class Mx():
                 logger.info("{0:s}Mxs: {1:s} reading ...".format(logStr,os.path.relpath(mxsFile)))                
                 # Mxs reading ...
                 dfMxs,timesWrittenToMxsVecs=self._readMxsFile(f,mxsVecsH5StorePtr=mxsVecH5Store,firstTime=firstTime,maxRecords=maxRecords,StatTimeTminTmaxInVecsOnly=StatTimeTminTmaxInVecsOnly)                                     
-                           
+             
             if isinstance(dfMxs,pd.core.frame.DataFrame):                                     
                 # Unique index ...
                 if not dfMxs.index.is_unique:                        
@@ -2159,23 +2173,20 @@ class Mx():
                 if add:
                     self.df.sort_index(inplace=True)    
                 logger.debug("{0:s}RESULT after {1:s}: df Shape: {2!s} First Time: {3!s} Last Time: {4!s}.".format(logStr,mxsFile,self.df.shape,self.df.index[0],self.df.index[-1]))                                             
-            else:
-                logger.error("{0:s}Mxs: {1:s}: Reading failed.".format(logStr,mxsFile))    
-            
-            #logger.debug("{0:s}\n{1!s}".format(logStr
-            #                                 ,repr(self.df)#.replace('\\n','\\n   ')
-            #                                 ))                                              
+            else:                
+                raise MxError("{0:s}Mxs: {1:s}: Reading failed!".format(logStr,mxsFile))
+                        
+            return timesWrittenToMxsVecs  
 
         except MxError:
-            raise
+            raise 
         except Exception as e:
             logStrFinal="{:s}mxsFile: {:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,mxsFile,sys.exc_info()[-1].tb_lineno,type(e),str(e))
             logger.error(logStrFinal) 
-            raise MxError(logStrFinal)                                       
+            raise
         finally:
             mxsVecH5Store.close()
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))      
-            return timesWrittenToMxsVecs         
+            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))                      
 
     def setResultsToMxsZipFile(self,mxsZipFile=None,add=False,NewH5Vec=False,maxRecords=None,StatTimeTminTmaxInVecsOnly=False):
         """Sets (default) or adds mxsZipFile-Content to .df.

@@ -8,6 +8,25 @@ Author-email: andreashwolters@gmail.com
 License: MIT
 Keywords: Python Tools 3S
 Requires-Python: >=3
+Requires-Dist: tables
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: h5py
+Requires-Dist: pyodbc
+Requires-Dist: geopandas
+Requires-Dist: networkx
+Requires-Dist: shapely
+Requires-Dist: contextily
+Requires-Dist: py7zr
+Requires-Dist: folium
+Requires-Dist: mapclassify
+Requires-Dist: sqlalchemy
+Requires-Dist: ipython
+Requires-Dist: bokeh
+Requires-Dist: matplotlib
+Requires-Dist: ipywidgets
+Requires-Dist: Pillow
+Requires-Dist: selenium
 
 .
 

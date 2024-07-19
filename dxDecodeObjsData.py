@@ -82,7 +82,7 @@ def Layr(dx):
         
         for index,row in V_LAYR[~pd.isnull(V_LAYR['OBJSd'])].sort_values(by=['LFDNR']).iterrows():
             
-            logger.debug("{0:s}LAYR: {1:s}:".format(logStr,row['NAME'])) 
+            #logger.debug("{0:s}LAYR: {1:s}:".format(logStr,row['NAME'])) 
             
             try:
                 for x in row['OBJSd']:
@@ -215,7 +215,7 @@ def Wblz(dx):
         
         for index,row in V_WBLZ[~pd.isnull(V_WBLZ['OBJSd'])].sort_values(by=['NAME']).iterrows():
             
-            logger.debug("{0:s}WBLZ: {1:s}:".format(logStr,row['NAME'])) 
+            #logger.debug("{0:s}WBLZ: {1:s}:".format(logStr,row['NAME'])) 
             
             try:
                 for x in row['OBJSd']:
@@ -460,11 +460,11 @@ def Agsn(dx):
                 for ly in df[df['LFDNR']==nr]['XL'].unique():                                        
 
                     dfSchnitt=df[(df['LFDNR']==nr) & (df['XL']==ly)]                                      
-                    logger.debug("{0:s}Schnitt: {1:s} Nr: {2:s} Layer: {3:s}".format(logStr
-                                                                           ,str(dfSchnitt['NAME'].iloc[0])
-                                                                           ,str(dfSchnitt['LFDNR'].iloc[0])
-                                                                           ,str(dfSchnitt['XL'].iloc[0])
-                                                                          )) 
+                    #logger.debug("{0:s}Schnitt: {1:s} Nr: {2:s} Layer: {3:s}".format(logStr
+                    #                                                       ,str(dfSchnitt['NAME'].iloc[0])
+                    #                                                       ,str(dfSchnitt['LFDNR'].iloc[0])
+                    #                                                       ,str(dfSchnitt['XL'].iloc[0])
+                    #                                                      )) 
                     
                     dfSchnitt=dfSchnitt.reset_index() 
                 
@@ -475,7 +475,7 @@ def Agsn(dx):
                     for comp in nx.connected_components(GSchnitt):
                         iComp+=1
 
-                        logger.debug("{0:s}CompNr.: {1:s}".format(logStr,str(iComp))) 
+                        #logger.debug("{0:s}CompNr.: {1:s}".format(logStr,str(iComp))) 
                         
                         # Graph der Komponente
                         GSchnittComp=GSchnitt.subgraph(comp)
@@ -491,8 +491,8 @@ def Agsn(dx):
                         targetKi=u
                         targetKk=v                        
                                                                           
-                        logger.debug("{0:s}First: i: {1:s} k:{2:s} ".format(logStr,sourceKi,sourceKk)) 
-                        logger.debug("{0:s}Last: i: {1:s} k:{2:s} ".format(logStr,targetKi,targetKk)) 
+                        #logger.debug("{0:s}First: i: {1:s} k:{2:s} ".format(logStr,sourceKi,sourceKk)) 
+                        #logger.debug("{0:s}Last: i: {1:s} k:{2:s} ".format(logStr,targetKi,targetKk)) 
                         
                         # Pfad zwischen den Knoten der ersten und letzten Kante (4 Möglichkeiten)
                         # der laengste Pfad geht unabhängig von der Kantenrichtung vom ersten bis zum letzten Knoten des Schnittes
@@ -506,7 +506,7 @@ def Agsn(dx):
                         nlCompTmp=nx.shortest_path(GSchnittComp,sourceKk,targetKi)
                         if len(nlCompTmp)>len(nlComp):
                             nlComp=nlCompTmp                                
-                        logger.debug("{0:s}Pfad: Start: {1:s} > Ende: {2:s}".format(logStr,nlComp[0],nlComp[-1]))                         
+                        #logger.debug("{0:s}Pfad: Start: {1:s} > Ende: {2:s}".format(logStr,nlComp[0],nlComp[-1]))                         
                         
                         # Graphen zur Schnittknotensequenz 
                         GSchnittCompSP=GSchnittComp.subgraph(nlComp)
