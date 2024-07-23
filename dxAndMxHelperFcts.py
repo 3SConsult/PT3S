@@ -17,11 +17,11 @@ import logging
 
 import pandas as pd
 
-import numpy as np
+#import numpy as np
 
 import networkx as nx    
 
-import importlib
+#import importlib
 import glob
 
 import math
@@ -90,7 +90,7 @@ class dxWithMx():
             self.V3_KNOT=dx.dataFrames['V3_KNOT']
             self.V3_FWVB=dx.dataFrames['V3_FWVB']
             self.V3_VBEL=dx.dataFrames['V3_VBEL']#.copy(deep=True)
-                                                            
+                          
             if isinstance(self.mx,Mx.Mx):  
                 
                 modellName, ext = os.path.splitext(self.dx.dbFile)
@@ -126,9 +126,62 @@ class dxWithMx():
                      logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                      logger.debug(logStrTmp) 
                      logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_VBEL failed.'))   
+                     
+                try:                                                         
+                     PH_i=str(('STAT'
+                                 ,'KNOT~*~*~*~PH'
+                                 ,t0
+                                 ,t0
+                                 ))+'_i'
+                     self.V3_VBEL['PH_i']=self.V3_VBEL[PH_i]      
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['PH_i'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PH_i in V3_VBEL failed.'))    
+                     
+                try:                                                         
+                     PH_k=str(('STAT'
+                                 ,'KNOT~*~*~*~PH'
+                                 ,t0
+                                 ,t0
+                                 ))+'_k'
+                     self.V3_VBEL['PH_k']=self.V3_VBEL[PH_k]      
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['PH_k'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PH_k in V3_VBEL failed.'))                         
      
                   
-                
+                try:                                                         
+                     T_i=str(('STAT'
+                                 ,'KNOT~*~*~*~T'
+                                 ,t0
+                                 ,t0
+                                 ))+'_i'
+                     self.V3_VBEL['T_i']=self.V3_VBEL[T_i]      
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['T_i'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T_i in V3_VBEL failed.'))     
+                     
+                try:                                                         
+                     T_k=str(('STAT'
+                                 ,'KNOT~*~*~*~T'
+                                 ,t0
+                                 ,t0
+                                 ))+'_k'
+                     self.V3_VBEL['T_k']=self.V3_VBEL[T_k]      
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['T_k'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T_k in V3_VBEL failed.'))                          
+        
+     
+        
                 # ROHR                                 
                 try:                                    
                     #t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
@@ -334,7 +387,112 @@ class dxWithMx():
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
-                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))             
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))            
+                
+                
+            # AGSN
+            
+
+            
+            try:
+                pass
+                # dfAGSN ergaenzen zu V3_AGSN
+                dfAGSN=constructNewMultiindexFromCols(self.dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
+                colsAGSN=dfAGSN.columns
+                
+                dfAGSN=pd.merge(dfAGSN,self.V3_VBEL,left_index=True,right_index=True,suffixes=('','_VBEL')).sort_values(by=['LFDNR','XL','Pos'])
+                
+                cols=dfAGSN.columns.to_list()
+                colsErg=cols[cols.index('mx2Idx')+1:]
+                
+                dfAGSN=dfAGSN.filter(items=colsAGSN.to_list()+['L','DN','Am2','Vm3','NAME_i','NAME_k']+colsErg)
+                            
+                cols_i=[col for col in colsErg if type(col) == str and re.search('_i$',col)]
+                cols_k=[col for col in colsErg if type(col) == str and re.search('_k$',col)]
+                
+                cols_n=[]
+                for col_i,col_k in zip(cols_i,cols_k):
+                    col_n=col_i.replace('_i','_n')
+                    #print(col_n)
+                    dfAGSN[col_n]=None
+                    cols_n.append(col_n)                
+                    
+                for index, row in dfAGSN.iterrows():
+                    
+                
+                    if row['nextNODE'] == row['NAME_k']:
+                        direc='k'                        
+                    elif row['nextNODE'] == row['NAME_i']:
+                        direc='i'
+                        dfAGSN.loc[index,'QM']= -row['QM']
+                    else:
+                        print('error!')
+                        continue
+                
+                    for col_n,col_i,col_k in zip(cols_n,cols_i,cols_k):
+                        #print(col_n,col_i,col_k)
+                        if direc=='i':
+                            dfAGSN.loc[index,col_n]= row[col_i]
+                        else:
+                            dfAGSN.loc[index,col_n]= row[col_k]   
+                            
+                            
+                                              
+                            
+                startRowIdx=[]
+                for index, row in dfAGSN.iterrows():
+                    if row['Pos']==0:
+                        #print(row)
+                        startRowIdx.append(index)
+                        
+                dfStartRows=dfAGSN.loc[startRowIdx,:].sort_values(by=['LFDNR','XL','Pos']).drop_duplicates()
+                dfStartRows=dfStartRows[dfStartRows['Pos']==0]       
+
+                dfRowsAdded=[]
+                for index,row in dfStartRows.iterrows():
+
+                        row['Pos']=-1
+                        row['L']=0
+                        if row['nextNODE'] == row['NAME_k']:
+                            direc='k'
+                            row['nextNODE']=row['NAME_i']
+                        elif row['nextNODE'] == row['NAME_i']:
+                            direc='i'
+                            row['nextNODE']=row['NAME_k']
+                        else:
+                            print('error!')
+                            continue
+                
+                        for col_n,col_i,col_k in zip(cols_n,cols_i,cols_k):
+                            #print(col_n,col_i,col_k)
+                            if direc=='i':
+                                row[col_n]= row[col_i]
+                            else:
+                                row[col_n]= row[col_k]
+                
+                        #print(row)
+                        df = pd.DataFrame([row])
+                        dfRowsAdded.append(df)                 
+                
+                dfAGSN=pd.concat([dfAGSN]+dfRowsAdded).sort_values(by=['LFDNR','XL','Pos'])
+                
+                dfAGSN=dfAGSN.drop(cols_i+cols_k,axis=1)
+                                
+                dfAGSN['L']=dfAGSN['L'].fillna(0)                
+                cols=dfAGSN.columns.to_list()
+                dfAGSN.insert(cols.index('L')+1,'LSum',dfAGSN.groupby(['LFDNR','XL'])['L'].cumsum())
+                
+                self.V3_AGSN=dfAGSN
+
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN ok so far.'))    
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN failed.'))                            
+                
+                
+           
+            
       
         except dxWithMxError:
             raise            

@@ -1313,7 +1313,7 @@ class Dx():
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
 
-    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExp='^KNOT~\*~\*~\*~PH$'):
+    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExps=['^KNOT~\*~\*~\*~PH$','^KNOT~\*~\*~\*~T$']):
         """
         adds Vec-Results using mx' getVecAggsResultsForObjectType to V3_KNOT, V3_ROHR, V3_FWVB, V3_VBEL, ggf. weitere
 
@@ -1343,8 +1343,13 @@ class Dx():
                     dfKnotRes = dfRes
                     # gewünschte Ergebnisspalten von Knoten
                     Sir3sIDs = dfKnotRes.columns.get_level_values(1)
-                    Sir3sIDsMatching = [Sir3sID for Sir3sID in Sir3sIDs if re.search(
-                        addNodeDataSir3sVecIDReExp, Sir3sID) != None]
+                    
+                    Sir3sIDsMatching=[]
+                    for addNodeDataSir3sVecIDReExp in addNodeDataSir3sVecIDReExps:
+                        Sir3sIDsMatching = Sir3sIDsMatching + [Sir3sID for Sir3sID in Sir3sIDs if re.search(
+                            addNodeDataSir3sVecIDReExp, Sir3sID) != None]
+                    
+                    
                     # die zur Ergänzung gewünschten Ergebnisspalten von Knoten
                     dfKnotRes = dfKnotRes.loc[:, (slice(
                         None), Sir3sIDsMatching, slice(None), slice(None))]
