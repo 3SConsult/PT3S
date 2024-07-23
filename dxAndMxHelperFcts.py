@@ -180,7 +180,34 @@ class dxWithMx():
                      logger.debug(logStrTmp) 
                      logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T_k in V3_VBEL failed.'))                          
         
-     
+
+                try:                                                         
+                     H_i=str(('STAT'
+                                 ,'KNOT~*~*~*~H'
+                                 ,t0
+                                 ,t0
+                                 ))+'_i'
+                     self.V3_VBEL['H_i']=self.V3_VBEL[H_i]      
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['H_i'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col H_i in V3_VBEL failed.'))    
+                     
+                try:                                                         
+                     H_k=str(('STAT'
+                                 ,'KNOT~*~*~*~H'
+                                 ,t0
+                                 ,t0
+                                 ))+'_k'
+                     self.V3_VBEL['H_k']=self.V3_VBEL[H_k]      
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['H_k'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col H_k in V3_VBEL failed.'))                
+
+
         
                 # ROHR                                 
                 try:                                    
@@ -395,7 +422,7 @@ class dxWithMx():
 
             
             try:
-                pass
+            
                 # dfAGSN ergaenzen zu V3_AGSN
                 dfAGSN=constructNewMultiindexFromCols(self.dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
                 colsAGSN=dfAGSN.columns
@@ -415,26 +442,52 @@ class dxWithMx():
                     col_n=col_i.replace('_i','_n')
                     #print(col_n)
                     dfAGSN[col_n]=None
-                    cols_n.append(col_n)                
+                    cols_n.append(col_n)  
+                dfAGSN['direction']=1
                     
+                logger.debug("{0:s}dfAGSN.columns.to_list(): {1:s}".format(logStr,str(dfAGSN.columns.to_list())))       
+                
+                
+                dfAGSN=dfAGSN.reset_index().rename(columns={'level_0':'OBJTYPE','level_1':'OBJID'})
+                
+                
                 for index, row in dfAGSN.iterrows():
                     
-                
-                    if row['nextNODE'] == row['NAME_k']:
-                        direc='k'                        
-                    elif row['nextNODE'] == row['NAME_i']:
-                        direc='i'
-                        dfAGSN.loc[index,'QM']= -row['QM']
-                    else:
-                        print('error!')
-                        continue
-                
-                    for col_n,col_i,col_k in zip(cols_n,cols_i,cols_k):
-                        #print(col_n,col_i,col_k)
-                        if direc=='i':
-                            dfAGSN.loc[index,col_n]= row[col_i]
+                        if row['XL'] in [0,1]:
+                            if row['nextNODE'] == row['NAME_k']:
+                                pass
+                            elif row['nextNODE'] == row['NAME_i']:                            
+                                dfAGSN.loc[index,'direction']=-1
                         else:
-                            dfAGSN.loc[index,col_n]= row[col_k]   
+                            if row['nextNODE'] == row['NAME_k']:
+                                dfAGSN.loc[index,'direction']=-1 
+                            elif row['nextNODE'] == row['NAME_i']:                            
+                                pass
+                            
+
+                        
+                        
+                        
+                        
+                        #direc='i'
+                        #dfAGSN.loc[index,'QM']= -row['QM']
+                        
+                        #for col in [col for col in colsErg if type(col)==tuple]: # die QMs                            
+                        #    #print(col)
+                        #    logger.debug("{0:s}col: {1:s}".format(logStr,str(col)))     
+                        #    logger.debug("{0:s}index: {1:s}".format(logStr,str(index)))     
+                        #    logger.debug("{0:s}row[col]: {1:s}".format(logStr,str(row[col])))     
+                        #    #logger.debug("{0:s}colV: {1:s}".format(logStr,str(dfAGSN.loc[index,col])))       
+                        #    #print(dfAGSN.loc[index,col])#= -row[col]
+                                                
+
+                
+                        for col_n,col_i,col_k in zip(cols_n,cols_i,cols_k):
+                            #print(col_n,col_i,col_k)
+                            if row['direction']==1:
+                                dfAGSN.loc[index,col_n]= row[col_i]
+                            else:
+                                dfAGSN.loc[index,col_n]= row[col_k]   
                             
                             
                                               
@@ -453,22 +506,23 @@ class dxWithMx():
 
                         row['Pos']=-1
                         row['L']=0
-                        if row['nextNODE'] == row['NAME_k']:
-                            direc='k'
+                        
+                        if row['direction']==1:
                             row['nextNODE']=row['NAME_i']
-                        elif row['nextNODE'] == row['NAME_i']:
-                            direc='i'
-                            row['nextNODE']=row['NAME_k']
                         else:
-                            print('error!')
-                            continue
+                            row['nextNODE']=row['NAME_k']
+                        
+                        
+                      
                 
                         for col_n,col_i,col_k in zip(cols_n,cols_i,cols_k):
                             #print(col_n,col_i,col_k)
-                            if direc=='i':
-                                row[col_n]= row[col_i]
+                            
+                            if row['direction']==1:
+                                dfAGSN.loc[index,col_n]= row[col_i]
                             else:
-                                row[col_n]= row[col_k]
+                                dfAGSN.loc[index,col_n]= row[col_k]                               
+
                 
                         #print(row)
                         df = pd.DataFrame([row])

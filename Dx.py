@@ -1313,7 +1313,7 @@ class Dx():
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
 
-    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExps=['^KNOT~\*~\*~\*~PH$','^KNOT~\*~\*~\*~T$']):
+    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExps=['^KNOT~\*~\*~\*~PH$','^KNOT~\*~\*~\*~H$','^KNOT~\*~\*~\*~T$']):
         """
         adds Vec-Results using mx' getVecAggsResultsForObjectType to V3_KNOT, V3_ROHR, V3_FWVB, V3_VBEL, ggf. weitere
 
