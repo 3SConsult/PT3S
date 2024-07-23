@@ -46,6 +46,13 @@ except ImportError:
     import Xm
 
 
+try:
+    from PT3S import dxAndMxHelperFcts
+except ImportError:
+    logger.debug("{0:s}{1:s}".format(
+        'ImportError: ', 'from PT3S import dxAndMxHelperFcts - trying import dxAndMxHelperFcts instead ... maybe pip install -e . is active ...'))
+    import dxAndMxHelperFcts
+
 #vVBEL_edges =['ROHR','VENT','FWVB','FWES','PUMP','KLAP','REGV','PREG','MREG','DPRG','PGRP']
 #vVBEL_edgesD=[''    ,'DN'  ,''    ,'DN'  ,''    ,'DN'  ,'DN'  ,'DN'  ,'DN'  ,'DN'  ,'']
 
@@ -1306,22 +1313,16 @@ class Dx():
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
 
-    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExp='^KNOT~\*~\*~\*~PH$', multiIndex=False):
+    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExp='^KNOT~\*~\*~\*~PH$'):
         """
-        adds Vec-Results using mx' getVecAggsResultsForObjectType to V3_KNOT, V3_ROHR, V3_FWVB, ggf. weitere
+        adds Vec-Results using mx' getVecAggsResultsForObjectType to V3_KNOT, V3_ROHR, V3_FWVB, V3_VBEL, ggf. weitere
 
-        returns dct V3s; keys: V3_KNOT, V3_ROHR, V3_FWVB, ggf. weitere
-        source: V3_KNOT, V3_ROHR, V3_FWVB, ggf. weitere      
+        returns dct V3s; keys: V3_KNOT, V3_ROHR, V3_FWVB, V3_VBEL, ggf. weitere
+        source: V3_KNOT, V3_ROHR, V3_FWVB, V3_VBEL, ggf. weitere      
 
-        columns multiIndex=False: 
+        columns: 
             einzelne Strings (Sachdaten) und Tupel (Ergebnisdaten)
-            bei addNodeData sind bei den VBEL die ergaenzten Knotenergebnisspalten auch Strings mit _i/_k am Ende
-            
-        columns multiIndex=True:
-            es wird ein 4-Level Multiindex geliefert
-            bei den Sachdaten: (...,None,None,None)
-            bei den Ergebnissen: z.B.('TIME','ROHR~*~*~*~ZAUS',Timestamp('2024-09-01 08:00:00'),Timestamp('2024-09-01 08:00:00'))
-            bei VBEL ergaenzten Knoten-Ergebnissen: z.B.('TIME','KNOT~*~*~*~PH_i',Timestamp('2024-09-01 08:00:00'),Timestamp('2024-09-01 08:00:00'))
+            bei addNodeData sind bei den VBEL die ergaenzten Knotenergebnisspalten auch Strings mit _i/_k am Ende            
         """
 
         logStr = "{0:s}.{1:s}: ".format(
@@ -1347,29 +1348,20 @@ class Dx():
                     # die zur Ergänzung gewünschten Ergebnisspalten von Knoten
                     dfKnotRes = dfKnotRes.loc[:, (slice(
                         None), Sir3sIDsMatching, slice(None), slice(None))]
-                    
-                    if not multiIndex or True:
-                        dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
-                    else:
-                        pass
-                        #ni
+                                 
+                    dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
 
-                if not multiIndex or True:
-                    dfRes.columns = dfRes.columns.to_flat_index()
-                else:
-                    pass
-                    #ni
+            
+                dfRes.columns = dfRes.columns.to_flat_index()
+
 
                 #Sachspalten lesen
                 df = self.dataFrames[dfName]
 
                 # Ergebnisspalten ergänzen                
-                if not multiIndex or True:
-                    V3[dfName] = df.merge(
-                        dfRes, left_on='tk', right_index=True, how='left')  # inner
-                else:
-                    pass
-                    #ni
+                V3[dfName] = df.merge(
+                        dfRes, left_on='tk', right_index=True, how='left')  
+
 
             if addNodeData:
 
@@ -1377,9 +1369,9 @@ class Dx():
                     df = V3[dfName]
                     
                     df = pd.merge(df, dfKnotRes.add_suffix(
-                        '_i'), left_on='fkKI', right_index=True, how='left')   # inner
+                        '_i'), left_on='fkKI', right_index=True, how='left')   
                     df = pd.merge(df, dfKnotRes.add_suffix(
-                        '_k'), left_on='fkKK', right_index=True, how='left')   # inner
+                        '_k'), left_on='fkKK', right_index=True, how='left')   
                                     
                                         
                     V3[dfName] = df
@@ -1388,93 +1380,50 @@ class Dx():
             # ####################
     
             dfVBEL=self.dataFrames['V3_VBEL']
-    
-            # new col mx2Idx in dfVBEL
-            #dfVBEL=self.dataFrames['V3_VBEL']
-            #dfVBEL=dfVBEL.assign(mx2Idx=lambda x: -1)
-            #dfVBEL['mx2Idx'].astype('int64',copy=False)
-
+            
+            #logger.debug("{0:s}dfVBEL: {1:s}".format(logStr,dfVBEL.head().to_string()))
+            
+            # QM
+            dfOBJTYPEs=mx.getVecAggsResultsForAttributeType()
+                         
             # all edges
-            for edge in [edge for edge in 
-                          #['ROHR','VENT','FWVB','FWES','PUMP','KLAP','REGV','PREG','MREG','DPRG','PGRP']
-                          dfVBEL.index.unique(level=0).to_list()
-                          ]:
+            dfs=[]
+            for edge in [edge for edge in dfVBEL.index.unique(level=0).to_list()]:
                   try:    
+                                                          
+                    df=dfOBJTYPEs[edge]
+                    df.columns=df.columns.to_flat_index()
+                    
+                    newCols=df.columns.to_list()
+                    
+                    df=pd.merge(dfVBEL.loc[(edge,),:],df,left_index=True,right_index=True,suffixes=('_VBEL','')).filter(items=newCols,axis=1)#.values
+                    df['OBJID']=df.index
+                    df['OBJTYPE']=edge
+                    df=dxAndMxHelperFcts.constructNewMultiindexFromCols(df)
+                    
+                    #df=pd.merge(dfVBEL.loc[(edge,),:],df,left_index=True,right_index=True)
+                    dfs.append(df)
                      
-                     
-                      if mx.mx2Df[mx.mx2Df['ObjType'].str.match(edge)].empty:
-                          logger.debug(
-                              "{:s}resType: {:s} hat keine mx2-Eintraege.".format(logStr, edge))
-                          continue
-                      else:
-                          pass
-                          #logger.debug(
-                          #    "{:s}resType: {:s} ...".format(logStr, resType))
-                     
-                     
-                     
-                     
-                      #dfVBEL.loc[(edge,),'mx2Idx']=mxXkEDGEIdx
+                    #for newCol in newCols: 
+                    #    pass
+                    #dfVBEL.loc[(edge,),newCols]=df[newCols].values
 
-                  except Exception as e:
-                    logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: mx2Idx for {:s} failed. mx2Idx = -1.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)            
+                  except Exception as e:                               
+                    logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: Edge-Type {:s} failed.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)            
                     logger.debug(logStrEdge)             
             
-                    
-            if multiIndex:
-                # ohne multiIndex bestehen die Spalten aus einzelnen Strings (Sachdaten) und Tupeln (Ergebnisdaten)
-                # bei addNodeData sind bei den VBEL die ergaenzten Knotenergebnisspalten auch Strings mit _i/_k am Ende
-                # um nun einen multiIndex liefern zu koennen, muessen alle Spalten auf eine einheitliche Tuple-Form gebracht werden
-
-                def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:00:00'), Timestamp('2024-09-01 08:00:00'))_i"
-                                        ,colPost='_i'):
-                    
-                    colRstrip=col.replace(colPost,'')
-                    colStrip=colRstrip[1:-1]            
-                    colStrip=colStrip.replace("'",'')            
-                    colTupleLst=str(colStrip).split(',')
-                                
-                    colTuple=(colTupleLst[0].strip()
-                             ,colTupleLst[1].strip()+colPost
-                             ,pd.Timestamp(colTupleLst[2].strip().replace('Timestamp','')[1:-1])
-                             ,pd.Timestamp(colTupleLst[3].strip().replace('Timestamp','')[1:-1])
-                    )
-                    return colTuple
-                
-                def fGetMultiindexTupleFromV3Col(col):
-                    
-                    if isinstance(col,tuple):        
-                        return col
-                    
-                    elif isinstance(col,str):
-                        
-                        # ergaenzte Knotenwerte
-                        
-                        mObj=re.search('\)(?P<Postfix>_i)$',col)        
-                        if mObj != None:        
-                            return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
-                        
-                        mObj=re.search('\)(?P<Postfix>_k)$',col)        
-                        if mObj != None:                
-                            return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
-                            
-                        # keine ergaenzte Knotenwerte    
-                        return (col,None,None,None)   
-
-                
-                for dfName in ['V3_ROHR', 'V3_FWVB']:
-                    df = V3[dfName]
-                    df.columns=pd.MultiIndex.from_tuples(
-                        [fGetMultiindexTupleFromV3Col(col) for col in df.columns.to_list()]
-                        ,names=['1','2','3','4'])
-                    V3[dfName] = df
-                
-                df = V3['V3_KNOT']
-                df.columns=pd.MultiIndex.from_tuples(
-                    [fGetMultiindexTupleFromV3Col(col) for col in df.columns.to_list()]
-                    ,names=['1','2','3','4'])
-                V3['V3_KNOT']=df
-                
+            dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True)
+            
+            #logger.debug("{0:s}dfVBEL nach concat: {1:s}".format(logStr,dfVBEL.head().to_string()))
+            
+            if addNodeData:                    
+                dfVBEL = pd.merge(dfVBEL, dfKnotRes.add_suffix(
+                    '_i'), left_on='fkKI', right_index=True, how='left')   
+                dfVBEL = pd.merge(dfVBEL, dfKnotRes.add_suffix(
+                    '_k'), left_on='fkKK', right_index=True, how='left')   
+                                                                                                      
+            V3['V3_VBEL'] = dfVBEL
+                                    
             return V3
 
         except Exception as e:

@@ -89,7 +89,7 @@ class dxWithMx():
             self.V3_ROHR=dx.dataFrames['V3_ROHR']
             self.V3_KNOT=dx.dataFrames['V3_KNOT']
             self.V3_FWVB=dx.dataFrames['V3_FWVB']
-            self.V3_VBEL=dx.dataFrames['V3_VBEL']
+            self.V3_VBEL=dx.dataFrames['V3_VBEL']#.copy(deep=True)
                                                             
             if isinstance(self.mx,Mx.Mx):  
                 
@@ -103,18 +103,35 @@ class dxWithMx():
                 self.V3_ROHR=dx.dataFrames['V3_ROHR']
                 self.V3_KNOT=dx.dataFrames['V3_KNOT']
                 self.V3_FWVB=dx.dataFrames['V3_FWVB']    
-                self.V3_VBEL=dx.dataFrames['V3_VBEL'] 
+                self.V3_VBEL=dx.dataFrames['V3_VBEL']#.copy(deep=True) 
                                 
                 # Vec-Results to V3_KNOT, V3_ROHR, V3_FWVB, etc.
                 V3sErg=self.dx.MxAdd(mx)                
                 self.V3_ROHR=V3sErg['V3_ROHR']
                 self.V3_KNOT=V3sErg['V3_KNOT']
                 self.V3_FWVB=V3sErg['V3_FWVB']
+                self.V3_VBEL=V3sErg['V3_VBEL']
                 
-                # ROHR 
-                                
+                #VBEL
                 try:                                    
-                    t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+                     t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+                     QM=('STAT'
+                                 ,'QM'
+                                 ,t0
+                                 ,t0
+                                 )
+                     self.V3_VBEL['QM']=self.V3_VBEL[QM]      
+                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['QM'] ok so far."))                                                      
+                except Exception as e:
+                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                     logger.debug(logStrTmp) 
+                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_VBEL failed.'))   
+     
+                  
+                
+                # ROHR                                 
+                try:                                    
+                    #t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
                     QMAV=('STAT'
                                 ,'ROHR~*~*~*~QMAV'
                                 ,t0
@@ -272,7 +289,7 @@ class dxWithMx():
                                 
             try:
                 # Graph bauen    
-                self.G=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_VBEL'].reset_index(), source='NAME_i', target='NAME_k', edge_attr=True) 
+                self.G=nx.from_pandas_edgelist(df=self.V3_VBEL.reset_index(), source='NAME_i', target='NAME_k', edge_attr=True) 
                 nodeDct=self.V3_KNOT.to_dict(orient='index')    
                 nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
                 nx.set_node_attributes(self.G,nodeDctNx)     
@@ -365,7 +382,79 @@ class dxWithMx():
             logger.error(logStrFinal) 
             raise dxWithMxError(logStrFinal)                       
         finally:
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))            
+            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))      
+            
+            
+    def switchV3DfColsToMultiindex(self):
+        """
+        Switches V3-Df cols to Multiindex-Cols.               
+        """        
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        
+        try: 
+            pass
+                  
+            def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:00:00'), Timestamp('2024-09-01 08:00:00'))_i"
+                                    ,colPost='_i'):
+                
+                colRstrip=col.replace(colPost,'')
+                colStrip=colRstrip[1:-1]            
+                colStrip=colStrip.replace("'",'')            
+                colTupleLst=str(colStrip).split(',')
+                            
+                colTuple=(colTupleLst[0].strip()
+                         ,colTupleLst[1].strip()+colPost
+                         ,pd.Timestamp(colTupleLst[2].strip().replace('Timestamp','')[1:-1])
+                         ,pd.Timestamp(colTupleLst[3].strip().replace('Timestamp','')[1:-1])
+                )
+                return colTuple
+            
+            def fGetMultiindexTupleFromV3Col(col):
+                
+                if isinstance(col,tuple):        
+                    return col
+                
+                elif isinstance(col,str):
+                    
+                    # ergaenzte Knotenwerte
+                    
+                    mObj=re.search('\)(?P<Postfix>_i)$',col)        
+                    if mObj != None:        
+                        return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
+                    
+                    mObj=re.search('\)(?P<Postfix>_k)$',col)        
+                    if mObj != None:                
+                        return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
+                        
+                    # keine ergaenzte Knotenwerte    
+                    return (col,None,None,None)   
+    
+            self.V3_KNOT.columns=pd.MultiIndex.from_tuples(
+                [fGetMultiindexTupleFromV3Col(col) for col in self.V3_KNOT.columns.to_list()]
+                ,names=['1','2','3','4'])    
+            
+            self.V3_ROHR.columns=pd.MultiIndex.from_tuples(
+                [fGetMultiindexTupleFromV3Col(col) for col in self.V3_ROHR.columns.to_list()]
+                ,names=['1','2','3','4'])
+            
+            self.V3_FWVB.columns=pd.MultiIndex.from_tuples(
+                [fGetMultiindexTupleFromV3Col(col) for col in self.V3_FWVB.columns.to_list()]
+                ,names=['1','2','3','4'])     
+            
+            self.V3_VBEL.columns=pd.MultiIndex.from_tuples(
+                [fGetMultiindexTupleFromV3Col(col) for col in self.V3_VBEL.columns.to_list()]
+                ,names=['1','2','3','4'])                
+                                
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))                  
         
 class readDxAndMxError(Exception):
     def __init__(self, value):
@@ -418,44 +507,40 @@ def readDxAndMx(dbFile
 
     .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.
         
-        The returned dxWithMx object has the following structure i.e. Dfs:
+        The returned dxWithMx object m has the following structure i.e. Dfs:
     
             - Model: Dx object:
-                - dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
-                - Dfs derived from SIR 3S' tables above:
-                    - V3_VBEL: edge data
-                    - V3_KNOT: node data
-                    - NetworkX Example:
-                        - vVbel=self.dataFrames['V3_VBEL'].reset_index()
-                        - G=nx.from_pandas_edgelist(df=vVbel, source='NAME_i', target='NAME_k', edge_attr=True) 
-                        - vKnot=self.dataFrames['V3_KNOT']
-                        - nodeDct=vKnot.to_dict(orient='index')
-                        - nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
-                        - nx.set_node_attributes(G,nodeDctNx)                
-    
+                - m.dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
+                - m.dx.dataFrames[...]: several pandas-Dfs derived from the 1:1 Dfs 
+        
             - Results: Mx object:
-                - mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
-                - mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
+                - m.mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
+                - m.mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
     
-            - pandas-Dfs with Model- and Result-data:
-                - V3_ROHR: Pipes
-                - V3_FWVB: Housestations District Heating
-                - V3_KNOT: Nodes 
-    
+            - pandas-Dfs with Model- AND Result-data:
+                - m.V3_ROHR: Pipes
+                - m.V3_FWVB: Housestations District Heating
+                - m.V3_KNOT: Nodes 
+                - m.V3_VBEL: Edges
+                    
             - geopandas-Dfs based upon the Dfs above:
-                - gdf_ROHR: Pipes
-                - gdf_FWVB: Housestations District Heating
-                - gdf_KNOT: Nodes 
+                - m.gdf_ROHR: Pipes
+                - m.gdf_FWVB: Housestations District Heating
+                - m.gdf_KNOT: Nodes 
                     
             - Dfs containing decoded BLOB-Data:
-                - dfLAYR: one row per LAYR (Layer) and OBJ
-                - dfWBLZ: one row per WBLZ (Heat balance) and OBJ
-                - dfAGSN: one row for AGSN and OBJ (edge); AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
+                - m.dfLAYR: one row per LAYR (Layer) and OBJ
+                - m.dfWBLZ: one row per WBLZ (Heat balance) and OBJ
+                - m.dfAGSN: one row for AGSN and OBJ (edge); AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
+                
+            - NetworkX-Graphs:
+                - m.G
+                - m.GSig
 
         The returned dxWithMx object has almost no functions yet - except:
                 - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df
-             
-
+                - switchV3DfColsToMultiindex(): switch cols in m.V3_ROHR, m.V3_FWVB, m.V3_KNOT, m.V3_VBEL to Multiindex
+                        
     """
     
     import os
@@ -1014,3 +1099,50 @@ def readMx(rootdir, logPathOutputFct=os.path.relpath):
         logger.debug("{0:s}_Done.".format(logStrPrefix)) 
     
     return mx
+
+def constructNewMultiindexFromCols(df=pd.DataFrame(),mColNames=['OBJTYPE','OBJID'],mIdxNames=['OBJTYPE','OBJID']):
+        """Constructs a new Multiindex from existing cols and returns the constructed df.
+
+        Args:
+            * df: dataFrame without Multiindex              
+            * mColNames: list of columns which shall be used as Multiindex; the columns must exist; the columns will be droped
+            * mIdxNames: list of names for the indices for the Cols above
+
+        Returns:
+            * df with Multiindex       
+            * empty DataFrame is returned if an Error occurs
+                   
+        >>> d = {'OBJTYPE': ['ROHR', 'VENT'], 'pk': [123, 345], 'data': ['abc', 'def']}
+        >>> import pandas as pd
+        >>> df = pd.DataFrame(data=d)
+        >>> from Xm import Xm
+        >>> df=Xm.constructNewMultiindexFromCols(df=df,mColNames=['OBJTYPE','pk'],mIdxNames=['OBJTYPE','OBJID'])
+        >>> df['data']
+        OBJTYPE  OBJID
+        ROHR     123      abc
+        VENT     345      def
+        Name: data, dtype: object
+        """
+
+        logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
+        #logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+    
+        try:    
+            
+            arrays=[]
+            for col in mColNames:
+                arrays.append(df[col].tolist())
+            tuples = list(zip(*(arrays)))
+            index = pd.MultiIndex.from_tuples(tuples,names=mIdxNames)
+            df.drop(mColNames,axis=1,inplace=True)   
+            df=pd.DataFrame(df.values,index=index,columns=df.columns)
+            #df = df.sort_index() # PerformanceWarning: indexing past lexsort depth may impact performance.
+            return df
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal)    
+            raise #df=pd.DataFrame()
+        finally:
+            pass
+            #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
+            #return df   

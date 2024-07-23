@@ -3404,15 +3404,106 @@ class Mx():
             #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
             #return df
         
-    def getVecAggsResultsForAttributeType(self,Sir3sVecIDReExp='QMA{0,1}V{0,1}$'):
-        """
+    # def getVecAggsResultsForAttributeType(self,Sir3sVecIDReExp='QMA{0,1}V{0,1}$'):
+    #     """
         
 
-        # Sir3sVecIDReExp definiert mehrere Kanaele 
+    #     # Sir3sVecIDReExp definiert mehrere Kanaele 
        
-        # df
-            # multiindex: OBJTYPE OBJID (d.h. mx2Idxe des OBJTYPEs)
-            # col: STATionaeres Ergebnis fuer den gwuenschten Attributtyp; mehrere bzw. andere Zeitebenen noch nicht implementiert         
+    #     # df
+    #         # multiindex: OBJTYPE OBJID (d.h. mx2Idxe des OBJTYPEs)
+    #         # col: STATionaeres Ergebnis fuer den gwuenschten Attributtyp; mehrere bzw. andere Zeitebenen noch nicht implementiert         
+    #     """
+       
+    #     logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+    #     logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+
+    #     try:           
+            
+    #         # empty wenn keine Kanaele gefunden oder Fehler
+    #         df=pd.DataFrame()
+        
+    #         # alle vorhandenen Kanaele
+    #         Sir3sIDs=sorted(self.dfVecAggs.index.get_level_values(1).unique().to_list())
+    #         # alle verlangten Kanaele 
+    #         Sir3sIDsMatching=[Sir3sID for Sir3sID in Sir3sIDs if re.search(Sir3sVecIDReExp,Sir3sID) != None]
+    #         logger.debug("{:s}Sir3sIDsMatching: {!s:s}".format(logStr,Sir3sIDsMatching)) 
+            
+    #         ATTRTYPEs=[re.match(regExpSir3sVecID,Sir3sIDMatching).group('ATTRTYPE') for Sir3sIDMatching in Sir3sIDsMatching]
+    #         setATTRTYPEs={ATTRTYPE for ATTRTYPE in ATTRTYPEs}
+    #         if len(setATTRTYPEs)>1:                
+    #             logger.debug("{:s} ATTRTYPEs: {!s:s}: mehr als 1 Attributtyp?!".format(logStr,setATTRTYPEs)) 
+    #             #raise MxError
+    #             ATTRTYPE_Common=sorted(list(setATTRTYPEs))[0]
+    #         else:                
+    #             ATTRTYPE_Common=ATTRTYPEs[0]
+    #         logger.debug("{:s} choosen Name of 'common' ATTR: {:s}.".format(logStr,ATTRTYPE_Common)) 
+                
+    
+    #         # alle vorhandenen Ergebnisse aller verlangten Kanaele
+    #         df=self.dfVecAggs.loc[(slice(None),Sir3sIDsMatching,slice(None),slice(None)),:]#.dropna(axis='columns')
+            
+    #         OBJTYPEs=[re.match(regExpSir3sVecID,Sir3sIDMatching).group('OBJTYPE') for Sir3sIDMatching in Sir3sIDsMatching]
+            
+    #         dfOBJTYPEs=[]
+
+    #         for OBJTYPE,ATTRTYPE,Sir3sIDMatching in zip(OBJTYPEs,ATTRTYPEs,Sir3sIDsMatching):
+                
+    #             if ATTRTYPE=='QMAV':
+    #                 ATTRTYPE='QM'
+                    
+    #             # pks/tks 
+    #             mx2RecordDesc=self.mx2Df[self.mx2Df['ObjType'].str.contains('^'+OBJTYPE)].iloc[0]
+    #                                                                                  # klappt auch fuer ...
+    #             # ... ROHRe, wenn ROHR	N_OF_POINTS hinter ROHR kommt 
+    #             mx2Idx=mx2RecordDesc['Data']
+        
+    #             dfOBJTYPE=df.loc[(slice(None),Sir3sIDMatching,slice(None),slice(None)),:].dropna(axis='columns')
+        
+    #             # Spalten umbenennen in pks/tks   
+    #             dfOBJTYPE.rename(columns={i:mx2Idx[i] for i in dfOBJTYPE.columns.to_list()},inplace=True)
+                
+    #             # transponieren
+    #             dfOBJTYPE=dfOBJTYPE.transpose()
+                
+    #             # nur das stationaere Ergebnis bzw. allg. nur 1 Zeitpunkt; dann verbleibt nur 1 Spalte
+    #             dfOBJTYPE=dfOBJTYPE.loc[:,('STAT',slice(None),dfOBJTYPE.columns.get_level_values(2)[0],dfOBJTYPE.columns.get_level_values(3)[0])]
+                
+    #             dfOBJTYPE.columns=dfOBJTYPE.columns.to_flat_index() 
+                
+    #             dfOBJTYPE.rename(columns={dfOBJTYPE.columns.to_list()[0]:ATTRTYPE_Common},inplace=True)
+                
+    #             dfOBJTYPE['OBJTYPE']=OBJTYPE
+                
+    #             dfOBJTYPE['OBJID']=dfOBJTYPE.index.values
+                
+    #             dfOBJTYPE=Xm.Xm.constructNewMultiindexFromCols(df=dfOBJTYPE,mColNames=['OBJTYPE','OBJID'],mIdxNames=['OBJTYPE','OBJID'])
+                
+    #             dfOBJTYPEs.append(dfOBJTYPE)        
+            
+    #         df=pd.concat(dfOBJTYPEs)
+                                                     
+    #     except MxError:
+    #         raise
+    #     except Exception as e:
+    #         logStrFinal="{:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+    #         logger.error(logStrFinal) 
+    #         raise MxError(logStrFinal)                           
+    #     finally:                      
+    #         logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
+    #         return df   
+
+
+    def getVecAggsResultsForAttributeType(self,Sir3sVecIDReExp='QMA{0,1}V{0,1}$'):
+        """        
+        Sir3sVecIDReExp definiert Kanaele (1 pro VBEL-Typ) die ueber alle VBEL-Typen hinweg als 1 Kanal interpretiert werden koennen bzw. sollen.
+        Typisch für einen solchen Kanal ist "QM" für den Durchfluss: Jeder VBEL-Typ errechnet einen Durchfluss.
+        
+        Returns:
+            Dct mit VBEL-Typ als Schluessel.
+            Dct[VBEL-Typ]: 
+            df mit OBJID als Index und Spalten als Multiindex (== dfVecAggs.index.names)
+            Die Level 1 (== Sir3sID) Werte des Spalten-Multiindex werden durch den VBEL-Typ übergreifenden Bezeichner des Kanals ersetzt - z.B. "QM".       
         """
        
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -3432,25 +3523,26 @@ class Mx():
             ATTRTYPEs=[re.match(regExpSir3sVecID,Sir3sIDMatching).group('ATTRTYPE') for Sir3sIDMatching in Sir3sIDsMatching]
             setATTRTYPEs={ATTRTYPE for ATTRTYPE in ATTRTYPEs}
             if len(setATTRTYPEs)>1:                
-                logger.debug("{:s} ATTRTYPEs: {!s:s}: mehr als 1 Attributtyp?!".format(logStr,setATTRTYPEs)) 
-                #raise MxError
+                #logger.debug("{:s}ATTRTYPEs: {!s:s}: mehr als 1 Attributtyp?!".format(logStr,setATTRTYPEs))             
                 ATTRTYPE_Common=sorted(list(setATTRTYPEs))[0]
             else:                
                 ATTRTYPE_Common=ATTRTYPEs[0]
-            logger.debug("{:s} choosen Name of 'common' ATTR: {:s}.".format(logStr,ATTRTYPE_Common)) 
+            logger.debug("{:s}choosen Name of 'common' ATTR: {:s}.".format(logStr,ATTRTYPE_Common)) 
                 
     
-            # alle vorhandenen Ergebnisse aller verlangten Kanaele
+            # alle matchenden Kanaele
             df=self.dfVecAggs.loc[(slice(None),Sir3sIDsMatching,slice(None),slice(None)),:]#.dropna(axis='columns')
+            
+            #logger.debug("{:s}alle matchenden Kanaele: {:s}".format(logStr,df.head().to_string()))
             
             OBJTYPEs=[re.match(regExpSir3sVecID,Sir3sIDMatching).group('OBJTYPE') for Sir3sIDMatching in Sir3sIDsMatching]
             
-            dfOBJTYPEs=[]
+            dfOBJTYPEs={}
 
             for OBJTYPE,ATTRTYPE,Sir3sIDMatching in zip(OBJTYPEs,ATTRTYPEs,Sir3sIDsMatching):
                 
-                if ATTRTYPE=='QMAV':
-                    ATTRTYPE='QM'
+                #if ATTRTYPE=='QMAV':
+                #    ATTRTYPE='QM'
                     
                 # pks/tks 
                 mx2RecordDesc=self.mx2Df[self.mx2Df['ObjType'].str.contains('^'+OBJTYPE)].iloc[0]
@@ -3459,39 +3551,45 @@ class Mx():
                 mx2Idx=mx2RecordDesc['Data']
         
                 dfOBJTYPE=df.loc[(slice(None),Sir3sIDMatching,slice(None),slice(None)),:].dropna(axis='columns')
+            
+                #logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
         
                 # Spalten umbenennen in pks/tks   
                 dfOBJTYPE.rename(columns={i:mx2Idx[i] for i in dfOBJTYPE.columns.to_list()},inplace=True)
                 
+                #logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs mit OBJID (statt lfd. Nr.) als Spalten: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
+                
                 # transponieren
                 dfOBJTYPE=dfOBJTYPE.transpose()
                 
-                # nur das stationaere Ergebnis bzw. allg. nur 1 Zeitpunkt; dann verbleibt nur 1 Spalte
-                dfOBJTYPE=dfOBJTYPE.loc[:,('STAT',slice(None),dfOBJTYPE.columns.get_level_values(2)[0],dfOBJTYPE.columns.get_level_values(3)[0])]
+                #logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs mit OBJID als Zeilen: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
                 
-                dfOBJTYPE.columns=dfOBJTYPE.columns.to_flat_index() 
+               
+                    
+                dfOBJTYPE.columns=pd.MultiIndex.from_tuples([(lev0,ATTRTYPE_Common,lev2,lev3) for lev0,lev2,lev3 in zip(dfOBJTYPE.columns.get_level_values(0)
+                    ,dfOBJTYPE.columns.get_level_values(2)
+                    ,dfOBJTYPE.columns.get_level_values(3))]
+                    ,names=self.dfVecAggs.index.names
+                    )                    
                 
-                dfOBJTYPE.rename(columns={dfOBJTYPE.columns.to_list()[0]:ATTRTYPE_Common},inplace=True)
+
                 
-                dfOBJTYPE['OBJTYPE']=OBJTYPE
-                
-                dfOBJTYPE['OBJID']=dfOBJTYPE.index.values
-                
-                dfOBJTYPE=Xm.Xm.constructNewMultiindexFromCols(df=dfOBJTYPE,mColNames=['OBJTYPE','OBJID'],mIdxNames=['OBJTYPE','OBJID'])
-                
-                dfOBJTYPEs.append(dfOBJTYPE)        
+                dfOBJTYPEs[OBJTYPE]=dfOBJTYPE        
             
-            df=pd.concat(dfOBJTYPEs)
+        
+            
+            return dfOBJTYPEs
                                                      
         except MxError:
             raise
         except Exception as e:
             logStrFinal="{:s}: Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
             logger.error(logStrFinal) 
-            raise MxError(logStrFinal)                           
+            raise                        
         finally:                      
             logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
-            return df   
+             
+
 
     def readMxsVecsResultsForObjectType(self,Sir3sVecIDReExp='^KNOT~\*~\*~\*~PH$' ,dfVecAggCols=False ,dfVecAggsFormat=True ,flatIndex=True ):
         """
