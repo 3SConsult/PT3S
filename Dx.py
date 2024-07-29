@@ -1171,9 +1171,8 @@ class Dx():
 
     def MxSync(self, mx):
         """
-        adds mx2Idx to V3_KNOT, V3_ROHR, V3_FWVB, etc.
-        adds mx2NofPts to V3_ROHR  
-        adds mx2Idx to V3_VBEL
+        adds mx2Idx to V3_KNOT, V3_ROHR, V3_FWVB, V3_VBEL, etc.
+        adds mx2NofPts, dL to V3_ROHR          
         """
 
         logStr = "{0:s}.{1:s}: ".format(
@@ -1230,10 +1229,13 @@ class Dx():
                     # zugeh. Liste der NOfPts in df
                     nopXk = [nopMx[mx2Idx] for mx2Idx in mxXkIdx]
 
-                    # Spalte mx2NofPts anlegen (vor Spalte mx2Idx)
+                    # Spalte mx2NofPts anlegen 
                     df['mx2NofPts'] = pd.Series(nopXk)
-
-                # Spalte mx2Idx anlegen
+                    # Spalte dL anlegen 
+                    df['dL'] = df['L'].astype(float)/(df['mx2NofPts']-1)
+                    
+                    
+                # Spalte mx2Idx als letzte Spalte anlegen
                 df['mx2Idx'] = pd.Series(mxXkIdx)
         
             # V3_VBEL
@@ -1313,7 +1315,7 @@ class Dx():
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
 
-    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExps=['^KNOT~\*~\*~\*~PH$','^KNOT~\*~\*~\*~H$','^KNOT~\*~\*~\*~T$']):
+    def MxAdd(self, mx, addNodeData=True, addNodeDataSir3sVecIDReExps=['^KNOT~\*~\*~\*~PH$','^KNOT~\*~\*~\*~H$','^KNOT~\*~\*~\*~T$','^KNOT~\*~\*~\*~RHO$']):
         """
         adds Vec-Results using mx' getVecAggsResultsForObjectType to V3_KNOT, V3_ROHR, V3_FWVB, V3_VBEL, ggf. weitere
 
@@ -1330,6 +1332,7 @@ class Dx():
         logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
 
         try:
+            
             V3 = {}
             for dfName, resType in zip(['V3_KNOT', 'V3_ROHR', 'V3_FWVB'], ['^KNOT', '^ROHR~', '^FWVB']):
                 # Ergebnisse lesen
@@ -1348,17 +1351,14 @@ class Dx():
                     for addNodeDataSir3sVecIDReExp in addNodeDataSir3sVecIDReExps:
                         Sir3sIDsMatching = Sir3sIDsMatching + [Sir3sID for Sir3sID in Sir3sIDs if re.search(
                             addNodeDataSir3sVecIDReExp, Sir3sID) != None]
-                    
-                    
+                                        
                     # die zur Ergänzung gewünschten Ergebnisspalten von Knoten
                     dfKnotRes = dfKnotRes.loc[:, (slice(
                         None), Sir3sIDsMatching, slice(None), slice(None))]
                                  
                     dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
-
             
                 dfRes.columns = dfRes.columns.to_flat_index()
-
 
                 #Sachspalten lesen
                 df = self.dataFrames[dfName]

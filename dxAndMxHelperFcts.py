@@ -17,7 +17,7 @@ import logging
 
 import pandas as pd
 
-#import numpy as np
+import numpy as np
 
 import networkx as nx    
 
@@ -206,9 +206,49 @@ class dxWithMx():
                      logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                      logger.debug(logStrTmp) 
                      logger.debug("{0:s}{1:s}".format(logStr,'Constructing col H_k in V3_VBEL failed.'))                
-
-
-        
+                     
+                try:                                                         
+                    RHO_i=str(('STAT'
+                                ,'KNOT~*~*~*~RHO'
+                                ,t0
+                                ,t0
+                                ))+'_i'
+                    self.V3_VBEL['RHO_i']=self.V3_VBEL[RHO_i]      
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['RHO_i'] ok so far."))                                                      
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col RHO_i in V3_VBEL failed.'))    
+                    
+                try:                                                         
+                    RHO_k=str(('STAT'
+                                ,'KNOT~*~*~*~RHO'
+                                ,t0
+                                ,t0
+                                ))+'_k'
+                    self.V3_VBEL['RHO_k']=self.V3_VBEL[RHO_k]      
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['RHO_k'] ok so far."))                                                      
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col RHO_k in V3_VBEL failed.'))                                     
+                     
+                try:                                                                             
+                    self.V3_VBEL['mlc_i']=self.V3_VBEL[PH_i]*10**5/(self.V3_VBEL[RHO_i]*9.81)+self.V3_VBEL['ZKOR_i']
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['mlc_i'] ok so far."))                                                      
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col mlc_i in V3_VBEL failed.'))    
+                    
+                try:                                                                             
+                    self.V3_VBEL['mlc_k']=self.V3_VBEL[PH_k]*10**5/(self.V3_VBEL[RHO_k]*9.81)+self.V3_VBEL['ZKOR_k']
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['mlc_k'] ok so far."))                                                      
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col mlc_k in V3_VBEL failed.'))                        
+                                                                           
                 # ROHR                                 
                 try:                                    
                     #t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
@@ -263,6 +303,105 @@ class dxWithMx():
                     logger.debug(logStrTmp) 
                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.'))                              
                                         
+                    
+                
+                # ROHRVEC
+                try:                    
+                    vROHR=self.V3_ROHR
+                    rVecMx2Idx=[] 
+                    IptIdx=[] 
+                    #                annotieren in mx2Idx-Reihenfolge da die rVecs in mx2Idx-Reihenfolge geschrieben werden
+                    for row in vROHR.sort_values(['mx2Idx']).itertuples():
+                                    oneVecIdx=np.empty(row.mx2NofPts,dtype=int) 
+                                    oneVecIdx.fill(row.mx2Idx)                
+                                    rVecMx2Idx.extend(oneVecIdx)
+                        
+                                    oneLfdNrIdx=['S']
+                                    if row.mx2NofPts>2:                    
+                                        oneLfdNrIdx.extend(np.arange(row.mx2NofPts-2,dtype=int))
+                                    oneLfdNrIdx.append('E')
+                                    IptIdx.extend(oneLfdNrIdx)                    
+                    
+                    rVecChannels=[vec for vec in sorted(set(self.mx.dfVecAggs.index.get_level_values(1))) if re.search(Mx.regExpSir3sRohrVecAttrType,re.search(Mx.regExpSir3sVecID,vec).group('ATTRTYPE'))!= None]                                                        
+                    dfrVecAggs=self.mx.dfVecAggs.loc[(slice(None),rVecChannels,slice(None),slice(None)),:]
+                    dfrVecAggsT=dfrVecAggs.transpose()
+                    dfrVecAggsT.columns=dfrVecAggsT.columns.to_flat_index()
+                    
+                    cols=dfrVecAggsT.columns.to_list()
+                    
+                    #rVecAggsT annotieren mit mx2Idx
+                    dfrVecAggsT['mx2Idx']=rVecMx2Idx
+                    dfrVecAggsT['IptIdx']=IptIdx                    
+                    dfrVecAggsT=dfrVecAggsT.filter(['mx2Idx','IptIdx']+cols,axis=1)
+                    
+                    vROHR=pd.merge(self.V3_ROHR,dfrVecAggsT,left_on='mx2Idx',right_on='mx2Idx')
+                    
+                    # 1 Spalte SVEC
+                    rVecCols=[(a,b,c,d) for (a,b,c,d) in [col for col in vROHR.columns if type(col)==tuple] if re.search(Mx.regExpSir3sRohrVecAttrType,b)!=None]
+                    t0rVec=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X'))#.%f'))
+                    SVEC=('STAT',
+                      'ROHR~*~*~*~SVEC',
+                      t0rVec,
+                      t0rVec)                    
+                    vROHR['SVEC']=vROHR[SVEC]
+                    sVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search('SVEC$',b)!=None]
+                    # andere SVEC-Spalten löschen
+                    vROHR=vROHR.drop(sVecCols,axis=1)   
+                    
+                    # 1 Spalte ZVEC                    
+                    ZVEC=('STAT',
+                      'ROHR~*~*~*~ZVEC',
+                      t0rVec,
+                      t0rVec)                    
+                    vROHR['ZVEC']=vROHR[ZVEC]
+                    zVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search('ZVEC$',b)!=None]
+                    # andere ZVEC-Spalten löschen
+                    vROHR=vROHR.drop(zVecCols,axis=1)         
+                                                                 
+                    # Druecke und Fluesse in anderen Einheiten errechnen                    
+                    pVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['PVEC','PVECMIN_INST','PVECMAX_INST']]
+                    pVecs=[b for (a,b,c,d) in pVecCols]
+                    pVecs=list(set(pVecs))
+                    
+                    mVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['MVEC']]
+                    mVecs=[b for (a,b,c,d) in mVecCols]
+                    mVecs=list(set(mVecs))
+                    
+                    rhoVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['RHOVEC']]
+                    
+                    pAtmosInBar=1.#0132
+                    for (a,b,c,d) in rhoVecCols:
+                        
+                        for pVec in pVecs:
+                            col=(a,pVec,c,d)
+                            pVecAttr= re.search(Mx.regExpSir3sVecID,pVec).group('ATTRTYPE')
+                            # man
+                            vROHR[(a,'man'+pVecAttr,c,d)]=vROHR[col]- pAtmosInBar 
+                            # mlc
+                            vROHR[(a,'mlc'+pVecAttr,c,d)]=vROHR[(a,'man'+pVecAttr,c,d)]*10**5/(vROHR[(a,b,c,d)]*9.81)+vROHR['ZVEC']     
+                            
+                            
+                            
+                        for mVec in mVecs:
+                               col=(a,mVec,c,d)
+                               mVecAttr= re.search(Mx.regExpSir3sVecID,mVec).group('ATTRTYPE')
+                               # m3/h
+                               vROHR[(a,'Q'+mVecAttr,c,d)]=vROHR[col]/vROHR[(a,b,c,d)]*3600
+                               # t/h
+                               vROHR[(a,'t'+mVecAttr,c,d)]=vROHR[(a,'Q'+mVecAttr,c,d)]*vROHR[(a,b,c,d)]/1000.
+                    
+                    
+                    self.V3_ROHRVEC=vROHR
+
+                    
+                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHRVEC ok so far."))                                                      
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing of V3_ROHRVEC failed.'))                 
+                
+                    
+                    
                 # FWVB  
                 try:                                                         
                      W=('STAT'
@@ -418,124 +557,212 @@ class dxWithMx():
                 
                 
             # AGSN
-            
-
-            
+                        
             try:
             
                 # dfAGSN ergaenzen zu V3_AGSN
                 dfAGSN=constructNewMultiindexFromCols(self.dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
-                colsAGSN=dfAGSN.columns
+                # urspruengliche Cols
+                colsAGSNBase=dfAGSN.columns.to_list()
                 
                 dfAGSN=pd.merge(dfAGSN,self.V3_VBEL,left_index=True,right_index=True,suffixes=('','_VBEL')).sort_values(by=['LFDNR','XL','Pos'])
                 
                 cols=dfAGSN.columns.to_list()
                 colsErg=cols[cols.index('mx2Idx')+1:]
                 
-                dfAGSN=dfAGSN.filter(items=colsAGSN.to_list()+['L','DN','Am2','Vm3','NAME_i','NAME_k']+colsErg)
-                            
-                cols_i=[col for col in colsErg if type(col) == str and re.search('_i$',col)]
-                cols_k=[col for col in colsErg if type(col) == str and re.search('_k$',col)]
+                colsVBELBase=['OBJTYPE','OBJID',
+                              'L','DN','Am2','Vm3','NAME_CONT','NAME_i','NAME_k']
                 
-                cols_n=[]
-                for col_i,col_k in zip(cols_i,cols_k):
+                dfAGSN=dfAGSN.filter(items=colsAGSNBase#.to_list()
+                                     +colsVBELBase
+                                     +['ZKOR_i','ZKOR_k'
+                                      ,'BESCHREIBUNG_i','BESCHREIBUNG_k'
+                                      ,'KVR_i','KVR_k'
+                                      ]
+                                     +colsErg)
+                
+                
+                # Sachspalten _i,_k
+                colsSach_i=['ZKOR_i','BESCHREIBUNG_i','KVR_i']
+                colsSach_k=['ZKOR_k','BESCHREIBUNG_k','KVR_k']
+
+                # ob VBEL in Schnittrichtung definiert anlegen
+                dfAGSN['direction']=1
+                 
+                # zugeh. Sachspalten _n anlegen
+                colsSach_n=[]
+                for col_i,col_k in zip(colsSach_i,colsSach_k):
                     col_n=col_i.replace('_i','_n')
                     #print(col_n)
                     dfAGSN[col_n]=None
-                    cols_n.append(col_n)  
-                dfAGSN['direction']=1
-                    
+                    colsSach_n.append(col_n)                  
+                                
+                            
+                # Ergebnisspalten _i,_k
+                colsErg_i=[col for col in colsErg if type(col) == str and re.search('_i$',col)]
+                colsErg_k=[col for col in colsErg if type(col) == str and re.search('_k$',col)]
+                
+                # zugeh. Ergebnisspalten _n anlegen
+                colsErg_n=[]
+                for col_i,col_k in zip(colsErg_i,colsErg_k):
+                    col_n=col_i.replace('_i','_n')
+                    #print(col_n)
+                    dfAGSN[col_n]=None
+                    colsErg_n.append(col_n)  
+                                    
                 logger.debug("{0:s}dfAGSN.columns.to_list(): {1:s}".format(logStr,str(dfAGSN.columns.to_list())))       
-                
-                
+                                
                 dfAGSN=dfAGSN.reset_index().rename(columns={'level_0':'OBJTYPE','level_1':'OBJID'})
                 
+                logger.debug("{0:s}dfAGSN.columns.to_list(): {1:s}".format(logStr,str(dfAGSN.columns.to_list())))
                 
+                # Schnittrichtung bestücken; Ergebnisspalten und Sachspalten nach Schnittrichtung bestücken
                 for index, row in dfAGSN.iterrows():
                     
                         if row['XL'] in [0,1]:
                             if row['nextNODE'] == row['NAME_k']:
                                 pass
                             elif row['nextNODE'] == row['NAME_i']:                            
-                                dfAGSN.loc[index,'direction']=-1
+                                dfAGSN.loc[index,'direction']=-1 # VL-Fluss von links nach rechts (in Schnittr.) pos. def. aber VBEL von rechts nach links
                         else:
                             if row['nextNODE'] == row['NAME_k']:
-                                dfAGSN.loc[index,'direction']=-1 
+                                dfAGSN.loc[index,'direction']=-1 # RL-Fluss von rechts nach links (entgegen Schnittr.) pos. def. aber VBEL von links nach rechts
                             elif row['nextNODE'] == row['NAME_i']:                            
                                 pass
-                            
-
-                        
-                        
-                        
-                        
-                        #direc='i'
-                        #dfAGSN.loc[index,'QM']= -row['QM']
-                        
-                        #for col in [col for col in colsErg if type(col)==tuple]: # die QMs                            
-                        #    #print(col)
-                        #    logger.debug("{0:s}col: {1:s}".format(logStr,str(col)))     
-                        #    logger.debug("{0:s}index: {1:s}".format(logStr,str(index)))     
-                        #    logger.debug("{0:s}row[col]: {1:s}".format(logStr,str(row[col])))     
-                        #    #logger.debug("{0:s}colV: {1:s}".format(logStr,str(dfAGSN.loc[index,col])))       
-                        #    #print(dfAGSN.loc[index,col])#= -row[col]
-                                                
-
-                
-                        for col_n,col_i,col_k in zip(cols_n,cols_i,cols_k):
-                            #print(col_n,col_i,col_k)
-                            if row['direction']==1:
-                                dfAGSN.loc[index,col_n]= row[col_i]
+                                            
+                        for col_n,col_i,col_k in zip(colsErg_n,colsErg_i,colsErg_k):        
+                            if row['XL'] in [0,1]:
+                                if dfAGSN.loc[index,'direction']==1:
+                                    dfAGSN.loc[index,col_n]= row[col_k]
+                                else:
+                                    dfAGSN.loc[index,col_n]= row[col_i]   
                             else:
-                                dfAGSN.loc[index,col_n]= row[col_k]   
+                                if dfAGSN.loc[index,'direction']==-1:
+                                    dfAGSN.loc[index,col_n]= row[col_k]
+                                else:
+                                    dfAGSN.loc[index,col_n]= row[col_i]                                   
+                                
+                                
+                        logger.debug(f"{logStr} {row['NAME_i']} {row['NAME_k']} {dfAGSN.loc[index,'direction']} PH_i={row['PH_i']} PH_k={row['PH_k']} PH_n={dfAGSN.loc[index,'PH_n']} mlc_i={row['mlc_i']} mlc_k={row['mlc_k']} mlc_n={dfAGSN.loc[index,'mlc_n']} ") 
+                                
+                        for col_n,col_i,col_k in zip(colsSach_n,colsSach_i,colsSach_k):    
+                            if row['XL'] in [0,1]:
+                                if dfAGSN.loc[index,'direction']==1:
+                                    dfAGSN.loc[index,col_n]= row[col_k]
+                                else:
+                                    dfAGSN.loc[index,col_n]= row[col_i]   
+                            else:
+                                if dfAGSN.loc[index,'direction']==-1:
+                                    dfAGSN.loc[index,col_n]= row[col_k]
+                                else:
+                                    dfAGSN.loc[index,col_n]= row[col_i]                                  
                             
                             
-                                              
-                            
+                            #if dfAGSN.loc[index,'direction']==1:                                
+                            #    dfAGSN.loc[index,col_n]= row[col_k]
+                            #else:
+                            #    dfAGSN.loc[index,col_n]= row[col_i]  
+                                                                                        
+                # am Anfang jedes Schnittes für jeden Leiter 1 Zeile ergänzen mit Pos=-1 (Vorlage für die ergänzte Zeile: Pos=0)
+                
+                # Zeilen herausfinden
                 startRowIdx=[]
                 for index, row in dfAGSN.iterrows():
                     if row['Pos']==0:
                         #print(row)
-                        startRowIdx.append(index)
-                        
-                dfStartRows=dfAGSN.loc[startRowIdx,:].sort_values(by=['LFDNR','XL','Pos']).drop_duplicates()
-                dfStartRows=dfStartRows[dfStartRows['Pos']==0]       
+                        startRowIdx.append(index)                        
+                dfStartRows=dfAGSN.loc[startRowIdx,:].sort_values(by=['LFDNR','XL','Pos']).copy(deep=True)#.drop_duplicates()
+                #dfStartRows=dfStartRows[dfStartRows['Pos']==0]       
 
+                # zu ergänzende Zeilen bearbeiten
+                
+                # - Pos = -1
+                # - L = 0
+                # - nextNODE ist der Startknoten in Schnittrichtung (also nicht nextNODE im Wortsinn)
+                # - Ergebnissspalten bekommen die Werte des Startknotens in Schnittrichtung
+                # - index: bleibt; d.h. unter den mehrfach belegten Indices sind ergänzte Zeilen (zu erkennen an Pos = -1)
+                
                 dfRowsAdded=[]
                 for index,row in dfStartRows.iterrows():
 
                         row['Pos']=-1
                         row['L']=0
                         
-                        if row['direction']==1:
-                            row['nextNODE']=row['NAME_i']
+                        if row['XL'] in [0,1]:
+                            if row['direction']==1:
+                                row['nextNODE']=row['NAME_i']
+                            else:
+                                row['nextNODE']=row['NAME_k']
                         else:
-                            row['nextNODE']=row['NAME_k']
-                        
-                        
-                      
-                
-                        for col_n,col_i,col_k in zip(cols_n,cols_i,cols_k):
+                            if row['direction']==-1:
+                                row['nextNODE']=row['NAME_i']
+                            else:
+                                row['nextNODE']=row['NAME_k']                            
+                            
+                        for col_n,col_i,col_k in zip(colsErg_n,colsErg_i,colsErg_k):
                             #print(col_n,col_i,col_k)
                             
-                            if row['direction']==1:
-                                dfAGSN.loc[index,col_n]= row[col_i]
+                            if row['XL'] in [0,1]:                                
+                                if row['direction']==1:                            
+                                    row[col_n]= row[col_i]
+                                else:                                
+                                    row[col_n]= row[col_k] 
                             else:
-                                dfAGSN.loc[index,col_n]= row[col_k]                               
-
-                
-                        #print(row)
+                                if row['direction']==-1:                            
+                                    row[col_n]= row[col_i]
+                                else:                                
+                                    row[col_n]= row[col_k]                                                                             
+                        
+                        logger.debug(f"{logStr} Pos -1: {row['NAME_i']} {row['NAME_k']} {row['direction']} PH_i={row['PH_i']} PH_k={row['PH_k']} PH_n={row['PH_n']} mlc_i={row['mlc_i']} mlc_k={row['mlc_k']} mlc_n={row['mlc_n']} ") 
+                        
                         df = pd.DataFrame([row])
                         dfRowsAdded.append(df)                 
                 
+                # Zeilen ergänzen
                 dfAGSN=pd.concat([dfAGSN]+dfRowsAdded).sort_values(by=['LFDNR','XL','Pos'])
                 
-                dfAGSN=dfAGSN.drop(cols_i+cols_k,axis=1)
+                # Ergebnisspalten _i,_k löschen
+                dfAGSN=dfAGSN.drop(colsErg_i+colsErg_k,axis=1)
+                
+                # Sachspalten _i,_k löschen
+                dfAGSN=dfAGSN.drop(colsSach_i+colsSach_k,axis=1)                
                                 
                 dfAGSN['L']=dfAGSN['L'].fillna(0)                
                 cols=dfAGSN.columns.to_list()
                 dfAGSN.insert(cols.index('L')+1,'LSum',dfAGSN.groupby(['LFDNR','XL'])['L'].cumsum())
                 
+                dfAGSN=dfAGSN.filter(items=colsAGSNBase
+                                     +colsVBELBase
+                                     +colsSach_n #(u.a. ZKOR_n)
+                                     +['LSum','direction']
+                                     +colsErg # die _i,_k gibt es hier bereits nicht mehr; nur die QM werden hier erfasst ...
+                                     +colsErg_n)       
+
+                # mlc ergaenzen (H ist ggf. barBzg und nicht mlc)      
+                colsPH=[]
+                colsRHO=[]
+                colsMlc=[]
+                for col in dfAGSN.columns.to_list():
+                    if type(col) == str and re.search('_n$',col):                                                
+                        try:
+                            colTuple=fStripV3Colik2Tuple(col=col, colPost='_n')                            
+                            if colTuple[1]=='KNOT~*~*~*~PH_n':
+                                        colsPH.append(col)
+                                        colsRHO.append(col.replace('PH','RHO'))
+                                        colsMlc.append(col.replace('PH','mlc'))                                                                    
+                        except:
+                            continue
+            
+                # zugeh. Ergebnisspalte anlegen                
+                for col in colsMlc:
+                    dfAGSN[col]=None                    
+
+                # Ergebnisspalte bestücken
+                for index, row in dfAGSN.iterrows():                                                                                       
+                        for col_n,col_PH,col_RHO in zip(colsMlc,colsPH,colsRHO):                        
+                            dfAGSN.loc[index,col_n]=row[col_PH]*10**5/(row[col_RHO]*9.81)+row['ZKOR_n']     
+                        
+                                                                  
                 self.V3_AGSN=dfAGSN
 
                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN ok so far.'))    
@@ -606,43 +833,7 @@ class dxWithMx():
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
         
         try: 
-            pass
-                  
-            def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:00:00'), Timestamp('2024-09-01 08:00:00'))_i"
-                                    ,colPost='_i'):
-                
-                colRstrip=col.replace(colPost,'')
-                colStrip=colRstrip[1:-1]            
-                colStrip=colStrip.replace("'",'')            
-                colTupleLst=str(colStrip).split(',')
-                            
-                colTuple=(colTupleLst[0].strip()
-                         ,colTupleLst[1].strip()+colPost
-                         ,pd.Timestamp(colTupleLst[2].strip().replace('Timestamp','')[1:-1])
-                         ,pd.Timestamp(colTupleLst[3].strip().replace('Timestamp','')[1:-1])
-                )
-                return colTuple
-            
-            def fGetMultiindexTupleFromV3Col(col):
-                
-                if isinstance(col,tuple):        
-                    return col
-                
-                elif isinstance(col,str):
-                    
-                    # ergaenzte Knotenwerte
-                    
-                    mObj=re.search('\)(?P<Postfix>_i)$',col)        
-                    if mObj != None:        
-                        return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
-                    
-                    mObj=re.search('\)(?P<Postfix>_k)$',col)        
-                    if mObj != None:                
-                        return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
-                        
-                    # keine ergaenzte Knotenwerte    
-                    return (col,None,None,None)   
-    
+           
             self.V3_KNOT.columns=pd.MultiIndex.from_tuples(
                 [fGetMultiindexTupleFromV3Col(col) for col in self.V3_KNOT.columns.to_list()]
                 ,names=['1','2','3','4'])    
@@ -734,6 +925,7 @@ def readDxAndMx(dbFile
                 - m.V3_FWVB: Housestations District Heating
                 - m.V3_KNOT: Nodes 
                 - m.V3_VBEL: Edges
+                - m.V3_ROHRVEC: Pipes including interior point results
                     
             - geopandas-Dfs based upon the Dfs above:
                 - m.gdf_ROHR: Pipes
@@ -1357,4 +1549,43 @@ def constructNewMultiindexFromCols(df=pd.DataFrame(),mColNames=['OBJTYPE','OBJID
         finally:
             pass
             #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
-            #return df   
+            #return df  
+            
+def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:00:00'), Timestamp('2024-09-01 08:00:00'))_i"
+                        ,colPost='_i'):
+    
+    colRstrip=col.replace(colPost,'')
+    colStrip=colRstrip[1:-1]            
+    colStrip=colStrip.replace("'",'')            
+    colTupleLst=str(colStrip).split(',')
+                
+    colTuple=(colTupleLst[0].strip()
+             ,colTupleLst[1].strip()+colPost
+             ,pd.Timestamp(colTupleLst[2].strip().replace('Timestamp','')[1:-1])
+             ,pd.Timestamp(colTupleLst[3].strip().replace('Timestamp','')[1:-1])
+    )
+    return colTuple
+
+def fGetMultiindexTupleFromV3Col(col):
+    
+    if isinstance(col,tuple):        
+        return col
+    
+    elif isinstance(col,str):
+        
+        # ergaenzte Knotenwerte
+        
+        mObj=re.search('\)(?P<Postfix>_i)$',col)        
+        if mObj != None:        
+            return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
+        
+        mObj=re.search('\)(?P<Postfix>_k)$',col)        
+        if mObj != None:                
+            return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
+        
+        mObj=re.search('\)(?P<Postfix>_n)$',col)        
+        if mObj != None:                
+            return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
+            
+        # keine ergaenzte Knotenwerte    
+        return (col,None,None,None)   
