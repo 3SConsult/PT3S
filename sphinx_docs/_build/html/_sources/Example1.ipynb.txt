@@ -92,7 +92,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "dbFilename=\"Wärmenetz-Planungsbeispiel\""
+    "dbFilename=\"DistrictHeating\""
    ]
   },
   {
@@ -146,7 +146,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "SirCalcXml = os.path.join(pt3s_path, \"Examples\", \"WDWärmenetz-Planungsbeispiel\", \"B1\", \"V0\", \"BZ1\", \"M-1-0-1.XML\")"
+    "SirCalcXml = os.path.join(pt3s_path, \"Examples\", \"WDDistrictHeating\", \"B1\", \"V0\", \"BZ1\", \"M-1-0-1.XML\")"
    ]
   },
   {

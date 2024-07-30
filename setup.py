@@ -113,13 +113,6 @@ setup(
             ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MXS'   
             ,'Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.XML'            
             
-            ,'Examples\Wärmenetz-Planungsbeispiel.db3'
-            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MX1'
-            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.MX2'
-            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MX3'
-            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.1.MXS'
-            ,'Examples\WDWärmenetz-Planungsbeispiel\B1\V0\BZ1\M-1-0-1.XML'
-            
             ,'Examples\Beispiel_Wasser_STAND9.db3'
             ,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.1.MX1'
             ,'Examples\WDBeispiel_Wasser_STAND9\B1\V0\BZ1\M-1-0-1.MX2'

@@ -39,22 +39,26 @@ Follow these steps to install and configure Git:
 Working with GitHub
 -------------------
 
-Clone GitHub Repository
-~~~~~~~~~~~~~~~~~~~~~~~
+.. _cloning-github-label: 
+
+Cloning the GitHub Repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To clone a GitHub repository to your local folder, follow these steps:
 
-1. **Navigating to the Parent Directory of Your Project:** Use the ``cd`` command followed by the path to the parent directory of your project (This is the directory that contains your project folder).
+1. **Navigate to the Parent Directory of Your Project:** Use the ``cd`` command followed by the path to the parent directory of your project (This is the directory that should contain your project folder).
 
    .. code-block:: bash
 
-      cd "path_to_your_parent_project_directory"
+      cd "C:\Users\User\3S"
 
 2. **Clone the GitHub Repository:** Use the ``git clone`` command followed by the URL of the repository.
 
    .. code-block:: bash
 
       git clone https://github.com/aw3s/PT3S
+
+Now, you are advised to following the steps of :ref:`install-editmode-label`.
 
 Get Latest Version from GitHub
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,8 +94,6 @@ To commit your changes to the GitHub repository, follow these steps:
 
    .. code-block:: bash
 
-      git add Dx.py
-      # or
       git add .
 
 2. **Create a new commit with a descriptive message:** Use the ``git commit -m "commit_message"`` command.
@@ -176,6 +178,29 @@ Follow these steps to upload a new version of your project to PyPI:
 
    Make sure to keep your API token secure and do not hard-code it in your scripts or code. It's best to set it as an environment variable or store it in a secret configuration file.
 
+.. _install-editmode-label:
+
+Installing PT3S in Editable Mode
+--------------------------------
+
+After :ref:`cloning-github-label`, you can install the package in editable mode. Here are the steps:
+
+1. **Navigate to the Directory of the Cloned Repository:** Use the ``cd`` command followed by the path to the directory of your project.
+
+   .. code-block:: bash
+
+      cd "C:\Users\User\3S\PT3S"
+
+2. **Install the Package in Editable Mode:** Use the ``pip install -e .`` command to install the package in editable mode. 
+
+   .. code-block:: bash
+
+      pip install -e .
+
+Now, your package is installed in editable mode. This means that you can make changes to the source code of the package and those changes will take effect immediately without needing to reinstall the package.
+
+By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to the project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this `PT3S.egg-link` file.
+
 .. _generating-documentation-label:
 
 Generating the Documentation
@@ -204,3 +229,63 @@ The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <h
 .. note::
 
    The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by a GitHub workflow and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
+   
+Testing Example Notebooks
+-------------------------
+      
+.. note::
+    This part of the Documentation is still in the works.    
+   
+Building a Docker Image
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Follow these steps to build a Docker image:
+
+1. **Navigate to your project directory:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
+
+   .. code-block:: bash
+
+      cd "C:\Users\User\3S\Docker\app"
+
+2. **Build the Docker image:** Run the following command, with the name you want to give to your Docker image:
+
+   .. code-block:: bash
+
+      docker build -t pt3stest .
+
+Running a Docker Container
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Follow these steps to run a Docker container:
+
+1. **Navigate to your project directory:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
+
+   .. code-block:: bash
+
+      "C:\Users\User\3S\Docker\app"
+    
+2. **Run the Docker container:** Run the following command with the name of your Docker image:
+
+   .. code-block:: bash
+
+      docker run -it --rm -p 8888:8888 pt3stest /bin/bash
+
+You now basically have acces to a cmd running in the container environment. The `-it` option starts the container in interactive mode, the `--rm` option removes the container after it exits.
+
+Testing Examples
+~~~~~~~~~~~~~~~~
+
+Follow these steps to test Example Notebooks:
+
+1. **Start JupyterLab**: Type the command into cmd of the container.
+
+   .. code-block:: bash
+   
+       jupyter notebook --ip=0.0.0.0 --allow-root
+       
+Alternative:
+       
+1. **Open Docker Desktop**: This is not preinstalled on 3sconsult devices. It needs to be installed.       
+
+2. **Open JupyterLab**: Under the container tab click on the host of the running container.
+
