@@ -376,7 +376,7 @@ class dxWithMx():
                             col=(a,pVec,c,d)
                             pVecAttr= re.search(Mx.regExpSir3sVecID,pVec).group('ATTRTYPE')
                             # man
-                            vROHR[(a,'man'+pVecAttr,c,d)]=vROHR[col]- pAtmosInBar 
+                            vROHR[(a,'man'+pVecAttr,c,d)]=vROHR[col] - pAtmosInBar 
                             # mlc
                             vROHR[(a,'mlc'+pVecAttr,c,d)]=vROHR[(a,'man'+pVecAttr,c,d)]*10**5/(vROHR[(a,b,c,d)]*9.81)+vROHR['ZVEC']     
                             
@@ -761,9 +761,60 @@ class dxWithMx():
                 for index, row in dfAGSN.iterrows():                                                                                       
                         for col_n,col_PH,col_RHO in zip(colsMlc,colsPH,colsRHO):                        
                             dfAGSN.loc[index,col_n]=row[col_PH]*10**5/(row[col_RHO]*9.81)+row['ZKOR_n']     
-                        
-                                                                  
+                            
                 self.V3_AGSN=dfAGSN
+                                        
+                # dfAGSN um Rohrvektoren erweitern                
+                dfAGSNVec=pd.merge(self.V3_AGSN,self.V3_ROHRVEC,left_on='OBJID',right_on='tk',suffixes=('','ROHRVEC')
+                                   #,how='left'
+                                   ).sort_values(by=['LFDNR','XL','Pos','SVEC'])                
+                
+                # erweiterten df bearbeiten
+                # S/E bearbeiten: nur jeweils 1 Zeile bleibt ueber
+                indToDelete=[]
+                for index,row in dfAGSNVec.iterrows():
+                    
+                    if row['Pos']==-1:
+                        if row['XL'] in [0,1]:    
+                            # im VL wird E geloescht wenn pos. def. in Schnittrichtung; sonst S
+                            if row['direction']==1:
+                                if row['IptIdx']=='E':
+                                    indToDelete.append(index)
+                            elif row['direction']==-1:
+                                if row['IptIdx']=='S':
+                                    indToDelete.append(index)
+                        else:
+                            # im RL wird S geloescht wenn pos. def. in Schnittrichtung; sonst E
+                            if row['direction']==1:
+                                if row['IptIdx']=='S':
+                                    indToDelete.append(index)
+                            elif row['direction']==-1:
+                                if row['IptIdx']=='E':
+                                    indToDelete.append(index)                            
+                            
+                    else:
+                        if row['XL'] in [0,1]:         
+                            # im VL wird S geloescht wenn pos. def. in Schnittrichtung; sonst E
+                            if row['direction']==1:
+                                if row['IptIdx']=='S':
+                                    indToDelete.append(index)
+                            elif row['direction']==-1:
+                                if row['IptIdx']=='E':
+                                    indToDelete.append(index)     
+                        else:                            
+                            # im RL wird E geloescht wenn pos. def. in Schnittrichtung; sonst S
+                             if row['direction']==1:
+                                 if row['IptIdx']=='E':
+                                     indToDelete.append(index)
+                             elif row['direction']==-1:
+                                 if row['IptIdx']=='S':
+                                     indToDelete.append(index)                                
+                #        
+                dfAGSNVec=dfAGSNVec.drop(indToDelete,axis=0)
+                
+
+                                                  
+                self.V3_AGSNVec=dfAGSNVec
 
                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN ok so far.'))    
             except Exception as e:
