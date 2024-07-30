@@ -69,7 +69,7 @@ To fetch the latest changes from the origin and merge them into your current bra
 
    .. code-block:: bash
 
-      cd "path_to_your_parent_project_directory"
+      cd "C:\Users\User\3S\PT3S"
       
 2. **Fetch the latest changes from the origin:** Use the ``git fetch origin`` command.
 
@@ -90,24 +90,46 @@ Commit Your Changes to the GitHub Repository
 
 To commit your changes to the GitHub repository, follow these steps:
 
-1. **Add files to the staging area:** Use the ``git add`` command followed by the name of the file. Use ``git add .`` to add all files.
+1. **Navigate to project directory:** Use the ``cd`` command followed by the path to the directory of your project (This directory should contain an invisible .git folder).
+
+   .. code-block:: bash
+
+      cd "C:\Users\User\3S\PT3S"
+
+2. **Add files to the staging area:** Use the ``git add`` command followed by the name of the file. Use ``git add .`` to add all files.
 
    .. code-block:: bash
 
       git add .
 
-2. **Create a new commit with a descriptive message:** Use the ``git commit -m "commit_message"`` command.
+3. **Create a new commit with a descriptive message:** Use the ``git commit -m "commit_message"`` command.
 
    .. code-block:: bash
 
       git commit -m "commit_message"
 
-3. **Push your commit to the GitHub Repository:** Use the ``git push origin master`` command.
+4. **Push your commit to the GitHub Repository:** Use the ``git push origin master`` command.
 
    .. code-block:: bash
 
       git push origin master
-     
+
+Collection of Useful Git Commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To discard all local changes and set your local HEAD to the master use:
+
+   .. code-block:: bash
+
+      git reset --hard origin/master
+
+To discard all remote changes and force push local HEAD to the master use:
+
+   .. code-block:: bash
+
+      git push origin master --force
+
+
 Working with PyPI
 -----------------     
          
@@ -150,11 +172,11 @@ Follow these steps to upload a new version of your project to PyPI:
 
 1. **Version Control:** Make sure you have documented your changes and changed the release number in all necessary files according to :ref:`version-control-label`.
 
-2. **Navigate to Your Project Directory:** Use the ``cd`` command followed by the path to your project directory.
+2. **Navigate to project directory:** Use the ``cd`` command followed by the path to the directory of your project.
 
    .. code-block:: bash
 
-      cd project
+      cd "C:\Users\User\3S\PT3S"
 
 3. **Delete Old Distributions:** Remove all old distributions in your ``dist`` directory.
 
@@ -203,8 +225,13 @@ By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C
 
 .. _generating-documentation-label:
 
+PT3S's Documentation
+--------------------
+
+The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.
+
 Generating the Documentation
-----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To generate documentation, follow these steps:
 
@@ -214,7 +241,7 @@ To generate documentation, follow these steps:
 
    .. code-block:: bash
 
-      cd .../sphinx_docs
+      cd "C:\Users\User\3S\PT3S"\sphinx_docs"
 
 3. **Make an HTML build:** Use the ``.\make.bat html`` command.
 
@@ -231,13 +258,13 @@ The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <h
    The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by a GitHub workflow and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
    
 Testing Example Notebooks
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
       
 .. note::
     This part of the Documentation is still in the works.    
    
 Building a Docker Image
-~~~~~~~~~~~~~~~~~~~~~~~
+"""""""""""""""""""""""
 
 Follow these steps to build a Docker image:
 
@@ -254,7 +281,7 @@ Follow these steps to build a Docker image:
       docker build -t pt3stest .
 
 Running a Docker Container
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""
 
 Follow these steps to run a Docker container:
 
@@ -273,7 +300,7 @@ Follow these steps to run a Docker container:
 You now basically have acces to a cmd running in the container environment. The `-it` option starts the container in interactive mode, the `--rm` option removes the container after it exits.
 
 Testing Examples
-~~~~~~~~~~~~~~~~
+""""""""""""""""
 
 Follow these steps to test Example Notebooks:
 

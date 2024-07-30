@@ -1417,7 +1417,14 @@ class Dx():
                     logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: Edge-Type {:s} failed.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)            
                     logger.debug(logStrEdge)             
             
-            dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True)
+            try:
+                dfVBEL = pd.merge(dfVBEL, pd.concat(dfs), left_index=True, right_index=True)
+                logger.debug("dfVBEL Merge operation successful.")
+            except Exception as e:
+                logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: Edge-Type {:s} failed.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)
+                logger.debug(logStrEdge)
+            
+            #dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True)
             
             #logger.debug("{0:s}dfVBEL nach concat: {1:s}".format(logStr,dfVBEL.head().to_string()))
             

@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Imports &mdash; PT3S 90.14.24.0.dev1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
-      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=bbec6902"></script>
-        <script src="_static/documentation_options.js?v=c9f58c65"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -85,7 +85,7 @@
            <div itemprop="articleBody">
              
   <section id="Imports">
-<h1>Imports<a class="headerlink" href="#Imports" title="Link to this heading"></a></h1>
+<h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -156,7 +156,7 @@
 </div>
 </section>
 <section id="Logging">
-<h1>Logging<a class="headerlink" href="#Logging" title="Link to this heading"></a></h1>
+<h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -184,12 +184,12 @@
 </div>
 </section>
 <section id="Read-Model-and-Results">
-<h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Link to this heading"></a></h1>
+<h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;DistrictHeating&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example3&quot;</span>
 <span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
                     <span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span>
                     <span class="o">+</span><span class="n">dbFilename</span>
@@ -214,14 +214,9 @@
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; Dx.__init__: dbFile (abspath): c:\users\wolters\3s\pt3s\Examples\DistrictHeating.db3 exists readable ...
-INFO    ; dxAndMxHelperFcts.readDxAndMx:
-+..\Examples\DistrictHeating.db3 is newer than
-+..\Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MX1:
-+SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
-+in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDDistrictHeating\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
+INFO    ; Dx.__init__: dbFile (abspath): c:\users\wolters\3s\pt3s\Examples\Example3.db3 exists readable ...
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample3\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example3: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -242,8 +237,8 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </pre></div></div>
 </div>
 </section>
-<section id="Longitudinal-Sections">
-<h1>Longitudinal Sections<a class="headerlink" href="#Longitudinal-Sections" title="Link to this heading"></a></h1>
+<section id="Longitudinal-Sections:-V3_AGSN">
+<h1>Longitudinal Sections: V3_AGSN<a class="headerlink" href="#Longitudinal-Sections:-V3_AGSN" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -857,6 +852,9 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
  &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;]
 </pre></div></div>
 </div>
+</section>
+<section id="Section-No.-1">
+<h1>Section No. 1<a class="headerlink" href="#Section-No.-1" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -2418,9 +2416,9 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </section>
 <section id="Plot">
-<h1>Plot<a class="headerlink" href="#Plot" title="Link to this heading"></a></h1>
+<h1>Plot<a class="headerlink" href="#Plot" title="Permalink to this heading"></a></h1>
 <section id="Define-Axes">
-<h2>Define Axes<a class="headerlink" href="#Define-Axes" title="Link to this heading"></a></h2>
+<h2>Define Axes<a class="headerlink" href="#Define-Axes" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -2470,13 +2468,23 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 </section>
-<section id="Non-interactive-Plot">
-<h2>Non-interactive Plot<a class="headerlink" href="#Non-interactive-Plot" title="Link to this heading"></a></h2>
+<section id="Plotfunction">
+<h2>Plotfunction<a class="headerlink" href="#Plotfunction" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">():</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="p">,</span><span class="n">dfAGSNRL</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="p">,</span><span class="n">PHCol</span><span class="o">=</span><span class="s1">&#39;PH_n&#39;</span>
+        <span class="p">,</span><span class="n">mlcCol</span><span class="o">=</span><span class="s1">&#39;mlc_n&#39;</span>
+        <span class="p">,</span><span class="n">zKoorCol</span><span class="o">=</span><span class="s1">&#39;ZKOR_n&#39;</span>
+        <span class="p">,</span><span class="n">barBzgCol</span><span class="o">=</span><span class="s1">&#39;H_n&#39;</span>
+        <span class="p">,</span><span class="n">QMCol</span><span class="o">=</span><span class="s1">&#39;QM&#39;</span>
+        <span class="p">,</span><span class="n">TCol</span><span class="o">=</span><span class="s1">&#39;T_n&#39;</span>
+        <span class="p">,</span><span class="n">xCol</span><span class="o">=</span><span class="s1">&#39;LSum&#39;</span>
+
+<span class="p">):</span>
 
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
 
@@ -2487,34 +2495,34 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
     <span class="c1">#PH</span>
     <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyPH</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
-    <span class="n">PH_SL</span><span class="o">=</span><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;PH_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH SL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
-    <span class="n">PH_RL</span><span class="o">=</span><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;PH_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH RL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+    <span class="n">PH_SL</span><span class="o">=</span><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="n">PHCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH SL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+    <span class="n">PH_RL</span><span class="o">=</span><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">PHCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH RL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
 
     <span class="c1">#mlc</span>
     <span class="n">ax11</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fymlc</span><span class="p">(</span><span class="n">ax11</span><span class="p">)</span>
-    <span class="n">mlc_SL</span><span class="o">=</span><span class="n">ax11</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mlc SL&#39;</span><span class="p">)</span>
-    <span class="n">mlc_RL</span><span class="o">=</span><span class="n">ax11</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mlc RL&#39;</span><span class="p">)</span>
+    <span class="n">mlc_SL</span><span class="o">=</span><span class="n">ax11</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="n">mlcCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mlc SL&#39;</span><span class="p">)</span>
+    <span class="n">mlc_RL</span><span class="o">=</span><span class="n">ax11</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">mlcCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mlc RL&#39;</span><span class="p">)</span>
 
-    <span class="n">z</span><span class="o">=</span><span class="n">ax11</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;ZKOR_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+    <span class="n">z</span><span class="o">=</span><span class="n">ax11</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="n">zKoorCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
 
     <span class="c1">#barBZG</span>
     <span class="n">ax12</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fybarBzg</span><span class="p">(</span><span class="n">ax12</span><span class="p">)</span>
-    <span class="n">barB_SL</span><span class="o">=</span><span class="n">ax12</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;H_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;H SL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dashdot&#39;</span><span class="p">)</span>
-    <span class="n">barB_RL</span><span class="o">=</span><span class="n">ax12</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;H_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;H RL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dashdot&#39;</span><span class="p">)</span>
+    <span class="n">barB_SL</span><span class="o">=</span><span class="n">ax12</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="n">barBzgCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;H SL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dashdot&#39;</span><span class="p">)</span>
+    <span class="n">barB_RL</span><span class="o">=</span><span class="n">ax12</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">barBzgCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;H RL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;dashdot&#39;</span><span class="p">)</span>
 
     <span class="c1">#M</span>
     <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyM</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
-    <span class="n">QM_SL</span><span class="o">=</span><span class="n">ax2</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;QM&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;M SL&#39;</span><span class="p">)</span>
-    <span class="n">QM_RL</span><span class="o">=</span><span class="n">ax2</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;QM&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;M RL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">QM_SL</span><span class="o">=</span><span class="n">ax2</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="n">QMCol</span><span class="p">]</span><span class="o">*</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;M SL&#39;</span><span class="p">)</span>
+    <span class="n">QM_RL</span><span class="o">=</span><span class="n">ax2</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">QMCol</span><span class="p">]</span><span class="o">*</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;M RL&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 
     <span class="c1">#T</span>
     <span class="n">ax3</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyT</span><span class="p">(</span><span class="n">ax3</span><span class="p">)</span>
-    <span class="n">T_SL</span><span class="o">=</span><span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;T_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;T SL&#39;</span><span class="p">)</span>
-    <span class="n">T_RL</span><span class="o">=</span><span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="s1">&#39;T_n&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lavender&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;T RL&#39;</span><span class="p">)</span>
+    <span class="n">T_SL</span><span class="o">=</span><span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="n">TCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;T SL&#39;</span><span class="p">)</span>
+    <span class="n">T_RL</span><span class="o">=</span><span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">xCol</span><span class="p">],</span> <span class="n">dfAGSNRL</span><span class="p">[</span><span class="n">TCol</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lavender&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;T RL&#39;</span><span class="p">)</span>
 
     <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Longitudinal Section for &#39;</span><span class="o">+</span><span class="n">dbFilename</span><span class="p">)</span>
 
@@ -2527,11 +2535,14 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </pre></div>
 </div>
 </div>
+</section>
+<section id="id1">
+<h2>Plot<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSN</span><span class="p">,</span><span class="n">dfAGSNRL</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2539,91 +2550,15 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example3_22_0.png" src="_images/Example3_22_0.png" />
+<img alt="_images/Example3_24_0.png" src="_images/Example3_24_0.png" />
 </div>
 </div>
+</section>
+</section>
+<section id="V3_AGSN:-Columns">
+<h1>V3_AGSN: Columns<a class="headerlink" href="#V3_AGSN:-Columns" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSN</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;Pos&#39;,
- &#39;pk&#39;,
- &#39;tk&#39;,
- &#39;LFDNR&#39;,
- &#39;NAME&#39;,
- &#39;XL&#39;,
- &#39;compNr&#39;,
- &#39;nextNODE&#39;,
- &#39;OBJTYPE&#39;,
- &#39;OBJID&#39;,
- &#39;L&#39;,
- &#39;DN&#39;,
- &#39;Am2&#39;,
- &#39;Vm3&#39;,
- &#39;NAME_CONT&#39;,
- &#39;NAME_i&#39;,
- &#39;NAME_k&#39;,
- &#39;ZKOR_n&#39;,
- &#39;BESCHREIBUNG_n&#39;,
- &#39;KVR_n&#39;,
- &#39;LSum&#39;,
- &#39;direction&#39;,
- (&#39;STAT&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- &#39;QM&#39;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#39;PH_n&#39;,
- &#39;T_n&#39;,
- &#39;H_n&#39;,
- &#39;RHO_n&#39;,
- &#39;mlc_n&#39;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;]
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
@@ -2631,7 +2566,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2702,8 +2637,11 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
  &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;]
 </pre></div></div>
 </div>
+</section>
+<section id="V3_ROHRVEC-(pipe-interior-points):-Columns">
+<h1>V3_ROHRVEC (pipe interior points): Columns<a class="headerlink" href="#V3_ROHRVEC-(pipe-interior-points):-Columns" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
@@ -2711,7 +2649,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3442,7 +3380,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="o">.</span><span class="n">shape</span>
@@ -3450,827 +3388,226 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-((537, 52), (1070, 279))
+((537, 52), (1184, 279))
 </pre></div></div>
 </div>
+</section>
+<section id="V3_AGSNVec:-Longitudinal-Sections-with-pipe-interior-points">
+<h1>V3_AGSNVec: Longitudinal Sections with pipe interior points<a class="headerlink" href="#V3_AGSNVec:-Longitudinal-Sections-with-pipe-interior-points" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;OBJID&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span><span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;ROHRVEC&#39;</span><span class="p">),</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">,</span><span class="s1">&#39;XL&#39;</span><span class="p">,</span><span class="s1">&#39;Pos&#39;</span><span class="p">,</span><span class="s1">&#39;SVEC&#39;</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Pos</th>
+      <th>pk</th>
+      <th>tk</th>
+      <th>LFDNR</th>
+      <th>NAME</th>
+      <th>XL</th>
+      <th>compNr</th>
+      <th>nextNODE</th>
+      <th>OBJTYPE</th>
+      <th>OBJID</th>
+      <th>...</th>
+      <th>(TMIN, QMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMIN, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVECMAX_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVECMAX_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVECMIN_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVECMIN_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, QMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-E0</td>
+      <td>ROHR</td>
+      <td>5691533564979419761</td>
+      <td>...</td>
+      <td>297.287026</td>
+      <td>287.090085</td>
+      <td>5.786535</td>
+      <td>602.571157</td>
+      <td>5.786535</td>
+      <td>602.571157</td>
+      <td>4.87839</td>
+      <td>592.985013</td>
+      <td>557.322756</td>
+      <td>538.206592</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K1683S</td>
+      <td>ROHR</td>
+      <td>5691533564979419761</td>
+      <td>...</td>
+      <td>297.28682</td>
+      <td>287.090085</td>
+      <td>5.70284</td>
+      <td>602.48761</td>
+      <td>5.70284</td>
+      <td>602.48761</td>
+      <td>4.800115</td>
+      <td>592.958688</td>
+      <td>557.322086</td>
+      <td>538.206592</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>1</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K1693S</td>
+      <td>ROHR</td>
+      <td>5048873293262650113</td>
+      <td>...</td>
+      <td>297.286669</td>
+      <td>287.090085</td>
+      <td>5.63008</td>
+      <td>602.419526</td>
+      <td>5.63008</td>
+      <td>602.419526</td>
+      <td>4.73177</td>
+      <td>592.937222</td>
+      <td>557.321523</td>
+      <td>538.206592</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>2</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K2163S</td>
+      <td>ROHR</td>
+      <td>5715081934973525403</td>
+      <td>...</td>
+      <td>-557.321945</td>
+      <td>-538.206592</td>
+      <td>5.594635</td>
+      <td>602.385379</td>
+      <td>5.594635</td>
+      <td>602.385379</td>
+      <td>4.69854</td>
+      <td>592.926454</td>
+      <td>-297.286218</td>
+      <td>-287.090085</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>3</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K2043S</td>
+      <td>ROHR</td>
+      <td>5413647981880727734</td>
+      <td>...</td>
+      <td>-557.321593</td>
+      <td>-538.206592</td>
+      <td>5.520895</td>
+      <td>602.306946</td>
+      <td>5.520895</td>
+      <td>602.306946</td>
+      <td>4.6299</td>
+      <td>592.901869</td>
+      <td>-297.28588</td>
+      <td>-287.090085</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 331 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;Pos&#39;,
- &#39;pk&#39;,
- &#39;tk&#39;,
- &#39;LFDNR&#39;,
- &#39;NAME&#39;,
- &#39;XL&#39;,
- &#39;compNr&#39;,
- &#39;nextNODE&#39;,
- &#39;OBJTYPE&#39;,
- &#39;OBJID&#39;,
- &#39;L&#39;,
- &#39;DN&#39;,
- &#39;Am2&#39;,
- &#39;Vm3&#39;,
- &#39;NAME_CONT&#39;,
- &#39;NAME_i&#39;,
- &#39;NAME_k&#39;,
- &#39;ZKOR_n&#39;,
- &#39;BESCHREIBUNG_n&#39;,
- &#39;KVR_n&#39;,
- &#39;LSum&#39;,
- &#39;direction&#39;,
- (&#39;STAT&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- &#39;QM&#39;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#39;PH_n&#39;,
- &#39;T_n&#39;,
- &#39;H_n&#39;,
- &#39;RHO_n&#39;,
- &#39;mlc_n&#39;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#39;pkROHRVEC&#39;,
- &#39;fkDE&#39;,
- &#39;rk&#39;,
- &#39;tkROHRVEC&#39;,
- &#39;fkKI&#39;,
- &#39;fkKK&#39;,
- &#39;fkDTRO_ROWD&#39;,
- &#39;fkLTGR&#39;,
- &#39;fkSTRASSE&#39;,
- &#39;LROHRVEC&#39;,
- &#39;LZU&#39;,
- &#39;RAU&#39;,
- &#39;JLAMBS&#39;,
- &#39;LAMBDA0&#39;,
- &#39;ZEIN&#39;,
- &#39;ZAUS&#39;,
- &#39;ZUML&#39;,
- &#39;ASOLL&#39;,
- &#39;INDSCHALL&#39;,
- &#39;BAUJAHR&#39;,
- &#39;HAL&#39;,
- &#39;fkCONT&#39;,
- &#39;fk2LROHR&#39;,
- &#39;BESCHREIBUNG&#39;,
- &#39;GEOMWKB&#39;,
- &#39;DELETED&#39;,
- &#39;SELECT1&#39;,
- &#39;IDREFERENZ&#39;,
- &#39;KENNUNG&#39;,
- &#39;IPLANUNG&#39;,
- &#39;KVR&#39;,
- &#39;pk_BZ&#39;,
- &#39;fkDE_BZ&#39;,
- &#39;fk&#39;,
- &#39;QSVB&#39;,
- &#39;IRTRENN&#39;,
- &#39;LECKSTATUS&#39;,
- &#39;LECKSTART&#39;,
- &#39;LECKEND&#39;,
- &#39;LECKORT&#39;,
- &#39;LECKMENGE&#39;,
- &#39;IMPTNZ&#39;,
- &#39;ZVLIMPTNZ&#39;,
- &#39;KANTENZV&#39;,
- &#39;GEOM&#39;,
- &#39;GRAF&#39;,
- &#39;MId&#39;,
- &#39;MText&#39;,
- &#39;Basis&#39;,
- &#39;Variante&#39;,
- &#39;BZ&#39;,
- &#39;Geaendert&#39;,
- &#39;Erstellt&#39;,
- &#39;pk_VMBZ&#39;,
- &#39;fkBASIS&#39;,
- &#39;fkVARIANTE&#39;,
- &#39;fkBZ&#39;,
- &#39;MZ&#39;,
- &#39;MT&#39;,
- &#39;pk_CONT&#39;,
- &#39;fkDE_CONT&#39;,
- &#39;rk_CONT&#39;,
- &#39;tk_CONT&#39;,
- &#39;ID_CONT&#39;,
- &#39;NAME_CONTROHRVEC&#39;,
- &#39;IDPARENT_CONT&#39;,
- &#39;rkPARENT_CONT&#39;,
- &#39;LFDNR_CONT&#39;,
- &#39;GRAF_CONT&#39;,
- &#39;FONT_CONT&#39;,
- &#39;GEOM_CONT&#39;,
- &#39;DELETED_CONT&#39;,
- &#39;SELECT1_CONT&#39;,
- &#39;IDREFERENZ_CONT&#39;,
- &#39;NAME_DTRO&#39;,
- &#39;DNROHRVEC&#39;,
- &#39;DI&#39;,
- &#39;DA&#39;,
- &#39;S&#39;,
- &#39;KT&#39;,
- &#39;PN&#39;,
- &#39;Am2ROHRVEC&#39;,
- &#39;Vm3ROHRVEC&#39;,
- &#39;NAME_LTGR&#39;,
- &#39;NAME_STRASSE&#39;,
- &#39;tk_i&#39;,
- &#39;NAME_iROHRVEC&#39;,
- &#39;tk_k&#39;,
- &#39;NAME_kROHRVEC&#39;,
- &#39;mx2NofPts&#39;,
- &#39;dL&#39;,
- &#39;mx2Idx&#39;,
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~A&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~A&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~A&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~A&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~DTTR&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~DTTR&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~DTTR&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~DTTR&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~DWVERL&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~DWVERL&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~DWVERL&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~DWVERL&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~DWVERLABS&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~DWVERLABS&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~DWVERLABS&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~DWVERLABS&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~IAKTIV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~IAKTIV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~IAKTIV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~IAKTIV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~IRTRENN&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~IRTRENN&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~IRTRENN&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~IRTRENN&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~JV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~JV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~JV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~JV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~PDAMPF&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~PDAMPF&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~PDAMPF&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~PDAMPF&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~PHR&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~PHR&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~PHR&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~PHR&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~PMIN&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~PMIN&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~PMIN&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~PMIN&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~QMAV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~QMAV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~QMAV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~QMAV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~QMI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~QMI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~QMI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~QMI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~QMK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~QMK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~QMK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~QMK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~RHOI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~RHOI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~RHOI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~RHOI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~RHOK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~RHOK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~RHOK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~RHOK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~TI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~TI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~TI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~TI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~TK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~TK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~TK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~TK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~VAV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~VAV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~VAV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~VAV&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~VI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~VI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~VI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~VI&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~VK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~VK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~VK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~VK&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~VOLDA&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~VOLDA&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~VOLDA&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~VOLDA&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~WVL&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~WVL&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~WVL&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~WVL&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_i&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_i&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_i&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_i&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_i&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_k&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_k&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_k&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_k&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_k&#34;,
- &#39;QMAVAbs&#39;,
- &#39;VAVAbs&#39;,
- &#39;PHRAbs&#39;,
- &#39;JVAbs&#39;,
- &#39;IptIdx&#39;,
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~MVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~MVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~MVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~MVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~PVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~PVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~PVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~PVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~PVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~PVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~PVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~PVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~PVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~PVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~PVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~PVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~RHOVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~RHOVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~RHOVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~RHOVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~TTRVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~TTRVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~TTRVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~TTRVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;ROHR~*~*~*~TVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;ROHR~*~*~*~TVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;ROHR~*~*~*~TVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;ROHR~*~*~*~TVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- &#39;SVEC&#39;,
- &#39;ZVEC&#39;,
- (&#39;STAT&#39;,
-  &#39;manPVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;mlcPVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;manPVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;mlcPVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;manPVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;mlcPVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;QMVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;STAT&#39;,
-  &#39;tMVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;manPVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;mlcPVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;manPVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;mlcPVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;manPVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;mlcPVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;QMVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;tMVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;manPVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;mlcPVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;manPVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;mlcPVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;manPVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;mlcPVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;QMVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;tMVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;manPVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;mlcPVECMAX_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;manPVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;mlcPVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;manPVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;mlcPVECMIN_INST&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;QMVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;tMVEC&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;))]
-</pre></div></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#dfAGSNVec.columns.to_list()</span>
+</pre></div>
 </div>
+</div>
+</section>
+<section id="V3_AGSNVec's-columns-from-Multiindex-perspective">
+<h1>V3_AGSNVec’s columns from Multiindex-perspective<a class="headerlink" href="#V3_AGSNVec's-columns-from-Multiindex-perspective" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">(</span>
@@ -4280,7 +3617,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_list</span><span class="p">()))</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">col</span><span class="p">)])</span>
@@ -4288,7 +3625,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -4347,7 +3684,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_list</span><span class="p">()))</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">col</span><span class="p">)])</span>
@@ -4355,7 +3692,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -4494,7 +3831,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_list</span><span class="p">()))</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">col</span><span class="p">)])</span>
@@ -4502,7 +3839,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -4511,7 +3848,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_list</span><span class="p">()))</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">col</span><span class="p">)])</span>
@@ -4519,7 +3856,7 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -4527,154 +3864,19 @@ INFO    ; dxWithMx.__init__: DistrictHeating: processing dx and mx ...
 [Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)]
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;OBJID&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span><span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;ROHRVEC&#39;</span><span class="p">),</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">,</span><span class="s1">&#39;XL&#39;</span><span class="p">,</span><span class="s1">&#39;Pos&#39;</span><span class="p">,</span><span class="s1">&#39;SVEC&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
+</section>
+<section id="Examination-of-V3_AGSNVec">
+<h1>Examination of V3_AGSNVec<a class="headerlink" href="#Examination-of-V3_AGSNVec" title="Permalink to this heading"></a></h1>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#dfAGSNVec.columns.to_list()</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span>
-    <span class="p">(</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
-    <span class="o">&amp;</span>
-    <span class="p">(</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;XL&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">]</span>
-<span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="c1">#colsAGSNBase+V3_ROHRVEC_BaseCols]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-array([&#39;S&#39;, &#39;E&#39;], dtype=object)
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t0rVec</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1">&#39;</span><span class="p">))</span><span class="c1">#.%f&#39;))</span>
-<span class="n">manPVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span>
-                      <span class="n">t0rVec</span><span class="p">,</span>
-                      <span class="n">t0rVec</span><span class="p">)</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">manPVEC</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(&#39;STAT&#39;,
- &#39;manPVEC&#39;,
- Timestamp(&#39;2023-02-12 23:00:00&#39;),
- Timestamp(&#39;2023-02-12 23:00:00&#39;))
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">manPVEC</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlcPVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;mlcPVEC&#39;</span><span class="p">,</span>
-                      <span class="n">t0rVec</span><span class="p">,</span>
-                      <span class="n">t0rVec</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">mlcPVEC</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">QMVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;QMVEC&#39;</span><span class="p">,</span>
-                      <span class="n">t0rVec</span><span class="p">,</span>
-                      <span class="n">t0rVec</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;QMVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">QMVEC</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">colsAGSNBase</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">,</span><span class="s1">&#39;nextNODE&#39;</span><span class="p">]</span>
-          <span class="o">+</span><span class="p">[</span><span class="s1">&#39;SVEC&#39;</span><span class="p">,</span><span class="s1">&#39;ZVEC&#39;</span><span class="p">]</span>
-             <span class="o">+</span><span class="p">[</span><span class="s1">&#39;QMVEC&#39;</span><span class="p">,</span><span class="s1">&#39;QM&#39;</span><span class="p">]</span>
-          <span class="o">+</span><span class="p">[</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;PH_n&#39;</span><span class="p">]</span>
-        <span class="c1"># +V3_ROHRVEC_BaseCols</span>
-         <span class="o">+</span><span class="p">[</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">]</span>
-         <span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -4696,143 +3898,346 @@ array([&#39;S&#39;, &#39;E&#39;], dtype=object)
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>LFDNR</th>
-      <th>XL</th>
       <th>Pos</th>
-      <th>OBJTYPE</th>
-      <th>DN</th>
-      <th>NAME_i</th>
-      <th>NAME_k</th>
-      <th>QM</th>
-      <th>direction</th>
-      <th>LSum</th>
-      <th>IptIdx</th>
+      <th>pk</th>
+      <th>tk</th>
+      <th>LFDNR</th>
+      <th>NAME</th>
+      <th>XL</th>
+      <th>compNr</th>
       <th>nextNODE</th>
-      <th>SVEC</th>
-      <th>ZVEC</th>
-      <th>QMVEC</th>
-      <th>QM</th>
-      <th>manPVEC</th>
-      <th>PH_n</th>
-      <th>mlcPVEC</th>
-      <th>mlc_n</th>
+      <th>OBJTYPE</th>
+      <th>OBJID</th>
+      <th>...</th>
+      <th>(TMIN, QMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMIN, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVECMAX_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVECMAX_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVECMIN_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVECMIN_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, QMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>178</th>
-      <td>1.0</td>
-      <td>1</td>
+      <th>0</th>
       <td>-1</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>0.000000</td>
-      <td>S</td>
-      <td>V-E0</td>
-      <td>0.0</td>
-      <td>541.48999</td>
-      <td>297.287026</td>
-      <td>287.090057</td>
-      <td>4.87839</td>
-      <td>4.878388</td>
-      <td>592.985013</td>
-      <td>592.984993</td>
-    </tr>
-    <tr>
-      <th>179</th>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
       <td>1.0</td>
-      <td>1</td>
-      <td>-1</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>0.000000</td>
-      <td>E</td>
-      <td>V-E0</td>
-      <td>15.351701</td>
-      <td>542.289978</td>
-      <td>297.286669</td>
-      <td>287.090057</td>
-      <td>4.800115</td>
-      <td>4.878388</td>
-      <td>592.958688</td>
-      <td>592.984993</td>
-    </tr>
-    <tr>
-      <th>180</th>
-      <td>1.0</td>
-      <td>1</td>
+      <td>Längsschnitt</td>
       <td>0</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
-      <td>287.090057</td>
       <td>1</td>
-      <td>15.351701</td>
-      <td>S</td>
-      <td>V-K1683S</td>
-      <td>0.0</td>
-      <td>541.48999</td>
+      <td>V-E0</td>
+      <td>ROHR</td>
+      <td>5691533564979419761</td>
+      <td>...</td>
       <td>297.287026</td>
-      <td>287.090057</td>
+      <td>287.090085</td>
+      <td>5.786535</td>
+      <td>602.571157</td>
+      <td>5.786535</td>
+      <td>602.571157</td>
       <td>4.87839</td>
-      <td>4.800117</td>
       <td>592.985013</td>
-      <td>592.958713</td>
+      <td>557.322756</td>
+      <td>538.206592</td>
     </tr>
     <tr>
-      <th>181</th>
-      <td>1.0</td>
-      <td>1</td>
+      <th>3</th>
       <td>0</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
-      <td>287.090057</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
       <td>1</td>
-      <td>15.351701</td>
-      <td>E</td>
       <td>V-K1683S</td>
-      <td>15.351701</td>
-      <td>542.289978</td>
-      <td>297.286669</td>
-      <td>287.090057</td>
+      <td>ROHR</td>
+      <td>5691533564979419761</td>
+      <td>...</td>
+      <td>297.28682</td>
+      <td>287.090085</td>
+      <td>5.70284</td>
+      <td>602.48761</td>
+      <td>5.70284</td>
+      <td>602.48761</td>
       <td>4.800115</td>
-      <td>4.800117</td>
       <td>592.958688</td>
-      <td>592.958713</td>
+      <td>557.322086</td>
+      <td>538.206592</td>
     </tr>
     <tr>
-      <th>182</th>
+      <th>25</th>
+      <td>1</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
       <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
       <td>1</td>
-      <td>1</td>
+      <td>V-K1693S</td>
       <td>ROHR</td>
-      <td>350</td>
-      <td>V-K1683S</td>
-      <td>V-K1693S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>27.860648</td>
-      <td>S</td>
-      <td>V-K1693S</td>
-      <td>0.0</td>
-      <td>542.289978</td>
+      <td>5048873293262650113</td>
+      <td>...</td>
       <td>297.286669</td>
-      <td>287.090057</td>
-      <td>4.800115</td>
-      <td>4.731768</td>
-      <td>592.958688</td>
-      <td>592.937202</td>
+      <td>287.090085</td>
+      <td>5.63008</td>
+      <td>602.419526</td>
+      <td>5.63008</td>
+      <td>602.419526</td>
+      <td>4.73177</td>
+      <td>592.937222</td>
+      <td>557.321523</td>
+      <td>538.206592</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>2</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K2163S</td>
+      <td>ROHR</td>
+      <td>5715081934973525403</td>
+      <td>...</td>
+      <td>-557.321945</td>
+      <td>-538.206592</td>
+      <td>5.594635</td>
+      <td>602.385379</td>
+      <td>5.594635</td>
+      <td>602.385379</td>
+      <td>4.69854</td>
+      <td>592.926454</td>
+      <td>-297.286218</td>
+      <td>-287.090085</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>3</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K2043S</td>
+      <td>ROHR</td>
+      <td>5413647981880727734</td>
+      <td>...</td>
+      <td>-557.321593</td>
+      <td>-538.206592</td>
+      <td>5.520895</td>
+      <td>602.306946</td>
+      <td>5.520895</td>
+      <td>602.306946</td>
+      <td>4.6299</td>
+      <td>592.901869</td>
+      <td>-297.28588</td>
+      <td>-287.090085</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 331 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;S&#39;, &#39;E&#39;, 0], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span><span class="o">~</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;S&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">])]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Pos</th>
+      <th>pk</th>
+      <th>tk</th>
+      <th>LFDNR</th>
+      <th>NAME</th>
+      <th>XL</th>
+      <th>compNr</th>
+      <th>nextNODE</th>
+      <th>OBJTYPE</th>
+      <th>OBJID</th>
+      <th>...</th>
+      <th>(TMIN, QMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMIN, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVECMAX_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVECMAX_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, manPVECMIN_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, mlcPVECMIN_INST, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, QMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+      <th>(TMAX, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>109</th>
+      <td>8</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K863S</td>
+      <td>ROHR</td>
+      <td>5443612009555325057</td>
+      <td>...</td>
+      <td>297.284715</td>
+      <td>287.090085</td>
+      <td>5.22473</td>
+      <td>601.580149</td>
+      <td>5.22473</td>
+      <td>601.580149</td>
+      <td>4.3818</td>
+      <td>592.682524</td>
+      <td>557.314619</td>
+      <td>538.206592</td>
+    </tr>
+    <tr>
+      <th>127</th>
+      <td>9</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K873S</td>
+      <td>ROHR</td>
+      <td>5130272059781459965</td>
+      <td>...</td>
+      <td>297.283964</td>
+      <td>287.090085</td>
+      <td>5.17294</td>
+      <td>601.263201</td>
+      <td>5.17294</td>
+      <td>601.263201</td>
+      <td>4.351125</td>
+      <td>592.588501</td>
+      <td>557.312047</td>
+      <td>538.206592</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>15</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K2063S</td>
+      <td>ROHR</td>
+      <td>5545006552869488471</td>
+      <td>...</td>
+      <td>-378.893882</td>
+      <td>-365.904602</td>
+      <td>5.007955</td>
+      <td>600.370856</td>
+      <td>5.007955</td>
+      <td>600.370856</td>
+      <td>4.245565</td>
+      <td>592.323542</td>
+      <td>-202.245072</td>
+      <td>-195.314845</td>
+    </tr>
+    <tr>
+      <th>235</th>
+      <td>17</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K573S</td>
+      <td>ROHR</td>
+      <td>5680559127926603859</td>
+      <td>...</td>
+      <td>-361.049824</td>
+      <td>-348.674414</td>
+      <td>4.5068</td>
+      <td>599.71043</td>
+      <td>4.5068</td>
+      <td>599.71043</td>
+      <td>3.788355</td>
+      <td>592.127063</td>
+      <td>-192.761389</td>
+      <td>-186.158276</td>
+    </tr>
+    <tr>
+      <th>253</th>
+      <td>18</td>
+      <td>5755933101669454049</td>
+      <td>5755933101669454049</td>
+      <td>1.0</td>
+      <td>Längsschnitt</td>
+      <td>0</td>
+      <td>1</td>
+      <td>V-K1083S</td>
+      <td>ROHR</td>
+      <td>5293317689029296733</td>
+      <td>...</td>
+      <td>-167.054145</td>
+      <td>-161.329257</td>
+      <td>4.06707</td>
+      <td>599.063427</td>
+      <td>4.06707</td>
+      <td>599.063427</td>
+      <td>3.39167</td>
+      <td>591.934495</td>
+      <td>-89.338321</td>
+      <td>-86.279089</td>
     </tr>
     <tr>
       <th>...</th>
@@ -4856,1351 +4261,361 @@ array([&#39;S&#39;, &#39;E&#39;], dtype=object)
       <td>...</td>
       <td>...</td>
       <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
-      <th>263</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>41</td>
-      <td>ROHR</td>
-      <td>100</td>
-      <td>V-K113S</td>
-      <td>V-K123S</td>
-      <td>14.329748</td>
-      <td>1</td>
-      <td>1212.402452</td>
-      <td>E</td>
-      <td>V-K123S</td>
-      <td>26.258772</td>
-      <td>565.130005</td>
-      <td>14.832235</td>
-      <td>14.329748</td>
-      <td>2.37616</td>
-      <td>2.376162</td>
-      <td>590.201179</td>
-      <td>590.201202</td>
-    </tr>
-    <tr>
-      <th>264</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>42</td>
-      <td>ROHR</td>
-      <td>80</td>
-      <td>V-K123S</td>
-      <td>V-K133S</td>
-      <td>9.812775</td>
-      <td>1</td>
-      <td>1240.748040</td>
-      <td>S</td>
-      <td>V-K133S</td>
-      <td>0.0</td>
-      <td>565.130005</td>
-      <td>10.156869</td>
-      <td>9.812775</td>
-      <td>2.37616</td>
-      <td>2.251245</td>
-      <td>590.201179</td>
-      <td>590.102256</td>
-    </tr>
-    <tr>
-      <th>265</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>42</td>
-      <td>ROHR</td>
-      <td>80</td>
-      <td>V-K123S</td>
-      <td>V-K133S</td>
-      <td>9.812775</td>
-      <td>1</td>
-      <td>1240.748040</td>
-      <td>E</td>
-      <td>V-K133S</td>
-      <td>28.345589</td>
-      <td>566.349976</td>
-      <td>10.156486</td>
-      <td>9.812775</td>
-      <td>2.251245</td>
-      <td>2.251245</td>
-      <td>590.102261</td>
-      <td>590.102256</td>
-    </tr>
-    <tr>
-      <th>266</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>43</td>
-      <td>ROHR</td>
-      <td>50</td>
-      <td>V-K133S</td>
-      <td>V-K143S</td>
-      <td>1.603431</td>
-      <td>1</td>
-      <td>1281.552541</td>
-      <td>S</td>
-      <td>V-K143S</td>
-      <td>0.0</td>
-      <td>566.349976</td>
-      <td>1.659594</td>
-      <td>1.603431</td>
-      <td>2.251245</td>
-      <td>2.113997</td>
-      <td>590.102261</td>
-      <td>590.058507</td>
-    </tr>
-    <tr>
-      <th>267</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>43</td>
-      <td>ROHR</td>
-      <td>50</td>
-      <td>V-K133S</td>
-      <td>V-K143S</td>
-      <td>1.603431</td>
-      <td>1</td>
-      <td>1281.552541</td>
-      <td>E</td>
-      <td>V-K143S</td>
-      <td>40.804501</td>
-      <td>567.76001</td>
-      <td>1.659168</td>
-      <td>1.603431</td>
-      <td>2.113995</td>
-      <td>2.113997</td>
-      <td>590.058485</td>
-      <td>590.058507</td>
-    </tr>
-  </tbody>
-</table>
-<p>90 rows × 20 columns</p>
-</div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>LFDNR</th>
-      <th>XL</th>
-      <th>Pos</th>
-      <th>OBJTYPE</th>
-      <th>DN</th>
-      <th>NAME_i</th>
-      <th>NAME_k</th>
-      <th>QM</th>
-      <th>direction</th>
-      <th>LSum</th>
-      <th>IptIdx</th>
-      <th>nextNODE</th>
-      <th>SVEC</th>
-      <th>ZVEC</th>
-      <th>QMVEC</th>
-      <th>QM</th>
-      <th>manPVEC</th>
-      <th>PH_n</th>
-      <th>mlcPVEC</th>
-      <th>mlc_n</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>178</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>-1</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>S</td>
-      <td>V-E0</td>
-      <td>0.0</td>
-      <td>541.48999</td>
-      <td>297.287026</td>
-      <td>287.090057</td>
-      <td>4.87839</td>
-      <td>4.878388</td>
-      <td>592.985013</td>
-      <td>592.984993</td>
-    </tr>
-    <tr>
-      <th>179</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>-1</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>E</td>
-      <td>V-E0</td>
-      <td>15.351701</td>
-      <td>542.289978</td>
-      <td>297.286669</td>
-      <td>287.090057</td>
-      <td>4.800115</td>
-      <td>4.878388</td>
-      <td>592.958688</td>
-      <td>592.984993</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">indToDelete</span><span class="o">=</span><span class="p">[]</span>
-<span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="k">pass</span>
-    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
-                <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
-                <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
-                <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
-                <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">indToDelete</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="c1">#.shape</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>LFDNR</th>
-      <th>XL</th>
-      <th>Pos</th>
-      <th>OBJTYPE</th>
-      <th>DN</th>
-      <th>NAME_i</th>
-      <th>NAME_k</th>
-      <th>QM</th>
-      <th>direction</th>
-      <th>LSum</th>
-      <th>IptIdx</th>
-      <th>nextNODE</th>
-      <th>SVEC</th>
-      <th>ZVEC</th>
-      <th>QMVEC</th>
-      <th>QM</th>
-      <th>manPVEC</th>
-      <th>PH_n</th>
-      <th>mlcPVEC</th>
-      <th>mlc_n</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>178</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>-1</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>0.000000</td>
-      <td>S</td>
-      <td>V-E0</td>
-      <td>0.0</td>
-      <td>541.48999</td>
-      <td>297.287026</td>
-      <td>287.090057</td>
-      <td>4.87839</td>
-      <td>4.878388</td>
-      <td>592.985013</td>
-      <td>592.984993</td>
-    </tr>
-    <tr>
-      <th>181</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>15.351701</td>
-      <td>E</td>
-      <td>V-K1683S</td>
-      <td>15.351701</td>
-      <td>542.289978</td>
-      <td>297.286669</td>
-      <td>287.090057</td>
-      <td>4.800115</td>
-      <td>4.800117</td>
-      <td>592.958688</td>
-      <td>592.958713</td>
-    </tr>
-    <tr>
-      <th>183</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K1683S</td>
-      <td>V-K1693S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>27.860648</td>
-      <td>E</td>
-      <td>V-K1693S</td>
-      <td>12.508947</td>
-      <td>542.98999</td>
-      <td>297.286369</td>
-      <td>287.090057</td>
-      <td>4.73177</td>
-      <td>4.731768</td>
-      <td>592.937222</td>
-      <td>592.937202</td>
-    </tr>
-    <tr>
-      <th>184</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>2</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K2163S</td>
-      <td>V-K1693S</td>
-      <td>-287.090057</td>
-      <td>-1</td>
-      <td>34.126153</td>
-      <td>S</td>
-      <td>V-K2163S</td>
-      <td>0.0</td>
-      <td>543.330017</td>
-      <td>-297.286218</td>
-      <td>-287.090057</td>
-      <td>4.69854</td>
-      <td>4.698539</td>
-      <td>592.926454</td>
-      <td>592.926449</td>
-    </tr>
-    <tr>
-      <th>186</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>3</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K2043S</td>
-      <td>V-K2163S</td>
-      <td>-287.090057</td>
-      <td>-1</td>
-      <td>48.533695</td>
-      <td>S</td>
-      <td>V-K2043S</td>
-      <td>0.0</td>
-      <td>544.030029</td>
-      <td>-297.28588</td>
-      <td>-287.090057</td>
-      <td>4.6299</td>
-      <td>4.629901</td>
-      <td>592.901869</td>
-      <td>592.901884</td>
-    </tr>
-    <tr>
-      <th>188</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>4</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K2033S</td>
-      <td>V-K2043S</td>
-      <td>-287.090057</td>
-      <td>-1</td>
-      <td>62.049538</td>
-      <td>S</td>
-      <td>V-K2033S</td>
-      <td>0.0</td>
-      <td>544.539978</td>
-      <td>-297.285542</td>
-      <td>-287.090057</td>
-      <td>4.57944</td>
-      <td>4.579439</td>
-      <td>592.879119</td>
-      <td>592.879114</td>
-    </tr>
-    <tr>
-      <th>190</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>5</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K833S</td>
-      <td>V-K2033S</td>
-      <td>-287.090057</td>
-      <td>-1</td>
-      <td>79.324254</td>
-      <td>S</td>
-      <td>V-K833S</td>
-      <td>0.0</td>
-      <td>544.940002</td>
-      <td>-297.285147</td>
-      <td>-287.090057</td>
-      <td>4.53884</td>
-      <td>4.538838</td>
-      <td>592.85052</td>
-      <td>592.8505</td>
-    </tr>
-    <tr>
-      <th>193</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>6</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K833S</td>
-      <td>V-K843S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>113.666420</td>
-      <td>E</td>
-      <td>V-K843S</td>
-      <td>34.342167</td>
-      <td>545.789978</td>
-      <td>297.284321</td>
-      <td>287.090057</td>
-      <td>4.452925</td>
-      <td>4.452928</td>
-      <td>592.793474</td>
-      <td>592.793504</td>
-    </tr>
-    <tr>
-      <th>195</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>7</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K843S</td>
-      <td>V-K853S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>149.752335</td>
-      <td>E</td>
-      <td>V-K853S</td>
-      <td>36.085915</td>
-      <td>546.280029</td>
-      <td>297.283456</td>
-      <td>287.090057</td>
-      <td>4.400915</td>
-      <td>4.400915</td>
-      <td>592.73439</td>
-      <td>592.73439</td>
-    </tr>
-    <tr>
-      <th>197</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>8</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K853S</td>
-      <td>V-K863S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>213.782486</td>
-      <td>E</td>
-      <td>V-K863S</td>
-      <td>64.030151</td>
-      <td>546.580017</td>
-      <td>297.281934</td>
-      <td>287.090057</td>
-      <td>4.362685</td>
-      <td>4.362684</td>
-      <td>592.630602</td>
-      <td>592.630591</td>
-    </tr>
-    <tr>
-      <th>199</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>9</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K863S</td>
-      <td>V-K873S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>265.851250</td>
-      <td>E</td>
-      <td>V-K873S</td>
-      <td>52.068764</td>
-      <td>546.73999</td>
-      <td>297.280694</td>
-      <td>287.090057</td>
-      <td>4.339565</td>
-      <td>4.339565</td>
-      <td>592.54634</td>
-      <td>592.54634</td>
-    </tr>
-    <tr>
-      <th>201</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>10</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K873S</td>
-      <td>V-K883S</td>
-      <td>287.090057</td>
-      <td>1</td>
-      <td>315.314808</td>
-      <td>E</td>
-      <td>V-K883S</td>
-      <td>49.463558</td>
-      <td>546.919983</td>
-      <td>297.279511</td>
-      <td>287.090057</td>
-      <td>4.314945</td>
-      <td>4.314943</td>
-      <td>592.466274</td>
-      <td>592.466254</td>
-    </tr>
-    <tr>
-      <th>202</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>11</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K2193S</td>
-      <td>V-K883S</td>
-      <td>-287.090057</td>
-      <td>-1</td>
-      <td>325.177948</td>
-      <td>S</td>
-      <td>V-K2193S</td>
-      <td>0.0</td>
-      <td>547.059998</td>
-      <td>-297.279285</td>
-      <td>-287.090057</td>
-      <td>4.30015</td>
-      <td>4.30015</td>
-      <td>592.450088</td>
-      <td>592.450088</td>
-    </tr>
-    <tr>
-      <th>204</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>12</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K2183S</td>
-      <td>V-K2193S</td>
-      <td>-287.090057</td>
-      <td>-1</td>
-      <td>339.208532</td>
-      <td>S</td>
-      <td>V-K2183S</td>
-      <td>0.0</td>
-      <td>547.109985</td>
-      <td>-297.278947</td>
-      <td>-287.090057</td>
-      <td>4.293265</td>
-      <td>4.293267</td>
-      <td>592.427349</td>
-      <td>592.427374</td>
-    </tr>
-    <tr>
-      <th>206</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>13</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K933S</td>
-      <td>V-K2183S</td>
-      <td>-287.090057</td>
-      <td>-1</td>
-      <td>371.733842</td>
-      <td>S</td>
-      <td>V-K933S</td>
-      <td>0.0</td>
-      <td>547.119995</td>
-      <td>-297.278177</td>
-      <td>-287.090057</td>
-      <td>4.287355</td>
-      <td>4.287357</td>
-      <td>592.374859</td>
-      <td>592.37488</td>
-    </tr>
-    <tr>
-      <th>208</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>14</td>
-      <td>ROHR</td>
-      <td>300</td>
-      <td>V-K2173S</td>
-      <td>V-K933S</td>
-      <td>-196.61821</td>
-      <td>-1</td>
-      <td>378.362803</td>
-      <td>S</td>
-      <td>V-K2173S</td>
-      <td>0.0</td>
-      <td>547.140015</td>
-      <td>-203.595532</td>
-      <td>-196.61821</td>
-      <td>4.28468</td>
-      <td>4.284678</td>
-      <td>592.366605</td>
-      <td>592.366593</td>
-    </tr>
-    <tr>
-      <th>210</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>15</td>
-      <td>ROHR</td>
-      <td>300</td>
-      <td>V-K2063S</td>
-      <td>V-K2173S</td>
-      <td>-195.31485</td>
-      <td>-1</td>
-      <td>448.136789</td>
-      <td>S</td>
-      <td>V-K2063S</td>
-      <td>0.0</td>
-      <td>547.880005</td>
-      <td>-202.244215</td>
-      <td>-195.31485</td>
-      <td>4.206445</td>
-      <td>4.206447</td>
-      <td>592.280421</td>
-      <td>592.280441</td>
-    </tr>
-    <tr>
-      <th>212</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>16</td>
-      <td>ROHR</td>
-      <td>300</td>
-      <td>V-K583S</td>
-      <td>V-K2063S</td>
-      <td>-190.243561</td>
-      <td>-1</td>
-      <td>463.003848</td>
-      <td>S</td>
-      <td>V-K583S</td>
-      <td>0.0</td>
-      <td>548.359985</td>
-      <td>-196.992673</td>
-      <td>-190.243561</td>
-      <td>4.159325</td>
-      <td>4.159325</td>
-      <td>592.262955</td>
-      <td>592.262957</td>
-    </tr>
-    <tr>
-      <th>214</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>17</td>
-      <td>ROHR</td>
-      <td>250</td>
-      <td>V-K573S</td>
-      <td>V-K583S</td>
-      <td>-186.158279</td>
-      <td>-1</td>
-      <td>562.262027</td>
-      <td>S</td>
-      <td>V-K573S</td>
-      <td>0.0</td>
-      <td>555.919983</td>
-      <td>-192.760342</td>
-      <td>-186.158279</td>
-      <td>3.417385</td>
-      <td>3.417385</td>
-      <td>591.991155</td>
-      <td>591.991155</td>
-    </tr>
-    <tr>
-      <th>216</th>
-      <td>1.0</td>
-      <td>1</td>
+      <th>856</th>
       <td>18</td>
+      <td>4868980900521118307</td>
+      <td>4868980900521118307</td>
+      <td>3.0</td>
+      <td>Längsschnitt in bar,B</td>
+      <td>2</td>
+      <td>1</td>
+      <td>R-K3563S</td>
       <td>ROHR</td>
-      <td>200</td>
-      <td>V-K1083S</td>
-      <td>V-K573S</td>
-      <td>-86.279091</td>
-      <td>-1</td>
-      <td>620.887233</td>
-      <td>S</td>
-      <td>V-K1083S</td>
-      <td>0.0</td>
-      <td>556.349976</td>
-      <td>-89.337683</td>
-      <td>-86.279091</td>
-      <td>3.36595</td>
-      <td>3.365951</td>
-      <td>591.877734</td>
-      <td>591.877744</td>
+      <td>5504700288230346869</td>
+      <td>...</td>
+      <td>86.86433</td>
+      <td>85.443379</td>
+      <td>1.97361</td>
+      <td>576.394316</td>
+      <td>1.97361</td>
+      <td>576.394316</td>
+      <td>1.72587</td>
+      <td>573.827381</td>
+      <td>162.288643</td>
+      <td>159.661615</td>
     </tr>
     <tr>
-      <th>218</th>
-      <td>1.0</td>
-      <td>1</td>
+      <th>874</th>
       <td>19</td>
+      <td>4868980900521118307</td>
+      <td>4868980900521118307</td>
+      <td>3.0</td>
+      <td>Längsschnitt in bar,B</td>
+      <td>2</td>
+      <td>1</td>
+      <td>R-K3553S</td>
       <td>ROHR</td>
-      <td>200</td>
-      <td>V-K1073S</td>
-      <td>V-K1083S</td>
-      <td>-74.287712</td>
-      <td>-1</td>
-      <td>708.601420</td>
-      <td>S</td>
-      <td>V-K1073S</td>
-      <td>0.0</td>
-      <td>557.26001</td>
-      <td>-76.9193</td>
-      <td>-74.287712</td>
-      <td>3.267705</td>
-      <td>3.267707</td>
-      <td>591.749929</td>
-      <td>591.749954</td>
+      <td>5737735714239704290</td>
+      <td>...</td>
+      <td>74.673291</td>
+      <td>73.452001</td>
+      <td>1.941545</td>
+      <td>576.781999</td>
+      <td>1.941545</td>
+      <td>576.781999</td>
+      <td>1.667685</td>
+      <td>573.944441</td>
+      <td>139.361787</td>
+      <td>137.106642</td>
     </tr>
     <tr>
-      <th>220</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>20</td>
-      <td>ROHR</td>
-      <td>200</td>
-      <td>V-K1063S</td>
-      <td>V-K1073S</td>
-      <td>-68.383316</td>
-      <td>-1</td>
-      <td>735.670985</td>
-      <td>S</td>
-      <td>V-K1063S</td>
-      <td>0.0</td>
-      <td>557.76001</td>
-      <td>-70.805154</td>
-      <td>-68.383316</td>
-      <td>3.217165</td>
-      <td>3.217165</td>
-      <td>591.716207</td>
-      <td>591.716202</td>
-    </tr>
-    <tr>
-      <th>222</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>21</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K1053S</td>
-      <td>V-K1063S</td>
-      <td>-65.226578</td>
-      <td>-1</td>
-      <td>740.545722</td>
-      <td>S</td>
-      <td>V-K1053S</td>
-      <td>0.0</td>
-      <td>557.73999</td>
-      <td>-67.536522</td>
-      <td>-65.226578</td>
-      <td>3.216975</td>
-      <td>3.216976</td>
-      <td>591.69413</td>
-      <td>591.694146</td>
-    </tr>
-    <tr>
-      <th>224</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>22</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K1043S</td>
-      <td>V-K1053S</td>
-      <td>-65.226578</td>
-      <td>-1</td>
-      <td>743.968120</td>
-      <td>S</td>
-      <td>V-K1043S</td>
-      <td>0.0</td>
-      <td>557.840027</td>
-      <td>-67.536458</td>
-      <td>-65.226578</td>
-      <td>3.206015</td>
-      <td>3.206016</td>
-      <td>591.67846</td>
-      <td>591.678472</td>
-    </tr>
-    <tr>
-      <th>226</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>23</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K283S</td>
-      <td>V-K1043S</td>
-      <td>-65.226578</td>
-      <td>-1</td>
-      <td>751.727923</td>
-      <td>S</td>
-      <td>V-K283S</td>
-      <td>0.0</td>
-      <td>558.080017</td>
-      <td>-67.536304</td>
-      <td>-65.226578</td>
-      <td>3.179915</td>
-      <td>3.179916</td>
-      <td>591.642895</td>
-      <td>591.64246</td>
-    </tr>
-    <tr>
-      <th>229</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>24</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K283S</td>
-      <td>V-K293S</td>
-      <td>67.962234</td>
-      <td>1</td>
-      <td>758.287896</td>
-      <td>E</td>
-      <td>V-K293S</td>
-      <td>6.559972</td>
-      <td>557.789978</td>
-      <td>70.367767</td>
-      <td>67.962234</td>
-      <td>3.204385</td>
-      <td>3.204383</td>
-      <td>591.610614</td>
-      <td>591.610596</td>
-    </tr>
-    <tr>
-      <th>231</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>25</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K293S</td>
-      <td>V-K303S</td>
-      <td>66.60968</td>
-      <td>1</td>
-      <td>777.158410</td>
-      <td>E</td>
-      <td>V-K303S</td>
-      <td>18.870514</td>
-      <td>556.98999</td>
-      <td>68.966964</td>
-      <td>66.60968</td>
-      <td>3.27184</td>
-      <td>3.271841</td>
-      <td>591.522394</td>
-      <td>591.522402</td>
-    </tr>
-    <tr>
-      <th>233</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>26</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K303S</td>
-      <td>V-K313S</td>
-      <td>66.60968</td>
-      <td>1</td>
-      <td>795.942267</td>
-      <td>E</td>
-      <td>V-K313S</td>
-      <td>18.783857</td>
-      <td>556.179993</td>
-      <td>68.966593</td>
-      <td>66.60968</td>
-      <td>3.340285</td>
-      <td>3.340287</td>
-      <td>591.434602</td>
-      <td>591.434625</td>
-    </tr>
-    <tr>
-      <th>235</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>27</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K313S</td>
-      <td>V-K323S</td>
-      <td>65.026474</td>
-      <td>1</td>
-      <td>828.020167</td>
-      <td>E</td>
-      <td>V-K323S</td>
-      <td>32.0779</td>
-      <td>555.080017</td>
-      <td>67.326722</td>
-      <td>65.026474</td>
-      <td>3.43085</td>
-      <td>3.430848</td>
-      <td>591.290142</td>
-      <td>591.290117</td>
-    </tr>
-    <tr>
-      <th>237</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>28</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K323S</td>
-      <td>V-K333S</td>
-      <td>63.425179</td>
-      <td>1</td>
-      <td>841.297316</td>
-      <td>E</td>
-      <td>V-K333S</td>
-      <td>13.277149</td>
-      <td>554.780029</td>
-      <td>65.668525</td>
-      <td>63.425179</td>
-      <td>3.45388</td>
-      <td>3.453882</td>
-      <td>591.233072</td>
-      <td>591.233095</td>
-    </tr>
-    <tr>
-      <th>239</th>
-      <td>1.0</td>
-      <td>1</td>
+      <th>1000</th>
       <td>29</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K333S</td>
-      <td>V-K03S</td>
-      <td>56.790668</td>
+      <td>4868980900521118307</td>
+      <td>4868980900521118307</td>
+      <td>3.0</td>
+      <td>Längsschnitt in bar,B</td>
+      <td>2</td>
       <td>1</td>
-      <td>911.066336</td>
-      <td>E</td>
-      <td>V-K03S</td>
-      <td>69.76902</td>
-      <td>554.039978</td>
-      <td>58.797974</td>
-      <td>56.790668</td>
-      <td>3.5011</td>
-      <td>3.501101</td>
-      <td>590.990528</td>
-      <td>590.99054</td>
+      <td>R-K2483S</td>
+      <td>ROHR</td>
+      <td>5612994386593440195</td>
+      <td>...</td>
+      <td>-107.811702</td>
+      <td>-106.048299</td>
+      <td>2.416855</td>
+      <td>579.411925</td>
+      <td>2.416855</td>
+      <td>579.411925</td>
+      <td>1.965775</td>
+      <td>574.73812</td>
+      <td>-57.724642</td>
+      <td>-56.790411</td>
     </tr>
     <tr>
-      <th>241</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>30</td>
-      <td>ROHR</td>
-      <td>150</td>
-      <td>V-K03S</td>
-      <td>V-K13S</td>
-      <td>52.848595</td>
-      <td>1</td>
-      <td>947.495684</td>
-      <td>E</td>
-      <td>V-K13S</td>
-      <td>36.429348</td>
-      <td>556.159973</td>
-      <td>54.715847</td>
-      <td>52.848595</td>
-      <td>3.2898</td>
-      <td>3.289801</td>
-      <td>590.880006</td>
-      <td>590.880021</td>
-    </tr>
-    <tr>
-      <th>243</th>
-      <td>1.0</td>
-      <td>1</td>
+      <th>1030</th>
       <td>31</td>
-      <td>ROHR</td>
-      <td>125</td>
-      <td>V-K13S</td>
-      <td>V-K23S</td>
-      <td>29.70521</td>
+      <td>4868980900521118307</td>
+      <td>4868980900521118307</td>
+      <td>3.0</td>
+      <td>Längsschnitt in bar,B</td>
+      <td>2</td>
       <td>1</td>
-      <td>1004.713492</td>
-      <td>E</td>
-      <td>V-K23S</td>
-      <td>57.217808</td>
-      <td>561.01001</td>
-      <td>30.753813</td>
-      <td>29.70521</td>
-      <td>2.815575</td>
-      <td>2.815573</td>
-      <td>590.724237</td>
-      <td>590.721522</td>
+      <td>R-K2503S</td>
+      <td>ROHR</td>
+      <td>4777543161401667328</td>
+      <td>...</td>
+      <td>-55.942236</td>
+      <td>-55.026212</td>
+      <td>2.1162</td>
+      <td>580.427415</td>
+      <td>2.1162</td>
+      <td>580.427415</td>
+      <td>1.59659</td>
+      <td>575.043376</td>
+      <td>-30.11833</td>
+      <td>-29.629966</td>
     </tr>
     <tr>
-      <th>245</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>32</td>
-      <td>ROHR</td>
-      <td>125</td>
-      <td>V-K23S</td>
-      <td>V-K33S</td>
-      <td>30.252146</td>
-      <td>1</td>
-      <td>1045.708308</td>
-      <td>E</td>
-      <td>V-K33S</td>
-      <td>40.994816</td>
-      <td>563.059998</td>
-      <td>31.316545</td>
-      <td>30.252146</td>
-      <td>2.61026</td>
-      <td>2.610262</td>
-      <td>590.604341</td>
-      <td>590.604363</td>
-    </tr>
-    <tr>
-      <th>247</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>33</td>
-      <td>ROHR</td>
-      <td>125</td>
-      <td>V-K33S</td>
-      <td>V-K43S</td>
-      <td>30.252146</td>
-      <td>1</td>
-      <td>1052.541387</td>
-      <td>E</td>
-      <td>V-K43S</td>
-      <td>6.833079</td>
-      <td>563.26001</td>
-      <td>31.316434</td>
-      <td>30.252146</td>
-      <td>2.589465</td>
-      <td>2.589464</td>
-      <td>590.584819</td>
-      <td>590.584812</td>
-    </tr>
-    <tr>
-      <th>249</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>34</td>
-      <td>ROHR</td>
-      <td>125</td>
-      <td>V-K43S</td>
-      <td>V-K53S</td>
-      <td>30.252146</td>
-      <td>1</td>
-      <td>1060.034488</td>
-      <td>E</td>
-      <td>V-K53S</td>
-      <td>7.493101</td>
-      <td>563.419983</td>
-      <td>31.316311</td>
-      <td>30.252146</td>
-      <td>2.572295</td>
-      <td>2.572293</td>
-      <td>590.563504</td>
-      <td>590.563481</td>
-    </tr>
-    <tr>
-      <th>251</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>35</td>
-      <td>ROHR</td>
-      <td>125</td>
-      <td>V-K53S</td>
-      <td>V-K63S</td>
-      <td>30.252146</td>
-      <td>1</td>
-      <td>1068.355962</td>
-      <td>E</td>
-      <td>V-K63S</td>
-      <td>8.321474</td>
-      <td>563.580017</td>
-      <td>31.316175</td>
-      <td>30.252146</td>
-      <td>2.55491</td>
-      <td>2.554908</td>
-      <td>590.539969</td>
-      <td>590.539952</td>
-    </tr>
-    <tr>
-      <th>253</th>
-      <td>1.0</td>
-      <td>1</td>
+      <th>1096</th>
       <td>36</td>
+      <td>4868980900521118307</td>
+      <td>4868980900521118307</td>
+      <td>3.0</td>
+      <td>Längsschnitt in bar,B</td>
+      <td>2</td>
+      <td>1</td>
+      <td>R-K2553S</td>
       <td>ROHR</td>
-      <td>125</td>
-      <td>V-K63S</td>
-      <td>V-K73S</td>
-      <td>27.649521</td>
-      <td>1</td>
-      <td>1151.294797</td>
-      <td>E</td>
-      <td>V-K73S</td>
-      <td>82.938835</td>
-      <td>563.090027</td>
-      <td>28.620648</td>
-      <td>27.649521</td>
-      <td>2.58282</td>
-      <td>2.582822</td>
-      <td>590.343195</td>
-      <td>590.343217</td>
-    </tr>
-    <tr>
-      <th>255</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>37</td>
-      <td>ROHR</td>
-      <td>100</td>
-      <td>V-K73S</td>
-      <td>V-K83S</td>
-      <td>24.293217</td>
-      <td>1</td>
-      <td>1155.836302</td>
-      <td>E</td>
-      <td>V-K83S</td>
-      <td>4.541505</td>
-      <td>562.969971</td>
-      <td>25.146398</td>
-      <td>24.293217</td>
-      <td>2.591965</td>
-      <td>2.591965</td>
-      <td>590.319563</td>
-      <td>590.319568</td>
-    </tr>
-    <tr>
-      <th>257</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>38</td>
-      <td>ROHR</td>
-      <td>100</td>
-      <td>V-K83S</td>
-      <td>V-K93S</td>
-      <td>15.303667</td>
-      <td>1</td>
-      <td>1161.025165</td>
-      <td>E</td>
-      <td>V-K93S</td>
-      <td>5.188863</td>
-      <td>563.070007</td>
-      <td>15.84106</td>
-      <td>15.303667</td>
-      <td>2.581405</td>
-      <td>2.581404</td>
-      <td>590.308048</td>
-      <td>590.308041</td>
-    </tr>
-    <tr>
-      <th>259</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>39</td>
-      <td>ROHR</td>
-      <td>100</td>
-      <td>V-K93S</td>
-      <td>V-K103S</td>
-      <td>15.303667</td>
-      <td>1</td>
-      <td>1164.982003</td>
-      <td>E</td>
-      <td>V-K103S</td>
-      <td>3.956838</td>
-      <td>563.22998</td>
-      <td>15.841004</td>
-      <td>15.303667</td>
-      <td>2.565405</td>
-      <td>2.565404</td>
-      <td>590.299099</td>
-      <td>590.299091</td>
-    </tr>
-    <tr>
-      <th>261</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>40</td>
-      <td>ROHR</td>
-      <td>100</td>
-      <td>V-K103S</td>
-      <td>V-K113S</td>
-      <td>15.303667</td>
-      <td>1</td>
-      <td>1186.143680</td>
-      <td>E</td>
-      <td>V-K113S</td>
-      <td>21.161676</td>
-      <td>563.969971</td>
-      <td>15.840703</td>
-      <td>15.303667</td>
-      <td>2.490865</td>
-      <td>2.490867</td>
-      <td>590.252074</td>
-      <td>590.252095</td>
-    </tr>
-    <tr>
-      <th>263</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>41</td>
-      <td>ROHR</td>
-      <td>100</td>
-      <td>V-K113S</td>
-      <td>V-K123S</td>
-      <td>14.329748</td>
-      <td>1</td>
-      <td>1212.402452</td>
-      <td>E</td>
-      <td>V-K123S</td>
-      <td>26.258772</td>
-      <td>565.130005</td>
-      <td>14.832235</td>
-      <td>14.329748</td>
-      <td>2.37616</td>
-      <td>2.376162</td>
-      <td>590.201179</td>
-      <td>590.201202</td>
-    </tr>
-    <tr>
-      <th>265</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>42</td>
-      <td>ROHR</td>
-      <td>80</td>
-      <td>V-K123S</td>
-      <td>V-K133S</td>
-      <td>9.812775</td>
-      <td>1</td>
-      <td>1240.748040</td>
-      <td>E</td>
-      <td>V-K133S</td>
-      <td>28.345589</td>
-      <td>566.349976</td>
-      <td>10.156486</td>
-      <td>9.812775</td>
-      <td>2.251245</td>
-      <td>2.251245</td>
-      <td>590.102261</td>
-      <td>590.102256</td>
-    </tr>
-    <tr>
-      <th>267</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>43</td>
-      <td>ROHR</td>
-      <td>50</td>
-      <td>V-K133S</td>
-      <td>V-K143S</td>
-      <td>1.603431</td>
-      <td>1</td>
-      <td>1281.552541</td>
-      <td>E</td>
-      <td>V-K143S</td>
-      <td>40.804501</td>
-      <td>567.76001</td>
-      <td>1.659168</td>
-      <td>1.603431</td>
-      <td>2.113995</td>
-      <td>2.113997</td>
-      <td>590.058485</td>
-      <td>590.058507</td>
+      <td>5403072911519479645</td>
+      <td>...</td>
+      <td>-52.344175</td>
+      <td>-51.486586</td>
+      <td>1.764105</td>
+      <td>581.584457</td>
+      <td>1.764105</td>
+      <td>581.584457</td>
+      <td>1.166685</td>
+      <td>575.394076</td>
+      <td>-28.105689</td>
+      <td>-27.64952</td>
     </tr>
   </tbody>
 </table>
+<p>108 rows × 331 columns</p>
 </div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<section id="id2">
+<h2>Section No. 1<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSN</span><span class="p">[</span><span class="n">colsAGSNBase</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;nextNODE&#39;</span><span class="p">,</span><span class="s1">&#39;PH_n&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">,</span><span class="s1">&#39;H_n&#39;</span><span class="p">,</span><span class="s1">&#39;ZKOR_n&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span><span class="s1">&#39;XL&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">]</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVecRL</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span>
+ <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="p">[</span><span class="s1">&#39;XL&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="some-Columns">
+<h2>some Columns<a class="headerlink" href="#some-Columns" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t0rVec</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1">&#39;</span><span class="p">))</span><span class="c1">#.%f&#39;))</span>
+<span class="n">manPVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span>
+                      <span class="n">t0rVec</span><span class="p">,</span>
+                      <span class="n">t0rVec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">manPVEC</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&#39;STAT&#39;,
+ &#39;manPVEC&#39;,
+ Timestamp(&#39;2023-02-12 23:00:00&#39;),
+ Timestamp(&#39;2023-02-12 23:00:00&#39;))
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for convenient colnames in celloutput</span>
+<span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">manPVEC</span><span class="p">]</span>
+<span class="n">dfAGSNVecRL</span><span class="p">[</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVecRL</span><span class="p">[</span><span class="n">manPVEC</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlcPVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;mlcPVEC&#39;</span><span class="p">,</span>
+                      <span class="n">t0rVec</span><span class="p">,</span>
+                      <span class="n">t0rVec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for convenient colnames in celloutput</span>
+<span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">mlcPVEC</span><span class="p">]</span>
+<span class="n">dfAGSNVecRL</span><span class="p">[</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVecRL</span><span class="p">[</span><span class="n">mlcPVEC</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">QMVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;QMVEC&#39;</span><span class="p">,</span>
+                      <span class="n">t0rVec</span><span class="p">,</span>
+                      <span class="n">t0rVec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for convenient colnames in celloutput</span>
+<span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;QMVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">QMVEC</span><span class="p">]</span>
+<span class="n">dfAGSNVecRL</span><span class="p">[</span><span class="s1">&#39;QMVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVecRL</span><span class="p">[</span><span class="n">QMVEC</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
+<span class="s1">&#39;ROHR~*~*~*~TVEC&#39;</span><span class="p">,</span>
+<span class="n">t0rVec</span><span class="p">,</span>
+<span class="n">t0rVec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for convenient colnames in celloutput</span>
+<span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;TVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">TVEC</span><span class="p">]</span>
+<span class="n">dfAGSNVecRL</span><span class="p">[</span><span class="s1">&#39;TVEC&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVecRL</span><span class="p">[</span><span class="n">TVEC</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>Plot<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="p">,</span><span class="n">dfAGSNVecRL</span>
+        <span class="p">,</span><span class="n">PHCol</span><span class="o">=</span><span class="n">manPVEC</span>
+        <span class="p">,</span><span class="n">mlcCol</span><span class="o">=</span><span class="n">mlcPVEC</span>
+        <span class="p">,</span><span class="n">zKoorCol</span><span class="o">=</span><span class="s1">&#39;ZVEC&#39;</span>
+        <span class="p">,</span><span class="n">barBzgCol</span><span class="o">=</span><span class="s1">&#39;H_n&#39;</span>
+        <span class="p">,</span><span class="n">QMCol</span><span class="o">=</span><span class="n">QMVEC</span>
+        <span class="p">,</span><span class="n">TCol</span><span class="o">=</span><span class="n">TVEC</span>
+        <span class="p">,</span><span class="n">xCol</span><span class="o">=</span><span class="s1">&#39;LSum&#39;</span>
+
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example3_59_0.png" src="_images/Example3_59_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[87]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">colsAGSNBase</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">,</span><span class="s1">&#39;nextNODE&#39;</span><span class="p">]</span>
+          <span class="o">+</span><span class="p">[</span><span class="s1">&#39;SVEC&#39;</span><span class="p">,</span><span class="s1">&#39;ZVEC&#39;</span><span class="p">]</span>
+             <span class="o">+</span><span class="p">[</span><span class="s1">&#39;QMVEC&#39;</span><span class="p">,</span><span class="s1">&#39;QM&#39;</span><span class="p">]</span>
+          <span class="o">+</span><span class="p">[</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;PH_n&#39;</span><span class="p">]</span>
+        <span class="c1"># +V3_ROHRVEC_BaseCols</span>
+     <span class="c1">#    +[&#39;mlcPVEC&#39;,&#39;mlc_n&#39;]</span>
+       <span class="c1">#  +[&#39;TVEC&#39;,&#39;T_n&#39;]</span>
+         <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[88]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">dfAGSN</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[88]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((54, 19), (45, 52))
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[89]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;S&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">])]</span><span class="o">.</span><span class="n">shape</span><span class="c1">#.iloc[::-1]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[89]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(9, 19)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[90]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfIpts</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;S&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">])]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfIpts</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -6233,191 +4648,267 @@ array([&#39;S&#39;, &#39;E&#39;], dtype=object)
       <th>direction</th>
       <th>LSum</th>
       <th>L</th>
+      <th>IptIdx</th>
       <th>nextNODE</th>
+      <th>SVEC</th>
+      <th>ZVEC</th>
+      <th>QMVEC</th>
+      <th>QM</th>
+      <th>manPVEC</th>
       <th>PH_n</th>
-      <th>mlc_n</th>
-      <th>H_n</th>
-      <th>ZKOR_n</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>88</th>
+      <th>112</th>
       <td>1.0</td>
       <td>1</td>
-      <td>-1</td>
+      <td>8</td>
       <td>ROHR</td>
       <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
+      <td>V-K853S</td>
+      <td>V-K863S</td>
       <td>287.090057</td>
       <td>1</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>V-E0</td>
-      <td>4.878388</td>
-      <td>592.984993</td>
-      <td>5.024506</td>
-      <td>542.289978</td>
-    </tr>
-    <tr>
-      <th>88</th>
-      <td>1.0</td>
-      <td>1</td>
+      <td>213.782486</td>
+      <td>64.030151</td>
       <td>0</td>
+      <td>V-K863S</td>
+      <td>32.015076</td>
+      <td>546.430054</td>
+      <td>297.282686</td>
+      <td>287.090057</td>
+      <td>4.3818</td>
+      <td>4.362684</td>
+    </tr>
+    <tr>
+      <th>130</th>
+      <td>1.0</td>
+      <td>1</td>
+      <td>9</td>
       <td>ROHR</td>
       <td>350</td>
-      <td>V-E0</td>
-      <td>V-K1683S</td>
+      <td>V-K863S</td>
+      <td>V-K873S</td>
       <td>287.090057</td>
       <td>1</td>
-      <td>15.351701</td>
-      <td>15.351701</td>
-      <td>V-K1683S</td>
-      <td>4.800117</td>
-      <td>592.958713</td>
-      <td>5.024687</td>
-      <td>542.289978</td>
-    </tr>
-    <tr>
-      <th>89</th>
-      <td>1.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>ROHR</td>
-      <td>350</td>
-      <td>V-K1683S</td>
-      <td>V-K1693S</td>
+      <td>265.851250</td>
+      <td>52.068764</td>
+      <td>0</td>
+      <td>V-K873S</td>
+      <td>26.034382</td>
+      <td>546.660034</td>
+      <td>297.281314</td>
       <td>287.090057</td>
-      <td>1</td>
-      <td>27.860648</td>
-      <td>12.508947</td>
-      <td>V-K1693S</td>
-      <td>4.731768</td>
-      <td>592.937202</td>
-      <td>5.024986</td>
-      <td>542.98999</td>
+      <td>4.351125</td>
+      <td>4.339565</td>
     </tr>
     <tr>
-      <th>90</th>
+      <th>208</th>
       <td>1.0</td>
       <td>1</td>
-      <td>2</td>
+      <td>15</td>
       <td>ROHR</td>
-      <td>350</td>
-      <td>V-K2163S</td>
-      <td>V-K1693S</td>
-      <td>-287.090057</td>
+      <td>300</td>
+      <td>V-K2063S</td>
+      <td>V-K2173S</td>
+      <td>-195.31485</td>
       <td>-1</td>
-      <td>34.126153</td>
-      <td>6.265505</td>
-      <td>V-K2163S</td>
-      <td>4.698539</td>
-      <td>592.926449</td>
-      <td>5.025103</td>
-      <td>543.330017</td>
+      <td>448.136789</td>
+      <td>69.773987</td>
+      <td>0</td>
+      <td>V-K2063S</td>
+      <td>34.886993</td>
+      <td>547.51001</td>
+      <td>-202.245072</td>
+      <td>-195.31485</td>
+      <td>4.245565</td>
+      <td>4.206447</td>
     </tr>
     <tr>
-      <th>91</th>
+      <th>238</th>
       <td>1.0</td>
       <td>1</td>
-      <td>3</td>
+      <td>17</td>
       <td>ROHR</td>
-      <td>350</td>
-      <td>V-K2043S</td>
-      <td>V-K2163S</td>
-      <td>-287.090057</td>
+      <td>250</td>
+      <td>V-K573S</td>
+      <td>V-K583S</td>
+      <td>-186.158279</td>
       <td>-1</td>
-      <td>48.533695</td>
-      <td>14.407541</td>
-      <td>V-K2043S</td>
-      <td>4.629901</td>
-      <td>592.901884</td>
-      <td>5.025112</td>
-      <td>544.030029</td>
+      <td>562.262027</td>
+      <td>99.258179</td>
+      <td>0</td>
+      <td>V-K573S</td>
+      <td>49.629089</td>
+      <td>552.140015</td>
+      <td>-192.761389</td>
+      <td>-186.158279</td>
+      <td>3.788355</td>
+      <td>3.417385</td>
+    </tr>
+    <tr>
+      <th>256</th>
+      <td>1.0</td>
+      <td>1</td>
+      <td>18</td>
+      <td>ROHR</td>
+      <td>200</td>
+      <td>V-K1083S</td>
+      <td>V-K573S</td>
+      <td>-86.279091</td>
+      <td>-1</td>
+      <td>620.887233</td>
+      <td>58.625206</td>
+      <td>0</td>
+      <td>V-K1083S</td>
+      <td>29.312603</td>
+      <td>556.13501</td>
+      <td>-89.338321</td>
+      <td>-86.279091</td>
+      <td>3.39167</td>
+      <td>3.365951</td>
+    </tr>
+    <tr>
+      <th>274</th>
+      <td>1.0</td>
+      <td>1</td>
+      <td>19</td>
+      <td>ROHR</td>
+      <td>200</td>
+      <td>V-K1073S</td>
+      <td>V-K1083S</td>
+      <td>-74.287712</td>
+      <td>-1</td>
+      <td>708.601420</td>
+      <td>87.714188</td>
+      <td>0</td>
+      <td>V-K1073S</td>
+      <td>43.857094</td>
+      <td>556.804993</td>
+      <td>-76.920258</td>
+      <td>-74.287712</td>
+      <td>3.31683</td>
+      <td>3.267707</td>
+    </tr>
+    <tr>
+      <th>400</th>
+      <td>1.0</td>
+      <td>1</td>
+      <td>29</td>
+      <td>ROHR</td>
+      <td>150</td>
+      <td>V-K333S</td>
+      <td>V-K03S</td>
+      <td>56.790668</td>
+      <td>1</td>
+      <td>911.066336</td>
+      <td>69.769020</td>
+      <td>0</td>
+      <td>V-K03S</td>
+      <td>34.88451</td>
+      <td>554.410034</td>
+      <td>58.798666</td>
+      <td>56.790668</td>
+      <td>3.47749</td>
+      <td>3.501101</td>
+    </tr>
+    <tr>
+      <th>430</th>
+      <td>1.0</td>
+      <td>1</td>
+      <td>31</td>
+      <td>ROHR</td>
+      <td>125</td>
+      <td>V-K13S</td>
+      <td>V-K23S</td>
+      <td>29.70521</td>
+      <td>1</td>
+      <td>1004.713492</td>
+      <td>57.217808</td>
+      <td>0</td>
+      <td>V-K23S</td>
+      <td>28.608904</td>
+      <td>558.584961</td>
+      <td>30.754285</td>
+      <td>29.70521</td>
+      <td>3.052685</td>
+      <td>2.815573</td>
+    </tr>
+    <tr>
+      <th>496</th>
+      <td>1.0</td>
+      <td>1</td>
+      <td>36</td>
+      <td>ROHR</td>
+      <td>125</td>
+      <td>V-K63S</td>
+      <td>V-K73S</td>
+      <td>27.649521</td>
+      <td>1</td>
+      <td>1151.294797</td>
+      <td>82.938835</td>
+      <td>0</td>
+      <td>V-K73S</td>
+      <td>41.469418</td>
+      <td>563.335022</td>
+      <td>28.621328</td>
+      <td>27.649521</td>
+      <td>2.568865</td>
+      <td>2.582822</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[92]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSN</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#dfIpts=m.V3_AGSNVec[~m.V3_AGSNVec[&#39;IptIdx&#39;].isin([&#39;S&#39;,&#39;E&#39;])]</span>
+
+<span class="n">indToDeleteReverse</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">row</span> <span class="ow">in</span> <span class="n">dfIpts</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+
+    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;XL&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">indToDeleteReverse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;XL&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+         <span class="n">indToDeleteReverse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[93]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfIpts</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[93]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;Pos&#39;,
- &#39;pk&#39;,
- &#39;tk&#39;,
- &#39;LFDNR&#39;,
- &#39;NAME&#39;,
- &#39;XL&#39;,
- &#39;compNr&#39;,
- &#39;nextNODE&#39;,
- &#39;OBJTYPE&#39;,
- &#39;OBJID&#39;,
- &#39;L&#39;,
- &#39;DN&#39;,
- &#39;Am2&#39;,
- &#39;Vm3&#39;,
- &#39;NAME_CONT&#39;,
- &#39;NAME_i&#39;,
- &#39;NAME_k&#39;,
- &#39;ZKOR_n&#39;,
- &#39;BESCHREIBUNG_n&#39;,
- &#39;KVR_n&#39;,
- &#39;LSum&#39;,
- &#39;direction&#39;,
- (&#39;STAT&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TIME&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-12 23:00:00&#39;)),
- (&#39;TMIN&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- (&#39;TMAX&#39;,
-  &#39;QM&#39;,
-  Timestamp(&#39;2023-02-12 23:00:00&#39;),
-  Timestamp(&#39;2023-02-13 23:00:00&#39;)),
- &#39;QM&#39;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~H&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~T&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~RHO&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#39;PH_n&#39;,
- &#39;T_n&#39;,
- &#39;H_n&#39;,
- &#39;RHO_n&#39;,
- &#39;mlc_n&#39;,
- &#34;(&#39;STAT&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TIME&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMIN&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;,
- &#34;(&#39;TMAX&#39;, &#39;KNOT~*~*~*~mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n&#34;]
+(9, 19)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">indToDeleteReverse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+4
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">

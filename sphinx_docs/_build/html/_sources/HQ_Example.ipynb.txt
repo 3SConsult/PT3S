@@ -58,44 +58,6 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "a6c809e9-f0ee-436d-ba71-b653aab4b2cf",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import subprocess\n",
-    "import venv\n",
-    "import importlib.util\n",
-    "\n",
-    "# Erstellen Sie eine virtuelle Umgebung\n",
-    "venv_dir = \"C:/Users/jablonski/3S/venv\"\n",
-    "venv.create(venv_dir, with_pip=True)\n",
-    "\n",
-    "# Importieren Sie die setup.py-Datei als Modul\n",
-    "setup_file = r\"C:\\Users\\jablonski\\3S\\PT3S\\setup.py\"\n",
-    "spec = importlib.util.spec_from_file_location(\"setup\", setup_file)\n",
-    "setup = importlib.util.module_from_spec(spec)\n",
-    "spec.loader.exec_module(setup)\n",
-    "\n",
-    "# Extrahieren Sie die install_requires-Liste\n",
-    "requirements = setup.install_requires\n",
-    "\n",
-    "for package in requirements:\n",
-    "    subprocess.run([f\"{venv_dir}/Scripts/pip\", \"install\", package], check=True)\n",
-    "\n",
-    "examples = ['Example0.ipynb', 'Example1.ipynb', 'Example2.ipynb','Planungsbeispiel.ipynb']\n",
-    "\n",
-    "for example in examples:\n",
-    "    try:\n",
-    "        # Führen Sie das Skript in der virtuellen Umgebung aus\n",
-    "        result = subprocess.run([f\"{venv_dir}/Scripts/python\", example], check=True)\n",
-    "        print(f'Das Skript {example} wurde erfolgreich ausgeführt.')\n",
-    "    except subprocess.CalledProcessError:\n",
-    "        print(f'Fehler beim Ausführen des Skripts {example}.')\n"
-   ]
-  },
-  {
    "cell_type": "markdown",
    "id": "f8b7960f-a9e7-416f-89ba-e6c95f67cbc4",
    "metadata": {},
@@ -104,18 +66,48 @@
    ]
   },
   {
+   "cell_type": "raw",
+   "id": "5e6d0114-0530-4799-b7c5-844cddd3ec42",
+   "metadata": {},
+   "source": [
+    "Mx1 and Xml are not overwritten and not to be deleted"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": null,
-   "id": "366ce877-84f5-40e5-8948-086dc9d3a5a4",
+   "id": "6d93a6c7-1ae6-4be9-9ad2-c4e632cf5df6",
    "metadata": {},
    "outputs": [],
    "source": [
-    "#Mx1 and Xml are not overwritten and not to be deleted"
+    " files = [\"M-1-0-1.1.MX3\", \"M-1-0-1.1.MXS\", \"M-1-0-1.1.vec.h5\", \"M-1-0-1.ilog\", \"M-1-0-1.log\", \"M-1-0-1.MX2\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "5b13fb84-81f6-4bea-a9e5-bc09833a2faa",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def delete_files(directory):\n",
+    "    # Iterate over each file\n",
+    "    for file in files:\n",
+    "        # Construct the full file path\n",
+    "        file_path = os.path.join(directory, file)\n",
+    "        \n",
+    "        # Check if the file exists\n",
+    "        if os.path.isfile(file_path):\n",
+    "            # Delete the file\n",
+    "            os.remove(file_path)\n",
+    "            print(f\"File {file} has been deleted.\")\n",
+    "        else:\n",
+    "            print(f\"File {file} does not exist.\")\n"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "d93afc8e-0a24-478d-ba44-164e799d7e91",
+   "id": "28a4ac0c-6786-4110-97a1-461ff3eae70c",
    "metadata": {},
    "source": [
     "## Example1"
@@ -123,32 +115,18 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
-   "id": "5b13fb84-81f6-4bea-a9e5-bc09833a2faa",
+   "execution_count": null,
+   "id": "54c4debc-71ba-4e94-8fd7-770a86dacfc0",
    "metadata": {},
    "outputs": [],
    "source": [
-    "directory = r\"C:\\Users\\jablonski\\3S\\PT3S\\Examples\\WDWärmenetz-Planungsbeispiel\\B1\\V0\\BZ1\"\n",
-    "\n",
-    "files = [\n",
-    "    \"M-1-0-1.1.MX3\",\n",
-    "    \"M-1-0-1.1.MXS\",\n",
-    "    \"M-1-0-1.1.vec.h5\",\n",
-    "    \"M-1-0-1.ilog\",\n",
-    "    \"M-1-0-1.log\",\n",
-    "    \"M-1-0-1.MX2\",\n",
-    "]\n",
-    "\n",
-    "for file in files:\n",
-    "    file_path = os.path.join(directory, file)\n",
-    "    \n",
-    "    # Open the file in write mode ('w') to overwrite existing content\n",
-    "    open(file_path, 'w').close()"
+    "directory = r\"C:\\Users\\jablonski\\3S\\PT3S\\Examples\\WDExample1\\B1\\V0\\BZ1\"\n",
+    "delete_files(directory, files)"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "748995f9-691b-49ba-a779-3f47132c9d63",
+   "id": "d6cadc2e-a2b9-4d33-a4f8-7338ab983279",
    "metadata": {},
    "source": [
     "## Example2"
@@ -156,53 +134,48 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
-   "id": "78bc22fa-671a-4b9a-ba71-075e853ae49e",
+   "execution_count": null,
+   "id": "1da14500-0f6b-4c9e-820a-b3ae3eea1500",
    "metadata": {},
    "outputs": [],
    "source": [
-    "directory = r\"C:\\Users\\jablonski\\3S\\PT3S\\Examples\\WDBeispiel_Wasser_STAND9\\B1\\V0\\BZ1\"\n",
-    "\n",
-    "files = [\n",
-    "    \"M-1-0-1.1.MX3\",\n",
-    "    \"M-1-0-1.1.MXS\",\n",
-    "    \"M-1-0-1.1.vec.h5\",\n",
-    "    \"M-1-0-1.ilog\",\n",
-    "    \"M-1-0-1.log\",\n",
-    "    \"M-1-0-1.MX2\",\n",
-    "]\n",
-    "\n",
-    "for file in files:\n",
-    "    file_path = os.path.join(directory, file)\n",
-    "    \n",
-    "    open(file_path, 'w').close()"
+    "directory = r\"C:\\Users\\jablonski\\3S\\PT3S\\Examples\\WDExample2\\B1\\V0\\BZ1\"\n",
+    "delete_files(directory, files)"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "82e4daf7-1d50-49c0-8c95-7ff85b10036e",
+   "id": "cd928b30-da7a-4b47-a658-dcfa39c6ce5b",
    "metadata": {},
    "source": [
-    "## Example 3"
+    "## Example3"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "418a1946-4632-47e0-b1c6-afdcf4edf10e",
+   "id": "7c69cd3b-6719-4b44-bd06-6e4b3b92a77e",
    "metadata": {},
    "outputs": [],
    "source": [
-    "directory = r\"C:\\Users\\jablonski\\3S\\PT3S\\Examples\\DistrictHeating\\B1\\V0\\BZ1\"\n",
-    "\n",
-    "files = [\n",
-    "    \"M-1-0-1.1.MX3\",\n",
-    "    \"M-1-0-1.1.MXS\",\n",
-    "    \"M-1-0-1.1.vec.h5\",\n",
-    "    \"M-1-0-1.ilog\",\n",
-    "    \"M-1-0-1.log\",\n",
-    "    \"M-1-0-1.MX2\",\n",
-    "]\n",
+    "directory = r\"C:\\Users\\jablonski\\3S\\PT3S\\Examples\\WDExample3\\B1\\V0\\BZ1\"\n",
+    "delete_files(directory, files)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9822673c-b84d-4a8c-879d-1533afab0fa3",
+   "metadata": {},
+   "source": [
+    "## Overwritting as blanks"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "id": "9d3b9d80-d458-47cd-9534-988d5aade18b",
+   "metadata": {},
+   "source": [
+    "directory = r\"C:\\Users\\jablonski\\3S\\PT3S\\Examples\\WDExample1\\B1\\V0\\BZ1\"\n",
     "\n",
     "for file in files:\n",
     "    file_path = os.path.join(directory, file)\n",

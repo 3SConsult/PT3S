@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>dxAndMxHelperFcts &mdash; PT3S 90.14.24.0.dev1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b3523f8e" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=838fa8ed" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=838fa8ed" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=bbec6902"></script>
-        <script src="../_static/documentation_options.js?v=c9f58c65"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -459,7 +459,7 @@
                             <span class="n">col</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">pVec</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
                             <span class="n">pVecAttr</span><span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">Mx</span><span class="o">.</span><span class="n">regExpSir3sVecID</span><span class="p">,</span><span class="n">pVec</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;ATTRTYPE&#39;</span><span class="p">)</span>
                             <span class="c1"># man</span>
-                            <span class="n">vROHR</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="s1">&#39;man&#39;</span><span class="o">+</span><span class="n">pVecAttr</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)]</span><span class="o">=</span><span class="n">vROHR</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">-</span> <span class="n">pAtmosInBar</span> 
+                            <span class="n">vROHR</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="s1">&#39;man&#39;</span><span class="o">+</span><span class="n">pVecAttr</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)]</span><span class="o">=</span><span class="n">vROHR</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">-</span> <span class="n">pAtmosInBar</span> 
                             <span class="c1"># mlc</span>
                             <span class="n">vROHR</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="s1">&#39;mlc&#39;</span><span class="o">+</span><span class="n">pVecAttr</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)]</span><span class="o">=</span><span class="n">vROHR</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="s1">&#39;man&#39;</span><span class="o">+</span><span class="n">pVecAttr</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)]</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="o">/</span><span class="p">(</span><span class="n">vROHR</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)]</span><span class="o">*</span><span class="mf">9.81</span><span class="p">)</span><span class="o">+</span><span class="n">vROHR</span><span class="p">[</span><span class="s1">&#39;ZVEC&#39;</span><span class="p">]</span>     
                             
@@ -844,9 +844,60 @@
                 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dfAGSN</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>                                                                                       
                         <span class="k">for</span> <span class="n">col_n</span><span class="p">,</span><span class="n">col_PH</span><span class="p">,</span><span class="n">col_RHO</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colsMlc</span><span class="p">,</span><span class="n">colsPH</span><span class="p">,</span><span class="n">colsRHO</span><span class="p">):</span>                        
                             <span class="n">dfAGSN</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="n">col_n</span><span class="p">]</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">col_PH</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="o">/</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">col_RHO</span><span class="p">]</span><span class="o">*</span><span class="mf">9.81</span><span class="p">)</span><span class="o">+</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;ZKOR_n&#39;</span><span class="p">]</span>     
-                        
-                                                                  
+                            
                 <span class="bp">self</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="o">=</span><span class="n">dfAGSN</span>
+                                        
+                <span class="c1"># dfAGSN um Rohrvektoren erweitern                </span>
+                <span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;OBJID&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span><span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;ROHRVEC&#39;</span><span class="p">)</span>
+                                   <span class="c1">#,how=&#39;left&#39;</span>
+                                   <span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">,</span><span class="s1">&#39;XL&#39;</span><span class="p">,</span><span class="s1">&#39;Pos&#39;</span><span class="p">,</span><span class="s1">&#39;SVEC&#39;</span><span class="p">])</span>                
+                
+                <span class="c1"># erweiterten df bearbeiten</span>
+                <span class="c1"># S/E bearbeiten: nur jeweils 1 Zeile bleibt ueber</span>
+                <span class="n">indToDelete</span><span class="o">=</span><span class="p">[]</span>
+                <span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">row</span> <span class="ow">in</span> <span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                    
+                    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;XL&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]:</span>    
+                            <span class="c1"># im VL wird E geloescht wenn pos. def. in Schnittrichtung; sonst S</span>
+                            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
+                                    <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                            <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                                    <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># im RL wird S geloescht wenn pos. def. in Schnittrichtung; sonst E</span>
+                            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                                    <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                            <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
+                                    <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>                            
+                            
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;XL&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]:</span>         
+                            <span class="c1"># im VL wird S geloescht wenn pos. def. in Schnittrichtung; sonst E</span>
+                            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                                    <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                            <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
+                                    <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>     
+                        <span class="k">else</span><span class="p">:</span>                            
+                            <span class="c1"># im RL wird E geloescht wenn pos. def. in Schnittrichtung; sonst S</span>
+                             <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                                 <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
+                                     <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                             <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                                 <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                                     <span class="n">indToDelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>                                
+                <span class="c1">#        </span>
+                <span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">indToDelete</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                
+
+                                                  
+                <span class="bp">self</span><span class="o">.</span><span class="n">V3_AGSNVec</span><span class="o">=</span><span class="n">dfAGSNVec</span>
 
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing V3_AGSN ok so far.&#39;</span><span class="p">))</span>    
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -954,9 +1005,7 @@
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="readDxAndMx">
-<a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMx">[docs]</a>
-<span class="k">def</span> <span class="nf">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span>            
+<div class="viewcode-block" id="readDxAndMx"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMx">[docs]</a><span class="k">def</span> <span class="nf">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span>            
                 <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">forceSir3sRead</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">maxRecords</span><span class="o">=</span><span class="kc">None</span>
@@ -1517,16 +1566,13 @@
 
 
 
-
 <span class="k">class</span> <span class="nc">readMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="readMx">
-<a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readMx">[docs]</a>
-<span class="k">def</span> <span class="nf">readMx</span><span class="p">(</span><span class="n">rootdir</span><span class="p">,</span> <span class="n">logPathOutputFct</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">):</span>
+<div class="viewcode-block" id="readMx"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readMx">[docs]</a><span class="k">def</span> <span class="nf">readMx</span><span class="p">(</span><span class="n">rootdir</span><span class="p">,</span> <span class="n">logPathOutputFct</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads SIR 3S results and returns a Mx object.</span>
 
@@ -1591,7 +1637,6 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">_Done.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStrPrefix</span><span class="p">))</span> 
     
     <span class="k">return</span> <span class="n">mx</span></div>
-
 
 <span class="k">def</span> <span class="nf">constructNewMultiindexFromCols</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span><span class="n">mColNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OBJTYPE&#39;</span><span class="p">,</span><span class="s1">&#39;OBJID&#39;</span><span class="p">],</span><span class="n">mIdxNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OBJTYPE&#39;</span><span class="p">,</span><span class="s1">&#39;OBJID&#39;</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructs a new Multiindex from existing cols and returns the constructed df.</span>
