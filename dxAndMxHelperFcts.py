@@ -476,7 +476,7 @@ class dxWithMx():
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
-                logger.info("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN failed.'))     
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN failed.'))     
 
             try:                                                                        
                 # dfAGSN um Rohrvektoren erweitern  
@@ -484,7 +484,7 @@ class dxWithMx():
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
-                logger.info("{0:s}{1:s}".format(logStr,'Constructing V3_AGSNVEC failed.'))                           
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_AGSNVEC failed.'))                           
                                 
         except dxWithMxError:
             raise            
@@ -552,7 +552,7 @@ class dxWithMx():
         try: 
             pass
                   
-            vROHR=V3_ROHR#self.V3_ROHR
+            vROHR=V3_ROHR
             rVecMx2Idx=[] 
             IptIdx=[] 
             #                annotieren in mx2Idx-Reihenfolge da die rVecs in mx2Idx-Reihenfolge geschrieben werden
@@ -669,7 +669,7 @@ class dxWithMx():
             raise            
         except Exception as e:
             logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-            logger.error(logStrFinal) 
+            logger.debug(logStrFinal) 
             raise dxWithMxError(logStrFinal)                       
         finally:
             logger.debug(f"{logStr}_Done.") 
@@ -740,9 +740,8 @@ class dxWithMx():
         
         try: 
             pass
-                  
-            # dfAGSN ergaenzen zu V3_AGSN
-            dfAGSN=constructNewMultiindexFromCols(self.dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
+        
+            dfAGSN=constructNewMultiindexFromCols(dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
             # urspruengliche Cols
             colsAGSNBase=dfAGSN.columns.to_list()
             
@@ -949,7 +948,7 @@ class dxWithMx():
             raise            
         except Exception as e:
             logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-            logger.error(logStrFinal) 
+            logger.debug(logStrFinal) 
             raise dxWithMxError(logStrFinal)                       
         finally:
             logger.debug(f"{logStr}_Done.") 

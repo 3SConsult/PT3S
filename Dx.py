@@ -237,7 +237,7 @@ class Dx():
 
             # das dbFile existiert und ist lesbar
             logger.info("{:s}dbFile (abspath): {:s} exists readable ...".format(
-                logStr, os.path.abspath(dbFile)))
+                logStr, os.path.abspath(dbFile)).replace('wolters','aUserName').replace('jablonski','aUserName'))
 
             self.dbFile = dbFile
 
@@ -882,7 +882,7 @@ class Dx():
                 # alle Ues
                 vRUES = self.dataFrames['V_BVZ_RUES']
                 
-                if not vRUES[vRUES['pk'].isin([-1])].empty:
+                if not vRUES[~vRUES['pk'].isin([-1,'-1'])].empty:
                                 
                     # alle Kanten (alle Signalverbindungen)
                     vCRGL = self.dataFrames['V_CRGL']
@@ -1161,6 +1161,10 @@ class Dx():
                     V3_RVBEL=V3_RVBEL[~pd.isnull(V3_RVBEL['tk'])]
                     V3_RVBEL = Xm.Xm.constructNewMultiindexFromCols(df=V3_RVBEL, mColNames=[
                                                                     'OBJTYPE_i', 'OBJTYPE_k', 'OBJID'], mIdxNames=['OBJTYPE_i', 'OBJTYPE_k', 'OBJID'])
+                
+                
+                V3_RVBEL=V3_RVBEL[~V3_RVBEL.index.get_level_values(2).isin([-1,'-1'])]
+                
                 self.dataFrames['V3_RVBEL'] = V3_RVBEL
                                 
                 # Modell-Pk des in QGIS anzuzeigenden Modells    
@@ -1350,6 +1354,8 @@ class Dx():
         try:
             
             V3 = {}
+            dfKnotRes=pd.DataFrame()
+            
             for dfName, resType in zip(['V3_KNOT', 'V3_ROHR', 'V3_FWVB'], ['^KNOT', '^ROHR~', '^FWVB']):
                 # Ergebnisse lesen
                 
@@ -1358,40 +1364,47 @@ class Dx():
                 try:
                 
                     dfRes = mx.getVecAggsResultsForObjectType(resType)
+                    
+                    if not dfRes.empty:
     
-                    #logger.debug("{0:s}dfRes: {1:s}".format(logStr,dfRes.to_string()))
-    
-                    if dfName == 'V3_KNOT' and addNodeData:
-    
-                        # df mit Knotenergebnissen merken
-                        dfKnotRes = dfRes
-                        # gewünschte Ergebnisspalten von Knoten
-                        Sir3sIDs = dfKnotRes.columns.get_level_values(1)
-                        
-                        Sir3sIDsMatching=[]
-                        for addNodeDataSir3sVecIDReExp in addNodeDataSir3sVecIDReExps:
-                            Sir3sIDsMatching = Sir3sIDsMatching + [Sir3sID for Sir3sID in Sir3sIDs if re.search(
-                                addNodeDataSir3sVecIDReExp, Sir3sID) != None]
-                                            
-                        # die zur Ergänzung gewünschten Ergebnisspalten von Knoten
-                        dfKnotRes = dfKnotRes.loc[:, (slice(
-                            None), Sir3sIDsMatching, slice(None), slice(None))]
-                                     
-                        dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
-                
-                    dfRes.columns = dfRes.columns.to_flat_index()
-    
-                    #Sachspalten lesen
-                    df = self.dataFrames[dfName]
-    
-                    # Ergebnisspalten ergänzen                
-                    V3[dfName] = df.merge(
-                            dfRes, left_on='tk', right_index=True, how='left')  
+                        #logger.debug("{0:s}dfRes: {1:s}".format(logStr,dfRes.to_string()))
+        
+                        if dfName == 'V3_KNOT' and addNodeData:
+        
+                            # df mit Knotenergebnissen merken
+                            dfKnotRes = dfRes
+                            # gewünschte Ergebnisspalten von Knoten
+                            Sir3sIDs = dfKnotRes.columns.get_level_values(1)
+                            
+                            Sir3sIDsMatching=[]
+                            for addNodeDataSir3sVecIDReExp in addNodeDataSir3sVecIDReExps:
+                                Sir3sIDsMatching = Sir3sIDsMatching + [Sir3sID for Sir3sID in Sir3sIDs if re.search(
+                                    addNodeDataSir3sVecIDReExp, Sir3sID) != None]
+                                                
+                            # die zur Ergänzung gewünschten Ergebnisspalten von Knoten
+                            dfKnotRes = dfKnotRes.loc[:, (slice(
+                                None), Sir3sIDsMatching, slice(None), slice(None))]
+                                         
+                            dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
+                    
+                        dfRes.columns = dfRes.columns.to_flat_index()
+        
+                        #Sachspalten lesen
+                        df = self.dataFrames[dfName]
+        
+                        # Ergebnisspalten ergänzen                
+                        V3[dfName] = df.merge(
+                                dfRes, left_on='tk', right_index=True, how='left')  
+                    
+                    else:
+                        V3[dfName] = self.dataFrames[dfName]
 
-                except:
-                    pass
+                except Exception as e:
+                     logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+                         logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+                     logger.debug(logStrFinal)
 
-            if addNodeData:
+            if addNodeData and not dfKnotRes.empty:
 
                 for dfName in ['V3_ROHR', 'V3_FWVB']:
                     
@@ -1406,8 +1419,11 @@ class Dx():
                             '_k'), left_on='fkKK', right_index=True, how='left')   
                              
                         V3[dfName] = df
-                    except:
-                        pass
+                        
+                    except Exception as e:
+                         logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+                             logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+                         logger.debug(logStrFinal)
             
                                             
             # V3_VBEL
@@ -1419,7 +1435,7 @@ class Dx():
             
             # QM
             dfOBJTYPEs=mx.getVecAggsResultsForAttributeType()
-                         
+            
             # all edges
             dfs=[]
             for edge in [edge for edge in dfVBEL.index.unique(level=0).to_list()]:
@@ -1446,7 +1462,8 @@ class Dx():
                     logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: Edge-Type {:s}: adding Vec-Results failed.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)            
                     logger.debug(logStrEdge)             
             
-            dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True,how='left')
+            if len(dfs) > 0:
+                dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True,how='left')
             
             #logger.debug("{0:s}dfVBEL nach concat: {1:s}".format(logStr,dfVBEL.head().to_string()))
             

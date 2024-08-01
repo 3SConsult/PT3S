@@ -3516,12 +3516,16 @@ class Mx():
             
             # empty wenn keine Kanaele gefunden oder Fehler
             df=pd.DataFrame()
+            dfOBJTYPEs={}
         
             # alle vorhandenen Kanaele
             Sir3sIDs=sorted(self.dfVecAggs.index.get_level_values(1).unique().to_list())
             # alle verlangten Kanaele 
             Sir3sIDsMatching=[Sir3sID for Sir3sID in Sir3sIDs if re.search(Sir3sVecIDReExp,Sir3sID) != None]
             logger.debug("{:s}Sir3sIDsMatching: {!s:s}".format(logStr,Sir3sIDsMatching)) 
+            
+            if len(Sir3sIDsMatching) == 0:
+                return dfOBJTYPEs
             
             ATTRTYPEs=[re.match(regExpSir3sVecID,Sir3sIDMatching).group('ATTRTYPE') for Sir3sIDMatching in Sir3sIDsMatching]
             setATTRTYPEs={ATTRTYPE for ATTRTYPE in ATTRTYPEs}
@@ -3540,7 +3544,7 @@ class Mx():
             
             OBJTYPEs=[re.match(regExpSir3sVecID,Sir3sIDMatching).group('OBJTYPE') for Sir3sIDMatching in Sir3sIDsMatching]
             
-            dfOBJTYPEs={}
+            #dfOBJTYPEs={}
 
             for OBJTYPE,ATTRTYPE,Sir3sIDMatching in zip(OBJTYPEs,ATTRTYPEs,Sir3sIDsMatching):
                 

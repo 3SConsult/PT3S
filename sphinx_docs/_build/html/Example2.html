@@ -107,6 +107,7 @@
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">re</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -137,6 +138,11 @@
     <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Rm</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">Rm</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Mx</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">Mx</span>
 </pre></div>
 </div>
 </div>
@@ -216,11 +222,16 @@
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; Dx.__init__: dbFile (abspath): C:\Users\wolters\AppData\Local\anaconda3\Lib\site-packages\PT3S\Examples\Example2.db3 exists readable ...
+INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\Examples\Example2.db3 exists readable ...
 INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined...
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used...
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: running C:\\3S\Sir3s\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site-packages\PT3S\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MXS reading ...
+INFO    ; dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used...
+INFO    ; dxAndMxHelperFcts.readDxAndMx:
++..\Examples\Example2.db3 is newer than
++..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MX1:
++SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
++in this case the results are maybe dated or (worse) incompatible to the model
+INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\Sir3s\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MXS reading ...
 INFO    ; dxWithMx.__init__: Example2: processing dx and mx ...
 </pre></div></div>
 </div>
@@ -240,14 +251,25 @@ INFO    ; dxWithMx.__init__: Example2: processing dx and mx ...
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site-packages\PT3S\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MXS reading ...
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MXS reading ...
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span> <span class="c1">#(=m.mx.df)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Simpler-column-names">
+<h1>Simpler column names<a class="headerlink" href="#Simpler-column-names" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">col</span><span class="p">:</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">Mx</span><span class="o">.</span><span class="n">reSir3sIDSep</span><span class="o">+</span><span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;OBJTYPE_PK&#39;</span><span class="p">),</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span><span class="n">mo</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">col</span><span class="p">,</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">Mx</span><span class="o">.</span><span class="n">reSir3sIDcompiled</span><span class="p">,</span><span class="n">col</span><span class="p">))</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()]},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -257,7 +279,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 <section id="Define-Axes">
 <h2>Define Axes<a class="headerlink" href="#Define-Axes" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fyP</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -292,7 +314,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 <section id="Non-interactive-Plot">
 <h2>Non-interactive Plot<a class="headerlink" href="#Non-interactive-Plot" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">():</span>
@@ -306,23 +328,23 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
     <span class="c1">#Druck</span>
     <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyP</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~K0011~~5471942051669438823~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH K0011&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~5143521_i~~5166327497394449628~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 5143521_i&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~791393_3_k~~5667818255300782920~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 791393_3_k&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~1629686_0_i~~5262999985134416180~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 1629686_0_i&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~K0011~~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH K0011&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~5143521_i~~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 5143521_i&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~791393_3_k~~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 791393_3_k&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~1629686_0_i~~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 1629686_0_i&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
 
     <span class="c1"># Volumenstrom</span>
     <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyQ</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~5659089154378919131~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0006~K0004&#39;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0011~PST_out~5430537691154258843~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0011~PST_out&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0006~K0004&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0011~PST_out~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0011~PST_out&#39;</span><span class="p">)</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
 
     <span class="c1"># RSK-Stellung</span>
     <span class="n">ax3</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">fyRSK</span><span class="p">(</span><span class="n">ax3</span><span class="p">)</span>
-    <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~5303247238968995258~PHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PHI K0013~K0014&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~PHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PHI K0013~K0014&#39;</span><span class="p">)</span>
     <span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
 
     <span class="c1"># Set the x-axis limits</span>
@@ -344,7 +366,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">()</span>
@@ -355,7 +377,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example2_19_0.png" src="_images/Example2_19_0.png" />
+<img alt="_images/Example2_21_0.png" src="_images/Example2_21_0.png" />
 </div>
 </div>
 </section>
@@ -364,7 +386,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 <section id="Using-Widgets">
 <h3>Using Widgets<a class="headerlink" href="#Using-Widgets" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Startzeit_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">TimePicker</span><span class="p">(</span>
@@ -384,7 +406,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">interactive_plot</span><span class="p">(</span><span class="n">Startzeit</span><span class="p">,</span> <span class="n">Endzeit</span><span class="p">,</span> <span class="n">Druck</span><span class="p">,</span> <span class="n">Volumenstrom</span><span class="p">,</span> <span class="n">RSK_Stellung</span><span class="p">):</span>
@@ -402,25 +424,25 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
         <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyP</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 
-        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~K0011~~5471942051669438823~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH K0011&#39;</span><span class="p">)</span>
-        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~5143521_i~~5166327497394449628~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 5143521_i&#39;</span><span class="p">)</span>
-        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~791393_3_k~~5667818255300782920~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 791393_3_k&#39;</span><span class="p">)</span>
-        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~1629686_0_i~~5262999985134416180~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 1629686_0_i&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~K0011~~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH K0011&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~5143521_i~~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 5143521_i&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~791393_3_k~~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 791393_3_k&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KNOT~1629686_0_i~~PH&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PH 1629686_0_i&#39;</span><span class="p">)</span>
         <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">Volumenstrom</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
         <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyQ</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
-        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~5659089154378919131~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0006~K0004&#39;</span><span class="p">)</span>
-        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0011~PST_out~5430537691154258843~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0011~PST_out&#39;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0006~K0004&#39;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VENT~K0011~PST_out~QM&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QM K0011~PST_out&#39;</span><span class="p">)</span>
         <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">RSK_Stellung</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
         <span class="n">ax3</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">fyRSK</span><span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
-        <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~5303247238968995258~PHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PHI K0013~K0014&#39;</span><span class="p">)</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~PHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PHI K0013~K0014&#39;</span><span class="p">)</span>
         <span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
 
     <span class="c1"># Set the x-axis limits</span>
@@ -439,7 +461,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">widgets_interact</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">interactive_plot</span><span class="p">,</span>
@@ -452,7 +474,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
@@ -469,7 +491,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">widgets_interact</span><span class="p">)</span>
@@ -480,10 +502,10 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\..\..\AppData\Local\anaconda3\Lib\site
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "cb03575a01864ab4a89cec0de866e7ce", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5c3eb18e152941e1822cf1ebbf7f9a26", "version_major": 2, "version_minor": 0}</script></div>
 </div>
-The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
@@ -493,19 +515,11 @@ The depiction of the interactive Widget plot does not work in the documentation,
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-png not created
-</pre></div></div>
-</div>
 </section>
 <section id="Using-Bokeh">
 <h3>Using Bokeh<a class="headerlink" href="#Using-Bokeh" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">plot_druck</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_volumenstrom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_rsk_stellung</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -513,9 +527,9 @@ png not created
     <span class="n">source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
     <span class="c1"># List of columns to plot</span>
-    <span class="n">cols_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNOT~K0011~~5471942051669438823~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~5143521_i~~5166327497394449628~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~791393_3_k~~5667818255300782920~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~1629686_0_i~~5262999985134416180~PH&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_druck</span> <span class="k">else</span> <span class="p">[]</span>
-    <span class="n">cols_to_plot_2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~5659089154378919131~QM&#39;</span><span class="p">,</span> <span class="s1">&#39;VENT~K0011~PST_out~5430537691154258843~QM&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_volumenstrom</span> <span class="k">else</span> <span class="p">[]</span>
-    <span class="n">cols_to_plot_3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~5303247238968995258~PHI&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_rsk_stellung</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="n">cols_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNOT~K0011~~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~5143521_i~~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~791393_3_k~~PH&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~1629686_0_i~~PH&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_druck</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="n">cols_to_plot_2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;VENT~K0006~K0004~QM&#39;</span><span class="p">,</span> <span class="s1">&#39;VENT~K0011~PST_out~QM&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_volumenstrom</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="n">cols_to_plot_3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KLAP~K0013~K0014~PHI&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">plot_rsk_stellung</span> <span class="k">else</span> <span class="p">[]</span>
 
     <span class="c1"># Define the plot size</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">1366</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">x_axis_type</span><span class="o">=</span><span class="s2">&quot;datetime&quot;</span><span class="p">,</span> <span class="n">y_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
@@ -554,7 +568,7 @@ png not created
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_data</span><span class="p">(</span><span class="n">plot_druck</span><span class="o">=</span><span class="kc">True</span>
@@ -563,8 +577,8 @@ png not created
 </pre></div>
 </div>
 </div>
-The depiction of the interactive Bokeh plot does not work in the documentation, because it is opened in a browser window. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+The depiction of the interactive Bokeh plot does not work in the documentation, because it is opened in a browser window. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
@@ -573,14 +587,6 @@ The depiction of the interactive Bokeh plot does not work in the documentation, 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;png not created&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-png not created
-</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
