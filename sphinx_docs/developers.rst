@@ -221,7 +221,7 @@ After :ref:`cloning-github-label`, you can install the package in editable mode.
 
 Now, your package is installed in editable mode. This means that you can make changes to the source code of the package and those changes will take effect immediately without needing to reinstall the package.
 
-By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to the project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this `PT3S.egg-link` file.
+By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to the project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this `PT3S.egg-link` file. Delete also the PT3S-line in easy-install.pth.
 
 .. _generating-documentation-label:
 

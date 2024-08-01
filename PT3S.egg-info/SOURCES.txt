@@ -21,8 +21,6 @@ setup.py
 ./Lx.py
 ./Mx.py
 ./NFD.py
-./PT3S.html
-./PT3S.ipynb
 ./Rm.py
 ./Xm.py
 ./__init__.py
@@ -35,7 +33,7 @@ setup.py
 ./Examples/Example3.db3
 ./Examples/WDExample1/B1/V0/BZ1/M-1-0-1.1.MX1
 ./Examples/WDExample1/B1/V0/BZ1/M-1-0-1.XML
-./Examples/WDExample2/B1/V0/BZ1/M-1-0-1.1.MX1
+./Examples/WDExample2/B1/V0/BZ1/M-1-0-1.5.MX1
 ./Examples/WDExample2/B1/V0/BZ1/M-1-0-1.XML
 ./Examples/WDExample3/B1/V0/BZ1/M-1-0-1.1.MX1
 ./Examples/WDExample3/B1/V0/BZ1/M-1-0-1.XML

@@ -17,3 +17,6 @@ matplotlib
 ipywidgets
 Pillow
 selenium
+nbsphinx
+sphinx_copybutton
+sphinx-rtd-theme
