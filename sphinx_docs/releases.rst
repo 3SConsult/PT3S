@@ -3,6 +3,15 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.26.0.dev1
+---------------
+
+**Fix:**
+
+- Example 2
+- Example 3
+- Example 1,2,3 tested
+
 90.14.25.0.dev1
 ---------------
 
