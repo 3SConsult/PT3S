@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imports &mdash; PT3S 90.14.24.0.dev1 documentation</title>
+  <title>Imports &mdash; PT3S 90.14.25.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -130,7 +130,7 @@ Fehler beim Ausführen des Skripts Planungsbeispiel.ipynb.
 <section id="Overwriting-MX-with-Blank-Files">
 <h1>Overwriting MX with Blank Files<a class="headerlink" href="#Overwriting-MX-with-Blank-Files" title="Permalink to this heading"></a></h1>
 Mx1 and Xml are not overwritten and not to be deleted<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span> <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;M-1-0-1.1.MX3&quot;</span><span class="p">,</span> <span class="s2">&quot;M-1-0-1.1.MXS&quot;</span><span class="p">,</span> <span class="s2">&quot;M-1-0-1.1.vec.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;M-1-0-1.ilog&quot;</span><span class="p">,</span> <span class="s2">&quot;M-1-0-1.log&quot;</span><span class="p">,</span> <span class="s2">&quot;M-1-0-1.MX2&quot;</span><span class="p">]</span>
@@ -159,38 +159,77 @@ Mx1 and Xml are not overwritten and not to be deleted<div class="nbinput nblast 
 </div>
 <section id="Example1">
 <h2>Example1<a class="headerlink" href="#Example1" title="Permalink to this heading"></a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">directory</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\Examples\WDExample1\B1\V0\BZ1&quot;</span>
-<span class="n">delete_files</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+<span class="n">delete_files</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+File M-1-0-1.1.MX3 has been deleted.
+File M-1-0-1.1.MXS has been deleted.
+File M-1-0-1.1.vec.h5 has been deleted.
+File M-1-0-1.ilog does not exist.
+File M-1-0-1.log has been deleted.
+File M-1-0-1.MX2 has been deleted.
+</pre></div></div>
 </div>
 </section>
 <section id="Example2">
 <h2>Example2<a class="headerlink" href="#Example2" title="Permalink to this heading"></a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">directory</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\Examples\WDExample2\B1\V0\BZ1&quot;</span>
-<span class="n">delete_files</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+<span class="n">delete_files</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+File M-1-0-1.1.MX3 has been deleted.
+File M-1-0-1.1.MXS has been deleted.
+File M-1-0-1.1.vec.h5 has been deleted.
+File M-1-0-1.ilog does not exist.
+File M-1-0-1.log has been deleted.
+File M-1-0-1.MX2 has been deleted.
+</pre></div></div>
 </div>
 </section>
 <section id="Example3">
 <h2>Example3<a class="headerlink" href="#Example3" title="Permalink to this heading"></a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">directory</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\jablonski\3S\PT3S\Examples\WDExample3\B1\V0\BZ1&quot;</span>
-<span class="n">delete_files</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+<span class="n">delete_files</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+File M-1-0-1.1.MX3 has been deleted.
+File M-1-0-1.1.MXS has been deleted.
+File M-1-0-1.1.vec.h5 has been deleted.
+File M-1-0-1.ilog has been deleted.
+File M-1-0-1.log has been deleted.
+File M-1-0-1.MX2 has been deleted.
+</pre></div></div>
 </div>
 </section>
 <section id="Overwritting-as-blanks">

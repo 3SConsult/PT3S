@@ -241,7 +241,7 @@ To generate documentation, follow these steps:
 
    .. code-block:: bash
 
-      cd "C:\Users\User\3S\PT3S"\sphinx_docs"
+      cd "C:\Users\User\3S\PT3S\sphinx_docs"
 
 3. **Make an HTML build:** Use the ``.\make.bat html`` command.
 

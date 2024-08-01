@@ -84,7 +84,11 @@ setup(
         'matplotlib',
         'ipywidgets',
         'Pillow',
-        'selenium'
+        'selenium',
+        # doc
+        'nbsphinx',
+        'sphinx_copybutton',
+        'sphinx-rtd-theme'
         
     ],    
     

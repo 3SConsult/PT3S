@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imports &mdash; PT3S 90.14.24.0.dev1 documentation</title>
+  <title>Imports &mdash; PT3S 90.14.25.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -133,15 +133,32 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt3s_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
 </pre></div>
 </div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;module &#39;dxAndMxHelperFcts&#39; from &#39;c:\\users\\wolters\\3s\\pt3s\\dxAndMxHelperFcts.py&#39;&gt;
+</pre></div></div>
 </div>
 </section>
 <section id="Logging">
 <h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
@@ -166,69 +183,29 @@
 </div>
 </div>
 </section>
-<section id="Model-and-SirCalc">
-<h1>Model and SirCalc<a class="headerlink" href="#Model-and-SirCalc" title="Permalink to this heading"></a></h1>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;WDExample2&quot;</span>
-</pre></div>
-</div>
-</div>
+<section id="Read-Model-and-Results">
+<h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rootdir</span><span class="o">=</span><span class="n">pt3s_path</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\WDExample2&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example2&quot;</span>
+<span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+                    <span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span>
+                    <span class="o">+</span><span class="n">dbFilename</span>
+                    <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
-You need to enter the specific path  to SirCalc on your system.<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SirCalc</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe&quot;</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="Calculation-of-Results">
-<h1>Calculation of Results<a class="headerlink" href="#Calculation-of-Results" title="Permalink to this heading"></a></h1>
-The calculations take some time. If you have calculated the results once and want to rerun the script, set this to False.<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate</span><span class="o">=</span><span class="kc">True</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SirCalcXml</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pt3s_path</span><span class="p">,</span> <span class="s2">&quot;Examples&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;B1&quot;</span><span class="p">,</span> <span class="s2">&quot;V0&quot;</span><span class="p">,</span> <span class="s2">&quot;BZ1&quot;</span><span class="p">,</span> <span class="s2">&quot;M-1-0-1.XML&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">calculate</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">SirCalc</span><span class="p">,</span> <span class="n">SirCalcXml</span><span class="p">])</span> <span class="k">as</span> <span class="n">process</span><span class="p">:</span>
-        <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="Read-Results">
-<h1>Read Results<a class="headerlink" href="#Read-Results" title="Permalink to this heading"></a></h1>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mx</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readMx</span><span class="p">(</span><span class="n">rootdir</span><span class="o">=</span><span class="n">rootdir</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span>
+                                <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span>
+                                <span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -237,11 +214,35 @@ The calculations take some time. If you have calculated the results once and wan
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.2.MXS reading ...
+INFO    ; Dx.__init__: dbFile (abspath): c:\users\wolters\3s\pt3s\Examples\Example2.db3 exists readable ...
+INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined...
+INFO    ; dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used...
+INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\Sir3s\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MXS reading ...
+INFO    ; dxWithMx.__init__: Example2: processing dx and mx ...
+</pre></div></div>
+</div>
+</section>
+<section id="Example-for-reading-only-Results">
+<h1>Example for reading only Results<a class="headerlink" href="#Example-for-reading-only-Results" title="Permalink to this heading"></a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mx</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readMx</span><span class="p">(</span><span class="n">wDirMx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">wDirMx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MXS reading ...
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span>
@@ -254,7 +255,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 <section id="Define-Axes">
 <h2>Define Axes<a class="headerlink" href="#Define-Axes" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fyP</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -289,7 +290,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 <section id="Non-interactive-Plot">
 <h2>Non-interactive Plot<a class="headerlink" href="#Non-interactive-Plot" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">():</span>
@@ -330,7 +331,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 
     <span class="n">Rm</span><span class="o">.</span><span class="n">pltHelperX</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">dateFormat</span><span class="o">=</span><span class="s1">&#39;%Hh:%Mm:%Ss&#39;</span><span class="p">,</span> <span class="n">bysecond</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">yPos</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Curves for &#39;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39; from &#39;</span><span class="o">+</span><span class="n">Startzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; to &quot;</span><span class="o">+</span><span class="n">Endzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">))</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Curves for &#39;</span><span class="o">+</span><span class="n">dbFilename</span><span class="o">+</span><span class="s1">&#39; from &#39;</span><span class="o">+</span><span class="n">Startzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; to &quot;</span><span class="o">+</span><span class="n">Endzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">))</span>
 
     <span class="c1">#Create printable Output</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Example2_Output.pdf&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
@@ -341,7 +342,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">()</span>
@@ -352,7 +353,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example2_23_0.png" src="_images/Example2_23_0.png" />
+<img alt="_images/Example2_17_0.png" src="_images/Example2_17_0.png" />
 </div>
 </div>
 </section>
@@ -361,7 +362,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 <section id="Using-Widgets">
 <h3>Using Widgets<a class="headerlink" href="#Using-Widgets" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Startzeit_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">TimePicker</span><span class="p">(</span>
@@ -381,7 +382,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">interactive_plot</span><span class="p">(</span><span class="n">Startzeit</span><span class="p">,</span> <span class="n">Endzeit</span><span class="p">,</span> <span class="n">Druck</span><span class="p">,</span> <span class="n">Volumenstrom</span><span class="p">,</span> <span class="n">RSK_Stellung</span><span class="p">):</span>
@@ -429,14 +430,14 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 
     <span class="n">Rm</span><span class="o">.</span><span class="n">pltHelperX</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">dateFormat</span><span class="o">=</span><span class="s1">&#39;%Hh:%Mm:%Ss&#39;</span><span class="p">,</span> <span class="n">bysecond</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">yPos</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Curves for &#39;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39; from &#39;</span><span class="o">+</span><span class="n">Startzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; to &quot;</span><span class="o">+</span><span class="n">Endzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">))</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Curves for &#39;</span><span class="o">+</span><span class="n">dbFilename</span><span class="o">+</span><span class="s1">&#39; from &#39;</span><span class="o">+</span><span class="n">Startzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; to &quot;</span><span class="o">+</span><span class="n">Endzeit</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">))</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">widgets_interact</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">interactive_plot</span><span class="p">,</span>
@@ -449,7 +450,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
@@ -466,7 +467,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">widgets_interact</span><span class="p">)</span>
@@ -477,29 +478,29 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a221d46c76ca4930881fcab5d26ead78", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "78cb3e433764420ba8620a955b20cbc2", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">pt3s_path</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\1_example2_interactive_widget_plot.png&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\1_example2_interactive_widget_plot.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example2_32_0.png" src="_images/Example2_32_0.png" />
+<img alt="_images/Example2_26_0.png" src="_images/Example2_26_0.png" />
 </div>
 </div>
 </section>
 <section id="Using-Bokeh">
 <h3>Using Bokeh<a class="headerlink" href="#Using-Bokeh" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">plot_druck</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_volumenstrom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_rsk_stellung</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -548,7 +549,7 @@ The depiction of the interactive Widget plot does not work in the documentation,
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_data</span><span class="p">(</span><span class="n">plot_druck</span><span class="o">=</span><span class="kc">True</span>
@@ -558,19 +559,27 @@ The depiction of the interactive Widget plot does not work in the documentation,
 </div>
 </div>
 The depiction of the interactive Bokeh plot does not work in the documentation, because it is opened in a browser window. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">pt3s_path</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\2_example2_interactive_bokeh_plot.png&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\2_example2_interactive_bokeh_plot.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example2_37_0.png" src="_images/Example2_37_0.png" />
+<img alt="_images/Example2_31_0.png" src="_images/Example2_31_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>
