@@ -194,7 +194,7 @@ Follow these steps to upload a new version of your project to PyPI:
 
       python -m twine upload dist/*
 
-7. **Enter API Token When Prompted:** You will be prompted to enter your API Token after running the command in step 6. Simply enter your API token when asked.
+7. **Enter API Token when Prompted:** You will be prompted to enter your API Token after running the command in step 6. Simply enter your API token when asked.
  
 .. note::
 

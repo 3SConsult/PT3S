@@ -16,7 +16,7 @@ At the moment, PT3S is just a collection of functions intended to simplify the u
 
 **PT3S is only of interest to users with access to SIR 3S models.**
 
-And for users of pipe network calculation software who are looking for a new software that works with Jupyter notebooks and Python. PT3S comes with SIR 3S sample models. SIR 3S itself is not part of PT3S.
+And for users of pipe network calculation software who are looking for a new software that works with Jupyter notebooks and Python. PT3S comes with uncalculated SIR 3S sample models. Access to SIR 3S' SirCalc is necessary to (re-)calculate the models. SIR 3S itself is not part of PT3S.
 
 
 .. note::

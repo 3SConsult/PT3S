@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Functions &mdash; PT3S 90.14.25.0.dev1 documentation</title>
+  <title>Functions &mdash; PT3S 90.14.26.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -146,7 +146,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <li><p>m.V3_KNOT: Nodes</p></li>
 <li><p>m.V3_VBEL: Edges</p></li>
 <li><p>m.V3_ROHRVEC: Pipes including interior points</p></li>
-<li><p>m.V3_AGSN: Longitudinal Sections</p></li>
+<li><p>m.V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</p></li>
 <li><p>m.V3_AGSNVEC: Longitudinal Sections including Pipe interior points</p></li>
 </ul>
 </dd>
@@ -165,7 +165,6 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <dt>Dfs containing decoded BLOB-Data:</dt><dd><ul>
 <li><p>m.dfLAYR: one row per LAYR (Layer) and OBJ</p></li>
 <li><p>m.dfWBLZ: one row per WBLZ (Heat balance) and OBJ</p></li>
-<li><p>m.dfAGSN: one row for AGSN and OBJ (edge); AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</p></li>
 </ul>
 </dd>
 </dl>
@@ -181,7 +180,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </ul>
 </div></blockquote>
 <dl class="simple">
-<dt>The returned dxWithMx object has almost no functions yet - except:</dt><dd><ul class="simple">
+<dt>Selected functions of the returned dxWithMx object:</dt><dd><ul class="simple">
 <li><p>setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df</p></li>
 <li><p>switchV3DfColsToMultiindex(): switch cols in m.V3_ROHR, m.V3_FWVB, m.V3_KNOT, m.V3_VBEL to Multiindex</p></li>
 </ul>
@@ -212,6 +211,167 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHRVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC" title="Permalink to this definition"></a></dt>
+<dd><p>V3_ROHRVEC constructing: Expanding V3_ROHR to V3_ROHRVEC (includes interior points).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>V3_ROHR</strong> (<em>df</em>) – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>V3_ROHRVEC: V3_ROHR expanded to V3_ROHRVEC.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The interior points are defined by the output grid definition for pipes in the SIR 3S model. The numerical grid with which SIR 3S calculates is different from the output grid.
+The returned V3_ROHRVEC (one row per pipe and interior point) has the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pk: Pipe-pk</p></li>
+<li><p>tk: Pipe-tk</p></li>
+<li><p>…</p></li>
+<li><p>L</p></li>
+<li><p>…</p></li>
+<li><p>NAME_i, NAME_k</p></li>
+<li><p>mx2NofPts</p></li>
+<li><p>dL (=L/(mx2NofPts-1))</p></li>
+<li><p>…</p></li>
+<li><p>mx2Idx</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’ROHR…QMAV|PHR|…’, a Timestamp, a Timestamp): Pipe-Results</p></li>
+<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’,     a Timestamp, a Timestamp)”_i: Pipe i-NODE Results</p></li>
+<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’,     a Timestamp, a Timestamp)”_k: Pipe k-NODE Results</p></li>
+<li><p>QMAVAbs: Pipes STAT QMAV-Result (absolute value)</p></li>
+<li><p>VAVAbs: Pipes STAT VAV-Result (absolute value)</p></li>
+<li><p>PHRAbs: Pipes STAT PHR-Result (absolute value)</p></li>
+<li><p>JVAbs: Pipes STAT JV-Result (absolute value)</p></li>
+<li><p>IptIdx: an Index of the points: S: Start (i-NODE), E: End (k-NODE), interior points: 0,1,2,…</p></li>
+<li><p>IptIdxAsNo: an Index of the points starting with 0 at i-NODE: 0,1,2,…</p></li>
+<li><p>IptIdxAsNoRev: an Index of the points starting with 0 at k-NODE: 0,1,2,…</p></li>
+<li><p>SVEC: x in Edge-direction (IptIdx=S: 0.; IptIdx=E: L)</p></li>
+<li><p>SVECRev (IptIdx=S: L; IptIdx=E: 0)</p></li>
+<li><p>ZVEC: z</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’ROHR…MVEC|PVEC|RHOVEC|TVEC|…’, a Timestamp, a Timestamp): point Results</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|…’,  a Timestamp, a Timestamp): point Results calculated by PT3S</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSN">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfAGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSN" title="Permalink to this definition"></a></dt>
+<dd><p>V3_AGSN constructing: Expanding dfAGSN to V3_AGSN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dfAGSN</strong> (<em>df</em>) – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>V3_AGSN: dfAGSN expanded to V3_AGSN.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)</p></li>
+<li><p>pk: Section-pk</p></li>
+<li><p>tk: Section-tk</p></li>
+<li><p>LFDNR: Section-LFDNR (numeric)</p></li>
+<li><p>NAME: Section-Name</p></li>
+<li><p>XL: Section-Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)</p></li>
+<li><p>compNr: Number of the connected Component in (Section,Layer) starting with 1</p></li>
+<li><p>nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)</p></li>
+<li><p>OBJTYPE: Edge-Type</p></li>
+<li><p>OBJID: Edge-ID</p></li>
+<li><p>L (0 for Pos=-1)</p></li>
+<li><p>DN</p></li>
+<li><p>Am2</p></li>
+<li><p>Vm3</p></li>
+<li><p>NAME_CONT</p></li>
+<li><p>NAME_i</p></li>
+<li><p>NAME_k</p></li>
+<li><p>ZKOR_n: nextNODEs ZKOR</p></li>
+<li><p>BESCHREIBUNG_n: nextNODEs BESCHREIBUNG</p></li>
+<li><p>KVR_n: nextNODEs KVR</p></li>
+<li><p>LSum: cumulated L up to nextNODE</p></li>
+<li><p>direction: XL=0,1: 1 if edge defined in cut-direction, otherwise -1; XL=2: 1 if edge defined in reverse cut-direction, otherwise -1</p></li>
+<li><p>PH_n: nextNODEs STAT PH-result (i.e. bar) (startNODEs result for Pos=-1)</p></li>
+<li><p>H_n: nextNODEs STAT H-result (i.e. barBzg) (startNODEs result for Pos=-1)</p></li>
+<li><p>mlc_n: nextNODEs STAT H-result (startNODEs result for Pos=-1)</p></li>
+<li><p>RHO_n: nextNODEs STAT RHO-result (startNODEs result for Pos=-1)</p></li>
+<li><p>T_n: nextNODEs STAT T-result (startNODEs result for Pos=-1)</p></li>
+<li><p>QM: Egde STAT QM-Result (startNODEs result for Pos=-1)</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’QM’, a Timestamp, a Timestamp): Egde QM-Results</p></li>
+<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’, a Timestamp, a Timestamp)”_n: nextNODEs Results</p></li>
+<li><p>“(‘STAT|TIME|TMIN|…’,’mlc|…’        , a Timestamp, a Timestamp)”_n: nextNODEs Results calculated by PT3S</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSNVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_AGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC" title="Permalink to this definition"></a></dt>
+<dd><p>V3_AGSNVEC constructing: Expanding V3_AGSN to V3_AGSNVEC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>V3_AGSN</strong> (<em>df</em>) – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:</dt><dd><dl class="simple">
+<dt>V3_AGSN-columns:</dt><dd><ul class="simple">
+<li><p>Pos: Pos=-1: eliminated if Start-Edge is a Pipe</p></li>
+<li><p>nextNODE: Pos=0: startNODE if Start-Edge is a Pipe &#64;IptIdxAsNo=0</p></li>
+<li><p>LSum: Pos=0: 0. if Start-Edge is a Pipe &#64;IptIdxAsNo=0</p></li>
+<li><p>…</p></li>
+<li><p>cols mapped with VEC-Results:</p></li>
+<li><p>ZKOR_n</p></li>
+<li><p>PH_n</p></li>
+<li><p>H_n</p></li>
+<li><p>mlc_n</p></li>
+<li><p>T_n</p></li>
+<li><p>QM</p></li>
+</ul>
+</dd>
+<dt>V3_ROHRVEC-columns:</dt><dd><ul class="simple">
+<li><p>pk_ROHRVEC: Pipe-pk</p></li>
+<li><p>tk_ROHRVEC: Pipe-tk</p></li>
+<li><p>…</p></li>
+<li><p>L_ROHRVEC</p></li>
+<li><p>…</p></li>
+<li><p>NAME_i_ROHRVEC, NAME_k_ROHRVEC</p></li>
+<li><p>mx2NofPts</p></li>
+<li><p>dL (=L/(mx2NofPts-1))</p></li>
+<li><p>…</p></li>
+<li><p>mx2Idx</p></li>
+<li><p>IptIdx: rows S or E are eliminated for all pipes except the 1st</p></li>
+<li><p>…</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
 </section>
 
 
@@ -225,7 +385,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, 3S Consult GmbH.</p>
+    <p>&#169; Copyright 1986-2024, 3S Consult GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

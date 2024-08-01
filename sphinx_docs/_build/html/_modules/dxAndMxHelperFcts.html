@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.25.0.dev1 documentation</title>
+  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.26.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -777,7 +777,7 @@
 <span class="sd">                - tk: Section-tk</span>
 <span class="sd">                - LFDNR: Section-LFDNR (numeric)</span>
 <span class="sd">                - NAME: Section-Name</span>
-<span class="sd">                - XL: Section-Layer:  0: everything; 1: SL (the stuff before \n in SIR 3S BLOB); 2: RL (the stuff after \n in SIR 3S BLOB)     </span>
+<span class="sd">                - XL: Section-Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)     </span>
 <span class="sd">                - compNr: Number of the connected Component in (Section,Layer) starting with 1</span>
 <span class="sd">                - nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)</span>
 <span class="sd">                </span>
@@ -1385,7 +1385,7 @@
 <span class="sd">                - m.V3_KNOT: Nodes </span>
 <span class="sd">                - m.V3_VBEL: Edges</span>
 <span class="sd">                - m.V3_ROHRVEC: Pipes including interior points </span>
-<span class="sd">                - m.V3_AGSN: Longitudinal Sections</span>
+<span class="sd">                - m.V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</span>
 <span class="sd">                - m.V3_AGSNVEC: Longitudinal Sections including Pipe interior points </span>
 <span class="sd">                    </span>
 <span class="sd">            - geopandas-Dfs based upon the Dfs above:</span>
@@ -1395,14 +1395,13 @@
 <span class="sd">                    </span>
 <span class="sd">            - Dfs containing decoded BLOB-Data:</span>
 <span class="sd">                - m.dfLAYR: one row per LAYR (Layer) and OBJ</span>
-<span class="sd">                - m.dfWBLZ: one row per WBLZ (Heat balance) and OBJ</span>
-<span class="sd">                - m.dfAGSN: one row for AGSN and OBJ (edge); AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</span>
+<span class="sd">                - m.dfWBLZ: one row per WBLZ (Heat balance) and OBJ                </span>
 <span class="sd">                </span>
 <span class="sd">            - NetworkX-Graphs:</span>
 <span class="sd">                - m.G</span>
 <span class="sd">                - m.GSig</span>
 
-<span class="sd">        The returned dxWithMx object has almost no functions yet - except:</span>
+<span class="sd">        Selected functions of the returned dxWithMx object:</span>
 <span class="sd">                - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df</span>
 <span class="sd">                - switchV3DfColsToMultiindex(): switch cols in m.V3_ROHR, m.V3_FWVB, m.V3_KNOT, m.V3_VBEL to Multiindex</span>
 <span class="sd">                        </span>
@@ -2060,7 +2059,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, 3S Consult GmbH.</p>
+    <p>&#169; Copyright 1986-2024, 3S Consult GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -8,9 +8,10 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 
 **Fix:**
 
-- Example 2
-- Example 3
+- Example 2 tested
+- Example 3 finished
 - Example 1,2,3 tested
+- Doc-Process reviewed
 
 90.14.25.0.dev1
 ---------------

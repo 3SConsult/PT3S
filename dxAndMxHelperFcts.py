@@ -694,7 +694,7 @@ class dxWithMx():
                 - tk: Section-tk
                 - LFDNR: Section-LFDNR (numeric)
                 - NAME: Section-Name
-                - XL: Section-Layer:  0: everything; 1: SL (the stuff before \n in SIR 3S BLOB); 2: RL (the stuff after \n in SIR 3S BLOB)     
+                - XL: Section-Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)     
                 - compNr: Number of the connected Component in (Section,Layer) starting with 1
                 - nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)
                 
@@ -1302,7 +1302,7 @@ def readDxAndMx(dbFile
                 - m.V3_KNOT: Nodes 
                 - m.V3_VBEL: Edges
                 - m.V3_ROHRVEC: Pipes including interior points 
-                - m.V3_AGSN: Longitudinal Sections
+                - m.V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
                 - m.V3_AGSNVEC: Longitudinal Sections including Pipe interior points 
                     
             - geopandas-Dfs based upon the Dfs above:
@@ -1312,14 +1312,13 @@ def readDxAndMx(dbFile
                     
             - Dfs containing decoded BLOB-Data:
                 - m.dfLAYR: one row per LAYR (Layer) and OBJ
-                - m.dfWBLZ: one row per WBLZ (Heat balance) and OBJ
-                - m.dfAGSN: one row for AGSN and OBJ (edge); AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
+                - m.dfWBLZ: one row per WBLZ (Heat balance) and OBJ                
                 
             - NetworkX-Graphs:
                 - m.G
                 - m.GSig
 
-        The returned dxWithMx object has almost no functions yet - except:
+        Selected functions of the returned dxWithMx object:
                 - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df
                 - switchV3DfColsToMultiindex(): switch cols in m.V3_ROHR, m.V3_FWVB, m.V3_KNOT, m.V3_VBEL to Multiindex
                         
