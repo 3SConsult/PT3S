@@ -3,6 +3,13 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.27.0.dev1
+---------------
+
+**Fix:**
+
+- ROT 240801
+
 90.14.26.0.dev1
 ---------------
 
