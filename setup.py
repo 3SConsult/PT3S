@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='90.14.25.0.dev1',
+    version='90.14.26.0.dev1',
 
     description='Python Tools 3S',
     long_description=long_description,
@@ -102,16 +102,16 @@ setup(
     # have to be included in MANIFEST.in as well.
     package_data={
         'PT3S': [           
-            'PT3S.ipynb'          
-           ,'PT3S.html'
+        #    'PT3S.ipynb'          
+        #   ,'PT3S.html'
         #   ,'PT3S.pdf' 
         
-            ,'Examples\Example1.db3'
+             'Examples\Example1.db3'
             ,'Examples\WDExample1\B1\V0\BZ1\M-1-0-1.1.MX1'  
             ,'Examples\WDExample1\B1\V0\BZ1\M-1-0-1.XML'            
             
             ,'Examples\Example2.db3'
-            ,'Examples\WDExample2\B1\V0\BZ1\M-1-0-1.1.MX1'
+            ,'Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MX1'
             ,'Examples\WDExample2\B1\V0\BZ1\M-1-0-1.XML'
             
             ,'Examples\Example3.db3'

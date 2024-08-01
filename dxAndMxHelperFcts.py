@@ -301,99 +301,12 @@ class dxWithMx():
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.'))                              
-                                        
-                    
-                
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.')) 
+                             
+                                                                            
                 # ROHRVEC
-                try:                    
-                    vROHR=self.V3_ROHR
-                    rVecMx2Idx=[] 
-                    IptIdx=[] 
-                    #                annotieren in mx2Idx-Reihenfolge da die rVecs in mx2Idx-Reihenfolge geschrieben werden
-                    for row in vROHR.sort_values(['mx2Idx']).itertuples():
-                                    oneVecIdx=np.empty(row.mx2NofPts,dtype=int) 
-                                    oneVecIdx.fill(row.mx2Idx)                
-                                    rVecMx2Idx.extend(oneVecIdx)
-                        
-                                    oneLfdNrIdx=['S']
-                                    if row.mx2NofPts>2:                    
-                                        oneLfdNrIdx.extend(np.arange(row.mx2NofPts-2,dtype=int))
-                                    oneLfdNrIdx.append('E')
-                                    IptIdx.extend(oneLfdNrIdx)                    
-                    
-                    rVecChannels=[vec for vec in sorted(set(self.mx.dfVecAggs.index.get_level_values(1))) if re.search(Mx.regExpSir3sRohrVecAttrType,re.search(Mx.regExpSir3sVecID,vec).group('ATTRTYPE'))!= None]                                                        
-                    dfrVecAggs=self.mx.dfVecAggs.loc[(slice(None),rVecChannels,slice(None),slice(None)),:]
-                    dfrVecAggsT=dfrVecAggs.transpose()
-                    dfrVecAggsT.columns=dfrVecAggsT.columns.to_flat_index()
-                    
-                    cols=dfrVecAggsT.columns.to_list()
-                    
-                    #rVecAggsT annotieren mit mx2Idx
-                    dfrVecAggsT['mx2Idx']=rVecMx2Idx
-                    dfrVecAggsT['IptIdx']=IptIdx                    
-                    dfrVecAggsT=dfrVecAggsT.filter(['mx2Idx','IptIdx']+cols,axis=1)
-                    
-                    vROHR=pd.merge(self.V3_ROHR,dfrVecAggsT,left_on='mx2Idx',right_on='mx2Idx')
-                    
-                    # 1 Spalte SVEC
-                    rVecCols=[(a,b,c,d) for (a,b,c,d) in [col for col in vROHR.columns if type(col)==tuple] if re.search(Mx.regExpSir3sRohrVecAttrType,b)!=None]
-                    t0rVec=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X'))#.%f'))
-                    SVEC=('STAT',
-                      'ROHR~*~*~*~SVEC',
-                      t0rVec,
-                      t0rVec)                    
-                    vROHR['SVEC']=vROHR[SVEC]
-                    sVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search('SVEC$',b)!=None]
-                    # andere SVEC-Spalten löschen
-                    vROHR=vROHR.drop(sVecCols,axis=1)   
-                    
-                    # 1 Spalte ZVEC                    
-                    ZVEC=('STAT',
-                      'ROHR~*~*~*~ZVEC',
-                      t0rVec,
-                      t0rVec)                    
-                    vROHR['ZVEC']=vROHR[ZVEC]
-                    zVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search('ZVEC$',b)!=None]
-                    # andere ZVEC-Spalten löschen
-                    vROHR=vROHR.drop(zVecCols,axis=1)         
-                                                                 
-                    # Druecke und Fluesse in anderen Einheiten errechnen                    
-                    pVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['PVEC','PVECMIN_INST','PVECMAX_INST']]
-                    pVecs=[b for (a,b,c,d) in pVecCols]
-                    pVecs=list(set(pVecs))
-                    
-                    mVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['MVEC']]
-                    mVecs=[b for (a,b,c,d) in mVecCols]
-                    mVecs=list(set(mVecs))
-                    
-                    rhoVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['RHOVEC']]
-                    
-                    pAtmosInBar=1.#0132
-                    for (a,b,c,d) in rhoVecCols:
-                        
-                        for pVec in pVecs:
-                            col=(a,pVec,c,d)
-                            pVecAttr= re.search(Mx.regExpSir3sVecID,pVec).group('ATTRTYPE')
-                            # man
-                            vROHR[(a,'man'+pVecAttr,c,d)]=vROHR[col] - pAtmosInBar 
-                            # mlc
-                            vROHR[(a,'mlc'+pVecAttr,c,d)]=vROHR[(a,'man'+pVecAttr,c,d)]*10**5/(vROHR[(a,b,c,d)]*9.81)+vROHR['ZVEC']     
-                            
-                            
-                            
-                        for mVec in mVecs:
-                               col=(a,mVec,c,d)
-                               mVecAttr= re.search(Mx.regExpSir3sVecID,mVec).group('ATTRTYPE')
-                               # m3/h
-                               vROHR[(a,'Q'+mVecAttr,c,d)]=vROHR[col]/vROHR[(a,b,c,d)]*3600
-                               # t/h
-                               vROHR[(a,'t'+mVecAttr,c,d)]=vROHR[(a,'Q'+mVecAttr,c,d)]*vROHR[(a,b,c,d)]/1000.
-                    
-                    
-                    self.V3_ROHRVEC=vROHR
-
-                    
+                try:   
+                    self.V3_ROHRVEC=self._V3_ROHRVEC(self.V3_ROHR)                
                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHRVEC ok so far."))                                                      
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
@@ -402,58 +315,59 @@ class dxWithMx():
                 
                     
                     
-                # FWVB  
-                try:                                                         
-                     W=('STAT'
-                                 ,'FWVB~*~*~*~W'
-                                 ,t0
-                                 ,t0
-                                 )
-                     self.V3_FWVB['W']=self.V3_FWVB[W]
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['W'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col W in V3_FWVB failed.'))   
-                     
-                try:                                             
-                     QM=('STAT'
-                                 ,'FWVB~*~*~*~QM'
-                                 ,t0
-                                 ,t0
-                                 )
-                     self.V3_FWVB['QM']=self.V3_FWVB[QM]
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['QM'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_FWVB failed.'))     
-                     
-                try:     
-                     TI=('STAT'
-                                 ,'FWVB~*~*~*~TI'
-                                 ,t0
-                                 ,t0
-                                 )
-                     self.V3_FWVB['TI']=self.V3_FWVB[TI]
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TI'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TI in V3_FWVB failed.'))    
-
-                try:     
-                     TK=('STAT'
-                                 ,'FWVB~*~*~*~TK'
-                                 ,t0
-                                 ,t0
-                                 )
-                     self.V3_FWVB['TK']=self.V3_FWVB[TK]
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TK'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TK in V3_FWVB failed.'))    
+                # FWVB
+                if not self.V3_FWVB.empty:
+                    try:                                                         
+                         W=('STAT'
+                                     ,'FWVB~*~*~*~W'
+                                     ,t0
+                                     ,t0
+                                     )
+                         self.V3_FWVB['W']=self.V3_FWVB[W]
+                         logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['W'] ok so far."))                                                      
+                    except Exception as e:
+                         logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                         logger.debug(logStrTmp) 
+                         logger.debug("{0:s}{1:s}".format(logStr,'Constructing col W in V3_FWVB failed.'))   
+                         
+                    try:                                             
+                         QM=('STAT'
+                                     ,'FWVB~*~*~*~QM'
+                                     ,t0
+                                     ,t0
+                                     )
+                         self.V3_FWVB['QM']=self.V3_FWVB[QM]
+                         logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['QM'] ok so far."))                                                      
+                    except Exception as e:
+                         logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                         logger.debug(logStrTmp) 
+                         logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_FWVB failed.'))     
+                         
+                    try:     
+                         TI=('STAT'
+                                     ,'FWVB~*~*~*~TI'
+                                     ,t0
+                                     ,t0
+                                     )
+                         self.V3_FWVB['TI']=self.V3_FWVB[TI]
+                         logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TI'] ok so far."))                                                      
+                    except Exception as e:
+                         logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                         logger.debug(logStrTmp) 
+                         logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TI in V3_FWVB failed.'))    
+    
+                    try:     
+                         TK=('STAT'
+                                     ,'FWVB~*~*~*~TK'
+                                     ,t0
+                                     ,t0
+                                     )
+                         self.V3_FWVB['TK']=self.V3_FWVB[TK]
+                         logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TK'] ok so far."))                                                      
+                    except Exception as e:
+                         logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                         logger.debug(logStrTmp) 
+                         logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TK in V3_FWVB failed.'))    
                      
                 
                 # WBLZ
@@ -484,7 +398,7 @@ class dxWithMx():
                             crs = 'EPSG:' + str(int(dfSG['SRID'].iloc[1]))
                         logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs reading successful: ', crs))
                     except:
-                        logger.debug("{0:s}{1:s}".format(logStr,'crs reading error'))  
+                        logger.debug("{0:s}{1:s}".format(logStr,'crs reading failed.'))  
                 else:
                     logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs give value used: ', crs))
                 
@@ -542,290 +456,36 @@ class dxWithMx():
                 logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDctNx failed.')) 
                
             # GSig
-                             
-            try:
-                # Graph Signalmodell bauen
-                self.GSig=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_RVBEL'].reset_index(), source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
-                nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
-                nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
-                nx.set_node_attributes(self.GSig,nodeDctNx)
-                logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig ok so far.'))    
-            except Exception as e:
-                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                logger.debug(logStrTmp) 
-                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))            
-                
-                
-            # AGSN
-                        
-            try:
-            
-                # dfAGSN ergaenzen zu V3_AGSN
-                dfAGSN=constructNewMultiindexFromCols(self.dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
-                # urspruengliche Cols
-                colsAGSNBase=dfAGSN.columns.to_list()
-                
-                dfAGSN=pd.merge(dfAGSN,self.V3_VBEL,left_index=True,right_index=True,suffixes=('','_VBEL')).sort_values(by=['LFDNR','XL','Pos'])
-                
-                cols=dfAGSN.columns.to_list()
-                colsErg=cols[cols.index('mx2Idx')+1:]
-                
-                colsVBELBase=['OBJTYPE','OBJID',
-                              'L','DN','Am2','Vm3','NAME_CONT','NAME_i','NAME_k']
-                
-                dfAGSN=dfAGSN.filter(items=colsAGSNBase#.to_list()
-                                     +colsVBELBase
-                                     +['ZKOR_i','ZKOR_k'
-                                      ,'BESCHREIBUNG_i','BESCHREIBUNG_k'
-                                      ,'KVR_i','KVR_k'
-                                      ]
-                                     +colsErg)
-                
-                
-                # Sachspalten _i,_k
-                colsSach_i=['ZKOR_i','BESCHREIBUNG_i','KVR_i']
-                colsSach_k=['ZKOR_k','BESCHREIBUNG_k','KVR_k']
-
-                # ob VBEL in Schnittrichtung definiert anlegen
-                dfAGSN['direction']=1
                  
-                # zugeh. Sachspalten _n anlegen
-                colsSach_n=[]
-                for col_i,col_k in zip(colsSach_i,colsSach_k):
-                    col_n=col_i.replace('_i','_n')
-                    #print(col_n)
-                    dfAGSN[col_n]=None
-                    colsSach_n.append(col_n)                  
+            if 'V3_RVBEL' in self.dx.dataFrames.keys():             
+                try:
+                    # Graph Signalmodell bauen
+                    self.GSig=nx.from_pandas_edgelist(df=self.dx.dataFrames['V3_RVBEL'].reset_index(), source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
+                    nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
+                    nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
+                    nx.set_node_attributes(self.GSig,nodeDctNx)
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig ok so far.'))    
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))            
                                 
-                            
-                # Ergebnisspalten _i,_k
-                colsErg_i=[col for col in colsErg if type(col) == str and re.search('_i$',col)]
-                colsErg_k=[col for col in colsErg if type(col) == str and re.search('_k$',col)]
-                
-                # zugeh. Ergebnisspalten _n anlegen
-                colsErg_n=[]
-                for col_i,col_k in zip(colsErg_i,colsErg_k):
-                    col_n=col_i.replace('_i','_n')
-                    #print(col_n)
-                    dfAGSN[col_n]=None
-                    colsErg_n.append(col_n)  
-                                    
-                logger.debug("{0:s}dfAGSN.columns.to_list(): {1:s}".format(logStr,str(dfAGSN.columns.to_list())))       
-                                
-                dfAGSN=dfAGSN.reset_index().rename(columns={'level_0':'OBJTYPE','level_1':'OBJID'})
-                
-                logger.debug("{0:s}dfAGSN.columns.to_list(): {1:s}".format(logStr,str(dfAGSN.columns.to_list())))
-                
-                # Schnittrichtung bestücken; Ergebnisspalten und Sachspalten nach Schnittrichtung bestücken
-                for index, row in dfAGSN.iterrows():
-                    
-                        if row['XL'] in [0,1]:
-                            if row['nextNODE'] == row['NAME_k']:
-                                pass
-                            elif row['nextNODE'] == row['NAME_i']:                            
-                                dfAGSN.loc[index,'direction']=-1 # VL-Fluss von links nach rechts (in Schnittr.) pos. def. aber VBEL von rechts nach links
-                        else:
-                            if row['nextNODE'] == row['NAME_k']:
-                                dfAGSN.loc[index,'direction']=-1 # RL-Fluss von rechts nach links (entgegen Schnittr.) pos. def. aber VBEL von links nach rechts
-                            elif row['nextNODE'] == row['NAME_i']:                            
-                                pass
-                                            
-                        for col_n,col_i,col_k in zip(colsErg_n,colsErg_i,colsErg_k):        
-                            if row['XL'] in [0,1]:
-                                if dfAGSN.loc[index,'direction']==1:
-                                    dfAGSN.loc[index,col_n]= row[col_k]
-                                else:
-                                    dfAGSN.loc[index,col_n]= row[col_i]   
-                            else:
-                                if dfAGSN.loc[index,'direction']==-1:
-                                    dfAGSN.loc[index,col_n]= row[col_k]
-                                else:
-                                    dfAGSN.loc[index,col_n]= row[col_i]                                   
-                                
-                                
-                        logger.debug(f"{logStr} {row['NAME_i']} {row['NAME_k']} {dfAGSN.loc[index,'direction']} PH_i={row['PH_i']} PH_k={row['PH_k']} PH_n={dfAGSN.loc[index,'PH_n']} mlc_i={row['mlc_i']} mlc_k={row['mlc_k']} mlc_n={dfAGSN.loc[index,'mlc_n']} ") 
-                                
-                        for col_n,col_i,col_k in zip(colsSach_n,colsSach_i,colsSach_k):    
-                            if row['XL'] in [0,1]:
-                                if dfAGSN.loc[index,'direction']==1:
-                                    dfAGSN.loc[index,col_n]= row[col_k]
-                                else:
-                                    dfAGSN.loc[index,col_n]= row[col_i]   
-                            else:
-                                if dfAGSN.loc[index,'direction']==-1:
-                                    dfAGSN.loc[index,col_n]= row[col_k]
-                                else:
-                                    dfAGSN.loc[index,col_n]= row[col_i]                                  
-                            
-                            
-                            #if dfAGSN.loc[index,'direction']==1:                                
-                            #    dfAGSN.loc[index,col_n]= row[col_k]
-                            #else:
-                            #    dfAGSN.loc[index,col_n]= row[col_i]  
-                                                                                        
-                # am Anfang jedes Schnittes für jeden Leiter 1 Zeile ergänzen mit Pos=-1 (Vorlage für die ergänzte Zeile: Pos=0)
-                
-                # Zeilen herausfinden
-                startRowIdx=[]
-                for index, row in dfAGSN.iterrows():
-                    if row['Pos']==0:
-                        #print(row)
-                        startRowIdx.append(index)                        
-                dfStartRows=dfAGSN.loc[startRowIdx,:].sort_values(by=['LFDNR','XL','Pos']).copy(deep=True)#.drop_duplicates()
-                #dfStartRows=dfStartRows[dfStartRows['Pos']==0]       
-
-                # zu ergänzende Zeilen bearbeiten
-                
-                # - Pos = -1
-                # - L = 0
-                # - nextNODE ist der Startknoten in Schnittrichtung (also nicht nextNODE im Wortsinn)
-                # - Ergebnissspalten bekommen die Werte des Startknotens in Schnittrichtung
-                # - index: bleibt; d.h. unter den mehrfach belegten Indices sind ergänzte Zeilen (zu erkennen an Pos = -1)
-                
-                dfRowsAdded=[]
-                for index,row in dfStartRows.iterrows():
-
-                        row['Pos']=-1
-                        row['L']=0
-                        
-                        if row['XL'] in [0,1]:
-                            if row['direction']==1:
-                                row['nextNODE']=row['NAME_i']
-                            else:
-                                row['nextNODE']=row['NAME_k']
-                        else:
-                            if row['direction']==-1:
-                                row['nextNODE']=row['NAME_i']
-                            else:
-                                row['nextNODE']=row['NAME_k']                            
-                            
-                        for col_n,col_i,col_k in zip(colsErg_n,colsErg_i,colsErg_k):
-                            #print(col_n,col_i,col_k)
-                            
-                            if row['XL'] in [0,1]:                                
-                                if row['direction']==1:                            
-                                    row[col_n]= row[col_i]
-                                else:                                
-                                    row[col_n]= row[col_k] 
-                            else:
-                                if row['direction']==-1:                            
-                                    row[col_n]= row[col_i]
-                                else:                                
-                                    row[col_n]= row[col_k]                                                                             
-                        
-                        logger.debug(f"{logStr} Pos -1: {row['NAME_i']} {row['NAME_k']} {row['direction']} PH_i={row['PH_i']} PH_k={row['PH_k']} PH_n={row['PH_n']} mlc_i={row['mlc_i']} mlc_k={row['mlc_k']} mlc_n={row['mlc_n']} ") 
-                        
-                        df = pd.DataFrame([row])
-                        dfRowsAdded.append(df)                 
-                
-                # Zeilen ergänzen
-                dfAGSN=pd.concat([dfAGSN]+dfRowsAdded).sort_values(by=['LFDNR','XL','Pos'])
-                
-                # Ergebnisspalten _i,_k löschen
-                dfAGSN=dfAGSN.drop(colsErg_i+colsErg_k,axis=1)
-                
-                # Sachspalten _i,_k löschen
-                dfAGSN=dfAGSN.drop(colsSach_i+colsSach_k,axis=1)                
-                                
-                dfAGSN['L']=dfAGSN['L'].fillna(0)                
-                cols=dfAGSN.columns.to_list()
-                dfAGSN.insert(cols.index('L')+1,'LSum',dfAGSN.groupby(['LFDNR','XL'])['L'].cumsum())
-                
-                dfAGSN=dfAGSN.filter(items=colsAGSNBase
-                                     +colsVBELBase
-                                     +colsSach_n #(u.a. ZKOR_n)
-                                     +['LSum','direction']
-                                     +colsErg # die _i,_k gibt es hier bereits nicht mehr; nur die QM werden hier erfasst ...
-                                     +colsErg_n)       
-
-                # mlc ergaenzen (H ist ggf. barBzg und nicht mlc)      
-                colsPH=[]
-                colsRHO=[]
-                colsMlc=[]
-                for col in dfAGSN.columns.to_list():
-                    if type(col) == str and re.search('_n$',col):                                                
-                        try:
-                            colTuple=fStripV3Colik2Tuple(col=col, colPost='_n')                            
-                            if colTuple[1]=='KNOT~*~*~*~PH_n':
-                                        colsPH.append(col)
-                                        colsRHO.append(col.replace('PH','RHO'))
-                                        colsMlc.append(col.replace('PH','mlc'))                                                                    
-                        except:
-                            continue
-            
-                # zugeh. Ergebnisspalte anlegen                
-                for col in colsMlc:
-                    dfAGSN[col]=None                    
-
-                # Ergebnisspalte bestücken
-                for index, row in dfAGSN.iterrows():                                                                                       
-                        for col_n,col_PH,col_RHO in zip(colsMlc,colsPH,colsRHO):                        
-                            dfAGSN.loc[index,col_n]=row[col_PH]*10**5/(row[col_RHO]*9.81)+row['ZKOR_n']     
-                            
-                self.V3_AGSN=dfAGSN
-                                        
-                # dfAGSN um Rohrvektoren erweitern                
-                dfAGSNVec=pd.merge(self.V3_AGSN,self.V3_ROHRVEC,left_on='OBJID',right_on='tk',suffixes=('','ROHRVEC')
-                                   #,how='left'
-                                   ).sort_values(by=['LFDNR','XL','Pos','SVEC'])                
-                
-                # erweiterten df bearbeiten
-                # S/E bearbeiten: nur jeweils 1 Zeile bleibt ueber
-                indToDelete=[]
-                for index,row in dfAGSNVec.iterrows():
-                    
-                    if row['Pos']==-1:
-                        if row['XL'] in [0,1]:    
-                            # im VL wird E geloescht wenn pos. def. in Schnittrichtung; sonst S
-                            if row['direction']==1:
-                                if row['IptIdx']=='E':
-                                    indToDelete.append(index)
-                            elif row['direction']==-1:
-                                if row['IptIdx']=='S':
-                                    indToDelete.append(index)
-                        else:
-                            # im RL wird S geloescht wenn pos. def. in Schnittrichtung; sonst E
-                            if row['direction']==1:
-                                if row['IptIdx']=='S':
-                                    indToDelete.append(index)
-                            elif row['direction']==-1:
-                                if row['IptIdx']=='E':
-                                    indToDelete.append(index)                            
-                            
-                    else:
-                        if row['XL'] in [0,1]:         
-                            # im VL wird S geloescht wenn pos. def. in Schnittrichtung; sonst E
-                            if row['direction']==1:
-                                if row['IptIdx']=='S':
-                                    indToDelete.append(index)
-                            elif row['direction']==-1:
-                                if row['IptIdx']=='E':
-                                    indToDelete.append(index)     
-                        else:                            
-                            # im RL wird E geloescht wenn pos. def. in Schnittrichtung; sonst S
-                             if row['direction']==1:
-                                 if row['IptIdx']=='E':
-                                     indToDelete.append(index)
-                             elif row['direction']==-1:
-                                 if row['IptIdx']=='S':
-                                     indToDelete.append(index)                                
-                #        
-                dfAGSNVec=dfAGSNVec.drop(indToDelete,axis=0)
-                
-
-                                                  
-                self.V3_AGSNVec=dfAGSNVec
-
-                logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN ok so far.'))    
+            # AGSN                        
+            try:                                                        
+                self.V3_AGSN=self._V3_AGSN(self.dfAGSN)                                                              
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
-                logger.info("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN failed.'))                            
-                
-                
-           
-            
-      
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN failed.'))     
+
+            try:                                                                        
+                # dfAGSN um Rohrvektoren erweitern  
+                self.V3_AGSNVEC=self._V3_AGSNVEC(self.V3_AGSN.copy(deep=True))                            
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing V3_AGSNVEC failed.'))                           
+                                
         except dxWithMxError:
             raise            
         except Exception as e:
@@ -834,6 +494,671 @@ class dxWithMx():
             raise dxWithMxError(logStrFinal)                       
         finally:
             logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))            
+
+
+    def _V3_ROHRVEC(self,V3_ROHR):
+        """
+        V3_ROHRVEC constructing: Expanding V3_ROHR to V3_ROHRVEC (includes interior points).
+        
+        :param V3_ROHR: 
+        :type V3_ROHR: df
+        
+        :return: V3_ROHRVEC: V3_ROHR expanded to V3_ROHRVEC.
+        :rtype: df        
+        
+        .. note:: 
+            
+            The interior points are defined by the output grid definition for pipes in the SIR 3S model. The numerical grid with which SIR 3S calculates is different from the output grid.
+            The returned V3_ROHRVEC (one row per pipe and interior point) has the following columns:
+                        
+                - pk: Pipe-pk
+                - tk: Pipe-tk                
+                - ...
+                - L
+                - ...
+                - NAME_i, NAME_k
+                - mx2NofPts
+                - dL (=L/(mx2NofPts-1))
+                - ...
+                - mx2Idx
+                
+                -  ('STAT|TIME|TMIN|...','ROHR...QMAV|PHR|...', a Timestamp, a Timestamp): Pipe-Results
+                
+                - "('STAT|TIME|TMIN|...','KNOT...PH|H|...',     a Timestamp, a Timestamp)"_i: Pipe i-NODE Results
+                - "('STAT|TIME|TMIN|...','KNOT...PH|H|...',     a Timestamp, a Timestamp)"_k: Pipe k-NODE Results
+                
+                - QMAVAbs: Pipes STAT QMAV-Result (absolute value)
+                - VAVAbs: Pipes STAT VAV-Result (absolute value)
+                - PHRAbs: Pipes STAT PHR-Result (absolute value)
+                - JVAbs: Pipes STAT JV-Result (absolute value)
+                
+                - IptIdx: an Index of the points: S: Start (i-NODE), E: End (k-NODE), interior points: 0,1,2,... 
+                - IptIdxAsNo: an Index of the points starting with 0 at i-NODE: 0,1,2,...
+                - IptIdxAsNoRev: an Index of the points starting with 0 at k-NODE: 0,1,2,...
+                
+                - SVEC: x in Edge-direction (IptIdx=S: 0.; IptIdx=E: L)
+                - SVECRev (IptIdx=S: L; IptIdx=E: 0)
+                - ZVEC: z
+                
+                - ('STAT|TIME|TMIN|...','ROHR...MVEC|PVEC|RHOVEC|TVEC|...', a Timestamp, a Timestamp): point Results
+                
+                - ('STAT|TIME|TMIN|...','manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|...',  a Timestamp, a Timestamp): point Results calculated by PT3S               
+                                                
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try: 
+            pass
+                  
+            vROHR=V3_ROHR#self.V3_ROHR
+            rVecMx2Idx=[] 
+            IptIdx=[] 
+            #                annotieren in mx2Idx-Reihenfolge da die rVecs in mx2Idx-Reihenfolge geschrieben werden
+            for row in vROHR.sort_values(['mx2Idx']).itertuples():
+                            oneVecIdx=np.empty(row.mx2NofPts,dtype=int) 
+                            oneVecIdx.fill(row.mx2Idx)                
+                            rVecMx2Idx.extend(oneVecIdx)
+                
+                            oneLfdNrIdx=['S']
+                            if row.mx2NofPts>2:                    
+                                oneLfdNrIdx.extend(np.arange(row.mx2NofPts-2,dtype=int))
+                            oneLfdNrIdx.append('E')
+                            IptIdx.extend(oneLfdNrIdx)                    
+            
+            rVecChannels=[vec for vec in sorted(set(self.mx.dfVecAggs.index.get_level_values(1))) if re.search(Mx.regExpSir3sRohrVecAttrType,re.search(Mx.regExpSir3sVecID,vec).group('ATTRTYPE'))!= None]                                                        
+            dfrVecAggs=self.mx.dfVecAggs.loc[(slice(None),rVecChannels,slice(None),slice(None)),:]
+            dfrVecAggsT=dfrVecAggs.transpose()
+            dfrVecAggsT.columns=dfrVecAggsT.columns.to_flat_index()
+            
+            cols=dfrVecAggsT.columns.to_list()
+            
+            #rVecAggsT annotieren mit mx2Idx
+            dfrVecAggsT['mx2Idx']=rVecMx2Idx
+            dfrVecAggsT['IptIdx']=IptIdx                    
+            dfrVecAggsT=dfrVecAggsT.filter(['mx2Idx','IptIdx']+cols,axis=1)
+            
+            vROHR=pd.merge(self.V3_ROHR,dfrVecAggsT,left_on='mx2Idx',right_on='mx2Idx')
+            
+            # 1 Spalte SVEC
+            rVecCols=[(a,b,c,d) for (a,b,c,d) in [col for col in vROHR.columns if type(col)==tuple] if re.search(Mx.regExpSir3sRohrVecAttrType,b)!=None]
+            t0rVec=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X'))#.%f'))
+            SVEC=('STAT',
+              'ROHR~*~*~*~SVEC',
+              t0rVec,
+              t0rVec)                    
+            vROHR['SVEC']=vROHR[SVEC]
+            sVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search('SVEC$',b)!=None]
+            # andere SVEC-Spalten löschen
+            vROHR=vROHR.drop(sVecCols,axis=1)   
+            vROHR['SVECRev']=vROHR.apply(lambda row: row['L']-row['SVEC'],axis=1)
+            
+            # 1 Spalte IptIdxAsNo
+            vROHR['IptIdxAsNo']=vROHR.groupby(by=['tk'])['IptIdx'].cumcount()
+            # 1 Spalte IptIdxAsNoRev
+            vROHR['IptIdxAsNoRev']=vROHR.apply(lambda row: row['mx2NofPts']-1-row['IptIdxAsNo'],axis=1)
+            
+            # 1 Spalte ZVEC                    
+            ZVEC=('STAT',
+              'ROHR~*~*~*~ZVEC',
+              t0rVec,
+              t0rVec)                    
+            vROHR['ZVEC']=vROHR[ZVEC]
+            zVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search('ZVEC$',b)!=None]
+            # andere ZVEC-Spalten löschen
+            vROHR=vROHR.drop(zVecCols,axis=1)         
+                                                         
+            # Druecke und Fluesse in anderen Einheiten errechnen                    
+            pVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['PVEC','PVECMIN_INST','PVECMAX_INST']]
+            pVecs=[b for (a,b,c,d) in pVecCols]
+            pVecs=list(set(pVecs))
+            
+            mVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['MVEC']]
+            mVecs=[b for (a,b,c,d) in mVecCols]
+            mVecs=list(set(mVecs))
+            
+            rhoVecCols=[(a,b,c,d) for (a,b,c,d) in rVecCols if re.search(Mx.regExpSir3sVecID,b).group('ATTRTYPE') in ['RHOVEC']]
+            
+            pAtmosInBar=1.#0132
+            try:
+                vm=self.dx.dataFrames['VIEW_MODELLE']            
+                vms=vm[vm['pk'].isin([self.dx.QGISmodelXk])].iloc[0]  
+                ATMO=self.dx.dataFrames['ATMO']
+                pAtmosInBar=ATMO[ATMO['fkDE']==vms.fkBASIS]['PATMOS'].iloc[0]   
+            except:
+                pass
+                logger.debug(f"{logStr}pAtmos konnte nicht ermittelt werden. pAtmos=1. wird verwendet.")
+
+            zBzg=0.
+            try:
+                vm=self.dx.dataFrames['VIEW_MODELLE']            
+                vms=vm[vm['pk'].isin([self.dx.QGISmodelXk])].iloc[0]  
+                FWBZ=self.dx.dataFrames['FWBZ']
+                zBzg=FWBZ[FWBZ['fkDE']==vms.fkBASIS]['HGEBZG'].iloc[0]   
+            except:
+                pass
+                logger.debug(f"{logStr}zBzg konnte nicht ermittelt werden. zBzg=0. wird verwendet.")
+                    
+            for (a,b,c,d) in rhoVecCols:
+                
+                for pVec in pVecs:
+                    col=(a,pVec,c,d)
+                    pVecAttr= re.search(Mx.regExpSir3sVecID,pVec).group('ATTRTYPE')
+                    # man
+                    vROHR[(a,'man'+pVecAttr,c,d)]=vROHR[col] - pAtmosInBar 
+                    # mlc
+                    vROHR[(a,'mlc'+pVecAttr,c,d)]=vROHR[(a,'man'+pVecAttr,c,d)]*10**5/(vROHR[(a,b,c,d)]*9.81)+vROHR['ZVEC']     
+                    # barBzg
+                    vROHR[(a,'barBzg'+pVecAttr,c,d)]=vROHR[(a,'man'+pVecAttr,c,d)] + (vROHR['ZVEC']-zBzg)*(vROHR[(a,b,c,d)]*9.81)*10**-5
+                    
+                    
+                for mVec in mVecs:
+                       col=(a,mVec,c,d)
+                       mVecAttr= re.search(Mx.regExpSir3sVecID,mVec).group('ATTRTYPE')
+                       # m3/h
+                       vROHR[(a,'Q'+mVecAttr,c,d)]=vROHR[col]/vROHR[(a,b,c,d)]*3600
+                       # t/h
+                       vROHR[(a,'t'+mVecAttr,c,d)]=vROHR[(a,'Q'+mVecAttr,c,d)]*vROHR[(a,b,c,d)]/1000.
+            
+            
+            return vROHR            
+            
+                      
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
+
+
+    def _V3_AGSN(self,dfAGSN):
+        """
+        V3_AGSN constructing: Expanding dfAGSN to V3_AGSN.
+        
+        :param dfAGSN: 
+        :type dfAGSN: df
+        
+        :return: V3_AGSN: dfAGSN expanded to V3_AGSN.
+        :rtype: df        
+        
+        .. note:: 
+            
+            The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:
+        
+                - Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)
+                - pk: Section-pk
+                - tk: Section-tk
+                - LFDNR: Section-LFDNR (numeric)
+                - NAME: Section-Name
+                - XL: Section-Layer:  0: everything; 1: SL (the stuff before \n in SIR 3S BLOB); 2: RL (the stuff after \n in SIR 3S BLOB)     
+                - compNr: Number of the connected Component in (Section,Layer) starting with 1
+                - nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)
+                
+                - OBJTYPE: Edge-Type
+                - OBJID: Edge-ID
+                
+                - L (0 for Pos=-1)
+                - DN
+                - Am2
+                - Vm3
+                
+                - NAME_CONT
+                - NAME_i
+                - NAME_k
+                
+                - ZKOR_n: nextNODEs ZKOR
+                - BESCHREIBUNG_n: nextNODEs BESCHREIBUNG
+                - KVR_n: nextNODEs KVR
+                
+                - LSum: cumulated L up to nextNODE
+                - direction: XL=0,1: 1 if edge defined in cut-direction, otherwise -1; XL=2: 1 if edge defined in reverse cut-direction, otherwise -1 
+                
+                - PH_n: nextNODEs STAT PH-result (i.e. bar) (startNODEs result for Pos=-1)
+                - H_n: nextNODEs STAT H-result (i.e. barBzg) (startNODEs result for Pos=-1)
+                - mlc_n: nextNODEs STAT H-result (startNODEs result for Pos=-1) 
+                - RHO_n: nextNODEs STAT RHO-result (startNODEs result for Pos=-1)
+                - T_n: nextNODEs STAT T-result (startNODEs result for Pos=-1)                 
+                - QM: Egde STAT QM-Result (startNODEs result for Pos=-1)
+                
+                -  ('STAT|TIME|TMIN|...','QM', a Timestamp, a Timestamp): Egde QM-Results
+                
+                - "('STAT|TIME|TMIN|...','KNOT...PH|H|...', a Timestamp, a Timestamp)"_n: nextNODEs Results
+                
+                - "('STAT|TIME|TMIN|...','mlc|...'        , a Timestamp, a Timestamp)"_n: nextNODEs Results calculated by PT3S 
+                
+                    
+                
+            
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try: 
+            pass
+                  
+            # dfAGSN ergaenzen zu V3_AGSN
+            dfAGSN=constructNewMultiindexFromCols(self.dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
+            # urspruengliche Cols
+            colsAGSNBase=dfAGSN.columns.to_list()
+            
+            dfAGSN=pd.merge(dfAGSN,self.V3_VBEL,left_index=True,right_index=True,suffixes=('','_VBEL')).sort_values(by=['LFDNR','XL','Pos'])
+            
+            cols=dfAGSN.columns.to_list()
+            colsErg=cols[cols.index('mx2Idx')+1:]
+            
+            colsVBELBase=['OBJTYPE','OBJID',
+                          'L','DN','Am2','Vm3','NAME_CONT','NAME_i','NAME_k']
+            
+            dfAGSN=dfAGSN.filter(items=colsAGSNBase#.to_list()
+                                 +colsVBELBase
+                                 +['ZKOR_i','ZKOR_k'
+                                  ,'BESCHREIBUNG_i','BESCHREIBUNG_k'
+                                  ,'KVR_i','KVR_k'
+                                  ]
+                                 +colsErg)
+            
+            
+            # Sachspalten _i,_k
+            colsSach_i=['ZKOR_i','BESCHREIBUNG_i','KVR_i']
+            colsSach_k=['ZKOR_k','BESCHREIBUNG_k','KVR_k']
+            
+            # ob VBEL in Schnittrichtung definiert anlegen
+            dfAGSN['direction']=1
+             
+            # zugeh. Sachspalten _n anlegen
+            colsSach_n=[]
+            for col_i,col_k in zip(colsSach_i,colsSach_k):
+                col_n=col_i.replace('_i','_n')
+                #print(col_n)
+                dfAGSN[col_n]=None
+                colsSach_n.append(col_n)                  
+                            
+                        
+            # Ergebnisspalten _i,_k
+            colsErg_i=[col for col in colsErg if type(col) == str and re.search('_i$',col)]
+            colsErg_k=[col for col in colsErg if type(col) == str and re.search('_k$',col)]
+            
+            # zugeh. Ergebnisspalten _n anlegen
+            colsErg_n=[]
+            for col_i,col_k in zip(colsErg_i,colsErg_k):
+                col_n=col_i.replace('_i','_n')
+                #print(col_n)
+                dfAGSN[col_n]=None
+                colsErg_n.append(col_n)  
+                                
+            #logger.debug("{0:s}dfAGSN.columns.to_list(): {1:s}".format(logStr,str(dfAGSN.columns.to_list())))       
+                            
+            dfAGSN=dfAGSN.reset_index().rename(columns={'level_0':'OBJTYPE','level_1':'OBJID'})
+            
+            #logger.debug("{0:s}dfAGSN.columns.to_list(): {1:s}".format(logStr,str(dfAGSN.columns.to_list())))
+            
+            # Schnittrichtung bestücken; Ergebnisspalten und Sachspalten nach Schnittrichtung bestücken
+            for index, row in dfAGSN.iterrows():
+                
+                    if row['XL'] in [0,1]:
+                        if row['nextNODE'] == row['NAME_k']:
+                            pass
+                        elif row['nextNODE'] == row['NAME_i']:                            
+                            dfAGSN.loc[index,'direction']=-1 # VL-Fluss von links nach rechts (in Schnittr.) pos. def. aber VBEL von rechts nach links
+                    else:
+                        if row['nextNODE'] == row['NAME_k']:
+                            dfAGSN.loc[index,'direction']=-1 # RL-Fluss von rechts nach links (entgegen Schnittr.) pos. def. aber VBEL von links nach rechts
+                        elif row['nextNODE'] == row['NAME_i']:                            
+                            pass
+                                        
+                    for col_n,col_i,col_k in zip(colsErg_n,colsErg_i,colsErg_k):        
+                        if row['XL'] in [0,1]:
+                            if dfAGSN.loc[index,'direction']==1:
+                                dfAGSN.loc[index,col_n]= row[col_k]
+                            else:
+                                dfAGSN.loc[index,col_n]= row[col_i]   
+                        else:
+                            if dfAGSN.loc[index,'direction']==-1:
+                                dfAGSN.loc[index,col_n]= row[col_k]
+                            else:
+                                dfAGSN.loc[index,col_n]= row[col_i]                                   
+                            
+                            
+                    #logger.debug(f"{logStr} {row['NAME_i']} {row['NAME_k']} {dfAGSN.loc[index,'direction']} PH_i={row['PH_i']} PH_k={row['PH_k']} PH_n={dfAGSN.loc[index,'PH_n']} mlc_i={row['mlc_i']} mlc_k={row['mlc_k']} mlc_n={dfAGSN.loc[index,'mlc_n']} ") 
+                            
+                    for col_n,col_i,col_k in zip(colsSach_n,colsSach_i,colsSach_k):    
+                        if row['XL'] in [0,1]:
+                            if dfAGSN.loc[index,'direction']==1:
+                                dfAGSN.loc[index,col_n]= row[col_k]
+                            else:
+                                dfAGSN.loc[index,col_n]= row[col_i]   
+                        else:
+                            if dfAGSN.loc[index,'direction']==-1:
+                                dfAGSN.loc[index,col_n]= row[col_k]
+                            else:
+                                dfAGSN.loc[index,col_n]= row[col_i]                                  
+                        
+                        
+                        #if dfAGSN.loc[index,'direction']==1:                                
+                        #    dfAGSN.loc[index,col_n]= row[col_k]
+                        #else:
+                        #    dfAGSN.loc[index,col_n]= row[col_i]  
+                                                                                    
+            # am Anfang jedes Schnittes für jeden Leiter 1 Zeile ergänzen mit Pos=-1 (Vorlage für die ergänzte Zeile: Pos=0)
+            
+            # Zeilen herausfinden
+            startRowIdx=[]
+            for index, row in dfAGSN.iterrows():
+                if row['Pos']==0:
+                    #print(row)
+                    startRowIdx.append(index)                        
+            dfStartRows=dfAGSN.loc[startRowIdx,:].sort_values(by=['LFDNR','XL','Pos']).copy(deep=True)#.drop_duplicates()
+            #dfStartRows=dfStartRows[dfStartRows['Pos']==0]       
+            
+            # zu ergänzende Zeilen bearbeiten
+            
+            # - Pos = -1
+            # - L = 0
+            # - nextNODE ist der Startknoten in Schnittrichtung (also nicht nextNODE im Wortsinn)
+            # - Ergebnissspalten bekommen die Werte des Startknotens in Schnittrichtung
+            # - index: bleibt; d.h. unter den mehrfach belegten Indices sind ergänzte Zeilen (zu erkennen an Pos = -1)
+            
+            dfRowsAdded=[]
+            for index,row in dfStartRows.iterrows():
+            
+                    row['Pos']=-1
+                    row['L']=0
+                    
+                    if row['XL'] in [0,1]:
+                        if row['direction']==1:
+                            row['nextNODE']=row['NAME_i']
+                        else:
+                            row['nextNODE']=row['NAME_k']
+                    else:
+                        if row['direction']==-1:
+                            row['nextNODE']=row['NAME_i']
+                        else:
+                            row['nextNODE']=row['NAME_k']                            
+                        
+                    for col_n,col_i,col_k in zip(colsErg_n,colsErg_i,colsErg_k):
+                        #print(col_n,col_i,col_k)
+                        
+                        if row['XL'] in [0,1]:                                
+                            if row['direction']==1:                            
+                                row[col_n]= row[col_i]
+                            else:                                
+                                row[col_n]= row[col_k] 
+                        else:
+                            if row['direction']==-1:                            
+                                row[col_n]= row[col_i]
+                            else:                                
+                                row[col_n]= row[col_k]                                                                             
+                    
+                    #logger.debug(f"{logStr} Pos -1: {row['NAME_i']} {row['NAME_k']} {row['direction']} PH_i={row['PH_i']} PH_k={row['PH_k']} PH_n={row['PH_n']} mlc_i={row['mlc_i']} mlc_k={row['mlc_k']} mlc_n={row['mlc_n']} ") 
+                    
+                    df = pd.DataFrame([row])
+                    dfRowsAdded.append(df)                 
+            
+            # Zeilen ergänzen
+            dfAGSN=pd.concat([dfAGSN]+dfRowsAdded).sort_values(by=['LFDNR','XL','Pos'])
+            
+            # Ergebnisspalten _i,_k löschen
+            dfAGSN=dfAGSN.drop(colsErg_i+colsErg_k,axis=1)
+            
+            # Sachspalten _i,_k löschen
+            dfAGSN=dfAGSN.drop(colsSach_i+colsSach_k,axis=1)                
+                            
+            dfAGSN['L']=dfAGSN['L'].fillna(0)                
+            cols=dfAGSN.columns.to_list()
+            dfAGSN.insert(cols.index('L')+1,'LSum',dfAGSN.groupby(['LFDNR','XL'])['L'].cumsum())
+            
+            dfAGSN=dfAGSN.filter(items=colsAGSNBase
+                                 +colsVBELBase
+                                 +colsSach_n #(u.a. ZKOR_n)
+                                 +['LSum','direction']
+                                 +colsErg # die _i,_k gibt es hier bereits nicht mehr; nur die QM werden hier erfasst ...
+                                 +colsErg_n)       
+            
+            # mlc ergaenzen (denn H ist ggf. barBzg und nicht mlc)      
+            colsPH=[]
+            colsRHO=[]
+            colsMlc=[]
+            for col in dfAGSN.columns.to_list():
+                if type(col) == str and re.search('_n$',col):                                                
+                    try:
+                        colTuple=fStripV3Colik2Tuple(col=col, colPost='_n')                            
+                        if colTuple[1]=='KNOT~*~*~*~PH_n':
+                                    colsPH.append(col)
+                                    colsRHO.append(col.replace('PH','RHO'))
+                                    colsMlc.append(col.replace('KNOT~*~*~*~PH','mlc')) #.replace('PH','mlc'))                                                                    
+                    except:
+                        continue
+            
+            # zugeh. Ergebnisspalte anlegen                
+            for col in colsMlc:
+                dfAGSN[col]=None        
+                #logger.debug(f"{logStr} colMlc: {col}") 
+            
+            # Ergebnisspalte bestücken
+            for index, row in dfAGSN.iterrows():                                                                                       
+                    for col_n,col_PH,col_RHO in zip(colsMlc,colsPH,colsRHO):                        
+                        dfAGSN.loc[index,col_n]=row[col_PH]*10**5/(row[col_RHO]*9.81)+row['ZKOR_n']              
+                    
+            return dfAGSN     
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
+
+    def _V3_AGSNVEC(self,V3_AGSN):
+        """
+        V3_AGSNVEC constructing: Expanding V3_AGSN to V3_AGSNVEC.
+        
+        :param V3_AGSN: 
+        :type V3_AGSN: df
+        
+        :return: V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC.
+        :rtype: df        
+        
+        .. note:: 
+            
+            The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:
+                V3_AGSN-columns:
+                    - Pos: Pos=-1: eliminated if Start-Edge is a Pipe                     
+                    - nextNODE: Pos=0: startNODE if Start-Edge is a Pipe @IptIdxAsNo=0
+                    - LSum: Pos=0: 0. if Start-Edge is a Pipe @IptIdxAsNo=0
+                    - ...
+                    - cols mapped with VEC-Results:
+                    - ZKOR_n
+                    - PH_n
+                    - H_n
+                    - mlc_n
+                    - T_n
+                    - QM                 
+                V3_ROHRVEC-columns:
+                    - pk_ROHRVEC: Pipe-pk
+                    - tk_ROHRVEC: Pipe-tk                
+                    - ...
+                    - L_ROHRVEC
+                    - ...
+                    - NAME_i_ROHRVEC, NAME_k_ROHRVEC
+                    - mx2NofPts
+                    - dL (=L/(mx2NofPts-1))
+                    - ...
+                    - mx2Idx
+                    - IptIdx: rows S or E are eliminated for all pipes except the 1st 
+                    - ...           
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try: 
+                        
+            V3_AGSNPos=V3_AGSN[
+                            (
+                            (V3_AGSN['XL'].isin([0,1]))
+                            &
+                            (V3_AGSN['direction']==1)
+                            )
+                            |
+                            ( 
+                            (V3_AGSN['XL'].isin([2]))
+                            &
+                            (V3_AGSN['direction']==-1)
+                            )     
+                            |                
+                            ~(V3_AGSN['OBJTYPE'].isin(['ROHR']))
+                            ]
+            V3_AGSNNeg=V3_AGSN[
+                            (
+                            (V3_AGSN['XL'].isin([0,1]))
+                            &
+                            (V3_AGSN['direction']==-1)
+                            )
+                            |
+                            ( 
+                            (V3_AGSN['XL'].isin([2]))
+                            &
+                            (V3_AGSN['direction']==1)
+                            )                     
+                            ]            
+                                    
+            dfAGSNVecPos=pd.merge(V3_AGSNPos
+                ,self.V3_ROHRVEC
+                ,left_on='OBJID',right_on='tk'
+                ,suffixes=('','_ROHRVEC')
+                ,how='left' # denn der Schnitt kann auch über Objekte ungl. Rohr fuehren ...
+            )            
+            dfAGSNVecNeg=pd.merge(V3_AGSNNeg
+                ,self.V3_ROHRVEC.iloc[::-1] #!
+                ,left_on='OBJID',right_on='tk'
+                ,suffixes=('','_ROHRVEC')            
+            )    
+            dfAGSNVecNeg['IptIdxAsNo']=dfAGSNVecNeg['IptIdxAsNoRev']
+            dfAGSNVecNeg['SVEC']=dfAGSNVecNeg['SVECRev']
+            
+            dfAGSNVec=pd.concat([dfAGSNVecPos,dfAGSNVecNeg],axis=0).sort_values(by=['LFDNR','XL','Pos','IptIdxAsNo']).reset_index(drop=True)              
+            dfAGSNVec=dfAGSNVec.drop(['IptIdxAsNoRev','SVECRev'],axis=1)    
+                        
+            dfAGSNVec['SVEC']=dfAGSNVec['SVEC'].astype(float)
+
+            # elimination of Pos=-1 rows if Start-Edge is a Pipe              
+            idxToDel=[]
+            for index,row in dfAGSNVec.iterrows():
+                if row['Pos'] == -1 and row['OBJTYPE']=='ROHR':
+                    idxToDel.append(index)
+            dfAGSNVec=dfAGSNVec.drop(idxToDel,axis=0)    
+            
+            # nextNODE to startNODE and LSum=0 for IptIdxAsNo=0 if Start-Edge is a Pipe 
+            dfAGSNVecMinPos=dfAGSNVec.groupby(by=['LFDNR','XL'])['Pos'].min()
+            for index,row in dfAGSNVec.iterrows():
+                if row['Pos']!= 0:
+                    continue
+                if row['IptIdxAsNo']!= 0:
+                    continue
+                minPos=dfAGSNVecMinPos.loc[(row['LFDNR'],row['XL'])] 
+                if minPos==0: # Start-Edge is a Pipe 
+                    dfAGSNVec.loc[index,'LSum']=0.
+                    if row['XL'] in[0,1]:
+                        if row['direction']==1:
+                            dfAGSNVec.loc[index,'nextNODE']=row['NAME_i']
+                        else:
+                            dfAGSNVec.loc[index,'nextNODE']=row['NAME_k']
+                    if row['XL'] in[2]:
+                        if row['direction']==-1:
+                            dfAGSNVec.loc[index,'nextNODE']=row['NAME_i']
+                        else:
+                            dfAGSNVec.loc[index,'nextNODE']=row['NAME_k']                            
+            
+            # eliminate S or E for all Pipes except the 1st
+            #dfAGSNVecMaxPos=dfAGSNVec.groupby(by=['LFDNR','XL'])['Pos'].max()
+            indToDelete=[]
+            for index,row in dfAGSNVec.iterrows():
+                
+                if row['OBJTYPE']!='ROHR':
+                    continue
+                
+                minPos=dfAGSNVecMinPos.loc[(row['LFDNR'],row['XL'])] 
+                #maxPos=dfAGSNVecMaxPos.loc[(row['LFDNR'],row['XL'])] 
+                
+                if row['Pos']==minPos: # nicht fuer das ROHR an 1. Position
+                    continue
+                
+                #if row['Pos']==maxPos:
+                #    continue                
+                
+                if row['XL'] in [0,1]:         
+                    # im VL wird S geloescht wenn pos. def. in Schnittrichtung; sonst E
+                    if row['direction']==1:
+                        if row['IptIdx']=='S':
+                            indToDelete.append(index)
+                    elif row['direction']==-1:
+                        if row['IptIdx']=='E':
+                            indToDelete.append(index)     
+                else:                            
+                    # im RL wird E geloescht wenn pos. def. in Schnittrichtung; sonst S
+                      if row['direction']==1:
+                          if row['IptIdx']=='E':
+                              indToDelete.append(index)
+                      elif row['direction']==-1:
+                          if row['IptIdx']=='S':
+                              indToDelete.append(index)                                
+            #        
+            dfAGSNVec=dfAGSNVec.drop(indToDelete,axis=0)    
+            
+            # in Zeilen mit IptIdx <> S,E LSum durch LSum(Pos-1)+SVEC ersetzen    
+            dfAGSNVecMaxLSum=dfAGSNVec.groupby(by=['LFDNR','XL','Pos'])['LSum'].max()            
+            def fLSum(row):   
+                try:                    
+                    if row['IptIdx'] in ['S','E']:
+                        return row['LSum']
+                    if pd.isnull(row['IptIdx']):
+                        return row['LSum']
+                    if pd.isnull(row['Pos']==0):
+                        return row['LSum']                    
+                    
+                    LSumPrev=dfAGSNVecMaxLSum.loc[(row['LFDNR'],row['XL'],row['Pos']-1)]
+                    
+                    return LSumPrev+row['SVEC']
+                                                           
+                except:
+                    return 0.                        
+            dfAGSNVec['LSum']=dfAGSNVec.apply(lambda row: fLSum(row),axis=1)
+                            
+            # cols mapped with VEC-Results
+            t0rVec=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X'))#.%f'))
+            for col,colVECType in zip(['PH_n','mlc_n','H_n','QM'],['manPVEC','mlcPVEC','barBzgPVEC','QMVEC']):       
+                pass
+                colVEC=('STAT',colVECType,t0rVec,t0rVec)   
+                #logger.debug(f"{logStr}colVEC: {colVEC}")        
+                dfAGSNVec[col]=dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC],axis=1)
+                
+            for col,colVECType in zip(['T_n'],['TVEC']):       
+                pass
+                colVEC=('STAT','ROHR~*~*~*~'+colVECType,t0rVec,t0rVec)   
+                #logger.debug(f"{logStr}colVEC: {colVEC}")                
+                dfAGSNVec[col]=dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC],axis=1)      
+                
+            for col,colVEC in zip(['ZKOR_n'],['ZVEC']):       
+                pass
+                colVEC=colVEC 
+                #logger.debug(f"{logStr}colVEC: {colVEC}")                
+                dfAGSNVec[col]=dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC],axis=1)                     
+                                                                                                                                    
+            return dfAGSNVec
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
 
 
     def setLayerContentTo(self,layerName,df):
@@ -976,7 +1301,9 @@ def readDxAndMx(dbFile
                 - m.V3_FWVB: Housestations District Heating
                 - m.V3_KNOT: Nodes 
                 - m.V3_VBEL: Edges
-                - m.V3_ROHRVEC: Pipes including interior point results
+                - m.V3_ROHRVEC: Pipes including interior points 
+                - m.V3_AGSN: Longitudinal Sections
+                - m.V3_AGSNVEC: Longitudinal Sections including Pipe interior points 
                     
             - geopandas-Dfs based upon the Dfs above:
                 - m.gdf_ROHR: Pipes
@@ -1121,10 +1448,10 @@ def readDxAndMx(dbFile
         # diese xk wird hier verwendet um das Modell in der DB zu identifizieren dessen Ergebnisse geliefert werden sollen
         try:
             vm=dx.dataFrames['VIEW_MODELLE']
-            modelXk=sk[sk['ID'].isin([3,3.])]['WERT'].iloc[0]
-            vms=vm[vm['pk'].isin([modelXk])].iloc[0]   
+            #modelXk=sk[sk['ID'].isin([3,3.])]['WERT'].iloc[0]
+            vms=vm[vm['pk'].isin([dx.QGISmodelXk])].iloc[0]   
         except:
-            logger.info("{logStr:s} SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which results are expected in mx. Now the 1st Model in VIEW_MODELLE is used...".format(logStr=logStr))
+            logger.info("{logStr:s} QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used...".format(logStr=logStr))
             vms=vm.iloc[0]  
         
         #!                        
@@ -1440,6 +1767,7 @@ def readDxAndMx(dbFile
         if not dbFileDxMxPklRead:
             #
             m = dxWithMx(dx,mx,crs)
+            m.wDirMx=wDirMx
             
             if not preventPklDump:
                 if isfile(dbFileDxMxPkl):
@@ -1489,12 +1817,12 @@ class readMxError(Exception):
     def __str__(self):
         return repr(self.value)
 
-def readMx(rootdir, logPathOutputFct=os.path.relpath):
+def readMx(wDirMx, logPathOutputFct=os.path.relpath):
     """
     Reads SIR 3S results and returns a Mx object.
 
-    :param rootdir: Path to root directory of the Model. The results are read into a Mx object via the mx files.
-    :type rootdir: str
+    :param wDirMx: Path to Mx-Directory. The results are read into a Mx object via the Mx files.
+    :type wDirMx: str
     :param logPathOutputFct: logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.
     :type logPathOutputFct: function, optional
 
@@ -1511,7 +1839,7 @@ def readMx(rootdir, logPathOutputFct=os.path.relpath):
     
     try:
         # Use glob to find all MX1 files in the directory
-        mx1_files = glob.glob(os.path.join(rootdir, '**', '*.MX1'), recursive=True)
+        mx1_files = glob.glob(os.path.join(wDirMx, '**', '*.MX1'), recursive=True)
 
         # Get the parent directories of the MX1 files
         parent_dirs = set(os.path.dirname(file) for file in mx1_files)

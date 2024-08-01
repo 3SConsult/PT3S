@@ -75,6 +75,8 @@ class Dx():
 
     Attributes:
         * dbFile: verwendetes dbFile
+        
+        * QGISmodelXk: Modell-Pk des in QGIS anzuzeigenden Modells (wird von den QGIS-Views ausgewertet)
 
         * dataFrames: enthaelt alle gelesenen Tabellen und konstruierten Views
 
@@ -484,7 +486,7 @@ class Dx():
                     df = pd.read_sql(fHelperSqlText(sql, ext), con)
                     self.dataFrames[tableName] = df
                     notPairTablesProbablyNotSir3sTables.add(tableName)
-                except pd.io.sql.DatabaseError as e:
+                except pd.io.sql.DatabaseError:
                     logger.debug(
                         "{0:s}sql: {1:s}: Fehler?! Weiter. ".format(logStr, sql))
                     continue
@@ -879,207 +881,210 @@ class Dx():
 
                 # alle Ues
                 vRUES = self.dataFrames['V_BVZ_RUES']
-                # alle Kanten (alle Signalverbindungen)
-                vCRGL = self.dataFrames['V_CRGL']
-                # Ue-Definitionen per Kante (per Signal):
-                vRUESDefs = pd.merge(
-                    vRUES, vCRGL, left_on='pk', right_on='fkKk', suffixes=('', '_Edge'))
-                if vRUESDefs.empty:
-                    logger.debug(
-                        "{0:s}vRUES: Referenz zu pk leer?! ...".format(logStr))
-                    vRUESDefs = pd.merge(
-                        vRUES, vCRGL, left_on='tk', right_on='fkKk', suffixes=('', '_Edge'))
-                else:
-                    rows, dummy = vRUESDefs.shape
-                    df2 = pd.merge(vRUES, vCRGL, left_on='tk',
-                                   right_on='fkKk', suffixes=('', '_Edge'))
-                    rows2, dummy = df2.shape
-                    if rows2 >= rows:
-                        #logger.debug(
-                        #    "{0:s}vRUES:: Referenz zu pk nicht leer aber tk findet mindestens genausoviel Treffer ...".format(logStr))
-                        vRUESDefs = df2
-                        
-                        
-                # Kontrollausgaben
-                #logger.debug("{logStr:s}vRUESDefs: {vRUESDefs:s}".format(logStr=logStr,vRUESDefs=vRUESDefs.to_string()))      
                 
-                #logger.debug("{logStr:s}V3_RKNOT: {V3_RKNOT:s}".format(logStr=logStr,V3_RKNOT=V3_RKNOT.to_string()))      
-                   
-                def get_UE_SRC(UeName  # Name der Ue deren SRC gesucht wird
-                               , dfUes  # alle Ues (Defs und Refs)
-                               , dfUesDefs  # alle Signalverbindungen die Ues definieren
-                               ):
-                    """
-                    gibt per df diejenige Zeile von dfUesDefs zurueck die schlussendlich UeName definiert
-                    fkKi ist dann die wahre Quelle von UeName
-                    fkKi verweist dabei _nicht auf eine andere Ue, d.h. verkettete Referenzen werden bis zur wahren Quelle aufgeloest
-                    """
-
-                    df = dfUesDefs[dfUesDefs['IDUE'] == UeName]
-
-                    if df['fkKi'].iloc[0] in dfUes['tk'].to_list():
-                        
-                        # die SRC der Ue ist eine Ue
-                        #logger.debug("Die SRC der Ue {:s} ist eine Ue - die Ue-Def:\n{:s}".format(
-                        #    UeName, str(df[['IDUE', 'pk', 'rkRUES', 'fkKi', 'fkKk']].iloc[0])))
-
-                        # die Referenz
-                        df = dfUes[dfUes['pk'] == df['fkKi'].iloc[0]]
-                        df = dfUes[dfUes['pk'] ==
-                                   df['rkRUES'].iloc[0]]  # die SRC
-
-                        # print("{:s}".format((str(df[['IDUE','pk'
-                        #                                                                      ,'rkRUES'
-                        #                            #                                          ,'fkKi','fkKk'
-                        #                            ]].iloc[0]))))
-
-                        # Rekursion bis zur wahren Quelle
-                        df = get_UE_SRC(df['IDUE'].iloc[0], dfUes, dfUesDefs
-                                        )
+                if not vRUES[vRUES['pk'].isin([-1])].empty:
+                                
+                    # alle Kanten (alle Signalverbindungen)
+                    vCRGL = self.dataFrames['V_CRGL']
+                    # Ue-Definitionen per Kante (per Signal):
+                    vRUESDefs = pd.merge(
+                        vRUES, vCRGL, left_on='pk', right_on='fkKk', suffixes=('', '_Edge'))
+                    if vRUESDefs.empty:
+                        logger.debug(
+                            "{0:s}vRUES: Referenz zu pk leer?! ...".format(logStr))
+                        vRUESDefs = pd.merge(
+                            vRUES, vCRGL, left_on='tk', right_on='fkKk', suffixes=('', '_Edge'))
                     else:
-                        pass
-                        # Log wieder AUS
-                        #logger.debug("Die SRC der Ue {:s} gefunden -die Ue-Def:\n{:s}".format(
-                        #    UeName, str(df[['IDUE', 'pk', 'rkRUES', 'fkKi', 'fkKk']].iloc[0])))
-
-                    return df
-
-                # fuer jede Ue-Definition die SRC bestimmen
-
-                dcts = []
-                for index, row in vRUESDefs.iterrows():
-
-                    dfX = get_UE_SRC(row['IDUE']  # Name der Ue deren SRC gesucht wird
-                                     , vRUES  # Ues
-                                     , vRUESDefs  # Ue-Definitionen per Kante
-                                     )
-                    
-                    #logger.debug("{logStr:s}dfX: {dfX:s}".format(logStr=logStr,dfX=dfX.to_string()))      
-                                        
-                    # df['fkKi'] ist die SRC
-                    df=pd.DataFrame()                                        
-                    
-                    df = V3_RKNOT[V3_RKNOT['pk'] == dfX['fkKi'].iloc[0]]
-                    if df.empty:
-                        
-                        #logger.debug(
-                        #    "{0:s}V3_RKNOT: Referenz zu pk leer?! ...".format(logStr))
-
-                        df = V3_RKNOT[V3_RKNOT['tk'] == dfX['fkKi'].iloc[0]]
-                    else:
-                        df2 = V3_RKNOT[V3_RKNOT['tk'] == dfX['fkKi'].iloc[0]]
-
-                        rows, dummy = df.shape
+                        rows, dummy = vRUESDefs.shape
+                        df2 = pd.merge(vRUES, vCRGL, left_on='tk',
+                                       right_on='fkKk', suffixes=('', '_Edge'))
                         rows2, dummy = df2.shape
-
                         if rows2 >= rows:
                             #logger.debug(
-                            #    "{0:s}V3_RKNOT: Referenz zu pk nicht leer aber tk findet mindestens genausoviel Treffer ...".format(logStr))
-                            df = df2
+                            #    "{0:s}vRUES:: Referenz zu pk nicht leer aber tk findet mindestens genausoviel Treffer ...".format(logStr))
+                            vRUESDefs = df2
+                            
+                            
+                    # Kontrollausgaben
+                    #logger.debug("{logStr:s}vRUESDefs: {vRUESDefs:s}".format(logStr=logStr,vRUESDefs=vRUESDefs.to_string()))      
                     
-                    if df.empty:                        
-                         logger.info("{:s}{:12s} {:s}: UE-Symbol ohne Referenz?!".format(logStr,row['IDUE'],row['NAME_CONT']))        
-
-                         dct = {'pk_DEF': row['pk'], 'tk_DEF': row['tk'], 'IDUE_DEF': row['IDUE']                           #
-                                , 'OBJTYPE_SRC': None, 'OBJID_SRC': None, 'Kn_SRC': None, 'NAME_CONT_SRC': None
-                                }
-                         ### dcts.append(dct) #?!
-                                                     
-                    else:
-
-                         dct = {'pk_DEF': row['pk'], 'tk_DEF': row['tk'], 'IDUE_DEF': row['IDUE']                           #
-                               , 'OBJTYPE_SRC': df['OBJTYPE'].iloc[0], 'OBJID_SRC': df['pk'].iloc[0], 'Kn_SRC': df['Kn'].iloc[0], 'NAME_CONT_SRC': df['NAME_CONT'].iloc[0]
-                               }
-                         dcts.append(dct)
-
-                    # break
-                vRUESDefsSRCs = pd.DataFrame.from_dict(dcts)
-                
-                # UE-Symbole ohne Referenzen sind hier nicht enthalten
-                #logger.debug("{logStr:s}vRUESDefsSRCs: {vRUESDefsSRCs:s}".format(logStr=logStr,vRUESDefsSRCs=vRUESDefsSRCs.sort_values(by=['IDUE_DEF']).to_string())) 
-                
-                # Ausgabe, wo das Ue nicht so heisst wie die Quelle ...
-                for index, row in vRUESDefsSRCs.sort_values(by=['IDUE_DEF']).iterrows():
+                    #logger.debug("{logStr:s}V3_RKNOT: {V3_RKNOT:s}".format(logStr=logStr,V3_RKNOT=V3_RKNOT.to_string()))      
+                       
+                    def get_UE_SRC(UeName  # Name der Ue deren SRC gesucht wird
+                                   , dfUes  # alle Ues (Defs und Refs)
+                                   , dfUesDefs  # alle Signalverbindungen die Ues definieren
+                                   ):
+                        """
+                        gibt per df diejenige Zeile von dfUesDefs zurueck die schlussendlich UeName definiert
+                        fkKi ist dann die wahre Quelle von UeName
+                        fkKi verweist dabei _nicht auf eine andere Ue, d.h. verkettete Referenzen werden bis zur wahren Quelle aufgeloest
+                        """
+    
+                        df = dfUesDefs[dfUesDefs['IDUE'] == UeName]
+    
+                        if df['fkKi'].iloc[0] in dfUes['tk'].to_list():
+                            
+                            # die SRC der Ue ist eine Ue
+                            #logger.debug("Die SRC der Ue {:s} ist eine Ue - die Ue-Def:\n{:s}".format(
+                            #    UeName, str(df[['IDUE', 'pk', 'rkRUES', 'fkKi', 'fkKk']].iloc[0])))
+    
+                            # die Referenz
+                            df = dfUes[dfUes['pk'] == df['fkKi'].iloc[0]]
+                            df = dfUes[dfUes['pk'] ==
+                                       df['rkRUES'].iloc[0]]  # die SRC
+    
+                            # print("{:s}".format((str(df[['IDUE','pk'
+                            #                                                                      ,'rkRUES'
+                            #                            #                                          ,'fkKi','fkKk'
+                            #                            ]].iloc[0]))))
+    
+                            # Rekursion bis zur wahren Quelle
+                            df = get_UE_SRC(df['IDUE'].iloc[0], dfUes, dfUesDefs
+                                            )
+                        else:
+                            pass
+                            # Log wieder AUS
+                            #logger.debug("Die SRC der Ue {:s} gefunden -die Ue-Def:\n{:s}".format(
+                            #    UeName, str(df[['IDUE', 'pk', 'rkRUES', 'fkKi', 'fkKk']].iloc[0])))
+    
+                        return df
+    
+                    # fuer jede Ue-Definition die SRC bestimmen
+    
+                    dcts = []
+                    for index, row in vRUESDefs.iterrows():
+    
+                        dfX = get_UE_SRC(row['IDUE']  # Name der Ue deren SRC gesucht wird
+                                         , vRUES  # Ues
+                                         , vRUESDefs  # Ue-Definitionen per Kante
+                                         )
+                        
+                        #logger.debug("{logStr:s}dfX: {dfX:s}".format(logStr=logStr,dfX=dfX.to_string()))      
+                                            
+                        # df['fkKi'] ist die SRC
+                        df=pd.DataFrame()                                        
+                        
+                        df = V3_RKNOT[V3_RKNOT['pk'] == dfX['fkKi'].iloc[0]]
+                        if df.empty:
+                            
+                            #logger.debug(
+                            #    "{0:s}V3_RKNOT: Referenz zu pk leer?! ...".format(logStr))
+    
+                            df = V3_RKNOT[V3_RKNOT['tk'] == dfX['fkKi'].iloc[0]]
+                        else:
+                            df2 = V3_RKNOT[V3_RKNOT['tk'] == dfX['fkKi'].iloc[0]]
+    
+                            rows, dummy = df.shape
+                            rows2, dummy = df2.shape
+    
+                            if rows2 >= rows:
+                                #logger.debug(
+                                #    "{0:s}V3_RKNOT: Referenz zu pk nicht leer aber tk findet mindestens genausoviel Treffer ...".format(logStr))
+                                df = df2
+                        
+                        if df.empty:                        
+                             logger.info("{:s}{:12s} {:s}: UE-Symbol ohne Referenz?!".format(logStr,row['IDUE'],row['NAME_CONT']))        
+    
+                             dct = {'pk_DEF': row['pk'], 'tk_DEF': row['tk'], 'IDUE_DEF': row['IDUE']                           #
+                                    , 'OBJTYPE_SRC': None, 'OBJID_SRC': None, 'Kn_SRC': None, 'NAME_CONT_SRC': None
+                                    }
+                             ### dcts.append(dct) #?!
+                                                         
+                        else:
+    
+                             dct = {'pk_DEF': row['pk'], 'tk_DEF': row['tk'], 'IDUE_DEF': row['IDUE']                           #
+                                   , 'OBJTYPE_SRC': df['OBJTYPE'].iloc[0], 'OBJID_SRC': df['pk'].iloc[0], 'Kn_SRC': df['Kn'].iloc[0], 'NAME_CONT_SRC': df['NAME_CONT'].iloc[0]
+                                   }
+                             dcts.append(dct)
+    
+                        # break
+                    vRUESDefsSRCs = pd.DataFrame.from_dict(dcts)
                     
-                    if row['IDUE_DEF'] != row['Kn_SRC']:
-                        pass
-                        #logger.debug("{logStr:s}IDUE_DEF: {IDUE_DEF!s:s} != Kn_SRC: {Kn_SRC!s:s} - ggf. ungewollt? ...".format(logStr=logStr
+                    # UE-Symbole ohne Referenzen sind hier nicht enthalten
+                    #logger.debug("{logStr:s}vRUESDefsSRCs: {vRUESDefsSRCs:s}".format(logStr=logStr,vRUESDefsSRCs=vRUESDefsSRCs.sort_values(by=['IDUE_DEF']).to_string())) 
+                    
+                    # Ausgabe, wo das Ue nicht so heisst wie die Quelle ...
+                    for index, row in vRUESDefsSRCs.sort_values(by=['IDUE_DEF']).iterrows():
+                        
+                        if row['IDUE_DEF'] != row['Kn_SRC']:
+                            pass
+                            #logger.debug("{logStr:s}IDUE_DEF: {IDUE_DEF!s:s} != Kn_SRC: {Kn_SRC!s:s} - ggf. ungewollt? ...".format(logStr=logStr
+                            #        ,IDUE_DEF=row['IDUE_DEF']
+                            #        ,Kn_SRC=row['Kn_SRC']
+                            #            )) 
+                        
+                    # fuer alle Defs die wahre Quelle angeben
+                    #vRUES: self.dataFrames['V_BVZ_RUES']
+                    V3_RUES = pd.merge(vRUES.copy(deep=True), vRUESDefsSRCs, left_on='IDUE', right_on='IDUE_DEF', how='left')
+                    
+                    #logger.debug("{logStr:s}V3_RUES Schritt 1: {V3_RUES:s}".format(logStr=logStr,V3_RUES=V3_RUES[['NAME_CONT','IDUE','IDUE_DEF','Kn_SRC','rkRUES']].sort_values(by=['IDUE_DEF']).to_string())) 
+    
+                    # fuer alle Refs ebenfalls die wahre Quelle angeben
+                    for index, row in V3_RUES.iterrows():
+                        #logger.debug("{logStr:s}{IDUE_DEF!s:s}".format(logStr=logStr,IDUE_DEF=row['IDUE_DEF'])) 
+                        
+                        
+                        #logger.debug("{logStr:s}IDUE_DEF: {IDUE_DEF!s:s}, Kn_SRC: {Kn_SRC!s:s}".format(logStr=logStr
                         #        ,IDUE_DEF=row['IDUE_DEF']
                         #        ,Kn_SRC=row['Kn_SRC']
-                        #            )) 
-                    
-                # fuer alle Defs die wahre Quelle angeben
-                #vRUES: self.dataFrames['V_BVZ_RUES']
-                V3_RUES = pd.merge(vRUES.copy(deep=True), vRUESDefsSRCs, left_on='IDUE', right_on='IDUE_DEF', how='left')
-                
-                #logger.debug("{logStr:s}V3_RUES Schritt 1: {V3_RUES:s}".format(logStr=logStr,V3_RUES=V3_RUES[['NAME_CONT','IDUE','IDUE_DEF','Kn_SRC','rkRUES']].sort_values(by=['IDUE_DEF']).to_string())) 
-
-                # fuer alle Refs ebenfalls die wahre Quelle angeben
-                for index, row in V3_RUES.iterrows():
-                    #logger.debug("{logStr:s}{IDUE_DEF!s:s}".format(logStr=logStr,IDUE_DEF=row['IDUE_DEF'])) 
-                    
-                    
-                    #logger.debug("{logStr:s}IDUE_DEF: {IDUE_DEF!s:s}, Kn_SRC: {Kn_SRC!s:s}".format(logStr=logStr
-                    #        ,IDUE_DEF=row['IDUE_DEF']
-                    #        ,Kn_SRC=row['Kn_SRC']
-                    #            ))                     
-                                        
-                    if pd.isnull(row['IDUE_DEF']):
-                                                                                         
-                        rkRUES = row['rkRUES']
-                        
-                        dfx=vRUESDefsSRCs[vRUESDefsSRCs['tk_DEF']== rkRUES]
-                        
-                        (Treffer,dummy)=dfx.shape
-
-                        #logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, Treffer: {Treffer:d}".format(logStr=logStr                                
-                        #        ,rkRUES=row['rkRUES']
-                        #        ,Treffer=Treffer
-                        #            ))  
-                                                
-                        if Treffer == 0:
-
-                            #logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, KEIN Treffer?!".format(logStr=logStr                                
-                            #        ,rkRUES=row['rkRUES']                                    
-                            #            ))   
-                            continue
-                                                                    
-                        if Treffer > 1:
-                            pass
-                            #logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, MEHR als 1 Treffer: {Treffer:d}?!".format(logStr=logStr                                
+                        #            ))                     
+                                            
+                        if pd.isnull(row['IDUE_DEF']):
+                                                                                             
+                            rkRUES = row['rkRUES']
+                            
+                            dfx=vRUESDefsSRCs[vRUESDefsSRCs['tk_DEF']== rkRUES]
+                            
+                            (Treffer,dummy)=dfx.shape
+    
+                            #logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, Treffer: {Treffer:d}".format(logStr=logStr                                
                             #        ,rkRUES=row['rkRUES']
                             #        ,Treffer=Treffer
-                            #            ))                              
-                                                
-                        s = dfx.iloc[0]                            
+                            #            ))  
+                                                    
+                            if Treffer == 0:
     
-                        V3_RUES.loc[index, 'pk_DEF'] = s['pk_DEF']
-                        V3_RUES.loc[index, 'IDUE_DEF'] = s['IDUE_DEF']
-                        V3_RUES.loc[index, 'OBJTYPE_SRC'] = s['OBJTYPE_SRC']
-                        V3_RUES.loc[index, 'Kn_SRC'] = s['Kn_SRC']
-                        V3_RUES.loc[index,'NAME_CONT_SRC'] = s['NAME_CONT_SRC']
-
-                        
-                self.dataFrames['V3_RRUES'] = V3_RUES
-                #logger.debug("{logStr:s}V3_RRUES final: {V3_RUES:s}".format(logStr=logStr
-                #                                                            ,V3_RUES=V3_RUES[['NAME_CONT','NAME_CONT_SRC','OBJTYPE_SRC','IDUE','IDUE_DEF','Kn_SRC','rkRUES','pk_DEF']].sort_values(by=['IDUE_DEF']).to_string()))                 
-
-                # RKNOT voruebergehend erweitern um RUES um nachfolgend alle Kanten ausreferenzieren zu koennen
-                #logger.debug("{0:s}expanding V3_KNOT with V3_RRUES temporarily to construct V3_RVBEL ...".format(logStr))
-
-                V3_RKNOT = self.dataFrames['V3_RKNOT']
-                vRUES = self.dataFrames['V_BVZ_RUES']
-                vRUES = pd.merge(vRUES, vRUES, how='left', left_on='rkRUES',
-                                 right_on='tk', suffixes=('', '_rkRUES'))
-                vRUES['Kn'] = vRUES.apply(
-                    lambda row: row.IDUE if row.IOTYP == '1' else row.IDUE_rkRUES, axis=1)
-                vRUES['OBJTYPE'] = 'RUES'
-                vRUES['BESCHREIBUNG'] = None
-                V3_RKNOT = pd.concat([V3_RKNOT, vRUES[[
-                                     'OBJTYPE', 'Kn', 'BESCHREIBUNG', 'pk', 'tk', 'NAME_CONT', 'IDUE', 'IOTYP']]]).reset_index(drop=True)
+                                #logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, KEIN Treffer?!".format(logStr=logStr                                
+                                #        ,rkRUES=row['rkRUES']                                    
+                                #            ))   
+                                continue
+                                                                        
+                            if Treffer > 1:
+                                pass
+                                #logger.debug("{logStr:s}IDUE_DEF ist NULL, rkRUES: {rkRUES:s}, MEHR als 1 Treffer: {Treffer:d}?!".format(logStr=logStr                                
+                                #        ,rkRUES=row['rkRUES']
+                                #        ,Treffer=Treffer
+                                #            ))                              
+                                                    
+                            s = dfx.iloc[0]                            
+        
+                            V3_RUES.loc[index, 'pk_DEF'] = s['pk_DEF']
+                            V3_RUES.loc[index, 'IDUE_DEF'] = s['IDUE_DEF']
+                            V3_RUES.loc[index, 'OBJTYPE_SRC'] = s['OBJTYPE_SRC']
+                            V3_RUES.loc[index, 'Kn_SRC'] = s['Kn_SRC']
+                            V3_RUES.loc[index,'NAME_CONT_SRC'] = s['NAME_CONT_SRC']
+    
+                            
+                    self.dataFrames['V3_RRUES'] = V3_RUES
+                    #logger.debug("{logStr:s}V3_RRUES final: {V3_RUES:s}".format(logStr=logStr
+                    #                                                            ,V3_RUES=V3_RUES[['NAME_CONT','NAME_CONT_SRC','OBJTYPE_SRC','IDUE','IDUE_DEF','Kn_SRC','rkRUES','pk_DEF']].sort_values(by=['IDUE_DEF']).to_string()))                 
+    
+                    # RKNOT voruebergehend erweitern um RUES um nachfolgend alle Kanten ausreferenzieren zu koennen
+                    #logger.debug("{0:s}expanding V3_KNOT with V3_RRUES temporarily to construct V3_RVBEL ...".format(logStr))
+    
+                    V3_RKNOT = self.dataFrames['V3_RKNOT']
+                    vRUES = self.dataFrames['V_BVZ_RUES']
+                    vRUES = pd.merge(vRUES, vRUES, how='left', left_on='rkRUES',
+                                     right_on='tk', suffixes=('', '_rkRUES'))
+                    vRUES['Kn'] = vRUES.apply(
+                        lambda row: row.IDUE if row.IOTYP == '1' else row.IDUE_rkRUES, axis=1)
+                    vRUES['OBJTYPE'] = 'RUES'
+                    vRUES['BESCHREIBUNG'] = None
+                    V3_RKNOT = pd.concat([V3_RKNOT, vRUES[[
+                                         'OBJTYPE', 'Kn', 'BESCHREIBUNG', 'pk', 'tk', 'NAME_CONT', 'IDUE', 'IOTYP']]]).reset_index(drop=True)
                 
                 # alle RXXX-Kanten
-                logger.debug("{0:s}{1:s}: ...".format(logStr, 'V3_RVBEL'))
+                logger.debug("{0:s}{1:s} ...".format(logStr, 'V3_RVBEL'))
                 
                 howMode = 'left'
                 V_CRGL = self.dataFrames['V_CRGL']
@@ -1110,52 +1115,63 @@ class Dx():
                                     )
                                     ]
 
+
+                if not vRUES[vRUES['pk'].isin([-1])].empty:
                 
-                # RUES-Verbindungen zur Quelle hin aufloesen ...                
-                #logger.debug("{0:s}{1:s} RUES-Verbindungen zur Quelle hin aufloesen ...".format(logStr, 'V3_RVBEL'))
-
-                V3_RVBEL = V3_RVBEL.reset_index()
-                V3_RRUES = self.dataFrames['V3_RRUES']
-                for index, row in V3_RVBEL[V3_RVBEL['OBJTYPE_i'].isin(['RUES'])].iterrows():
-                    
-                    dfx=V3_RRUES[V3_RRUES['tk'] == row['fkKi']]
-                    (Treffer,dummy)=dfx.shape
-                    
-                    if Treffer == 0:                   
-                        logger.debug("{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s}  KEIN Treffer?!".format(logStr=logStr                                
-                                ,OBJTYPE_i=row['OBJTYPE_i']      
-                                ,Kn_i=row['Kn_i']      
-                                    ))   
-                        continue
-                                                                
-                    if Treffer > 1:
-                        logger.debug("{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s}  MEHR als 1 Treffer: {Treffer:d}?!".format(logStr=logStr                                
-                                ,OBJTYPE_i=row['OBJTYPE_i']      
-                                ,Kn_i=row['Kn_i']      
-                                ,Treffer=Treffer
-                                    ))                           
-                                                                                      
-                    s = dfx.iloc[0]
-                    
-                    #logger.debug("{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s} Treffer: {Treffer!s:s}?!".format(logStr=logStr                                
-                    #        ,OBJTYPE_i=row['OBJTYPE_i']      
-                    #        ,Kn_i=row['Kn_i']      
-                    #        ,Treffer=s
-                    #            ))         
-
-                    V3_RVBEL.loc[index, 'OBJTYPE_i'] = s['OBJTYPE_SRC']
-                    # V3_RVBEL.loc[index,'OBJID_i']=s['OBJID_SRC']
-                    V3_RVBEL.loc[index, 'Kn_i'] = s['Kn_SRC']
-                    V3_RVBEL.loc[index, 'KnExt_i'] = str(s['Kn_SRC']) + \
-                        '_'+str(s['OBJTYPE_SRC'])
-                    V3_RVBEL.loc[index, 'NAME_CONT_i'] = s['NAME_CONT_SRC']
+                    # RUES-Verbindungen zur Quelle hin aufloesen ...                
+                    #logger.debug("{0:s}{1:s} RUES-Verbindungen zur Quelle hin aufloesen ...".format(logStr, 'V3_RVBEL'))
+    
+                    V3_RVBEL = V3_RVBEL.reset_index()
+                    V3_RRUES = self.dataFrames['V3_RRUES']
+                    for index, row in V3_RVBEL[V3_RVBEL['OBJTYPE_i'].isin(['RUES'])].iterrows():
+                        
+                        dfx=V3_RRUES[V3_RRUES['tk'] == row['fkKi']]
+                        (Treffer,dummy)=dfx.shape
+                        
+                        if Treffer == 0:                   
+                            logger.debug("{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s}  KEIN Treffer?!".format(logStr=logStr                                
+                                    ,OBJTYPE_i=row['OBJTYPE_i']      
+                                    ,Kn_i=row['Kn_i']      
+                                        ))   
+                            continue
+                                                                    
+                        if Treffer > 1:
+                            logger.debug("{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s}  MEHR als 1 Treffer: {Treffer:d}?!".format(logStr=logStr                                
+                                    ,OBJTYPE_i=row['OBJTYPE_i']      
+                                    ,Kn_i=row['Kn_i']      
+                                    ,Treffer=Treffer
+                                        ))                           
+                                                                                          
+                        s = dfx.iloc[0]
+                        
+                        #logger.debug("{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s} Treffer: {Treffer!s:s}?!".format(logStr=logStr                                
+                        #        ,OBJTYPE_i=row['OBJTYPE_i']      
+                        #        ,Kn_i=row['Kn_i']      
+                        #        ,Treffer=s
+                        #            ))         
+    
+                        V3_RVBEL.loc[index, 'OBJTYPE_i'] = s['OBJTYPE_SRC']
+                        # V3_RVBEL.loc[index,'OBJID_i']=s['OBJID_SRC']
+                        V3_RVBEL.loc[index, 'Kn_i'] = s['Kn_SRC']
+                        V3_RVBEL.loc[index, 'KnExt_i'] = str(s['Kn_SRC']) + \
+                            '_'+str(s['OBJTYPE_SRC'])
+                        V3_RVBEL.loc[index, 'NAME_CONT_i'] = s['NAME_CONT_SRC']
 
                 
-                V3_RVBEL=V3_RVBEL[~pd.isnull(V3_RVBEL['tk'])]
-                V3_RVBEL = Xm.Xm.constructNewMultiindexFromCols(df=V3_RVBEL, mColNames=[
-                                                                'OBJTYPE_i', 'OBJTYPE_k', 'OBJID'], mIdxNames=['OBJTYPE_i', 'OBJTYPE_k', 'OBJID'])
+                    V3_RVBEL=V3_RVBEL[~pd.isnull(V3_RVBEL['tk'])]
+                    V3_RVBEL = Xm.Xm.constructNewMultiindexFromCols(df=V3_RVBEL, mColNames=[
+                                                                    'OBJTYPE_i', 'OBJTYPE_k', 'OBJID'], mIdxNames=['OBJTYPE_i', 'OBJTYPE_k', 'OBJID'])
                 self.dataFrames['V3_RVBEL'] = V3_RVBEL
-
+                                
+                # Modell-Pk des in QGIS anzuzeigenden Modells    
+                # ============================================
+                sk=self.dataFrames['SYSTEMKONFIG']  
+                try:
+                    self.QGISmodelXk=sk[sk['ID'].isin([3,3.])]['WERT'].iloc[0]
+                except:
+                    logger.info("{logStr:s} SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined...".format(logStr=logStr))
+                    self.QGISmodelXk=None
+                
             except Exception as e:
                 logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
                     logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
@@ -1336,50 +1352,63 @@ class Dx():
             V3 = {}
             for dfName, resType in zip(['V3_KNOT', 'V3_ROHR', 'V3_FWVB'], ['^KNOT', '^ROHR~', '^FWVB']):
                 # Ergebnisse lesen
-                dfRes = mx.getVecAggsResultsForObjectType(resType)
+                
+                logger.debug(f"{logStr}dfName: {dfName}: read Results:")
+                
+                try:
+                
+                    dfRes = mx.getVecAggsResultsForObjectType(resType)
+    
+                    #logger.debug("{0:s}dfRes: {1:s}".format(logStr,dfRes.to_string()))
+    
+                    if dfName == 'V3_KNOT' and addNodeData:
+    
+                        # df mit Knotenergebnissen merken
+                        dfKnotRes = dfRes
+                        # gewünschte Ergebnisspalten von Knoten
+                        Sir3sIDs = dfKnotRes.columns.get_level_values(1)
+                        
+                        Sir3sIDsMatching=[]
+                        for addNodeDataSir3sVecIDReExp in addNodeDataSir3sVecIDReExps:
+                            Sir3sIDsMatching = Sir3sIDsMatching + [Sir3sID for Sir3sID in Sir3sIDs if re.search(
+                                addNodeDataSir3sVecIDReExp, Sir3sID) != None]
+                                            
+                        # die zur Ergänzung gewünschten Ergebnisspalten von Knoten
+                        dfKnotRes = dfKnotRes.loc[:, (slice(
+                            None), Sir3sIDsMatching, slice(None), slice(None))]
+                                     
+                        dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
+                
+                    dfRes.columns = dfRes.columns.to_flat_index()
+    
+                    #Sachspalten lesen
+                    df = self.dataFrames[dfName]
+    
+                    # Ergebnisspalten ergänzen                
+                    V3[dfName] = df.merge(
+                            dfRes, left_on='tk', right_index=True, how='left')  
 
-                #logger.debug("{0:s}dfRes: {1:s}".format(logStr,dfRes.to_string()))
-
-                if dfName == 'V3_KNOT' and addNodeData:
-
-                    # df mit Knotenergebnissen merken
-                    dfKnotRes = dfRes
-                    # gewünschte Ergebnisspalten von Knoten
-                    Sir3sIDs = dfKnotRes.columns.get_level_values(1)
-                    
-                    Sir3sIDsMatching=[]
-                    for addNodeDataSir3sVecIDReExp in addNodeDataSir3sVecIDReExps:
-                        Sir3sIDsMatching = Sir3sIDsMatching + [Sir3sID for Sir3sID in Sir3sIDs if re.search(
-                            addNodeDataSir3sVecIDReExp, Sir3sID) != None]
-                                        
-                    # die zur Ergänzung gewünschten Ergebnisspalten von Knoten
-                    dfKnotRes = dfKnotRes.loc[:, (slice(
-                        None), Sir3sIDsMatching, slice(None), slice(None))]
-                                 
-                    dfKnotRes.columns = dfKnotRes.columns.to_flat_index()
-            
-                dfRes.columns = dfRes.columns.to_flat_index()
-
-                #Sachspalten lesen
-                df = self.dataFrames[dfName]
-
-                # Ergebnisspalten ergänzen                
-                V3[dfName] = df.merge(
-                        dfRes, left_on='tk', right_index=True, how='left')  
-
+                except:
+                    pass
 
             if addNodeData:
 
                 for dfName in ['V3_ROHR', 'V3_FWVB']:
-                    df = V3[dfName]
                     
-                    df = pd.merge(df, dfKnotRes.add_suffix(
-                        '_i'), left_on='fkKI', right_index=True, how='left')   
-                    df = pd.merge(df, dfKnotRes.add_suffix(
-                        '_k'), left_on='fkKK', right_index=True, how='left')   
-                                    
-                                        
-                    V3[dfName] = df
+                    logger.debug(f"{logStr}dfName: {dfName}: addNodeData:")
+                    
+                    try:                    
+                        df = V3[dfName]
+                        
+                        df = pd.merge(df, dfKnotRes.add_suffix(
+                            '_i'), left_on='fkKI', right_index=True, how='left')   
+                        df = pd.merge(df, dfKnotRes.add_suffix(
+                            '_k'), left_on='fkKK', right_index=True, how='left')   
+                             
+                        V3[dfName] = df
+                    except:
+                        pass
+            
                                             
             # V3_VBEL
             # ####################
@@ -1414,17 +1443,10 @@ class Dx():
                     #dfVBEL.loc[(edge,),newCols]=df[newCols].values
 
                   except Exception as e:                               
-                    logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: Edge-Type {:s} failed.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)            
+                    logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: Edge-Type {:s}: adding Vec-Results failed.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)            
                     logger.debug(logStrEdge)             
             
-            try:
-                dfVBEL = pd.merge(dfVBEL, pd.concat(dfs), left_index=True, right_index=True)
-                logger.debug("dfVBEL Merge operation successful.")
-            except Exception as e:
-                logStrEdge="{:s}Exception: Line: {:d}: {!s:s}: {:s}: Edge-Type {:s} failed.".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e),edge)
-                logger.debug(logStrEdge)
-            
-            #dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True)
+            dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True,how='left')
             
             #logger.debug("{0:s}dfVBEL nach concat: {1:s}".format(logStr,dfVBEL.head().to_string()))
             

@@ -3365,6 +3365,9 @@ class Mx():
             # alle verlangten Kanaele 1 OBJTYPEs 
             Sir3sIDsMatching=[Sir3sID for Sir3sID in Sir3sIDs if re.search(Sir3sVecIDReExp,Sir3sID) != None]
             #logger.debug("{:s}Sir3sIDsMatching for {:s}: {!s:s}".format(logStr,Sir3sVecIDReExp,Sir3sIDsMatching)) 
+            
+            if len(Sir3sIDsMatching)==0:
+                return df
     
             OBJTYPE=re.match(regExpSir3sVecID,Sir3sIDsMatching[0]).group('OBJTYPE')
 
