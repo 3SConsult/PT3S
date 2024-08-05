@@ -3,6 +3,13 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.28.0.dev1
+---------------
+
+**Fix:**
+
+- V3_AGSNVEC: Sections with starting pipe with interior points: incorrect x-values ​​in starting pipe
+
 90.14.27.0.dev1
 ---------------
 

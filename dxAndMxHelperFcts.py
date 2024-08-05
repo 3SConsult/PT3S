@@ -968,10 +968,11 @@ class dxWithMx():
             The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:
                 V3_AGSN-columns:
                     - Pos: Pos=-1: eliminated if Start-Edge is a Pipe                     
-                    - nextNODE: Pos=0: startNODE if Start-Edge is a Pipe @IptIdxAsNo=0
-                    - LSum: Pos=0: 0. if Start-Edge is a Pipe @IptIdxAsNo=0
+                    - nextNODE: Pos=0: startNODE @IptIdxAsNo=0 if Start-Edge is a Pipe
+                    - LSum: Pos=0: 0. @IptIdxAsNo=0 if Start-Edge is a Pipe 
                     - ...
                     - cols mapped with VEC-Results:
+                    - LSum
                     - ZKOR_n
                     - PH_n
                     - H_n
@@ -1126,7 +1127,8 @@ class dxWithMx():
                     return LSumPrev+row['SVEC']
                                                            
                 except:
-                    return 0.                        
+                    # ROHR am Anfang mit Innenpunkten
+                    return 0.+row['SVEC']                        
             dfAGSNVec['LSum']=dfAGSNVec.apply(lambda row: fLSum(row),axis=1)
                             
             # cols mapped with VEC-Results
