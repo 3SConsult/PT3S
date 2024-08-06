@@ -1,6 +1,7 @@
 name: Automatisches Loeschen von Example Daten
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'Examples/**'
