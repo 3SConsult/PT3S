@@ -39,8 +39,9 @@ jobs:
 
               # Loop over all files in the WDExample directory
               for file in *; do
-                # Get the file extension
+                # Get the file extension and convert to lowercase
                 extension="${file##*.}"
+                extension="${extension,,}"
                 
                 # If the file extension is not mx1 or xml (case insensitive), then remove it
                 if [[ ! $extension =~ ^(mx1|xml)$ ]]; then
