@@ -1431,7 +1431,7 @@ class Dx():
     
             dfVBEL=self.dataFrames['V3_VBEL']
             
-            #logger.debug("{0:s}dfVBEL: {1:s}".format(logStr,dfVBEL.head().to_string()))
+            logger.debug("{0:s}dfVBEL: {1:s}".format(logStr,dfVBEL.head().to_string()))
             
             # QM
             dfOBJTYPEs=mx.getVecAggsResultsForAttributeType()
@@ -1465,7 +1465,7 @@ class Dx():
             if len(dfs) > 0:
                 dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True,how='left')
             
-            #logger.debug("{0:s}dfVBEL nach concat: {1:s}".format(logStr,dfVBEL.head().to_string()))
+            logger.debug("{0:s}dfVBEL nach concat: {1:s}".format(logStr,dfVBEL.head().to_string()))
             
             if addNodeData:                    
                 dfVBEL = pd.merge(dfVBEL, dfKnotRes.add_suffix(

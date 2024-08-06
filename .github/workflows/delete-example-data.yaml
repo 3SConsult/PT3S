@@ -20,32 +20,37 @@ jobs:
 
       - name: Cleanup files
         run: |
+          # Store the current directory
+          examples_dir=$(pwd)
+
           # Loop over all WDExample directories
           for wdexample_dir in Examples/WDExample*; do
             echo "Processing directory: $wdexample_dir"
             
-            # Change to the WDExample directory
-            cd "$wdexample_dir/B1/V0/BZ1" || { echo "Cannot change to directory $wdexample_dir/B1/V0/BZ1"; exit 1; }
+            # Check if the B1/V0/BZ1 subdirectory exists
+            if [[ -d "$wdexample_dir/B1/V0/BZ1" ]]; then
+              # Change to the WDExample directory
+              cd "$wdexample_dir/B1/V0/BZ1" || { echo "Cannot change to directory $wdexample_dir/B1/V0/BZ1"; exit 1; }
 
-            echo "Current directory:"
-            pwd
-            echo "Directory contents:"
-            ls -l
+              echo "Current directory:"
+              pwd
+              echo "Directory contents:"
+              ls -l
 
-            # Loop over all files in the WDExample directory
-            for file in *; do
-              # If the file does not end with .mx1 or .xml (case insensitive), then remove it
-              if [[ ! $file =~ \.(mx1|xml)$ ]]; then
-                echo "Removing file: $file"
-                rm "$file"
-              fi
-            done
+              # Loop over all files in the WDExample directory
+              for file in *; do
+                # If the file does not end with .mx1 or .xml (case insensitive), then remove it
+                if [[ ! $file =~ \.(mx1|xml)$ ]]; then
+                  echo "Removing file: $file"
+                  rm "$file"
+                fi
+              done
 
-            # Go back to the root directory before the next iteration
-            cd - > /dev/null
-            cd - > /dev/null
-            cd - > /dev/null
-            cd - > /dev/null
+              # Go back to the Examples directory before the next iteration
+              cd "$examples_dir"
+            else
+              echo "Directory $wdexample_dir/B1/V0/BZ1 does not exist, skipping"
+            fi
           done
         shell: /usr/bin/bash -e {0}
 

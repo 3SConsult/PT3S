@@ -1914,6 +1914,7 @@ def constructNewMultiindexFromCols(df=pd.DataFrame(),mColNames=['OBJTYPE','OBJID
             
             arrays=[]
             for col in mColNames:
+                logger.debug(f"{col}: {type(df[col])}")
                 arrays.append(df[col].tolist())
             tuples = list(zip(*(arrays)))
             index = pd.MultiIndex.from_tuples(tuples,names=mIdxNames)

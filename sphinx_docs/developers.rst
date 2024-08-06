@@ -128,8 +128,7 @@ To discard all remote changes and force push local HEAD to the master use:
    .. code-block:: bash
 
       git push origin master --force
-
-
+           
 Working with PyPI
 -----------------     
          
