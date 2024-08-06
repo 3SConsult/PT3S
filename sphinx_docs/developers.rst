@@ -223,12 +223,12 @@ Now, your package is installed in editable mode. This means that you can make ch
 
 By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to the project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this `PT3S.egg-link` file. Delete also the PT3S-line in easy-install.pth.
 
-.. _generating-documentation-label:
-
 PT3S's Documentation
 --------------------
 
 The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.
+
+.. _generating-documentation-label:
 
 Generating the Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -272,9 +272,9 @@ Follow these steps to build a Docker image:
 
    .. code-block:: bash
 
-      cd "C:\Users\User\3S\Docker\app"
+      cd "C:\Users\User\3S\PT3S\app"
 
-2. **Build the Docker image:** Run the following command, with the name you want to give to your Docker image:
+2. **Build the Docker image:** Run the following command, replacing `pt3stest` with the name you want to give to your Docker image:
 
    .. code-block:: bash
 
@@ -285,34 +285,40 @@ Running a Docker Container
 
 Follow these steps to run a Docker container:
 
-1. **Navigate to your project directory:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
+1. **Start Docker Engine**: Open Docker Desktop and start the engine.
+
+2. **Navigate to your project directory:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
 
    .. code-block:: bash
 
-      "C:\Users\User\3S\Docker\app"
+      cd "C:\Users\User\3S\PT3S\app"
     
-2. **Run the Docker container:** Run the following command with the name of your Docker image:
+3. **Run the Docker container:** Run the following command with the name of your Docker image. 
+
+   .. note:: 
+       The port must differ from a local JupyterLab you might be running (use 8889:8888 instead).
 
    .. code-block:: bash
 
-      docker run -it --rm -p 8888:8888 pt3stest /bin/bash
+      docker run -it --rm -p 8889:8888 pt3stest cmd
 
-You now basically have acces to a cmd running in the container environment. The `-it` option starts the container in interactive mode, the `--rm` option removes the container after it exits.
+You now have access to a cmd running in the container environment. The `-it` option starts the container in interactive mode, and the `--rm` option removes the container after it exits.
 
 Testing Examples
 """"""""""""""""
 
 Follow these steps to test Example Notebooks:
 
-1. **Start JupyterLab**: Type the command into cmd of the container.
+1. **Start JupyterLab**: Type the following command into the cmd of the container.
 
    .. code-block:: bash
    
-       jupyter notebook --ip=0.0.0.0 --allow-root
+       python -m jupyter lab --ip=0.0.0.0 --allow-root
        
 Alternative:
        
 1. **Open Docker Desktop**: This is not preinstalled on 3sconsult devices. It needs to be installed.       
 
-2. **Open JupyterLab**: Under the container tab click on the host of the running container.
+2. **Open JupyterLab**: Under the container tab in Docker Desktop, click on the host of the running container.
 
+3. **Enter Token**: When asked to enter a token, copy and paster the token you can find in the anaconda powershell, that should be running. It is part of the links provided.

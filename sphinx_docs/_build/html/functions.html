@@ -339,10 +339,11 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dt>The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:</dt><dd><dl class="simple">
 <dt>V3_AGSN-columns:</dt><dd><ul class="simple">
 <li><p>Pos: Pos=-1: eliminated if Start-Edge is a Pipe</p></li>
-<li><p>nextNODE: Pos=0: startNODE if Start-Edge is a Pipe &#64;IptIdxAsNo=0</p></li>
-<li><p>LSum: Pos=0: 0. if Start-Edge is a Pipe &#64;IptIdxAsNo=0</p></li>
+<li><p>nextNODE: Pos=0: startNODE &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
+<li><p>LSum: Pos=0: 0. &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
 <li><p>…</p></li>
 <li><p>cols mapped with VEC-Results:</p></li>
+<li><p>LSum</p></li>
 <li><p>ZKOR_n</p></li>
 <li><p>PH_n</p></li>
 <li><p>H_n</p></li>

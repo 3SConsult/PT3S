@@ -250,7 +250,7 @@
 <p>For further examples on how to document your additions and fixes, visit the <a class="reference internal" href="releases.html"><span class="doc">Releases</span></a> page.</p>
 <ol class="arabic simple" start="2">
 <li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py</p></li>
-<li><p><strong>Generate the Documentation:</strong> Follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">PT3S’s Documentation</span></a>.</p></li>
+<li><p><strong>Generate the Documentation:</strong> Follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p></li>
 </ol>
 </section>
 <section id="upload-a-new-version-to-pypi">
@@ -302,10 +302,10 @@
 <p>By installing PT3S in editable mode, a <cite>PT3S.egg-link</cite> file is created in the <cite>C:\Users\User\AppData\Local\anaconda3\Lib\site-packages</cite> directory. This file is a link to the project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this <cite>PT3S.egg-link</cite> file. Delete also the PT3S-line in easy-install.pth.</p>
 </section>
 <section id="pt3s-s-documentation">
-<span id="generating-documentation-label"></span><h2>PT3S’s Documentation<a class="headerlink" href="#pt3s-s-documentation" title="Permalink to this heading"></a></h2>
+<h2>PT3S’s Documentation<a class="headerlink" href="#pt3s-s-documentation" title="Permalink to this heading"></a></h2>
 <p>The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.</p>
 <section id="generating-the-documentation">
-<h3>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Permalink to this heading"></a></h3>
+<span id="generating-documentation-label"></span><h3>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Permalink to this heading"></a></h3>
 <p>To generate documentation, follow these steps:</p>
 <ol class="arabic">
 <li><p><strong>Edit the documentation:</strong> Make your changes in the PT3S/sphinx_docs directory.</p></li>
@@ -338,11 +338,11 @@
 <p>Follow these steps to build a Docker image:</p>
 <ol class="arabic">
 <li><p><strong>Navigate to your project directory:</strong> Open your terminal or command prompt and navigate to the directory containing your Dockerfile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\Docker\app&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\PT3S\app&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Build the Docker image:</strong> Run the following command, with the name you want to give to your Docker image:</p>
+<li><p><strong>Build the Docker image:</strong> Run the following command, replacing <cite>pt3stest</cite> with the name you want to give to your Docker image:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>pt3stest<span class="w"> </span>.
 </pre></div>
 </div>
@@ -353,25 +353,30 @@
 <h4>Running a Docker Container<a class="headerlink" href="#running-a-docker-container" title="Permalink to this heading"></a></h4>
 <p>Follow these steps to run a Docker container:</p>
 <ol class="arabic">
+<li><p><strong>Start Docker Engine</strong>: Open Docker Desktop and start the engine.</p></li>
 <li><p><strong>Navigate to your project directory:</strong> Open your terminal or command prompt and navigate to the directory containing your Dockerfile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Users\User\3S\Docker\app&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\PT3S\app&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Run the Docker container:</strong> Run the following command with the name of your Docker image:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8888</span>:8888<span class="w"> </span>pt3stest<span class="w"> </span>/bin/bash
+<li><p><strong>Run the Docker container:</strong> Run the following command with the name of your Docker image.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The port must differ from a local JupyterLab you might be running (use 8889:8888 instead).</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stest<span class="w"> </span>cmd
 </pre></div>
 </div>
 </li>
 </ol>
-<p>You now basically have acces to a cmd running in the container environment. The <cite>-it</cite> option starts the container in interactive mode, the <cite>–rm</cite> option removes the container after it exits.</p>
+<p>You now have access to a cmd running in the container environment. The <cite>-it</cite> option starts the container in interactive mode, and the <cite>–rm</cite> option removes the container after it exits.</p>
 </section>
 <section id="testing-examples">
 <h4>Testing Examples<a class="headerlink" href="#testing-examples" title="Permalink to this heading"></a></h4>
 <p>Follow these steps to test Example Notebooks:</p>
 <ol class="arabic">
-<li><p><strong>Start JupyterLab</strong>: Type the command into cmd of the container.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>notebook<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
+<li><p><strong>Start JupyterLab</strong>: Type the following command into the cmd of the container.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
 </pre></div>
 </div>
 </li>
@@ -379,7 +384,8 @@
 <p>Alternative:</p>
 <ol class="arabic simple">
 <li><p><strong>Open Docker Desktop</strong>: This is not preinstalled on 3sconsult devices. It needs to be installed.</p></li>
-<li><p><strong>Open JupyterLab</strong>: Under the container tab click on the host of the running container.</p></li>
+<li><p><strong>Open JupyterLab</strong>: Under the container tab in Docker Desktop, click on the host of the running container.</p></li>
+<li><p><strong>Enter Token</strong>: When asked to enter a token, copy and paster the token you can find in the anaconda powershell, that should be running. It is part of the links provided.</p></li>
 </ol>
 </section>
 </section>

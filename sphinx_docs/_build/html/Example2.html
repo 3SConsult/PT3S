@@ -225,14 +225,10 @@
 INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\Examples\Example2.db3 exists readable ...
 INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined...
 INFO    ; dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used...
-INFO    ; dxAndMxHelperFcts.readDxAndMx:
-+..\Examples\Example2.db3 is newer than
-+..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MX1:
-+SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
-+in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\Sir3s\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
+INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MXS reading ...
 INFO    ; dxWithMx.__init__: Example2: processing dx and mx ...
+ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1140: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
 </div>
 </section>
@@ -502,17 +498,25 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5c3eb18e152941e1822cf1ebbf7f9a26", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "80bad6b3e6394c04aca637bf4ed556df", "version_major": 2, "version_minor": 0}</script></div>
 </div>
-The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput nblast docutils container">
+The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\1_example2_interactive_widget_plot.png&quot;</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\1_example2_interactive_widget_plot.png&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;png not created&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;png not displayed&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example2_30_0.png" src="_images/Example2_30_0.png" />
 </div>
 </div>
 </section>
@@ -577,23 +581,23 @@ The depiction of the interactive Widget plot does not work in the documentation,
 </pre></div>
 </div>
 </div>
-The depiction of the interactive Bokeh plot does not work in the documentation, because it is opened in a browser window. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput nblast docutils container">
+The depiction of the interactive Bokeh plot does not work in the documentation, because it is opened in a browser window. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\2_example2_interactive_bokeh_plot.png&quot;</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;\Examples\Images\2_example2_interactive_bokeh_plot.png&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;png not created&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;png not displayed&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+<div class="output_area docutils container">
+<img alt="_images/Example2_35_0.png" src="_images/Example2_35_0.png" />
 </div>
 </div>
 </section>
