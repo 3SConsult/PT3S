@@ -26,7 +26,7 @@ jobs:
           # Loop over all WDExample directories
           for wdexample_dir in WDExample*; do
             # Change to the WDExample directory
-            cd "$wdexample_dir/B1/V0/BZ"
+            cd "$wdexample_dir/B1/V0/BZ1"
 
             # Loop over all files in the WDExample directory
             for file in *; do
