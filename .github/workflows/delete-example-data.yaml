@@ -22,13 +22,21 @@ jobs:
         run: |
           # Loop over all WDExample directories
           for wdexample_dir in Examples/WDExample*; do
+            echo "Processing directory: $wdexample_dir"
+            
             # Change to the WDExample directory
-            cd "$wdexample_dir/B1/V0/BZ1"
+            cd "$wdexample_dir/B1/V0/BZ1" || { echo "Cannot change to directory $wdexample_dir/B1/V0/BZ1"; exit 1; }
+
+            echo "Current directory:"
+            pwd
+            echo "Directory contents:"
+            ls -l
 
             # Loop over all files in the WDExample directory
             for file in *; do
               # If the file does not end with .mx1 or .xml (case insensitive), then remove it
               if [[ ! $file =~ \.(mx1|xml)$ ]]; then
+                echo "Removing file: $file"
                 rm "$file"
               fi
             done
@@ -40,13 +48,6 @@ jobs:
             cd - > /dev/null
           done
         shell: /usr/bin/bash -e {0}
-
-      - name: Print debug info
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Directory contents:"
-          ls -l
 
       - name: Commit and push if it changed
         run: |
