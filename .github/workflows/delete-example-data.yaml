@@ -22,8 +22,15 @@ jobs:
         run: |
           # Loop over all WDExample directories
           for wdexample_dir in Examples/WDExample*; do
-            # Change to the WDExample directory
-            cd "$wdexample_dir/B1/V0/BZ1"
+            
+            - name: Print debug info
+              run: |
+                echo "Current directory:"
+                pwd
+                echo "Directory contents:"
+                ls -l
+           # Change to the WDExample directory
+           cd "$wdexample_dir/B1/V0/BZ1"
 
             # Loop over all files in the WDExample directory
             for file in *; do
@@ -47,3 +54,4 @@ jobs:
           git add -A
           git diff --quiet && git diff --staged --quiet || git commit -m "Automatisches Loeschen von Example Daten"
           git push
+#Examples/WDExample2/B1/V0/BZ1
