@@ -39,8 +39,11 @@ jobs:
 
               # Loop over all files in the WDExample directory
               for file in *; do
-                # If the file does not end with .mx1 or .xml (case insensitive), then remove it
-                if [[ ! $file =~ \.(mx1|xml)$ ]]; then
+                # Get the file extension
+                extension="${file##*.}"
+                
+                # If the file extension is not mx1 or xml (case insensitive), then remove it
+                if [[ ! $extension =~ ^(mx1|xml)$ ]]; then
                   echo "Removing file: $file"
                   rm "$file"
                 fi
