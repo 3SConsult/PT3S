@@ -14,5 +14,6 @@ Welcome to the Functions page! Here, we will delve into the details of each func
 
 .. autofunction:: dxAndMxHelperFcts.readMx
 
-
-
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSN
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC
