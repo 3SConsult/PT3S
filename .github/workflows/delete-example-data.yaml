@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - 'Examples/**'
-  workflow_dispatch:  # This allows the workflow to be triggered manually
 
 jobs:
   cleanup:
@@ -20,11 +19,8 @@ jobs:
 
       - name: Cleanup files
         run: |
-          # Change to the Examples directory
-          cd Examples
-
           # Loop over all WDExample directories
-          for wdexample_dir in WDExample*; do
+          for wdexample_dir in Examples/WDExample*; do
             # Change to the WDExample directory
             cd "$wdexample_dir/B1/V0/BZ1"
 
@@ -36,7 +32,9 @@ jobs:
               fi
             done
 
-            # Go back to the Examples directory before the next iteration
+            # Go back to the root directory before the next iteration
+            cd - > /dev/null
+            cd - > /dev/null
             cd - > /dev/null
             cd - > /dev/null
           done
