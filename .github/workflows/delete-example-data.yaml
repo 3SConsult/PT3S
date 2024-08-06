@@ -1,0 +1,43 @@
+# This is a GitHub Actions workflow for the PT3S repository.
+# The workflow is triggered whenever changes are pushed to the 'PT3S/Examples' directory.
+# It loops over all 'WDExample' directories in the 'Examples' directory,
+# and for each 'WDExample' directory, it removes all files that do not end with '.mx1' or '.xml' (case insensitive).
+
+name: Automatisches Loeschen von Example Daten
+
+on:
+  push:
+    paths:
+      - 'PT3S/Examples/**'
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cleanup files
+        run: |
+          # Change to the Examples directory
+          cd PT3S/Examples
+
+          # Loop over all WDExample directories
+          for wdexample_dir in WDExample*; do
+            # Change to the WDExample directory
+            cd "$wdexample_dir/B1/V0/BZ"
+
+            # Loop over all files in the WDExample directory
+            for file in *; do
+              # If the file does not end with .mx1 or .xml (case insensitive), then remove it
+              if [[ ! $file =~ \.(mx1|xml)$ ]]; then
+                rm "$file"
+              fi
+            done
+
+            # Go back to the Examples directory before the next iteration
+            cd - > /dev/null
+            cd - > /dev/null
+          done
+
