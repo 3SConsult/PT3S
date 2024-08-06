@@ -1,14 +1,10 @@
-# This is a GitHub Actions workflow for the PT3S repository.
-# The workflow is triggered whenever changes are pushed to the 'PT3S/Examples' directory.
-# It loops over all 'WDExample' directories in the 'Examples' directory,
-# and for each 'WDExample' directory, it removes all files that do not end with '.mx1' or '.xml' (case insensitive).
-
 name: Automatisches Loeschen von Example Daten
 
 on:
   push:
     paths:
       - 'Examples/**'
+  workflow_dispatch:  # This allows the workflow to be triggered manually
 
 jobs:
   cleanup:
@@ -52,4 +48,3 @@ jobs:
           git add -A
           git diff --quiet && git diff --staged --quiet || git commit -m "Automatisches Loeschen von Example Daten"
           git push
-
