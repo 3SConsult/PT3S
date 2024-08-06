@@ -8,7 +8,7 @@ name: Automatisches Loeschen von Example Daten
 on:
   push:
     paths:
-      - 'PT3S/Examples/**'
+      - 'Examples/**'
 
 jobs:
   cleanup:
