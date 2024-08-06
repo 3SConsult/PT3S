@@ -117,19 +117,30 @@ To commit your changes to the GitHub repository, follow these steps:
 Collection of Useful Git Commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To discard all local changes and set your local HEAD to the master use:
+To discard all local changes and set your local HEAD to the master, use:
 
    .. code-block:: bash
 
       git reset --hard origin/master
 
-To discard all remote changes and force push local HEAD to the master use:
+To discard all remote changes and force push local HEAD to the master, use:
 
    .. code-block:: bash
 
       git push origin master --force
+           
+To uncommit commited but not yet pushed changes of the previous commit without changing local files (move HEAD pointer back by one commit), use:
 
+   .. code-block:: bash
 
+      git reset --soft HEAD~1
+
+To revert all changes caused by a commit, use:
+
+   .. code-block:: bash
+
+      git revert commitID
+                     
 Working with PyPI
 -----------------     
          

@@ -209,15 +209,27 @@
 </section>
 <section id="collection-of-useful-git-commands">
 <h3>Collection of Useful Git Commands<a class="headerlink" href="#collection-of-useful-git-commands" title="Permalink to this heading"></a></h3>
-<p>To discard all local changes and set your local HEAD to the master use:</p>
+<p>To discard all local changes and set your local HEAD to the master, use:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>origin/master
 </pre></div>
 </div>
 </div></blockquote>
-<p>To discard all remote changes and force push local HEAD to the master use:</p>
+<p>To discard all remote changes and force push local HEAD to the master, use:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master<span class="w"> </span>--force
+</pre></div>
+</div>
+</div></blockquote>
+<p>To uncommit commited but not yet pushed changes of the previous commit without changing local files (move HEAD pointer back by one commit), use:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>reset<span class="w"> </span>--soft<span class="w"> </span>HEAD~1
+</pre></div>
+</div>
+</div></blockquote>
+<p>To revert all changes caused by a commit, use:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>revert<span class="w"> </span>commitID
 </pre></div>
 </div>
 </div></blockquote>
