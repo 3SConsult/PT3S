@@ -55,9 +55,10 @@
 <li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-modeldata">Read SIR 3S Modeldata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#m-a-dxwithmx-objects-dataframes">m: a dxWithMx-Objects: dataFrames</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-model-and-results">Read SIR 3S Model and Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-results-only">Read SIR 3S Results only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#m-an-object-with-sir-3s-model-and-resultdata">m: an object with SIR 3S Model- and Resultdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
@@ -95,8 +96,8 @@
 <p class="admonition-title">Note</p>
 <p>Currently, not all functions that are included in PT3S are documented. These will be added in the future.</p>
 </div>
-<section id="read-sir-3s-modeldata">
-<h2>Read SIR 3S Modeldata<a class="headerlink" href="#read-sir-3s-modeldata" title="Permalink to this heading"></a></h2>
+<section id="read-sir-3s-model-and-results">
+<h2>Read SIR 3S Model and Results<a class="headerlink" href="#read-sir-3s-model-and-results" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.readDxAndMx">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Permalink to this definition"></a></dt>
@@ -196,6 +197,9 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </div>
 </dd></dl>
 
+</section>
+<section id="read-sir-3s-results-only">
+<h2>Read SIR 3S Results only<a class="headerlink" href="#read-sir-3s-results-only" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.readMx">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wDirMx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readMx" title="Permalink to this definition"></a></dt>
@@ -219,8 +223,26 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </dd></dl>
 
 </section>
-<section id="m-a-dxwithmx-objects-dataframes">
-<h2>m: a dxWithMx-Objects: dataFrames<a class="headerlink" href="#m-a-dxwithmx-objects-dataframes" title="Permalink to this heading"></a></h2>
+<section id="m-an-object-with-sir-3s-model-and-resultdata">
+<h2>m: an object with SIR 3S Model- and Resultdata<a class="headerlink" href="#m-an-object-with-sir-3s-model-and-resultdata" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx.__init__">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx.__init__" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dx</strong> (<em>Dx.Dx</em><em>(</em><em>)</em>) – a dx-Object</p></li>
+<li><p><strong>mx</strong> (<em>Mx.Mx</em><em>(</em><em>)</em>) – a mx-Object</p></li>
+<li><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>m, a dxWithMx()-Object, is returned by dxAndMxHelperFcts.readDxAndMx(); see documentation there; m ist a wrapper for dx with attached mx</p>
+</div>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHRVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC" title="Permalink to this definition"></a></dt>
@@ -413,10 +435,10 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 
 </section>
 <section id="sdfcsv">
-<h2>SdfCsv:<a class="headerlink" href="#sdfcsv" title="Permalink to this heading"></a></h2>
+<h2>SdfCsv<a class="headerlink" href="#sdfcsv" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sdfCsv.SdfCsv.__init__">
-<span class="sig-prename descclassname"><span class="pre">sdfCsv.SdfCsv.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csvFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'anSdfCsvFile.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp1252'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sdfCsv.SdfCsv.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sdfCsv.SdfCsv.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csvFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'aSdfCsvFile.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp1252'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sdfCsv.SdfCsv.__init__" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -427,7 +449,7 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>SIR 3S imports SDF-CSV-Files. However sometimes it is convenient to have a look at the original SDF-CSV-File content with Python. I.e. to explore the original hierarchical layer structure in comparison to the flat layer structure in the SIR 3S model. Or i.e. to test the SIR 3S SDF-CSV-File export. In general, one can say that the SDF-CSV format is so widespread in Germany that it makes sense to have an SIR 3S affine import function to pandas.</p>
+<p>SIR 3S imports SDF-CSV-Files. However sometimes it is convenient to have a look at the original SDF-CSV-File content with Python. I.e. to explore the original hierarchical layer structure in comparison to the flat layer structure in the SIR 3S model. Or i.e. to check against the SIR 3S SDF-CSV-File import- and export-function results. In general, one can say that the SDF-CSV format for pipe network data (for pipe network models) is so widespread in Germany that it makes sense to have an SIR 3S affine function which maps the SDF-CSV-File to pandas dfs.</p>
 <p>The returned object has the following structure:</p>
 <blockquote>
 <div><ul class="simple">

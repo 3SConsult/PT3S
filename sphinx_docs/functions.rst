@@ -9,20 +9,24 @@ Welcome to the Functions page! Here, we will delve into the details of each func
 .. .. automodule:: dxAndMxHelperFcts
         :members:
 
-Read SIR 3S Modeldata
----------------------
-
+Read SIR 3S Model and Results
+-----------------------------
 .. autofunction:: dxAndMxHelperFcts.readDxAndMx
+
+Read SIR 3S Results only
+------------------------
 .. autofunction:: dxAndMxHelperFcts.readMx
 
-m: a dxWithMx-Objects: dataFrames
----------------------------------
+m: an object with SIR 3S Model- and Resultdata
+----------------------------------------------
+
+.. autofunction:: dxAndMxHelperFcts.dxWithMx.__init__
 
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSN
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._dfLAYR
 
-SdfCsv:
--------
+SdfCsv
+------
 .. autofunction:: sdfCsv.SdfCsv.__init__

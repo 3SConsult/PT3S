@@ -74,6 +74,17 @@ class dxWithMx():
     """Wrapper for dx with attached mx.
     """
     def __init__(self,dx,mx,crs=None):
+        """
+        :param dx: a dx-Object
+        :type dx: Dx.Dx()
+        :param mx: a mx-Object
+        :type mx: Mx.Mx()        
+        :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
+        :type crs: str, optional, default=None  
+                      
+        .. note:: m, a dxWithMx()-Object, is returned by dxAndMxHelperFcts.readDxAndMx(); see documentation there; m ist a wrapper for dx with attached mx  
+                        
+        """        
         
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
