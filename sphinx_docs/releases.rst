@@ -10,6 +10,10 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 
 - Example 3: typing error: m.V3_AGSNVec ==> m.V3_AGSNVEC
 
+**New:**
+
+- SdfCsv: from PT3S import sdfCsv: mSdfCsv=sdfCsv.SdfCsv(csvFile): mSdfCsv: Wrapper for a model defined by an SDF-CSV-File
+
 90.14.28.0.dev1
 ---------------
 

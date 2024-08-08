@@ -1499,7 +1499,7 @@ def readDxAndMx(dbFile
             #modelXk=sk[sk['ID'].isin([3,3.])]['WERT'].iloc[0]
             vms=vm[vm['pk'].isin([dx.QGISmodelXk])].iloc[0]   
         except:
-            logger.info("{logStr:s} QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used...".format(logStr=logStr))
+            logger.info("{logStr:s} QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used ...".format(logStr=logStr))
             vms=vm.iloc[0]  
         
         #!                        
