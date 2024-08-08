@@ -17,10 +17,14 @@ Read SIR 3S Results only
 ------------------------
 .. autofunction:: dxAndMxHelperFcts.readMx
 
-m: an object with SIR 3S Model- and Resultdata
-----------------------------------------------
-
+SIR 3S Model- and Result-Data
+-----------------------------
 .. autofunction:: dxAndMxHelperFcts.dxWithMx.__init__
+
+.. _V3_ROHRVEC-label: 
+
+V3_ROHRVEC
+~~~~~~~~~~
 
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSN

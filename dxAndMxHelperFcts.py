@@ -82,7 +82,7 @@ class dxWithMx():
         :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
         :type crs: str, optional, default=None  
                       
-        .. note:: m, a dxWithMx()-Object, is returned by dxAndMxHelperFcts.readDxAndMx(); see documentation there; m ist a wrapper for dx with attached mx  
+        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see documentation there; the objects a wrapper for dx with attached mx  
                         
         """        
         
@@ -1346,37 +1346,37 @@ def readDxAndMx(dbFile
 
     .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.
         
-        The returned dxWithMx object m has the following structure i.e. Dfs:
+        The returned dxWithMx object has the following structure i.e. Dfs:
     
             - Model: Dx object:
-                - m.dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
-                - m.dx.dataFrames[...]: several pandas-Dfs derived from the 1:1 Dfs 
+                - dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
+                - dx.dataFrames[...]: several pandas-Dfs derived from the 1:1 Dfs 
         
             - Results: Mx object:
-                - m.mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
-                - m.mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
+                - mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
+                - mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
     
-            - pandas-Dfs with Model- AND Result-data:
-                - m.V3_ROHR: Pipes
-                - m.V3_FWVB: Housestations District Heating
-                - m.V3_KNOT: Nodes 
-                - m.V3_VBEL: Edges
-                - m.V3_ROHRVEC: Pipes including interior points 
-                - m.V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
-                - m.V3_AGSNVEC: Longitudinal Sections including Pipe interior points 
+            - pandas-Dfs with Model- AND Result-Data:
+                - V3_ROHR: Pipes
+                - V3_FWVB: Housestations District Heating
+                - V3_KNOT: Nodes 
+                - V3_VBEL: Edges
+                - V3_ROHRVEC: Pipes including interior points 
+                - V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
+                - V3_AGSNVEC: Longitudinal Sections including Pipe interior points 
                     
             - geopandas-Dfs based upon the Dfs above:
-                - m.gdf_ROHR: Pipes
-                - m.gdf_FWVB: Housestations District Heating
-                - m.gdf_KNOT: Nodes 
+                - gdf_ROHR: Pipes
+                - gdf_FWVB: Housestations District Heating
+                - gdf_KNOT: Nodes 
                     
             - Dfs containing decoded BLOB-Data:
-                - m.dfLAYR: one row per LAYR (Layer) and OBJ
-                - m.dfWBLZ: one row per WBLZ (Heat balance) and OBJ                
+                - dfLAYR: one row per LAYR (Layer) and OBJ
+                - dfWBLZ: one row per WBLZ (heat balance) and OBJ                
                 
             - NetworkX-Graphs:
-                - m.G
-                - m.GSig
+                - G
+                - GSig
 
         Selected functions of the returned dxWithMx object:
                 - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df
