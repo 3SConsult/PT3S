@@ -28,6 +28,7 @@ setup.py
 ./dxAndMxHelperFcts.py
 ./dxDecodeObjsData.py
 ./pNFD.py
+./sdfCsv.py
 ./Examples/Example1.db3
 ./Examples/Example2.db3
 ./Examples/Example3.db3
