@@ -283,11 +283,10 @@
 </li>
 <li><p><strong>Generate an API Token on PyPI:</strong> Log into your PyPI account and navigate to your Account Settings. Find “API Tokens” and then “Add API Token”. Provide a token name and select the scopes this token should have access to (include PT3S). Click “Create Token” and make sure to copy your new token. This token can be used for all your future PT3S Uploads.</p></li>
 <li><p><strong>Upload the Distribution with Twine:</strong> Use the <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">dist/*</span></code> command to upload the distribution.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/*
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>upload<span class="w"> </span>-u<span class="w"> </span>__token__<span class="w"> </span>-p<span class="w"> </span>&lt;YOUR<span class="w"> </span>TOKEN&gt;<span class="w"> </span>dist/*<span class="w"> </span>--verbose
 </pre></div>
 </div>
 </li>
-<li><p><strong>Enter API Token when Prompted:</strong> You will be prompted to enter your API Token after running the command in step 6. Simply enter your API token when asked.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
