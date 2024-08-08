@@ -75,14 +75,14 @@ class dxWithMx():
     """
     def __init__(self,dx,mx,crs=None):
         """
-        :param dx: a dx-Object
+        :param dx: a dx object
         :type dx: Dx.Dx()
-        :param mx: a mx-Object
+        :param mx: a mx object
         :type mx: Mx.Mx()        
         :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
         :type crs: str, optional, default=None  
                       
-        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see documentation there; the objects a wrapper for dx with attached mx  
+        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the objects a wrapper for dx with attached mx  
                         
         """        
         
@@ -510,7 +510,7 @@ class dxWithMx():
 
     def _V3_ROHRVEC(self,V3_ROHR):
         """
-        V3_ROHRVEC constructing: Expanding V3_ROHR to V3_ROHRVEC (includes interior points).
+        V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.
         
         :param V3_ROHR: 
         :type V3_ROHR: df
@@ -689,7 +689,7 @@ class dxWithMx():
 
     def _dfLAYR(self):
         """
-        dfLAYR constructing: one row per LAYR and OBJ
+        dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.
                 
         .. note:: 
             
@@ -736,7 +736,7 @@ class dxWithMx():
 
     def _V3_AGSN(self,dfAGSN):
         """
-        V3_AGSN constructing: Expanding dfAGSN to V3_AGSN.
+        V3_AGSN: Expanding dfAGSN to V3_AGSN. V3_AGSN is a dxWithMx object Attribute.
         
         :param dfAGSN: 
         :type dfAGSN: df
@@ -1014,7 +1014,7 @@ class dxWithMx():
 
     def _V3_AGSNVEC(self,V3_AGSN):
         """
-        V3_AGSNVEC constructing: Expanding V3_AGSN to V3_AGSNVEC.
+        V3_AGSNVEC: Expanding V3_AGSN to V3_AGSNVEC. V3_AGSNVEC is a dxWithMx object Attribute.
         
         :param V3_AGSN: 
         :type V3_AGSN: df
