@@ -240,15 +240,15 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Dx.Dx</em><em>(</em><em>)</em>) – a dx-Object</p></li>
-<li><p><strong>mx</strong> (<em>Mx.Mx</em><em>(</em><em>)</em>) – a mx-Object</p></li>
+<li><p><strong>dx</strong> (<em>Dx.Dx</em><em>(</em><em>)</em>) – a dx object</p></li>
+<li><p><strong>mx</strong> (<em>Mx.Mx</em><em>(</em><em>)</em>) – a mx object</p></li>
 <li><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p></li>
 </ul>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see documentation there; the objects a wrapper for dx with attached mx</p>
+<p>a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the objects a wrapper for dx with attached mx</p>
 </div>
 </dd></dl>
 
@@ -258,7 +258,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHRVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC" title="Permalink to this definition"></a></dt>
-<dd><p>V3_ROHRVEC constructing: Expanding V3_ROHR to V3_ROHRVEC (includes interior points).</p>
+<dd><p>V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>V3_ROHR</strong> (<em>df</em>) – </p>
@@ -312,7 +312,7 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSN">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfAGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSN" title="Permalink to this definition"></a></dt>
-<dd><p>V3_AGSN constructing: Expanding dfAGSN to V3_AGSN.</p>
+<dd><p>V3_AGSN: Expanding dfAGSN to V3_AGSN. V3_AGSN is a dxWithMx object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>dfAGSN</strong> (<em>df</em>) – </p>
@@ -371,7 +371,7 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSNVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_AGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC" title="Permalink to this definition"></a></dt>
-<dd><p>V3_AGSNVEC constructing: Expanding V3_AGSN to V3_AGSNVEC.</p>
+<dd><p>V3_AGSNVEC: Expanding V3_AGSN to V3_AGSNVEC. V3_AGSNVEC is a dxWithMx object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>V3_AGSN</strong> (<em>df</em>) – </p>
@@ -429,7 +429,7 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._dfLAYR">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._dfLAYR" title="Permalink to this definition"></a></dt>
-<dd><p>dfLAYR constructing: one row per LAYR and OBJ</p>
+<dd><p>dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</p>

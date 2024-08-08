@@ -158,14 +158,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param dx: a dx-Object</span>
+<span class="sd">        :param dx: a dx object</span>
 <span class="sd">        :type dx: Dx.Dx()</span>
-<span class="sd">        :param mx: a mx-Object</span>
+<span class="sd">        :param mx: a mx object</span>
 <span class="sd">        :type mx: Mx.Mx()        </span>
 <span class="sd">        :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:&#39;EPSG:25832&#39;). If None, crs will be read from SIR 3S&#39; database file.</span>
 <span class="sd">        :type crs: str, optional, default=None  </span>
 <span class="sd">                      </span>
-<span class="sd">        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see documentation there; the objects a wrapper for dx with attached mx  </span>
+<span class="sd">        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the objects a wrapper for dx with attached mx  </span>
 <span class="sd">                        </span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         
@@ -593,7 +593,7 @@
 
     <span class="k">def</span> <span class="nf">_V3_ROHRVEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">V3_ROHR</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        V3_ROHRVEC constructing: Expanding V3_ROHR to V3_ROHRVEC (includes interior points).</span>
+<span class="sd">        V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
 <span class="sd">        :param V3_ROHR: </span>
 <span class="sd">        :type V3_ROHR: df</span>
@@ -772,7 +772,7 @@
 
     <span class="k">def</span> <span class="nf">_dfLAYR</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        dfLAYR constructing: one row per LAYR and OBJ</span>
+<span class="sd">        dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.</span>
 <span class="sd">                </span>
 <span class="sd">        .. note:: </span>
 <span class="sd">            </span>
@@ -819,7 +819,7 @@
 
     <span class="k">def</span> <span class="nf">_V3_AGSN</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSN</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        V3_AGSN constructing: Expanding dfAGSN to V3_AGSN.</span>
+<span class="sd">        V3_AGSN: Expanding dfAGSN to V3_AGSN. V3_AGSN is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
 <span class="sd">        :param dfAGSN: </span>
 <span class="sd">        :type dfAGSN: df</span>
@@ -1097,7 +1097,7 @@
 
     <span class="k">def</span> <span class="nf">_V3_AGSNVEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">V3_AGSN</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        V3_AGSNVEC constructing: Expanding V3_AGSN to V3_AGSNVEC.</span>
+<span class="sd">        V3_AGSNVEC: Expanding V3_AGSN to V3_AGSNVEC. V3_AGSNVEC is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
 <span class="sd">        :param V3_AGSN: </span>
 <span class="sd">        :type V3_AGSN: df</span>
