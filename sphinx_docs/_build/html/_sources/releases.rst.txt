@@ -12,7 +12,7 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 
 **New:**
 
-- SdfCsv: from PT3S import sdfCsv: mSdfCsv=sdfCsv.SdfCsv(csvFile): mSdfCsv: Wrapper for a model defined by an SDF-CSV-File
+- SdfCsv: from PT3S import sdfCsv: mSdfCsv=sdfCsv.SdfCsv(csvFile): mSdfCsv: Wrapper for a model defined by a SDF-CSV-File
 
 90.14.28.0.dev1
 ---------------
