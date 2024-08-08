@@ -1173,7 +1173,7 @@ class Dx():
                 try:
                     self.QGISmodelXk=sk[sk['ID'].isin([3,3.])]['WERT'].iloc[0]
                 except:
-                    logger.info("{logStr:s} SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined...".format(logStr=logStr))
+                    logger.info("{logStr:s} SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined ...".format(logStr=logStr))
                     self.QGISmodelXk=None
                 
             except Exception as e:

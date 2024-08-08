@@ -82,7 +82,8 @@ class dxWithMx():
             self.dx = dx
             self.mx = mx
             
-            self.dfLAYR=dxDecodeObjsData.Layr(self.dx)
+            self.dfLAYR=self._dfLAYR()    
+            
             self.dfWBLZ=dxDecodeObjsData.Wblz(self.dx)
             self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)            
                         
@@ -665,6 +666,53 @@ class dxWithMx():
             return vROHR            
             
                       
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
+
+
+    def _dfLAYR(self):
+        """
+        dfLAYR constructing: one row per LAYR and OBJ
+                
+        .. note:: 
+            
+            The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
+                
+                 LAYR:
+                 -pk
+                 -tk
+                 -LFDNR (numeric)
+                 -NAME
+                
+                 LAYR-Info:
+                 -AnzDerObjekteInGruppe
+                 -AnzDerObjekteDesTypsInGruppe
+                
+                 OBJ:
+                 -TYPE
+                 -ID
+                
+                 OBJ-Info:
+                 -NrDesObjektesDesTypsInGruppe
+                 -NrDesObjektesInGruppe
+                 -GruppenDesObjektsAnz
+                 -GruppenDesObjektsNamen       
+                      
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try: 
+            dfLAYR=pd.DataFrame()
+            dfLAYR=dxDecodeObjsData.Layr(self.dx)                                   
+            return dfLAYR     
         except dxWithMxError:
             raise            
         except Exception as e:

@@ -3,6 +3,13 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.29.0.dev1
+---------------
+
+**Fix:**
+
+- Example 3: typing error: m.V3_AGSNVec ==> m.V3_AGSNVEC
+
 90.14.28.0.dev1
 ---------------
 
