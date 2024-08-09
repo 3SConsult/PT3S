@@ -82,7 +82,7 @@ class dxWithMx():
         :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
         :type crs: str, optional, default=None  
                       
-        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the objects a wrapper for dx with attached mx  
+        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for dx with attached mx  
                         
         """        
         
@@ -515,7 +515,7 @@ class dxWithMx():
         :param V3_ROHR: 
         :type V3_ROHR: df
         
-        :return: V3_ROHRVEC: V3_ROHR expanded to V3_ROHRVEC.
+        :return: V3_ROHRVEC
         :rtype: df        
         
         .. note:: 
