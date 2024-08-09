@@ -28,7 +28,7 @@ class SdfCsv():
         :param encoding: encoding
         :type encoding: str    
                       
-        .. note:: SIR 3S imports SDF-CSV-Files. However sometimes it is convenient to have a look at the original SDF-CSV-File content with Python. I.e. to explore the original hierarchical layer structure in comparison to the flat layer structure in the SIR 3S model. Or i.e. to check against the SIR 3S SDF-CSV-File import- and export-function results. In general, one can say that the SDF-CSV format for pipe network data (for pipe network models) is so widespread in Germany that it makes sense to have an SIR 3S affine function which maps the SDF-CSV-File to pandas dfs.
+        .. note:: SIR 3S imports SDF-CSV-Files. However sometimes it is convenient to have a look at the original SDF-CSV-File content with Python. I.e. to explore the original hierarchical layer structure in comparison to the flat layer structure in the SIR 3S model. Or i.e. to check against the SIR 3S SDF-CSV-File import- and export-function result. In general, one can say that the SDF-CSV format for pipe network data (for pipe network models) is so widespread in Germany that it makes sense to have an SIR 3S affine function which maps the SDF-CSV-File to pandas dfs.
                    
             The returned object has the following structure:
         

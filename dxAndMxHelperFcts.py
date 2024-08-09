@@ -696,24 +696,24 @@ class dxWithMx():
             The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
                 
                  LAYR:
-                 -pk
-                 -tk
-                 -LFDNR (numeric)
-                 -NAME
+                     -pk
+                     -tk
+                     -LFDNR (numeric)
+                     -NAME
                 
                  LAYR-Info:
-                 -AnzDerObjekteInGruppe
-                 -AnzDerObjekteDesTypsInGruppe
+                     -AnzDerObjekteInGruppe
+                     -AnzDerObjekteDesTypsInGruppe
                 
                  OBJ:
-                 -TYPE
-                 -ID
+                     -TYPE
+                     -ID
                 
                  OBJ-Info:
-                 -NrDesObjektesDesTypsInGruppe
-                 -NrDesObjektesInGruppe
-                 -GruppenDesObjektsAnz
-                 -GruppenDesObjektsNamen       
+                     -NrDesObjektesDesTypsInGruppe
+                     -NrDesObjektesInGruppe
+                     -GruppenDesObjektsAnz
+                     -GruppenDesObjektsNamen       
                       
         """   
                 
@@ -746,6 +746,7 @@ class dxWithMx():
         
         .. note:: 
             
+            AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model).
             The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:
         
                 - Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)
