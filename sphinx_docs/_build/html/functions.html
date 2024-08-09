@@ -59,10 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-results-only">Read SIR 3S Results only</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sir-3s-model-and-result-data">SIR 3S Model- and Result-Data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#initialization">Initialization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#v3-rohrvec">V3_ROHRVEC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#v3-agsn">V3_AGSN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#v3-agsnvec">V3_AGSNVEC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dflayr">dfLAYR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dfs">dfs</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a></li>
@@ -233,7 +230,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <section id="sir-3s-model-and-result-data">
 <h2>SIR 3S Model- and Result-Data<a class="headerlink" href="#sir-3s-model-and-result-data" title="Permalink to this heading"></a></h2>
 <section id="initialization">
-<span id="init-label"></span><h3>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading"></a></h3>
+<h3>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx.__init__">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx.__init__" title="Permalink to this definition"></a></dt>
@@ -253,8 +250,8 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </dd></dl>
 
 </section>
-<section id="v3-rohrvec">
-<span id="v3-rohrvec-label"></span><h3>V3_ROHRVEC<a class="headerlink" href="#v3-rohrvec" title="Permalink to this heading"></a></h3>
+<section id="dfs">
+<h3>dfs<a class="headerlink" href="#dfs" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHRVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC" title="Permalink to this definition"></a></dt>
@@ -306,9 +303,6 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </div>
 </dd></dl>
 
-</section>
-<section id="v3-agsn">
-<span id="v3-agsn-label"></span><h3>V3_AGSN<a class="headerlink" href="#v3-agsn" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSN">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfAGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSN" title="Permalink to this definition"></a></dt>
@@ -365,9 +359,6 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </div>
 </dd></dl>
 
-</section>
-<section id="v3-agsnvec">
-<span id="v3-agsnvec-label"></span><h3>V3_AGSNVEC<a class="headerlink" href="#v3-agsnvec" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSNVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_AGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC" title="Permalink to this definition"></a></dt>
@@ -423,9 +414,6 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </div>
 </dd></dl>
 
-</section>
-<section id="dflayr">
-<span id="dflayr-label"></span><h3>dfLAYR<a class="headerlink" href="#dflayr" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._dfLAYR">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._dfLAYR" title="Permalink to this definition"></a></dt>
