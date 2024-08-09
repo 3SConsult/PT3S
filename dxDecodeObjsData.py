@@ -425,129 +425,131 @@ def Agsn(dx):
             finally:
                 pass        
         
-        df=pd.concat(dfAGSNs).reset_index(drop=True)
-        
-        df[['LFDNR']] = df[['LFDNR']].apply(pd.to_numeric)
-        
-        # supplement AGSN-Data
-        df['compNr']=None
-        df['nextNODE']=None
-        
-        df=pd.merge(df
-           ,dx.dataFrames['V3_VBEL']           
-           ,left_on=['TYPE','ID']  
-           ,right_index=True 
-           ,suffixes=('', '_VBEL')
-        )
-        
-        df.sort_values(by=['LFDNR','pk','XL','Pos'],inplace=True)
-        df.reset_index(inplace=True)
-        
-        # damit die SIR 3S Elementrichtung nach (ungerichteter) Graphenbildung in NetworkX im dataDict verfuegbar ist
-        df['SIR3S_i']=df['NAME_i']
-        df['SIR3S_k']=df['NAME_k']        
-        
-        # damit neue df-Spalten per .loc aus NetworkX im dataDict-Daten befüllbar sind
-        df['index']=df.index
-        
-        # 
-        
-        # Schnittknotensequenz ermitteln
-        
-        for nr in df['LFDNR'].unique():                
-                
-                # ueber alle Layer
-                for ly in df[df['LFDNR']==nr]['XL'].unique():                                        
-
-                    dfSchnitt=df[(df['LFDNR']==nr) & (df['XL']==ly)]                                      
-                    #logger.debug("{0:s}Schnitt: {1:s} Nr: {2:s} Layer: {3:s}".format(logStr
-                    #                                                       ,str(dfSchnitt['NAME'].iloc[0])
-                    #                                                       ,str(dfSchnitt['LFDNR'].iloc[0])
-                    #                                                       ,str(dfSchnitt['XL'].iloc[0])
-                    #                                                      )) 
-                    
-                    dfSchnitt=dfSchnitt.reset_index() 
-                
-                    GSchnitt=nx.from_pandas_edgelist(dfSchnitt, source='NAME_i', target='NAME_k', edge_attr=True,create_using=nx.MultiGraph())
-                    
-                    # ueber alle zusammenhaengenen Komponenten
-                    iComp=0
-                    for comp in nx.connected_components(GSchnitt):
-                        iComp+=1
-
-                        #logger.debug("{0:s}CompNr.: {1:s}".format(logStr,str(iComp))) 
-                        
-                        # Graph der Komponente
-                        GSchnittComp=GSchnitt.subgraph(comp)
-                        
-                        GSchnittEdgeLst=sorted(GSchnittComp.edges(data=True), key=lambda x: x[2]['Pos'])                        
-                        
-                        # erste und letzte Kante lt. Schnittdefinition
-                        u,v, datadict = GSchnittEdgeLst[0]
-                        sourceKi=u
-                        sourceKk=v
-                        
-                        u,v, datadict = GSchnittEdgeLst[-1]
-                        targetKi=u
-                        targetKk=v                        
-                                                                          
-                        #logger.debug("{0:s}First: i: {1:s} k:{2:s} ".format(logStr,sourceKi,sourceKk)) 
-                        #logger.debug("{0:s}Last: i: {1:s} k:{2:s} ".format(logStr,targetKi,targetKk)) 
-                        
-                        # Pfad zwischen den Knoten der ersten und letzten Kante (4 Möglichkeiten)
-                        # der laengste Pfad geht unabhängig von der Kantenrichtung vom ersten bis zum letzten Knoten des Schnittes
-                        nlComp=nx.shortest_path(GSchnittComp,sourceKi,targetKk)
-                        nlCompTmp=nx.shortest_path(GSchnittComp,sourceKk,targetKk)
-                        if len(nlCompTmp)>len(nlComp):
-                            nlComp=nlCompTmp
-                        nlCompTmp=nx.shortest_path(GSchnittComp,sourceKi,targetKi)
-                        if len(nlCompTmp)>len(nlComp):
-                            nlComp=nlCompTmp
-                        nlCompTmp=nx.shortest_path(GSchnittComp,sourceKk,targetKi)
-                        if len(nlCompTmp)>len(nlComp):
-                            nlComp=nlCompTmp                                
-                        #logger.debug("{0:s}Pfad: Start: {1:s} > Ende: {2:s}".format(logStr,nlComp[0],nlComp[-1]))                         
-                        
-                        # Graphen zur Schnittknotensequenz 
-                        GSchnittCompSP=GSchnittComp.subgraph(nlComp)
-                        
-                        # index-Liste der Kanten der Schnittknotensequenz 
-                        idxLst=[]                        
-                        
-                        for u,v, datadict in sorted(GSchnittCompSP.edges(data=True), key=lambda x: x[2]['Pos']):              
-                            idxLst.append(datadict['index'])
-                            # SP-Kanten Ausgabe
-                                                  
-                        compNr=np.empty(GSchnittCompSP.number_of_edges(),dtype=int) 
-                        compNr.fill(iComp)
-                        
-                        df.loc[idxLst,'compNr']=compNr                        
-                        df.loc[idxLst,'nextNODE']=nlComp[1:]  
-                                                                                        
-        df=df[[
-                'Pos'
-               ,'TYPE'
-               ,'ID'
-
-
-               ,'pk'
-               ,'tk'
-               ,'LFDNR' 
-               ,'NAME'
-               ,'XL'            
+        if len(dfAGSNs)>0:
+            df=pd.concat(dfAGSNs).reset_index(drop=True)
             
-               ,'compNr' 
-               ,'nextNODE'                    
-        ]]
+            df[['LFDNR']] = df[['LFDNR']].apply(pd.to_numeric)
+            
+            # supplement AGSN-Data
+            df['compNr']=None
+            df['nextNODE']=None
+            
+            df=pd.merge(df
+               ,dx.dataFrames['V3_VBEL']           
+               ,left_on=['TYPE','ID']  
+               ,right_index=True 
+               ,suffixes=('', '_VBEL')
+            )
+            
+            df.sort_values(by=['LFDNR','pk','XL','Pos'],inplace=True)
+            df.reset_index(inplace=True)
+            
+            # damit die SIR 3S Elementrichtung nach (ungerichteter) Graphenbildung in NetworkX im dataDict verfuegbar ist
+            df['SIR3S_i']=df['NAME_i']
+            df['SIR3S_k']=df['NAME_k']        
+            
+            # damit neue df-Spalten per .loc aus NetworkX im dataDict-Daten befüllbar sind
+            df['index']=df.index
+            
+            # 
+            
+            # Schnittknotensequenz ermitteln
+            
+            for nr in df['LFDNR'].unique():                
+                    
+                    # ueber alle Layer
+                    for ly in df[df['LFDNR']==nr]['XL'].unique():                                        
+    
+                        dfSchnitt=df[(df['LFDNR']==nr) & (df['XL']==ly)]                                      
+                        #logger.debug("{0:s}Schnitt: {1:s} Nr: {2:s} Layer: {3:s}".format(logStr
+                        #                                                       ,str(dfSchnitt['NAME'].iloc[0])
+                        #                                                       ,str(dfSchnitt['LFDNR'].iloc[0])
+                        #                                                       ,str(dfSchnitt['XL'].iloc[0])
+                        #                                                      )) 
+                        
+                        dfSchnitt=dfSchnitt.reset_index() 
+                    
+                        GSchnitt=nx.from_pandas_edgelist(dfSchnitt, source='NAME_i', target='NAME_k', edge_attr=True,create_using=nx.MultiGraph())
+                        
+                        # ueber alle zusammenhaengenen Komponenten
+                        iComp=0
+                        for comp in nx.connected_components(GSchnitt):
+                            iComp+=1
+    
+                            #logger.debug("{0:s}CompNr.: {1:s}".format(logStr,str(iComp))) 
+                            
+                            # Graph der Komponente
+                            GSchnittComp=GSchnitt.subgraph(comp)
+                            
+                            GSchnittEdgeLst=sorted(GSchnittComp.edges(data=True), key=lambda x: x[2]['Pos'])                        
+                            
+                            # erste und letzte Kante lt. Schnittdefinition
+                            u,v, datadict = GSchnittEdgeLst[0]
+                            sourceKi=u
+                            sourceKk=v
+                            
+                            u,v, datadict = GSchnittEdgeLst[-1]
+                            targetKi=u
+                            targetKk=v                        
+                                                                              
+                            #logger.debug("{0:s}First: i: {1:s} k:{2:s} ".format(logStr,sourceKi,sourceKk)) 
+                            #logger.debug("{0:s}Last: i: {1:s} k:{2:s} ".format(logStr,targetKi,targetKk)) 
+                            
+                            # Pfad zwischen den Knoten der ersten und letzten Kante (4 Möglichkeiten)
+                            # der laengste Pfad geht unabhängig von der Kantenrichtung vom ersten bis zum letzten Knoten des Schnittes
+                            nlComp=nx.shortest_path(GSchnittComp,sourceKi,targetKk)
+                            nlCompTmp=nx.shortest_path(GSchnittComp,sourceKk,targetKk)
+                            if len(nlCompTmp)>len(nlComp):
+                                nlComp=nlCompTmp
+                            nlCompTmp=nx.shortest_path(GSchnittComp,sourceKi,targetKi)
+                            if len(nlCompTmp)>len(nlComp):
+                                nlComp=nlCompTmp
+                            nlCompTmp=nx.shortest_path(GSchnittComp,sourceKk,targetKi)
+                            if len(nlCompTmp)>len(nlComp):
+                                nlComp=nlCompTmp                                
+                            #logger.debug("{0:s}Pfad: Start: {1:s} > Ende: {2:s}".format(logStr,nlComp[0],nlComp[-1]))                         
+                            
+                            # Graphen zur Schnittknotensequenz 
+                            GSchnittCompSP=GSchnittComp.subgraph(nlComp)
+                            
+                            # index-Liste der Kanten der Schnittknotensequenz 
+                            idxLst=[]                        
+                            
+                            for u,v, datadict in sorted(GSchnittCompSP.edges(data=True), key=lambda x: x[2]['Pos']):              
+                                idxLst.append(datadict['index'])
+                                # SP-Kanten Ausgabe
+                                                      
+                            compNr=np.empty(GSchnittCompSP.number_of_edges(),dtype=int) 
+                            compNr.fill(iComp)
+                            
+                            df.loc[idxLst,'compNr']=compNr                        
+                            df.loc[idxLst,'nextNODE']=nlComp[1:]  
+                                                                                            
+            df=df[[
+                    'Pos'
+                   ,'TYPE'
+                   ,'ID'
+    
+    
+                   ,'pk'
+                   ,'tk'
+                   ,'LFDNR' 
+                   ,'NAME'
+                   ,'XL'            
+                
+                   ,'compNr' 
+                   ,'nextNODE'                    
+            ]]
+        
+        return df
                                                                                        
     except Exception as e:
         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))          
         logger.debug(logStrFinal) 
-        
+        raise
                                                                           
     finally:
-        logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))    
-        return df    
+        logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))               
     
 def setLayerContentTo(layerName
                      ,m

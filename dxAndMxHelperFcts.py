@@ -101,7 +101,7 @@ class dxWithMx():
             self.V3_ROHR=dx.dataFrames['V3_ROHR']
             self.V3_KNOT=dx.dataFrames['V3_KNOT']
             self.V3_FWVB=dx.dataFrames['V3_FWVB']
-            self.V3_VBEL=dx.dataFrames['V3_VBEL']#.copy(deep=True)
+            self.V3_VBEL=dx.dataFrames['V3_VBEL']
                           
             if isinstance(self.mx,Mx.Mx):  
                 
@@ -115,7 +115,7 @@ class dxWithMx():
                 self.V3_ROHR=dx.dataFrames['V3_ROHR']
                 self.V3_KNOT=dx.dataFrames['V3_KNOT']
                 self.V3_FWVB=dx.dataFrames['V3_FWVB']    
-                self.V3_VBEL=dx.dataFrames['V3_VBEL']#.copy(deep=True) 
+                self.V3_VBEL=dx.dataFrames['V3_VBEL']
                                 
                 # Vec-Results to V3_KNOT, V3_ROHR, V3_FWVB, etc.
                 V3sErg=self.dx.MxAdd(mx)                
@@ -736,7 +736,7 @@ class dxWithMx():
 
     def _V3_AGSN(self,dfAGSN):
         """
-        V3_AGSN: Expanding dfAGSN to V3_AGSN. V3_AGSN is a dxWithMx object Attribute.
+        V3_AGSN: Create V3_AGSN from dfAGSN. V3_AGSN is a dxWithMx object Attribute.
         
         :param dfAGSN: 
         :type dfAGSN: df
@@ -799,7 +799,9 @@ class dxWithMx():
         logger.debug(f"{logStr}Start.") 
         
         try: 
-            pass
+            if dfAGSN[~dfAGSN['pk'].isin([-1,'-1'])].empty:
+                logger.debug(f"{logStr} dfAGSN empty.") 
+                return dfAGSN
         
             dfAGSN=constructNewMultiindexFromCols(dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
             # urspruengliche Cols
@@ -1407,7 +1409,7 @@ def readDxAndMx(dbFile
         
         if preventPklDump:
             if isfile(dbFileDxPkl):
-              logger.info("{logStr:s}{dbFileDxPkl:s} exists and is deleted...".format(
+              logger.info("{logStr:s}{dbFileDxPkl:s} exists and is deleted ...".format(
                    logStr=logStr
                   ,dbFileDxPkl=logPathOutputFct(dbFileDxPkl)                        
                   )
