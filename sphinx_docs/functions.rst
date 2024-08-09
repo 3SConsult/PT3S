@@ -20,39 +20,17 @@ Read SIR 3S Results only
 SIR 3S Model- and Result-Data
 -----------------------------
 
-.. _init-label: 
-
 Initialization
 ~~~~~~~~~~~~~~
 
 .. autofunction:: dxAndMxHelperFcts.dxWithMx.__init__
 
-.. _V3_ROHRVEC-label: 
-
-V3_ROHRVEC
-~~~~~~~~~~
+dfs
+~~~
 
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC
-
-.. _V3_AGSN-label: 
-
-V3_AGSN
-~~~~~~~
-
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSN
-
-.. _V3_AGSNVEC-label: 
-
-V3_AGSNVEC
-~~~~~~~~~~
-
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC
-
-.. _dfLAYR-label: 
-
-dfLAYR
-~~~~~~
-
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._dfLAYR
 
 SdfCsv
