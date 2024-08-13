@@ -263,7 +263,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSN">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfAGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSN" title="Permalink to this definition"></a></dt>
-<dd><p>V3_AGSN: Expanding dfAGSN to V3_AGSN. V3_AGSN is a dxWithMx object Attribute.</p>
+<dd><p>V3_AGSN: Create V3_AGSN from dfAGSN. V3_AGSN is a dxWithMx object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>dfAGSN</strong> (<em>df</em>) – </p>
@@ -277,7 +277,8 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:</p>
+<p>AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model).
+The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)</p></li>
@@ -439,22 +440,24 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <p class="admonition-title">Note</p>
 <p>The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</p>
 <blockquote>
-<div><p>LAYR:
--pk
+<div><dl class="simple">
+<dt>LAYR:</dt><dd><p>-pk
 -tk
 -LFDNR (numeric)
 -NAME</p>
-<p>LAYR-Info:
--AnzDerObjekteInGruppe
+</dd>
+<dt>LAYR-Info:</dt><dd><p>-AnzDerObjekteInGruppe
 -AnzDerObjekteDesTypsInGruppe</p>
-<p>OBJ:
--TYPE
+</dd>
+<dt>OBJ:</dt><dd><p>-TYPE
 -ID</p>
-<p>OBJ-Info:
--NrDesObjektesDesTypsInGruppe
+</dd>
+<dt>OBJ-Info:</dt><dd><p>-NrDesObjektesDesTypsInGruppe
 -NrDesObjektesInGruppe
 -GruppenDesObjektsAnz
 -GruppenDesObjektsNamen</p>
+</dd>
+</dl>
 </div></blockquote>
 </div>
 </dd></dl>
@@ -477,7 +480,7 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>SIR 3S imports SDF-CSV-Files. However sometimes it is convenient to have a look at the original SDF-CSV-File content with Python. I.e. to explore the original hierarchical layer structure in comparison to the flat layer structure in the SIR 3S model. Or i.e. to check against the SIR 3S SDF-CSV-File import- and export-function results. In general, one can say that the SDF-CSV format for pipe network data (for pipe network models) is so widespread in Germany that it makes sense to have an SIR 3S affine function which maps the SDF-CSV-File to pandas dfs.</p>
+<p>SIR 3S imports SDF-CSV-Files. However sometimes it is convenient to have a look at the original SDF-CSV-File content with Python. I.e. to explore the original hierarchical layer structure in comparison to the flat layer structure in the SIR 3S model. Or i.e. to check against the SIR 3S SDF-CSV-File import- and export-function result. In general, one can say that the SDF-CSV format for pipe network data (for pipe network models) is so widespread in Germany that it makes sense to have an SIR 3S affine function which maps the SDF-CSV-File to pandas dfs.</p>
 <p>The returned object has the following structure:</p>
 <blockquote>
 <div><ul class="simple">

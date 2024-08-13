@@ -1,6 +1,7 @@
 name: Automatisches Kopieren von HTML-Dateien
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'sphinx_docs/_build/html/**'

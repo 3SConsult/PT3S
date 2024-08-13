@@ -140,6 +140,78 @@ To revert all changes caused by a commit, use:
    .. code-block:: bash
 
       git revert commitID
+
+GitHub Workflows
+~~~~~~~~~~~~~~~~
+
+Our GitHub repository uses workflows to facilitate certain processes by automating tasks. Workflows are defined using YAML files and are stored in the `.github/workflows` directory of our repository.
+
+Current Workflows
+^^^^^^^^^^^^^^^^^
+
+We currently use the following workflows:
+
+- **Automatic Copying of HTML Files**: This workflow copies HTML files from `PT3S/sphinx_docs/_build/html` to `PT3S/docs` if a push happens to `PT3S/sphinx_docs/_build/html/`.
+
+- **Automatic Deletion of Example Data**: This workflow deletes example data in `PT3S/Examples/WDExampleX/B1/V0/BZ1` if a push happens to `PT3S/Examples/`.
+
+Manually Triggering Workflows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In addition to automatic triggers, GitHub workflows can also be triggered manually.
+
+Follow these steps to manually trigger a workflow via GitHub:
+
+1. Navigate to the **Actions** tab of your repository on GitHub.
+
+2. Select the workflow you want to trigger from the list on the left.
+
+3. Click the **Run workflow** button.
+
+4. Optionally, provide any required inputs and click **Run workflow** again to start the workflow.
+
+Workflow Structure
+^^^^^^^^^^^^^^^^^^
+
+Workflows are composed of one or more jobs that can run in parallel or sequentially. Each job runs in a fresh virtual environment and can consist of multiple steps. Steps can run commands, set up dependencies, or perform other tasks.
+
+Here is an example of a simple workflow file (Automatic Copying of HTML Files):
+
+.. code-block:: yaml
+
+    name: Automatisches Kopieren von HTML-Dateien
+
+    on:
+      push:
+        paths:
+          - 'sphinx_docs/_build/html/**'
+
+    jobs:
+      copy_files:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: '20'
+              
+          - name: Checkout repository
+            uses: actions/checkout@v2
+
+          - name: Copy files
+            run: |
+              mkdir -p docs
+              cp -ru sphinx_docs/_build/html/* docs
+              
+          - name: Commit and push if it changed
+            run: |
+              git config --global user.email "actions@github.com"
+              git config --global user.name "GitHub Action"
+              git add -A
+              git diff --quiet && git diff --staged --quiet || git commit -m "Automatisches Kopieren von HTML-Dateien"
+              git push
+
+
                      
 Working with PyPI
 -----------------     
@@ -281,7 +353,7 @@ Follow these steps to build a Docker image:
 
    .. code-block:: bash
 
-      cd "C:\Users\User\3S\PT3S\app"
+      cd "C:\Users\User\3S\PT3S\docker"
 
 2. **Build the Docker image:** Run the following command, replacing `pt3stest` with the name you want to give to your Docker image:
 
@@ -300,7 +372,7 @@ Follow these steps to run a Docker container:
 
    .. code-block:: bash
 
-      cd "C:\Users\User\3S\PT3S\app"
+      cd "C:\Users\User\3S\PT3S\docker"
     
 3. **Run the Docker container:** Run the following command with the name of your Docker image. 
 
