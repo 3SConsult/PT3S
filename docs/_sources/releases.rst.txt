@@ -3,6 +3,25 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.XX.0.dev1
+---------------
+
+**Fix:**
+
+- dxDecodeObjsData.Agsn: unnecessary exceptions when there is no data
+- dxAndMxHelperFcts.dxWithMx._V3_AGSN: unnecessary exceptions when there is no data
+
+90.14.29.0.dev1
+---------------
+
+**Fix:**
+
+- Example 3: typing error: m.V3_AGSNVec ==> m.V3_AGSNVEC
+
+**New:**
+
+- SdfCsv: from PT3S import sdfCsv: mSdfCsv=sdfCsv.SdfCsv(csvFile): mSdfCsv: Wrapper for a model defined by a SDF-CSV-File
+
 90.14.28.0.dev1
 ---------------
 

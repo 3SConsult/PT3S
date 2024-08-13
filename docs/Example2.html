@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PT3S Release &mdash; PT3S 90.14.27.0.dev1 documentation</title>
+  <title>PT3S Release &mdash; PT3S 90.14.29.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -147,7 +147,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
@@ -155,7 +155,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="p">)</span>
@@ -163,12 +163,12 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;module &#39;dxAndMxHelperFcts&#39; from &#39;c:\\users\\jablonski\\3s\\pt3s\\dxAndMxHelperFcts.py&#39;&gt;
+&lt;module &#39;dxAndMxHelperFcts&#39; from &#39;c:\\users\\wolters\\3s\\pt3s\\dxAndMxHelperFcts.py&#39;&gt;
 </pre></div></div>
 </div>
 </section>
@@ -232,12 +232,16 @@
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\Examples\Example2.db3 exists readable ...
-INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined...
+INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined ...
 INFO    ; dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used...
-INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
+INFO    ; dxAndMxHelperFcts.readDxAndMx:
++..\Examples\Example2.db3 is newer than
++..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MX1:
++SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
++in this case the results are maybe dated or (worse) incompatible to the model
+INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\Sir3s\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.5.MXS reading ...
 INFO    ; dxWithMx.__init__: Example2: processing dx and mx ...
-ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1140: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
 </div>
 </section>
@@ -507,7 +511,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample2\B1\V0\BZ1\M-1-0-1.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6ebd176d700b4cdea8f2d64033309d30", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b7c69b8135ed49a48dc217145ea6c55d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:

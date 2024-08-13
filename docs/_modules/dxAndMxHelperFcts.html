@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.27.0.dev1 documentation</title>
+  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.29.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -157,6 +157,17 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for dx with attached mx.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param dx: a dx object</span>
+<span class="sd">        :type dx: Dx.Dx()</span>
+<span class="sd">        :param mx: a mx object</span>
+<span class="sd">        :type mx: Mx.Mx()        </span>
+<span class="sd">        :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:&#39;EPSG:25832&#39;). If None, crs will be read from SIR 3S&#39; database file.</span>
+<span class="sd">        :type crs: str, optional, default=None  </span>
+<span class="sd">                      </span>
+<span class="sd">        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for dx with attached mx  </span>
+<span class="sd">                        </span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         
         <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Start.&#39;</span><span class="p">))</span> 
@@ -165,7 +176,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">dx</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mx</span> <span class="o">=</span> <span class="n">mx</span>
             
-            <span class="bp">self</span><span class="o">.</span><span class="n">dfLAYR</span><span class="o">=</span><span class="n">dxDecodeObjsData</span><span class="o">.</span><span class="n">Layr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dfLAYR</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfLAYR</span><span class="p">()</span>    
+            
             <span class="bp">self</span><span class="o">.</span><span class="n">dfWBLZ</span><span class="o">=</span><span class="n">dxDecodeObjsData</span><span class="o">.</span><span class="n">Wblz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dfAGSN</span><span class="o">=</span><span class="n">dxDecodeObjsData</span><span class="o">.</span><span class="n">Agsn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>            
                         
@@ -581,12 +593,12 @@
 
     <span class="k">def</span> <span class="nf">_V3_ROHRVEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">V3_ROHR</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        V3_ROHRVEC constructing: Expanding V3_ROHR to V3_ROHRVEC (includes interior points).</span>
+<span class="sd">        V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
 <span class="sd">        :param V3_ROHR: </span>
 <span class="sd">        :type V3_ROHR: df</span>
 <span class="sd">        </span>
-<span class="sd">        :return: V3_ROHRVEC: V3_ROHR expanded to V3_ROHRVEC.</span>
+<span class="sd">        :return: V3_ROHRVEC</span>
 <span class="sd">        :rtype: df        </span>
 <span class="sd">        </span>
 <span class="sd">        .. note:: </span>
@@ -758,9 +770,56 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
 
+    <span class="k">def</span> <span class="nf">_dfLAYR</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.</span>
+<span class="sd">                </span>
+<span class="sd">        .. note:: </span>
+<span class="sd">            </span>
+<span class="sd">            The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</span>
+<span class="sd">                </span>
+<span class="sd">                 LAYR:</span>
+<span class="sd">                 -pk</span>
+<span class="sd">                 -tk</span>
+<span class="sd">                 -LFDNR (numeric)</span>
+<span class="sd">                 -NAME</span>
+<span class="sd">                </span>
+<span class="sd">                 LAYR-Info:</span>
+<span class="sd">                 -AnzDerObjekteInGruppe</span>
+<span class="sd">                 -AnzDerObjekteDesTypsInGruppe</span>
+<span class="sd">                </span>
+<span class="sd">                 OBJ:</span>
+<span class="sd">                 -TYPE</span>
+<span class="sd">                 -ID</span>
+<span class="sd">                </span>
+<span class="sd">                 OBJ-Info:</span>
+<span class="sd">                 -NrDesObjektesDesTypsInGruppe</span>
+<span class="sd">                 -NrDesObjektesInGruppe</span>
+<span class="sd">                 -GruppenDesObjektsAnz</span>
+<span class="sd">                 -GruppenDesObjektsNamen       </span>
+<span class="sd">                      </span>
+<span class="sd">        &quot;&quot;&quot;</span>   
+                
+        <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Start.&quot;</span><span class="p">)</span> 
+        
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">dfLAYR</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+            <span class="n">dfLAYR</span><span class="o">=</span><span class="n">dxDecodeObjsData</span><span class="o">.</span><span class="n">Layr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>                                   
+            <span class="k">return</span> <span class="n">dfLAYR</span>     
+        <span class="k">except</span> <span class="n">dxWithMxError</span><span class="p">:</span>
+            <span class="k">raise</span>            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logStrFinal</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span> 
+            <span class="k">raise</span> <span class="n">dxWithMxError</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span>                       
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
+
+
     <span class="k">def</span> <span class="nf">_V3_AGSN</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSN</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        V3_AGSN constructing: Expanding dfAGSN to V3_AGSN.</span>
+<span class="sd">        V3_AGSN: Expanding dfAGSN to V3_AGSN. V3_AGSN is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
 <span class="sd">        :param dfAGSN: </span>
 <span class="sd">        :type dfAGSN: df</span>
@@ -1038,7 +1097,7 @@
 
     <span class="k">def</span> <span class="nf">_V3_AGSNVEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">V3_AGSN</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        V3_AGSNVEC constructing: Expanding V3_AGSN to V3_AGSNVEC.</span>
+<span class="sd">        V3_AGSNVEC: Expanding V3_AGSN to V3_AGSNVEC. V3_AGSNVEC is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
 <span class="sd">        :param V3_AGSN: </span>
 <span class="sd">        :type V3_AGSN: df</span>
@@ -1370,37 +1429,37 @@
 
 <span class="sd">    .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.</span>
 <span class="sd">        </span>
-<span class="sd">        The returned dxWithMx object m has the following structure i.e. Dfs:</span>
+<span class="sd">        The returned dxWithMx object has the following structure i.e. Dfs:</span>
 <span class="sd">    </span>
 <span class="sd">            - Model: Dx object:</span>
-<span class="sd">                - m.dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S&#39; tables in database file</span>
-<span class="sd">                - m.dx.dataFrames[...]: several pandas-Dfs derived from the 1:1 Dfs </span>
+<span class="sd">                - dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S&#39; tables in database file</span>
+<span class="sd">                - dx.dataFrames[...]: several pandas-Dfs derived from the 1:1 Dfs </span>
 <span class="sd">        </span>
 <span class="sd">            - Results: Mx object:</span>
-<span class="sd">                - m.mx.df: pandas-Df (&#39;time curve data&#39;) from from SIR 3S&#39; MXS file(s)</span>
-<span class="sd">                - m.mx.dfVecAggs: pandas-Df (&#39;vector data&#39;) from SIR 3S&#39; MXS file(s)</span>
+<span class="sd">                - mx.df: pandas-Df (&#39;time curve data&#39;) from from SIR 3S&#39; MXS file(s)</span>
+<span class="sd">                - mx.dfVecAggs: pandas-Df (&#39;vector data&#39;) from SIR 3S&#39; MXS file(s)</span>
 <span class="sd">    </span>
-<span class="sd">            - pandas-Dfs with Model- AND Result-data:</span>
-<span class="sd">                - m.V3_ROHR: Pipes</span>
-<span class="sd">                - m.V3_FWVB: Housestations District Heating</span>
-<span class="sd">                - m.V3_KNOT: Nodes </span>
-<span class="sd">                - m.V3_VBEL: Edges</span>
-<span class="sd">                - m.V3_ROHRVEC: Pipes including interior points </span>
-<span class="sd">                - m.V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</span>
-<span class="sd">                - m.V3_AGSNVEC: Longitudinal Sections including Pipe interior points </span>
+<span class="sd">            - pandas-Dfs with Model- AND Result-Data:</span>
+<span class="sd">                - V3_ROHR: Pipes</span>
+<span class="sd">                - V3_FWVB: Housestations District Heating</span>
+<span class="sd">                - V3_KNOT: Nodes </span>
+<span class="sd">                - V3_VBEL: Edges</span>
+<span class="sd">                - V3_ROHRVEC: Pipes including interior points </span>
+<span class="sd">                - V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</span>
+<span class="sd">                - V3_AGSNVEC: Longitudinal Sections including Pipe interior points </span>
 <span class="sd">                    </span>
 <span class="sd">            - geopandas-Dfs based upon the Dfs above:</span>
-<span class="sd">                - m.gdf_ROHR: Pipes</span>
-<span class="sd">                - m.gdf_FWVB: Housestations District Heating</span>
-<span class="sd">                - m.gdf_KNOT: Nodes </span>
+<span class="sd">                - gdf_ROHR: Pipes</span>
+<span class="sd">                - gdf_FWVB: Housestations District Heating</span>
+<span class="sd">                - gdf_KNOT: Nodes </span>
 <span class="sd">                    </span>
 <span class="sd">            - Dfs containing decoded BLOB-Data:</span>
-<span class="sd">                - m.dfLAYR: one row per LAYR (Layer) and OBJ</span>
-<span class="sd">                - m.dfWBLZ: one row per WBLZ (Heat balance) and OBJ                </span>
+<span class="sd">                - dfLAYR: one row per LAYR (Layer) and OBJ</span>
+<span class="sd">                - dfWBLZ: one row per WBLZ (heat balance) and OBJ                </span>
 <span class="sd">                </span>
 <span class="sd">            - NetworkX-Graphs:</span>
-<span class="sd">                - m.G</span>
-<span class="sd">                - m.GSig</span>
+<span class="sd">                - G</span>
+<span class="sd">                - GSig</span>
 
 <span class="sd">        Selected functions of the returned dxWithMx object:</span>
 <span class="sd">                - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df</span>
@@ -1534,7 +1593,7 @@
             <span class="c1">#modelXk=sk[sk[&#39;ID&#39;].isin([3,3.])][&#39;WERT&#39;].iloc[0]</span>
             <span class="n">vms</span><span class="o">=</span><span class="n">vm</span><span class="p">[</span><span class="n">vm</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">dx</span><span class="o">.</span><span class="n">QGISmodelXk</span><span class="p">])]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}</span><span class="s2"> QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="o">=</span><span class="n">logStr</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}</span><span class="s2"> QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="o">=</span><span class="n">logStr</span><span class="p">))</span>
             <span class="n">vms</span><span class="o">=</span><span class="n">vm</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
         
         <span class="c1">#!                        </span>
