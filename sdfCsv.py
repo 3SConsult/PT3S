@@ -216,7 +216,7 @@ class SdfCsv():
             
     def getHierarchicalLayernames(self,sep='#'):
         """
-        :return: {originalLayername:(hierarchicalLayername,[IDPTop,IDPLev1,...]) ...}              
+        :return: {originalLayername:(hierarchicalLayername,[IDPTop,IDPLev1,...,ID]) ...}              
         """
         
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -286,6 +286,8 @@ class SdfCsv():
                     pass
                 else:
                     logger.info(f"TITEL not unique: {row['TITEL']}: hierarchicalLayername is set to hierarchicalLayername of lineNumber: {row['lineNumber']}")
+                
+                parentIDsRev.append(row['ID'])
                 dct[row['TITEL']]=(layerName,parentIDsRev)
                 
             return dct

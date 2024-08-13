@@ -183,7 +183,7 @@ Our GitHub repository uses workflows to facilitate certain processes by automati
 Current Workflows
 ^^^^^^^^^^^^^^^^^
 
-All of our workflows can be triggered using :ref:`manually-triggering-workflows-label`. If you try to :ref:`commit-changes-label` you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should :ref:`get-latest-version-label` before continuing to edit your local project.
+All of our workflows can be triggered using :ref:`manually-triggering-workflows-label`. If you try to :ref:`commit-changes-label` you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should :ref:`get-latest-version-label` before continuing to edit local.
 
 We currently use the following workflows:
 
@@ -378,6 +378,8 @@ To generate documentation, follow these steps:
 3. **Use Build File**: Alternatively, instead of using the ``.\make.bat html`` command, you can simply open the `PT3S/sphinx_docs/make_html_docs.py` file and run it to generate the documentation. This method will not print any Sphinx debugging output and will save time. This alternative is recommended when making many iterative improvements to the documentation.
 
 4. **Commit the changes.** Commit all files from PT3S/sphinx_docs to GitHub (:ref:`commit-changes-label`).
+
+5. You should :ref:`get-latest-version-label` **before continuing to edit local.
 
 The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_
 

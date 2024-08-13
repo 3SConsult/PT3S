@@ -37,6 +37,9 @@ V3_AGSNVEC
 V3_ROHRVEC
 """"""""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC
+gdfs
+""""
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._gdfs
 dfLAYR
 """"""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._dfLAYR

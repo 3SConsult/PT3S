@@ -102,6 +102,8 @@ class dxWithMx():
             self.V3_KNOT=dx.dataFrames['V3_KNOT']
             self.V3_FWVB=dx.dataFrames['V3_FWVB']
             self.V3_VBEL=dx.dataFrames['V3_VBEL']
+            
+            (self.gdf_FWVB,self.gdf_ROHR,self.gdf_KNOT)=self._gdfs(crs)
                           
             if isinstance(self.mx,Mx.Mx):  
                 
@@ -401,34 +403,9 @@ class dxWithMx():
                 
                 #gdfs
                 
-                if not crs:
-                    try:               
-                        dfSG=dx.dataFrames['SIRGRAF']
-                        if 'SRID2' in dfSG.columns and dfSG['SRID2'].iloc[1] is not None:
-                            crs = 'EPSG:' + str(int(dfSG['SRID2'].iloc[1]))
-                        else:
-                            crs = 'EPSG:' + str(int(dfSG['SRID'].iloc[1]))
-                        logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs reading successful: ', crs))
-                    except:
-                        logger.debug("{0:s}{1:s}".format(logStr,'crs reading failed.'))  
-                else:
-                    logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs give value used: ', crs))
+                (self.gdf_FWVB,self.gdf_ROHR,self.gdf_KNOT)=self._gdfs(crs)
                 
-                try:
-                    gs=geopandas.GeoSeries.from_wkb(self.V3_FWVB['GEOMWKB'],crs=crs)
-                    self.gdf_FWVB=geopandas.GeoDataFrame(self.V3_FWVB,geometry=gs,crs=crs)
-                
-                    gs=geopandas.GeoSeries.from_wkb(self.V3_ROHR['GEOMWKB'],crs=crs)
-                    self.gdf_ROHR=geopandas.GeoDataFrame(self.V3_ROHR,geometry=gs,crs=crs)
-                    
-                    gs=geopandas.GeoSeries.from_wkb(self.V3_KNOT['GEOMWKB'],crs=crs)
-                    self.gdf_KNOT=geopandas.GeoDataFrame(self.V3_KNOT,geometry=gs,crs=crs)
-                    
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of gdf_FWVB and gdf_ROHR ok so far."))  
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing gdf_FWVB and gdf_ROHR failed.'))
+
 
             # G    
                                 
@@ -696,24 +673,24 @@ class dxWithMx():
             The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
                 
                  LAYR:
-                     -pk
-                     -tk
-                     -LFDNR (numeric)
-                     -NAME
+                     - pk
+                     - tk
+                     - LFDNR (numeric)
+                     - NAME
                 
                  LAYR-Info:
-                     -AnzDerObjekteInGruppe
-                     -AnzDerObjekteDesTypsInGruppe
+                     - AnzDerObjekteInGruppe
+                     - AnzDerObjekteDesTypsInGruppe
                 
                  OBJ:
-                     -TYPE
-                     -ID
+                     - TYPE
+                     - ID
                 
                  OBJ-Info:
-                     -NrDesObjektesDesTypsInGruppe
-                     -NrDesObjektesInGruppe
-                     -GruppenDesObjektsAnz
-                     -GruppenDesObjektsNamen       
+                     - NrDesObjektesDesTypsInGruppe
+                     - NrDesObjektesInGruppe
+                     - GruppenDesObjektsAnz
+                     - GruppenDesObjektsNamen       
                       
         """   
                 
@@ -732,6 +709,72 @@ class dxWithMx():
             raise dxWithMxError(logStrFinal)                       
         finally:
             logger.debug(f"{logStr}_Done.") 
+
+
+    def _gdfs(self,crs=None):
+        """
+        Create gdfs from the dfs: V3_FWVB,V3_ROHR,V3_KNOT. gdf_FWVB,gdf_ROHR,gdf_KNOT are dxWithMx object Attributes.
+
+        :param crs: (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
+        :type crs: str, optional, default=None  
+        
+        :return: (gdf_FWVB,gdf_ROHR,gdf_KNOT)
+        :rtype: tuple of gdfs                                                  
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try:
+            
+            gdf_FWVB=geopandas.GeoDataFrame()
+            gdf_ROHR=geopandas.GeoDataFrame()
+            gdf_KNOT=geopandas.GeoDataFrame()
+            
+            if not crs:
+                try:               
+                    dfSG=self.dx.dataFrames['SIRGRAF']
+                    if 'SRID2' in dfSG.columns and dfSG['SRID2'].iloc[1] is not None:
+                        crs = 'EPSG:' + str(int(dfSG['SRID2'].iloc[1]))
+                    else:
+                        crs = 'EPSG:' + str(int(dfSG['SRID'].iloc[1]))
+                    logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs reading successful: ', crs))
+                except:
+                    logger.debug("{0:s}{1:s}".format(logStr,'crs reading failed.'))  
+            else:
+                logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs give value used: ', crs))
+            
+            try:
+                                            
+                gs=geopandas.GeoSeries.from_wkb(self.V3_FWVB['GEOMWKB'],crs=crs)
+                gdf_FWVB=geopandas.GeoDataFrame(self.V3_FWVB,geometry=gs,crs=crs)
+            
+                gs=geopandas.GeoSeries.from_wkb(self.V3_ROHR['GEOMWKB'],crs=crs)
+                gdf_ROHR=geopandas.GeoDataFrame(self.V3_ROHR,geometry=gs,crs=crs)
+                
+                gs=geopandas.GeoSeries.from_wkb(self.V3_KNOT['GEOMWKB'],crs=crs)
+                gdf_KNOT=geopandas.GeoDataFrame(self.V3_KNOT,geometry=gs,crs=crs)
+                
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of gdfs ok so far."))  
+                
+            
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing of (some) gdfs failed.'))
+            
+            return(gdf_FWVB,gdf_ROHR,gdf_KNOT)
+    
+  
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
+
 
 
     def _V3_AGSN(self,dfAGSN):

@@ -10,6 +10,7 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 
 - dxDecodeObjsData.Agsn: unnecessary exceptions when there is no data
 - dxAndMxHelperFcts.dxWithMx._V3_AGSN: unnecessary exceptions when there is no data
+- readDxAndMx: gdfs not available in case of no result data
 
 90.14.29.0.dev1
 ---------------
