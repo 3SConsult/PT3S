@@ -60,8 +60,26 @@ To clone a GitHub repository to your local folder, follow these steps:
 
 Now, you are advised to following the steps of :ref:`install-editmode-label`.
 
-Get Latest Version from GitHub
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+General GitHub Version Control Procedure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+These instructions lay out the different steps of the GitHub procedure around contributing to PT3S. Especially due to the GitHub repository currentley sitting on only one branch (master), following these basic rules is crucial. As soon as PT3S has a higher amount of frequent contributors, a more suitable system with multiple branches will be implemented.
+
+.. note::
+    Before following each step for the first time, read their instructions fully including notes like this one. They are often able to prevent mistakes from happening. If an unexpected problem occurs, you can search the :ref:`command-collection-label` for a solution.
+
+Follow these steps every time you contribute to PT3S:
+
+1. **Get the Latest Version from GitHub**: :ref:`get-latest-version-label`
+
+2. **Edit PT3S**: Now you can edit the entire PT3S project locally. Please ensure, that nobody else is working on the project simultaneously, because this could cause problems, when trying to commit.
+
+3. **Commit Your Changes to the GitHub Repository**: :ref:`commit-changes-label`
+
+.. _get-latest-version-label:
+
+Get the Latest Version from GitHub
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To fetch the latest changes from the origin and merge them into your current branch, follow these steps:
 
@@ -82,6 +100,13 @@ To fetch the latest changes from the origin and merge them into your current bra
    .. code-block:: bash
 
       git merge origin/master
+
+.. note::
+    If you made local changes to files that were also edited by a remote commit, make a local copy of your project directory and use ``git reset --hard origin/master``. Afterwards you can paste you local changes back in. Just make sure that the remote changes to these files were not important or manually include them in your files.
+
+.. code-block:: bash
+
+   git reset --hard origin/master  
 
 .. _commit-changes-label:
 
@@ -114,6 +139,11 @@ To commit your changes to the GitHub repository, follow these steps:
 
       git push origin master
 
+.. note::
+    If you want to push multiple commits back to back, keep in mind that the PT3S GitHub repository uses :ref:`github-workflow-label` that might require you to fetch after committing to certain directories. These workflows can automatically author commits, so fetching ensures you have the latest changes. Alternatively you can check the :ref:`current-workflow-label` utilised by the GitHub Repository and whether the might be triggered by your commit.
+
+.. _command-collection-label:
+
 Collection of Useful Git Commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -141,28 +171,43 @@ To revert all changes caused by a commit, use:
 
       git revert commitID
 
+.. _github-workflow-label:
+
 GitHub Workflows
 ~~~~~~~~~~~~~~~~
 
 Our GitHub repository uses workflows to facilitate certain processes by automating tasks. Workflows are defined using YAML files and are stored in the `.github/workflows` directory of our repository.
 
+.. _current-workflow-label:
+
 Current Workflows
 ^^^^^^^^^^^^^^^^^
 
+All of our workflows can be triggered using :ref:`manually-triggering-workflows-label`. If you try to :ref:`commit-changes-label` you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should :ref:`get-latest-version-label` before continuing to edit your local project.
+
 We currently use the following workflows:
 
-- **Automatic Copying of HTML Files**: This workflow copies HTML files from `PT3S/sphinx_docs/_build/html` to `PT3S/docs` if a push happens to `PT3S/sphinx_docs/_build/html/`.
+.. list-table:: 
+   :header-rows: 1
 
-- **Automatic Deletion of Example Data**: This workflow deletes example data in `PT3S/Examples/WDExampleX/B1/V0/BZ1` if a push happens to `PT3S/Examples/`.
+   * - **Name**
+     - **Triggers (Apart from manually triggering)**
+     - **Tasks**
+   * - Automatic Copying of HTML-Files
+     - Push to `PT3S/sphinx_docs/_build/html/`
+     - Copies HTML files from `PT3S/sphinx_docs/_build/html` to `PT3S/docs`
+   * - Automatic Deletion of Example Data
+     - 
+     - Deletes example data in all `PT3S/Examples/WDExampleX/B1/V0/BZ1` except `.xml` and `.mx1`
+
+.. _manually-triggering-workflows-label:
 
 Manually Triggering Workflows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In addition to automatic triggers, GitHub workflows can also be triggered manually.
-
 Follow these steps to manually trigger a workflow via GitHub:
 
-1. Navigate to the **Actions** tab of your repository on GitHub.
+1. Navigate to the **Actions** tab of the PT3S GitHub repository.
 
 2. Select the workflow you want to trigger from the list on the left.
 
@@ -175,11 +220,11 @@ Workflow Structure
 
 Workflows are composed of one or more jobs that can run in parallel or sequentially. Each job runs in a fresh virtual environment and can consist of multiple steps. Steps can run commands, set up dependencies, or perform other tasks.
 
-Here is an example of a simple workflow file (Automatic Copying of HTML Files):
+Here is an example of a workflow file (Automatic Copying of HTML Files):
 
 .. code-block:: yaml
 
-    name: Automatisches Kopieren von HTML-Dateien
+    name: Automatic Copying of HTML Files
 
     on:
       push:
@@ -208,7 +253,7 @@ Here is an example of a simple workflow file (Automatic Copying of HTML Files):
               git config --global user.email "actions@github.com"
               git config --global user.name "GitHub Action"
               git add -A
-              git diff --quiet && git diff --staged --quiet || git commit -m "Automatisches Kopieren von HTML-Dateien"
+              git diff --quiet && git diff --staged --quiet || git commit -m "Automatic Copying of HTML Files"
               git push
 
 
@@ -330,22 +375,24 @@ To generate documentation, follow these steps:
 
       .\make.bat html
 
-4. **Commit the changes.** Commit alle files from PT3S/sphinx_docs to GitHub (:ref:`commit-changes-label`).
+3. **Use Build File**: Alternatively, instead of using the ``.\make.bat html`` command, you can simply open the `PT3S/sphinx_docs/make_html_docs.py` file and run it to generate the documentation. This method will not print any Sphinx debugging output and will save time. This alternative is recommended when making many iterative improvements to the documentation.
+
+4. **Commit the changes.** Commit all files from PT3S/sphinx_docs to GitHub (:ref:`commit-changes-label`).
 
 The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_
 
 .. note::
 
-   The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by a GitHub workflow and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
+   The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by one of our :ref:`github-workflow-label` and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
    
 Testing Example Notebooks
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-      
+
 .. note::
-    This part of the Documentation is still in the works.    
-   
+    This part of the documentation is still in progress.
+
 Building a Docker Image
-"""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Follow these steps to build a Docker image:
 
@@ -353,7 +400,7 @@ Follow these steps to build a Docker image:
 
    .. code-block:: bash
 
-      cd "C:\Users\User\3S\PT3S\docker"
+      cd "C:\Users\User\3S\docker"
 
 2. **Build the Docker image:** Run the following command, replacing `pt3stest` with the name you want to give to your Docker image:
 
@@ -362,44 +409,46 @@ Follow these steps to build a Docker image:
       docker build -t pt3stest .
 
 Running a Docker Container
-""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Follow these steps to run a Docker container:
 
-1. **Start Docker Engine**: Open Docker Desktop and start the engine.
+1. **Start Docker Engine:** Open Docker Desktop and start the engine.
 
 2. **Navigate to your project directory:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
 
    .. code-block:: bash
 
-      cd "C:\Users\User\3S\PT3S\docker"
-    
-3. **Run the Docker container:** Run the following command with the name of your Docker image. 
+      cd "C:\Users\User\3S\docker"
 
-   .. note:: 
+3. **Run the Docker container:** Run the following command with the name of your Docker image.
+
+   .. note::
        The port must differ from a local JupyterLab you might be running (use 8889:8888 instead).
 
    .. code-block:: bash
 
       docker run -it --rm -p 8889:8888 pt3stest cmd
 
-You now have access to a cmd running in the container environment. The `-it` option starts the container in interactive mode, and the `--rm` option removes the container after it exits.
+   You now have access to a cmd running in the container environment. The `-it` option starts the container in interactive mode, and the `--rm` option removes the container after it exits.
 
-Testing Examples
-""""""""""""""""
+Testing Example Notebooks
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Follow these steps to test Example Notebooks:
 
-1. **Start JupyterLab**: Type the following command into the cmd of the container.
+1. **Start JupyterLab:** Type the following command into the cmd of the container.
 
    .. code-block:: bash
-   
-       python -m jupyter lab --ip=0.0.0.0 --allow-root
-       
+
+      python -m jupyter lab --ip=0.0.0.0 --allow-root
+      
+2. **Open Browser**: Due to there not being a browser installed       
+
 Alternative:
-       
-1. **Open Docker Desktop**: This is not preinstalled on 3sconsult devices. It needs to be installed.       
 
-2. **Open JupyterLab**: Under the container tab in Docker Desktop, click on the host of the running container.
+1. **Open Docker Desktop:** This is not preinstalled on 3sconsult devices. It needs to be installed.
 
-3. **Enter Token**: When asked to enter a token, copy and paster the token you can find in the anaconda powershell, that should be running. It is part of the links provided.
+2. **Open JupyterLab:** Under the container tab in Docker Desktop, click on the host of the running container.
+
+3. **Enter Token:** When asked to enter a token, copy and paste the token you can find in the Anaconda PowerShell, which should be running. It is part of the links provided.
