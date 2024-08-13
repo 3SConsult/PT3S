@@ -491,8 +491,8 @@ class dxWithMx():
                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing V3_AGSN failed.'))     
 
             try:                                                                        
-                # dfAGSN um Rohrvektoren erweitern  
-                self.V3_AGSNVEC=self._V3_AGSNVEC(self.V3_AGSN.copy(deep=True))                            
+                # Rohrvektoren 
+                self.V3_AGSNVEC=self._V3_AGSNVEC(self.V3_AGSN)#.copy(deep=True))                            
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
@@ -1017,7 +1017,7 @@ class dxWithMx():
 
     def _V3_AGSNVEC(self,V3_AGSN):
         """
-        V3_AGSNVEC: Expanding V3_AGSN to V3_AGSNVEC. V3_AGSNVEC is a dxWithMx object Attribute.
+        V3_AGSNVEC: Create V3_AGSNVEC from V3_AGSN. V3_AGSNVEC is a dxWithMx object Attribute.
         
         :param V3_AGSN: 
         :type V3_AGSN: df
@@ -1060,6 +1060,12 @@ class dxWithMx():
         logger.debug(f"{logStr}Start.") 
         
         try: 
+            
+            if V3_AGSN[~V3_AGSN['pk'].isin([-1,'-1'])].empty:
+               logger.debug(f"{logStr} V3_AGSN empty.") 
+               return V3_AGSN
+       
+            V3_AGSN=V3_AGSN.copy(deep=True)
                         
             V3_AGSNPos=V3_AGSN[
                             (
