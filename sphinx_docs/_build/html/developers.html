@@ -80,9 +80,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#pt3s-s-documentation">PT3S’s Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#generating-the-documentation">Generating the Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testing-example-notebooks">Testing Example Notebooks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#building-a-docker-image">Building a Docker Image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#running-a-docker-container">Running a Docker Container</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">Testing Example Notebooks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initial-test-setup-process">Initial Test Setup Process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-tests">Running Tests</a></li>
 </ul>
 </li>
 </ul>
@@ -119,6 +118,7 @@
 <h1>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this heading"></a></h1>
 <p>Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S or use it in their own projects.</p>
 <ul class="simple">
+<li><p><strong>Contact</strong>: For additional information regarding PT3S, its documentation, and contribution inquiries, please contact <a class="reference external" href="mailto:Jablonski&#37;&#52;&#48;3sconsult&#46;de">Jablonski<span>&#64;</span>3sconsult<span>&#46;</span>de</a>.</p></li>
 <li><p><strong>GitHub Repository:</strong> You can find the source code and contribute to the project on our <a class="reference external" href="https://github.com/aw3s/PT3S">GitHub page</a>.</p></li>
 <li><p><strong>PyPI Project:</strong> The PT3S package is also available on <a class="reference external" href="https://pypi.org/project/PT3S">PyPI</a>.</p></li>
 </ul>
@@ -271,7 +271,7 @@
 <p>Our GitHub repository uses workflows to facilitate certain processes by automating tasks. Workflows are defined using YAML files and are stored in the <cite>.github/workflows</cite> directory of our repository.</p>
 <section id="current-workflows">
 <span id="current-workflow-label"></span><h4>Current Workflows<a class="headerlink" href="#current-workflows" title="Permalink to this heading"></a></h4>
-<p>All of our workflows can be triggered using <a class="reference internal" href="#manually-triggering-workflows-label"><span class="std std-ref">Manually Triggering Workflows</span></a>. If you try to <a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a> you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should <a class="reference internal" href="#get-latest-version-label"><span class="std std-ref">Get the Latest Version from GitHub</span></a> before continuing to edit your local project.</p>
+<p>All of our workflows can be triggered using <a class="reference internal" href="#manually-triggering-workflows-label"><span class="std std-ref">Manually Triggering Workflows</span></a>. If you try to <a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a> you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should <a class="reference internal" href="#get-latest-version-label"><span class="std std-ref">Get the Latest Version from GitHub</span></a> before continuing to edit local.</p>
 <p>We currently use the following workflows:</p>
 <table class="docutils align-default">
 <thead>
@@ -305,10 +305,13 @@
 <section id="workflow-structure">
 <h4>Workflow Structure<a class="headerlink" href="#workflow-structure" title="Permalink to this heading"></a></h4>
 <p>Workflows are composed of one or more jobs that can run in parallel or sequentially. Each job runs in a fresh virtual environment and can consist of multiple steps. Steps can run commands, set up dependencies, or perform other tasks.</p>
-<p>Here is an example of a workflow file (Automatic Copying of HTML Files):</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Automatic Copying of HTML Files</span>
+<p>Here is an example of a workflow file:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">copy-docs.yml</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Automatic Copying of HTML-Files</span>
 
 <span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">push</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">paths</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;sphinx_docs/_build/html/**&#39;</span>
@@ -321,7 +324,7 @@
 <span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-node@v3</span>
 <span class="w">        </span><span class="nt">with</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">node-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;20&#39;</span>
-
+<span class="w">          </span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout repository</span>
 <span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
 
@@ -329,15 +332,16 @@
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">          </span><span class="no">mkdir -p docs</span>
 <span class="w">          </span><span class="no">cp -ru sphinx_docs/_build/html/* docs</span>
-
+<span class="w">          </span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Commit and push if it changed</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">          </span><span class="no">git config --global user.email &quot;actions@github.com&quot;</span>
 <span class="w">          </span><span class="no">git config --global user.name &quot;GitHub Action&quot;</span>
 <span class="w">          </span><span class="no">git add -A</span>
-<span class="w">          </span><span class="no">git diff --quiet &amp;&amp; git diff --staged --quiet || git commit -m &quot;Automatic Copying of HTML Files&quot;</span>
+<span class="w">          </span><span class="no">git diff --quiet &amp;&amp; git diff --staged --quiet || git commit -m &quot;Automatic Copying of HTML-Files&quot;</span>
 <span class="w">          </span><span class="no">git push</span>
 </pre></div>
+</div>
 </div>
 </section>
 </section>
@@ -366,7 +370,7 @@
 </div>
 </li>
 </ol>
-<p>For further examples on how to document your additions and fixes, visit the <a class="reference internal" href="releases.html"><span class="doc">Releases</span></a> page.</p>
+<p>On the <a class="reference internal" href="releases.html"><span class="doc">Releases</span></a> page you can view how this rst code is transformed into html.</p>
 <ol class="arabic simple" start="2">
 <li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py</p></li>
 <li><p><strong>Generate the Documentation:</strong> Follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p></li>
@@ -441,6 +445,7 @@
 <ol class="arabic simple" start="3">
 <li><p><strong>Use Build File</strong>: Alternatively, instead of using the <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">html</span></code> command, you can simply open the <cite>PT3S/sphinx_docs/make_html_docs.py</cite> file and run it to generate the documentation. This method will not print any Sphinx debugging output and will save time. This alternative is recommended when making many iterative improvements to the documentation.</p></li>
 <li><p><strong>Commit the changes.</strong> Commit all files from PT3S/sphinx_docs to GitHub (<a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a>).</p></li>
+<li><p><strong>Get the Latest Version</strong>: You should <a class="reference internal" href="#get-latest-version-label"><span class="std std-ref">Get the Latest Version from GitHub</span></a> before continuing to edit local.</p></li>
 </ol>
 <p>The new documentation can be found at <a class="reference external" href="https://aw3s.github.io/PT3S/index.html">https://aw3s.github.io/PT3S/index.html</a></p>
 <div class="admonition note">
@@ -454,29 +459,37 @@
 <p class="admonition-title">Note</p>
 <p>This part of the documentation is still in progress.</p>
 </div>
-<section id="building-a-docker-image">
-<h4>Building a Docker Image<a class="headerlink" href="#building-a-docker-image" title="Permalink to this heading"></a></h4>
-<p>Follow these steps to build a Docker image:</p>
+<section id="initial-test-setup-process">
+<h4>Initial Test Setup Process<a class="headerlink" href="#initial-test-setup-process" title="Permalink to this heading"></a></h4>
+<p>To set up all necessary files and programs to run tests on Notebooks, follow these steps:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is only of interest to 3sconsult employees, because certain necessary files are not publicly available.</p>
+</div>
 <ol class="arabic">
-<li><p><strong>Navigate to your project directory:</strong> Open your terminal or command prompt and navigate to the directory containing your Dockerfile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\docker&quot;</span>
+<li><p><strong>Setup Docker</strong>: Download and install Docker Desktop. There might be some issues that need fixing in Windows settings. Help from the technical team is advised.</p></li>
+<li><p><strong>Get Docker Files</strong>: Copy <cite>T:/interne_Projekte/PT3S/docker</cite> to <cite>C:/Users/User/3S</cite>.</p></li>
+<li><p><strong>Copy SirCalc</strong>: The <cite>C:/Users/User/3S/docker/SIR 3S</cite> directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local <cite>C:/3S/SIR 3S</cite> to <cite>C:/Users/User/3S/docker/SIR 3S</cite> and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.</p></li>
+<li><p><strong>Start Docker Engine:</strong> Open Docker Desktop and start the engine.</p></li>
+<li><p><strong>Navigate to Docker Folder:</strong> Open your terminal or command prompt and navigate to the directory containing your Dockerfile.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>C:/Users/User/3S/docker
 </pre></div>
 </div>
 </li>
-<li><p><strong>Build the Docker image:</strong> Run the following command, replacing <cite>pt3stest</cite> with the name you want to give to your Docker image:</p>
+<li><p><strong>Build the Docker image</strong>: Run the following command in a cmd with the name you want to give to your Docker image (e.g., <cite>pt3stest</cite>). This process can take around half an hour. So make sure everything is set up properly.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>pt3stest<span class="w"> </span>.
 </pre></div>
 </div>
 </li>
 </ol>
 </section>
-<section id="running-a-docker-container">
-<h4>Running a Docker Container<a class="headerlink" href="#running-a-docker-container" title="Permalink to this heading"></a></h4>
-<p>Follow these steps to run a Docker container:</p>
+<section id="running-tests">
+<h4>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this heading"></a></h4>
+<p>Follow these steps to run tests on the Example Notebooks currently hosted at <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a>:</p>
 <ol class="arabic">
 <li><p><strong>Start Docker Engine:</strong> Open Docker Desktop and start the engine.</p></li>
 <li><p><strong>Navigate to your project directory:</strong> Open your terminal or command prompt and navigate to the directory containing your Dockerfile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\docker&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:/Users/User/3S/docker&quot;</span>
 </pre></div>
 </div>
 </li>
@@ -485,29 +498,26 @@
 <p class="admonition-title">Note</p>
 <p>The port must differ from a local JupyterLab you might be running (use 8889:8888 instead).</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stest<span class="w"> </span>cmd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stest
 </pre></div>
 </div>
+<p>The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.</p>
 <p>You now have access to a cmd running in the container environment. The <cite>-it</cite> option starts the container in interactive mode, and the <cite>–rm</cite> option removes the container after it exits.</p>
 </li>
-</ol>
-</section>
-<section id="id1">
-<h4>Testing Example Notebooks<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
-<p>Follow these steps to test Example Notebooks:</p>
-<ol class="arabic">
-<li><p><strong>Start JupyterLab:</strong> Type the following command into the cmd of the container.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
+<li><p><strong>Start JupyterLab:</strong> Type the following command into a new cmd.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pt3stest<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
 </pre></div>
 </div>
 </li>
-<li><p><strong>Open Browser</strong>: Due to there not being a browser installed</p></li>
-</ol>
-<p>Alternative:</p>
-<ol class="arabic simple">
-<li><p><strong>Open Docker Desktop:</strong> This is not preinstalled on 3sconsult devices. It needs to be installed.</p></li>
-<li><p><strong>Open JupyterLab:</strong> Under the container tab in Docker Desktop, click on the host of the running container.</p></li>
-<li><p><strong>Enter Token:</strong> When asked to enter a token, copy and paste the token you can find in the Anaconda PowerShell, which should be running. It is part of the links provided.</p></li>
+<li><p><strong>Open in local Browser</strong>: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.</p></li>
+<li><p><strong>Test manually</strong>: To test one specific or all examples, run the following commands.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--nbval<span class="w"> </span>ExampleX.ipynb
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--nbval
+</pre></div>
+</div>
+</li>
 </ol>
 </section>
 </section>

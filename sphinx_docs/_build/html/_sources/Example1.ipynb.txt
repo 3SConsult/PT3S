@@ -398,7 +398,8 @@
     ")\n",
     "\n",
     "# Add LayerControl to the map\n",
-    "folium.LayerControl().add_to(map)"
+    "folium.LayerControl().add_to(map)\n",
+    "#NBVAL_IGNORE_OUTPUT"
    ]
   },
   {
@@ -1526,7 +1527,8 @@
     }
    ],
    "source": [
-    "map"
+    "map\n",
+    "#NBVAL_IGNORE_OUTPUT"
    ]
   },
   {
@@ -1577,14 +1579,6 @@
    "source": [
     "img.save('Example1_Output.pdf')"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "7fb0421e-cf48-4cc2-8680-6f21cab4acdd",
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {
