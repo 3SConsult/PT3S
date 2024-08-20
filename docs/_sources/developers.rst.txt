@@ -3,6 +3,8 @@ For Developers
 
 Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S or use it in their own projects. 
 
+- **Contact**: For additional information regarding PT3S, its documentation, and contribution inquiries, please contact `Jablonski@3sconsult.de <mailto:Jablonski@3sconsult.de>`_.
+
 - **GitHub Repository:** You can find the source code and contribute to the project on our `GitHub page <https://github.com/aw3s/PT3S>`_.
 
 - **PyPI Project:** The PT3S package is also available on `PyPI <https://pypi.org/project/PT3S>`_.
@@ -183,7 +185,7 @@ Our GitHub repository uses workflows to facilitate certain processes by automati
 Current Workflows
 ^^^^^^^^^^^^^^^^^
 
-All of our workflows can be triggered using :ref:`manually-triggering-workflows-label`. If you try to :ref:`commit-changes-label` you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should :ref:`get-latest-version-label` before continuing to edit your local project.
+All of our workflows can be triggered using :ref:`manually-triggering-workflows-label`. If you try to :ref:`commit-changes-label` you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should :ref:`get-latest-version-label` before continuing to edit local.
 
 We currently use the following workflows:
 
@@ -220,43 +222,11 @@ Workflow Structure
 
 Workflows are composed of one or more jobs that can run in parallel or sequentially. Each job runs in a fresh virtual environment and can consist of multiple steps. Steps can run commands, set up dependencies, or perform other tasks.
 
-Here is an example of a workflow file (Automatic Copying of HTML Files):
+Here is an example of a workflow file:
 
-.. code-block:: yaml
-
-    name: Automatic Copying of HTML Files
-
-    on:
-      push:
-        paths:
-          - 'sphinx_docs/_build/html/**'
-
-    jobs:
-      copy_files:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Setup Node.js
-            uses: actions/setup-node@v3
-            with:
-              node-version: '20'
-              
-          - name: Checkout repository
-            uses: actions/checkout@v2
-
-          - name: Copy files
-            run: |
-              mkdir -p docs
-              cp -ru sphinx_docs/_build/html/* docs
-              
-          - name: Commit and push if it changed
-            run: |
-              git config --global user.email "actions@github.com"
-              git config --global user.name "GitHub Action"
-              git add -A
-              git diff --quiet && git diff --staged --quiet || git commit -m "Automatic Copying of HTML Files"
-              git push
-
-
+.. literalinclude:: /../.github/workflows/copy-docs.yml
+   :language: yaml
+   :caption: copy-docs.yml
                      
 Working with PyPI
 -----------------     
@@ -269,7 +239,7 @@ Version Control
 Before uploading a new release to PyPI, follow these steps:
 
 1. **Document the Release:** Describe new additions or fixes, that are included in this release, to the PT3S/sphinx_docs/releases.rst file.
-
+       
    .. code-block:: rst
    
       90.14.20.0.dev1
@@ -286,7 +256,7 @@ Before uploading a new release to PyPI, follow these steps:
 
       - SIR 3S db3 and mx files used in Examples are now included in the package.
           
-For further examples on how to document your additions and fixes, visit the :doc:`releases` page.
+On the :doc:`releases` page you can view how this rst code is transformed into html.
 
 2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py
 
@@ -379,6 +349,8 @@ To generate documentation, follow these steps:
 
 4. **Commit the changes.** Commit all files from PT3S/sphinx_docs to GitHub (:ref:`commit-changes-label`).
 
+5. **Get the Latest Version**: You should :ref:`get-latest-version-label` before continuing to edit local.
+
 The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_
 
 .. note::
@@ -391,27 +363,44 @@ Testing Example Notebooks
 .. note::
     This part of the documentation is still in progress.
 
-Building a Docker Image
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Follow these steps to build a Docker image:
-
-1. **Navigate to your project directory:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
-
-   .. code-block:: bash
-
-      cd "C:\Users\User\3S\docker"
-
-2. **Build the Docker image:** Run the following command, replacing `pt3stest` with the name you want to give to your Docker image:
-
-   .. code-block:: bash
-
-      docker build -t pt3stest .
-
-Running a Docker Container
+Initial Test Setup Process
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Follow these steps to run a Docker container:
+To set up all necessary files and programs to run tests on Notebooks, follow these steps:
+
+.. note::
+    This is only of interest to 3sconsult employees, because certain necessary files are not publicly available.
+
+1. **Setup Docker**: Download and install Docker Desktop. There might be some issues that need fixing in Windows settings. Help from the technical team is advised.
+
+2. **Get Docker Files**: Copy `T:/interne_Projekte/PT3S/docker` to `C:/Users/User/3S`.
+
+3. **Copy SirCalc**: The `C:/Users/User/3S/docker/SIR 3S` directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local `C:/3S/SIR 3S` to `C:/Users/User/3S/docker/SIR 3S` and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.
+
+4. **Start Docker Engine:** Open Docker Desktop and start the engine.
+
+5. **Navigate to Docker Folder:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
+
+   .. code-block:: bash
+
+       cd C:/Users/User/3S/docker
+
+6. **Build the Docker image**: Run the following command in a cmd with the name you want to give to your Docker image (e.g., `pt3stest`). This process can take around half an hour. So make sure everything is set up properly.
+
+   .. code-block:: bash
+
+       docker build -t pt3stest .
+
+.. This is the Dockerfile that is being built:
+
+.. .. literalinclude:: /../../docker/Dockerfile
+..    :language: dockerfile
+..    :caption: Dockerfile
+
+Running Tests
+^^^^^^^^^^^^^
+
+Follow these steps to run tests on the Example Notebooks currently hosted at :doc:`examples`:
 
 1. **Start Docker Engine:** Open Docker Desktop and start the engine.
 
@@ -419,7 +408,7 @@ Follow these steps to run a Docker container:
 
    .. code-block:: bash
 
-      cd "C:\Users\User\3S\docker"
+      cd "C:/Users/User/3S/docker"
 
 3. **Run the Docker container:** Run the following command with the name of your Docker image.
 
@@ -428,27 +417,27 @@ Follow these steps to run a Docker container:
 
    .. code-block:: bash
 
-      docker run -it --rm -p 8889:8888 pt3stest cmd
+      docker run -it --rm -p 8889:8888 pt3stest
+
+   The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.
 
    You now have access to a cmd running in the container environment. The `-it` option starts the container in interactive mode, and the `--rm` option removes the container after it exits.
 
-Testing Example Notebooks
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Follow these steps to test Example Notebooks:
-
-1. **Start JupyterLab:** Type the following command into the cmd of the container.
+4. **Start JupyterLab:** Type the following command into a new cmd.
 
    .. code-block:: bash
 
-      python -m jupyter lab --ip=0.0.0.0 --allow-root
-      
-2. **Open Browser**: Due to there not being a browser installed       
+      docker exec -it pt3stest python -m jupyter lab --ip=0.0.0.0 --allow-root
 
-Alternative:
+5. **Open in local Browser**: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.
 
-1. **Open Docker Desktop:** This is not preinstalled on 3sconsult devices. It needs to be installed.
+6. **Test manually**: To test one specific or all examples, run the following commands.
 
-2. **Open JupyterLab:** Under the container tab in Docker Desktop, click on the host of the running container.
+   .. code-block:: bash
 
-3. **Enter Token:** When asked to enter a token, copy and paste the token you can find in the Anaconda PowerShell, which should be running. It is part of the links provided.
+      pytest --nbval ExampleX.ipynb
+
+   .. code-block:: bash
+
+      pytest --nbval
+  
