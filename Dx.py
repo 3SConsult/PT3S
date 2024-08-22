@@ -1210,9 +1210,10 @@ class Dx():
 
     def _dfLAYR(self):
         """
-        dfLAYR: one row per LAYR and OBJ. dfLAYR is a dx object Attribute.
+        dfLAYR: one row per LAYR and OBJ. dfLAYR is a Dx object Attribute.
                 
-        .. note:: 
+        .. note::             
+            Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering and grouping. 
             
             The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
                 
@@ -1900,13 +1901,13 @@ class Dx():
         
         :param dfUpd: df with update data 
         :type dfUpd: df                 
-        :param updInverseValue:value to use for attribValue for inverse objects  
+        :param updInverseValue: value to use for attribValue for inverse objects  
         :type updInverseValue: ?, optional, default=None 
         
         :return: rowsAffectedTotal
         
         .. note:: 
-            Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on the type/operation/parameterization - can also overwrite existing model data. Nonetheless, scripted model changes can be helpful.
+            Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on type/operation/parameterization - can also overwrite existing model data. Nonetheless, scripted model changes can be helpful.
 
         .. note:: 
             dfUpd's cols used:            
@@ -2000,7 +2001,7 @@ class Dx():
            #return rowsAffectedTotal
        
        
-    def insert(self,table,dfIns,xkFct=lambda row: fXk(row)):       
+    def insert(self,table,dfIns,xkFct=fXk):       
         """
         Inserts into dbFile's table (SQLite only)
         
@@ -2009,9 +2010,9 @@ class Dx():
         :param dfIns: df with insert data 
         :type dfIns: df   
         :param xkFct: func to call row-wise to obtain (pk, rk, tk) for an record to insert
-        :type xkFct: func, optional, default=fXk      
+        :type xkFct: func, optional, default=Dx.fXk      
         
-        :return: rowsAffected, dfIns
+        :return: rowsAffected, dfIns (a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values)
 
         .. note:: 
             New model mass data should be created via the SIR 3S import interfaces. Nevertheless, generating model mass data via script can be helpful.
@@ -2020,8 +2021,7 @@ class Dx():
             dfIns' cols used:            
                 - all cols which are also cols of table                
             row-wise:
-                - insert row into table    
-            dfIns returned: a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values
+                - insert into table                
         """           
         
         logStr = "{0:s}.{1:s}: ".format(
@@ -2122,7 +2122,7 @@ class Dx():
         :return: rowsAffected
         
         .. note:: 
-            Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted group assignment can be useful.
+            Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.
 
         .. note:: 
             df's cols used:            

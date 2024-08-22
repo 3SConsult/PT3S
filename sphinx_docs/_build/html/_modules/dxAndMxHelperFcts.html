@@ -1491,8 +1491,8 @@
 <span class="sd">    :type mxsVecsResults2MxDfVecAggs: list, optional, default=None</span>
 <span class="sd">    :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:&#39;EPSG:25832&#39;). If None, crs will be read from SIR 3S&#39; database file.</span>
 <span class="sd">    :type crs: str, optional, default=None</span>
-<span class="sd">    :param logPathOutputFct: logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</span>
-<span class="sd">    :type logPathOutputFct: function, optional</span>
+<span class="sd">    :param logPathOutputFct: func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</span>
+<span class="sd">    :type logPathOutputFct: func, optional, default=os.path.relpath</span>
 
 <span class="sd">    :return: An object containing the SIR 3S model and SIR 3S results.</span>
 <span class="sd">    :rtype: dxWithMx</span>
@@ -1527,9 +1527,8 @@
 <span class="sd">                - G</span>
 <span class="sd">                - GSig</span>
 
-<span class="sd">        Selected functions of the returned dxWithMx object:</span>
-<span class="sd">                - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df</span>
-<span class="sd">                - switchV3DfColsToMultiindex(): switch cols in m.V3_ROHR, m.V3_FWVB, m.V3_KNOT, m.V3_VBEL to Multiindex</span>
+<span class="sd">        Selected functions of the returned dxWithMx object:                </span>
+<span class="sd">                - switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex</span>
 <span class="sd">                        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -2031,8 +2030,8 @@
 
 <span class="sd">    :param wDirMx: Path to Mx-Directory. The results are read into a Mx object via the Mx files.</span>
 <span class="sd">    :type wDirMx: str</span>
-<span class="sd">    :param logPathOutputFct: logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.</span>
-<span class="sd">    :type logPathOutputFct: function, optional</span>
+<span class="sd">    :param logPathOutputFct: func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.</span>
+<span class="sd">    :type logPathOutputFct: func, optional, default=os.path.relpath</span>
 
 <span class="sd">    :return: Mx object with two attributes: </span>
 <span class="sd">             - mx.df: pandas-Df (&#39;time curve data&#39;) from from SIR 3S&#39; MXS file(s)</span>

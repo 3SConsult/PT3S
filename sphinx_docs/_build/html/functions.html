@@ -133,7 +133,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <li><p><strong>mxsVecsResults2MxDf</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of regular expressions for SIR 3S’ Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [‘ROHR~*~*~*~PHR’, ‘ROHR~*~*~*~FS’, ‘ROHR~*~*~*~DSI’, ‘ROHR~*~*~*~DSK’]</p></li>
 <li><p><strong>mxsVecsResults2MxDfVecAggs</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]</p></li>
 <li><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p></li>
-<li><p><strong>logPathOutputFct</strong> (<em>function</em><em>, </em><em>optional</em>) – logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p></li>
+<li><p><strong>logPathOutputFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=os.path.relpath</em>) – func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -198,9 +198,8 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </ul>
 </div></blockquote>
 <dl class="simple">
-<dt>Selected functions of the returned dxWithMx object:</dt><dd><ul class="simple">
-<li><p>setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df</p></li>
-<li><p>switchV3DfColsToMultiindex(): switch cols in m.V3_ROHR, m.V3_FWVB, m.V3_KNOT, m.V3_VBEL to Multiindex</p></li>
+<dt>Selected functions of the returned dxWithMx object:                </dt><dd><ul class="simple">
+<li><p>switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex</p></li>
 </ul>
 </dd>
 </dl>
@@ -218,7 +217,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>wDirMx</strong> (<em>str</em>) – Path to Mx-Directory. The results are read into a Mx object via the Mx files.</p></li>
-<li><p><strong>logPathOutputFct</strong> (<em>function</em><em>, </em><em>optional</em>) – logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.</p></li>
+<li><p><strong>logPathOutputFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=os.path.relpath</em>) – func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -467,14 +466,19 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <h2>SIR 3S Model-Data<a class="headerlink" href="#sir-3s-model-data" title="Permalink to this heading"></a></h2>
 <section id="id1">
 <h3>Dataframes<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, by far not all dataframes that are attributes of a Dx object are documented. These will be added in the future.</p>
+</div>
 <section id="dflayr">
 <h4>dfLAYR<a class="headerlink" href="#dflayr" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx._dfLAYR">
 <span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx._dfLAYR" title="Permalink to this definition"></a></dt>
-<dd><p>dfLAYR: one row per LAYR and OBJ. dfLAYR is a dx object Attribute.</p>
+<dd><p>dfLAYR: one row per LAYR and OBJ. dfLAYR is a Dx object Attribute.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering and grouping.</p>
 <p>The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</p>
 <blockquote>
 <div><dl class="simple">
@@ -517,19 +521,18 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dd><p>Updates dbFile (SQLite only)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dfUpd</strong> (<em>df</em>) – df with update data</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dfUpd</strong> (<em>df</em>) – df with update data</p></li>
+<li><p><strong>updInverseValue</strong> (<em>?</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – value to use for attribValue for inverse objects</p></li>
+</ul>
 </dd>
-</dl>
-<p>:param updInverseValue:value to use for attribValue for inverse objects  
-:type updInverseValue: ?, optional, default=None</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>rowsAffectedTotal</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffectedTotal</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on the type/operation/parameterization - can also overwrite existing model data. Nonetheless, scripted model changes can be helpful.</p>
+<p>Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on type/operation/parameterization - can also overwrite existing model data. Nonetheless, scripted model changes can be helpful.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -557,18 +560,18 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.insert">
-<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfIns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xkFct=&lt;function</span> <span class="pre">Dx.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.insert" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfIns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xkFct=&lt;function</span> <span class="pre">fXk&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.insert" title="Permalink to this definition"></a></dt>
 <dd><p>Inserts into dbFile’s table (SQLite only)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>table</strong> (<em>str</em>) – table to insert to</p></li>
 <li><p><strong>dfIns</strong> (<em>df</em>) – df with insert data</p></li>
-<li><p><strong>xkFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=fXk</em>) – func to call row-wise to obtain (pk, rk, tk) for an record to insert</p></li>
+<li><p><strong>xkFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=Dx.fXk</em>) – func to call row-wise to obtain (pk, rk, tk) for an record to insert</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>rowsAffected, dfIns</p>
+<dd class="field-even"><p>rowsAffected, dfIns (a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values)</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -583,11 +586,10 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </ul>
 </dd>
 <dt>row-wise:</dt><dd><ul class="simple">
-<li><p>insert row into table</p></li>
+<li><p>insert into table</p></li>
 </ul>
 </dd>
 </dl>
-<p>dfIns returned: a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values</p>
 </div>
 </dd></dl>
 
@@ -605,7 +607,7 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted group assignment can be useful.</p>
+<p>Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

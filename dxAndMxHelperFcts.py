@@ -1444,9 +1444,8 @@ def readDxAndMx(dbFile
                 - G
                 - GSig
 
-        Selected functions of the returned dxWithMx object:
-                - setLayerContentTo(layerName,df): cols TYPE and ID are used in df to set the content of LAYR layerName in the SIR 3S database to df
-                - switchV3DfColsToMultiindex(): switch cols in m.V3_ROHR, m.V3_FWVB, m.V3_KNOT, m.V3_VBEL to Multiindex
+        Selected functions of the returned dxWithMx object:                
+                - switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex
                         
     """
     
