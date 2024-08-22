@@ -1408,8 +1408,8 @@ def readDxAndMx(dbFile
     :type mxsVecsResults2MxDfVecAggs: list, optional, default=None
     :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
     :type crs: str, optional, default=None
-    :param logPathOutputFct: logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
-    :type logPathOutputFct: function, optional
+    :param logPathOutputFct: func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
+    :type logPathOutputFct: func, optional, default=os.path.relpath
 
     :return: An object containing the SIR 3S model and SIR 3S results.
     :rtype: dxWithMx
@@ -1948,8 +1948,8 @@ def readMx(wDirMx, logPathOutputFct=os.path.relpath):
 
     :param wDirMx: Path to Mx-Directory. The results are read into a Mx object via the Mx files.
     :type wDirMx: str
-    :param logPathOutputFct: logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.
-    :type logPathOutputFct: function, optional
+    :param logPathOutputFct: func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.
+    :type logPathOutputFct: func, optional, default=os.path.relpath
 
     :return: Mx object with two attributes: 
              - mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)

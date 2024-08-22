@@ -64,9 +64,16 @@
 <li class="toctree-l4"><a class="reference internal" href="#v3-agsnvec">V3_AGSNVEC</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#v3-rohrvec">V3_ROHRVEC</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gdfs">gdfs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sir-3s-model-data">SIR 3S Model-Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Dataframes</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dflayr">dfLAYR</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a></li>
@@ -176,14 +183,6 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <li><p>gdf_ROHR: Pipes</p></li>
 <li><p>gdf_FWVB: Housestations District Heating</p></li>
 <li><p>gdf_KNOT: Nodes</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Dfs containing decoded BLOB-Data:</dt><dd><ul>
-<li><p>dfLAYR: one row per LAYR (Layer) and OBJ</p></li>
-<li><p>dfWBLZ: one row per WBLZ (heat balance) and OBJ</p></li>
 </ul>
 </dd>
 </dl>
@@ -436,27 +435,44 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._gdfs">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_gdfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._gdfs" title="Permalink to this definition"></a></dt>
-<dd><p>Create gdfs from the dfs: V3_FWVB,V3_ROHR,V3_KNOT. gdf_FWVB,gdf_ROHR,gdf_KNOT are dxWithMx object Attributes.</p>
+<dd><p>Create gdfs from V3-dfs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>(gdf_FWVB,gdf_ROHR,gdf_KNOT)</p>
+<dd class="field-even"><p>(gdf_FWVB, gdf_ROHR, gdf_KNOT)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple of gdfs</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>V3_FWVB, V3_ROHR, V3_KNOT and gdf_FWVB, gdf_ROHR, gdf_KNOT are dxWithMx object Attributes.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>V3_FWVB: gdf_FWVB</p></li>
+<li><p>V3_ROHR: gdf_ROHR</p></li>
+<li><p>V3_KNOT: gdf_KNOT</p></li>
+</ul>
+</div></blockquote>
+</div>
 </dd></dl>
 
 </section>
+</section>
+</section>
+<section id="sir-3s-model-data">
+<h2>SIR 3S Model-Data<a class="headerlink" href="#sir-3s-model-data" title="Permalink to this heading"></a></h2>
+<section id="id1">
+<h3>Dataframes<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <section id="dflayr">
 <h4>dfLAYR<a class="headerlink" href="#dflayr" title="Permalink to this heading"></a></h4>
 <dl class="py function">
-<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._dfLAYR">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._dfLAYR" title="Permalink to this definition"></a></dt>
-<dd><p>dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.</p>
+<dt class="sig sig-object py" id="Dx.Dx._dfLAYR">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx._dfLAYR" title="Permalink to this definition"></a></dt>
+<dd><p>dfLAYR: one row per LAYR and OBJ. dfLAYR is a dx object Attribute.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</p>
@@ -492,6 +508,117 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </dd></dl>
 
 </section>
+</section>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.update">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfUpd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updInverseValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.update" title="Permalink to this definition"></a></dt>
+<dd><p>Updates dbFile (SQLite only)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dfUpd</strong> (<em>df</em>) – df with update data</p>
+</dd>
+</dl>
+<p>:param updInverseValue:value to use for attribValue for inverse objects  
+:type updInverseValue: ?, optional, default=None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rowsAffectedTotal</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on the type/operation/parameterization - can also overwrite existing model data. Nonetheless, scripted model changes can be helpful.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>dfUpd’s cols used:            </dt><dd><ul class="simple">
+<li><p>table i.e. ‘FWVB’</p></li>
+<li><p>attrib i.e. ‘W0’</p></li>
+<li><p>attribValue i.e. 6.55</p></li>
+<li><p>xk i.e. ‘tk’</p></li>
+<li><p>xkValue i.e. 5423055592859548388</p></li>
+</ul>
+</dd>
+<dt>row-wise:</dt><dd><ul class="simple">
+<li><p>set attrib to attribValue in table where xk is xkValue</p></li>
+<li><p>update an attribute of an object</p></li>
+</ul>
+</dd>
+<dt>updInverseValue:</dt><dd><ul class="simple">
+<li><p>set attrib to updInverseValue for all objects of type table not mentioned in dfUpd</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.insert">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfIns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xkFct=&lt;function</span> <span class="pre">Dx.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.insert" title="Permalink to this definition"></a></dt>
+<dd><p>Inserts into dbFile’s table (SQLite only)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<em>str</em>) – table to insert to</p></li>
+<li><p><strong>dfIns</strong> (<em>df</em>) – df with insert data</p></li>
+<li><p><strong>xkFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=fXk</em>) – func to call row-wise to obtain (pk, rk, tk) for an record to insert</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffected, dfIns</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>New model mass data should be created via the SIR 3S import interfaces. Nevertheless, generating model mass data via script can be helpful.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>dfIns’ cols used:            </dt><dd><ul class="simple">
+<li><p>all cols which are also cols of table</p></li>
+</ul>
+</dd>
+<dt>row-wise:</dt><dd><ul class="simple">
+<li><p>insert row into table</p></li>
+</ul>
+</dd>
+</dl>
+<p>dfIns returned: a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.setLayerContentTo">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">setLayerContentTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layerName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.setLayerContentTo" title="Permalink to this definition"></a></dt>
+<dd><p>Updates content of layerName to df’s-content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>layerName</strong> (<em>str</em>) – name of an existing layer</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffected</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted group assignment can be useful.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>df’s cols used:            </dt><dd><ul class="simple">
+<li><p>TYPE</p></li>
+<li><p>ID</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
 </section>
 </section>
 <section id="sdfcsv">

@@ -116,9 +116,9 @@
              
   <section id="for-developers">
 <h1>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this heading"></a></h1>
-<p>Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S or use it in their own projects.</p>
+<p>Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S.</p>
 <ul class="simple">
-<li><p><strong>Contact</strong>: For additional information regarding PT3S, its documentation, and contribution inquiries, please contact <a class="reference external" href="mailto:Jablonski&#37;&#52;&#48;3sconsult&#46;de">Jablonski<span>&#64;</span>3sconsult<span>&#46;</span>de</a>.</p></li>
+<li><p><strong>Contact</strong>: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact <a class="reference external" href="mailto:jablonski&#37;&#52;&#48;3sconsult&#46;de">jablonski<span>&#64;</span>3sconsult<span>&#46;</span>de</a>.</p></li>
 <li><p><strong>GitHub Repository:</strong> You can find the source code and contribute to the project on our <a class="reference external" href="https://github.com/aw3s/PT3S">GitHub page</a>.</p></li>
 <li><p><strong>PyPI Project:</strong> The PT3S package is also available on <a class="reference external" href="https://pypi.org/project/PT3S">PyPI</a>.</p></li>
 </ul>
@@ -172,12 +172,12 @@
 <p>These instructions lay out the different steps of the GitHub procedure around contributing to PT3S. Especially due to the GitHub repository currentley sitting on only one branch (master), following these basic rules is crucial. As soon as PT3S has a higher amount of frequent contributors, a more suitable system with multiple branches will be implemented.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Before following each step for the first time, read their instructions fully including notes like this one. They are often able to prevent mistakes from happening. If an unexpected problem occurs, you can search the <a class="reference internal" href="#command-collection-label"><span class="std std-ref">Collection of Useful Git Commands</span></a> for a solution.</p>
+<p>Before following each step for the first time, read their instructions fully including notes like this one. If an unexpected problem occurs, you can search the <a class="reference internal" href="#command-collection-label"><span class="std std-ref">Collection of Useful Git Commands</span></a> for a solution.</p>
 </div>
 <p>Follow these steps every time you contribute to PT3S:</p>
 <ol class="arabic simple">
 <li><p><strong>Get the Latest Version from GitHub</strong>: <a class="reference internal" href="#get-latest-version-label"><span class="std std-ref">Get the Latest Version from GitHub</span></a></p></li>
-<li><p><strong>Edit PT3S</strong>: Now you can edit the entire PT3S project locally. Please ensure, that nobody else is working on the project simultaneously, because this could cause problems, when trying to commit.</p></li>
+<li><p><strong>Edit PT3S</strong>: Now you can edit the entire PT3S project locally. Please ensure, that nobody else is working on the project simultaneously in the same sourcefiles, because this could cause problems, when trying to commit.</p></li>
 <li><p><strong>Commit Your Changes to the GitHub Repository</strong>: <a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a></p></li>
 </ol>
 </section>
@@ -236,7 +236,7 @@
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you want to push multiple commits back to back, keep in mind that the PT3S GitHub repository uses <a class="reference internal" href="#github-workflow-label"><span class="std std-ref">GitHub Workflows</span></a> that might require you to fetch after committing to certain directories. These workflows can automatically author commits, so fetching ensures you have the latest changes. Alternatively you can check the <a class="reference internal" href="#current-workflow-label"><span class="std std-ref">Current Workflows</span></a> utilised by the GitHub Repository and whether the might be triggered by your commit.</p>
+<p>If you want to push multiple commits back to back, keep in mind that the PT3S GitHub repository uses <a class="reference internal" href="#github-workflow-label"><span class="std std-ref">GitHub Workflows</span></a> that might require you to fetch after committing to certain directories. Because workflows can automatically author commits, so fetching ensures you have the latest changes. Alternatively you can check the <a class="reference internal" href="#current-workflow-label"><span class="std std-ref">Current Workflows</span></a> utilised by the GitHub Repository and whether the might be triggered by your commit.</p>
 </div>
 </section>
 <section id="collection-of-useful-git-commands">
@@ -421,7 +421,7 @@
 </li>
 </ol>
 <p>Now, your package is installed in editable mode. This means that you can make changes to the source code of the package and those changes will take effect immediately without needing to reinstall the package.</p>
-<p>By installing PT3S in editable mode, a <cite>PT3S.egg-link</cite> file is created in the <cite>C:\Users\User\AppData\Local\anaconda3\Lib\site-packages</cite> directory. This file is a link to the project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this <cite>PT3S.egg-link</cite> file. Delete also the PT3S-line in easy-install.pth.</p>
+<p>By installing PT3S in editable mode, a <cite>PT3S.egg-link</cite> file is created in the <cite>C:\Users\User\AppData\Local\anaconda3\Lib\site-packages</cite> directory. This file is a link to your project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this <cite>PT3S.egg-link</cite> file. Delete also the PT3S-line in easy-install.pth.</p>
 </section>
 <section id="pt3s-s-documentation">
 <h2>PT3S’s Documentation<a class="headerlink" href="#pt3s-s-documentation" title="Permalink to this heading"></a></h2>
@@ -455,17 +455,13 @@
 </section>
 <section id="testing-example-notebooks">
 <h3>Testing Example Notebooks<a class="headerlink" href="#testing-example-notebooks" title="Permalink to this heading"></a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This part of the documentation is still in progress.</p>
-</div>
 <section id="initial-test-setup-process">
 <h4>Initial Test Setup Process<a class="headerlink" href="#initial-test-setup-process" title="Permalink to this heading"></a></h4>
-<p>To set up all necessary files and programs to run tests on Notebooks, follow these steps:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This is only of interest to 3sconsult employees, because certain necessary files are not publicly available.</p>
+<p>Not all files mentioned below are publicly available.</p>
 </div>
+<p>To set up all necessary files and programs to run tests on Notebooks, follow these steps:</p>
 <ol class="arabic">
 <li><p><strong>Setup Docker</strong>: Download and install Docker Desktop. There might be some issues that need fixing in Windows settings. Help from the technical team is advised.</p></li>
 <li><p><strong>Get Docker Files</strong>: Copy <cite>T:/interne_Projekte/PT3S/docker</cite> to <cite>C:/Users/User/3S</cite>.</p></li>
@@ -476,8 +472,8 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Build the Docker image</strong>: Run the following command in a cmd with the name you want to give to your Docker image (e.g., <cite>pt3stest</cite>). This process can take around half an hour. So make sure everything is set up properly.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>pt3stest<span class="w"> </span>.
+<li><p><strong>Build the Docker image</strong>: Run the following command in a cmd with the name you want to give to your Docker image (e.g., <cite>pt3stestPotsdam</cite>). This process can take around half an hour. So make sure everything is set up properly.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>pt3stestPotsdam<span class="w"> </span>.
 </pre></div>
 </div>
 </li>
@@ -498,14 +494,14 @@
 <p class="admonition-title">Note</p>
 <p>The port must differ from a local JupyterLab you might be running (use 8889:8888 instead).</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stest
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stestPotsdam
 </pre></div>
 </div>
 <p>The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.</p>
 <p>You now have access to a cmd running in the container environment. The <cite>-it</cite> option starts the container in interactive mode, and the <cite>–rm</cite> option removes the container after it exits.</p>
 </li>
 <li><p><strong>Start JupyterLab:</strong> Type the following command into a new cmd.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pt3stest<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pt3stestPotsdam<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
 </pre></div>
 </div>
 </li>
