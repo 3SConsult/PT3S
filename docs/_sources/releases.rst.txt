@@ -12,6 +12,22 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 - dxAndMxHelperFcts.dxWithMx._V3_AGSN: unnecessary exceptions when there is no data
 - readDxAndMx: gdfs not available in case of no result data
 
+
+**Changed:**
+
+- dxWithMx:
+    - setLayerContentTo: to Dx
+    - dfLAYR: to Dx
+    
+- Dx:
+    - setLayerContentTo: from dxWithMx
+    - dfLAYR: from dxWithMx
+
+**New:**
+    
+- Dx:
+    - importLayerContentFromOtherDb
+
 90.14.29.0.dev1
 ---------------
 
