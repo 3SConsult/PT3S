@@ -1,9 +1,9 @@
 For Developers
 ==============
 
-Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S or use it in their own projects. 
+Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S. 
 
-- **Contact**: For additional information regarding PT3S, its documentation, and contribution inquiries, please contact `Jablonski@3sconsult.de <mailto:Jablonski@3sconsult.de>`_.
+- **Contact**: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact `jablonski@3sconsult.de <mailto:jablonski@3sconsult.de>`_.
 
 - **GitHub Repository:** You can find the source code and contribute to the project on our `GitHub page <https://github.com/aw3s/PT3S>`_.
 
@@ -68,13 +68,13 @@ General GitHub Version Control Procedure
 These instructions lay out the different steps of the GitHub procedure around contributing to PT3S. Especially due to the GitHub repository currentley sitting on only one branch (master), following these basic rules is crucial. As soon as PT3S has a higher amount of frequent contributors, a more suitable system with multiple branches will be implemented.
 
 .. note::
-    Before following each step for the first time, read their instructions fully including notes like this one. They are often able to prevent mistakes from happening. If an unexpected problem occurs, you can search the :ref:`command-collection-label` for a solution.
+    Before following each step for the first time, read their instructions fully including notes like this one. If an unexpected problem occurs, you can search the :ref:`command-collection-label` for a solution.
 
 Follow these steps every time you contribute to PT3S:
 
 1. **Get the Latest Version from GitHub**: :ref:`get-latest-version-label`
 
-2. **Edit PT3S**: Now you can edit the entire PT3S project locally. Please ensure, that nobody else is working on the project simultaneously, because this could cause problems, when trying to commit.
+2. **Edit PT3S**: Now you can edit the entire PT3S project locally. Please ensure, that nobody else is working on the project simultaneously in the same sourcefiles, because this could cause problems, when trying to commit.
 
 3. **Commit Your Changes to the GitHub Repository**: :ref:`commit-changes-label`
 
@@ -142,7 +142,7 @@ To commit your changes to the GitHub repository, follow these steps:
       git push origin master
 
 .. note::
-    If you want to push multiple commits back to back, keep in mind that the PT3S GitHub repository uses :ref:`github-workflow-label` that might require you to fetch after committing to certain directories. These workflows can automatically author commits, so fetching ensures you have the latest changes. Alternatively you can check the :ref:`current-workflow-label` utilised by the GitHub Repository and whether the might be triggered by your commit.
+    If you want to push multiple commits back to back, keep in mind that the PT3S GitHub repository uses :ref:`github-workflow-label` that might require you to fetch after committing to certain directories. Because workflows can automatically author commits, so fetching ensures you have the latest changes. Alternatively you can check the :ref:`current-workflow-label` utilised by the GitHub Repository and whether the might be triggered by your commit.
 
 .. _command-collection-label:
 
@@ -317,7 +317,7 @@ After :ref:`cloning-github-label`, you can install the package in editable mode.
 
 Now, your package is installed in editable mode. This means that you can make changes to the source code of the package and those changes will take effect immediately without needing to reinstall the package.
 
-By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to the project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this `PT3S.egg-link` file. Delete also the PT3S-line in easy-install.pth.
+By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to your project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this `PT3S.egg-link` file. Delete also the PT3S-line in easy-install.pth.
 
 PT3S's Documentation
 --------------------
@@ -360,16 +360,13 @@ The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <h
 Testing Example Notebooks
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. note::
-    This part of the documentation is still in progress.
-
 Initial Test Setup Process
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To set up all necessary files and programs to run tests on Notebooks, follow these steps:
-
 .. note::
-    This is only of interest to 3sconsult employees, because certain necessary files are not publicly available.
+    Not all files mentioned below are publicly available.
+
+To set up all necessary files and programs to run tests on Notebooks, follow these steps:
 
 1. **Setup Docker**: Download and install Docker Desktop. There might be some issues that need fixing in Windows settings. Help from the technical team is advised.
 
@@ -385,11 +382,11 @@ To set up all necessary files and programs to run tests on Notebooks, follow the
 
        cd C:/Users/User/3S/docker
 
-6. **Build the Docker image**: Run the following command in a cmd with the name you want to give to your Docker image (e.g., `pt3stest`). This process can take around half an hour. So make sure everything is set up properly.
+6. **Build the Docker image**: Run the following command in a cmd with the name you want to give to your Docker image (e.g., `pt3stestPotsdam`). This process can take around half an hour. So make sure everything is set up properly.
 
    .. code-block:: bash
 
-       docker build -t pt3stest .
+       docker build -t pt3stestPotsdam .
 
 .. This is the Dockerfile that is being built:
 
@@ -417,7 +414,7 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 
    .. code-block:: bash
 
-      docker run -it --rm -p 8889:8888 pt3stest
+      docker run -it --rm -p 8889:8888 pt3stestPotsdam
 
    The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.
 
@@ -427,7 +424,7 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 
    .. code-block:: bash
 
-      docker exec -it pt3stest python -m jupyter lab --ip=0.0.0.0 --allow-root
+      docker exec -it pt3stestPotsdam python -m jupyter lab --ip=0.0.0.0 --allow-root
 
 5. **Open in local Browser**: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.
 

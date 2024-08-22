@@ -93,7 +93,7 @@ class dxWithMx():
             self.dx = dx
             self.mx = mx
             
-            self.dfLAYR=self._dfLAYR()    
+            #self.dfLAYR=self._dfLAYR()    
             
             self.dfWBLZ=dxDecodeObjsData.Wblz(self.dx)
             self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)            
@@ -666,62 +666,69 @@ class dxWithMx():
             logger.debug(f"{logStr}_Done.") 
 
 
-    def _dfLAYR(self):
-        """
-        dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.
+    # def _dfLAYR(self):
+    #     """
+    #     dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.
                 
-        .. note:: 
+    #     .. note:: 
             
-            The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
+    #         The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
                 
-                 LAYR:
-                     - pk
-                     - tk
-                     - LFDNR (numeric)
-                     - NAME
+    #              LAYR:
+    #                  - pk
+    #                  - tk
+    #                  - LFDNR (numeric)
+    #                  - NAME
                 
-                 LAYR-Info:
-                     - AnzDerObjekteInGruppe
-                     - AnzDerObjekteDesTypsInGruppe
+    #              LAYR-Info:
+    #                  - AnzDerObjekteInGruppe
+    #                  - AnzDerObjekteDesTypsInGruppe
                 
-                 OBJ:
-                     - TYPE
-                     - ID
+    #              OBJ:
+    #                  - TYPE
+    #                  - ID
                 
-                 OBJ-Info:
-                     - NrDesObjektesDesTypsInGruppe
-                     - NrDesObjektesInGruppe
-                     - GruppenDesObjektsAnz
-                     - GruppenDesObjektsNamen       
+    #              OBJ-Info:
+    #                  - NrDesObjektesDesTypsInGruppe
+    #                  - NrDesObjektesInGruppe
+    #                  - GruppenDesObjektsAnz
+    #                  - GruppenDesObjektsNamen       
                       
-        """   
+    #     """   
                 
-        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug(f"{logStr}Start.") 
+    #     logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+    #     logger.debug(f"{logStr}Start.") 
         
-        try: 
-            dfLAYR=pd.DataFrame()
-            dfLAYR=dxDecodeObjsData.Layr(self.dx)                                   
-            return dfLAYR     
-        except dxWithMxError:
-            raise            
-        except Exception as e:
-            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-            logger.debug(logStrFinal) 
-            raise dxWithMxError(logStrFinal)                       
-        finally:
-            logger.debug(f"{logStr}_Done.") 
+    #     try: 
+    #         dfLAYR=pd.DataFrame()
+    #         dfLAYR=dxDecodeObjsData.Layr(self.dx)                                   
+    #         return dfLAYR     
+    #     except dxWithMxError:
+    #         raise            
+    #     except Exception as e:
+    #         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+    #         logger.debug(logStrFinal) 
+    #         raise dxWithMxError(logStrFinal)                       
+    #     finally:
+    #         logger.debug(f"{logStr}_Done.") 
 
 
     def _gdfs(self,crs=None):
         """
-        Create gdfs from the dfs: V3_FWVB,V3_ROHR,V3_KNOT. gdf_FWVB,gdf_ROHR,gdf_KNOT are dxWithMx object Attributes.
-
+        Create gdfs from V3-dfs.
+        
         :param crs: (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
         :type crs: str, optional, default=None  
         
-        :return: (gdf_FWVB,gdf_ROHR,gdf_KNOT)
-        :rtype: tuple of gdfs                                                  
+        :return: (gdf_FWVB, gdf_ROHR, gdf_KNOT)
+        :rtype: tuple of gdfs         
+
+        .. note:: 
+            V3_FWVB, V3_ROHR, V3_KNOT and gdf_FWVB, gdf_ROHR, gdf_KNOT are dxWithMx object Attributes.
+            
+                - V3_FWVB: gdf_FWVB
+                - V3_ROHR: gdf_ROHR
+                - V3_KNOT: gdf_KNOT                
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -1274,44 +1281,53 @@ class dxWithMx():
         finally:
             logger.debug(f"{logStr}_Done.") 
 
-
-    def setLayerContentTo(self,layerName,df):
-        """
-        Updates layerName to df's-Content. df's cols TYPE and ID are used.               
-        """        
+    # def setLayerContentTo(self,layerName,df):          
+    #     """
+    #     Updates content of layerName to df's-content.
+        
+    #     :param layerName: name of an existing layer
+    #     :type layerName: str
+        
+    #     :return: None
+    
+    #     .. note:: 
+    #         df's cols used:            
+    #             - TYPE 
+    #             - ID                 
+    #     """           
                 
-        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+    #     logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+    #     logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
         
-        try: 
+    #     try: 
                   
-           xk=self.dfLAYR[self.dfLAYR['NAME'].isin([layerName])]['tk'].iloc[0]
+    #         xk=self.dfLAYR[self.dfLAYR['NAME'].isin([layerName])]['tk'].iloc[0]
             
-           dfUpd=df.copy(deep=True)
+    #         dfUpd=df.copy(deep=True)
             
-           dfUpd['table']='LAYR'
-           dfUpd['attrib']='OBJS'
-           dfUpd['attribValue']=dfUpd.apply(lambda row: "{:s}~{:s}\t".format(row['TYPE'],row['ID']).encode('utf-8'),axis=1)
-           dfUpd['xk']='tk'
-           dfUpd['xkValue']=xk    
+    #         dfUpd['table']='LAYR'
+    #         dfUpd['attrib']='OBJS'
+    #         dfUpd['attribValue']=dfUpd.apply(lambda row: "{:s}~{:s}\t".format(row['TYPE'],row['ID']).encode('utf-8'),axis=1)
+    #         dfUpd['xk']='tk'
+    #         dfUpd['xkValue']=xk    
             
-           dfUpd2=dfUpd.groupby(by=['xkValue']).agg({'xkValue': 'first'
-                                               ,'table': 'first'
-                                               ,'attrib': 'first'
-                                               ,'xk': 'first'
-                                               , 'attribValue': 'sum'}).reset_index(drop=True)
-           dfUpd2['attribValue']=dfUpd2['attribValue'].apply(lambda x: x.rstrip())
+    #         dfUpd2=dfUpd.groupby(by=['xkValue']).agg({'xkValue': 'first'
+    #                                             ,'table': 'first'
+    #                                             ,'attrib': 'first'
+    #                                             ,'xk': 'first'
+    #                                             , 'attribValue': 'sum'}).reset_index(drop=True)
+    #         dfUpd2['attribValue']=dfUpd2['attribValue'].apply(lambda x: x.rstrip())
               
-           self.dx.update(dfUpd2)               
+    #         self.dx.update(dfUpd2)               
         
-        except dxWithMxError:
-            raise            
-        except Exception as e:
-            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-            logger.error(logStrFinal) 
-            raise dxWithMxError(logStrFinal)                       
-        finally:
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))      
+    #     except dxWithMxError:
+    #         raise            
+    #     except Exception as e:
+    #         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+    #         logger.error(logStrFinal) 
+    #         raise dxWithMxError(logStrFinal)                       
+    #     finally:
+    #         logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))      
             
             
     def switchV3DfColsToMultiindex(self):
@@ -1423,11 +1439,7 @@ def readDxAndMx(dbFile
                 - gdf_ROHR: Pipes
                 - gdf_FWVB: Housestations District Heating
                 - gdf_KNOT: Nodes 
-                    
-            - Dfs containing decoded BLOB-Data:
-                - dfLAYR: one row per LAYR (Layer) and OBJ
-                - dfWBLZ: one row per WBLZ (heat balance) and OBJ                
-                
+                                                
             - NetworkX-Graphs:
                 - G
                 - GSig

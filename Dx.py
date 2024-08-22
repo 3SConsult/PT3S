@@ -22,6 +22,8 @@ import pandas as pd
 import re
 import sys
 import os
+
+import uuid
 #import warnings
 __version__ = '90.14.25.0.dev1'
 
@@ -56,6 +58,18 @@ except ImportError:
 #vVBEL_edges =['ROHR','VENT','FWVB','FWES','PUMP','KLAP','REGV','PREG','MREG','DPRG','PGRP']
 #vVBEL_edgesD=[''    ,'DN'  ,''    ,'DN'  ,''    ,'DN'  ,'DN'  ,'DN'  ,'DN'  ,'DN'  ,'']
 
+try:
+    from PT3S import dxDecodeObjsData
+except:
+    import dxDecodeObjsData
+
+def fXk(row):
+        """
+        :param row: a df's row     
+        :return: (pk,rk,tk)                
+        """    
+        xk=str(uuid.uuid1().int>>63)
+        return(xk,xk,xk)
 
 class DxError(Exception):
     def __init__(self, value):
@@ -518,6 +532,10 @@ class Dx():
                 notPairViewsProbablyNotSir3sTables)
 
             con.close()
+  
+            # #############################################################
+            # #############################################################
+            self.dfLAYR=self._dfLAYR()    
 
             # #############################################################
             # #############################################################
@@ -1173,7 +1191,7 @@ class Dx():
                 try:
                     self.QGISmodelXk=sk[sk['ID'].isin([3,3.])]['WERT'].iloc[0]
                 except:
-                    logger.info("{logStr:s} SYSTEMKONFIG ID 3 not defined. Value (ID==3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined ...".format(logStr=logStr))
+                    logger.info("{logStr:s} SYSTEMKONFIG ID 3 not defined. Value(ID=3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined ...".format(logStr=logStr))
                     self.QGISmodelXk=None
                 
             except Exception as e:
@@ -1188,6 +1206,53 @@ class Dx():
             raise DxError(logStrFinal)
         finally:
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.#########'))
+
+
+    def _dfLAYR(self):
+        """
+        dfLAYR: one row per LAYR and OBJ. dfLAYR is a dx object Attribute.
+                
+        .. note:: 
+            
+            The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
+                
+                 LAYR:
+                     - pk
+                     - tk
+                     - LFDNR (numeric)
+                     - NAME
+                
+                 LAYR-Info:
+                     - AnzDerObjekteInGruppe
+                     - AnzDerObjekteDesTypsInGruppe
+                
+                 OBJ:
+                     - TYPE
+                     - ID
+                
+                 OBJ-Info:
+                     - NrDesObjektesDesTypsInGruppe
+                     - NrDesObjektesInGruppe
+                     - GruppenDesObjektsAnz
+                     - GruppenDesObjektsNamen       
+                      
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try: 
+            dfLAYR=pd.DataFrame()
+            dfLAYR=dxDecodeObjsData.Layr(self)                                   
+            return dfLAYR     
+        except DxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal) 
+            raise DxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
 
     def MxSync(self, mx):
         """
@@ -1795,52 +1860,81 @@ class Dx():
             logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
             return df
 
-    def update(self,dfUpd,updInverseValue=None):               
+    def dbFileMutable(self):       
         """
-        Updates (nur für SQLite Datenbanken)
-        
-        Args:
-        -----
-            * dfUpd: df with update data
-            * requested cols:
-                * table i.e. 'FWVB'
-                * attrib i.e. 'W0'   
-                * attribValue i.e. 6.55
-                * xk i.e. 'tk'
-                * xkValue i.e. 5423055592859548388
-            * updInverseValue:
-                * wenn nicht NULL, werden alle Komplemente auf den Wert gesetzt
+        Checks if dbFile is mutable
                 
-        Raises
-        ------
-        DxError
-
-        Returns
-        -------
-            * rowsAffectedTotal
-
-        """
-
+        :return: True/False       
+        """           
+        
         logStr = "{0:s}.{1:s}: ".format(
             self.__class__.__name__, sys._getframe().f_code.co_name)
         logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
 
         try:
             if os.path.exists(self.dbFile):
-                if os.access(self.dbFile, os.W_OK):
-                    pass
+                if os.access(self.dbFile, os.W_OK):                    
+                    # das dbFile existiert und ist lesbar
+                    logger.debug("{:s}dbFile: {:s} exists and is mutable".format(
+                        logStr, self.dbFile))                
+                    return True            
                 else:
-                    logStrFinal="{:s}dbFile: {:s}: Not writable.".format(logStr,self.dbFile)   
-                    raise DxError(logStrFinal)
-           
-            # das dbFile existiert und ist lesbar
-            logger.debug("{:s}dbFile: {:s} existiert und ist beschreibbar".format(
-                logStr, self.dbFile))
-            
+                    logger.debug("{:s}dbFile: {:s} exists but is not mutable".format(
+                        logStr, self.dbFile))                         
+                    return False
+            else:
+                logger.debug("{:s}dbFile: {:s} not existing".format(
+                    logStr, self.dbFile))                         
+                return False                                       
+        except Exception as e:
+           logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+               logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+           logger.error(logStrFinal)    
+        finally:
+           logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))                             
+
+
+    def update(self,dfUpd,updInverseValue=None):       
+        """
+        Updates dbFile (SQLite only)
+        
+        :param dfUpd: df with update data 
+        :type dfUpd: df                 
+        :param updInverseValue:value to use for attribValue for inverse objects  
+        :type updInverseValue: ?, optional, default=None 
+        
+        :return: rowsAffectedTotal
+        
+        .. note:: 
+            Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on the type/operation/parameterization - can also overwrite existing model data. Nonetheless, scripted model changes can be helpful.
+
+        .. note:: 
+            dfUpd's cols used:            
+                - table i.e. 'FWVB'
+                - attrib i.e. 'W0'
+                - attribValue i.e. 6.55
+                - xk i.e. 'tk'
+                - xkValue i.e. 5423055592859548388
+            row-wise:
+                - set attrib to attribValue in table where xk is xkValue
+                - update an attribute of an object
+            updInverseValue:
+                - set attrib to updInverseValue for all objects of type table not mentioned in dfUpd                
+        """           
+        
+        logStr = "{0:s}.{1:s}: ".format(
+            self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+
+        try:
+            if not self.dbFileMutable():            
+                logStrFinal="{:s}dbFile: {:s}: not existing or not mutable".format(logStr,self.dbFile)   
+                raise DxError(logStrFinal)
+                       
             dummy, ext = os.path.splitext(self.dbFile)
 
             if ext != '.db3':
-                 logStrFinal = "{:s}Update-Funktion nur fuer .db3 implementiert!".format(logStr)
+                 logStrFinal = "{:s}Function only implemented for SQLite (.db3)".format(logStr)
                  raise DxError(logStrFinal)                
                            
             con = sqlite3.connect(self.dbFile)
@@ -1893,6 +1987,8 @@ class Dx():
 
             finally:
                 con.close()
+            
+            return rowsAffectedTotal
 
         except Exception as e:
            logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
@@ -1901,7 +1997,217 @@ class Dx():
     
         finally:
            logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))      
-           return rowsAffectedTotal
+           #return rowsAffectedTotal
+       
+       
+    def insert(self,table,dfIns,xkFct=lambda row: fXk(row)):       
+        """
+        Inserts into dbFile's table (SQLite only)
+        
+        :param table: table to insert to 
+        :type table: str 
+        :param dfIns: df with insert data 
+        :type dfIns: df   
+        :param xkFct: func to call row-wise to obtain (pk, rk, tk) for an record to insert
+        :type xkFct: func, optional, default=fXk      
+        
+        :return: rowsAffected, dfIns
+
+        .. note:: 
+            New model mass data should be created via the SIR 3S import interfaces. Nevertheless, generating model mass data via script can be helpful.
+
+        .. note:: 
+            dfIns' cols used:            
+                - all cols which are also cols of table                
+            row-wise:
+                - insert row into table    
+            dfIns returned: a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values
+        """           
+        
+        logStr = "{0:s}.{1:s}: ".format(
+            self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+
+        try:
+            if not self.dbFileMutable():            
+                logStrFinal="{:s}dbFile: {:s}: not existing or not mutable".format(logStr,self.dbFile)   
+                raise DxError(logStrFinal)
+                       
+            dummy, ext = os.path.splitext(self.dbFile)
+
+            if ext != '.db3':
+                 logStrFinal = "{:s}Function only implemented for SQLite (.db3)".format(logStr)
+                 raise DxError(logStrFinal)             
+            
+
+            rowsAffected=None
+                                       
+            dfToIns=self.dataFrames[table]
+            cols=dfToIns.columns.to_list()
+            colList=':'+cols[0]
+            for col in cols[1:]:
+                colList=colList+','+':'+col
+            sql = '''INSERT OR REPLACE INTO {table:s} VALUES({colList:s})'''.format(table=table,colList=colList)
+            logger.debug("{:s}sql: {:s}".format(logStr,sql))
+            
+            # Kopie der einzufuegenden Zeilen
+            dfIns=dfIns.copy(deep=True).reset_index(drop=True)
+            # # Original-Xks merken
+            # for col in ['pk','rk','tk']:
+            #     if col in cols:
+            #         dfIns[col+'Orig']=dfIns[col]
+            
+            data=dfIns.to_dict(orient='records')
+            
+            # Original-Xks merken
+            for col in ['pk','rk','tk']:
+                if col in cols:
+                    dfIns[col+'Orig']=dfIns[col]            
+            
+            for index,recordDct in enumerate(data):            
+                row=dfIns.loc[index,:]
+                (pk,rk,tk)=xkFct(row)
+                for xkValue,xkCol in zip((pk,rk,tk),['pk','rk','tk']):
+                    if xkCol in cols:
+                        # Xks setzen 
+                        recordDct[xkCol]=xkValue  
+                        # Xks merken
+                        dfIns.loc[index,xkCol]=xkValue 
+            data=tuple(data)   
+            logger.debug("{:s}data: {:s}".format(logStr,str(data)))
+                                
+            con = sqlite3.connect(self.dbFile)
+            
+            def insertFct(con,sql,data):
+                """
+                """
+                
+                rowsAffected=None
+                
+                cur = con.cursor()
+                cur=cur.executemany(sql, data)
+                rowsAffected=cur.rowcount
+                con.commit()
+            
+                return rowsAffected            
+                                    
+            try:                                
+                rowsAffected=insertFct(con,sql,data)                                                      
+            except Exception as e:
+                logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+                    logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+                logger.error(logStrFinal)
+
+            finally:
+                con.close()
+            
+            return rowsAffected,dfIns 
+
+        except Exception as e:
+           logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+               logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+           logger.error(logStrFinal)
+    
+        finally:
+           logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))      
+           #return rowsAffected        
+
+    def setLayerContentTo(self,layerName,df):          
+        """
+        Updates content of layerName to df's-content.
+        
+        :param layerName: name of an existing layer
+        :type layerName: str
+        
+        :return: rowsAffected
+        
+        .. note:: 
+            Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted group assignment can be useful.
+
+        .. note:: 
+            df's cols used:            
+                - TYPE 
+                - ID                 
+        """           
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        
+        try: 
+            
+            rowsAffected=None
+            
+            dfTmp=self.dfLAYR[self.dfLAYR['NAME'].isin([layerName])]
+            
+            if dfTmp.empty:                
+                logger.debug("{0:s}Layer {1:s} not existing. Maybe (Re-)Processing the dbFile to Dx is necessary...".format(logStr,layerName)) 
+            else:
+            
+                xk=dfTmp['tk'].iloc[0]
+                
+                dfUpd=df.copy(deep=True)
+                
+                dfUpd['table']='LAYR'
+                dfUpd['attrib']='OBJS'
+                dfUpd['attribValue']=dfUpd.apply(lambda row: "{:s}~{:s}\t".format(row['TYPE'],row['ID']).encode('utf-8'),axis=1)
+                dfUpd['xk']='tk'
+                dfUpd['xkValue']=xk    
+                
+                dfUpd2=dfUpd.groupby(by=['xkValue']).agg({'xkValue': 'first'
+                                                    ,'table': 'first'
+                                                    ,'attrib': 'first'
+                                                    ,'xk': 'first'
+                                                    , 'attribValue': 'sum'}).reset_index(drop=True)
+                dfUpd2['attribValue']=dfUpd2['attribValue'].apply(lambda x: x.rstrip())
+                  
+                rowsAffected=self.update(dfUpd2)  
+                
+                return rowsAffected
+        
+        except DxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise DxError(logStrFinal)                       
+        finally:
+            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))      
+
+
+    def importLayerContentFromOtherDb(self,dbFileOther,layerNameOther):          
+        """
+        Imports all objects of layer layerNameOther from dbFileOther into dbFile (SQLite only)
+        
+        :param dbFileOther: other SIR 3S dbFile
+        :type dbFileOther: str
+        :param layerNameOther: name of an existing layer in dbFileOther
+        :type layerNameOther: str
+        
+        :return: None
+
+        .. note:: 
+            All objects in layerNameOther of type table are imported in table and table_BZ by insert into.
+            If layerNameOther is not existing the layer itself is imported too.                          
+        """           
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        
+        try: 
+            
+            pass
+                  
+        
+        
+        except DxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise DxError(logStrFinal)                       
+        finally:
+            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))      
+
 
 
 def fHelperSqlText(sql, ext='.db3'):
