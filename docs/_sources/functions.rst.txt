@@ -40,10 +40,29 @@ V3_ROHRVEC
 gdfs
 """"
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._gdfs
+
+
+SIR 3S Model-Data
+------------------
+
+Dataframes
+~~~~~~~~~~
+
 dfLAYR
 """"""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._dfLAYR
+.. autofunction:: Dx.Dx._dfLAYR
+
+
+Methods
+~~~~~~~
+
+.. autofunction:: Dx.Dx.update
+.. autofunction:: Dx.Dx.insert
+.. autofunction:: Dx.Dx.setLayerContentTo
+.. autofunction:: Dx.Dx.insertLayerContentFromOtherDb
+
 
 SdfCsv
 ------
+
 .. autofunction:: sdfCsv.SdfCsv.__init__
