@@ -300,7 +300,7 @@ Follow these steps to upload a new version of your project to PyPI:
 
 .. _install-editmode-label:
 
-7. **Test the Deployment:** Follow the steps in :ref:`test-the-deployment-label`:
+7. **Test the Deployment:** Follow the steps in :ref:`test-the-deployment-label`
 
 Installing PT3S in Editable Mode
 --------------------------------
