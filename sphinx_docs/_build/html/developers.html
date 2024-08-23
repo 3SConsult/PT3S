@@ -79,7 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#installing-pt3s-in-editable-mode">Installing PT3S in Editable Mode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pt3s-s-documentation">PT3S’s Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#generating-the-documentation">Generating the Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#testing-example-notebooks">Testing Example Notebooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#testing-the-deployment">Testing the Deployment</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#initial-test-setup-process">Initial Test Setup Process</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#running-tests">Running Tests</a></li>
 </ul>
@@ -165,7 +165,7 @@
 </div>
 </li>
 </ol>
-<p>Now, you are advised to following the steps of <a class="reference internal" href="#install-editmode-label"><span class="std std-ref">Installing PT3S in Editable Mode</span></a>.</p>
+<p>Now, you are advised to following the steps of <span class="xref std std-ref">install-editmode-label</span>.</p>
 </section>
 <section id="general-github-version-control-procedure">
 <h3>General GitHub Version Control Procedure<a class="headerlink" href="#general-github-version-control-procedure" title="Permalink to this heading"></a></h3>
@@ -373,7 +373,8 @@
 <p>On the <a class="reference internal" href="releases.html"><span class="doc">Releases</span></a> page you can view how this rst code is transformed into html.</p>
 <ol class="arabic simple" start="2">
 <li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py</p></li>
-<li><p><strong>Generate the Documentation:</strong> Follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p></li>
+<li><p><strong>Test the Examples:</strong> Make sure that all examples included in the documentation are running</p></li>
+<li><p><strong>Generate the Documentation:</strong> Follow the steps in <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p></li>
 </ol>
 </section>
 <section id="upload-a-new-version-to-pypi">
@@ -403,10 +404,13 @@
 <p class="admonition-title">Note</p>
 <p>Make sure to keep your API token secure and do not hard-code it in your scripts or code. It’s best to set it as an environment variable or store it in a secret configuration file.</p>
 </div>
+<ol class="arabic simple" id="install-editmode-label" start="7">
+<li><p><strong>Test the Deployment:</strong> Follow the steps in <a class="reference internal" href="#test-the-deployment-label"><span class="std std-ref">Testing the Deployment</span></a>:</p></li>
+</ol>
 </section>
 </section>
 <section id="installing-pt3s-in-editable-mode">
-<span id="install-editmode-label"></span><h2>Installing PT3S in Editable Mode<a class="headerlink" href="#installing-pt3s-in-editable-mode" title="Permalink to this heading"></a></h2>
+<h2>Installing PT3S in Editable Mode<a class="headerlink" href="#installing-pt3s-in-editable-mode" title="Permalink to this heading"></a></h2>
 <p>After <a class="reference internal" href="#cloning-github-label"><span class="std std-ref">Cloning the GitHub Repository</span></a>, you can install the package in editable mode. Here are the steps:</p>
 <ol class="arabic">
 <li><p><strong>Navigate to the Directory of the Cloned Repository:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command followed by the path to the directory of your project.</p>
@@ -453,8 +457,8 @@
 <p>The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by one of our <a class="reference internal" href="#github-workflow-label"><span class="std std-ref">GitHub Workflows</span></a> and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.</p>
 </div>
 </section>
-<section id="testing-example-notebooks">
-<h3>Testing Example Notebooks<a class="headerlink" href="#testing-example-notebooks" title="Permalink to this heading"></a></h3>
+<section id="testing-the-deployment">
+<span id="test-the-deployment-label"></span><h3>Testing the Deployment<a class="headerlink" href="#testing-the-deployment" title="Permalink to this heading"></a></h3>
 <section id="initial-test-setup-process">
 <h4>Initial Test Setup Process<a class="headerlink" href="#initial-test-setup-process" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
