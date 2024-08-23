@@ -260,7 +260,9 @@ On the :doc:`releases` page you can view how this rst code is transformed into h
 
 2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py
 
-3. **Generate the Documentation:** Follow the steps of :ref:`generating-documentation-label`.
+3. **Test the Examples:** Make sure that all examples included in the documentation are running 
+
+4. **Generate the Documentation:** Follow the steps in :ref:`generating-documentation-label`.
   
         
 Upload a New Version to PyPI
@@ -297,6 +299,8 @@ Follow these steps to upload a new version of your project to PyPI:
    Make sure to keep your API token secure and do not hard-code it in your scripts or code. It's best to set it as an environment variable or store it in a secret configuration file.
 
 .. _install-editmode-label:
+
+7. **Test the Deployment:** Follow the steps in :ref:`test-the-deployment-label`:
 
 Installing PT3S in Editable Mode
 --------------------------------
@@ -357,8 +361,10 @@ The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <h
 
    The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by one of our :ref:`github-workflow-label` and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
    
-Testing Example Notebooks
-~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _test-the-deployment-label:
+
+Testing the Deployment
+~~~~~~~~~~~~~~~~~~~~~~
 
 Initial Test Setup Process
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
