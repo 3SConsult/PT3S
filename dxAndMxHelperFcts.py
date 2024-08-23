@@ -75,14 +75,14 @@ class dxWithMx():
     """
     def __init__(self,dx,mx,crs=None):
         """
-        :param dx: a dx object
+        :param dx: a Dx object
         :type dx: Dx.Dx()
-        :param mx: a mx object
+        :param mx: a Mx object
         :type mx: Mx.Mx()        
         :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
         :type crs: str, optional, default=None  
                       
-        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for dx with attached mx  
+        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for Dx with attached Mx  
                         
         """        
         
@@ -491,7 +491,7 @@ class dxWithMx():
         """
         V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.
         
-        :param V3_ROHR: 
+        :param V3_ROHR: dxWithMx Attribute
         :type V3_ROHR: df
         
         :return: V3_ROHRVEC
@@ -790,7 +790,7 @@ class dxWithMx():
         """
         V3_AGSN: Create V3_AGSN from dfAGSN. V3_AGSN is a dxWithMx object Attribute.
         
-        :param dfAGSN: 
+        :param dfAGSN: dxWithMx attribute
         :type dfAGSN: df
         
         :return: V3_AGSN: dfAGSN expanded to V3_AGSN.
@@ -1071,7 +1071,7 @@ class dxWithMx():
         """
         V3_AGSNVEC: Create V3_AGSNVEC from V3_AGSN. V3_AGSNVEC is a dxWithMx object Attribute.
         
-        :param V3_AGSN: 
+        :param V3_AGSN: dxWithMx attribute
         :type V3_AGSN: df
         
         :return: V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC.

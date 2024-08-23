@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.29.0.dev1 documentation</title>
+  <title>dxAndMxHelperFcts &mdash; PT3S 90.14.30.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -158,14 +158,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param dx: a dx object</span>
+<span class="sd">        :param dx: a Dx object</span>
 <span class="sd">        :type dx: Dx.Dx()</span>
-<span class="sd">        :param mx: a mx object</span>
+<span class="sd">        :param mx: a Mx object</span>
 <span class="sd">        :type mx: Mx.Mx()        </span>
 <span class="sd">        :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:&#39;EPSG:25832&#39;). If None, crs will be read from SIR 3S&#39; database file.</span>
 <span class="sd">        :type crs: str, optional, default=None  </span>
 <span class="sd">                      </span>
-<span class="sd">        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for dx with attached mx  </span>
+<span class="sd">        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for Dx with attached Mx  </span>
 <span class="sd">                        </span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         
@@ -574,7 +574,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
-<span class="sd">        :param V3_ROHR: </span>
+<span class="sd">        :param V3_ROHR: dxWithMx Attribute</span>
 <span class="sd">        :type V3_ROHR: df</span>
 <span class="sd">        </span>
 <span class="sd">        :return: V3_ROHRVEC</span>
@@ -873,7 +873,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_AGSN: Create V3_AGSN from dfAGSN. V3_AGSN is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
-<span class="sd">        :param dfAGSN: </span>
+<span class="sd">        :param dfAGSN: dxWithMx attribute</span>
 <span class="sd">        :type dfAGSN: df</span>
 <span class="sd">        </span>
 <span class="sd">        :return: V3_AGSN: dfAGSN expanded to V3_AGSN.</span>
@@ -1154,7 +1154,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_AGSNVEC: Create V3_AGSNVEC from V3_AGSN. V3_AGSNVEC is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
-<span class="sd">        :param V3_AGSN: </span>
+<span class="sd">        :param V3_AGSN: dxWithMx attribute</span>
 <span class="sd">        :type V3_AGSN: df</span>
 <span class="sd">        </span>
 <span class="sd">        :return: V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC.</span>

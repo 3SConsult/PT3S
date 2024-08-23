@@ -233,8 +233,8 @@ Working with PyPI
          
 .. _version-control-label:    
           
-Version Control
-~~~~~~~~~~~~~~~
+Release a New Version
+~~~~~~~~~~~~~~~~~~~~~
 
 Before uploading a new release to PyPI, follow these steps:
 

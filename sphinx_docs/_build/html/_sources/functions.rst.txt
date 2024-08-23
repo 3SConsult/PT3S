@@ -49,7 +49,7 @@ Dataframes
 ~~~~~~~~~~
 
 .. note::
-    Currently, by far not all dataframes that are attributes of a Dx object are documented. These will be added in the future.
+    Currently, by far not all dfs that are attributes of a Dx object are documented. These will be added in the future.
 
 dfLAYR
 """"""

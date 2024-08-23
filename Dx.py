@@ -1907,7 +1907,7 @@ class Dx():
         :return: rowsAffectedTotal
         
         .. note:: 
-            Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on type/operation/parameterization - can also overwrite existing model data. Nonetheless, scripted model changes can be helpful.
+            Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on type/operation/parameterization - can also overwrite (update) existing model data. Nonetheless, scripted model changes can be helpful.
 
         .. note:: 
             dfUpd's cols used:            
@@ -2003,7 +2003,7 @@ class Dx():
        
     def insert(self,table,dfIns,xkFct=fXk):       
         """
-        Inserts into dbFile's table (SQLite only)
+        Inserts into a dbFile's table (SQLite only)
         
         :param table: table to insert to 
         :type table: str 
@@ -2114,7 +2114,7 @@ class Dx():
 
     def setLayerContentTo(self,layerName,df):          
         """
-        Updates content of layerName to df's-content.
+        Updates content of layerName to df's-content
         
         :param layerName: name of an existing layer
         :type layerName: str
