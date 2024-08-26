@@ -1913,9 +1913,10 @@ class Dx():
             dfUpd's cols used:            
                 - table i.e. 'FWVB'
                 - attrib i.e. 'W0'
-                - attribValue i.e. 6.55
-                - xk i.e. 'tk'
-                - xkValue i.e. 5423055592859548388
+            dfUpd's cols optional:         
+                - attribValue, default=dfUpd[attrib] 
+                - xk, default='tk'
+                - xkValue, default=dfUpd[xk] 
             row-wise:
                 - set attrib to attribValue in table where xk is xkValue
                 - update an attribute of an object
@@ -1953,6 +1954,16 @@ class Dx():
 
                 return rowsAffected
                        
+            dfUpd=dfUpd.copy(deep=True)
+            
+            cols=dfUpd.columns.to_list()
+            if 'attribValue' not in cols:
+                dfUpd['attribValue']=dfUpd.apply(lambda row: row[row['attrib']],axis=1)
+            if 'xk' not in cols:
+                dfUpd['xk']='tk'
+            if 'xkValue' not in cols:
+                dfUpd['xkValue']=dfUpd.apply(lambda row: row[row['xk']],axis=1)
+            
             rowsAffectedTotal=0  
             
             try:                
@@ -2137,27 +2148,35 @@ class Dx():
             
             rowsAffected=None
             
-            dfTmp=self.dfLAYR[self.dfLAYR['NAME'].isin([layerName])]
-            
+            layr=self.dataFrames['LAYR']            
+            dfTmp=layr[layr['NAME'].isin([layerName])]
+                        
             if dfTmp.empty:                
                 logger.debug("{0:s}Layer {1:s} not existing. Maybe (Re-)Processing the dbFile to Dx is necessary...".format(logStr,layerName)) 
+            elif dfTmp.shape[0]>1:
+                logger.debug("{0:s}LayerName {1:s}: matching rows: {2:s}".format(logStr,layerName,dfTmp.to_string()))                 
+                logger.info("{0:s}Layer(name) {1:s} not unique: No Updates ...".format(logStr,layerName)) 
             else:
             
-                xk=dfTmp['tk'].iloc[0]
+                ###xk=dfTmp['tk'].iloc[0]
+                
                 
                 dfUpd=df.copy(deep=True)
                 
                 dfUpd['table']='LAYR'
                 dfUpd['attrib']='OBJS'
                 dfUpd['attribValue']=dfUpd.apply(lambda row: "{:s}~{:s}\t".format(row['TYPE'],row['ID']).encode('utf-8'),axis=1)
+                                                
+                tk=dfTmp['tk'].iloc[0]
                 dfUpd['xk']='tk'
-                dfUpd['xkValue']=xk    
+                dfUpd['xkValue']=tk    
                 
                 dfUpd2=dfUpd.groupby(by=['xkValue']).agg({'xkValue': 'first'
                                                     ,'table': 'first'
                                                     ,'attrib': 'first'
                                                     ,'xk': 'first'
-                                                    , 'attribValue': 'sum'}).reset_index(drop=True)
+                                                    ,'attribValue': 'sum'}).reset_index(drop=True)
+                
                 dfUpd2['attribValue']=dfUpd2['attribValue'].apply(lambda x: x.rstrip())
                   
                 rowsAffected=self.update(dfUpd2)  
