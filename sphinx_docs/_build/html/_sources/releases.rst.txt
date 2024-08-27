@@ -3,6 +3,12 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.XX.0.dev1
+---------------
+    
+- Dx:
+    - update: dfUpd: now optional cols: attribValue, xk, xkValue
+
 90.14.30.0.dev1
 ---------------
 

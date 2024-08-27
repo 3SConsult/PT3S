@@ -190,6 +190,18 @@
 </pre></div>
 </div>
 </li>
+<li><p><strong>Pull the latest changes from the origin</strong>: Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> command.</p>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master
+</pre></div>
+</div>
+</div></blockquote>
+<p>For a more detailed updating process, use following steps 2 and 3.</p>
+</div></blockquote>
+</li>
+</ol>
+<ol class="arabic" start="2">
 <li><p><strong>Fetch the latest changes from the origin:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">origin</span></code> command.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
 </pre></div>
@@ -374,7 +386,7 @@
 <ol class="arabic simple" start="2">
 <li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py</p></li>
 <li><p><strong>Test the Examples:</strong> Make sure that all examples included in the documentation are running</p></li>
-<li><p><strong>Generate the Documentation:</strong> Follow the steps in <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p></li>
+<li><p><strong>Generate the Documentation:</strong> Follow the steps in <span class="xref std std-ref">generating-documentation-label</span>.</p></li>
 </ol>
 </section>
 <section id="upload-a-new-version-to-pypi">
@@ -405,7 +417,7 @@
 <p>Make sure to keep your API token secure and do not hard-code it in your scripts or code. It’s best to set it as an environment variable or store it in a secret configuration file.</p>
 </div>
 <ol class="arabic simple" id="install-editmode-label" start="7">
-<li><p><strong>Test the Deployment:</strong> Follow the steps in <a class="reference internal" href="#test-the-deployment-label"><span class="std std-ref">Testing the Deployment</span></a>:</p></li>
+<li><p><strong>Test the Deployment:</strong> Follow the steps in <a class="reference internal" href="#test-the-deployment-label"><span class="std std-ref">Testing the Deployment</span></a></p></li>
 </ol>
 </section>
 </section>
@@ -430,8 +442,9 @@
 <section id="pt3s-s-documentation">
 <h2>PT3S’s Documentation<a class="headerlink" href="#pt3s-s-documentation" title="Permalink to this heading"></a></h2>
 <p>The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.</p>
+<p id="generating-documentation-label">If you want to edit the documentation yourself, you have to install sphinx as a python package first.</p>
 <section id="generating-the-documentation">
-<span id="generating-documentation-label"></span><h3>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Permalink to this heading"></a></h3>
+<h3>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Permalink to this heading"></a></h3>
 <p>To generate documentation, follow these steps:</p>
 <ol class="arabic">
 <li><p><strong>Edit the documentation:</strong> Make your changes in the PT3S/sphinx_docs directory.</p></li>
@@ -468,6 +481,7 @@
 <p>To set up all necessary files and programs to run tests on Notebooks, follow these steps:</p>
 <ol class="arabic">
 <li><p><strong>Setup Docker</strong>: Download and install Docker Desktop. There might be some issues that need fixing in Windows settings. Help from the technical team is advised.</p></li>
+<li><p><strong>Enable Windows Containers</strong>: Right-click on the Docker Desktop icon in your taskbar and click “Switch to Windows Containers”.</p></li>
 <li><p><strong>Get Docker Files</strong>: Copy <cite>T:/interne_Projekte/PT3S/docker</cite> to <cite>C:/Users/User/3S</cite>.</p></li>
 <li><p><strong>Copy SirCalc</strong>: The <cite>C:/Users/User/3S/docker/SIR 3S</cite> directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local <cite>C:/3S/SIR 3S</cite> to <cite>C:/Users/User/3S/docker/SIR 3S</cite> and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.</p></li>
 <li><p><strong>Start Docker Engine:</strong> Open Docker Desktop and start the engine.</p></li>
@@ -476,8 +490,8 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Build the Docker image</strong>: Run the following command in a cmd with the name you want to give to your Docker image (e.g., <cite>pt3stestPotsdam</cite>). This process can take around half an hour. So make sure everything is set up properly.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>pt3stestPotsdam<span class="w"> </span>.
+<li><p><strong>Build the Docker image</strong>: Run the following command in a cmd with the name you want to give to your Docker image (e.g., <cite>pt3stestpotsdam</cite>). This process can take around half an hour. So make sure everything is set up properly.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>pt3stestpotsdam<span class="w"> </span>.
 </pre></div>
 </div>
 </li>
@@ -498,14 +512,14 @@
 <p class="admonition-title">Note</p>
 <p>The port must differ from a local JupyterLab you might be running (use 8889:8888 instead).</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stestPotsdam
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stestpotsdam
 </pre></div>
 </div>
 <p>The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.</p>
 <p>You now have access to a cmd running in the container environment. The <cite>-it</cite> option starts the container in interactive mode, and the <cite>–rm</cite> option removes the container after it exits.</p>
 </li>
 <li><p><strong>Start JupyterLab:</strong> Type the following command into a new cmd.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pt3stestPotsdam<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pt3stestpotsdam<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
 </pre></div>
 </div>
 </li>
