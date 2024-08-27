@@ -18,14 +18,12 @@ jobs:
           TARGET_BRANCH: 'gh-pages'
           TARGET_FOLDER_PATH: 'docs'
         run: |
-          files=$(find $SRC_FOLDER_PATH -type f) # get the file list
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           git fetch                         # fetch branches
           git checkout $TARGET_BRANCH       # checkout to your branch
           mkdir -p $TARGET_FOLDER_PATH      # create target folder if it doesn't exist
-          git checkout master -- $files     # copy files from the master branch
-          mv $SRC_FOLDER_PATH/* $TARGET_FOLDER_PATH/ # move files to the target folder
+          rsync -av --delete $SRC_FOLDER_PATH/ $TARGET_FOLDER_PATH/ # sync files to the target folder
           git add -A
           git diff-index --quiet HEAD || git commit -am "Deploy Sphinx docs"  # commit to the repository (ignore if no modification)
           git push origin $TARGET_BRANCH # push to remote branch
