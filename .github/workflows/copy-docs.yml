@@ -7,26 +7,25 @@ on:
       - 'sphinx_docs/_build/html/**'
 
 jobs:
-  copy_files:
+  copy:
+    name: Copy Sphinx Docs
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Copy files
+      - uses: actions/checkout@v2
+      - name: Copy Sphinx Docs
+        env:
+          SRC_FOLDER_PATH: 'sphinx_docs/_build/html'
+          TARGET_BRANCH: 'gh-pages'
+          TARGET_FOLDER_PATH: 'docs'
         run: |
-          mkdir -p docs
-          cp -ru sphinx_docs/_build/html/* docs
-          
-      - name: Commit and push if it changed
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Action"
+          files=$(find $SRC_FOLDER_PATH -type f) # get the file list
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git fetch                         # fetch branches
+          git checkout $TARGET_BRANCH       # checkout to your branch
+          mkdir -p $TARGET_FOLDER_PATH      # create target folder if it doesn't exist
+          git checkout master -- $files     # copy files from the master branch
+          mv $SRC_FOLDER_PATH/* $TARGET_FOLDER_PATH/ # move files to the target folder
           git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "Automatic Copying of HTML-Files"
-          git push
+          git diff-index --quiet HEAD || git commit -am "Deploy Sphinx docs"  # commit to the repository (ignore if no modification)
+          git push origin $TARGET_BRANCH # push to remote branch
