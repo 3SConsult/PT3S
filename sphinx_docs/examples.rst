@@ -46,3 +46,13 @@ You can view the Notebook `here <Example3.html>`_.
 
 
 You can download the Notebook file :download:`here <Example3.ipynb>`.
+
+.. _ex4:
+
+Example 4: OSM to SIR 3S
+--------------------------------
+
+You can view the Notebook `here <Example4.html>`_.
+
+
+You can download the Notebook file :download:`here <Example4.ipynb>`.
