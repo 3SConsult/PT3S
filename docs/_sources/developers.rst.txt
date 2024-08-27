@@ -180,6 +180,12 @@ To revert all changes caused by a commit, use:
    .. code-block:: bash
 
       git revert commitID
+      
+To load a branch locally, use:
+
+   .. code-block:: bash
+
+      git checkout <branchname>
 
 .. _github-workflow-label:
 
