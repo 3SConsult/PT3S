@@ -224,18 +224,7 @@ Follow these steps to manually trigger a workflow via GitHub:
 3. Click the **Run workflow** button.
 
 4. Optionally, provide any required inputs and click **Run workflow** again to start the workflow.
-
-Workflow Structure
-^^^^^^^^^^^^^^^^^^
-
-Workflows are composed of one or more jobs that can run in parallel or sequentially. Each job runs in a fresh virtual environment and can consist of multiple steps. Steps can run commands, set up dependencies, or perform other tasks.
-
-Here is an example of a workflow file:
-
-.. literalinclude:: /../.github/workflows/copy-docs.yml
-   :language: yaml
-   :caption: copy-docs.yml
-                     
+                   
 Working with PyPI
 -----------------     
          
