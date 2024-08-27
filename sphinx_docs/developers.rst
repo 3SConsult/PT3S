@@ -91,6 +91,14 @@ To fetch the latest changes from the origin and merge them into your current bra
 
       cd "C:\Users\User\3S\PT3S"
       
+2. **Pull the latest changes from the origin**: Use the ``git pull`` command. 
+
+     .. code-block:: bash
+
+        git pull origin master
+        
+    For a more detailed updating process, use following steps 2 and 3.
+        
 2. **Fetch the latest changes from the origin:** Use the ``git fetch origin`` command.
 
    .. code-block:: bash
@@ -330,6 +338,8 @@ The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the docum
 
 .. _generating-documentation-label:
 
+If you want to edit the documentation yourself, you have to install sphinx as a python package first.
+
 Generating the Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -376,23 +386,25 @@ To set up all necessary files and programs to run tests on Notebooks, follow the
 
 1. **Setup Docker**: Download and install Docker Desktop. There might be some issues that need fixing in Windows settings. Help from the technical team is advised.
 
-2. **Get Docker Files**: Copy `T:/interne_Projekte/PT3S/docker` to `C:/Users/User/3S`.
+2. **Enable Windows Containers**: Right-click on the Docker Desktop icon in your taskbar and click "Switch to Windows Containers".
 
-3. **Copy SirCalc**: The `C:/Users/User/3S/docker/SIR 3S` directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local `C:/3S/SIR 3S` to `C:/Users/User/3S/docker/SIR 3S` and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.
+3. **Get Docker Files**: Copy `T:/interne_Projekte/PT3S/docker` to `C:/Users/User/3S`.
 
-4. **Start Docker Engine:** Open Docker Desktop and start the engine.
+4. **Copy SirCalc**: The `C:/Users/User/3S/docker/SIR 3S` directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local `C:/3S/SIR 3S` to `C:/Users/User/3S/docker/SIR 3S` and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.
 
-5. **Navigate to Docker Folder:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
+5. **Start Docker Engine:** Open Docker Desktop and start the engine.
+
+6. **Navigate to Docker Folder:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
 
    .. code-block:: bash
 
        cd C:/Users/User/3S/docker
 
-6. **Build the Docker image**: Run the following command in a cmd with the name you want to give to your Docker image (e.g., `pt3stestPotsdam`). This process can take around half an hour. So make sure everything is set up properly.
+7. **Build the Docker image**: Run the following command in a cmd with the name you want to give to your Docker image (e.g., `pt3stestpotsdam`). This process can take around half an hour. So make sure everything is set up properly.
 
    .. code-block:: bash
 
-       docker build -t pt3stestPotsdam .
+       docker build -t pt3stestpotsdam .
 
 .. This is the Dockerfile that is being built:
 
@@ -420,7 +432,7 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 
    .. code-block:: bash
 
-      docker run -it --rm -p 8889:8888 pt3stestPotsdam
+      docker run -it --rm -p 8889:8888 pt3stestpotsdam
 
    The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.
 
@@ -430,7 +442,7 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 
    .. code-block:: bash
 
-      docker exec -it pt3stestPotsdam python -m jupyter lab --ip=0.0.0.0 --allow-root
+      docker exec -it pt3stestpotsdam python -m jupyter lab --ip=0.0.0.0 --allow-root
 
 5. **Open in local Browser**: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.
 
