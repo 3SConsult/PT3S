@@ -14,9 +14,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Copy Sphinx Docs
         env:
-          SRC_FOLDER_PATH: 'sphinx_docs/_build/html'
+          SRC_FOLDER_PATH: 'PT3S/sphinx_docs/_build/html'
           TARGET_BRANCH: 'gh-pages'
-          TARGET_FOLDER_PATH: 'docs'
+          TARGET_FOLDER_PATH: 'PT3S/docs'
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
