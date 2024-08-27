@@ -1483,9 +1483,9 @@
 <span class="sd">    :type preventPklDump: bool, optional, default=False</span>
 <span class="sd">    :param forceSir3sRead: Determines whether to force reading from SIR 3S&#39; sources even if newer pickles exists. By default pickles are read if newer than SIR 3S&#39; sources.</span>
 <span class="sd">    :type forceSir3sRead: bool, optional, default=False</span>
-<span class="sd">    :param maxRecords: Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below C:\3S).</span>
+<span class="sd">    :param maxRecords: Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below ``C:\\3S``).</span>
 <span class="sd">    :type maxRecords: int, optional, default=None</span>
-<span class="sd">    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S&#39; Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: [&#39;ROHR~\*~\*~\*~PHR&#39;, &#39;ROHR~\*~\*~\*~FS&#39;, &#39;ROHR~\*~\*~\*~DSI&#39;, &#39;ROHR~\*~\*~\*~DSK&#39;]</span>
+<span class="sd">    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S&#39; Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``[&#39;ROHR~\*~\*~\*~PHR&#39;, &#39;ROHR~\*~\*~\*~FS&#39;, &#39;ROHR~\*~\*~\*~DSI&#39;, &#39;ROHR~\*~\*~\*~DSK&#39;]``</span>
 <span class="sd">    :type mxsVecsResults2MxDf: list, optional, default=None</span>
 <span class="sd">    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S&#39; Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]</span>
 <span class="sd">    :type mxsVecsResults2MxDfVecAggs: list, optional, default=None</span>
