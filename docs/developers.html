@@ -66,7 +66,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#github-workflows">GitHub Workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#current-workflows">Current Workflows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#manually-triggering-workflows">Manually Triggering Workflows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#workflow-structure">Workflow Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -313,48 +312,6 @@
 <li><p>Click the <strong>Run workflow</strong> button.</p></li>
 <li><p>Optionally, provide any required inputs and click <strong>Run workflow</strong> again to start the workflow.</p></li>
 </ol>
-</section>
-<section id="workflow-structure">
-<h4>Workflow Structure<a class="headerlink" href="#workflow-structure" title="Permalink to this heading"></a></h4>
-<p>Workflows are composed of one or more jobs that can run in parallel or sequentially. Each job runs in a fresh virtual environment and can consist of multiple steps. Steps can run commands, set up dependencies, or perform other tasks.</p>
-<p>Here is an example of a workflow file:</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">copy-docs.yml</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Automatic Copying of HTML-Files</span>
-
-<span class="nt">on</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">paths</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;sphinx_docs/_build/html/**&#39;</span>
-
-<span class="nt">jobs</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">copy_files</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
-<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Node.js</span>
-<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-node@v3</span>
-<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">node-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;20&#39;</span>
-<span class="w">          </span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout repository</span>
-<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
-
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Copy files</span>
-<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">          </span><span class="no">mkdir -p docs</span>
-<span class="w">          </span><span class="no">cp -ru sphinx_docs/_build/html/* docs</span>
-<span class="w">          </span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Commit and push if it changed</span>
-<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">          </span><span class="no">git config --global user.email &quot;actions@github.com&quot;</span>
-<span class="w">          </span><span class="no">git config --global user.name &quot;GitHub Action&quot;</span>
-<span class="w">          </span><span class="no">git add -A</span>
-<span class="w">          </span><span class="no">git diff --quiet &amp;&amp; git diff --staged --quiet || git commit -m &quot;Automatic Copying of HTML-Files&quot;</span>
-<span class="w">          </span><span class="no">git push</span>
-</pre></div>
-</div>
-</div>
 </section>
 </section>
 </section>
