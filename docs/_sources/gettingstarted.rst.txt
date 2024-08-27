@@ -1,0 +1,86 @@
+Getting Started
+===============
+
+Why Python and PT3S are Essential for Working with SIR 3S
+----------------------------------------------------------
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+.. note::
+
+    If you have already installed Anaconda (Jupyterlab) and PT3S and you are familiar with their general usage, you can visit the :doc:`developers` page for more technical information, such as how to contribute to PT3S.
+
+Getting Started with Anaconda
+-----------------------------
+
+Anaconda is a free and open-source distribution of the Python and R programming languages for scientific computing. It is designed for data science, machine learning applications, large-scale data processing, predictive analytics, and more. It simplifies package management and deployment and includes several useful programs, such as JupyterLab and Spyder.
+
+Currently, 3S Consult utilizes JupyterLab for editing and displaying both imported and exported data from SIR 3S, and Spyder for coding PT3S. More details on PT3S Contribution can be found at :doc:`developers`.
+
+For more detailed information, visit the `official Anaconda documentation website <https://docs.anaconda.com/>`_.
+
+How to Install Anaconda
+~~~~~~~~~~~~~~~~~~~~~~~
+
+1. **Download Anaconda:** Visit the `official Anaconda download website <https://www.anaconda.com/download>`_ and skip the registration process. Download the version that is compatible with your operating system.
+
+.. image:: 1_anaconda_skip_registration.png
+   :alt: anaconda_skip_registration
+   :width: 100%
+   :align: center
+|
+2. **Install Anaconda:** Launch the downloaded installer and follow the setup wizard to complete the installation. Under "All" in the Windows start menu, you should now find an Anaconda3 folder.
+
+.. image:: 2_anaconda_folder.png
+   :alt: anaconda_folder
+   :width: 100%
+   :align: center
+|
+Working with JupyterLab
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Getting Started with PT3S
+-------------------------
+
+How to Install PT3S
+~~~~~~~~~~~~~~~~~~~
+
+1. **Install via Terminal:**
+
+    1. **Open Terminal or Command Prompt:** You can do this by searching for "terminal" or "command prompt" in your computer's search bar.
+
+    2. **Install PT3S:** Run the following command to install PT3S:
+
+       .. code-block:: bash
+
+          pip install PT3S
+
+2. **Install via Example1:**
+
+    1. **Download Example1:** Download Example1.ipynb from :ref:`ex1`.
+    
+    2. **Open Example1.ipynb via JupyterLab:** Instructions on how to open ipnyb files are explained in detail at ###.
+    
+    3. **Run 2nd cell:** Instructions on how to work with Notebooks are explained in detail at ###.
+
+    .. image:: 3_pt3s_install_example1.png
+       :alt: anaconda_folder
+       :width: 100%
+       :align: center
+    | 
+            
+How to Update to the Newest PT3S Version
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To update PT3S to the newest version, follow these steps:
+
+1. **Open Terminal or Command Prompt:** You can do this by searching for "terminal" or "command prompt" in your computer's search bar.
+
+2. **Update PT3S:** Run the following command to update PT3S:
+
+   .. code-block:: bash
+
+      pip install PT3S -U --no-deps
+
+How to Import PT3S into Notebooks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

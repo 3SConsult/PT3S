@@ -1,0 +1,16 @@
+
+
+
+try:
+    from PT3S import dxAndMxHelperFcts
+except:
+    import dxAndMxHelperFcts
+
+
+m=dxAndMxHelperFcts.readDxAndMx('../Examples/Wärmenetz-Planungsbeispiel.db3')
+
+
+dfROHR=m.V3_ROHR
+
+
+dfROHR.head()
