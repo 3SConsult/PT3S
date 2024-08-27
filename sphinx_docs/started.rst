@@ -38,6 +38,10 @@ To install Anaconda, follow these steps:
 
 2. **Install Anaconda:** Launch the downloaded installer and follow the setup wizard to complete the installation. Under "All" in the Windows start menu, you should now find an Anaconda3 folder.
 
+.. note::
+
+    For the recommended versions of Anaconda and other tools used in this project, please refer to the :ref:`environment-versions-label` section
+    
 .. _anaconda_folder:
 
 .. image:: 2_anaconda_folder.png

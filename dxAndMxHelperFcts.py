@@ -1400,9 +1400,9 @@ def readDxAndMx(dbFile
     :type preventPklDump: bool, optional, default=False
     :param forceSir3sRead: Determines whether to force reading from SIR 3S' sources even if newer pickles exists. By default pickles are read if newer than SIR 3S' sources.
     :type forceSir3sRead: bool, optional, default=False
-    :param maxRecords: Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below C:\3S).
+    :param maxRecords: Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below ``C:\\3S``).
     :type maxRecords: int, optional, default=None
-    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']
+    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']``
     :type mxsVecsResults2MxDf: list, optional, default=None
     :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]
     :type mxsVecsResults2MxDfVecAggs: list, optional, default=None

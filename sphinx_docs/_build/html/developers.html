@@ -85,6 +85,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-versions">Environment Versions</a></li>
 </ul>
 </li>
 </ul>
@@ -245,10 +246,6 @@
 </div>
 </li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you want to push multiple commits back to back, keep in mind that the PT3S GitHub repository uses <a class="reference internal" href="#github-workflow-label"><span class="std std-ref">GitHub Workflows</span></a> that might require you to fetch after committing to certain directories. Because workflows can automatically author commits, so fetching ensures you have the latest changes. Alternatively you can check the <a class="reference internal" href="#current-workflow-label"><span class="std std-ref">Current Workflows</span></a> utilised by the GitHub Repository and whether the might be triggered by your commit.</p>
-</div>
 </section>
 <section id="collection-of-useful-git-commands">
 <span id="command-collection-label"></span><h3>Collection of Useful Git Commands<a class="headerlink" href="#collection-of-useful-git-commands" title="Permalink to this heading"></a></h3>
@@ -288,7 +285,8 @@
 <p>Our GitHub repository uses workflows to facilitate certain processes by automating tasks. Workflows are defined using YAML files and are stored in the <cite>.github/workflows</cite> directory of our repository.</p>
 <section id="current-workflows">
 <span id="current-workflow-label"></span><h4>Current Workflows<a class="headerlink" href="#current-workflows" title="Permalink to this heading"></a></h4>
-<p>All of our workflows can be triggered using <a class="reference internal" href="#manually-triggering-workflows-label"><span class="std std-ref">Manually Triggering Workflows</span></a>. If you try to <a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a> you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should <a class="reference internal" href="#get-latest-version-label"><span class="std std-ref">Get the Latest Version from GitHub</span></a> before continuing to edit local.</p>
+<p>All of our workflows can be triggered using <a class="reference internal" href="#manually-triggering-workflows-label"><span class="std std-ref">Manually Triggering Workflows</span></a>.
+.. If you try to <a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a> you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should <a class="reference internal" href="#get-latest-version-label"><span class="std std-ref">Get the Latest Version from GitHub</span></a> before continuing to edit local.</p>
 <p>We currently use the following workflows:</p>
 <table class="docutils align-default">
 <thead>
@@ -300,7 +298,7 @@
 <tbody>
 <tr class="row-even"><td><p>Automatic Copying of HTML-Files</p></td>
 <td><p>Push to <cite>PT3S/sphinx_docs/_build/html/</cite></p></td>
-<td><p>Copies HTML files from <cite>PT3S/sphinx_docs/_build/html</cite> to <cite>PT3S/docs</cite></p></td>
+<td><p>Copies HTML files from master <cite>PT3S/sphinx_docs/_build/html</cite> to gh-pages <cite>PT3S/docs</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p>Automatic Deletion of Example Data</p></td>
 <td></td>
@@ -425,7 +423,6 @@
 <ol class="arabic simple" start="3">
 <li><p><strong>Use Build File</strong>: Alternatively, instead of using the <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">html</span></code> command, you can simply open the <cite>PT3S/sphinx_docs/make_html_docs.py</cite> file and run it to generate the documentation. This method will not print any Sphinx debugging output and will save time. This alternative is recommended when making many iterative improvements to the documentation.</p></li>
 <li><p><strong>Commit the changes.</strong> Commit all files from PT3S/sphinx_docs to GitHub (<a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a>).</p></li>
-<li><p><strong>Get the Latest Version</strong>: You should <a class="reference internal" href="#get-latest-version-label"><span class="std std-ref">Get the Latest Version from GitHub</span></a> before continuing to edit local.</p></li>
 </ol>
 <p>The new documentation can be found at <a class="reference external" href="https://aw3s.github.io/PT3S/index.html">https://aw3s.github.io/PT3S/index.html</a></p>
 <div class="admonition note">
@@ -462,6 +459,7 @@
 </section>
 <section id="running-tests">
 <h4>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this heading"></a></h4>
+<p>These tests run on <a class="reference internal" href="#environment-versions-label"><span class="std std-ref">Environment Versions</span></a>.</p>
 <p>Follow these steps to run tests on the Example Notebooks currently hosted at <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a>:</p>
 <ol class="arabic">
 <li><p><strong>Start Docker Engine:</strong> Open Docker Desktop and start the engine.</p></li>
@@ -481,8 +479,10 @@
 <p>The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.</p>
 <p>You now have access to a cmd running in the container environment. The <cite>-it</cite> option starts the container in interactive mode, and the <cite>–rm</cite> option removes the container after it exits.</p>
 </li>
-<li><p><strong>Start JupyterLab:</strong> Type the following command into a new cmd.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pt3stestpotsdam<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
+</ol>
+<ol class="arabic" start="4">
+<li><p><strong>Start JupyterLab:</strong> Type the following command into the container cmd.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
 </pre></div>
 </div>
 </li>
@@ -498,6 +498,28 @@
 </ol>
 </section>
 </section>
+</section>
+<section id="environment-versions">
+<span id="environment-versions-label"></span><h2>Environment Versions<a class="headerlink" href="#environment-versions" title="Permalink to this heading"></a></h2>
+<p>This list provides information about the versions of various tools used throughout this project regarding development, creation of documentation, use of examples, etc. It is recommended to use the same versions of these tools, especially if you are contributing.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Tool</strong></p></th>
+<th class="head"><p><strong>Version</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Python</p></td>
+<td><p>3.8.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Anaconda</p></td>
+<td><p>24.7.1 (Not unified yet)</p></td>
+</tr>
+<tr class="row-even"><td><p>Sphinx</p></td>
+<td><p>7.2.6</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

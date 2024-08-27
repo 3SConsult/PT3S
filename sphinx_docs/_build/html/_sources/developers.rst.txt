@@ -149,7 +149,7 @@ To commit your changes to the GitHub repository, follow these steps:
 
       git push origin master
 
-.. note::
+.. .. note::
     If you want to push multiple commits back to back, keep in mind that the PT3S GitHub repository uses :ref:`github-workflow-label` that might require you to fetch after committing to certain directories. Because workflows can automatically author commits, so fetching ensures you have the latest changes. Alternatively you can check the :ref:`current-workflow-label` utilised by the GitHub Repository and whether the might be triggered by your commit.
 
 .. _command-collection-label:
@@ -199,7 +199,8 @@ Our GitHub repository uses workflows to facilitate certain processes by automati
 Current Workflows
 ^^^^^^^^^^^^^^^^^
 
-All of our workflows can be triggered using :ref:`manually-triggering-workflows-label`. If you try to :ref:`commit-changes-label` you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should :ref:`get-latest-version-label` before continuing to edit local.
+All of our workflows can be triggered using :ref:`manually-triggering-workflows-label`. 
+.. If you try to :ref:`commit-changes-label` you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should :ref:`get-latest-version-label` before continuing to edit local.
 
 We currently use the following workflows:
 
@@ -211,7 +212,7 @@ We currently use the following workflows:
      - **Tasks**
    * - Automatic Copying of HTML-Files
      - Push to `PT3S/sphinx_docs/_build/html/`
-     - Copies HTML files from `PT3S/sphinx_docs/_build/html` to `PT3S/docs`
+     - Copies HTML files from master `PT3S/sphinx_docs/_build/html` to gh-pages `PT3S/docs`
    * - Automatic Deletion of Example Data
      - 
      - Deletes example data in all `PT3S/Examples/WDExampleX/B1/V0/BZ1` except `.xml` and `.mx1`
@@ -358,7 +359,7 @@ To generate documentation, follow these steps:
 
 4. **Commit the changes.** Commit all files from PT3S/sphinx_docs to GitHub (:ref:`commit-changes-label`).
 
-5. **Get the Latest Version**: You should :ref:`get-latest-version-label` before continuing to edit local.
+.. 5. **Get the Latest Version**: You should :ref:`get-latest-version-label` before continuing to edit local.
 
 The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_
 
@@ -410,6 +411,8 @@ To set up all necessary files and programs to run tests on Notebooks, follow the
 Running Tests
 ^^^^^^^^^^^^^
 
+These tests run on :ref:`environment-versions-label`.
+
 Follow these steps to run tests on the Example Notebooks currently hosted at :doc:`examples`:
 
 1. **Start Docker Engine:** Open Docker Desktop and start the engine.
@@ -433,11 +436,16 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 
    You now have access to a cmd running in the container environment. The `-it` option starts the container in interactive mode, and the `--rm` option removes the container after it exits.
 
-4. **Start JupyterLab:** Type the following command into a new cmd.
+.. 4. **Start JupyterLab:** Type the following command into a new cmd.
 
    .. code-block:: bash
 
       docker exec -it pt3stestpotsdam python -m jupyter lab --ip=0.0.0.0 --allow-root
+4. **Start JupyterLab:** Type the following command into the container cmd.
+
+   .. code-block:: bash
+
+      python -m jupyter lab --ip=0.0.0.0 --allow-root
 
 5. **Open in local Browser**: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.
 
@@ -450,4 +458,23 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
    .. code-block:: bash
 
       pytest --nbval
-  
+
+.. _environment-versions-label:
+
+Environment Versions
+--------------------
+
+This list provides information about the versions of various tools used throughout this project regarding development, creation of documentation, use of examples, etc. It is recommended to use the same versions of these tools, especially if you are contributing.
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - **Tool**
+     - **Version**
+   * - Python
+     - 3.8.0
+   * - Anaconda
+     - 24.7.1 (Not unified yet)
+   * - Sphinx
+     - 7.2.6
+
