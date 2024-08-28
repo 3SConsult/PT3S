@@ -98,18 +98,23 @@ def fimportFromSIR3S(dx
                     ,logRows=True
                     ):       
     """
-    Work on and Decision if import an Object
+    work on object to import and/or decision if import at all 
     
     :param OBJSrc: 
     :type OBJSrc: sqlalchemy.orm.decl_api.DeclarativeMeta
-    :param qSrc: 
+    :param qSrc: the query which delivered the objects from Src
     :type qSrc: sqlalchemy.orm.query.Query     
-    :param objSrc: 
+    :param objSrc: the object from Src 
     :type objSrc: sqlalchemy.ext.automap         
-    :param objDst: 
+    :param objDst: the object to import in Dst
     :type objDst: sqlalchemy.ext.automap 
+    :param logRows: decide if fcts shall generate Log-Output
+    :type logRows: bool, optional, default=True   
     
-    :return: (objDst,toImport)               
+    :return: (objDst,toImport) 
+
+    .. note::         
+        At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk transfers from Templates). Whether objDst should really be imported and if so what further changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dx object and the source data connections are passed to make project-specific imports (via project-specific fimportFromSIR3S-functions) more flexible and powerful.
     """           
     
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
@@ -121,11 +126,11 @@ def fimportFromSIR3S(dx
         
         cols=dx.dataFrames[objTYPE].columns.to_list()
         
+        # LogRow
         logRow=f"{objTYPE}"
         for attr in cols:            
             value=getattr(objDst,attr)  
-            logRow=f"{logRow} {attr} {value}"
-        
+            logRow=f"{logRow} {attr} {value}"        
         if logRows:
             logger.debug(f"{logStr} {logRow}")
             

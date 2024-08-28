@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Functions &mdash; PT3S 90.14.30.0.dev1 documentation</title>
+  <title>Functions &mdash; PT3S 90.14.31.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -658,6 +658,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 <li><p><strong>qSrc</strong> (<em>sqlalchemy.orm.query.Query</em>) – the query which delivered the objects from Src</p></li>
 <li><p><strong>objSrc</strong> (<em>sqlalchemy.ext.automap</em>) – the object from Src</p></li>
 <li><p><strong>objDst</strong> (<em>sqlalchemy.ext.automap</em>) – the object to import in Dst</p></li>
+<li><p><strong>logRows</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – decide if fcts shall generate Log-Output</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -666,7 +667,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk transfers from Templates). Whether objDst should really be imported and if so with what changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dx object and the source data connections are passed to make project-specific imports (via project-specific fimportFromSIR3S) more flexible and powerful.</p>
+<p>At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk transfers from Templates). Whether objDst should really be imported and if so what further changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dx object and the source data connections are passed to make project-specific imports (via project-specific fimportFromSIR3S-functions) more flexible and powerful.</p>
 </div>
 </dd></dl>
 
