@@ -73,7 +73,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#dflayr">dfLAYR</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#update">update</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#insert">insert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#importfromsir3s">importFromSIR3S</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setlayercontentto">setLayerContentTo</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a></li>
@@ -515,6 +521,8 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </section>
 <section id="methods">
 <h3>Methods<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<section id="update">
+<h4>update<a class="headerlink" href="#update" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.update">
 <span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfUpd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updInverseValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.update" title="Permalink to this definition"></a></dt>
@@ -561,6 +569,9 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </div>
 </dd></dl>
 
+</section>
+<section id="insert">
+<h4>insert<a class="headerlink" href="#insert" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.insert">
 <span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfIns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xkFct=&lt;function</span> <span class="pre">fXk&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.insert" title="Permalink to this definition"></a></dt>
@@ -596,6 +607,9 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </div>
 </dd></dl>
 
+</section>
+<section id="importfromsir3s">
+<h4>importFromSIR3S<a class="headerlink" href="#importfromsir3s" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.importFromSIR3S">
 <span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">importFromSIR3S</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self,</span> <span class="pre">dbSrc,</span> <span class="pre">tablesToImport=['STRASSE',</span> <span class="pre">'LTGR',</span> <span class="pre">'DTRO',</span> <span class="pre">'DTRO_ROWD',</span> <span class="pre">'KNOT',</span> <span class="pre">'KNOT_BZ',</span> <span class="pre">'ROHR',</span> <span class="pre">'ROHR_BZ',</span> <span class="pre">'FWVB',</span> <span class="pre">'FWVB_BZ',</span> <span class="pre">'LAYR'],</span> <span class="pre">fksNotToFillWithDstTemplateValues=['fkKI',</span> <span class="pre">'fkKK',</span> <span class="pre">'fkDTRO_ROWD',</span> <span class="pre">'fkLTGR',</span> <span class="pre">'fkSTRASSE'],</span> <span class="pre">fctsToCall={'*':</span> <span class="pre">&lt;function</span> <span class="pre">fimportFromSIR3S&gt;},</span> <span class="pre">fctsToCallLogging=True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.importFromSIR3S" title="Permalink to this definition"></a></dt>
@@ -634,6 +648,28 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="Dx.fimportFromSIR3S">
+<span class="sig-prename descclassname"><span class="pre">Dx.</span></span><span class="sig-name descname"><span class="pre">fimportFromSIR3S</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OBJSrc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSrc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objSrc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objDst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logRows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Dx.html#fimportFromSIR3S"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Dx.fimportFromSIR3S" title="Permalink to this definition"></a></dt>
+<dd><p>Work on Object to import and/or Decision if import</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>OBJSrc</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – </p></li>
+<li><p><strong>qSrc</strong> (<em>sqlalchemy.orm.query.Query</em>) – </p></li>
+<li><p><strong>objSrc</strong> (<em>sqlalchemy.ext.automap</em>) – </p></li>
+<li><p><strong>objDst</strong> (<em>sqlalchemy.ext.automap</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(objDst,toImport)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="setlayercontentto">
+<h4>setLayerContentTo<a class="headerlink" href="#setlayercontentto" title="Permalink to this heading"></a></h4>
+<dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.setLayerContentTo">
 <span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">setLayerContentTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layerName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.setLayerContentTo" title="Permalink to this definition"></a></dt>
 <dd><p>Updates content of layerName to df’s-content</p>
@@ -661,6 +697,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </div>
 </dd></dl>
 
+</section>
 </section>
 </section>
 <section id="sdfcsv">
