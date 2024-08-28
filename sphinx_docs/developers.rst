@@ -93,11 +93,11 @@ To fetch the latest changes from the origin and merge them into your current bra
       
 2. **Pull the latest changes from the origin**: Use the ``git pull`` command. 
 
-     .. code-block:: bash
+   .. code-block:: bash
 
-        git pull origin master
+      git pull origin master
         
-    For a more detailed updating process, use following steps 2 and 3.
+    For a more detailed updating process, follow steps 2 and 3 instead.
         
 2. **Fetch the latest changes from the origin:** Use the ``git fetch origin`` command.
 

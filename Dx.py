@@ -24,6 +24,17 @@ import sys
 import os
 
 import uuid
+
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
+from sqlalchemy import select
+from sqlalchemy import or_
+from sqlalchemy import select
+from sqlalchemy import text
+
+import inspect
+
 #import warnings
 __version__ = '90.14.25.0.dev1'
 
@@ -77,6 +88,57 @@ class DxError(Exception):
 
     def __str__(self):
         return repr(self.value)
+
+
+def fimportFromSIR3S(dx
+                    ,OBJSrc
+                    ,qSrc
+                    ,objSrc
+                    ,objDst  
+                    ,logRows=True
+                    ):       
+    """
+    Work on and Decision if import an Object
+    
+    :param OBJSrc: 
+    :type OBJSrc: sqlalchemy.orm.decl_api.DeclarativeMeta
+    :param qSrc: 
+    :type qSrc: sqlalchemy.orm.query.Query     
+    :param objSrc: 
+    :type objSrc: sqlalchemy.ext.automap         
+    :param objDst: 
+    :type objDst: sqlalchemy.ext.automap 
+    
+    :return: (objDst,toImport)               
+    """           
+    
+    logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
+    #logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+
+    try:
+        
+        objTYPE=OBJSrc.__table__.name
+        
+        cols=dx.dataFrames[objTYPE].columns.to_list()
+        
+        logRow=f"{objTYPE}"
+        for attr in cols:            
+            value=getattr(objDst,attr)  
+            logRow=f"{logRow} {attr} {value}"
+        
+        if logRows:
+            logger.debug(f"{logStr} {logRow}")
+            
+        return(objDst,True)
+
+    except Exception as e:
+       logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+           logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+       logger.error(logStrFinal)
+
+    finally:
+       pass
+       #logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
 
 class Dx():
@@ -2123,6 +2185,290 @@ class Dx():
            logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))      
            #return rowsAffected        
 
+    def importFromSIR3S(self
+                        ,dbSrc
+                        ,tablesToImport=['STRASSE','LTGR','DTRO','DTRO_ROWD','KNOT','KNOT_BZ','ROHR','ROHR_BZ','FWVB','FWVB_BZ','LAYR']
+                        ,fksNotToFillWithDstTemplateValues=['fkKI','fkKK','fkDTRO_ROWD','fkLTGR','fkSTRASSE']
+                        ,fctsToCall={'*':fimportFromSIR3S}
+                        ,fctsToCallLogging=True
+                        ):       
+        """
+        Import data from an other SIR 3S Model (SQLite only)
+        
+        :param dbSrc: SIR 3S dbFile to import from
+        :type dbSrc: str 
+        :param tablesToImport: tabNames to import from
+        :type tablesToImport: list of tabNames, optional, default=['STRASSE','LTGR','DTRO','DTRO_ROWD','KNOT','KNOT_BZ','ROHR','ROHR_BZ','FWVB','FWVB_BZ','LAYR']
+        :param fksNotToFillWithDstTemplateValues: fk-colNames not to set to the corresponding Dst-Template-Value
+        :type fctsToCall: dct of functions to call before import
+        :param fctsToCall: dct of functions, optional, default={'*':fimportFromSIR3S}; f('*') is called if defined and then the object-specific f(OBJ) is called if defined
+        :type fctsToCallLogging: 
+        :param fctsToCallLogging: bool, optional, default=True
+        
+        .. note:: 
+            Model data from annother SIR 3S Model should be imported via the SIR 3S export/import interfaces. 
+            I.e. export in Src Sdf/Csv, import in Dst the exported Sdf/Csv. Or copy in Src and paste in Dst. Or export/import SIR 3S Blocks. 
+            Nevertheless, importing from another Model via script can be helpful.
+
+        .. note::              
+            Template-Objects are not copied from Src to Dst.
+            For objects with Templates defined all Non-Null fk-Template-Attributes from Dst are set except for: fksNotToFillWithDstTemplateValues
+            It follows that i.e. for KNOT(_BZ), ROHR(_BZ), FWVB(_BZ) fkDE is set to the corresponding fkDE Dst-Template-Attributes if defined.
+            For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Model if SYSTEMKONFIG(3) is defined.
+            
+        .. note::              
+            Dst and Src: SIR 3S Version and CRS (coordinate reference system) should be identical, QGIS-Export should be done (to ensure correct and matching GEOMWKBs).          
+            
+        """           
+        
+        logStr = "{0:s}.{1:s}: ".format(
+            self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+
+        try:
+            
+            SrcDb=dbSrc
+            engineSrc = create_engine("sqlite:///"+SrcDb)
+            BaseSrc = automap_base()      
+            BaseSrc.prepare(autoload_with=engineSrc)
+            sessionSrc = Session(engineSrc)
+            
+            OBJsSrc=[]
+            for t in tablesToImport:
+                for c in BaseSrc.classes:
+                    if t==c.__table__.name:
+                        OBJsSrc.append(c)                    
+                        break
+            #OBJsSrc=[BaseSrc.classes.STRASSE,BaseSrc.classes.LTGR,BaseSrc.classes.DTRO,BaseSrc.classes.DTRO_ROWD,BaseSrc.classes.KNOT,BaseSrc.classes.KNOT_BZ,BaseSrc.classes.ROHR,BaseSrc.classes.ROHR_BZ,BaseSrc.classes.FWVB,BaseSrc.classes.FWVB_BZ,BaseSrc.classes.LAYR]
+            
+            engineDst = create_engine("sqlite:///"+self.dbFile)
+            BaseDst = automap_base()
+            BaseDst.prepare(autoload_with=engineDst)
+            sessionDst = Session(engineDst)     
+            
+            OBJsDst=[]
+            for t in tablesToImport:
+                for c in BaseDst.classes:
+                    if t==c.__table__.name:
+                        OBJsDst.append(c)                          
+                        break
+            #OBJsDst=[BaseDst.classes.STRASSE,BaseDst.classes.LTGR,BaseDst.classes.DTRO,BaseDst.classes.DTRO_ROWD,BaseDst.classes.KNOT,BaseDst.classes.KNOT_BZ,BaseDst.classes.ROHR,BaseDst.classes.ROHR_BZ,BaseDst.classes.FWVB,BaseDst.classes.FWVB_BZ,BaseDst.classes.LAYR]
+            
+            if self.QGISmodelXk != None:
+                stmt = select(text('fkBASIS,fkBZ from VIEW_MODELLE where pk={:s}'.format(self.QGISmodelXk)))
+                #print(stmt)
+                
+                with engineDst.connect() as conn:
+                    result = conn.execute(stmt).fetchall()
+                    for row in result:
+                        #print(row)
+                        break
+                (fkBASIS,fkBZ)=row   
+                #print((fkBASIS,fkBZ))   
+            
+            #fksNotFilledWithTemplateValues=['fkKI','fkKK','fkDTRO_ROWD','fkLTGR','fkSTRASSE']
+            if self.QGISmodelXk != None:
+                fksNotToFillWithDstTemplateValues=fksNotToFillWithDstTemplateValues+['fkDE']
+                
+            # Template Handling    
+            OBJDstTemplates={}
+            for OBJSrc,OBJDst in zip(OBJsSrc,OBJsDst):
+                objTYPE=OBJSrc.__table__.name
+                #print(objTYPE)
+                
+                OBJDstcols=[column.key for column in OBJDst.__table__.columns]    
+                if 'KENNUNG' in OBJDstcols:
+                    for objTemplateDst in sessionDst.query(OBJDst) \
+                        .filter(OBJDst.KENNUNG<0):
+                        #logger.debug(f"{logStr}{objTYPE}: Template Handling: ...")
+                        break # das erste gefundene Template dient als Vorlage
+                
+                    objTemplateDstfkAttribs=[]
+                    objTemplateSrcpks=[]
+                    
+                    for name,value in inspect.getmembers(objTemplateDst,lambda a:not(inspect.isfunction(a))):
+                        if re.search('^_',name) == None and (isinstance(value,str) or isinstance(value,int) or isinstance(value,float)) :
+                            if re.search('^fk',name) != None: 
+                                if name not in fksNotToFillWithDstTemplateValues:
+                                    logger.debug(f"{logStr}{objTYPE:12s}: Template Handling: attr: {name:12s} will be set to Dst-Template-value: {getattr(objTemplateDst,name)}")
+                                    #print(name,getattr(objTemplateDst,name))
+                                    objTemplateDstfkAttribs.append(name)    
+                    
+                    for objTemplateSrc in sessionSrc.query(OBJSrc) \
+                        .filter(OBJSrc.KENNUNG<0):
+                        objTemplateSrcpks.append(objTemplateSrc.pk) # pks aller Template-Objekte merken
+                    
+                    OBJDstTemplates[objTYPE]=(OBJDstcols,objTemplateDst,objTemplateDstfkAttribs,objTemplateSrcpks,None)                     
+                    
+            # Templates in BZ-Tabellen finden          
+            for OBJSrc,OBJDst in zip(OBJsSrc,OBJsDst):
+                objTYPE=OBJSrc.__table__.name
+                #print(objTYPE)
+                
+                if re.search('_BZ$',objTYPE) == None:
+                    continue # keine BZ-Tabelle
+                
+                BobjType=re.sub('_BZ$','',objTYPE)
+                if BobjType in OBJDstTemplates.keys():
+                    
+                    #print(objTYPE,BobjType)
+                    pass 
+                    
+                    (OBJDstcols,objTemplateDst,objTemplateDstfkAttribs,objTemplateSrcpks,dummy) =  OBJDstTemplates[BobjType]     
+                    
+                    for objTemplateDstBZ in sessionSrc.query(OBJSrc).filter(OBJSrc.pk.not_in([-1,'-1']))\
+                        .filter(OBJSrc.fk.in_(objTemplateSrcpks)):
+                        pass
+                        #print('Template')
+                        break # das erste gefundene Template dient als Vorlage       
+                    
+                    OBJDstTemplates[BobjType]=(OBJDstcols,objTemplateDst,objTemplateDstfkAttribs,objTemplateSrcpks,objTemplateDstBZ)
+             
+            # Copy
+            for OBJSrc,OBJDst in zip(OBJsSrc,OBJsDst):
+                
+                objTYPE=OBJSrc.__table__.name
+                #print(objTYPE)
+                    
+                OBJSrccols=[column.key for column in OBJSrc.__table__.columns]    
+                    
+                if objTYPE in OBJDstTemplates.keys(): # table has templates
+               
+                    (OBJDstcols,objTemplateDst,objTemplateDstfkAttribs,objTemplateSrcpks,dummy) =  OBJDstTemplates[objTYPE]     
+                    
+                    #logger.debug(f"{logStr}{objTYPE:12s}: Template Handling: attrs: {objTemplateDstfkAttribs} will be set to Template-values ...")
+                    if self.QGISmodelXk != None:
+                        logger.debug(f"{logStr}{objTYPE:12s}: attr: fkDE will be set to fkBASIS: {fkBASIS}")    
+            
+                    objDstPks=[]
+                    for objDst in sessionDst.query(OBJDst):
+                        objDstPks.append(objDst.pk) # pks in Ziel-DB merken             
+                        
+                    q1=sessionSrc.query(OBJSrc).filter(OBJSrc.pk.not_in([-1,'-1']))
+                    q2=q1.filter(or_(OBJSrc.KENNUNG>0, OBJSrc.KENNUNG == None))
+                    q=q2.filter(OBJSrc.pk.not_in(objDstPks))
+                    
+                    logger.debug(f"{logStr}{objTYPE:12s}: {q.count()} to copy (not copied because Templates: {q1.count()-q2.count()}) (not to copy because pk exists already in Dst: {q2.count()-q.count()})")                                         
+                    
+                    #for objSrc in sessionSrc.query(OBJSrc) \
+                    #    .filter(or_(OBJSrc.KENNUNG>0, OBJSrc.KENNUNG == None))\
+                    #    .filter(OBJSrc.pk.not_in([-1,'-1'])):
+                        
+                    for objSrc in q:                        
+                        
+                        objDst=OBJDst()
+                        for attr in OBJSrccols:                
+                            setattr(objDst,attr,getattr(objSrc,attr))                
+                                            
+                        # override Src-values with Dst-values for all template-attributes   
+                        for attr in objTemplateDstfkAttribs:                
+                            setattr(objDst,attr,getattr(objTemplateDst,attr))
+                            
+                        if self.QGISmodelXk != None:
+                             for attr in ['fkDE']:
+                                setattr(objDst,attr,fkBASIS)
+                                
+                        toImport=True
+                        if '*' in fctsToCall.keys():
+                            (objDst,toImport)=fctsToCall['*'](self,OBJSrc,q,objSrc,objDst,fctsToCallLogging)                                
+                        if objTYPE in fctsToCall.keys() and toImport:
+                            (objDst,toImport)=fctsToCall[objTYPE](self,OBJSrc,q,objSrc,objDst,fctsToCallLogging)                                    
+                        if toImport:
+                            sessionDst.add(objDst)                                                                                                                                 
+                    
+                else:  
+                    BobjType=re.sub('_BZ$','',objTYPE)
+                    if BobjType in OBJDstTemplates.keys():
+                        pass # table maybe references templates
+                    
+                        (OBJDstcols,objTemplateDst,objTemplateDstfkAttribs,objTemplateSrcpks,objTemplateDstBZ) =  OBJDstTemplates[BobjType]     
+                        
+                        if self.QGISmodelXk != None:
+                            logger.debug(f"{logStr}{objTYPE:12s}: attr: fkDE will be set to fkBZ   : {fkBZ}")    
+                    
+                    
+                        objDstPks=[]
+                        for objDst in sessionDst.query(OBJDst):
+                            objDstPks.append(objDst.pk) # pks in Ziel-DB merken   
+                                        
+                        q1=sessionSrc.query(OBJSrc).filter(OBJSrc.pk.not_in([-1,'-1']))                        
+                        q2=q1.filter(OBJSrc.fk.not_in(objTemplateSrcpks))
+                        q=q2.filter(OBJSrc.pk.not_in(objDstPks))
+                        logger.debug(f"{logStr}{objTYPE:12s}: {q.count()} to copy (not to copy because (referencing) Templates: {q1.count()-q2.count()}) (not to copy because pk exists already in Dst: {q2.count()-q.count()})")                     
+                    
+                        #for objSrc in sessionSrc.query(OBJSrc).filter(OBJSrc.pk.not_in([-1,'-1']))\
+                        #.filter(OBJSrc.fk.not_in(objTemplateSrcpks)):
+            
+                        for objSrc in q:
+                            objDst=OBJDst()
+                            for attr in OBJSrccols:                
+                                setattr(objDst,attr,getattr(objSrc,attr))                
+                    
+                            #for attr in ['fkDE']:                    
+                            #    setattr(objDst,attr,getattr(objTemplateDstBZ,attr))        
+                                
+                            if self.QGISmodelXk != None:
+                                 for attr in ['fkDE']:
+                                    setattr(objDst,attr,fkBZ)
+                            else:
+                                 for attr in ['fkDE']:                    
+                                    setattr(objDst,attr,getattr(objTemplateDstBZ,attr))      
+                                    
+                                    
+                            toImport=True
+                            if '*' in fctsToCall.keys():
+                                (objDst,toImport)=fctsToCall['*'](self,OBJSrc,q,objSrc,objDst,fctsToCallLogging)                                
+                            if objTYPE in fctsToCall.keys() and toImport:
+                                (objDst,toImport)=fctsToCall[objTYPE](self,OBJSrc,q,objSrc,objDst,fctsToCallLogging)                                    
+                            if toImport:
+                                sessionDst.add(objDst)                                     
+                                                                                                            
+                    else:
+
+                        if self.QGISmodelXk != None:
+                            logger.debug(f"{logStr}{objTYPE:12s}: attr: fkDE will be set to fkBASIS: {fkBASIS}")                            
+ 
+                        objDstPks=[]
+                        for objDst in sessionDst.query(OBJDst):
+                            objDstPks.append(objDst.pk) # pks in Ziel-DB merken            
+                        
+                        q1=sessionSrc.query(OBJSrc).filter(OBJSrc.pk.not_in([-1,'-1']))                        
+                        q=q1.filter(OBJSrc.pk.not_in(objDstPks))
+                        logger.debug(f"{logStr}{objTYPE:12s}: {q.count()} to copy (not to copy because pk exists already in Dst: {q1.count()-q.count()})") 
+                        for objSrc in q:
+            
+                            objDst=OBJDst()
+                            for attr in OBJSrccols:                
+                                setattr(objDst,attr,getattr(objSrc,attr))     
+                                
+                            if self.QGISmodelXk != None:
+                                 for attr in ['fkDE']:
+                                    setattr(objDst,attr,fkBASIS)
+                                    
+                            toImport=True
+                            if '*' in fctsToCall.keys():
+                                (objDst,toImport)=fctsToCall['*'](self,OBJSrc,q,objSrc,objDst,fctsToCallLogging)                                
+                            if objTYPE in fctsToCall.keys() and toImport:
+                                (objDst,toImport)=fctsToCall[objTYPE](self,OBJSrc,q,objSrc,objDst,fctsToCallLogging)                                    
+                            if toImport:
+                                sessionDst.add(objDst)            
+                    
+                logger.debug(f"{logStr}{objTYPE:12s}: {len(sessionDst.new)} queued to copy (not queued because fctsToCall: {q.count()-len(sessionDst.new)})")
+                sessionDst.commit()
+            
+            sessionDst.close()
+            sessionSrc.close()
+    
+        except Exception as e:
+           logStrFinal = "{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(
+               logStr, sys.exc_info()[-1].tb_lineno, type(e), str(e))
+           logger.error(logStrFinal)
+    
+        finally:
+           logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
+
+
+
     def setLayerContentTo(self,layerName,df):          
         """
         Updates content of layerName to df's-content
@@ -2182,41 +2528,6 @@ class Dx():
                 rowsAffected=self.update(dfUpd2)  
                 
                 return rowsAffected
-        
-        except DxError:
-            raise            
-        except Exception as e:
-            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-            logger.error(logStrFinal) 
-            raise DxError(logStrFinal)                       
-        finally:
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))      
-
-
-    def importLayerContentFromOtherDb(self,dbFileOther,layerNameOther):          
-        """
-        Imports all objects of layer layerNameOther from dbFileOther into dbFile (SQLite only)
-        
-        :param dbFileOther: other SIR 3S dbFile
-        :type dbFileOther: str
-        :param layerNameOther: name of an existing layer in dbFileOther
-        :type layerNameOther: str
-        
-        :return: None
-
-        .. note:: 
-            All objects in layerNameOther of type table are imported in table and table_BZ by insert into.
-            If layerNameOther is not existing the layer itself is imported too.                          
-        """           
-                
-        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
-        
-        try: 
-            
-            pass
-                  
-        
         
         except DxError:
             raise            

@@ -61,6 +61,7 @@ Methods
 
 .. autofunction:: Dx.Dx.update
 .. autofunction:: Dx.Dx.insert
+.. autofunction:: Dx.Dx.importFromSIR3S
 .. autofunction:: Dx.Dx.setLayerContentTo
 .. autofunction:: Dx.Dx.insertLayerContentFromOtherDb
 
