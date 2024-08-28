@@ -574,7 +574,7 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>rowsAffected, dfIns (a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values)</p>
+<dd class="field-even"><p>rowsAffected, dfIns (a copy of dfIns; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original values)</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -604,10 +604,12 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dbSrc</strong> (<em>str</em>) – SIR 3S dbFile to import from</p></li>
-<li><p><strong>tablesToImport</strong> (<em>list of tabNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'STRASSE'</em><em>,</em><em>'LTGR'</em><em>,</em><em>'DTRO'</em><em>,</em><em>'DTRO_ROWD'</em><em>,</em><em>'KNOT'</em><em>,</em><em>'KNOT_BZ'</em><em>,</em><em>'ROHR'</em><em>,</em><em>'ROHR_BZ'</em><em>,</em><em>'FWVB'</em><em>,</em><em>'FWVB_BZ'</em><em>,</em><em>'LAYR'</em><em>]</em>) – tabNames to import from</p></li>
-<li><p><strong>fksNotToFillWithDstTemplateValues</strong> – fk-colNames not to set to the corresponding Dst-Template-Value</p></li>
-<li><p><strong>fctsToCall</strong> (<em>dct of functions to call before import</em>) – dct of functions, optional, default={‘*’:fimportFromSIR3S}; f(‘*’) is called if defined and then the object-specific f(OBJ) is called if defined</p></li>
-<li><p><strong>fctsToCallLogging</strong> – bool, optional, default=True</p></li>
+<li><p><strong>tablesToImport</strong> (<em>list of tabNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'STRASSE'</em><em>,</em><em>'LTGR'</em><em>,</em><em>'DTRO'</em><em>,</em><em>'DTRO_ROWD'</em><em>
+,</em><em>'KNOT'</em><em>,</em><em>'KNOT_BZ'</em><em>,</em><em>'ROHR'</em><em>,</em><em>'ROHR_BZ'</em><em>,</em><em>'FWVB'</em><em>,</em><em>'FWVB_BZ'</em><em>
+,</em><em>'LAYR'</em><em>]</em>) – tabNames to import from</p></li>
+<li><p><strong>fksNotToFillWithDstTemplateValues</strong> (<em>list of fk starting colNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'fkKI'</em><em>,</em><em>'fkKK'</em><em>,</em><em>'fkDTRO_ROWD'</em><em>,</em><em>'fkLTGR'</em><em>,</em><em>'fkSTRASSE'</em><em>]</em>) – colNames starting with fk not to set to the corresponding Dst-Template-Value</p></li>
+<li><p><strong>fctsToCall</strong> (<em>dct of functions</em><em>, </em><em>optional</em><em>, </em><em>default={'*':fimportFromSIR3S}; f</em><em>(</em><em>'*'</em><em>) </em><em>is called if defined and then the object-specific f</em><em>(</em><em>OBJ</em><em>) </em><em>is called if defined</em>) – dct of functions to call before import</p></li>
+<li><p><strong>fctsToCallLogging</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – decide if fctsToCall shall generate Log-Output</p></li>
 </ul>
 </dd>
 </dl>
@@ -619,14 +621,15 @@ Nevertheless, importing from another Model via script can be helpful.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Template-Objects are not copied from Src to Dst.
-For objects with Templates defined all Non-Null fk-Template-Attributes from Dst are set except for: fksNotToFillWithDstTemplateValues
-It follows that i.e. for KNOT(_BZ), ROHR(_BZ), FWVB(_BZ) fkDE is set to the corresponding fkDE Dst-Template-Attributes if defined.
+<p>Template-Objects are Objects with col ‘KENNUNG’ &lt; 0.
+Template-Objects are not copied from Src to Dst.
+For objects with Templates defined all Non-Null fk-Starting Template-Attributes from Dst are set except for: fksNotToFillWithDstTemplateValues.
+It follows that i.e. for KNOT(_BZ), ROHR(_BZ), FWVB(_BZ) fkDE is set to the corresponding fkDE Dst-Template-Attribute if defined.
 For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Model if SYSTEMKONFIG(3) is defined.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Dst and Src: SIR 3S Version and CRS (coordinate reference system) should be identical, QGIS-Export should be done (to ensure correct and matching GEOMWKBs).</p>
+<p>Dst and Src: SIR 3S Version and CRS (coordinate reference system) should be identical, QGIS-Export should be done (to ensure correct and matching GEOMWKBs in Dst and Src).</p>
 </div>
 </dd></dl>
 
@@ -644,7 +647,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.</p>
+<p>Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done (explicit) via the SIR 3S user interface or (implicit) via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
