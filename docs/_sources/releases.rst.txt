@@ -5,9 +5,16 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 
 90.14.XX.0.dev1
 ---------------
-    
+
+**Changed:**
+  
 - Dx:
     - update: dfUpd: now optional cols: attribValue, xk, xkValue
+    
+**New:**
+    
+- Dx:
+    - importFromSIR3S: import data from an other SIR 3S Model
 
 90.14.30.0.dev1
 ---------------

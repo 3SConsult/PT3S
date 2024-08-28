@@ -25,3 +25,4 @@ Contents:
    functions
    releases
    developers
+* :ref:`genindex`

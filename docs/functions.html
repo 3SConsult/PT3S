@@ -597,6 +597,40 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.importFromSIR3S">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">importFromSIR3S</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self,</span> <span class="pre">dbSrc,</span> <span class="pre">tablesToImport=['STRASSE',</span> <span class="pre">'LTGR',</span> <span class="pre">'DTRO',</span> <span class="pre">'DTRO_ROWD',</span> <span class="pre">'KNOT',</span> <span class="pre">'KNOT_BZ',</span> <span class="pre">'ROHR',</span> <span class="pre">'ROHR_BZ',</span> <span class="pre">'FWVB',</span> <span class="pre">'FWVB_BZ',</span> <span class="pre">'LAYR'],</span> <span class="pre">fksNotToFillWithDstTemplateValues=['fkKI',</span> <span class="pre">'fkKK',</span> <span class="pre">'fkDTRO_ROWD',</span> <span class="pre">'fkLTGR',</span> <span class="pre">'fkSTRASSE'],</span> <span class="pre">fctsToCall={'*':</span> <span class="pre">&lt;function</span> <span class="pre">fimportFromSIR3S&gt;},</span> <span class="pre">fctsToCallLogging=True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.importFromSIR3S" title="Permalink to this definition"></a></dt>
+<dd><p>Import data from an other SIR 3S Model (SQLite only)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dbSrc</strong> (<em>str</em>) – SIR 3S dbFile to import from</p></li>
+<li><p><strong>tablesToImport</strong> (<em>list of tabNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'STRASSE'</em><em>,</em><em>'LTGR'</em><em>,</em><em>'DTRO'</em><em>,</em><em>'DTRO_ROWD'</em><em>,</em><em>'KNOT'</em><em>,</em><em>'KNOT_BZ'</em><em>,</em><em>'ROHR'</em><em>,</em><em>'ROHR_BZ'</em><em>,</em><em>'FWVB'</em><em>,</em><em>'FWVB_BZ'</em><em>,</em><em>'LAYR'</em><em>]</em>) – tabNames to import from</p></li>
+<li><p><strong>fksNotToFillWithDstTemplateValues</strong> – fk-colNames not to set to the corresponding Dst-Template-Value</p></li>
+<li><p><strong>fctsToCall</strong> (<em>dct of functions to call before import</em>) – dct of functions, optional, default={‘*’:fimportFromSIR3S}; f(‘*’) is called if defined and then the object-specific f(OBJ) is called if defined</p></li>
+<li><p><strong>fctsToCallLogging</strong> – bool, optional, default=True</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Model data from annother SIR 3S Model should be imported via the SIR 3S export/import interfaces. 
+I.e. export in Src Sdf/Csv, import in Dst the exported Sdf/Csv. Or copy in Src and paste in Dst. Or export/import SIR 3S Blocks. 
+Nevertheless, importing from another Model via script can be helpful.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Template-Objects are not copied from Src to Dst.
+For objects with Templates defined all Non-Null fk-Template-Attributes from Dst are set except for: fksNotToFillWithDstTemplateValues
+It follows that i.e. for KNOT(_BZ), ROHR(_BZ), FWVB(_BZ) fkDE is set to the corresponding fkDE Dst-Template-Attributes if defined.
+For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Model if SYSTEMKONFIG(3) is defined.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dst and Src: SIR 3S Version and CRS (coordinate reference system) should be identical, QGIS-Export should be done (to ensure correct and matching GEOMWKBs).</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.setLayerContentTo">
 <span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">setLayerContentTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layerName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.setLayerContentTo" title="Permalink to this definition"></a></dt>
 <dd><p>Updates content of layerName to df’s-content</p>
