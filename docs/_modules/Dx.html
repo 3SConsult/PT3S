@@ -181,18 +181,21 @@
                     <span class="p">,</span><span class="n">logRows</span><span class="o">=</span><span class="kc">True</span>
                     <span class="p">):</span>       
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Work on Object to import and/or Decision if import </span>
+<span class="sd">    work on object to import and/or decision if import at all </span>
 <span class="sd">    </span>
 <span class="sd">    :param OBJSrc: </span>
 <span class="sd">    :type OBJSrc: sqlalchemy.orm.decl_api.DeclarativeMeta</span>
-<span class="sd">    :param qSrc: </span>
+<span class="sd">    :param qSrc: the query which delivered the objects from Src</span>
 <span class="sd">    :type qSrc: sqlalchemy.orm.query.Query     </span>
-<span class="sd">    :param objSrc: </span>
+<span class="sd">    :param objSrc: the object from Src </span>
 <span class="sd">    :type objSrc: sqlalchemy.ext.automap         </span>
-<span class="sd">    :param objDst: </span>
+<span class="sd">    :param objDst: the object to import in Dst</span>
 <span class="sd">    :type objDst: sqlalchemy.ext.automap </span>
 <span class="sd">    </span>
-<span class="sd">    :return: (objDst,toImport)               </span>
+<span class="sd">    :return: (objDst,toImport) </span>
+
+<span class="sd">    .. note::         </span>
+<span class="sd">        At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk transfers from Templates). Whether objDst should really be imported and if so with what changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dx object and the source data connections are passed to make project-specific imports (via project-specific fimportFromSIR3S) more flexible and powerful.</span>
 <span class="sd">    &quot;&quot;&quot;</span>           
     
     <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>

@@ -650,20 +650,24 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.fimportFromSIR3S">
 <span class="sig-prename descclassname"><span class="pre">Dx.</span></span><span class="sig-name descname"><span class="pre">fimportFromSIR3S</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OBJSrc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qSrc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objSrc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objDst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logRows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Dx.html#fimportFromSIR3S"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Dx.fimportFromSIR3S" title="Permalink to this definition"></a></dt>
-<dd><p>Work on Object to import and/or Decision if import</p>
+<dd><p>work on object to import and/or decision if import at all</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>OBJSrc</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – </p></li>
-<li><p><strong>qSrc</strong> (<em>sqlalchemy.orm.query.Query</em>) – </p></li>
-<li><p><strong>objSrc</strong> (<em>sqlalchemy.ext.automap</em>) – </p></li>
-<li><p><strong>objDst</strong> (<em>sqlalchemy.ext.automap</em>) – </p></li>
+<li><p><strong>qSrc</strong> (<em>sqlalchemy.orm.query.Query</em>) – the query which delivered the objects from Src</p></li>
+<li><p><strong>objSrc</strong> (<em>sqlalchemy.ext.automap</em>) – the object from Src</p></li>
+<li><p><strong>objDst</strong> (<em>sqlalchemy.ext.automap</em>) – the object to import in Dst</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>(objDst,toImport)</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk transfers from Templates). Whether objDst should really be imported and if so with what changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dx object and the source data connections are passed to make project-specific imports (via project-specific fimportFromSIR3S) more flexible and powerful.</p>
+</div>
 </dd></dl>
 
 </section>
