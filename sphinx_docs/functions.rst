@@ -59,11 +59,22 @@ dfLAYR
 Methods
 ~~~~~~~
 
+update
+"""""""
 .. autofunction:: Dx.Dx.update
+
+insert
+"""""""
 .. autofunction:: Dx.Dx.insert
+
+importFromSIR3S
+"""""""
 .. autofunction:: Dx.Dx.importFromSIR3S
+.. autofunction:: Dx.fimportFromSIR3S
+
+setLayerContentTo
+"""""""
 .. autofunction:: Dx.Dx.setLayerContentTo
-.. autofunction:: Dx.Dx.insertLayerContentFromOtherDb
 
 
 SdfCsv
