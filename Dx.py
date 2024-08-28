@@ -30,7 +30,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from sqlalchemy import select
 from sqlalchemy import or_
-from sqlalchemy import select
+#from sqlalchemy import select
 from sqlalchemy import text
 
 import inspect
@@ -2085,7 +2085,7 @@ class Dx():
         :param xkFct: func to call row-wise to obtain (pk, rk, tk) for an record to insert
         :type xkFct: func, optional, default=Dx.fXk      
         
-        :return: rowsAffected, dfIns (a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values)
+        :return: rowsAffected, dfIns (a copy of dfIns; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original values)
 
         .. note:: 
             New model mass data should be created via the SIR 3S import interfaces. Nevertheless, generating model mass data via script can be helpful.
@@ -2198,12 +2198,15 @@ class Dx():
         :param dbSrc: SIR 3S dbFile to import from
         :type dbSrc: str 
         :param tablesToImport: tabNames to import from
-        :type tablesToImport: list of tabNames, optional, default=['STRASSE','LTGR','DTRO','DTRO_ROWD','KNOT','KNOT_BZ','ROHR','ROHR_BZ','FWVB','FWVB_BZ','LAYR']
-        :param fksNotToFillWithDstTemplateValues: fk-colNames not to set to the corresponding Dst-Template-Value
-        :type fctsToCall: dct of functions to call before import
-        :param fctsToCall: dct of functions, optional, default={'*':fimportFromSIR3S}; f('*') is called if defined and then the object-specific f(OBJ) is called if defined
-        :type fctsToCallLogging: 
-        :param fctsToCallLogging: bool, optional, default=True
+        :type tablesToImport: list of tabNames, optional, default=['STRASSE','LTGR','DTRO','DTRO_ROWD'
+                                                                   ,'KNOT','KNOT_BZ','ROHR','ROHR_BZ','FWVB','FWVB_BZ'
+                                                                   ,'LAYR']
+        :param fksNotToFillWithDstTemplateValues: colNames starting with fk not to set to the corresponding Dst-Template-Value
+        :type fksNotToFillWithDstTemplateValues: list of fk starting colNames, optional, default=['fkKI','fkKK','fkDTRO_ROWD','fkLTGR','fkSTRASSE']
+        :param fctsToCall: dct of functions to call before import
+        :type fctsToCall: dct of functions, optional, default={'*':fimportFromSIR3S}; f('*') is called if defined and then the object-specific f(OBJ) is called if defined
+        :param fctsToCallLogging: decide if fctsToCall shall generate Log-Output
+        :type fctsToCallLogging: bool, optional, default=True
         
         .. note:: 
             Model data from annother SIR 3S Model should be imported via the SIR 3S export/import interfaces. 
@@ -2211,13 +2214,14 @@ class Dx():
             Nevertheless, importing from another Model via script can be helpful.
 
         .. note::              
+            Template-Objects are Objects with col 'KENNUNG' < 0.
             Template-Objects are not copied from Src to Dst.
-            For objects with Templates defined all Non-Null fk-Template-Attributes from Dst are set except for: fksNotToFillWithDstTemplateValues
-            It follows that i.e. for KNOT(_BZ), ROHR(_BZ), FWVB(_BZ) fkDE is set to the corresponding fkDE Dst-Template-Attributes if defined.
+            For objects with Templates defined all Non-Null fk-Starting Template-Attributes from Dst are set except for: fksNotToFillWithDstTemplateValues.
+            It follows that i.e. for KNOT(_BZ), ROHR(_BZ), FWVB(_BZ) fkDE is set to the corresponding fkDE Dst-Template-Attribute if defined.
             For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Model if SYSTEMKONFIG(3) is defined.
             
         .. note::              
-            Dst and Src: SIR 3S Version and CRS (coordinate reference system) should be identical, QGIS-Export should be done (to ensure correct and matching GEOMWKBs).          
+            Dst and Src: SIR 3S Version and CRS (coordinate reference system) should be identical, QGIS-Export should be done (to ensure correct and matching GEOMWKBs in Dst and Src).          
             
         """           
         
@@ -2479,7 +2483,7 @@ class Dx():
         :return: rowsAffected
         
         .. note:: 
-            Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.
+            Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done (explicit) via the SIR 3S user interface or (implicit) via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.
 
         .. note:: 
             df's cols used:            
