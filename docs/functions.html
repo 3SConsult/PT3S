@@ -116,28 +116,349 @@
 </div>
 <section id="read-sir-3s-model-and-results">
 <h2>Read SIR 3S Model and Results<a class="headerlink" href="#read-sir-3s-model-and-results" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.readDxAndMx">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Permalink to this definition"></a></dt>
+<dd><p>Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.</p>
+<p>Use maxRecords=0  to read only the model.
+Use maxRecords=1  to read only STAT (the steady state result).
+Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dbFile</strong> (<em>str</em>) – Path to SIR 3S’ database file (‘modell.db3’ or ‘modell.mdb’). The database is read into a Dx object. The corresponding results are read into an Mx object if available.</p></li>
+<li><p><strong>preventPklDump</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S’ sources are read and no pickles are written. If False 3 pickles are written or overwritten if older than SIR 3S’ sources.</p></li>
+<li><p><strong>forceSir3sRead</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Determines whether to force reading from SIR 3S’ sources even if newer pickles exists. By default pickles are read if newer than SIR 3S’ sources.</p></li>
+<li><p><strong>maxRecords</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below <code class="docutils literal notranslate"><span class="pre">C:\3S</span></code>).</p></li>
+<li><p><strong>mxsVecsResults2MxDf</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of regular expressions for SIR 3S’ Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: <code class="docutils literal notranslate"><span class="pre">['ROHR~\*~\*~\*~PHR',</span> <span class="pre">'ROHR~\*~\*~\*~FS',</span> <span class="pre">'ROHR~\*~\*~\*~DSI',</span> <span class="pre">'ROHR~\*~\*~\*~DSK']</span></code></p></li>
+<li><p><strong>mxsVecsResults2MxDfVecAggs</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]</p></li>
+<li><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p></li>
+<li><p><strong>logPathOutputFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=os.path.relpath</em>) – func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An object containing the SIR 3S model and SIR 3S results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dxWithMx</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.</p>
+<p>The returned dxWithMx object has the following structure i.e. Dfs:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Model: Dx object:</dt><dd><ul>
+<li><p>dx.dataFrames[…]: pandas-Dfs 1:1 from SIR 3S’ tables in database file</p></li>
+<li><p>dx.dataFrames[…]: several pandas-Dfs derived from the 1:1 Dfs</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Results: Mx object:</dt><dd><ul>
+<li><p>mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)</p></li>
+<li><p>mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>pandas-Dfs with Model- AND Result-Data:</dt><dd><ul>
+<li><p>V3_ROHR: Pipes</p></li>
+<li><p>V3_FWVB: Housestations District Heating</p></li>
+<li><p>V3_KNOT: Nodes</p></li>
+<li><p>V3_VBEL: Edges</p></li>
+<li><p>V3_ROHRVEC: Pipes including interior points</p></li>
+<li><p>V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</p></li>
+<li><p>V3_AGSNVEC: Longitudinal Sections including Pipe interior points</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>geopandas-Dfs based upon the Dfs above:</dt><dd><ul>
+<li><p>gdf_ROHR: Pipes</p></li>
+<li><p>gdf_FWVB: Housestations District Heating</p></li>
+<li><p>gdf_KNOT: Nodes</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>NetworkX-Graphs:</dt><dd><ul>
+<li><p>G</p></li>
+<li><p>GSig</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Selected functions of the returned dxWithMx object:                </dt><dd><ul class="simple">
+<li><p>switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
 </section>
 <section id="read-sir-3s-results-only">
 <h2>Read SIR 3S Results only<a class="headerlink" href="#read-sir-3s-results-only" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.readMx">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wDirMx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readMx" title="Permalink to this definition"></a></dt>
+<dd><p>Reads SIR 3S results and returns a Mx object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wDirMx</strong> (<em>str</em>) – Path to Mx-Directory. The results are read into a Mx object via the Mx files.</p></li>
+<li><p><strong>logPathOutputFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=os.path.relpath</em>) – func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mx object with two attributes: 
+- mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)
+- mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mx object</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="sir-3s-model-and-result-data">
 <h2>SIR 3S Model- and Result-Data<a class="headerlink" href="#sir-3s-model-and-result-data" title="Permalink to this heading"></a></h2>
 <section id="initialization">
 <h3>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx.__init__">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx.__init__" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dx</strong> (<em>Dx.Dx</em><em>(</em><em>)</em>) – a Dx object</p></li>
+<li><p><strong>mx</strong> (<em>Mx.Mx</em><em>(</em><em>)</em>) – a Mx object</p></li>
+<li><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for Dx with attached Mx</p>
+</div>
+</dd></dl>
+
 </section>
 <section id="dataframes">
 <h3>Dataframes<a class="headerlink" href="#dataframes" title="Permalink to this heading"></a></h3>
 <section id="v3-agsn">
 <h4>V3_AGSN<a class="headerlink" href="#v3-agsn" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSN">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfAGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSN" title="Permalink to this definition"></a></dt>
+<dd><p>V3_AGSN: Create V3_AGSN from dfAGSN. V3_AGSN is a dxWithMx object Attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dfAGSN</strong> (<em>df</em>) – dxWithMx attribute</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>V3_AGSN: dfAGSN expanded to V3_AGSN.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model).
+The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)</p></li>
+<li><p>pk: Section-pk</p></li>
+<li><p>tk: Section-tk</p></li>
+<li><p>LFDNR: Section-LFDNR (numeric)</p></li>
+<li><p>NAME: Section-Name</p></li>
+<li><p>XL: Section-Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)</p></li>
+<li><p>compNr: Number of the connected Component in (Section,Layer) starting with 1</p></li>
+<li><p>nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)</p></li>
+<li><p>OBJTYPE: Edge-Type</p></li>
+<li><p>OBJID: Edge-ID</p></li>
+<li><p>L (0 for Pos=-1)</p></li>
+<li><p>DN</p></li>
+<li><p>Am2</p></li>
+<li><p>Vm3</p></li>
+<li><p>NAME_CONT</p></li>
+<li><p>NAME_i</p></li>
+<li><p>NAME_k</p></li>
+<li><p>ZKOR_n: nextNODEs ZKOR</p></li>
+<li><p>BESCHREIBUNG_n: nextNODEs BESCHREIBUNG</p></li>
+<li><p>KVR_n: nextNODEs KVR</p></li>
+<li><p>LSum: cumulated L up to nextNODE</p></li>
+<li><p>direction: XL=0,1: 1 if edge defined in cut-direction, otherwise -1; XL=2: 1 if edge defined in reverse cut-direction, otherwise -1</p></li>
+<li><p>PH_n: nextNODEs STAT PH-result (i.e. bar) (startNODEs result for Pos=-1)</p></li>
+<li><p>H_n: nextNODEs STAT H-result (i.e. barBzg) (startNODEs result for Pos=-1)</p></li>
+<li><p>mlc_n: nextNODEs STAT H-result (startNODEs result for Pos=-1)</p></li>
+<li><p>RHO_n: nextNODEs STAT RHO-result (startNODEs result for Pos=-1)</p></li>
+<li><p>T_n: nextNODEs STAT T-result (startNODEs result for Pos=-1)</p></li>
+<li><p>QM: Egde STAT QM-Result (startNODEs result for Pos=-1)</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’QM’, a Timestamp, a Timestamp): Egde QM-Results</p></li>
+<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’, a Timestamp, a Timestamp)”_n: nextNODEs Results</p></li>
+<li><p>“(‘STAT|TIME|TMIN|…’,’mlc|…’        , a Timestamp, a Timestamp)”_n: nextNODEs Results calculated by PT3S</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
 </section>
 <section id="v3-agsnvec">
 <h4>V3_AGSNVEC<a class="headerlink" href="#v3-agsnvec" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSNVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_AGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC" title="Permalink to this definition"></a></dt>
+<dd><p>V3_AGSNVEC: Create V3_AGSNVEC from V3_AGSN. V3_AGSNVEC is a dxWithMx object Attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>V3_AGSN</strong> (<em>df</em>) – dxWithMx attribute</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:</dt><dd><dl class="simple">
+<dt>V3_AGSN-columns:</dt><dd><ul class="simple">
+<li><p>Pos: Pos=-1: eliminated if Start-Edge is a Pipe</p></li>
+<li><p>nextNODE: Pos=0: startNODE &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
+<li><p>LSum: Pos=0: 0. &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
+<li><p>…</p></li>
+<li><p>cols mapped with VEC-Results:</p></li>
+<li><p>LSum</p></li>
+<li><p>ZKOR_n</p></li>
+<li><p>PH_n</p></li>
+<li><p>H_n</p></li>
+<li><p>mlc_n</p></li>
+<li><p>T_n</p></li>
+<li><p>QM</p></li>
+</ul>
+</dd>
+<dt>V3_ROHRVEC-columns:</dt><dd><ul class="simple">
+<li><p>pk_ROHRVEC: Pipe-pk</p></li>
+<li><p>tk_ROHRVEC: Pipe-tk</p></li>
+<li><p>…</p></li>
+<li><p>L_ROHRVEC</p></li>
+<li><p>…</p></li>
+<li><p>NAME_i_ROHRVEC, NAME_k_ROHRVEC</p></li>
+<li><p>mx2NofPts</p></li>
+<li><p>dL (=L/(mx2NofPts-1))</p></li>
+<li><p>…</p></li>
+<li><p>mx2Idx</p></li>
+<li><p>IptIdx: rows S or E are eliminated for all pipes except the 1st</p></li>
+<li><p>…</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
 </section>
 <section id="v3-rohrvec">
 <h4>V3_ROHRVEC<a class="headerlink" href="#v3-rohrvec" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHRVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC" title="Permalink to this definition"></a></dt>
+<dd><p>V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>V3_ROHR</strong> (<em>df</em>) – dxWithMx Attribute</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>V3_ROHRVEC</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The interior points are defined by the output grid definition for pipes in the SIR 3S model. The numerical grid with which SIR 3S calculates is different from the output grid.
+The returned V3_ROHRVEC (one row per pipe and interior point) has the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pk: Pipe-pk</p></li>
+<li><p>tk: Pipe-tk</p></li>
+<li><p>…</p></li>
+<li><p>L</p></li>
+<li><p>…</p></li>
+<li><p>NAME_i, NAME_k</p></li>
+<li><p>mx2NofPts</p></li>
+<li><p>dL (=L/(mx2NofPts-1))</p></li>
+<li><p>…</p></li>
+<li><p>mx2Idx</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’ROHR…QMAV|PHR|…’, a Timestamp, a Timestamp): Pipe-Results</p></li>
+<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’,     a Timestamp, a Timestamp)”_i: Pipe i-NODE Results</p></li>
+<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’,     a Timestamp, a Timestamp)”_k: Pipe k-NODE Results</p></li>
+<li><p>QMAVAbs: Pipes STAT QMAV-Result (absolute value)</p></li>
+<li><p>VAVAbs: Pipes STAT VAV-Result (absolute value)</p></li>
+<li><p>PHRAbs: Pipes STAT PHR-Result (absolute value)</p></li>
+<li><p>JVAbs: Pipes STAT JV-Result (absolute value)</p></li>
+<li><p>IptIdx: an Index of the points: S: Start (i-NODE), E: End (k-NODE), interior points: 0,1,2,…</p></li>
+<li><p>IptIdxAsNo: an Index of the points starting with 0 at i-NODE: 0,1,2,…</p></li>
+<li><p>IptIdxAsNoRev: an Index of the points starting with 0 at k-NODE: 0,1,2,…</p></li>
+<li><p>SVEC: x in Edge-direction (IptIdx=S: 0.; IptIdx=E: L)</p></li>
+<li><p>SVECRev (IptIdx=S: L; IptIdx=E: 0)</p></li>
+<li><p>ZVEC: z</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’ROHR…MVEC|PVEC|RHOVEC|TVEC|…’, a Timestamp, a Timestamp): point Results</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|…’,  a Timestamp, a Timestamp): point Results calculated by PT3S</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
 </section>
 <section id="gdfs">
 <h4>gdfs<a class="headerlink" href="#gdfs" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._gdfs">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_gdfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._gdfs" title="Permalink to this definition"></a></dt>
+<dd><p>Create gdfs from V3-dfs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(gdf_FWVB, gdf_ROHR, gdf_KNOT)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of gdfs</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>V3_FWVB, V3_ROHR, V3_KNOT and gdf_FWVB, gdf_ROHR, gdf_KNOT are dxWithMx object Attributes.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>V3_FWVB: gdf_FWVB</p></li>
+<li><p>V3_ROHR: gdf_ROHR</p></li>
+<li><p>V3_KNOT: gdf_KNOT</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
 </section>
 </section>
 </section>
@@ -151,14 +472,194 @@
 </div>
 <section id="dflayr">
 <h4>dfLAYR<a class="headerlink" href="#dflayr" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx._dfLAYR">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx._dfLAYR" title="Permalink to this definition"></a></dt>
+<dd><p>dfLAYR: one row per LAYR and OBJ. dfLAYR is a Dx object Attribute.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering and grouping.</p>
+<p>The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>LAYR:</dt><dd><ul class="simple">
+<li><p>pk</p></li>
+<li><p>tk</p></li>
+<li><p>LFDNR (numeric)</p></li>
+<li><p>NAME</p></li>
+</ul>
+</dd>
+<dt>LAYR-Info:</dt><dd><ul class="simple">
+<li><p>AnzDerObjekteInGruppe</p></li>
+<li><p>AnzDerObjekteDesTypsInGruppe</p></li>
+</ul>
+</dd>
+<dt>OBJ:</dt><dd><ul class="simple">
+<li><p>TYPE</p></li>
+<li><p>ID</p></li>
+</ul>
+</dd>
+<dt>OBJ-Info:</dt><dd><ul class="simple">
+<li><p>NrDesObjektesDesTypsInGruppe</p></li>
+<li><p>NrDesObjektesInGruppe</p></li>
+<li><p>GruppenDesObjektsAnz</p></li>
+<li><p>GruppenDesObjektsNamen</p></li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</dd></dl>
+
 </section>
 </section>
 <section id="methods">
 <h3>Methods<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.update">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfUpd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updInverseValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.update" title="Permalink to this definition"></a></dt>
+<dd><p>Updates dbFile (SQLite only)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dfUpd</strong> (<em>df</em>) – df with update data</p></li>
+<li><p><strong>updInverseValue</strong> (<em>?</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – value to use for attribValue for inverse objects</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffectedTotal</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on type/operation/parameterization - can also overwrite (update) existing model data. Nonetheless, scripted model changes can be helpful.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>dfUpd’s cols used:            </dt><dd><ul class="simple">
+<li><p>table i.e. ‘FWVB’</p></li>
+<li><p>attrib i.e. ‘W0’</p></li>
+</ul>
+</dd>
+<dt>dfUpd’s cols optional:         </dt><dd><ul class="simple">
+<li><p>attribValue, default=dfUpd[attrib]</p></li>
+<li><p>xk, default=’tk’</p></li>
+<li><p>xkValue, default=dfUpd[xk]</p></li>
+</ul>
+</dd>
+<dt>row-wise:</dt><dd><ul class="simple">
+<li><p>set attrib to attribValue in table where xk is xkValue</p></li>
+<li><p>update an attribute of an object</p></li>
+</ul>
+</dd>
+<dt>updInverseValue:</dt><dd><ul class="simple">
+<li><p>set attrib to updInverseValue for all objects of type table not mentioned in dfUpd</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.insert">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfIns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xkFct=&lt;function</span> <span class="pre">fXk&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.insert" title="Permalink to this definition"></a></dt>
+<dd><p>Inserts into a dbFile’s table (SQLite only)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<em>str</em>) – table to insert to</p></li>
+<li><p><strong>dfIns</strong> (<em>df</em>) – df with insert data</p></li>
+<li><p><strong>xkFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=Dx.fXk</em>) – func to call row-wise to obtain (pk, rk, tk) for an record to insert</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffected, dfIns (a copy; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original Values)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>New model mass data should be created via the SIR 3S import interfaces. Nevertheless, generating model mass data via script can be helpful.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>dfIns’ cols used:            </dt><dd><ul class="simple">
+<li><p>all cols which are also cols of table</p></li>
+</ul>
+</dd>
+<dt>row-wise:</dt><dd><ul class="simple">
+<li><p>insert into table</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.setLayerContentTo">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">setLayerContentTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layerName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.setLayerContentTo" title="Permalink to this definition"></a></dt>
+<dd><p>Updates content of layerName to df’s-content</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>layerName</strong> (<em>str</em>) – name of an existing layer</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffected</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done via the SIR 3S user interface or via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>df’s cols used:            </dt><dd><ul class="simple">
+<li><p>TYPE</p></li>
+<li><p>ID</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
 </section>
 </section>
 <section id="sdfcsv">
 <h2>SdfCsv<a class="headerlink" href="#sdfcsv" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sdfCsv.SdfCsv.__init__">
+<span class="sig-prename descclassname"><span class="pre">sdfCsv.SdfCsv.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csvFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'aSdfCsvFile.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp1252'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sdfCsv.SdfCsv.__init__" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csvFile</strong> (<em>str</em>) – a SDF-CSV-File</p></li>
+<li><p><strong>encoding</strong> (<em>str</em>) – encoding</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SIR 3S imports SDF-CSV-Files. However sometimes it is convenient to have a look at the original SDF-CSV-File content with Python. I.e. to explore the original hierarchical layer structure in comparison to the flat layer structure in the SIR 3S model. Or i.e. to check against the SIR 3S SDF-CSV-File import- and export-function result. In general, one can say that the SDF-CSV format for pipe network data (for pipe network models) is so widespread in Germany that it makes sense to have an SIR 3S affine function which maps the SDF-CSV-File to pandas dfs.</p>
+<p>The returned object has the following structure:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>dataFrames: dct with dfs</p></li>
+<li><p>dataFrames[‘FEL’]: a df with the definition of the columns of all types; i.e. ‘KNO’ is a type</p></li>
+<li><p>dataFrames[‘KNO’]: a df with data for objects of type ‘KNO’</p></li>
+<li><p>dataFramesDesc: dct with descs; i.e. dataFramesDesc[‘KNO’]: ‘Knotendaten’</p></li>
+</ul>
+</div></blockquote>
+<p>The returned object has the following functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>getHierarchicalLayernames: returns: {originalLayername:hierarchicalLayername, …}</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
 </section>
 </section>
 
