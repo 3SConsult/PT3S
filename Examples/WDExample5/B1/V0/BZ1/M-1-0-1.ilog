@@ -100,3 +100,111 @@ Information	0	2024-08-30 12:50:06.363	-1	IObjectModel::StartTransaction()	Berech
 Information	0	2024-08-30 12:50:13.565	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
 Information	0	2024-08-30 12:50:13.942	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
 Information	0	2024-08-30 12:54:26.602	-1	IObjectModel::StartTransaction()	bearbeitet : Globale Einstellungen für Zeitkurven  	-1  	
+Information	0	2024-08-30 13:00:21.159	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
+Information	0	2024-08-30 13:01:02.245	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-08-30 13:02:50.548	-1	IObjectModel::StartTransaction()	Daten setzen: Betriebsart  	-1  	
+Information	0	2024-08-30 13:04:05.963	-1	IObjectModel::StartTransaction()	Betriebsart RART_4779154 : Daten setzen : Referenzknoten 1  	-1  	
+Information	0	2024-08-30 13:04:21.744	-1	IObjectModel::StartTransaction()	Betriebsart RART_4779154 : Daten setzen : Referenzknoten 2  	-1  	
+Information	0	2024-08-30 13:04:32.950	-1	IObjectModel::StartTransaction()	Betriebsart RART_4779154 : Daten setzen : Sollwert-Tabelle  	-1  	
+Information	0	2024-08-30 13:04:39.055	-1	IObjectModel::StartTransaction()	Daten setzen : Betriebsart RART_4779154 : Name  	-1  	
+Information	0	2024-08-30 13:19:02.040	-1	IObjectModel::StartTransaction()	Daten setzen: Stellgrößenumformer KA-0126: Betriebsart --> Adp1614  	-1  	
+Information	0	2024-08-30 13:24:24.438	-1	IObjectModel::StartTransaction()	Hinzufügen: Block/Block Symbol  	-1  	
+Information	0	2024-08-30 13:24:24.486	-1	IObjectModel::StartTransaction()	Größe ändern: Block/Block Symbol CONT 1039  	-1  	
+Information	0	2024-08-30 13:24:25.858	-1	IObjectModel::StartTransaction()	Größe ändern: Block/Block Symbol CONT 1039  	-1  	
+Information	0	2024-08-30 13:24:35.051	-1	IObjectModel::StartTransaction()	Daten setzen: CONT 1039: Symbol-Farbe --> #FF808000  	-1  	
+Information	0	2024-08-30 13:24:45.537	-1	IObjectModel::StartTransaction()	Daten setzen: CONT 1039: Name --> Gebeit 6 geschlossen?  	-1  	
+Information	0	2024-08-30 13:25:00.758	-1	IObjectModel::StartTransaction()	Daten setzen: Gebeit 6 geschlossen?: Name --> Gebeit 6 getrennt?  	-1  	
+Information	0	2024-08-30 13:26:28.309	-1	IObjectModel::StartTransaction()	Hinzufügen: Messaufnehmer  	-1  	
+Information	0	2024-08-30 13:26:41.805	-1	IObjectModel::StartTransaction()	Daten setzen: Messaufnehmer KA-0158: Typ des Aggregats --> 3  	-1  	
+Information	0	2024-08-30 13:26:50.627	-1	IObjectModel::StartTransaction()	bearbeitet: Messaufnehmer KA-0158: Interner Datenpunkt für Messaufnehmer  	-1  	
+Information	0	2024-08-30 13:30:24.278	-1	IObjectModel::StartTransaction()	Daten setzen: Messaufnehmer KA-0158: Ausgang --> Sec06Open  	-1  	
+Information	0	2024-08-30 13:30:33.773	-1	IObjectModel::StartTransaction()	Hinzufügen: Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:30:33.910	-1	IObjectModel::StartTransaction()	Initialisierung Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:30:51.999	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:30:52.014	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:31:21.765	-1	IObjectModel::StartTransaction()	Daten setzen: Messaufnehmer Sec06Open: Ausgang --> Sec06PhiMin  	-1  	
+Information	0	2024-08-30 13:31:30.090	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Eingang]  Sec06Open: Name (ID) --> Sec06PhiMin  	-1  	
+Information	0	2024-08-30 13:31:34.940	-1	IObjectModel::StartTransaction()	Hinzufügen: Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:31:34.971	-1	IObjectModel::StartTransaction()	Initialisierung Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:31:58.992	-1	IObjectModel::StartTransaction()	Hinzufügen: Hysterese  	-1  	
+Information	0	2024-08-30 13:32:07.819	-1	IObjectModel::StartTransaction()	Daten setzen: Hysterese KA-0158: Oberer Schaltpunkt --> 99,9  	-1  	
+Information	0	2024-08-30 13:32:13.988	-1	IObjectModel::StartTransaction()	Daten setzen: Hysterese KA-0158: Unterer Schaltpunkt --> 99,8  	-1  	
+Information	0	2024-08-30 13:32:36.251	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:32:36.256	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:32:54.767	-1	IObjectModel::StartTransaction()	Daten setzen: Hysterese KA-0158: Ausgang --> Sec06Open  	-1  	
+Information	0	2024-08-30 13:33:04.816	-1	IObjectModel::StartTransaction()	Hinzufügen: Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:33:04.866	-1	IObjectModel::StartTransaction()	Initialisierung Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:33:23.907	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:33:23.930	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:33:53.279	-1	IObjectModel::StartTransaction()	Hinzufügen: Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:33:53.393	-1	IObjectModel::StartTransaction()	Initialisierung Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:34:06.788	-1	IObjectModel::StartTransaction()	Hinzufügen: Logischer Vergleich  	-1  	
+Information	0	2024-08-30 13:34:12.346	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:34:12.351	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:34:24.575	-1	IObjectModel::StartTransaction()	Daten setzen: Logischer Vergleich KA-0158: Ausgang --> Sec06NOpen  	-1  	
+Information	0	2024-08-30 13:34:35.524	-1	IObjectModel::StartTransaction()	Hinzufügen: Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:34:35.668	-1	IObjectModel::StartTransaction()	Initialisierung Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:35:01.922	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:35:01.927	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:35:20.534	-1	IObjectModel::StartTransaction()	Berechnungsart ändern  	-1  	
+Information	0	2024-08-30 13:36:57.238	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 13:37:02.223	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 13:38:58.540	-1	IObjectModel::StartTransaction()	Hinzufügen: Logischer Vergleich  	-1  	
+Information	0	2024-08-30 13:39:02.419	-1	IObjectModel::StartTransaction()	Daten setzen: Logischer Vergleich KA-0158: Typ --> 10  	-1  	
+Information	0	2024-08-30 13:39:11.809	-1	IObjectModel::StartTransaction()	Hinzufügen: Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:39:11.902	-1	IObjectModel::StartTransaction()	Initialisierung Übergangssymbol  	-1  	
+Information	0	2024-08-30 13:39:36.227	-1	IObjectModel::StartTransaction()	Verschieben: Übergangssymbol  [Typ=Ausgang]  autoA_STAT  	-1  	
+Information	0	2024-08-30 13:39:38.566	-1	IObjectModel::StartTransaction()	Verschieben: Übergangssymbol  [Typ=Ausgang]  autoA_STAT  	-1  	
+Information	0	2024-08-30 13:39:48.333	-1	IObjectModel::StartTransaction()	Objekt löschen: Regelungstechnische Verknüpfungslinie autoA_STAT  	-1  	
+Information	0	2024-08-30 13:39:56.113	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:39:56.141	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:40:04.552	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:40:04.579	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:40:22.971	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:40:22.992	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:42:17.018	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 13:42:56.146	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 13:43:39.431	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 13:44:43.052	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 13:46:28.926	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-08-30 13:47:48.430	-1	IObjectModel::StartTransaction()	Einfügen aus Zwischenablage  	-1  	
+Information	0	2024-08-30 13:47:55.234	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 13:47:57.673	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 13:47:59.334	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 13:48:08.311	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Ausgang]  Sec06Open: Eingangs-Übergangsstelle --> 5134264746219267608  	-1  	
+Information	0	2024-08-30 13:48:37.473	-1	IObjectModel::StartTransaction()	Daten setzen: Stellgrößenumformer KA-0160: Betriebsart --> Adp1131  	-1  	
+Information	0	2024-08-30 13:49:20.481	-1	IObjectModel::StartTransaction()	Hinzufügen: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:49:20.495	-1	IObjectModel::StartTransaction()	Verknüpfung: Regelungstechnische Verknüpfungslinie  	-1  	
+Information	0	2024-08-30 13:49:26.908	-1	IObjectModel::StartTransaction()	Hinzufügen: Wegpunkt: Regelungstechnische Verknüpfungslinie autoA_STAT  	-1  	
+Information	0	2024-08-30 13:49:30.887	-1	IObjectModel::StartTransaction()	Verschieben: Regelungstechnische Verknüpfungslinie autoA_STAT  	-1  	
+Information	0	2024-08-30 13:49:34.446	-1	IObjectModel::StartTransaction()	Hinzufügen: Wegpunkt: Regelungstechnische Verknüpfungslinie autoA_STAT  	-1  	
+Information	0	2024-08-30 13:49:35.886	-1	IObjectModel::StartTransaction()	Verschieben: Regelungstechnische Verknüpfungslinie autoA_STAT  	-1  	
+Information	0	2024-08-30 13:49:47.988	-1	IObjectModel::StartTransaction()	Daten setzen: Betriebsart  	-1  	
+Information	0	2024-08-30 13:55:24.798	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-08-30 13:58:46.491	-1	IObjectModel::StartTransaction()	Einfügen aus Zwischenablage  	-1  	
+Information	0	2024-08-30 13:58:53.831	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 13:58:55.066	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 13:58:58.105	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 13:59:08.516	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol ebeit 6 get1  	-1  	
+Information	0	2024-08-30 13:59:10.396	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol ebeit 6 get1  	-1  	
+Information	0	2024-08-30 13:59:37.257	-1	IObjectModel::StartTransaction()	Daten setzen: ebeit 6 get1: Name --> Gebiet 9 getrennt?  	-1  	
+Information	0	2024-08-30 14:00:01.810	-1	IObjectModel::StartTransaction()	bearbeitet: Messaufnehmer KA-0163: Interner Datenpunkt für Messaufnehmer  	-1  	
+Information	0	2024-08-30 14:02:32.124	-1	IObjectModel::StartTransaction()	Daten setzen: Messaufnehmer KA-0163: Ausgang --> Sec06PhiMin  	-1  	
+Information	0	2024-08-30 14:02:49.420	-1	IObjectModel::StartTransaction()	Daten setzen: Messaufnehmer Sec06PhiMin: Ausgang --> Sec09PhiMin  	-1  	
+Information	0	2024-08-30 14:02:57.314	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Eingang]  f8830f2ab3: Name (ID) --> Sec09PhiMin  	-1  	
+Information	0	2024-08-30 14:03:15.070	-1	IObjectModel::StartTransaction()	Daten setzen: Hysterese KA-0161: Ausgang --> Sec09Open  	-1  	
+Information	0	2024-08-30 14:03:22.484	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Eingang]  1877ff5cd7: Name (ID) --> Sec09Open  	-1  	
+Information	0	2024-08-30 14:03:35.168	-1	IObjectModel::StartTransaction()	Daten setzen: Logischer Vergleich KA-0162: Ausgang --> Sec09Open  	-1  	
+Information	0	2024-08-30 14:03:42.870	-1	IObjectModel::StartTransaction()	Daten setzen: Logischer Vergleich Sec09Open: Ausgang --> Sec09NOpen  	-1  	
+Information	0	2024-08-30 14:03:52.749	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Eingang]  abba5a549a: Name (ID) --> Sec09NOpen  	-1  	
+Information	0	2024-08-30 14:04:20.941	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Ausgang]  Sec06Open: Eingangs-Übergangsstelle --> 5490939745383883643  	-1  	
+Information	0	2024-08-30 14:04:29.440	-1	IObjectModel::StartTransaction()	Daten setzen: Stellgrößenumformer KA-0126: Betriebsart --> Adp1131  	-1  	
+Information	0	2024-08-30 14:04:43.345	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Ausgang]  Sec06NOpen: Eingangs-Übergangsstelle --> 5336983639182171262  	-1  	
+Information	0	2024-08-30 14:05:04.183	-1	IObjectModel::StartTransaction()	Daten setzen: Stellgrößenumformer KA-0160: Betriebsart --> Adp1614  	-1  	
+Information	0	2024-08-30 14:06:03.546	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 14:06:43.260	-1	IObjectModel::StartTransaction()	bearbeitet : Aktivität : Längsschnitt barB  	-1  	
+Information	0	2024-08-30 14:06:43.926	-1	IObjectModel::StartTransaction()	bearbeitet : Aktivität : Längsschnitt barB  	-1  	
+Information	0	2024-08-30 14:07:00.149	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
+Information	0	2024-08-30 14:08:19.652	-1	IObjectModel::StartTransaction()	Objekt löschen: Block/Block Symbol Modus  	-1  	
+Information	0	2024-08-30 14:10:05.670	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Ausgang]  <Nicht verfügbar>: Eingangs-Übergangsstelle --> 5545764379558181966  	-1  	
+Information	0	2024-08-30 14:10:10.825	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Ausgang]  <Nicht verfügbar>: Eingangs-Übergangsstelle --> 5315155270951182991  	-1  	
