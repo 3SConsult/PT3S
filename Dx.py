@@ -100,6 +100,8 @@ def fimportFromSIR3S(dx
     """
     work on object to import and/or decision if import at all 
     
+    :param dx: Dx object of Dst
+    :type dx: Dx.Dx 
     :param OBJSrc: 
     :type OBJSrc: sqlalchemy.orm.decl_api.DeclarativeMeta
     :param qSrc: the query which delivered the objects from Src
@@ -114,7 +116,7 @@ def fimportFromSIR3S(dx
     :return: (objDst,toImport) 
 
     .. note::         
-        At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk transfers from Templates). Whether objDst should really be imported and if so what further changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dx object and the source data connections are passed to make project-specific imports (via project-specific fimportFromSIR3S-functions) more flexible and powerful.
+        At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk-transfers from Templates). Whether objDst should really be imported and if so what further changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dst's dx and Src's connections are passed to make project-specific imports (via project-specific fimportFromSIR3S-functions) more flexible and powerful.
     """           
     
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)

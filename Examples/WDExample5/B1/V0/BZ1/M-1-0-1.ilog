@@ -1,0 +1,102 @@
+Information	0	2024-08-30 10:08:05.014	-1	IObjectModel::StartTransaction()	Berechnungsart ändern  	-1  	
+Information	0	2024-08-30 10:08:36.721	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
+Information	0	2024-08-30 10:10:09.083	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2024-08-30 10:11:05.135	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2024-08-30 10:12:35.534	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2024-08-30 10:18:05.862	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2024-08-30 10:19:34.993	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2024-08-30 10:22:19.531	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol Modus  	-1  	
+Information	0	2024-08-30 10:22:24.536	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol Last  	-1  	
+Information	0	2024-08-30 10:22:27.076	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol Erzeugung  	-1  	
+Information	0	2024-08-30 10:22:30.297	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol Sekundärwerte  	-1  	
+Information	0	2024-08-30 10:23:04.055	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol DH  	-1  	
+Information	0	2024-08-30 10:23:06.291	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol Sollwertnachführungen  	-1  	
+Information	0	2024-08-30 10:23:09.632	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol SIM  	-1  	
+Information	0	2024-08-30 10:23:56.622	-1	IObjectModel::StartTransaction()	Objekt löschen: Block/Block Symbol Sollwertnachführungen  	-1  	
+Information	0	2024-08-30 10:25:13.484	-1	IObjectModel::StartTransaction()	Daten setzen: Text 3SmartFW Testmodell: Anzeigetext --> Example 5  	-1  	
+Information	0	2024-08-30 10:25:59.366	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 10:41:05.417	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 10:42:18.483	-1	IObjectModel::StartTransaction()	Daten setzen: Betriebsart  	-1  	
+Information	0	2024-08-30 10:43:00.816	-1	IObjectModel::StartTransaction()	Daten setzen: Regelpunktliste  	-1  	
+Information	0	2024-08-30 10:50:44.080	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 10:53:10.978	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2024-08-30 10:53:13.667	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2024-08-30 10:53:15.574	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2024-08-30 10:54:36.982	-1	IObjectModel::StartTransaction()	Verschieben: Numerische Anzeige: Additionsstelle DH_pM -->Signalwert am Ausgang  	-1  	
+Information	0	2024-08-30 10:55:24.209	-1	IObjectModel::StartTransaction()	Einfügen aus Zwischenablage  	-1  	
+Information	0	2024-08-30 10:55:49.496	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Sollwertgeber wDH_MD_A -->|Signalwert am Ausgang|: Schriftart und Schriftgröße --> Arial, 10,00 pt, Bold  	-1  	
+Information	0	2024-08-30 10:56:09.457	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2024-08-30 10:56:23.602	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Sollwertgeber wDH_MD_A -->|Signalwert am Ausgang|: Prefix --> pM w  	-1  	
+Information	0	2024-08-30 10:56:38.768	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->Signalwert am Ausgang: Prefix --> pM y  	-1  	
+Information	0	2024-08-30 10:57:14.594	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Sollwertgeber wDH_MD_A -->|Signalwert am Ausgang|: Schriftart und Schriftgröße --> Arial, 10,00 pt, Regular  	-1  	
+Information	0	2024-08-30 10:58:50.570	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->Signalwert am Ausgang: Schriftart und Schriftgröße --> Arial, 10,00 pt, Regular  	-1  	
+Information	0	2024-08-30 10:59:23.865	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 11:00:35.995	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 11:02:09.295	-1	IObjectModel::StartTransaction()	Daten setzen: Regelpunktliste  	-1  	
+Information	0	2024-08-30 11:06:23.918	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
+Information	0	2024-08-30 11:06:30.290	-1	IObjectModel::StartTransaction()	Farbskalen bearbeiten  	-1  	
+Information	0	2024-08-30 11:07:18.683	-1	IObjectModel::StartTransaction()	Daten setzen: Betriebsart  	-1  	
+Information	0	2024-08-30 11:08:08.991	-1	IObjectModel::StartTransaction()	Betriebsart RART_4776352 : Daten setzen : Referenzknoten 1  	-1  	
+Information	0	2024-08-30 11:08:23.976	-1	IObjectModel::StartTransaction()	Betriebsart RART_4776352 : Daten setzen : Referenzknoten 2  	-1  	
+Information	0	2024-08-30 11:08:35.215	-1	IObjectModel::StartTransaction()	Betriebsart RART_4776352 : Daten setzen : Sollwert-Tabelle  	-1  	
+Information	0	2024-08-30 11:08:39.869	-1	IObjectModel::StartTransaction()	Daten setzen : Betriebsart RART_4776352 : Name  	-1  	
+Information	0	2024-08-30 11:08:47.259	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
+Information	0	2024-08-30 11:12:33.409	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 11:13:31.121	-1	IObjectModel::StartTransaction()	Daten setzen: Betriebsart  	-1  	
+Information	0	2024-08-30 11:13:50.892	-1	IObjectModel::StartTransaction()	Betriebsart dp : Daten setzen : Sollwert-Tabelle  	-1  	
+Information	0	2024-08-30 11:14:50.570	-1	IObjectModel::StartTransaction()	Daten setzen: Stellgrößenumformer KA-0126: Betriebsart --> dp  	-1  	
+Information	0	2024-08-30 11:16:22.012	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 11:18:34.565	-1	IObjectModel::StartTransaction()	Daten setzen: Betriebsart  	-1  	
+Information	0	2024-08-30 11:19:07.422	-1	IObjectModel::StartTransaction()	Daten setzen : Betriebsart dp : Name  	-1  	
+Information	0	2024-08-30 12:16:10.935	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2024-08-30 12:17:59.783	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:18:33.716	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2024-08-30 12:18:35.818	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2024-08-30 12:19:27.227	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:20:10.120	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:21:43.880	-1	IObjectModel::StartTransaction()	Datenpunkte bearbeiten: Numerische Anzeige:  	-1  	
+Information	0	2024-08-30 12:23:05.563	-1	IObjectModel::StartTransaction()	Datenpunkte bearbeiten: Numerische Anzeige:  	-1  	
+Information	0	2024-08-30 12:23:51.164	-1	IObjectModel::StartTransaction()	Daten setzen: Text 3SmartFW Testmodell: Anzeigetext --> Example 5  	-1  	
+Information	0	2024-08-30 12:24:58.115	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:25:49.887	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->|Signalwert am Ausgang|: Nachkommastellen --> 2  	-1  	
+Information	0	2024-08-30 12:26:03.421	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->|Signalwert am Ausgang|: Nachkommastellen --> 1  	-1  	
+Information	0	2024-08-30 12:26:19.551	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:27:11.725	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Messaufnehmer DH_pRL -->|Signalwert am Ausgang|: Nachkommastellen --> 2  	-1  	
+Information	0	2024-08-30 12:27:28.582	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->|Signalwert am Ausgang|: Nachkommastellen --> 2  	-1  	
+Information	0	2024-08-30 12:27:49.338	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:28:52.680	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Sollwertgeber wDH_MD_A -->|Signalwert am Ausgang|: Nachkommastellen --> 2  	-1  	
+Information	0	2024-08-30 12:28:58.298	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->Signalwert am Ausgang: Nachkommastellen --> 2  	-1  	
+Information	0	2024-08-30 12:29:19.696	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:29:53.307	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->|Signalwert am Ausgang|: Nachkommastellen --> 1  	-1  	
+Information	0	2024-08-30 12:30:06.553	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Messaufnehmer DH_pRL -->|Signalwert am Ausgang|: Nachkommastellen --> 1  	-1  	
+Information	0	2024-08-30 12:30:30.941	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2024-08-30 12:30:31.690	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2024-08-30 12:31:27.148	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Messaufnehmer DH_pRL -->|Signalwert am Ausgang|: Nachkommastellen --> 0  	-1  	
+Information	0	2024-08-30 12:31:40.218	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Messaufnehmer DH_pRL -->|Signalwert am Ausgang|: Nachkommastellen --> 1  	-1  	
+Information	0	2024-08-30 12:31:45.487	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->|Signalwert am Ausgang|: Nachkommastellen --> 0  	-1  	
+Information	0	2024-08-30 12:32:10.712	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:32:46.547	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Additionsstelle DH_pM -->|Signalwert am Ausgang|: Nachkommastellen --> 1  	-1  	
+Information	0	2024-08-30 12:33:08.749	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:33:19.346	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:33:35.094	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:33:57.349	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:34:12.584	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:35:01.379	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2024-08-30 12:35:08.256	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2024-08-30 12:39:39.165	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol Steuerung  	-1  	
+Information	0	2024-08-30 12:39:44.819	-1	IObjectModel::StartTransaction()	Verschieben: Block/Block Symbol TS  	-1  	
+Information	0	2024-08-30 12:41:10.945	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:41:19.405	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:41:32.068	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:41:52.583	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:42:16.337	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:42:25.952	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:43:34.229	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:43:42.036	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:43:48.120	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:44:06.257	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2024-08-30 12:48:32.380	-1	IObjectModel::StartTransaction()	Objekt löschen: Numerische Anzeige: Sollwertgeber wAutoB -->Signalwert am Ausgang  	-1  	
+Information	0	2024-08-30 12:50:06.363	-1	IObjectModel::StartTransaction()	Berechnungsart ändern  	-1  	
+Information	0	2024-08-30 12:50:13.565	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2024-08-30 12:50:13.942	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2024-08-30 12:54:26.602	-1	IObjectModel::StartTransaction()	bearbeitet : Globale Einstellungen für Zeitkurven  	-1  	
