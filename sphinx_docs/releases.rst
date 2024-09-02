@@ -3,6 +3,15 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.XX.0.dev1
+---------------
+    
+**New:**
+    
+- dxWithMx:
+    - SirCalcXmlFile: SirCalc's Xml-File of the model
+    - SirCalcExeFile: SirCalc Executable used to (re-)calculate the model 
+
 90.14.31.0.dev1
 ---------------
 

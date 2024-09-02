@@ -49,8 +49,8 @@ You can download the Notebook file :download:`here <Example3.ipynb>`.
 
 .. _ex4:
 
-Example 4: OSM to SIR 3S Shape Import
--------------------------------------
+Example 4: OSM PBF to SIR 3S SHP Import
+--------------------------------
 
 You can view the Notebook `here <Example4.html>`_.
 

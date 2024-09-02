@@ -208,3 +208,15 @@ Information	0	2024-08-30 14:07:00.149	-1	IObjectModel::StartTransaction()	bearbe
 Information	0	2024-08-30 14:08:19.652	-1	IObjectModel::StartTransaction()	Objekt löschen: Block/Block Symbol Modus  	-1  	
 Information	0	2024-08-30 14:10:05.670	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Ausgang]  <Nicht verfügbar>: Eingangs-Übergangsstelle --> 5545764379558181966  	-1  	
 Information	0	2024-08-30 14:10:10.825	-1	IObjectModel::StartTransaction()	Daten setzen: Übergangssymbol  [Typ=Ausgang]  <Nicht verfügbar>: Eingangs-Übergangsstelle --> 5315155270951182991  	-1  	
+Information	0	2024-09-02 11:39:04.281	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-09-02 12:35:36.813	-1	IObjectModel::StartTransaction()	Daten setzen: Ventil V-1104 V-1104 TS: Auswahl Ventilstellung --> -1  	-1  	
+Information	0	2024-09-02 12:37:35.230	-1	IObjectModel::StartTransaction()	Daten setzen: Ventil V-1104 V-1104 TS: Auswahl Ventilstellung --> 0  	-1  	
+Information	0	2024-09-02 15:30:05.292	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
+Information	0	2024-09-02 15:46:11.187	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-09-02 15:46:11.490	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-09-02 15:47:58.573	-1	IObjectModel::StartTransaction()	bearbeitet : Längsschnitt barB  	-1  	
+Information	0	2024-09-02 15:49:52.096	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-09-02 15:49:55.919	-1	IObjectModel::StartTransaction()	Fernwärmeverbraucher: Daten für 656 Element(e) editieren/setzen  	-1  	
+Information	0	2024-09-02 15:50:04.568		DoChanges	656 Fernwärmeverbraucher wurde(n) geändert.  	-1  	
+Information	0	2024-09-02 15:51:41.336	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-09-02 16:19:15.021	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	

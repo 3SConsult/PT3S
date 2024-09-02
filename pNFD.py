@@ -95,7 +95,7 @@ def pNFD_FW(
                 ,fac_lws_ROHR=5. 
 
                 # Ergebnis: Farbe
-                ,attr_colors_ROHR_Erg=None 
+                ,attr_colors_ROHR_Erg='QMAVAbs'#None 
                 ,attr_colors_ROHR_Erg_zOrder = 4 
                 ,colors_ROHR_Erg = ['darkgreen','magenta']
                 ,norm_min_ROHR_Erg = None 
@@ -129,7 +129,7 @@ def pNFD_FW(
                 ,fac_ms_FWVB=None # fac_ms_KNOT oder 8000.  wenn beides undefiniert
 
                 # Ergebnis: Farbe
-                ,attr_colors_FWVB_Erg=None 
+                ,attr_colors_FWVB_Erg='QM'#None 
                 ,attr_colors_FWVB_Erg_zOrder = 2
                 ,attr_colors_FWVB_Erg_patches_fmt="dp {:4.1f} bar"     
                 ,attr_colors_FWVB_Erg_patchValues = None
