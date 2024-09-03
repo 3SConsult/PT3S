@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Functions &mdash; PT3S 90.14.31.0.dev1 documentation</title>
+  <title>Functions &mdash; PT3S 90.14.32.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -152,7 +152,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.</p>
-<p>The returned dxWithMx object has the following structure i.e. Dfs:</p>
+<p>The returned dxWithMx object has the following attributes:</p>
 <blockquote>
 <div><ul class="simple">
 <li><dl class="simple">
@@ -167,6 +167,15 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <dt>Results: Mx object:</dt><dd><ul>
 <li><p>mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)</p></li>
 <li><p>mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Miscellaneous:   </dt><dd><ul>
+<li><p>wDirMx: Mx-directory of the model</p></li>
+<li><p>SirCalcXmlFile: SirCalc’s Xml-File of the model</p></li>
+<li><p>SirCalcExeFile: SirCalc Executable used to (re-)calculate the model</p></li>
 </ul>
 </dd>
 </dl>
@@ -654,6 +663,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>dx</strong> (<em>Dx.Dx</em>) – Dx object of Dst</p></li>
 <li><p><strong>OBJSrc</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – </p></li>
 <li><p><strong>qSrc</strong> (<em>sqlalchemy.orm.query.Query</em>) – the query which delivered the objects from Src</p></li>
 <li><p><strong>objSrc</strong> (<em>sqlalchemy.ext.automap</em>) – the object from Src</p></li>
@@ -667,7 +677,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk transfers from Templates). Whether objDst should really be imported and if so what further changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dx object and the source data connections are passed to make project-specific imports (via project-specific fimportFromSIR3S-functions) more flexible and powerful.</p>
+<p>At the time the function is called, objDst is already completely generated from objSrc (taking into account the specifications for e.g. fk-transfers from Templates). Whether objDst should really be imported and if so what further changes need to be made can often only be decided on a project-specific basis. Furthermore the decision may not be possible at object level alone, but all objects of the type must be taken into account, possibly even the entire model. Therefore, the Dst’s dx and Src’s connections are passed to make project-specific imports (via project-specific fimportFromSIR3S-functions) more flexible and powerful.</p>
 </div>
 </dd></dl>
 
