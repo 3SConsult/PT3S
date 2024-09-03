@@ -12,5 +12,5 @@ def make_html_docs():
     subprocess.run(["cmd", "/c", ".\\make.bat html"])
 
     print("docs built")
-
+6
 make_html_docs()
