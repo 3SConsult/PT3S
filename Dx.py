@@ -613,26 +613,40 @@ class Dx():
             # #############################################################
             logger.debug("{0:s}expanding {1:s} with NAME_DTRO, DN, DI, DA, S, KT, PN, Am2, Vm3 ...".format(
                 logStr, 'V_BVZ_ROHR'))
+            
+            dfSrc=self.dataFrames['V_BVZ_ROHR']
 
             if 'pk_BZ' in self.dataFrames['V_BVZ_DTRO'].keys():
-                df = pd.merge(self.dataFrames['V_BVZ_ROHR'], self.dataFrames['V_BVZ_DTRO'],
-                              left_on='fkDTRO_ROWD', right_on='pk_BZ', suffixes=('', '_DTRO'))
-                if df.empty:
-                    df = pd.merge(self.dataFrames['V_BVZ_ROHR'], self.dataFrames['V_BVZ_DTRO'],
-                                  left_on='fkDTRO_ROWD', right_on='tk_BZ', suffixes=('', '_DTRO'))
+                df1 = pd.merge(dfSrc, self.dataFrames['V_BVZ_DTRO'],
+                              left_on='fkDTRO_ROWD', right_on='pk_BZ', suffixes=('', '_DTRO'))                
+                df2 = pd.merge(dfSrc, self.dataFrames['V_BVZ_DTRO'],
+                              left_on='fkDTRO_ROWD', right_on='tk_BZ', suffixes=('', '_DTRO'))
+                
+                if df1.empty or df2.shape[0]>df1.shape[0]:
+                    df=df2
+                else:
+                    df=df1
+                    
             elif 'pk_BV' in self.dataFrames['V_BVZ_DTRO'].keys():
-                df = pd.merge(self.dataFrames['V_BVZ_ROHR'], self.dataFrames['V_BVZ_DTRO'],
+                df1 = pd.merge(dfSrc, self.dataFrames['V_BVZ_DTRO'],
                               left_on='fkDTRO_ROWD', right_on='pk_BV', suffixes=('', '_DTRO'))
-                if df.empty:
-                    df = pd.merge(self.dataFrames['V_BVZ_ROHR'], self.dataFrames['V_BVZ_DTRO'],
-                                  left_on='fkDTRO_ROWD', right_on='tk_BV', suffixes=('', '_DTRO'))
-            df = df.filter(items=self.dataFrames['V_BVZ_ROHR'].columns.to_list(
+                df2 = pd.merge(dfSrc, self.dataFrames['V_BVZ_DTRO'],
+                              left_on='fkDTRO_ROWD', right_on='tk_BV', suffixes=('', '_DTRO'))
+                
+                if df1.empty or df2.shape[0]>df1.shape[0]:
+                    df=df2
+                else:
+                    df=df1
+                    
+            df = df.filter(items=dfSrc.columns.to_list(
             )+['NAME', 'DN', 'DI', 'DA', 'S', 'KT', 'PN'])
             df.rename(columns={'NAME': 'NAME_DTRO'}, inplace=True)
             
             df['Am2']=df.apply(lambda row: math.pow(row['DI']/1000,2)*math.pi/4,axis=1)
             df['Vm3']=df.apply(lambda row: row['Am2']*row['L'] ,axis=1)
             
+            logger.debug(f"{logStr}expanding V_BVZ_ROHR: rows before: {dfSrc.shape[0]} rows now: {df.shape[0]}")
+                        
             self.dataFrames['V_BVZ_ROHR'] = df
 
             # weitere Erweiterungen zu V3_ROHR
@@ -1566,7 +1580,7 @@ class Dx():
     
             dfVBEL=self.dataFrames['V3_VBEL']
             
-            logger.debug("{0:s}dfVBEL: {1:s}".format(logStr,dfVBEL.head().to_string()))
+            #logger.debug("{0:s}dfVBEL: {1:s}".format(logStr,dfVBEL.head().to_string()))
             
             # QM
             dfOBJTYPEs=mx.getVecAggsResultsForAttributeType()
@@ -1714,11 +1728,12 @@ class Dx():
 
         logStr = "{0:s}.{1:s}: ".format(
             self.__class__.__name__, sys._getframe().f_code.co_name)
-        #logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+        logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
 
         try:
             for dfName in ['V3_KNOT', 'V3_ROHR', 'V3_FWVB']:
                 df = self.dataFrames[dfName]
+                (rows,dummy)=df.shape
                 if 'KENNUNG' in df.columns.to_list():
                     df = df[(df['KENNUNG'] >= 0)
                             |
@@ -1726,6 +1741,9 @@ class Dx():
                             ]
                 else:
                     df = df[~df['BESCHREIBUNG'].str.contains('^Templ',na=False)]
+                
+                logger.debug(f"{logStr}{dfName}: Zeilen vorher: {rows} Zeilen jetzt: {df.shape[0]}")
+                
                 self.dataFrames[dfName] = df
 
         except Exception as e:
@@ -1735,7 +1753,7 @@ class Dx():
             raise DxError(logStrFinal)
         finally:
             pass
-            #logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
+            logger.debug("{0:s}{1:s}".format(logStr, '_Done.'))
 
     def _vROHRVecs(self, vROHR, mx):
         """Adds MX-ROHR-VEC-Results in dfVecAggs as cols to df.
