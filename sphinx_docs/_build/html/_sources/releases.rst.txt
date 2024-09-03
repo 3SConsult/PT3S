@@ -3,6 +3,19 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.32.0.dev1
+---------------
+    
+**New:**
+    
+- dxWithMx:
+    - SirCalcXmlFile: SirCalc's Xml-File of the model
+    - SirCalcExeFile: SirCalc Executable used to (re-)calculate the model 
+    
+- dxAndMxHelperFcts.processMxVectorResults(mx,dx,mxsVecsResults2MxDf,mxsVecsResults2MxDfVecAggs)
+
+- Example5 data
+
 90.14.31.0.dev1
 ---------------
 

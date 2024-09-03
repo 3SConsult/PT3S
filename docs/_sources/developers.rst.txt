@@ -97,7 +97,7 @@ To fetch the latest changes from the origin and merge them into your current bra
 
       git pull origin master
         
-    For a more detailed updating process, follow steps 2 and 3 instead.
+   For a more detailed updating process, follow steps 2 and 3 instead.
         
 2. **Fetch the latest changes from the origin:** Use the ``git fetch origin`` command.
 
@@ -200,7 +200,6 @@ Current Workflows
 ^^^^^^^^^^^^^^^^^
 
 All of our workflows can be triggered using :ref:`manually-triggering-workflows-label`. 
-.. If you try to :ref:`commit-changes-label` you should be aware that a workflow authoring a commit might be triggered. If your commit contains changes to one of the directories listed as a trigger for a workflow, you should :ref:`get-latest-version-label` before continuing to edit local.
 
 We currently use the following workflows:
 
@@ -302,9 +301,9 @@ Follow these steps to upload a new version of your project to PyPI:
 
    Make sure to keep your API token secure and do not hard-code it in your scripts or code. It's best to set it as an environment variable or store it in a secret configuration file.
 
-.. _install-editmode-label:
-
 7. **Test the Deployment:** Follow the steps in :ref:`test-the-deployment-label`
+
+.. _install-editmode-label:
 
 Installing PT3S in Editable Mode
 --------------------------------
@@ -332,9 +331,10 @@ PT3S's Documentation
 
 The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.
 
-.. _generating-documentation-label:
 
 If you want to edit the documentation yourself, you have to install sphinx as a python package first.
+
+.. _generating-documentation-label:
 
 Generating the Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -365,7 +365,7 @@ The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <h
 
 .. note::
 
-   The created files in PT3S/sphinx/docs/_build/html are moved to PT3S/docs by one of our :ref:`github-workflow-label` and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
+   The created files in PT3S/sphinx/docs/_build/html on the master branch are moved to PT3S/docs on the gh-pages branch by one of our :ref:`github-workflow-label` and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
    
 .. _test-the-deployment-label:
 
