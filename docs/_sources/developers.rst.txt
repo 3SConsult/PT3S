@@ -339,6 +339,8 @@ If you want to edit the documentation yourself, you have to install sphinx as a 
 Generating the Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Before generating the documentation for the first time, follow the steps of :ref:`install-editmode-label`.
+
 To generate documentation, follow these steps:
 
 1. **Edit the documentation:** Make your changes in the PT3S/sphinx_docs directory.
@@ -371,6 +373,8 @@ The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <h
 
 Testing the Deployment
 ~~~~~~~~~~~~~~~~~~~~~~
+
+To ensure that the examples provided on the :doc:`examples` page run smoothly on devices of users not involved in the development process, we test them using nbval inside a Docker container. This container simulates a Windows environment, including SIR 3S, the latest release of PT3S with its dependencies, the example data, and the example notebooks.
 
 Initial Test Setup Process
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -411,7 +415,7 @@ To set up all necessary files and programs to run tests on Notebooks, follow the
 Running Tests
 ^^^^^^^^^^^^^
 
-These tests run on :ref:`environment-versions-label`.
+These tests are run on :ref:`environment-versions-label`.
 
 Follow these steps to run tests on the Example Notebooks currently hosted at :doc:`examples`:
 
@@ -478,3 +482,58 @@ This list provides information about the versions of various tools used througho
    * - Sphinx
      - 7.2.6
 
+Doctests
+--------
+
+.. note::
+    This part of the documentation is still a work in progess.
+
+Running Doctests
+~~~~~~~~~~~~~~~~
+
+Follow these tests to run all doctests included in this documentation:
+
+1. **Navigate to sphinx_docs directory:** Open your terminal or command prompt and navigate to the directory sphinx_docs.
+
+   .. code-block:: bash
+
+      cd "C:\Users\User\3S\PT3S\sphinx_docs"
+
+2. **Make a doctest build:** Use the ``.\make.bat doctest`` command.
+
+   .. code-block:: bash
+
+      .\make.bat doctest
+
+You will get a console output and a output.txt file in the sphinx_docs\_build\doctest directory.
+
+If you want the newly added or edited tests included into the hosted documentation follow the steps of :ref:`generating-documentation-label`.
+
+Doctest Example
+~~~~~~~~~~~~~~~
+
+.. testsetup::
+
+    import os
+    import geopandas
+    import logging
+    import pandas as pd
+    import io
+    import subprocess
+    from PIL import Image
+
+    import folium
+    from folium.plugins import HeatMap
+
+    try:
+        from PT3S import dxAndMxHelperFcts
+    except:
+        import dxAndMxHelperFcts
+
+.. doctest::
+
+    >>> dbFilename = "Example1"
+    >>> dbFile = os.path.join(os.path.dirname(os.path.abspath(dxAndMxHelperFcts.__file__)), 'Examples', dbFilename + '.db3')
+    >>> m = dxAndMxHelperFcts.readDxAndMx(dbFile=dbFile, preventPklDump=True, maxRecords=-1)
+    >>> type(m) == dxAndMxHelperFcts.dxWithMx
+    True

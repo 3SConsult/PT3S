@@ -86,6 +86,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#environment-versions">Environment Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#doctests">Doctests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-doctests">Running Doctests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#doctest-example">Doctest Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -401,6 +406,7 @@
 <p>If you want to edit the documentation yourself, you have to install sphinx as a python package first.</p>
 <section id="generating-the-documentation">
 <span id="generating-documentation-label"></span><h3>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Permalink to this heading"></a></h3>
+<p>Before generating the documentation for the first time, follow the steps of <a class="reference internal" href="#install-editmode-label"><span class="std std-ref">Installing PT3S in Editable Mode</span></a>.</p>
 <p>To generate documentation, follow these steps:</p>
 <ol class="arabic">
 <li><p><strong>Edit the documentation:</strong> Make your changes in the PT3S/sphinx_docs directory.</p></li>
@@ -427,6 +433,7 @@
 </section>
 <section id="testing-the-deployment">
 <span id="test-the-deployment-label"></span><h3>Testing the Deployment<a class="headerlink" href="#testing-the-deployment" title="Permalink to this heading"></a></h3>
+<p>To ensure that the examples provided on the <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a> page run smoothly on devices of users not involved in the development process, we test them using nbval inside a Docker container. This container simulates a Windows environment, including SIR 3S, the latest release of PT3S with its dependencies, the example data, and the example notebooks.</p>
 <section id="initial-test-setup-process">
 <h4>Initial Test Setup Process<a class="headerlink" href="#initial-test-setup-process" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
@@ -454,7 +461,7 @@
 </section>
 <section id="running-tests">
 <h4>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this heading"></a></h4>
-<p>These tests run on <a class="reference internal" href="#environment-versions-label"><span class="std std-ref">Environment Versions</span></a>.</p>
+<p>These tests are run on <a class="reference internal" href="#environment-versions-label"><span class="std std-ref">Environment Versions</span></a>.</p>
 <p>Follow these steps to run tests on the Example Notebooks currently hosted at <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a>:</p>
 <ol class="arabic">
 <li><p><strong>Start Docker Engine:</strong> Open Docker Desktop and start the engine.</p></li>
@@ -515,6 +522,41 @@
 </tr>
 </tbody>
 </table>
+</section>
+<section id="doctests">
+<h2>Doctests<a class="headerlink" href="#doctests" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This part of the documentation is still a work in progess.</p>
+</div>
+<section id="running-doctests">
+<h3>Running Doctests<a class="headerlink" href="#running-doctests" title="Permalink to this heading"></a></h3>
+<p>Follow these tests to run all doctests included in this documentation:</p>
+<ol class="arabic">
+<li><p><strong>Navigate to sphinx_docs directory:</strong> Open your terminal or command prompt and navigate to the directory sphinx_docs.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\PT3S\sphinx_docs&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Make a doctest build:</strong> Use the <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">doctest</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="se">\m</span>ake.bat<span class="w"> </span>doctest
+</pre></div>
+</div>
+</li>
+</ol>
+<p>You will get a console output and a output.txt file in the sphinx_docs_builddoctest directory.</p>
+<p>If you want the newly added or edited tests included into the hosted documentation follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p>
+</section>
+<section id="doctest-example">
+<h3>Doctest Example<a class="headerlink" href="#doctest-example" title="Permalink to this heading"></a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFilename</span> <span class="o">=</span> <span class="s2">&quot;Example1&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dbFile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s1">&#39;Examples&#39;</span><span class="p">,</span> <span class="n">dbFilename</span> <span class="o">+</span> <span class="s1">&#39;.db3&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span> <span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">==</span> <span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">dxWithMx</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 

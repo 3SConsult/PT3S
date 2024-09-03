@@ -6,8 +6,10 @@ Welcome to the Functions page! Here, we will delve into the details of each func
 .. note::
     Currently, not all functions that are included in PT3S are documented. These will be added in the future.
 
-.. .. automodule:: dxAndMxHelperFcts
-        :members:
+.. testsetup::
+
+    import os
+    import dxAndMxHelperFcts
 
 Read SIR 3S Model and Results
 -----------------------------
@@ -31,19 +33,22 @@ Dataframes
 V3_AGSN
 """""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSN
+
 V3_AGSNVEC
 """"""""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC
+
 V3_ROHRVEC
 """"""""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC
+
 gdfs
 """"
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._gdfs
 
 
 SIR 3S Model-Data
-------------------
+-----------------
 
 Dataframes
 ~~~~~~~~~~
@@ -60,20 +65,20 @@ Methods
 ~~~~~~~
 
 update
-"""""""
+""""""
 .. autofunction:: Dx.Dx.update
 
 insert
-"""""""
+""""""
 .. autofunction:: Dx.Dx.insert
 
 importFromSIR3S
-"""""""
+"""""""""""""""
 .. autofunction:: Dx.Dx.importFromSIR3S
 .. autofunction:: Dx.fimportFromSIR3S
 
 setLayerContentTo
-"""""""
+"""""""""""""""""
 .. autofunction:: Dx.Dx.setLayerContentTo
 
 
