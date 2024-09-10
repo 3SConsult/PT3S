@@ -1453,7 +1453,7 @@ def readDxAndMx(dbFile
 
         Selected functions of the returned dxWithMx object:                
                 - switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex
-                        
+
     """
     
     import os

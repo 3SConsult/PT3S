@@ -181,66 +181,79 @@ def pNFD_FW(
                 ,Map_resolution = 15
 
                 ):
-    
         """
-        Plots geopandas-Dfs: gdf_ROHR, gdf_FWVB, gdf_KNOT.
-       
+        Plots data from GeoDataFrames with extensive customization options.
         
-        Args:
-            gdf_ROHR (gdf, optional, default=empty gdf)         
-            gdf_FWVB (gdf, optional, default=empty gdf)    
-            gdf_KNOT (gdf, optional, default=empty gdf)      
-            
-            Layout KNOT (Nodes):
-                attr_colors_KNOT_Erg (col in gdf_KNOT, default=None)                          
-                colors_KNOT_Erg (LinearSegmentedColormap.from_list(...), default=['yellow','red'])
-                fac_ms_KNOT (factor for markersize, default=None ==> fac_ms_FWVB or 8.000 if fac_ms_FWVB==None)
-                
-                gdf_KNOT[attr_colors_KNOT_Erg].min(): markersize=0 * fac_ms_KNOT/'yellow'
-                gdf_KNOT[attr_colors_KNOT_Erg].max(): markersize=1 * fac_ms_KNOT/'red'
-                
-                norm_min_KNOT_Erg (default=None):
-                    gdf_KNOT[attr_colors_KNOT_Erg]<=norm_min_KNOT_Erg markersize<=0 * fac_ms_KNOT/'yellow'                    
-                norm_max_KNOT_Erg (default=None)        
-                    gdf_KNOT[attr_colors_KNOT_Erg]>=norm_max_KNOT_Erg markersize>=1 * fac_ms_KNOT/'red'  
-                    
-                size_min_KNOT_Erg (]0,1[, default=None):
-                    markersize>= size_min_KNOT_Erg * fac_ms_KNOT 
-                size_max_KNOT_Erg (]0,1[, default=None):        
-                    markersize<= size_max_KNOT_Erg * fac_ms_KNOT
-                    
-                attr_colors_KNOT_Erg_zOrder (default=5; ROHR_Sach=3,ROHR_Erg=4,FWVB_Sach=1,FWVB_Erg=2) 
-                
-                marker_KNOT_Erg (default='.')
-                
-                attr_colors_KNOT_Erg_patchValues (default=None)
-                attr_colors_KNOT_Erg_patches_fmt (default='pDiff +{:4.2f} bar')        
-                
-                
-             #        
-            
-             ,colors_KNOT_ErgNeg = ['yellowgreen','sienna']
-             # wenn nicht None, dann werden negative Werte mit dieser Farbe gezeichnet
-             # norm_max_KNOT_Erg nicht vorgegeben:
-             #   beide Farbskalen (die pos. und diese neg.) werden voll ausgenutzt
-             #   die Groesse erstreckt sich ueber den Absolutwert d.h. z.B. -.25 ist so gross wie +.25 
-            
-               
-             
-            
-             ,attr_colors_KNOT_ErgNeg_patches_fmt="pDiff -{:4.2f} bar"               
-                
-        Returns:            
-             attr_colors_ROHR_Sach_patches: Legendeneinträge
-             attr_colors_ROHR_Erg_patches: Legendeneinträge     
-             attr_colors_FWVB_Sach_patches: Legendeneinträge
-             attr_colors_FWVB_Erg_patches: Legendeneinträge    
-             attr_colors_KNOT_Erg_patches: Legendeneinträge    
+        Parameters:
+            - ax (matplotlib.axes.Axes, optional): The axis on which to plot. Default is None.
+            - axTitle (str, optional): Title for the axis. Default is None.
+            - gdf_ROHR (geopandas.GeoDataFrame, optional): GeoDataFrame for ROHR data. Default is an empty GeoDataFrame.
+            - gdf_FWVB (geopandas.GeoDataFrame, optional): GeoDataFrame for FWVB data. Default is an empty GeoDataFrame.
+            - gdf_KNOT (geopandas.GeoDataFrame, optional): GeoDataFrame for KNOT data. Default is an empty GeoDataFrame.
         
-        """    
-    
-
-
+        Sach (Static Data) Parameters:
+            - attr_colors_ROHR_Sach (str, optional): Attribute for ROHR Sach colors. Default is 'DI'.
+            - attr_colors_FWVB_Sach (str, optional): Attribute for FWVB Sach colors. Default is 'W0'.
+            - attr_colors_ROHR_Sach_zOrder (int, optional): Z-order for ROHR Sach colors. Default is 3.
+            - attr_colors_FWVB_Sach_zOrder (int, optional): Z-order for FWVB Sach colors. Default is 1.
+            - colors_ROHR_Sach (list, optional): Colors for ROHR Sach. Default is ['lightgray', 'dimgray'].
+            - colors_FWVB_Sach (list, optional): Colors for FWVB Sach. Default is ['oldlace', 'orange'].
+            - norm_min_ROHR_Sach (float, optional): Minimum normalization value for ROHR Sach. Default is None.
+            - norm_min_FWVB_Sach (float, optional): Minimum normalization value for FWVB Sach. Default is None.
+            - norm_max_ROHR_Sach (float, optional): Maximum normalization value for ROHR Sach. Default is None.
+            - norm_max_FWVB_Sach (float, optional): Maximum normalization value for FWVB Sach. Default is None.
+            - attr_lws_ROHR_Sach (str, optional): Attribute for ROHR Sach line widths. Default is 'DI'.
+            - attr_ms_FWVB_Sach (str, optional): Attribute for FWVB Sach marker sizes. Default is 'W0'.
+            - attr_colors_ROHR_Sach_patches_fmt (str, optional): Format for ROHR Sach patches. Default is "DN (Innen) {:4.0f}".
+            - attr_colors_FWVB_Sach_patches_fmt (str, optional): Format for FWVB Sach patches. Default is "W {:4.0f} kW".
+            - attr_colors_ROHR_Sach_patchValues (list, optional): Values for ROHR Sach patches. Default is None.
+            - attr_colors_FWVB_Sach_patchValues (list, optional): Values for FWVB Sach patches. Default is None.
+            - fac_lws_ROHR (float, optional): Factor for ROHR line widths. Default is 5.0.
+            - fac_ms_FWVB (float, optional): Factor for FWVB marker sizes. Default is None.
+        
+        Erg (Result Data) Parameters:
+            - attr_colors_ROHR_Erg (str, optional): Attribute for ROHR Erg colors. Default is 'QMAVAbs'.
+            - attr_colors_FWVB_Erg (str, optional): Attribute for FWVB Erg colors. Default is 'QM'.
+            - attr_colors_ROHR_Erg_zOrder (int, optional): Z-order for ROHR Erg colors. Default is 4.
+            - attr_colors_FWVB_Erg_zOrder (int, optional): Z-order for FWVB Erg colors. Default is 2.
+            - colors_ROHR_Erg (list, optional): Colors for ROHR Erg. Default is ['darkgreen', 'magenta'].
+            - colors_FWVB_Erg (list, optional): Colors for FWVB Erg. Default is ['aquamarine', 'teal'].
+            - norm_min_ROHR_Erg (float, optional): Minimum normalization value for ROHR Erg. Default is None.
+            - norm_min_FWVB_Erg (float, optional): Minimum normalization value for FWVB Erg. Default is None.
+            - norm_max_ROHR_Erg (float, optional): Maximum normalization value for ROHR Erg. Default is None.
+            - norm_max_FWVB_Erg (float, optional): Maximum normalization value for FWVB Erg. Default is None.
+            - attr_colors_ROHR_Erg_patches_fmt (str, optional): Format for ROHR Erg patches. Default is "Q (abs.) {:4.0f} t/h".
+            - attr_colors_FWVB_Erg_patches_fmt (str, optional): Format for FWVB Erg patches. Default is "dp {:4.1f} bar".
+            - attr_colors_ROHR_Erg_patchValues (list, optional): Values for ROHR Erg patches. Default is None.
+            - attr_colors_FWVB_Erg_patchValues (list, optional): Values for FWVB Erg patches. Default is None.
+            - query_ROHR_Erg (str, optional): Query for ROHR Erg. Default is None.
+            - lws_ROHR_Erg_Sach (bool, optional): Line width for ROHR Erg Sach. Default is True.
+            - ms_FWVB_Erg (int, optional): Marker size for FWVB Erg. Default is -1.
+            - fac_lws_ROHR_Erg (float, optional): Factor for ROHR Erg line widths. Default is None.
+            - colors_FWVB_ErgNeg (list, optional): Colors for FWVB Erg negative values. Default is ['lightskyblue', 'royalblue'].
+        
+        Unique Parameters for KNOT and Map:
+            - attr_colors_KNOT_Erg (str, optional): Attribute for KNOT Erg colors. Default is None.
+            - attr_colors_KNOT_Erg_patches_fmt (str, optional): Format for KNOT Erg patches. Default is "pDiff +{:4.2f} bar".
+            - attr_colors_KNOT_ErgNeg_patches_fmt (str, optional): Format for KNOT Erg negative patches. Default is "pDiff -{:4.2f} bar".
+            - attr_colors_KNOT_Erg_patchValues (list, optional): Values for KNOT Erg patches. Default is None.
+            - colors_KNOT_Erg (list, optional): Colors for KNOT Erg. Default is ['yellow', 'red'].
+            - marker_KNOT_Erg (str, optional): Marker for KNOT Erg. Default is '.'.
+            - norm_min_KNOT_Erg (float, optional): Minimum normalization value for KNOT Erg. Default is None.
+            - norm_max_KNOT_Erg (float, optional): Maximum normalization value for KNOT Erg. Default is None.
+            - size_min_KNOT_Erg (float, optional): Minimum size for KNOT Erg. Default is None.
+            - size_max_KNOT_Erg (float, optional): Maximum size for KNOT Erg. Default is None.
+            - attr_colors_KNOT_Erg_zOrder (int, optional): Z-order for KNOT Erg colors. Default is 5.
+            - colors_KNOT_ErgNeg (list, optional): Colors for KNOT Erg negative values. Default is ['yellowgreen', 'sienna'].
+            - fac_ms_KNOT (float, optional): Factor for KNOT marker sizes. Default is None.
+            - MapOn (bool, optional): Whether to add a basemap. Default is False.
+            - LabelsOnTop (bool, optional): Whether to place labels on top of the basemap. Default is False.
+            - Map_resolution (int, optional): Resolution for the basemap. Default is 15.
+        
+        Returns:
+            tuple: A tuple containing patches for ROHR Sach, ROHR Erg, FWVB Sach, FWVB Erg, and KNOT Erg.
+        """
+   
         logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
         logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
 

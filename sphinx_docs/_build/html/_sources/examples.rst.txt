@@ -50,7 +50,7 @@ You can download the Notebook file :download:`here <Example3.ipynb>`.
 .. _ex4:
 
 Example 4: OSM PBF to SIR 3S SHP Import
---------------------------------
+---------------------------------------
 
 You can view the Notebook `here <Example4.html>`_.
 
@@ -60,7 +60,7 @@ You can download the Notebook file :download:`here <Example4.ipynb>`.
 .. _ex5:
 
 Example 5: Loop over multiple SIR 3S calculations
---------------------------------
+-------------------------------------------------
 
 You can view the Notebook `here <Example5.html>`_.
 
