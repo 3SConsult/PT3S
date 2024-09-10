@@ -507,33 +507,4 @@ Follow these tests to run all doctests included in this documentation:
 
 You will get a console output and a output.txt file in the sphinx_docs\_build\doctest directory.
 
-If you want the newly added or edited tests included into the hosted documentation follow the steps of :ref:`generating-documentation-label`.
-
-Doctest Example
-~~~~~~~~~~~~~~~
-
-.. testsetup::
-
-    import os
-    import geopandas
-    import logging
-    import pandas as pd
-    import io
-    import subprocess
-    from PIL import Image
-
-    import folium
-    from folium.plugins import HeatMap
-
-    try:
-        from PT3S import dxAndMxHelperFcts
-    except:
-        import dxAndMxHelperFcts
-
-.. doctest::
-
-    >>> dbFilename = "Example1"
-    >>> dbFile = os.path.join(os.path.dirname(os.path.abspath(dxAndMxHelperFcts.__file__)), 'Examples', dbFilename + '.db3')
-    >>> m = dxAndMxHelperFcts.readDxAndMx(dbFile=dbFile, preventPklDump=True, maxRecords=-1)
-    >>> type(m) == dxAndMxHelperFcts.dxWithMx
-    True
+If you want the newly added or edited tests included into the hosted documentation follow the steps of :ref:`generating-documentation-label`. Running the tests beforehand is only necessary if the tests are inclueded outside of .rst files.

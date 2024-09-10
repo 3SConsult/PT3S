@@ -88,7 +88,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#environment-versions">Environment Versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#doctests">Doctests</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-doctests">Running Doctests</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#doctest-example">Doctest Example</a></li>
 </ul>
 </li>
 </ul>
@@ -545,17 +544,7 @@
 </li>
 </ol>
 <p>You will get a console output and a output.txt file in the sphinx_docs_builddoctest directory.</p>
-<p>If you want the newly added or edited tests included into the hosted documentation follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p>
-</section>
-<section id="doctest-example">
-<h3>Doctest Example<a class="headerlink" href="#doctest-example" title="Permalink to this heading"></a></h3>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFilename</span> <span class="o">=</span> <span class="s2">&quot;Example1&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dbFile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s1">&#39;Examples&#39;</span><span class="p">,</span> <span class="n">dbFilename</span> <span class="o">+</span> <span class="s1">&#39;.db3&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span> <span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">==</span> <span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">dxWithMx</span>
-<span class="go">True</span>
-</pre></div>
-</div>
+<p>If you want the newly added or edited tests included into the hosted documentation follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>. Running the tests beforehand is only necessary if the tests are inclueded outside of .rst files.</p>
 </section>
 </section>
 </section>

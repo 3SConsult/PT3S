@@ -55,7 +55,14 @@
 <li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-model-and-results">Read SIR 3S Model and Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-model-and-results">Read SIR 3S Model and Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#getting-dbfile-str">Getting dbFile(str)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reading-data">Reading data</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-results-only">Read SIR 3S Results only</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sir-3s-model-and-result-data">SIR 3S Model- and Result-Data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#initialization">Initialization</a></li>
@@ -83,6 +90,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-district-heating-network">Plot District Heating Network</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
@@ -221,6 +229,64 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </div>
 </dd></dl>
 
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h3>
+<section id="getting-dbfile-str">
+<h4>Getting dbFile(str)<a class="headerlink" href="#getting-dbfile-str" title="Permalink to this heading"></a></h4>
+<p>Enter the name of the .db3 file you want to read</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example1&quot;</span>
+</pre></div>
+</div>
+<p>Enter the path to the dir, where this .db3 file is located. In this case the Example data included in PT3S is used.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rootdir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s1">&#39;Examples&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Concatenate the rootdir with the dbFilename</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rootdir</span><span class="p">,</span> <span class="n">dbFilename</span> <span class="o">+</span> <span class="s1">&#39;.db3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>dbFile can now be used as a parameter for readDxAndMx()</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFile</span>
+<span class="go">&#39;C:\\Users\\jablonski\\3S\\PT3S\\Examples\\Example1.db3&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-data">
+<h4>Reading data<a class="headerlink" href="#reading-data" title="Permalink to this heading"></a></h4>
+<p>Create a dxWithMx object using readDxAndMx().</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From this object m, you can now access a variety of dataframes created by PT3S based on the model and results</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)])</span>
+<span class="go">[&#39;V3_AGSN&#39;, &#39;V3_AGSNVEC&#39;, &#39;V3_FWVB&#39;, &#39;V3_KNOT&#39;, &#39;V3_ROHR&#39;, &#39;V3_ROHRVEC&#39;, &#39;V3_VBEL&#39;, &#39;V3_WBLZ&#39;, &#39;dfAGSN&#39;, &#39;dfWBLZ&#39;, &#39;gdf_FWVB&#39;, &#39;gdf_KNOT&#39;, &#39;gdf_ROHR&#39;]</span>
+</pre></div>
+</div>
+<p>Also accesible are NetworkX-Graphs, SirCalcExecution- and -Xml-File and the dir to mx files</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)])</span>
+<span class="go">[&#39;G&#39;, &#39;GSig&#39;, &#39;SirCalcExeFile&#39;, &#39;SirCalcXmlFile&#39;, &#39;dx&#39;, &#39;mx&#39;, &#39;nodeposDctNx&#39;, &#39;switchV3DfColsToMultiindex&#39;, &#39;wDirMx&#39;]</span>
+</pre></div>
+</div>
+<p>You can find additional data regarding the model at the m.dx object</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">dx</span>
+</pre></div>
+</div>
+<p>From this object, you can access the model’s database and its tables.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dfALLG</span><span class="o">=</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;ALLG&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can find additional data regarding the results at the m.mx object</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">mx</span>
+</pre></div>
+</div>
+<p>From this object you can acces the time curve data and the vector data</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">.</span><span class="n">dfVecAggs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 <section id="read-sir-3s-results-only">
 <h2>Read SIR 3S Results only<a class="headerlink" href="#read-sir-3s-results-only" title="Permalink to this heading"></a></h2>
@@ -747,6 +813,89 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </ul>
 </div></blockquote>
 </div>
+</dd></dl>
+
+</section>
+<section id="plot-district-heating-network">
+<h2>Plot District Heating Network<a class="headerlink" href="#plot-district-heating-network" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pNFD.pNFD_FW">
+<span class="sig-prename descclassname"><span class="pre">pNFD.</span></span><span class="sig-name descname"><span class="pre">pNFD_FW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ax=None,</span> <span class="pre">axTitle=None,</span> <span class="pre">gdf_ROHR=Empty</span> <span class="pre">GeoDataFrame</span> <span class="pre">Columns:</span> <span class="pre">[]</span> <span class="pre">Index:</span> <span class="pre">[],</span> <span class="pre">gdf_FWVB=Empty</span> <span class="pre">GeoDataFrame</span> <span class="pre">Columns:</span> <span class="pre">[]</span> <span class="pre">Index:</span> <span class="pre">[],</span> <span class="pre">gdf_KNOT=Empty</span> <span class="pre">GeoDataFrame</span> <span class="pre">Columns:</span> <span class="pre">[]</span> <span class="pre">Index:</span> <span class="pre">[],</span> <span class="pre">attr_colors_ROHR_Sach='DI',</span> <span class="pre">attr_colors_ROHR_Sach_zOrder=3,</span> <span class="pre">colors_ROHR_Sach=['lightgray',</span> <span class="pre">'dimgray'],</span> <span class="pre">norm_min_ROHR_Sach=None,</span> <span class="pre">norm_max_ROHR_Sach=None,</span> <span class="pre">attr_lws_ROHR_Sach='DI',</span> <span class="pre">attr_colors_ROHR_Sach_patches_fmt='DN</span> <span class="pre">(Innen)</span> <span class="pre">{:4.0f}',</span> <span class="pre">attr_colors_ROHR_Sach_patchValues=None,</span> <span class="pre">fac_lws_ROHR=5.0,</span> <span class="pre">attr_colors_ROHR_Erg='QMAVAbs',</span> <span class="pre">attr_colors_ROHR_Erg_zOrder=4,</span> <span class="pre">colors_ROHR_Erg=['darkgreen',</span> <span class="pre">'magenta'],</span> <span class="pre">norm_min_ROHR_Erg=None,</span> <span class="pre">norm_max_ROHR_Erg=None,</span> <span class="pre">attr_colors_ROHR_Erg_patches_fmt='Q</span> <span class="pre">(abs.)</span> <span class="pre">{:4.0f}</span> <span class="pre">t/h',</span> <span class="pre">attr_colors_ROHR_Erg_patchValues=None,</span> <span class="pre">query_ROHR_Erg=None,</span> <span class="pre">lws_ROHR_Erg_Sach=True,</span> <span class="pre">fac_lws_ROHR_Erg=None,</span> <span class="pre">attr_colors_FWVB_Sach='W0',</span> <span class="pre">attr_colors_FWVB_Sach_zOrder=1,</span> <span class="pre">attr_colors_FWVB_Sach_patches_fmt='W</span> <span class="pre">{:4.0f}</span> <span class="pre">kW',</span> <span class="pre">attr_colors_FWVB_Sach_patchValues=None,</span> <span class="pre">colors_FWVB_Sach=['oldlace',</span> <span class="pre">'orange'],</span> <span class="pre">norm_min_FWVB_Sach=None,</span> <span class="pre">norm_max_FWVB_Sach=None,</span> <span class="pre">attr_ms_FWVB_Sach='W0',</span> <span class="pre">fac_ms_FWVB=None,</span> <span class="pre">attr_colors_FWVB_Erg='QM',</span> <span class="pre">attr_colors_FWVB_Erg_zOrder=2,</span> <span class="pre">attr_colors_FWVB_Erg_patches_fmt='dp</span> <span class="pre">{:4.1f}</span> <span class="pre">bar',</span> <span class="pre">attr_colors_FWVB_Erg_patchValues=None,</span> <span class="pre">attr_colors_FWVB_ErgNeg_patches_fmt='dp</span> <span class="pre">-{:4.1f}</span> <span class="pre">bar',</span> <span class="pre">colors_FWVB_Erg=['aquamarine',</span> <span class="pre">'teal'],</span> <span class="pre">norm_min_FWVB_Erg=None,</span> <span class="pre">norm_max_FWVB_Erg=None,</span> <span class="pre">ms_FWVB_Erg=-1,</span> <span class="pre">colors_FWVB_ErgNeg=['lightskyblue',</span> <span class="pre">'royalblue'],</span> <span class="pre">attr_colors_KNOT_Erg=None,</span> <span class="pre">attr_colors_KNOT_Erg_patches_fmt='pDiff</span> <span class="pre">+{:4.2f}</span> <span class="pre">bar',</span> <span class="pre">attr_colors_KNOT_ErgNeg_patches_fmt='pDiff</span> <span class="pre">-{:4.2f}</span> <span class="pre">bar',</span> <span class="pre">attr_colors_KNOT_Erg_patchValues=None,</span> <span class="pre">colors_KNOT_Erg=['yellow',</span> <span class="pre">'red'],</span> <span class="pre">marker_KNOT_Erg='.',</span> <span class="pre">norm_min_KNOT_Erg=None,</span> <span class="pre">norm_max_KNOT_Erg=None,</span> <span class="pre">size_min_KNOT_Erg=None,</span> <span class="pre">size_max_KNOT_Erg=None,</span> <span class="pre">attr_colors_KNOT_Erg_zOrder=5,</span> <span class="pre">colors_KNOT_ErgNeg=['yellowgreen',</span> <span class="pre">'sienna'],</span> <span class="pre">fac_ms_KNOT=None,</span> <span class="pre">MapOn=False,</span> <span class="pre">LabelsOnTop=False,</span> <span class="pre">Map_resolution=15</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pNFD.html#pNFD_FW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pNFD.pNFD_FW" title="Permalink to this definition"></a></dt>
+<dd><p>Plots data from GeoDataFrames with extensive customization options.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p>ax (matplotlib.axes.Axes, optional): The axis on which to plot. Default is None.</p></li>
+<li><p>axTitle (str, optional): Title for the axis. Default is None.</p></li>
+<li><p>gdf_ROHR (geopandas.GeoDataFrame, optional): GeoDataFrame for ROHR data. Default is an empty GeoDataFrame.</p></li>
+<li><p>gdf_FWVB (geopandas.GeoDataFrame, optional): GeoDataFrame for FWVB data. Default is an empty GeoDataFrame.</p></li>
+<li><p>gdf_KNOT (geopandas.GeoDataFrame, optional): GeoDataFrame for KNOT data. Default is an empty GeoDataFrame.</p></li>
+</ul>
+</dd>
+<dt>Sach (Static Data) Parameters:</dt><dd><ul class="simple">
+<li><p>attr_colors_ROHR_Sach (str, optional): Attribute for ROHR Sach colors. Default is ‘DI’.</p></li>
+<li><p>attr_colors_FWVB_Sach (str, optional): Attribute for FWVB Sach colors. Default is ‘W0’.</p></li>
+<li><p>attr_colors_ROHR_Sach_zOrder (int, optional): Z-order for ROHR Sach colors. Default is 3.</p></li>
+<li><p>attr_colors_FWVB_Sach_zOrder (int, optional): Z-order for FWVB Sach colors. Default is 1.</p></li>
+<li><p>colors_ROHR_Sach (list, optional): Colors for ROHR Sach. Default is [‘lightgray’, ‘dimgray’].</p></li>
+<li><p>colors_FWVB_Sach (list, optional): Colors for FWVB Sach. Default is [‘oldlace’, ‘orange’].</p></li>
+<li><p>norm_min_ROHR_Sach (float, optional): Minimum normalization value for ROHR Sach. Default is None.</p></li>
+<li><p>norm_min_FWVB_Sach (float, optional): Minimum normalization value for FWVB Sach. Default is None.</p></li>
+<li><p>norm_max_ROHR_Sach (float, optional): Maximum normalization value for ROHR Sach. Default is None.</p></li>
+<li><p>norm_max_FWVB_Sach (float, optional): Maximum normalization value for FWVB Sach. Default is None.</p></li>
+<li><p>attr_lws_ROHR_Sach (str, optional): Attribute for ROHR Sach line widths. Default is ‘DI’.</p></li>
+<li><p>attr_ms_FWVB_Sach (str, optional): Attribute for FWVB Sach marker sizes. Default is ‘W0’.</p></li>
+<li><p>attr_colors_ROHR_Sach_patches_fmt (str, optional): Format for ROHR Sach patches. Default is “DN (Innen) {:4.0f}”.</p></li>
+<li><p>attr_colors_FWVB_Sach_patches_fmt (str, optional): Format for FWVB Sach patches. Default is “W {:4.0f} kW”.</p></li>
+<li><p>attr_colors_ROHR_Sach_patchValues (list, optional): Values for ROHR Sach patches. Default is None.</p></li>
+<li><p>attr_colors_FWVB_Sach_patchValues (list, optional): Values for FWVB Sach patches. Default is None.</p></li>
+<li><p>fac_lws_ROHR (float, optional): Factor for ROHR line widths. Default is 5.0.</p></li>
+<li><p>fac_ms_FWVB (float, optional): Factor for FWVB marker sizes. Default is None.</p></li>
+</ul>
+</dd>
+<dt>Erg (Result Data) Parameters:</dt><dd><ul class="simple">
+<li><p>attr_colors_ROHR_Erg (str, optional): Attribute for ROHR Erg colors. Default is ‘QMAVAbs’.</p></li>
+<li><p>attr_colors_FWVB_Erg (str, optional): Attribute for FWVB Erg colors. Default is ‘QM’.</p></li>
+<li><p>attr_colors_ROHR_Erg_zOrder (int, optional): Z-order for ROHR Erg colors. Default is 4.</p></li>
+<li><p>attr_colors_FWVB_Erg_zOrder (int, optional): Z-order for FWVB Erg colors. Default is 2.</p></li>
+<li><p>colors_ROHR_Erg (list, optional): Colors for ROHR Erg. Default is [‘darkgreen’, ‘magenta’].</p></li>
+<li><p>colors_FWVB_Erg (list, optional): Colors for FWVB Erg. Default is [‘aquamarine’, ‘teal’].</p></li>
+<li><p>norm_min_ROHR_Erg (float, optional): Minimum normalization value for ROHR Erg. Default is None.</p></li>
+<li><p>norm_min_FWVB_Erg (float, optional): Minimum normalization value for FWVB Erg. Default is None.</p></li>
+<li><p>norm_max_ROHR_Erg (float, optional): Maximum normalization value for ROHR Erg. Default is None.</p></li>
+<li><p>norm_max_FWVB_Erg (float, optional): Maximum normalization value for FWVB Erg. Default is None.</p></li>
+<li><p>attr_colors_ROHR_Erg_patches_fmt (str, optional): Format for ROHR Erg patches. Default is “Q (abs.) {:4.0f} t/h”.</p></li>
+<li><p>attr_colors_FWVB_Erg_patches_fmt (str, optional): Format for FWVB Erg patches. Default is “dp {:4.1f} bar”.</p></li>
+<li><p>attr_colors_ROHR_Erg_patchValues (list, optional): Values for ROHR Erg patches. Default is None.</p></li>
+<li><p>attr_colors_FWVB_Erg_patchValues (list, optional): Values for FWVB Erg patches. Default is None.</p></li>
+<li><p>query_ROHR_Erg (str, optional): Query for ROHR Erg. Default is None.</p></li>
+<li><p>lws_ROHR_Erg_Sach (bool, optional): Line width for ROHR Erg Sach. Default is True.</p></li>
+<li><p>ms_FWVB_Erg (int, optional): Marker size for FWVB Erg. Default is -1.</p></li>
+<li><p>fac_lws_ROHR_Erg (float, optional): Factor for ROHR Erg line widths. Default is None.</p></li>
+<li><p>colors_FWVB_ErgNeg (list, optional): Colors for FWVB Erg negative values. Default is [‘lightskyblue’, ‘royalblue’].</p></li>
+</ul>
+</dd>
+<dt>Unique Parameters for KNOT and Map:</dt><dd><ul class="simple">
+<li><p>attr_colors_KNOT_Erg (str, optional): Attribute for KNOT Erg colors. Default is None.</p></li>
+<li><p>attr_colors_KNOT_Erg_patches_fmt (str, optional): Format for KNOT Erg patches. Default is “pDiff +{:4.2f} bar”.</p></li>
+<li><p>attr_colors_KNOT_ErgNeg_patches_fmt (str, optional): Format for KNOT Erg negative patches. Default is “pDiff -{:4.2f} bar”.</p></li>
+<li><p>attr_colors_KNOT_Erg_patchValues (list, optional): Values for KNOT Erg patches. Default is None.</p></li>
+<li><p>colors_KNOT_Erg (list, optional): Colors for KNOT Erg. Default is [‘yellow’, ‘red’].</p></li>
+<li><p>marker_KNOT_Erg (str, optional): Marker for KNOT Erg. Default is ‘.’.</p></li>
+<li><p>norm_min_KNOT_Erg (float, optional): Minimum normalization value for KNOT Erg. Default is None.</p></li>
+<li><p>norm_max_KNOT_Erg (float, optional): Maximum normalization value for KNOT Erg. Default is None.</p></li>
+<li><p>size_min_KNOT_Erg (float, optional): Minimum size for KNOT Erg. Default is None.</p></li>
+<li><p>size_max_KNOT_Erg (float, optional): Maximum size for KNOT Erg. Default is None.</p></li>
+<li><p>attr_colors_KNOT_Erg_zOrder (int, optional): Z-order for KNOT Erg colors. Default is 5.</p></li>
+<li><p>colors_KNOT_ErgNeg (list, optional): Colors for KNOT Erg negative values. Default is [‘yellowgreen’, ‘sienna’].</p></li>
+<li><p>fac_ms_KNOT (float, optional): Factor for KNOT marker sizes. Default is None.</p></li>
+<li><p>MapOn (bool, optional): Whether to add a basemap. Default is False.</p></li>
+<li><p>LabelsOnTop (bool, optional): Whether to place labels on top of the basemap. Default is False.</p></li>
+<li><p>Map_resolution (int, optional): Resolution for the basemap. Default is 15.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><p>tuple: A tuple containing patches for ROHR Sach, ROHR Erg, FWVB Sach, FWVB Erg, and KNOT Erg.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
