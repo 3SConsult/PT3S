@@ -10,7 +10,7 @@ In the Example-Notebooks the corresponding SIR 3S Example-Models are (re-)calcul
 Example 0: Installation 
 -----------------------
 
-This example does not present use cases of PT3S, but gives an overview over important commands to install, administer and import PT3S.
+This example does not demonstrate use cases of PT3S, but gives an overview over important commands to install, administer and import PT3S.
 
 You can view the Notebook `here <Example0.html>`_.
 
@@ -22,6 +22,8 @@ You can download the Notebook file :download:`here <Example0.ipynb>`.
 Example 1: Interactive Map
 --------------------------
 
+This example demonstrates how GeoDataFrames (gdfs) created by PT3S can be used to create an interactive map with Folium, and to generate a printable output.
+
 You can view the Notebook `here <Example1.html>`_.
 
    
@@ -31,6 +33,8 @@ You can download the Notebook file :download:`here <Example1.ipynb>`.
 
 Example 2: Time Curves
 ----------------------
+
+This example demonstrates how raw time curve data read by PT3S can be used to create both interactive and non-interactive plots with Matplotlib, and to generate a printable output.
 
 You can view the Notebook `here <Example2.html>`_.
 
@@ -42,6 +46,8 @@ You can download the Notebook file :download:`here <Example2.ipynb>`.
 Example 3: Longitudinal Section
 --------------------------------
 
+This example demonstrates how longitudinal sections data read by PT3S can be accessed and used to create plots with Matplotlib.
+
 You can view the Notebook `here <Example3.html>`_.
 
 
@@ -51,6 +57,8 @@ You can download the Notebook file :download:`here <Example3.ipynb>`.
 
 Example 4: OSM PBF to SIR 3S SHP Import
 ---------------------------------------
+
+This example demonstrates how to convert OSM data into shape files for import into SIR 3S.
 
 You can view the Notebook `here <Example4.html>`_.
 
@@ -62,6 +70,8 @@ You can download the Notebook file :download:`here <Example4.ipynb>`.
 Example 5: Loop over multiple SIR 3S calculations
 -------------------------------------------------
 
+This example demonstrates how to loop over several SIR 3S calculations, calculate each different state and plot it.
+
 You can view the Notebook `here <Example5.html>`_.
 
 
@@ -70,7 +80,7 @@ You can download the Notebook file :download:`here <Example5.ipynb>`.
 Example X: Example Template
 ---------------------------
 
-This example does not present use cases of PT3S, but serves as a template for contributors, who want to create their own Example.
+This example does not demonstrate use cases of PT3S, but serves as a template for contributors, who want to create their own Example.
 
 You can view the Notebook `here <ExampleX.html>`_.
 

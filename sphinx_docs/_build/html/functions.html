@@ -229,6 +229,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </div>
 </dd></dl>
 
+<p>…. inheritance-diagram:: dxAndMxHelperFcts.dxWithMx</p>
 <section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h3>
 <section id="getting-dbfile-str">
@@ -260,6 +261,9 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <p>From this object m, you can now access a variety of dataframes created by PT3S based on the model and results</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)])</span>
 <span class="go">[&#39;V3_AGSN&#39;, &#39;V3_AGSNVEC&#39;, &#39;V3_FWVB&#39;, &#39;V3_KNOT&#39;, &#39;V3_ROHR&#39;, &#39;V3_ROHRVEC&#39;, &#39;V3_VBEL&#39;, &#39;V3_WBLZ&#39;, &#39;dfAGSN&#39;, &#39;dfWBLZ&#39;, &#39;gdf_FWVB&#39;, &#39;gdf_KNOT&#39;, &#39;gdf_ROHR&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Also accesible are NetworkX-Graphs, SirCalcExecution- and -Xml-File and the dir to mx files</p>

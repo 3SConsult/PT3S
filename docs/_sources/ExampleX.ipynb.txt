@@ -13,7 +13,8 @@
    "id": "be3ffea4-9cf2-4950-8f5a-b77c4d9d1210",
    "metadata": {},
    "source": [
-    "Description of Notebook and/or additional information"
+    "Short description of example notebook for the Examples Page\n",
+    "Additional information"
    ]
   },
   {

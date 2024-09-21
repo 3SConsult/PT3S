@@ -3,6 +3,14 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.XX.0.dev1
+---------------
+
+**New:**
+
+- install_requires:
+    - pyrosm included for Example4
+
 90.14.32.0.dev1
 ---------------
     
