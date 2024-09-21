@@ -66,3 +66,13 @@ You can view the Notebook `here <Example5.html>`_.
 
 
 You can download the Notebook file :download:`here <Example5.ipynb>`.
+
+Example X: Example Template
+---------------------------
+
+This example does not present use cases of PT3S, but serves as a template for contributors, who want to create their own Example.
+
+You can view the Notebook `here <ExampleX.html>`_.
+
+
+You can download the Notebook file :download:`here <ExampleX.ipynb>`.

@@ -9,11 +9,13 @@
 import os
 import sys
 import subprocess
+from datetime import datetime
 sys.path.insert(0, os.path.abspath(r'C:\Users\jablonski\3S\PT3S'))
 
 
 project = 'PT3S'
-copyright = '1986-2024, 3S Consult GmbH'
+current_year = datetime.now().year
+copyright = f'1986-{current_year}, 3S Consult GmbH'
 author = '3S Consult GmbH'
 release = '90.14.32.0.dev1'
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imports &mdash; PT3S 90.14.32.0.dev1 documentation</title>
+  <title>Longitudinal Section &mdash; PT3S 90.14.32.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -74,7 +74,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Imports</li>
+      <li class="breadcrumb-item active">Longitudinal Section</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Example3.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,7 +84,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Imports">
+  <section id="Longitudinal-Section">
+<h1>Longitudinal Section<a class="headerlink" href="#Longitudinal-Section" title="Permalink to this heading"></a></h1>
+This example demonstrates how longitudinal sections data read by PT3S can be accessed and used to create plots with Matplotlib.</section>
+<section id="PT3S-Release">
+<h1>PT3S Release<a class="headerlink" href="#PT3S-Release" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install PT3S -U --no-deps</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Imports">
 <h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -197,6 +211,7 @@
                                 <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span>
                                 <span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span>
 <span class="p">)</span>
+<span class="c1">#NBVAL_IGNORE_OUTPUT</span>
 </pre></div>
 </div>
 </div>
@@ -2547,7 +2562,7 @@ INFO    ; dxWithMx.__init__: Example3: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example3_24_0.png" src="_images/Example3_24_0.png" />
+<img alt="_images/Example3_28_0.png" src="_images/Example3_28_0.png" />
 </div>
 </div>
 </section>
@@ -2559,6 +2574,7 @@ INFO    ; dxWithMx.__init__: Example3: processing dx and mx ...
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="c1">#NBVAL_IGNORE_OUTPUT</span>
 </pre></div>
 </div>
 </div>
@@ -3460,6 +3476,7 @@ INFO    ; dxWithMx.__init__: Example3: processing dx and mx ...
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#NBVAL_IGNORE_OUTPUT</span>
 </pre></div>
 </div>
 </div>
@@ -3924,6 +3941,7 @@ INFO    ; dxWithMx.__init__: Example3: processing dx and mx ...
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#NBVAL_IGNORE_OUTPUT</span>
 </pre></div>
 </div>
 </div>
@@ -4121,6 +4139,7 @@ array([&#39;S&#39;, &#39;E&#39;], dtype=object)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="p">[</span><span class="o">~</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;S&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">])]</span>
+<span class="c1">#NBVAL_IGNORE_OUTPUT</span>
 </pre></div>
 </div>
 </div>
@@ -4334,7 +4353,7 @@ array([&#39;S&#39;, &#39;E&#39;], dtype=object)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example3_59_0.png" src="_images/Example3_59_0.png" />
+<img alt="_images/Example3_63_0.png" src="_images/Example3_63_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
