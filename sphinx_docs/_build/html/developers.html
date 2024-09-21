@@ -443,7 +443,7 @@
 <ol class="arabic">
 <li><p><strong>Setup Docker</strong>: Download and install Docker Desktop. There might be some issues that need fixing in Windows settings. Help from the technical team is advised.</p></li>
 <li><p><strong>Enable Windows Containers</strong>: Right-click on the Docker Desktop icon in your taskbar and click “Switch to Windows Containers”.</p></li>
-<li><p><strong>Get Docker Files</strong>: Copy <cite>T:/interne_Projekte/PT3S/docker</cite> to <cite>C:/Users/User/3S</cite>.</p></li>
+<li><p><strong>Get Docker Files</strong>: Copy <cite>T:/interne_Projekte/PT3S/docker</cite> and <cite>T:/interne_Projekte/PT3S/dockerNotebooks</cite> to <cite>C:/Users/User/3S</cite>.</p></li>
 <li><p><strong>Copy SirCalc</strong>: The <cite>C:/Users/User/3S/docker/SIR 3S</cite> directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local <cite>C:/3S/SIR 3S</cite> to <cite>C:/Users/User/3S/docker/SIR 3S</cite> and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.</p></li>
 <li><p><strong>Start Docker Engine:</strong> Open Docker Desktop and start the engine.</p></li>
 <li><p><strong>Navigate to Docker Folder:</strong> Open your terminal or command prompt and navigate to the directory containing your Dockerfile.</p>
@@ -472,15 +472,19 @@
 <li><p><strong>Run the Docker container:</strong> Run the following command with the name of your Docker image.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The port must differ from a local JupyterLab you might be running (use 8889:8888 instead).</p>
+<p>The port must differ from a local JupyterLab you might be running.</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stestpotsdam
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\U</span>ser<span class="se">\3</span>S<span class="se">\d</span>ockerNotebooks:C:<span class="se">\3</span>S<span class="se">\n</span>otebooks<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stestpotsdam
 </pre></div>
 </div>
-<p>The container should now be running, downloading the Example Notebooks and upgrading PT3S to its newest version automatically.</p>
+<p>The container should now be running, downloading the Example Notebooks and upgrading PT3S to its newest version automatically. The <cite>dockerNotebooks</cite> folder on your local machine is used as a volume for the Docker container. Therefore, all changes made to the notebooks inside the container are applied to these files. You can also save additional notebooks to this folder to add them into the container for testing (rerun necessary).</p>
 <p>You now have access to a cmd running in the container environment. The <cite>-it</cite> option starts the container in interactive mode, and the <cite>–rm</cite> option removes the container after it exits.</p>
 </li>
 <li><p><strong>Start Tests:</strong> Run the following command inside the container cmd. You should now be provided with the test results in the cmd.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--nbval
+</pre></div>
+</div>
+<p>With config  file (currentley not useful):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--nbval<span class="w"> </span>--nbval-sanitize-with<span class="w"> </span>sanitize.cfg
 </pre></div>
 </div>
@@ -495,7 +499,7 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Open in local Browser</strong>: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.</p></li>
+<li><p><strong>Open in local Browser</strong>: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container. Saved changes are applied to your local files in the dockerNotebooks folder.</p></li>
 <li><p><strong>Test manually</strong>: To test one specific or all examples, run the following commands.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--nbval<span class="w"> </span>ExampleX.ipynb
 </pre></div>

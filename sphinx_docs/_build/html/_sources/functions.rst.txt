@@ -28,6 +28,8 @@ Read SIR 3S Model and Results
 -----------------------------
 .. autofunction:: dxAndMxHelperFcts.readDxAndMx
 
+.... inheritance-diagram:: dxAndMxHelperFcts.dxWithMx
+
 Examples
 ~~~~~~~~
     
@@ -74,6 +76,10 @@ From this object m, you can now access a variety of dataframes created by PT3S b
     
     >>> print([attr for attr in dir(m) if isinstance(getattr(m, attr), pd.DataFrame)])    
     ['V3_AGSN', 'V3_AGSNVEC', 'V3_FWVB', 'V3_KNOT', 'V3_ROHR', 'V3_ROHRVEC', 'V3_VBEL', 'V3_WBLZ', 'dfAGSN', 'dfWBLZ', 'gdf_FWVB', 'gdf_KNOT', 'gdf_ROHR']
+
+.. doctest::
+    
+    >>> m.V3_AGSN.head()
 
 Also accesible are NetworkX-Graphs, SirCalcExecution- and -Xml-File and the dir to mx files
 

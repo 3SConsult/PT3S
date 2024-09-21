@@ -388,7 +388,7 @@ To set up all necessary files and programs to run tests on Notebooks, follow the
 
 2. **Enable Windows Containers**: Right-click on the Docker Desktop icon in your taskbar and click "Switch to Windows Containers".
 
-3. **Get Docker Files**: Copy `T:/interne_Projekte/PT3S/docker` to `C:/Users/User/3S`.
+3. **Get Docker Files**: Copy `T:/interne_Projekte/PT3S/docker` and `T:/interne_Projekte/PT3S/dockerNotebooks` to `C:/Users/User/3S`.
 
 4. **Copy SirCalc**: The `C:/Users/User/3S/docker/SIR 3S` directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local `C:/3S/SIR 3S` to `C:/Users/User/3S/docker/SIR 3S` and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.
 
@@ -430,13 +430,13 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 3. **Run the Docker container:** Run the following command with the name of your Docker image.
 
    .. note::
-       The port must differ from a local JupyterLab you might be running (use 8889:8888 instead).
+       The port must differ from a local JupyterLab you might be running.
 
    .. code-block:: bash
 
-      docker run -it --rm -p 8889:8888 pt3stestpotsdam
+      docker run -it --rm -v C:\Users\User\3S\dockerNotebooks:C:\3S\notebooks -p 8889:8888 pt3stestpotsdam
 
-   The container should now be running, downloading the Example Notebooks and upgrading PT3S to its newest version automatically.
+   The container should now be running, downloading the Example Notebooks and upgrading PT3S to its newest version automatically. The `dockerNotebooks` folder on your local machine is used as a volume for the Docker container. Therefore, all changes made to the notebooks inside the container are applied to these files. You can also save additional notebooks to this folder to add them into the container for testing (rerun necessary).
 
    You now have access to a cmd running in the container environment. The `-it` option starts the container in interactive mode, and the `--rm` option removes the container after it exits.
 
@@ -444,8 +444,14 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 
    .. code-block:: bash
 
-      pytest --nbval --nbval-sanitize-with sanitize.cfg   
-       
+      pytest --nbval  
+
+   With config  file (currentley not useful):
+
+   .. code-block:: bash
+
+      pytest --nbval --nbval-sanitize-with sanitize.cfg
+             
 5. **Open new Container CMD:** Run the following command in a local cmd. The container_id can be found on Docker Desktop.
 
    .. code-block:: bash
@@ -458,7 +464,7 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 
       python -m jupyter lab --ip=0.0.0.0 --allow-root
 
-7. **Open in local Browser**: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.
+7. **Open in local Browser**: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container. Saved changes are applied to your local files in the dockerNotebooks folder. 
 
 8. **Test manually**: To test one specific or all examples, run the following commands.
 

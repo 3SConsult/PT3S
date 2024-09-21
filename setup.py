@@ -88,7 +88,8 @@ setup(
         # doc
         'nbsphinx',
         'sphinx_copybutton',
-        'sphinx-rtd-theme'
+        'sphinx-rtd-theme',
+        'pyrosm'
         
     ],    
     
