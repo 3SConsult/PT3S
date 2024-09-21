@@ -93,11 +93,16 @@ Install PT3S
 
 To install PT3S using this documentation, follow these steps:
 
-1. **Download Example0:** Download Example0.ipynb from :ref:`ex0`.
+1. **Download Example0:** Download :ref:`ex0`.
     
 2. **Open Example0.ipynb via JupyterLab:** Instructions on how to open ipnyb files are explained in detail at :ref:`startandopennotebooks`.
     
-3. **Run 2nd cell:** ``pip install PT3S``
+3. **Run 2nd cell:**
+
+.. code-block:: bash
+    
+    pip install PT3S
+
 
 .. image:: 3_pt3s_install_example0.png
    :alt: pt3s_install_example0
@@ -110,12 +115,16 @@ Update PT3S
 
 To update PT3S to the newest version using this documentation, follow these steps:
 
-1. **Download Example0:** Download Example0.ipynb from :ref:`ex0`.
+1. **Download Example0:** Download :ref:`ex0`.
 
 2. **Open Example0.ipynb via JupyterLab:** Instructions on how to open ipnyb files are explained in detail at :ref:`startandopennotebooks`.
 
-3. **Run 4th cell:** ``pip install PT3S -U --no-deps``
+3. **Run 4th cell:**
 
+.. code-block:: bash
+    
+    pip install PT3S -U --no-deps
+   
 .. image:: 4_pt3s_update_example0.png
    :alt: pt3s_update_example0
    :width: 100%
@@ -127,16 +136,17 @@ Import PT3S into Notebooks
 
 To import a certain PT3S module into your Notebook, use the following commands. The dxAndMxHelperFcts module, which is used in the example, contains basic PT3S functions.
 
-   .. code-block:: python
-
+.. code-block:: python
+    
     try:
         from PT3S import dxAndMxHelperFcts
     except:
         import dxAndMxHelperFcts
 
+
 To try this inside an Example Notebook, follow these steps:
 
-    1. **Download Example0:** Download Example0.ipynb from :ref:`ex0`.
+    1. **Download Example0:** Download :ref:`ex0`.
     
     2. **Open Example0.ipynb via JupyterLab:** Instructions on how to open ipnyb files are explained in detail at :ref:`startandopennotebooks`.
     

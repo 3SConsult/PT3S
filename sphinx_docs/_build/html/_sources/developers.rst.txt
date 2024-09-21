@@ -436,24 +436,31 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
 
       docker run -it --rm -p 8889:8888 pt3stestpotsdam
 
-   The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.
+   The container should now be running, downloading the Example Notebooks and upgrading PT3S to its newest version automatically.
 
    You now have access to a cmd running in the container environment. The `-it` option starts the container in interactive mode, and the `--rm` option removes the container after it exits.
 
-.. 4. **Start JupyterLab:** Type the following command into a new cmd.
+4. **Start Tests:** Run the following command inside the container cmd. You should now be provided with the test results in the cmd.
 
    .. code-block:: bash
 
-      docker exec -it pt3stestpotsdam python -m jupyter lab --ip=0.0.0.0 --allow-root
-4. **Start JupyterLab:** Type the following command into the container cmd.
+      pytest --nbval --nbval-sanitize-with sanitize.cfg   
+       
+5. **Open new Container CMD:** Run the following command in a local cmd. The container_id can be found on Docker Desktop.
+
+   .. code-block:: bash
+
+      docker exec -it container_id cmd
+
+6. **Start JupyterLab:** Run the following command in the new container cmd.
 
    .. code-block:: bash
 
       python -m jupyter lab --ip=0.0.0.0 --allow-root
 
-5. **Open in local Browser**: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.
+7. **Open in local Browser**: Due to there not being a browser installed inside the docker container, JupyterLab will not open automatically. Click on one of the links provided in the cmd output or click on the host of the running container under the container tab in Docker Desktop. You might need to enter a token. This can be found in the cmd output as well. Now you can edit the notebooks inside the docker container.
 
-6. **Test manually**: To test one specific or all examples, run the following commands.
+8. **Test manually**: To test one specific or all examples, run the following commands.
 
    .. code-block:: bash
 

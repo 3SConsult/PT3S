@@ -477,12 +477,20 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8889</span>:8888<span class="w"> </span>pt3stestpotsdam
 </pre></div>
 </div>
-<p>The container should now be running, downloading the Example Notebooks, upgrading PT3S to its newest version, and starting nbval tests on them automatically.</p>
+<p>The container should now be running, downloading the Example Notebooks and upgrading PT3S to its newest version automatically.</p>
 <p>You now have access to a cmd running in the container environment. The <cite>-it</cite> option starts the container in interactive mode, and the <cite>–rm</cite> option removes the container after it exits.</p>
 </li>
-</ol>
-<ol class="arabic" start="4">
-<li><p><strong>Start JupyterLab:</strong> Type the following command into the container cmd.</p>
+<li><p><strong>Start Tests:</strong> Run the following command inside the container cmd. You should now be provided with the test results in the cmd.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--nbval<span class="w"> </span>--nbval-sanitize-with<span class="w"> </span>sanitize.cfg
+</pre></div>
+</div>
+</li>
+<li><p><strong>Open new Container CMD:</strong> Run the following command in a local cmd. The container_id can be found on Docker Desktop.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>container_id<span class="w"> </span>cmd
+</pre></div>
+</div>
+</li>
+<li><p><strong>Start JupyterLab:</strong> Run the following command in the new container cmd.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--allow-root
 </pre></div>
 </div>
