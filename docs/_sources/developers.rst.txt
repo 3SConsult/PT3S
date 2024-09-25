@@ -263,7 +263,7 @@ On the :doc:`releases` page you can view how this rst code is transformed into h
 
 2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py
 
-3. **Test the Examples:** Make sure that all examples included in the documentation are running 
+3. **Run Doctests:** Follow the steps of :ref:`running-doctests-label`. And make sure they are executed successfully.
 
 4. **Generate the Documentation:** Follow the steps in :ref:`generating-documentation-label`.
   
@@ -500,6 +500,8 @@ Doctests
 
 .. note::
     This part of the documentation is still a work in progess.
+
+.. _running-doctests-label:
 
 Running Doctests
 ~~~~~~~~~~~~~~~~
