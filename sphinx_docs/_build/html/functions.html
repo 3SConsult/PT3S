@@ -56,7 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-model-and-results">Read SIR 3S Model and Results</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage-tutorial">Usage Tutorial</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#getting-dbfile-str">Getting dbFile(str)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reading-data">Reading data</a></li>
 </ul>
@@ -90,7 +90,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-district-heating-network">Plot District Heating Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-district-heating-network-work-in-progress">Plot District Heating Network (Work in Progress)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
@@ -229,9 +229,8 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </div>
 </dd></dl>
 
-<p>…. inheritance-diagram:: dxAndMxHelperFcts.dxWithMx</p>
-<section id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h3>
+<section id="usage-tutorial">
+<h3>Usage Tutorial<a class="headerlink" href="#usage-tutorial" title="Permalink to this heading"></a></h3>
 <section id="getting-dbfile-str">
 <h4>Getting dbFile(str)<a class="headerlink" href="#getting-dbfile-str" title="Permalink to this heading"></a></h4>
 <p>Enter the name of the .db3 file you want to read</p>
@@ -263,7 +262,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <span class="go">[&#39;V3_AGSN&#39;, &#39;V3_AGSNVEC&#39;, &#39;V3_FWVB&#39;, &#39;V3_KNOT&#39;, &#39;V3_ROHR&#39;, &#39;V3_ROHRVEC&#39;, &#39;V3_VBEL&#39;, &#39;V3_WBLZ&#39;, &#39;dfAGSN&#39;, &#39;dfWBLZ&#39;, &#39;gdf_FWVB&#39;, &#39;gdf_KNOT&#39;, &#39;gdf_ROHR&#39;]</span>
 </pre></div>
 </div>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
 </pre></div>
 </div>
 <p>Also accesible are NetworkX-Graphs, SirCalcExecution- and -Xml-File and the dir to mx files</p>
@@ -820,84 +819,42 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </dd></dl>
 
 </section>
-<section id="plot-district-heating-network">
-<h2>Plot District Heating Network<a class="headerlink" href="#plot-district-heating-network" title="Permalink to this heading"></a></h2>
+<section id="plot-district-heating-network-work-in-progress">
+<h2>Plot District Heating Network (Work in Progress)<a class="headerlink" href="#plot-district-heating-network-work-in-progress" title="Permalink to this heading"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="pNFD.pNFD_FW">
-<span class="sig-prename descclassname"><span class="pre">pNFD.</span></span><span class="sig-name descname"><span class="pre">pNFD_FW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ax=None,</span> <span class="pre">axTitle=None,</span> <span class="pre">gdf_ROHR=Empty</span> <span class="pre">GeoDataFrame</span> <span class="pre">Columns:</span> <span class="pre">[]</span> <span class="pre">Index:</span> <span class="pre">[],</span> <span class="pre">gdf_FWVB=Empty</span> <span class="pre">GeoDataFrame</span> <span class="pre">Columns:</span> <span class="pre">[]</span> <span class="pre">Index:</span> <span class="pre">[],</span> <span class="pre">gdf_KNOT=Empty</span> <span class="pre">GeoDataFrame</span> <span class="pre">Columns:</span> <span class="pre">[]</span> <span class="pre">Index:</span> <span class="pre">[],</span> <span class="pre">attr_colors_ROHR_Sach='DI',</span> <span class="pre">attr_colors_ROHR_Sach_zOrder=3,</span> <span class="pre">colors_ROHR_Sach=['lightgray',</span> <span class="pre">'dimgray'],</span> <span class="pre">norm_min_ROHR_Sach=None,</span> <span class="pre">norm_max_ROHR_Sach=None,</span> <span class="pre">attr_lws_ROHR_Sach='DI',</span> <span class="pre">attr_colors_ROHR_Sach_patches_fmt='DN</span> <span class="pre">(Innen)</span> <span class="pre">{:4.0f}',</span> <span class="pre">attr_colors_ROHR_Sach_patchValues=None,</span> <span class="pre">fac_lws_ROHR=5.0,</span> <span class="pre">attr_colors_ROHR_Erg='QMAVAbs',</span> <span class="pre">attr_colors_ROHR_Erg_zOrder=4,</span> <span class="pre">colors_ROHR_Erg=['darkgreen',</span> <span class="pre">'magenta'],</span> <span class="pre">norm_min_ROHR_Erg=None,</span> <span class="pre">norm_max_ROHR_Erg=None,</span> <span class="pre">attr_colors_ROHR_Erg_patches_fmt='Q</span> <span class="pre">(abs.)</span> <span class="pre">{:4.0f}</span> <span class="pre">t/h',</span> <span class="pre">attr_colors_ROHR_Erg_patchValues=None,</span> <span class="pre">query_ROHR_Erg=None,</span> <span class="pre">lws_ROHR_Erg_Sach=True,</span> <span class="pre">fac_lws_ROHR_Erg=None,</span> <span class="pre">attr_colors_FWVB_Sach='W0',</span> <span class="pre">attr_colors_FWVB_Sach_zOrder=1,</span> <span class="pre">attr_colors_FWVB_Sach_patches_fmt='W</span> <span class="pre">{:4.0f}</span> <span class="pre">kW',</span> <span class="pre">attr_colors_FWVB_Sach_patchValues=None,</span> <span class="pre">colors_FWVB_Sach=['oldlace',</span> <span class="pre">'orange'],</span> <span class="pre">norm_min_FWVB_Sach=None,</span> <span class="pre">norm_max_FWVB_Sach=None,</span> <span class="pre">attr_ms_FWVB_Sach='W0',</span> <span class="pre">fac_ms_FWVB=None,</span> <span class="pre">attr_colors_FWVB_Erg='QM',</span> <span class="pre">attr_colors_FWVB_Erg_zOrder=2,</span> <span class="pre">attr_colors_FWVB_Erg_patches_fmt='dp</span> <span class="pre">{:4.1f}</span> <span class="pre">bar',</span> <span class="pre">attr_colors_FWVB_Erg_patchValues=None,</span> <span class="pre">attr_colors_FWVB_ErgNeg_patches_fmt='dp</span> <span class="pre">-{:4.1f}</span> <span class="pre">bar',</span> <span class="pre">colors_FWVB_Erg=['aquamarine',</span> <span class="pre">'teal'],</span> <span class="pre">norm_min_FWVB_Erg=None,</span> <span class="pre">norm_max_FWVB_Erg=None,</span> <span class="pre">ms_FWVB_Erg=-1,</span> <span class="pre">colors_FWVB_ErgNeg=['lightskyblue',</span> <span class="pre">'royalblue'],</span> <span class="pre">attr_colors_KNOT_Erg=None,</span> <span class="pre">attr_colors_KNOT_Erg_patches_fmt='pDiff</span> <span class="pre">+{:4.2f}</span> <span class="pre">bar',</span> <span class="pre">attr_colors_KNOT_ErgNeg_patches_fmt='pDiff</span> <span class="pre">-{:4.2f}</span> <span class="pre">bar',</span> <span class="pre">attr_colors_KNOT_Erg_patchValues=None,</span> <span class="pre">colors_KNOT_Erg=['yellow',</span> <span class="pre">'red'],</span> <span class="pre">marker_KNOT_Erg='.',</span> <span class="pre">norm_min_KNOT_Erg=None,</span> <span class="pre">norm_max_KNOT_Erg=None,</span> <span class="pre">size_min_KNOT_Erg=None,</span> <span class="pre">size_max_KNOT_Erg=None,</span> <span class="pre">attr_colors_KNOT_Erg_zOrder=5,</span> <span class="pre">colors_KNOT_ErgNeg=['yellowgreen',</span> <span class="pre">'sienna'],</span> <span class="pre">fac_ms_KNOT=None,</span> <span class="pre">MapOn=False,</span> <span class="pre">LabelsOnTop=False,</span> <span class="pre">Map_resolution=15</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pNFD.html#pNFD_FW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pNFD.pNFD_FW" title="Permalink to this definition"></a></dt>
-<dd><p>Plots data from GeoDataFrames with extensive customization options.</p>
-<dl class="simple">
-<dt>Parameters:</dt><dd><ul class="simple">
-<li><p>ax (matplotlib.axes.Axes, optional): The axis on which to plot. Default is None.</p></li>
-<li><p>axTitle (str, optional): Title for the axis. Default is None.</p></li>
-<li><p>gdf_ROHR (geopandas.GeoDataFrame, optional): GeoDataFrame for ROHR data. Default is an empty GeoDataFrame.</p></li>
-<li><p>gdf_FWVB (geopandas.GeoDataFrame, optional): GeoDataFrame for FWVB data. Default is an empty GeoDataFrame.</p></li>
-<li><p>gdf_KNOT (geopandas.GeoDataFrame, optional): GeoDataFrame for KNOT data. Default is an empty GeoDataFrame.</p></li>
+<dt class="sig sig-object py" id="ncd.NcdD.__init__">
+<span class="sig-prename descclassname"><span class="pre">ncd.NcdD.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncd.NcdD.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Initializes the NcdD object with the given parameters and preset configurations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – GeoDataFrame containing the data to be plotted.</p></li>
+<li><p><strong>preset</strong> (<em>str</em>) – Preset configuration for the plot. Options include ‘Manual’, ‘DI’, ‘W0’, ‘QMAVAbs’, ‘QM’.</p></li>
+<li><p><strong>attr_colors</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Attribute used for coloring the plot. Overrides preset if provided.</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of colors for the colormap. Overrides preset if provided.</p></li>
+<li><p><strong>attr_lws</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Line width scaling factor. Overrides preset if provided.</p></li>
+<li><p><strong>patch_fmt</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Format string for legend patches. Overrides preset if provided.</p></li>
+<li><p><strong>patch_values</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Values for legend patches. Overrides preset if provided.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Query string to filter the GeoDataFrame.</p></li>
+<li><p><strong>marker_style</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Marker style for the plot. Overrides preset if provided.</p></li>
+<li><p><strong>marker_size</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Marker size scaling factor. Overrides preset if provided.</p></li>
+<li><p><strong>manual_col</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Column used for manual plotting. Only used if preset is ‘Manual’.</p></li>
 </ul>
 </dd>
-<dt>Sach (Static Data) Parameters:</dt><dd><ul class="simple">
-<li><p>attr_colors_ROHR_Sach (str, optional): Attribute for ROHR Sach colors. Default is ‘DI’.</p></li>
-<li><p>attr_colors_FWVB_Sach (str, optional): Attribute for FWVB Sach colors. Default is ‘W0’.</p></li>
-<li><p>attr_colors_ROHR_Sach_zOrder (int, optional): Z-order for ROHR Sach colors. Default is 3.</p></li>
-<li><p>attr_colors_FWVB_Sach_zOrder (int, optional): Z-order for FWVB Sach colors. Default is 1.</p></li>
-<li><p>colors_ROHR_Sach (list, optional): Colors for ROHR Sach. Default is [‘lightgray’, ‘dimgray’].</p></li>
-<li><p>colors_FWVB_Sach (list, optional): Colors for FWVB Sach. Default is [‘oldlace’, ‘orange’].</p></li>
-<li><p>norm_min_ROHR_Sach (float, optional): Minimum normalization value for ROHR Sach. Default is None.</p></li>
-<li><p>norm_min_FWVB_Sach (float, optional): Minimum normalization value for FWVB Sach. Default is None.</p></li>
-<li><p>norm_max_ROHR_Sach (float, optional): Maximum normalization value for ROHR Sach. Default is None.</p></li>
-<li><p>norm_max_FWVB_Sach (float, optional): Maximum normalization value for FWVB Sach. Default is None.</p></li>
-<li><p>attr_lws_ROHR_Sach (str, optional): Attribute for ROHR Sach line widths. Default is ‘DI’.</p></li>
-<li><p>attr_ms_FWVB_Sach (str, optional): Attribute for FWVB Sach marker sizes. Default is ‘W0’.</p></li>
-<li><p>attr_colors_ROHR_Sach_patches_fmt (str, optional): Format for ROHR Sach patches. Default is “DN (Innen) {:4.0f}”.</p></li>
-<li><p>attr_colors_FWVB_Sach_patches_fmt (str, optional): Format for FWVB Sach patches. Default is “W {:4.0f} kW”.</p></li>
-<li><p>attr_colors_ROHR_Sach_patchValues (list, optional): Values for ROHR Sach patches. Default is None.</p></li>
-<li><p>attr_colors_FWVB_Sach_patchValues (list, optional): Values for FWVB Sach patches. Default is None.</p></li>
-<li><p>fac_lws_ROHR (float, optional): Factor for ROHR line widths. Default is 5.0.</p></li>
-<li><p>fac_ms_FWVB (float, optional): Factor for FWVB marker sizes. Default is None.</p></li>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ncd.pNcd_DH">
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_DH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axTitle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NcdD_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_DH"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_DH" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the data from a list of NcdD objects on the given axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Matplotlib axis to plot on. If None, a new axis is created.</p></li>
+<li><p><strong>axTitle</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Title for the axis.</p></li>
+<li><p><strong>NcdD_list</strong> (<em>list of NcdD</em>) – List of NcdD objects containing the data to be plotted.</p></li>
 </ul>
-</dd>
-<dt>Erg (Result Data) Parameters:</dt><dd><ul class="simple">
-<li><p>attr_colors_ROHR_Erg (str, optional): Attribute for ROHR Erg colors. Default is ‘QMAVAbs’.</p></li>
-<li><p>attr_colors_FWVB_Erg (str, optional): Attribute for FWVB Erg colors. Default is ‘QM’.</p></li>
-<li><p>attr_colors_ROHR_Erg_zOrder (int, optional): Z-order for ROHR Erg colors. Default is 4.</p></li>
-<li><p>attr_colors_FWVB_Erg_zOrder (int, optional): Z-order for FWVB Erg colors. Default is 2.</p></li>
-<li><p>colors_ROHR_Erg (list, optional): Colors for ROHR Erg. Default is [‘darkgreen’, ‘magenta’].</p></li>
-<li><p>colors_FWVB_Erg (list, optional): Colors for FWVB Erg. Default is [‘aquamarine’, ‘teal’].</p></li>
-<li><p>norm_min_ROHR_Erg (float, optional): Minimum normalization value for ROHR Erg. Default is None.</p></li>
-<li><p>norm_min_FWVB_Erg (float, optional): Minimum normalization value for FWVB Erg. Default is None.</p></li>
-<li><p>norm_max_ROHR_Erg (float, optional): Maximum normalization value for ROHR Erg. Default is None.</p></li>
-<li><p>norm_max_FWVB_Erg (float, optional): Maximum normalization value for FWVB Erg. Default is None.</p></li>
-<li><p>attr_colors_ROHR_Erg_patches_fmt (str, optional): Format for ROHR Erg patches. Default is “Q (abs.) {:4.0f} t/h”.</p></li>
-<li><p>attr_colors_FWVB_Erg_patches_fmt (str, optional): Format for FWVB Erg patches. Default is “dp {:4.1f} bar”.</p></li>
-<li><p>attr_colors_ROHR_Erg_patchValues (list, optional): Values for ROHR Erg patches. Default is None.</p></li>
-<li><p>attr_colors_FWVB_Erg_patchValues (list, optional): Values for FWVB Erg patches. Default is None.</p></li>
-<li><p>query_ROHR_Erg (str, optional): Query for ROHR Erg. Default is None.</p></li>
-<li><p>lws_ROHR_Erg_Sach (bool, optional): Line width for ROHR Erg Sach. Default is True.</p></li>
-<li><p>ms_FWVB_Erg (int, optional): Marker size for FWVB Erg. Default is -1.</p></li>
-<li><p>fac_lws_ROHR_Erg (float, optional): Factor for ROHR Erg line widths. Default is None.</p></li>
-<li><p>colors_FWVB_ErgNeg (list, optional): Colors for FWVB Erg negative values. Default is [‘lightskyblue’, ‘royalblue’].</p></li>
-</ul>
-</dd>
-<dt>Unique Parameters for KNOT and Map:</dt><dd><ul class="simple">
-<li><p>attr_colors_KNOT_Erg (str, optional): Attribute for KNOT Erg colors. Default is None.</p></li>
-<li><p>attr_colors_KNOT_Erg_patches_fmt (str, optional): Format for KNOT Erg patches. Default is “pDiff +{:4.2f} bar”.</p></li>
-<li><p>attr_colors_KNOT_ErgNeg_patches_fmt (str, optional): Format for KNOT Erg negative patches. Default is “pDiff -{:4.2f} bar”.</p></li>
-<li><p>attr_colors_KNOT_Erg_patchValues (list, optional): Values for KNOT Erg patches. Default is None.</p></li>
-<li><p>colors_KNOT_Erg (list, optional): Colors for KNOT Erg. Default is [‘yellow’, ‘red’].</p></li>
-<li><p>marker_KNOT_Erg (str, optional): Marker for KNOT Erg. Default is ‘.’.</p></li>
-<li><p>norm_min_KNOT_Erg (float, optional): Minimum normalization value for KNOT Erg. Default is None.</p></li>
-<li><p>norm_max_KNOT_Erg (float, optional): Maximum normalization value for KNOT Erg. Default is None.</p></li>
-<li><p>size_min_KNOT_Erg (float, optional): Minimum size for KNOT Erg. Default is None.</p></li>
-<li><p>size_max_KNOT_Erg (float, optional): Maximum size for KNOT Erg. Default is None.</p></li>
-<li><p>attr_colors_KNOT_Erg_zOrder (int, optional): Z-order for KNOT Erg colors. Default is 5.</p></li>
-<li><p>colors_KNOT_ErgNeg (list, optional): Colors for KNOT Erg negative values. Default is [‘yellowgreen’, ‘sienna’].</p></li>
-<li><p>fac_ms_KNOT (float, optional): Factor for KNOT marker sizes. Default is None.</p></li>
-<li><p>MapOn (bool, optional): Whether to add a basemap. Default is False.</p></li>
-<li><p>LabelsOnTop (bool, optional): Whether to place labels on top of the basemap. Default is False.</p></li>
-<li><p>Map_resolution (int, optional): Resolution for the basemap. Default is 15.</p></li>
-</ul>
-</dd>
-<dt>Returns:</dt><dd><p>tuple: A tuple containing patches for ROHR Sach, ROHR Erg, FWVB Sach, FWVB Erg, and KNOT Erg.</p>
 </dd>
 </dl>
 </dd></dl>

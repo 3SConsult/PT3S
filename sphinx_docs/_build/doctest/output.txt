@@ -1,17 +1,26 @@
-Results of doctest builder run on 2024-09-10 12:14:11
+Results of doctest builder run on 2024-09-25 10:16:15
 =====================================================
 
 Document: functions
 -------------------
-1 items passed all tests:
-   9 tests in default
-9 tests in 1 items.
-9 passed and 0 failed.
-Test passed.
+**********************************************************************
+File "functions.rst", line 84, in default
+Failed example:
+    print([attr for attr in dir(m) if not attr.startswith('_') and not isinstance(getattr(m, attr), pd.DataFrame)])
+Expected:
+    ['G', 'GSig', 'SirCalcExeFile', 'SirCalcXmlFile', 'dx', 'mx', 'nodeposDctNx', 'switchV3DfColsToMultiindex', 'wDirMx']
+Got:
+    ['G', 'GSig', 'SirCalcXmlFile', 'dx', 'mx', 'nodeposDctNx', 'switchV3DfColsToMultiindex', 'wDirMx']
+**********************************************************************
+1 items had failures:
+   1 of  10 in default
+10 tests in 1 items.
+9 passed and 1 failed.
+***Test Failed*** 1 failures.
 
 Doctest summary
 ===============
-    9 tests
-    0 failures in tests
+   10 tests
+    1 failure in tests
     0 failures in setup code
     0 failures in cleanup code

@@ -28,10 +28,8 @@ Read SIR 3S Model and Results
 -----------------------------
 .. autofunction:: dxAndMxHelperFcts.readDxAndMx
 
-.... inheritance-diagram:: dxAndMxHelperFcts.dxWithMx
-
-Examples
-~~~~~~~~
+Usage Tutorial
+~~~~~~~~~~~~~~
     
 Getting dbFile(str)
 """""""""""""""""""
@@ -79,7 +77,7 @@ From this object m, you can now access a variety of dataframes created by PT3S b
 
 .. doctest::
     
-    >>> m.V3_AGSN.head()
+    >>> m.V3_AGSN.head() # doctest: +SKIP
 
 Also accesible are NetworkX-Graphs, SirCalcExecution- and -Xml-File and the dir to mx files
 
@@ -186,7 +184,10 @@ SdfCsv
 
 .. autofunction:: sdfCsv.SdfCsv.__init__
 
-Plot District Heating Network
------------------------------
+Plot District Heating Network (Work in Progress)
+------------------------------------------------
 
-.. autofunction:: pNFD.pNFD_FW
+.. autofunction:: ncd.NcdD.__init__
+
+
+.. autofunction:: ncd.pNcd_DH
