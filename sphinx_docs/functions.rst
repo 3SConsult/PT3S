@@ -189,5 +189,6 @@ Plot District Heating Network (Work in Progress)
 
 .. autofunction:: ncd.NcdD.__init__
 
+.. autofunction:: ncd.pNcd_pipes
 
-.. autofunction:: ncd.pNcd_DH
+.. autofunction:: ncd.pNcd_nodes

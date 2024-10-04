@@ -220,3 +220,7 @@ Information	0	2024-09-02 15:49:55.919	-1	IObjectModel::StartTransaction()	Fernwä
 Information	0	2024-09-02 15:50:04.568		DoChanges	656 Fernwärmeverbraucher wurde(n) geändert.  	-1  	
 Information	0	2024-09-02 15:51:41.336	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
 Information	0	2024-09-02 16:19:15.021	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
+Information	0	2024-10-04 15:45:20.863	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Lfd.-Nummer  	-1  	
+Information	0	2024-10-04 15:45:21.867	-1	IObjectModel::StartTransaction()	Gruppe Gen RL ROHRe bearbeiten  	-1  	
+Information	0	2024-10-04 15:45:22.905	-1	IObjectModel::StartTransaction()	Gruppe Gen RL KNOTen bearbeiten  	-1  	
+Information	0	2024-10-04 15:45:24.918	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
