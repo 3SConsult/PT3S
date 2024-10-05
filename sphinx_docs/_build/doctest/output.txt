@@ -1,4 +1,4 @@
-Results of doctest builder run on 2024-09-25 10:16:15
+Results of doctest builder run on 2024-10-05 14:02:10
 =====================================================
 
 Document: functions
@@ -13,14 +13,14 @@ Got:
     ['G', 'GSig', 'SirCalcXmlFile', 'dx', 'mx', 'nodeposDctNx', 'switchV3DfColsToMultiindex', 'wDirMx']
 **********************************************************************
 1 items had failures:
-   1 of  10 in default
-10 tests in 1 items.
-9 passed and 1 failed.
+   1 of  22 in default
+22 tests in 1 items.
+21 passed and 1 failed.
 ***Test Failed*** 1 failures.
 
 Doctest summary
 ===============
-   10 tests
+   22 tests
     1 failure in tests
     0 failures in setup code
     0 failures in cleanup code

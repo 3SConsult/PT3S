@@ -187,6 +187,107 @@ SdfCsv
 Plot District Heating Network (Work in Progress)
 ------------------------------------------------
 
-.. autofunction:: ncd.NcdD.__init__
+.. autoclass:: ncd.NcdD
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-.. autofunction:: ncd.pNcd_DH
+.. autoclass:: ncd.NcdD_pipes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: ncd.NcdD_nodes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autofunction:: ncd.pNcd_pipes
+
+.. autofunction:: ncd.pNcd_nodes
+
+Usage Tutorial
+~~~~~~~~~~~~~~
+
+.. testsetup::
+
+    import os
+    import geopandas as gpd
+    import matplotlib.pyplot as plt
+    import matplotlib.patches as mpatches
+    import matplotlib.colors as mcolors
+    import matplotlib.patheffects as path_effects
+    import numpy as np
+    import ncd
+    import Rm
+
+    # Sample data for demonstration
+    gdf_ROHR = gpd.GeoDataFrame({'geometry': [], 'DI': []})
+    gdf_FWVB = gpd.GeoDataFrame({'geometry': [], 'QM': []})
+    gdf_ROHR['geometry'] = gpd.points_from_xy([0, 1], [0, 1])
+    gdf_FWVB['geometry'] = gpd.points_from_xy([0, 1], [0, 1])
+    gdf_ROHR['DI'] = [100, 200]
+    gdf_FWVB['QM'] = [10, 20]
+
+Creating NcdD_pipes and NcdD_nodes objects
+""""""""""""""""""""""""""""""""""""""""""
+
+.. doctest::
+
+    >>> data1 = ncd.NcdD_pipes(gdf=gdf_ROHR,
+    ...                        attr_colors='DI',
+    ...                        colors=['lightgray', 'dimgray'],
+    ...                        line_width=10,
+    ...                        patch_fmt="DN (Innen) {:4.0f}",
+    ...                        patch_values=[100, 300, 400, 500, 700],
+    ...                        ignore_values=[])
+
+    >>> data2 = ncd.NcdD_pipes(gdf=gdf_ROHR,
+    ...                        attr_colors='QMAVAbs',
+    ...                        colors = ['darkgreen','magenta'],
+    ...                        line_width=10,
+    ...                        patch_fmt = "Q (abs.) {:4.0f} t/h")
+
+    >>> data3 = ncd.NcdD_nodes(gdf=gdf_FWVB,
+    ...                        attr_colors='QM',
+    ...                        colors=['aquamarine', 'teal'],
+    ...                        patch_fmt="QM {:4.0f} ##",
+    ...                        marker_size=1000,
+    ...                        marker_style='p')
+
+Setting up the plot
+"""""""""""""""""""
+
+.. doctest::
+
+    >>> fig, ax = plt.subplots(figsize=Rm.DINA3q)
+
+Plotting pipes
+""""""""""""""
+
+.. doctest::
+
+    >>> NcdD_list_pipes = [data1, data2]
+    >>> pipes_patches = ncd.pNcd_pipes(ax=ax, NcdD_list=NcdD_list_pipes)
+    >>> pipes_legend = ax.legend(handles=pipes_patches)
+    >>> ax.add_artist(pipes_legend) # doctest: +SKIP
+
+Plotting nodes
+""""""""""""""
+
+.. doctest::
+
+    >>> NcdD_list_nodes = [data3]
+    >>> nodes_patches = ncd.pNcd_nodes(ax=ax, NcdD_list=NcdD_list_nodes)
+    >>> nodes_legend = ax.legend(handles=nodes_patches)
+    >>> ax.add_artist(nodes_legend) # doctest: +SKIP
+
+Finalizing the plot
+"""""""""""""""""""
+
+.. doctest::
+
+    >>> plt.title('Network Color Diagram')
+    Text(0.5, 1.0, 'Network Color Diagram')
+    >>> plt.show()
+    Figure(1654x1169)
