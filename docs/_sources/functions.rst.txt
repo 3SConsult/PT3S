@@ -184,8 +184,8 @@ SdfCsv
 
 .. autofunction:: sdfCsv.SdfCsv.__init__
 
-Plot District Heating Network
------------------------------
+Plot Network Color Diagram
+--------------------------
 
 .. autofunction:: ncd.pNcd_pipes
 
