@@ -20,3 +20,4 @@ selenium
 nbsphinx
 sphinx_copybutton
 sphinx-rtd-theme
+pyrosm

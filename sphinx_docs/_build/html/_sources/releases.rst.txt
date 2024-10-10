@@ -3,13 +3,17 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
-90.14.XX.0.dev1
+90.14.33.0.dev1
 ---------------
 
 **New:**
 
 - install_requires:
     - pyrosm included for Example4
+
+- ncd.py:
+    - new Network Color Diagram module (ncd.py) to replace pNFD.py
+    - pNcd_pipes(), pNcd_nodes(): functions to create ncd with customized pipes and nodes
 
 90.14.32.0.dev1
 ---------------

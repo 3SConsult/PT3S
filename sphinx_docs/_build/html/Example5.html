@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loop over multiple SIR 3S calculations &mdash; PT3S 90.14.32.0.dev1 documentation</title>
+  <title>Loop over multiple SIR 3S calculations &mdash; PT3S 90.14.33.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -106,7 +106,7 @@
 <section id="Imports">
 <h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -148,11 +148,16 @@
     <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">pNFD</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">pNFD</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">ncd</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ncd</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
@@ -160,7 +165,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#importlib.reload(dxAndMxHelperFcts)</span>
@@ -171,7 +176,7 @@
 <section id="Logging">
 <h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
@@ -199,7 +204,7 @@
 <section id="Read-Model-and-Results">
 <h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example5&quot;</span>
@@ -212,7 +217,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -226,6 +231,16 @@
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\Examples\Example5.db3 exists readable ...
+INFO    ; dxAndMxHelperFcts.readDxAndMx:
++..\Examples\Example5.db3 is newer than
++..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
++SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
++in this case the results are maybe dated or (worse) incompatible to the model
+INFO    ; dxAndMxHelperFcts.readDxAndMx:
++..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.XML is newer than
++..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
++SirCalc&#39;s xmlFile is newer than SIR 3S&#39; mx1File
++in this case the results are maybe dated or (worse) incompatible to the model
 INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
@@ -236,40 +251,51 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <section id="Plot-Result">
 <h1>Plot Result<a class="headerlink" href="#Plot-Result" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_Result</span><span class="p">(</span><span class="n">gdf_ROHR</span><span class="p">,</span> <span class="n">gdf_FWVB</span><span class="p">,</span><span class="n">axTitle</span><span class="o">=</span><span class="s1">&#39;initial condition&#39;</span><span class="p">):</span>
-    <span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA2q</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">dpiSize</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_Result</span><span class="p">(</span><span class="n">gdf_ROHR</span><span class="p">,</span> <span class="n">gdf_FWVB</span><span class="p">,</span> <span class="n">axTitle</span><span class="o">=</span><span class="s1">&#39;initial condition&#39;</span><span class="p">):</span>
 
-    <span class="n">ax</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
 
-    <span class="n">attr_colors_ROHR_Sach_patches</span><span class="p">,</span><span class="n">attr_colors_ROHR_Erg_patches</span><span class="p">,</span><span class="n">attr_colors_FWVB_Sach_patches</span><span class="p">,</span><span class="n">attr_colors_FWVB_Erg_patches</span><span class="p">,</span><span class="n">attr_colors_KNOT_Erg_patches</span><span class="o">=</span><span class="n">pNFD</span><span class="o">.</span><span class="n">pNFD_FW</span><span class="p">(</span>
-        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+    <span class="n">nodes_patches_1</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+                                    <span class="p">,</span><span class="n">gdf</span><span class="o">=</span><span class="n">gdf_FWVB</span>
+                                    <span class="p">,</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;QM&#39;</span>
+                                    <span class="p">,</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span><span class="s1">&#39;teal&#39;</span><span class="p">]</span>
+                                    <span class="p">,</span><span class="n">norm_max</span><span class="o">=</span><span class="mi">100</span>
+                                    <span class="p">,</span><span class="n">marker_style</span><span class="o">=</span><span class="s1">&#39;p&#39;</span>
+                                    <span class="p">,</span><span class="n">legend_fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:4.0f}</span><span class="s1"> t/h&#39;</span>
+                                    <span class="p">,</span><span class="n">legend_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">100</span><span class="p">]</span>
+                                    <span class="p">,</span><span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="p">,</span><span class="n">axTitle</span><span class="o">=</span><span class="n">axTitle</span>
-
-        <span class="p">,</span><span class="n">gdf_ROHR</span> <span class="o">=</span> <span class="n">gdf_ROHR</span><span class="p">[</span><span class="n">gdf_ROHR</span><span class="p">[</span><span class="s1">&#39;KVR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">])]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;QMAVAbs&#39;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="p">,</span><span class="n">fac_lws_ROHR</span><span class="o">=</span><span class="mf">15.</span>
-
-
-        <span class="c1">#,attr_colors_ROHR_Erg=ergCol_ROHR</span>
-        <span class="p">,</span><span class="n">lws_ROHR_Erg_Sach</span><span class="o">=</span><span class="kc">False</span>
-
-        <span class="p">,</span><span class="n">norm_max_ROHR_Erg</span> <span class="o">=</span> <span class="mf">800.</span>
+    <span class="n">pipes_patches_2</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+                                     <span class="p">,</span><span class="n">gdf</span><span class="o">=</span><span class="n">gdf_ROHR</span>
+                                     <span class="p">,</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;DI&#39;</span>
+                                     <span class="p">,</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="s1">&#39;dimgray&#39;</span><span class="p">]</span>
+                                     <span class="p">,</span><span class="n">legend_fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:4.0f}</span><span class="s1"> mm&#39;</span>
+                                     <span class="p">,</span><span class="n">line_width_factor</span><span class="o">=</span><span class="mi">20</span>
+                                     <span class="p">,</span><span class="n">legend_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">750</span><span class="p">]</span>
+                                     <span class="p">,</span><span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 
-        <span class="p">,</span><span class="n">gdf_FWVB</span><span class="o">=</span><span class="n">gdf_FWVB</span>
+    <span class="n">pipes_patches_3</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+                                     <span class="p">,</span><span class="n">gdf</span><span class="o">=</span><span class="n">gdf_ROHR</span>
+                                     <span class="p">,</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;QMAVAbs&#39;</span>
+                                     <span class="p">,</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">]</span>
+                                     <span class="p">,</span><span class="n">legend_fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:4.0f}</span><span class="s1"> t/h&#39;</span>
+                                     <span class="p">,</span><span class="n">line_width_factor</span><span class="o">=</span><span class="mi">20</span>
+                                     <span class="p">,</span><span class="n">legend_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1500</span><span class="p">,</span><span class="mi">2000</span><span class="p">]</span>
+                                     <span class="p">,</span><span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">all_patches</span> <span class="o">=</span> <span class="n">nodes_patches_1</span> <span class="o">+</span> <span class="n">pipes_patches_2</span> <span class="o">+</span> <span class="n">pipes_patches_3</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">all_patches</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
 
-
-    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">axTitle</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_Result</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf_FWVB</span><span class="p">)</span>
@@ -287,7 +313,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <section id="Show-Network-Graph">
 <h1>Show Network Graph<a class="headerlink" href="#Show-Network-Graph" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">netNodes</span><span class="o">=</span><span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">data</span><span class="p">)</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ID_CONT&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;IDPARENT_CONT&#39;</span><span class="p">]]</span> <span class="c1"># nur das Netz</span>
@@ -295,7 +321,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GNet</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">netNodes</span><span class="p">)</span>
@@ -303,7 +329,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">GNet</span><span class="p">)</span>
@@ -311,7 +337,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -320,7 +346,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">GNet</span><span class="p">,</span><span class="n">with_labels</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">nodeposDctNx</span><span class="p">)</span>
@@ -339,7 +365,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <h1>Decomposition into Areas<a class="headerlink" href="#Decomposition-into-Areas" title="Permalink to this heading"></a></h1>
 <p>In the network, areas can be separated by valves in the sense of an emergency concept. In this way, leaks can be isolated while maintaining supply in the other areas. All seperating valves are located in the SIR 3S Block “TS”. So the network graph without the content of “TS” must be decomposed into areas.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">netEdgesWithoutTS</span><span class="o">=</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">data</span> <span class="ow">in</span> <span class="n">GNet</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;NAME_CONT&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;TS&#39;</span><span class="p">]]</span>
@@ -347,7 +373,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GNetWithoutTS</span><span class="o">=</span><span class="n">GNet</span><span class="o">.</span><span class="n">edge_subgraph</span><span class="p">(</span><span class="n">netEdgesWithoutTS</span><span class="p">)</span>
@@ -355,7 +381,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nOfCC</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">GNetWithoutTS</span><span class="p">)</span>
@@ -364,7 +390,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -373,7 +399,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GNetWithoutTSAreas</span><span class="o">=</span><span class="p">[</span><span class="n">GNet</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">GNetWithoutTS</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
@@ -384,7 +410,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <section id="Read-SirCalc's-XmlFile">
 <h1>Read SirCalc’s XmlFile<a class="headerlink" href="#Read-SirCalc's-XmlFile" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
@@ -397,7 +423,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <section id="Loop-over-all-Areas">
 <h1>Loop over all Areas<a class="headerlink" href="#Loop-over-all-Areas" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span><span class="n">G</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">GNetWithoutTSAreas</span><span class="p">):</span>
@@ -480,14 +506,6 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
@@ -498,38 +516,7 @@ Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_30_3.png" src="_images/Example5_30_3.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
@@ -538,7 +525,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_7.png" src="_images/Example5_30_7.png" />
+<img alt="_images/Example5_30_2.png" src="_images/Example5_30_2.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -570,7 +557,32 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_11.png" src="_images/Example5_30_11.png" />
+<img alt="_images/Example5_30_6.png" src="_images/Example5_30_6.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_30_9.png" src="_images/Example5_30_9.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -579,7 +591,25 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Gebiet um Erzeuger H - keine Trennung
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_30_12.png" src="_images/Example5_30_12.png" />
+</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -616,42 +646,28 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_30_20.png" src="_images/Example5_30_20.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Gebiet um Erzeuger H - keine Trennung
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_30_19.png" src="_images/Example5_30_19.png" />
+</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -682,16 +698,8 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_25.png" src="_images/Example5_30_25.png" />
+<img alt="_images/Example5_30_23.png" src="_images/Example5_30_23.png" />
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -706,6 +714,32 @@ Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_30_26.png" src="_images/Example5_30_26.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
@@ -720,14 +754,6 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
@@ -738,38 +764,7 @@ Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_30_33.png" src="_images/Example5_30_33.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
@@ -778,7 +773,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_37.png" src="_images/Example5_30_37.png" />
+<img alt="_images/Example5_30_32.png" src="_images/Example5_30_32.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -810,16 +805,8 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_41.png" src="_images/Example5_30_41.png" />
+<img alt="_images/Example5_30_36.png" src="_images/Example5_30_36.png" />
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -834,6 +821,57 @@ Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_30_39.png" src="_images/Example5_30_39.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_30_42.png" src="_images/Example5_30_42.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
@@ -848,70 +886,6 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_30_49.png" src="_images/Example5_30_49.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_30_53.png" src="_images/Example5_30_53.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
@@ -931,32 +905,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_56.png" src="_images/Example5_30_56.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_30_59.png" src="_images/Example5_30_59.png" />
+<img alt="_images/Example5_30_48.png" src="_images/Example5_30_48.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -965,21 +914,6 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Gebiet um Erzeuger R - keine Trennung
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
 Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
@@ -988,6 +922,7 @@ Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
@@ -996,7 +931,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_64.png" src="_images/Example5_30_64.png" />
+<img alt="_images/Example5_30_51.png" src="_images/Example5_30_51.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -1021,7 +956,7 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_67.png" src="_images/Example5_30_67.png" />
+<img alt="_images/Example5_30_54.png" src="_images/Example5_30_54.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -1053,7 +988,32 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_71.png" src="_images/Example5_30_71.png" />
+<img alt="_images/Example5_30_58.png" src="_images/Example5_30_58.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_30_61.png" src="_images/Example5_30_61.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -1085,16 +1045,8 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_75.png" src="_images/Example5_30_75.png" />
+<img alt="_images/Example5_30_65.png" src="_images/Example5_30_65.png" />
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1109,6 +1061,7 @@ Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
@@ -1117,16 +1070,8 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_79.png" src="_images/Example5_30_79.png" />
+<img alt="_images/Example5_30_68.png" src="_images/Example5_30_68.png" />
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1141,38 +1086,7 @@ Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_30_83.png" src="_images/Example5_30_83.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#39;&gt;: &#39;QM&#39;
 </pre></div></div>
@@ -1181,11 +1095,11 @@ ERROR   ; dxWithMx._V3_AGSNVEC: Exception: Line: 1263: &lt;class &#39;KeyError&#
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_30_87.png" src="_images/Example5_30_87.png" />
+<img alt="_images/Example5_30_71.png" src="_images/Example5_30_71.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Re-)Calculate initial condition</span>
