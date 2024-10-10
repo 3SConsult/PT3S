@@ -3,6 +3,14 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.34.0.dev1
+---------------
+
+**Fix:**
+
+- install_requires:
+    - Remove pyrosm 
+
 90.14.33.0.dev1
 ---------------
 
