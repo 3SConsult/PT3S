@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Functions &mdash; PT3S 90.14.32.0.dev1 documentation</title>
+  <title>Functions &mdash; PT3S 90.14.33.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -90,15 +90,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-district-heating-network-work-in-progress">Plot District Heating Network (Work in Progress)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Usage Tutorial</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#creating-ncdd-pipes-and-ncdd-nodes-objects">Creating NcdD_pipes and NcdD_nodes objects</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#setting-up-the-plot">Setting up the plot</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#plotting-pipes">Plotting pipes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#plotting-nodes">Plotting nodes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#finalizing-the-plot">Finalizing the plot</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-district-heating-network">Plot District Heating Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Usage Tutorial</a></li>
 </ul>
 </li>
 </ul>
@@ -829,177 +822,80 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </dd></dl>
 
 </section>
-<section id="plot-district-heating-network-work-in-progress">
-<h2>Plot District Heating Network (Work in Progress)<a class="headerlink" href="#plot-district-heating-network-work-in-progress" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="ncd.NcdD">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">NcdD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#NcdD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.NcdD" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>NcdD: Base class for handling geospatial data and plotting attributes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em><em>, </em><em>optional</em>) – Geospatial DataFrame containing the data to plot.</p></li>
-<li><p><strong>attr_colors</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name in gdf to use for coloring the plot.</p></li>
-<li><p><strong>colors</strong> (<em>list</em><em>, </em><em>optional</em>) – List of colors to use for the colormap.</p></li>
-<li><p><strong>patch_fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for legend patches.</p></li>
-<li><p><strong>patch_values</strong> (<em>list</em><em>, </em><em>optional</em>) – Specific values to use for legend patches.</p></li>
-<li><p><strong>norm_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum value for normalization.</p></li>
-<li><p><strong>norm_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum value for normalization.</p></li>
-<li><p><strong>query</strong> (<em>str</em><em>, </em><em>optional</em>) – Query string to filter the data.</p></li>
-<li><p><strong>ignore_values</strong> (<em>list</em><em>, </em><em>optional</em>) – List of values to ignore in the attr_colors column.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="ncd.NcdD_pipes">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">NcdD_pipes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_colors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#NcdD_pipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.NcdD_pipes" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ncd.NcdD" title="ncd.NcdD"><code class="xref py py-class docutils literal notranslate"><span class="pre">NcdD</span></code></a></p>
-<p>NcdD_pipes: Subclass of NcdD for handling and plotting pipe data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – Geospatial DataFrame containing the data to plot.</p></li>
-<li><p><strong>attr_colors</strong> (<em>str</em>) – Column name in gdf to use for coloring the plot.</p></li>
-<li><p><strong>colors</strong> (<em>list</em><em>, </em><em>optional</em>) – List of colors to use for the colormap.</p></li>
-<li><p><strong>patch_fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for legend patches.</p></li>
-<li><p><strong>patch_values</strong> (<em>list</em><em>, </em><em>optional</em>) – Specific values to use for legend patches.</p></li>
-<li><p><strong>norm_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum value for normalization.</p></li>
-<li><p><strong>norm_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum value for normalization.</p></li>
-<li><p><strong>query</strong> (<em>str</em><em>, </em><em>optional</em>) – Query string to filter the data.</p></li>
-<li><p><strong>line_width</strong> (<em>float</em><em>, </em><em>optional</em>) – Width of the lines in the plot.</p></li>
-<li><p><strong>ignore_values</strong> (<em>list</em><em>, </em><em>optional</em>) – List of values to ignore in the attr_colors column.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="ncd.NcdD_nodes">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">NcdD_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_colors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#NcdD_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.NcdD_nodes" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ncd.NcdD" title="ncd.NcdD"><code class="xref py py-class docutils literal notranslate"><span class="pre">NcdD</span></code></a></p>
-<p>NcdD_nodes: Subclass of NcdD for handling and plotting node data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – Geospatial DataFrame containing the data to plot.</p></li>
-<li><p><strong>attr_colors</strong> (<em>str</em>) – Column name in gdf to use for coloring the plot.</p></li>
-<li><p><strong>colors</strong> (<em>list</em><em>, </em><em>optional</em>) – List of colors to use for the colormap.</p></li>
-<li><p><strong>patch_fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for legend patches.</p></li>
-<li><p><strong>patch_values</strong> (<em>list</em><em>, </em><em>optional</em>) – Specific values to use for legend patches.</p></li>
-<li><p><strong>norm_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum value for normalization.</p></li>
-<li><p><strong>norm_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum value for normalization.</p></li>
-<li><p><strong>query</strong> (<em>str</em><em>, </em><em>optional</em>) – Query string to filter the data.</p></li>
-<li><p><strong>marker_style</strong> (<em>str</em><em>, </em><em>optional</em>) – Style of the markers in the plot.</p></li>
-<li><p><strong>marker_size</strong> (<em>float</em><em>, </em><em>optional</em>) – Size of the markers in the plot.</p></li>
-<li><p><strong>ignore_values</strong> (<em>list</em><em>, </em><em>optional</em>) – List of values to ignore in the attr_colors column.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="plot-district-heating-network">
+<h2>Plot District Heating Network<a class="headerlink" href="#plot-district-heating-network" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="ncd.pNcd_pipes">
-<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_pipes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NcdD_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_pipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_pipes" title="Permalink to this definition"></a></dt>
-<dd><p>pNcd_pipes: Plots pipes with specified attributes and colors.</p>
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_pipes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['darkgreen',</span> <span class="pre">'magenta']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_pipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_pipes" title="Permalink to this definition"></a></dt>
+<dd><p>pNcd_pipes: Plots pipes on axis with customization options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em>) – Matplotlib axis object. If None, a new axis is created.</p></li>
-<li><p><strong>NcdD_list</strong> (<em>list of NcdD objects</em><em>, </em><em>optional</em>) – List of objects containing plotting data and attributes.</p></li>
+<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – Geospatial DataFrame containing the data to plot.</p></li>
+<li><p><strong>attribute</strong> (<em>str</em>) – Column name in gdf of the data that should be plotted.</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em>, </em><em>optional</em>) – List of colors to use for the colormap. Default is [‘darkgreen’, ‘magenta’].</p></li>
+<li><p><strong>legend_fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Legend text for attribute. Default is attribute + ‘{:.4f}’.</p></li>
+<li><p><strong>legend_values</strong> (<em>list</em><em>, </em><em>optional</em>) – Specific values to use for value steps in legend. Default is None.</p></li>
+<li><p><strong>norm_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum value for normalization. Default is None.</p></li>
+<li><p><strong>norm_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum value for normalization. Default is None.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em>, </em><em>optional</em>) – Query string to filter the data. Default is None.</p></li>
+<li><p><strong>line_width_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – Factor to influence width of the lines in the plot. Default is 10.</p></li>
+<li><p><strong>zorder</strong> (<em>float</em><em>, </em><em>optional</em>) – Determines order of plotting when calling the function multilpe times. Default is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of legend patches.</p>
+<dd class="field-even"><p>patches.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of matplotlib.patches.Patch</p>
+<dd class="field-odd"><p>matplotlib.patches.Patch</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncd.pNcd_nodes">
-<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NcdD_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_nodes" title="Permalink to this definition"></a></dt>
-<dd><p>pNcd_nodes: Plots nodes with specified attributes and colors.</p>
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['darkgreen',</span> <span class="pre">'magenta']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_size_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>pNcd_nodes: Plots nodes on axis with customization options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em>) – Matplotlib axis object. If None, a new axis is created.</p></li>
-<li><p><strong>NcdD_list</strong> (<em>list of NcdD objects</em><em>, </em><em>optional</em>) – List of objects containing plotting data and attributes.</p></li>
+<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – Geospatial DataFrame containing the data to plot.</p></li>
+<li><p><strong>attribute</strong> (<em>str</em>) – Column name in gdf of the data that should be plotted.</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em>, </em><em>optional</em>) – List of colors to use for the colormap. Default is [‘darkgreen’, ‘magenta’].</p></li>
+<li><p><strong>legend_fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Legend text for attribute. Default is attribute + ‘{:.4f}’.</p></li>
+<li><p><strong>legend_values</strong> (<em>list</em><em>, </em><em>optional</em>) – Specific values to use for value steps in legend. Default is None.</p></li>
+<li><p><strong>norm_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum value for normalization. Default is None.</p></li>
+<li><p><strong>norm_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum value for normalization. Default is None.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em>, </em><em>optional</em>) – Query string to filter the data. Default is None.</p></li>
+<li><p><strong>marker_style</strong> (<em>str</em><em>, </em><em>optional</em>) – Style of the markers in the plot. Default is ‘o’.</p></li>
+<li><p><strong>marker_size_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – Factor to influence size of the markers in the plot. Default is 1000.0.</p></li>
+<li><p><strong>zorder</strong> (<em>float</em><em>, </em><em>optional</em>) – Determines order of plotting when calling the function multilpe times. Default is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of legend patches.</p>
+<dd class="field-even"><p>patches.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of matplotlib.patches.Patch</p>
+<dd class="field-odd"><p>matplotlib.patches.Patch</p>
 </dd>
 </dl>
 </dd></dl>
 
 <section id="id2">
 <h3>Usage Tutorial<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
-<section id="creating-ncdd-pipes-and-ncdd-nodes-objects">
-<h4>Creating NcdD_pipes and NcdD_nodes objects<a class="headerlink" href="#creating-ncdd-pipes-and-ncdd-nodes-objects" title="Permalink to this heading"></a></h4>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data1</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">NcdD_pipes</span><span class="p">(</span><span class="n">gdf</span><span class="o">=</span><span class="n">gdf_ROHR</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">attr_colors</span><span class="o">=</span><span class="s1">&#39;DI&#39;</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="s1">&#39;dimgray&#39;</span><span class="p">],</span>
-<span class="gp">... </span>                       <span class="n">line_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">patch_fmt</span><span class="o">=</span><span class="s2">&quot;DN (Innen) </span><span class="si">{:4.0f}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">patch_values</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">700</span><span class="p">],</span>
-<span class="gp">... </span>                       <span class="n">ignore_values</span><span class="o">=</span><span class="p">[])</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data2</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">NcdD_pipes</span><span class="p">(</span><span class="n">gdf</span><span class="o">=</span><span class="n">gdf_ROHR</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">attr_colors</span><span class="o">=</span><span class="s1">&#39;QMAVAbs&#39;</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span><span class="s1">&#39;magenta&#39;</span><span class="p">],</span>
-<span class="gp">... </span>                       <span class="n">line_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">patch_fmt</span> <span class="o">=</span> <span class="s2">&quot;Q (abs.) </span><span class="si">{:4.0f}</span><span class="s2"> t/h&quot;</span><span class="p">)</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data3</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">NcdD_nodes</span><span class="p">(</span><span class="n">gdf</span><span class="o">=</span><span class="n">gdf_FWVB</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">attr_colors</span><span class="o">=</span><span class="s1">&#39;QM&#39;</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aquamarine&#39;</span><span class="p">,</span> <span class="s1">&#39;teal&#39;</span><span class="p">],</span>
-<span class="gp">... </span>                       <span class="n">patch_fmt</span><span class="o">=</span><span class="s2">&quot;QM </span><span class="si">{:4.0f}</span><span class="s2"> ##&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">marker_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">marker_style</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="setting-up-the-plot">
-<h4>Setting up the plot<a class="headerlink" href="#setting-up-the-plot" title="Permalink to this heading"></a></h4>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="plotting-pipes">
-<h4>Plotting pipes<a class="headerlink" href="#plotting-pipes" title="Permalink to this heading"></a></h4>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NcdD_list_pipes</span> <span class="o">=</span> <span class="p">[</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pipes_patches</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">NcdD_list</span><span class="o">=</span><span class="n">NcdD_list_pipes</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pipes_legend</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">pipes_patches</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">pipes_legend</span><span class="p">)</span> 
-</pre></div>
-</div>
-</section>
-<section id="plotting-nodes">
-<h4>Plotting nodes<a class="headerlink" href="#plotting-nodes" title="Permalink to this heading"></a></h4>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NcdD_list_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">data3</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes_patches</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">NcdD_list</span><span class="o">=</span><span class="n">NcdD_list_nodes</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes_legend</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">nodes_patches</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">nodes_legend</span><span class="p">)</span> 
-</pre></div>
-</div>
-</section>
-<section id="finalizing-the-plot">
-<h4>Finalizing the plot<a class="headerlink" href="#finalizing-the-plot" title="Permalink to this heading"></a></h4>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Network Color Diagram&#39;</span><span class="p">)</span>
-<span class="go">Text(0.5, 1.0, &#39;Network Color Diagram&#39;)</span>
+<p>Plot on an axes. Use pNcd_pipes for pipes and pNcd_nodes for nodes.</p>
+<p>If you plot multiple times on the same axes, use zorder to determine plotting order.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipes_patches</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="n">gdf_ROHR</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;DI&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes_patches</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="n">gdf_FWVB</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;QM&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_patches</span> <span class="o">=</span> <span class="n">pipes_patches</span> <span class="o">+</span> <span class="n">nodes_patches</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">all_patches</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="go">Figure(1654x1169)</span>
+<span class="go">Figure(640x480)</span>
 </pre></div>
 </div>
-</section>
 </section>
 </section>
 </section>

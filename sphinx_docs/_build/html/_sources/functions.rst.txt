@@ -184,23 +184,8 @@ SdfCsv
 
 .. autofunction:: sdfCsv.SdfCsv.__init__
 
-Plot District Heating Network (Work in Progress)
-------------------------------------------------
-
-.. autoclass:: ncd.NcdD
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. autoclass:: ncd.NcdD_pipes
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. autoclass:: ncd.NcdD_nodes
-    :members:
-    :undoc-members:
-    :show-inheritance:
+Plot District Heating Network
+-----------------------------
 
 .. autofunction:: ncd.pNcd_pipes
 
@@ -208,6 +193,7 @@ Plot District Heating Network (Work in Progress)
 
 Usage Tutorial
 ~~~~~~~~~~~~~~
+
 
 .. testsetup::
 
@@ -229,65 +215,17 @@ Usage Tutorial
     gdf_ROHR['DI'] = [100, 200]
     gdf_FWVB['QM'] = [10, 20]
 
-Creating NcdD_pipes and NcdD_nodes objects
-""""""""""""""""""""""""""""""""""""""""""
+Plot on an axes. Use pNcd_pipes for pipes and pNcd_nodes for nodes. 
+
+If you plot multiple times on the same axes, use zorder to determine plotting order.
 
 .. doctest::
 
-    >>> data1 = ncd.NcdD_pipes(gdf=gdf_ROHR,
-    ...                        attr_colors='DI',
-    ...                        colors=['lightgray', 'dimgray'],
-    ...                        line_width=10,
-    ...                        patch_fmt="DN (Innen) {:4.0f}",
-    ...                        patch_values=[100, 300, 400, 500, 700],
-    ...                        ignore_values=[])
-
-    >>> data2 = ncd.NcdD_pipes(gdf=gdf_ROHR,
-    ...                        attr_colors='QMAVAbs',
-    ...                        colors = ['darkgreen','magenta'],
-    ...                        line_width=10,
-    ...                        patch_fmt = "Q (abs.) {:4.0f} t/h")
-
-    >>> data3 = ncd.NcdD_nodes(gdf=gdf_FWVB,
-    ...                        attr_colors='QM',
-    ...                        colors=['aquamarine', 'teal'],
-    ...                        patch_fmt="QM {:4.0f} ##",
-    ...                        marker_size=1000,
-    ...                        marker_style='p')
-
-Setting up the plot
-"""""""""""""""""""
-
-.. doctest::
-
-    >>> fig, ax = plt.subplots(figsize=Rm.DINA3q)
-
-Plotting pipes
-""""""""""""""
-
-.. doctest::
-
-    >>> NcdD_list_pipes = [data1, data2]
-    >>> pipes_patches = ncd.pNcd_pipes(ax=ax, NcdD_list=NcdD_list_pipes)
-    >>> pipes_legend = ax.legend(handles=pipes_patches)
-    >>> ax.add_artist(pipes_legend) # doctest: +SKIP
-
-Plotting nodes
-""""""""""""""
-
-.. doctest::
-
-    >>> NcdD_list_nodes = [data3]
-    >>> nodes_patches = ncd.pNcd_nodes(ax=ax, NcdD_list=NcdD_list_nodes)
-    >>> nodes_legend = ax.legend(handles=nodes_patches)
-    >>> ax.add_artist(nodes_legend) # doctest: +SKIP
-
-Finalizing the plot
-"""""""""""""""""""
-
-.. doctest::
-
-    >>> plt.title('Network Color Diagram')
-    Text(0.5, 1.0, 'Network Color Diagram')
+    >>> fig, ax = plt.subplots()
+    >>> pipes_patches = ncd.pNcd_pipes(ax=ax, gdf=gdf_ROHR, attribute='DI', zorder=1)
+    >>> nodes_patches = ncd.pNcd_nodes(ax=ax, gdf=gdf_FWVB, attribute='QM', zorder=2)
+    >>> all_patches = pipes_patches + nodes_patches
+    >>> ax.legend(handles=all_patches, loc='best') # doctest: +SKIP
     >>> plt.show()
-    Figure(1654x1169)
+    Figure(640x480)
+ 

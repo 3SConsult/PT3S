@@ -90,272 +90,173 @@
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patheffects</span> <span class="k">as</span> <span class="nn">path_effects</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
-<span class="kn">import</span> <span class="nn">Rm</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;PT3S&#39;</span><span class="p">)</span> 
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;PT3S&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="NcdD"><a class="viewcode-back" href="../functions.html#ncd.NcdD">[docs]</a><span class="k">class</span> <span class="nc">NcdD</span><span class="p">:</span>
+<div class="viewcode-block" id="pNcd_pipes"><a class="viewcode-back" href="../functions.html#ncd.pNcd_pipes">[docs]</a><span class="k">def</span> <span class="nf">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">],</span> <span class="n">legend_fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_width_factor</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    NcdD: Base class for handling geospatial data and plotting attributes.</span>
-
-<span class="sd">    :param gdf: Geospatial DataFrame containing the data to plot.</span>
-<span class="sd">    :type gdf: geopandas.GeoDataFrame, optional</span>
-<span class="sd">    :param attr_colors: Column name in gdf to use for coloring the plot.</span>
-<span class="sd">    :type attr_colors: str, optional</span>
-<span class="sd">    :param colors: List of colors to use for the colormap.</span>
-<span class="sd">    :type colors: list, optional</span>
-<span class="sd">    :param patch_fmt: Format string for legend patches.</span>
-<span class="sd">    :type patch_fmt: str, optional</span>
-<span class="sd">    :param patch_values: Specific values to use for legend patches.</span>
-<span class="sd">    :type patch_values: list, optional</span>
-<span class="sd">    :param norm_min: Minimum value for normalization.</span>
-<span class="sd">    :type norm_min: float, optional</span>
-<span class="sd">    :param norm_max: Maximum value for normalization.</span>
-<span class="sd">    :type norm_max: float, optional</span>
-<span class="sd">    :param query: Query string to filter the data.</span>
-<span class="sd">    :type query: str, optional</span>
-<span class="sd">    :param ignore_values: List of values to ignore in the attr_colors column.</span>
-<span class="sd">    :type ignore_values: list, optional</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attr_colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">patch_fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">patch_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignore_values</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">attr_colors</span> <span class="o">=</span> <span class="n">attr_colors</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">patch_fmt</span> <span class="o">=</span> <span class="n">patch_fmt</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">patch_values</span> <span class="o">=</span> <span class="n">patch_values</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">norm_min</span> <span class="o">=</span> <span class="n">norm_min</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">norm_max</span> <span class="o">=</span> <span class="n">norm_max</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_values</span> <span class="o">=</span> <span class="n">ignore_values</span> <span class="k">if</span> <span class="n">ignore_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">legend_handles_labels</span> <span class="o">=</span> <span class="p">[]</span></div>
-
-<div class="viewcode-block" id="NcdD_pipes"><a class="viewcode-back" href="../functions.html#ncd.NcdD_pipes">[docs]</a><span class="k">class</span> <span class="nc">NcdD_pipes</span><span class="p">(</span><span class="n">NcdD</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    NcdD_pipes: Subclass of NcdD for handling and plotting pipe data.</span>
-
-<span class="sd">    :param gdf: Geospatial DataFrame containing the data to plot.</span>
-<span class="sd">    :type gdf: geopandas.GeoDataFrame</span>
-<span class="sd">    :param attr_colors: Column name in gdf to use for coloring the plot.</span>
-<span class="sd">    :type attr_colors: str</span>
-<span class="sd">    :param colors: List of colors to use for the colormap.</span>
-<span class="sd">    :type colors: list, optional</span>
-<span class="sd">    :param patch_fmt: Format string for legend patches.</span>
-<span class="sd">    :type patch_fmt: str, optional</span>
-<span class="sd">    :param patch_values: Specific values to use for legend patches.</span>
-<span class="sd">    :type patch_values: list, optional</span>
-<span class="sd">    :param norm_min: Minimum value for normalization.</span>
-<span class="sd">    :type norm_min: float, optional</span>
-<span class="sd">    :param norm_max: Maximum value for normalization.</span>
-<span class="sd">    :type norm_max: float, optional</span>
-<span class="sd">    :param query: Query string to filter the data.</span>
-<span class="sd">    :type query: str, optional</span>
-<span class="sd">    :param line_width: Width of the lines in the plot.</span>
-<span class="sd">    :type line_width: float, optional</span>
-<span class="sd">    :param ignore_values: List of values to ignore in the attr_colors column.</span>
-<span class="sd">    :type ignore_values: list, optional</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gdf</span><span class="p">,</span> <span class="n">attr_colors</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">patch_fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">patch_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignore_values</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">attr_colors</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">patch_fmt</span><span class="p">,</span> <span class="n">patch_values</span><span class="p">,</span> <span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">ignore_values</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line_width</span> <span class="o">=</span> <span class="n">line_width</span> <span class="k">if</span> <span class="n">line_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">10</span></div>
-
-
-<div class="viewcode-block" id="NcdD_nodes"><a class="viewcode-back" href="../functions.html#ncd.NcdD_nodes">[docs]</a><span class="k">class</span> <span class="nc">NcdD_nodes</span><span class="p">(</span><span class="n">NcdD</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    NcdD_nodes: Subclass of NcdD for handling and plotting node data.</span>
-
-<span class="sd">    :param gdf: Geospatial DataFrame containing the data to plot.</span>
-<span class="sd">    :type gdf: geopandas.GeoDataFrame</span>
-<span class="sd">    :param attr_colors: Column name in gdf to use for coloring the plot.</span>
-<span class="sd">    :type attr_colors: str</span>
-<span class="sd">    :param colors: List of colors to use for the colormap.</span>
-<span class="sd">    :type colors: list, optional</span>
-<span class="sd">    :param patch_fmt: Format string for legend patches.</span>
-<span class="sd">    :type patch_fmt: str, optional</span>
-<span class="sd">    :param patch_values: Specific values to use for legend patches.</span>
-<span class="sd">    :type patch_values: list, optional</span>
-<span class="sd">    :param norm_min: Minimum value for normalization.</span>
-<span class="sd">    :type norm_min: float, optional</span>
-<span class="sd">    :param norm_max: Maximum value for normalization.</span>
-<span class="sd">    :type norm_max: float, optional</span>
-<span class="sd">    :param query: Query string to filter the data.</span>
-<span class="sd">    :type query: str, optional</span>
-<span class="sd">    :param marker_style: Style of the markers in the plot.</span>
-<span class="sd">    :type marker_style: str, optional</span>
-<span class="sd">    :param marker_size: Size of the markers in the plot.</span>
-<span class="sd">    :type marker_size: float, optional</span>
-<span class="sd">    :param ignore_values: List of values to ignore in the attr_colors column.</span>
-<span class="sd">    :type ignore_values: list, optional</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gdf</span><span class="p">,</span> <span class="n">attr_colors</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">patch_fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">patch_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">marker_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignore_values</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">attr_colors</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">patch_fmt</span><span class="p">,</span> <span class="n">patch_values</span><span class="p">,</span> <span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">ignore_values</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">marker_style</span> <span class="o">=</span> <span class="n">marker_style</span> <span class="k">if</span> <span class="n">marker_style</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;o&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">marker_size</span> <span class="o">=</span> <span class="n">marker_size</span> <span class="k">if</span> <span class="n">marker_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">10</span></div>
-
-
-<div class="viewcode-block" id="pNcd_nodes"><a class="viewcode-back" href="../functions.html#ncd.pNcd_nodes">[docs]</a><span class="k">def</span> <span class="nf">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">NcdD_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    pNcd_nodes: Plots nodes with specified attributes and colors.</span>
+<span class="sd">    pNcd_pipes: Plots pipes on axis with customization options.</span>
 
 <span class="sd">    :param ax: Matplotlib axis object. If None, a new axis is created.</span>
 <span class="sd">    :type ax: matplotlib.axes.Axes, optional</span>
-<span class="sd">    :param NcdD_list: List of objects containing plotting data and attributes.</span>
-<span class="sd">    :type NcdD_list: list of NcdD objects, optional</span>
-
-<span class="sd">    :return: List of legend patches.</span>
-<span class="sd">    :rtype: list of matplotlib.patches.Patch</span>
+<span class="sd">    :param gdf: Geospatial DataFrame containing the data to plot.</span>
+<span class="sd">    :type gdf: geopandas.GeoDataFrame</span>
+<span class="sd">    :param attribute: Column name in gdf of the data that should be plotted.</span>
+<span class="sd">    :type attribute: str</span>
+<span class="sd">    :param colors: List of colors to use for the colormap. Default is [&#39;darkgreen&#39;, &#39;magenta&#39;].</span>
+<span class="sd">    :type colors: list, optional</span>
+<span class="sd">    :param legend_fmt: Legend text for attribute. Default is attribute + &#39;{:.4f}&#39;.</span>
+<span class="sd">    :type legend_fmt: str, optional</span>
+<span class="sd">    :param legend_values: Specific values to use for value steps in legend. Default is None.</span>
+<span class="sd">    :type legend_values: list, optional</span>
+<span class="sd">    :param norm_min: Minimum value for normalization. Default is None.</span>
+<span class="sd">    :type norm_min: float, optional</span>
+<span class="sd">    :param norm_max: Maximum value for normalization. Default is None.</span>
+<span class="sd">    :type norm_max: float, optional</span>
+<span class="sd">    :param query: Query string to filter the data. Default is None.</span>
+<span class="sd">    :type query: str, optional</span>
+<span class="sd">    :param line_width_factor: Factor to influence width of the lines in the plot. Default is 10.</span>
+<span class="sd">    :type line_width_factor: float, optional</span>
+<span class="sd">    :param zorder: Determines order of plotting when calling the function multilpe times. Default is None.</span>
+<span class="sd">    :type zorder: float, optional</span>
+<span class="sd">    </span>
+<span class="sd">    :return: patches.</span>
+<span class="sd">    :rtype: matplotlib.patches.Patch</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Start.&#39;</span><span class="p">))</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">11.7</span><span class="p">,</span> <span class="mf">8.3</span><span class="p">))</span>  <span class="c1"># A3 size</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Created new axis.&#39;</span><span class="p">))</span>
 
-        <span class="k">if</span> <span class="n">NcdD_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">NcdD_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">gdf</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">gdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;No plot data provided.&#39;</span><span class="p">))</span>
             <span class="k">return</span>
 
-        <span class="n">all_patches</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">NcdD</span> <span class="ow">in</span> <span class="n">NcdD_list</span><span class="p">:</span>
-            <span class="n">gdf</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">gdf</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">gdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Plotting </span><span class="si">{</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="si">}</span><span class="s1"> data.&#39;</span><span class="p">))</span>
+        <span class="c1"># Set default legend_fmt if not provided</span>
+        <span class="k">if</span> <span class="n">legend_fmt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">legend_fmt</span> <span class="o">=</span> <span class="n">attribute</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{:4.0f}</span><span class="s1">&#39;</span>
 
-                <span class="c1"># Apply ignore values</span>
-                <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">ignore_values</span><span class="p">:</span>
-                    <span class="n">gdf</span> <span class="o">=</span> <span class="n">apply_ignore_values</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">,</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">ignore_values</span><span class="p">)</span>
+        <span class="c1"># Create Colormap</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s1">&#39;cmap&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+        <span class="n">norm_min</span> <span class="o">=</span> <span class="n">norm_min</span> <span class="k">if</span> <span class="n">norm_min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gdf</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">norm_max</span> <span class="o">=</span> <span class="n">norm_max</span> <span class="k">if</span> <span class="n">norm_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gdf</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">norm_max</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">norm_min: </span><span class="si">{1:10.2f}</span><span class="s2"> norm_max: </span><span class="si">{2:10.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">))</span>
 
-                <span class="c1"># Create Colormap</span>
-                <span class="n">cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s1">&#39;cmap&#39;</span><span class="p">,</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
-                <span class="n">norm_min</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">norm_min</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">norm_min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gdf</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-                <span class="n">norm_max</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">norm_max</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">norm_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gdf</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-                <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">norm_max</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">norm_min: </span><span class="si">{1:10.2f}</span><span class="s2"> norm_max: </span><span class="si">{2:10.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">))</span>
+        <span class="c1"># Filter and Sort Data if Query is Provided</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="k">if</span> <span class="n">query</span> <span class="k">else</span> <span class="n">gdf</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">attribute</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-                <span class="c1"># Filter and Sort Data if Query is Provided</span>
-                <span class="n">df</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">NcdD</span><span class="o">.</span><span class="n">query</span><span class="p">)</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">query</span> <span class="k">else</span> <span class="n">gdf</span>
-                <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                
-                <span class="c1"># Plotting Data with Markers</span>
-                <span class="n">size_norm_min</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-                <span class="n">size_norm_max</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-                <span class="n">size_norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">size_norm_min</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">size_norm_max</span><span class="p">)</span>
-                <span class="n">marker_size</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">marker_size</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">marker_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">10</span>  <span class="c1"># Default marker size</span>
-                <span class="n">sizes</span> <span class="o">=</span> <span class="n">size_norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span> <span class="o">*</span> <span class="n">marker_size</span>  <span class="c1"># Scale sizes appropriately</span>
+        <span class="c1"># Plotting Data with Lines</span>
+        <span class="n">sizes</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span> <span class="o">*</span> <span class="n">line_width_factor</span>  <span class="c1"># Scale sizes appropriately</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="n">sizes</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))),</span>
+                <span class="n">path_effects</span><span class="o">=</span><span class="p">[</span><span class="n">path_effects</span><span class="o">.</span><span class="n">Stroke</span><span class="p">(</span><span class="n">capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">)],</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">attribute</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">)</span>  <span class="c1"># Add label for legend</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Plotted </span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1"> data.&#39;</span><span class="p">))</span>
 
-                <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                        <span class="n">marker</span><span class="o">=</span><span class="n">NcdD</span><span class="o">.</span><span class="n">marker_style</span><span class="p">,</span>
-                        <span class="n">markersize</span><span class="o">=</span><span class="n">sizes</span><span class="p">,</span>
-                        <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>  <span class="c1"># No lines, only markers</span>
-                        <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))),</span>
-                        <span class="n">path_effects</span><span class="o">=</span><span class="p">[</span><span class="n">path_effects</span><span class="o">.</span><span class="n">Stroke</span><span class="p">(</span><span class="n">capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">)])</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Plotted </span><span class="si">{</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="si">}</span><span class="s1"> data.&#39;</span><span class="p">))</span>
-                
-                <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-                
-                <span class="c1"># Create Legend Patches</span>
-                <span class="n">patch_values</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">patch_values</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">patch_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">patch_values: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">patch_values</span><span class="p">))</span>
-                <span class="n">patches</span> <span class="o">=</span> <span class="p">[</span><span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="n">NcdD</span><span class="o">.</span><span class="n">patch_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">patch_values</span><span class="p">]</span>
-                <span class="n">all_patches</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">patches</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">all_patches</span>
+        <span class="c1"># Create Legend Patches</span>
+        <span class="n">legend_values</span> <span class="o">=</span> <span class="n">legend_values</span> <span class="k">if</span> <span class="n">legend_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">legend_values: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">legend_values</span><span class="p">))</span>
+        <span class="n">patches</span> <span class="o">=</span> <span class="p">[</span><span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="n">legend_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">legend_values</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">patches</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2"> - </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Error.&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;End.&#39;</span><span class="p">))</span></div>
 
-
-<span class="k">def</span> <span class="nf">apply_ignore_values</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">attr_colors</span><span class="p">,</span> <span class="n">ignore_values</span><span class="p">):</span>
+<div class="viewcode-block" id="pNcd_nodes"><a class="viewcode-back" href="../functions.html#ncd.pNcd_nodes">[docs]</a><span class="k">def</span> <span class="nf">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">],</span> <span class="n">legend_fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">marker_style</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">marker_size_factor</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    apply_ignore_values: Filters out rows in the DataFrame where the specified attribute has values in the ignore_values list.</span>
-
-<span class="sd">    :param df: DataFrame to filter.</span>
-<span class="sd">    :type df: pandas.DataFrame</span>
-<span class="sd">    :param attr_colors: Column name to check for ignore values.</span>
-<span class="sd">    :type attr_colors: str</span>
-<span class="sd">    :param ignore_values: List of values to ignore.</span>
-<span class="sd">    :type ignore_values: list</span>
-
-<span class="sd">    :return: Filtered DataFrame.</span>
-<span class="sd">    :rtype: pandas.DataFrame</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">ignore_values</span><span class="p">)]</span>
-
-
-<div class="viewcode-block" id="pNcd_pipes"><a class="viewcode-back" href="../functions.html#ncd.pNcd_pipes">[docs]</a><span class="k">def</span> <span class="nf">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">NcdD_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    pNcd_pipes: Plots pipes with specified attributes and colors.</span>
+<span class="sd">    pNcd_nodes: Plots nodes on axis with customization options.</span>
 
 <span class="sd">    :param ax: Matplotlib axis object. If None, a new axis is created.</span>
 <span class="sd">    :type ax: matplotlib.axes.Axes, optional</span>
-<span class="sd">    :param NcdD_list: List of objects containing plotting data and attributes.</span>
-<span class="sd">    :type NcdD_list: list of NcdD objects, optional</span>
-
-<span class="sd">    :return: List of legend patches.</span>
-<span class="sd">    :rtype: list of matplotlib.patches.Patch</span>
+<span class="sd">    :param gdf: Geospatial DataFrame containing the data to plot.</span>
+<span class="sd">    :type gdf: geopandas.GeoDataFrame</span>
+<span class="sd">    :param attribute: Column name in gdf of the data that should be plotted.</span>
+<span class="sd">    :type attribute: str</span>
+<span class="sd">    :param colors: List of colors to use for the colormap. Default is [&#39;darkgreen&#39;, &#39;magenta&#39;].</span>
+<span class="sd">    :type colors: list, optional</span>
+<span class="sd">    :param legend_fmt: Legend text for attribute. Default is attribute + &#39;{:.4f}&#39;.</span>
+<span class="sd">    :type legend_fmt: str, optional</span>
+<span class="sd">    :param legend_values: Specific values to use for value steps in legend. Default is None.</span>
+<span class="sd">    :type legend_values: list, optional</span>
+<span class="sd">    :param norm_min: Minimum value for normalization. Default is None.</span>
+<span class="sd">    :type norm_min: float, optional</span>
+<span class="sd">    :param norm_max: Maximum value for normalization. Default is None.</span>
+<span class="sd">    :type norm_max: float, optional</span>
+<span class="sd">    :param query: Query string to filter the data. Default is None.</span>
+<span class="sd">    :type query: str, optional</span>
+<span class="sd">    :param marker_style: Style of the markers in the plot. Default is &#39;o&#39;.</span>
+<span class="sd">    :type marker_style: str, optional</span>
+<span class="sd">    :param marker_size_factor: Factor to influence size of the markers in the plot. Default is 1000.0.</span>
+<span class="sd">    :type marker_size_factor: float, optional</span>
+<span class="sd">    :param zorder: Determines order of plotting when calling the function multilpe times. Default is None.</span>
+<span class="sd">    :type zorder: float, optional</span>
+<span class="sd">    </span>
+<span class="sd">    :return: patches.</span>
+<span class="sd">    :rtype: matplotlib.patches.Patch</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Start.&#39;</span><span class="p">))</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">11.7</span><span class="p">,</span> <span class="mf">8.3</span><span class="p">))</span>  <span class="c1"># A3 size</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Created new axis.&#39;</span><span class="p">))</span>
 
-        <span class="k">if</span> <span class="n">NcdD_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">NcdD_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">gdf</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">gdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;No plot data provided.&#39;</span><span class="p">))</span>
             <span class="k">return</span>
 
-        <span class="n">all_patches</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">NcdD</span> <span class="ow">in</span> <span class="n">NcdD_list</span><span class="p">:</span>
-            <span class="n">gdf</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">gdf</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">gdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Plotting </span><span class="si">{</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="si">}</span><span class="s1"> data.&#39;</span><span class="p">))</span>
+        <span class="c1"># Set default legend_fmt if not provided</span>
+        <span class="k">if</span> <span class="n">legend_fmt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">legend_fmt</span> <span class="o">=</span> <span class="n">attribute</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{:4.0f}</span><span class="s1">&#39;</span>
 
-                <span class="c1"># Apply ignore values</span>
-                <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">ignore_values</span><span class="p">:</span>
-                    <span class="n">gdf</span> <span class="o">=</span> <span class="n">apply_ignore_values</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">,</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">ignore_values</span><span class="p">)</span>
+        <span class="c1"># Create Colormap</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s1">&#39;cmap&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+        <span class="n">norm_min</span> <span class="o">=</span> <span class="n">norm_min</span> <span class="k">if</span> <span class="n">norm_min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gdf</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">norm_max</span> <span class="o">=</span> <span class="n">norm_max</span> <span class="k">if</span> <span class="n">norm_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gdf</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">norm_max</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">norm_min: </span><span class="si">{1:10.2f}</span><span class="s2"> norm_max: </span><span class="si">{2:10.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">))</span>
 
-                <span class="c1"># Create Colormap</span>
-                <span class="n">cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s1">&#39;cmap&#39;</span><span class="p">,</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
-                <span class="n">norm_min</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">norm_min</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">norm_min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gdf</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-                <span class="n">norm_max</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">norm_max</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">norm_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gdf</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-                <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">norm_max</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">norm_min: </span><span class="si">{1:10.2f}</span><span class="s2"> norm_max: </span><span class="si">{2:10.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">))</span>
+        <span class="c1"># Filter and Sort Data if Query is Provided</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="k">if</span> <span class="n">query</span> <span class="k">else</span> <span class="n">gdf</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">attribute</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-                <span class="c1"># Filter and Sort Data if Query is Provided</span>
-                <span class="n">df</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">NcdD</span><span class="o">.</span><span class="n">query</span><span class="p">)</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">query</span> <span class="k">else</span> <span class="n">gdf</span>
-                <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                
-                <span class="c1"># Plotting Data with Lines</span>
-                <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                        <span class="n">linewidth</span><span class="o">=</span><span class="n">norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">])</span> <span class="o">*</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">line_width</span><span class="p">,</span>
-                        <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))),</span>
-                        <span class="n">path_effects</span><span class="o">=</span><span class="p">[</span><span class="n">path_effects</span><span class="o">.</span><span class="n">Stroke</span><span class="p">(</span><span class="n">capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">)],</span>
-                        <span class="n">label</span><span class="o">=</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="p">)</span>  <span class="c1"># Add label for legend</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Plotted </span><span class="si">{</span><span class="n">NcdD</span><span class="o">.</span><span class="n">attr_colors</span><span class="si">}</span><span class="s1"> data.&#39;</span><span class="p">))</span>
-                
-                <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-                
-                <span class="c1"># Create Legend Patches</span>
-                <span class="n">patch_values</span> <span class="o">=</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">patch_values</span> <span class="k">if</span> <span class="n">NcdD</span><span class="o">.</span><span class="n">patch_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">patch_values: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">patch_values</span><span class="p">))</span>
-                <span class="n">patches</span> <span class="o">=</span> <span class="p">[</span><span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="n">NcdD</span><span class="o">.</span><span class="n">patch_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">patch_values</span><span class="p">]</span>
-                <span class="n">all_patches</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">patches</span><span class="p">)</span>
+        <span class="c1"># Plotting Data with Markers</span>
+        <span class="n">sizes</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span> <span class="o">*</span> <span class="n">marker_size_factor</span>  <span class="c1"># Scale sizes appropriately</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                <span class="n">marker</span><span class="o">=</span><span class="n">marker_style</span><span class="p">,</span>
+                <span class="n">markersize</span><span class="o">=</span><span class="n">sizes</span><span class="p">,</span>
+                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>  <span class="c1"># No lines, only markers</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))),</span>
+                <span class="n">path_effects</span><span class="o">=</span><span class="p">[</span><span class="n">path_effects</span><span class="o">.</span><span class="n">Stroke</span><span class="p">(</span><span class="n">capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">)],</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Plotted </span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1"> data.&#39;</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">all_patches</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Create Legend Patches</span>
+        <span class="n">legend_values</span> <span class="o">=</span> <span class="n">legend_values</span> <span class="k">if</span> <span class="n">legend_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">legend_values: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">legend_values</span><span class="p">))</span>
+        <span class="n">patches</span> <span class="o">=</span> <span class="p">[</span><span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="n">legend_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">legend_values</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">patches</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2"> - </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Error.&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
