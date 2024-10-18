@@ -22,7 +22,7 @@ You can download the Notebook file :download:`here <Example0.ipynb>`.
 Example 1: Interactive Map and Network Color Diagram
 ----------------------------------------------------
 
-This example demonstrates how GeoDataFrames (gdfs) created by PT3S can be used to create an interactive map with Folium, generate a printable output of this map and plot a network color diagram using PT3S.
+This example demonstrates how GeoDataFrames (gdfs) created by PT3S can be used with geopandas' explore for interactive maps with folium/leaflet.js and with geopandas' plot with matplotlib.
 
 You can view the Notebook `here <Example1.html>`_.
 
@@ -76,6 +76,18 @@ You can view the Notebook `here <Example5.html>`_.
 
 
 You can download the Notebook file :download:`here <Example5.ipynb>`.
+
+.. _ex6:
+
+Example 6: yFiles
+-------------------------------------------------
+
+This example demonstrates how the NetworkX-Graph created by PT3S can be used with yFiles.
+
+You can view the Notebook `here <Example6.html>`_.
+
+
+You can download the Notebook file :download:`here <Example6.ipynb>`.
 
 Example X: Example Template
 ---------------------------

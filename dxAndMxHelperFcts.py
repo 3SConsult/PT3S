@@ -753,8 +753,10 @@ class dxWithMx():
                     logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs reading successful: ', crs))
                 except:
                     logger.debug("{0:s}{1:s}".format(logStr,'crs reading failed.'))  
+                    #crs='EPSG:4326'
+                    #logger.debug("{0:s}crs used: {1:s}".format(logStr,crs))  
             else:
-                logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs give value used: ', crs))
+                logger.debug("{0:s}{1:s} {2:s}".format(logStr, 'crs given value used: ', crs))
             
             try:
                                             
