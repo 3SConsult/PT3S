@@ -3,3 +3,6 @@ Information	0	2024-10-18 15:27:54.883	-1	IObjectModel::StartTransaction()	QGIS E
 Information	0	2024-10-18 15:46:37.714	-1	IObjectModel::StartTransaction()	SRID bearbeiten  	-1  	
 Information	0	2024-10-18 15:47:21.511	-1	IObjectModel::StartTransaction()	OSM Image Display Quality bearbeiten  	-1  	
 Information	0	2024-10-18 15:49:36.414	-1	IObjectModel::StartTransaction()	QGIS Export  	-1  	
+Information	0	2024-10-21 09:19:41.451	-1	IObjectModel::StartTransaction()	bearbeitet : Gruppen : Sichtbarkeit von Objekten  	-1  	
+Information	0	2024-10-21 14:18:27.736	-1	IObjectModel::StartTransaction()	Spaltenauswahl gesichert  	-1  	
+Information	0	2024-10-22 11:16:57.917	-1	IObjectModel::StartTransaction()	Druckzone bearbeiten  	-1  	
