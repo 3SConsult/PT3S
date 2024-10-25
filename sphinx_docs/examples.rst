@@ -43,7 +43,7 @@ You can download the Notebook file :download:`here <Example2.ipynb>`.
 
 .. _ex3:
 
-Example 3: Longitudinal Section
+Example 3: Longitudinal Sections
 --------------------------------
 
 This example demonstrates how longitudinal sections data read by PT3S can be accessed and used to create plots with Matplotlib.

@@ -3,6 +3,14 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.35.0.dev1
+---------------
+
+**New:**
+
+- Example 6:
+    - This example demonstrates how the NetworkX-Graph created by PT3S can be used with yFiles.
+
 90.14.34.0.dev1
 ---------------
 

@@ -39,11 +39,11 @@ html_theme = 'sphinx_rtd_theme' #'alabaster'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
 html_logo = 'pt3s_logo.png'  # oder 'logo.svg', je nachdem, welche Datei Sie verwenden
+html_favicon = '_static/favicon.ico'
 html_theme_options = {
     'logo_only': True,  # Nur das Logo wird oben in der Seitenleiste angezeigt
     'display_version': False,  # Die Versionsnummer wird nicht oben in der Seitenleiste angezeigt
 }
-
 # This function will be called before Sphinx starts to build documents.
 def setup(app):
     app.add_css_file('custom.css')
