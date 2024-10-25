@@ -13,6 +13,7 @@
       <link rel="stylesheet" type="text/css" href="_static/custom.css" />
 
   
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -88,8 +89,8 @@
 <h1>Loop over multiple SIR 3S calculations<a class="headerlink" href="#Loop-over-multiple-SIR-3S-calculations" title="Permalink to this heading"></a></h1>
 <p>This example demonstrates how to loop over several SIR 3S calculations, calculate each different state and plot it.</p>
 <p>SIR 3S provides a C# .NET adapter for carrying out loops over multiple calculations. With the C# .NET adapter, SIR 3S calculations can be integrated directly into other software. In SIR 3S itself, the C# .NET adapter is used to implement calculation loops such as n-1 calculations.</p>
-<p>In addition, SIR 3S provides connections to control systems via OPC and other interfaces such as Kafka. The SIR 3S software component for these connections is called - for historical reasons - SirOPC. SirOPC is used for in-process SIR 3S simulations such as cyclic look-ahead calculations.</p>
-<p>SIR 3S also offers the option to perform several steady state calculations one after the other in one SIR 3S calculation run as quasi steady state calculations. The sequence of calculations is done out over a pseudo time step, e.g. 1 hour with 60 calculations or 1 year with 8760 calculations. Whether individual calculations or a sequence over a pseudo-time in one run is the better choice depends on the task.</p>
+<p>In addition, SIR 3S provides connections to control systems via OPC and other interfaces such as Kafka. The SIR 3S software component for these connections is called - for historical reasons - SirOPC. SirIPC (Inter Process Communication) is a more suitable name for SirOPC. SirOPC is used for e.g. control system integrated SIR 3S simulations such as cyclic look-ahead calculations.</p>
+<p>Regardless of the topic of interprocess communication SIR 3S offers the option to perform several steady state calculations one after the other in one SIR 3S calculation run as quasi steady state calculations. The sequence of calculations is done out over a pseudo time step, e.g. 1 hour with 60 calculations or 1 year with 8760 calculations. Whether individual calculations or a sequence over a pseudo-time in one run is the better choice depends on the task.</p>
 <p>Despite the aforementioned options, it can be helpful to control or perform SIR 3S calculations calculations by script.</p>
 </section>
 <section id="PT3S-Release">
