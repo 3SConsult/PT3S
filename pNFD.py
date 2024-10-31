@@ -294,6 +294,8 @@ def pNFD_FW(
                                 
                 norm_ROHR_color = plt.Normalize(vmin=norm_min_ROHR_Sach, vmax=norm_max_ROHR_Sach) 
                                 
+                logger.debug("{0:s}norm_ROHR_color(gdf_ROHR[attr_lws_ROHR_Sach]) * fac_lws_ROHR: {1:s}".format(logStr,str(norm_ROHR_color(gdf_ROHR[attr_lws_ROHR_Sach]) * fac_lws_ROHR))) 
+                
                 # Plotten ROHRe
                 gdf_ROHR.plot(ax = ax
                              ,zorder = attr_colors_ROHR_Sach_zOrder
@@ -530,7 +532,7 @@ def pNFD_FW(
                             colors=cmap_FWVBErg(.666)
 
                         gdf_FWVB.plot(ax = ax
-                                    ,zorder = 2
+                                    ,zorder = attr_colors_FWVB_Erg_zOrder
                                     ,marker = '.'                           
                                     ,markersize = markersizes          
                                     ,color = colors#cmap_FWVBErg(norm_FWVBErg_color(gdf_FWVB[attr_colors_FWVB_Erg].astype(float))) 
