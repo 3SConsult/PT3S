@@ -82,7 +82,7 @@ class dxWithMx():
         :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
         :type crs: str, optional, default=None  
                       
-        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for Dx with attached Mx  
+        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for Dx with attached Mx; a dxWithMx object is allso called m object in this documentation  
                         
         """        
         
@@ -101,14 +101,15 @@ class dxWithMx():
             self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
             self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)
             self.V3_FWVB=dx.dataFrames['V3_FWVB'].copy(deep=True)
+            
+            ### A
             self.V3_VBEL=dx.dataFrames['V3_VBEL'].copy(deep=True)
             
             if not isinstance(mx,Mx.Mx):  
                 (self.gdf_FWVB,self.gdf_ROHR,self.gdf_KNOT)=self._gdfs(crs)
                           
             if isinstance(mx,Mx.Mx):  
-                
-                
+                                
                 self.mx = mx
                 
                 modellName, ext = os.path.splitext(self.dx.dbFile)
@@ -118,9 +119,12 @@ class dxWithMx():
                 # mx2NofPts to V3_ROHR  
                 # mx2Idx to V3_VBEL
                 self.dx.MxSync(self.mx)
+                
                 self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
                 self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)
                 self.V3_FWVB=dx.dataFrames['V3_FWVB'].copy(deep=True)    
+                
+                ### B
                 self.V3_VBEL=dx.dataFrames['V3_VBEL'].copy(deep=True)
                                 
                 # Vec-Results to V3_KNOT, V3_ROHR, V3_FWVB, etc.
@@ -128,145 +132,12 @@ class dxWithMx():
                 self.V3_ROHR=V3sErg['V3_ROHR']
                 self.V3_KNOT=V3sErg['V3_KNOT']
                 self.V3_FWVB=V3sErg['V3_FWVB']
-                self.V3_VBEL=V3sErg['V3_VBEL']
                 
-                #VBEL
-                try:                                    
-                     t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
-                     QM=('STAT'
-                                 ,'QM'
-                                 ,t0
-                                 ,t0
-                                 )
-                     self.V3_VBEL['QM']=self.V3_VBEL[QM]      
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['QM'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_VBEL failed.'))   
-                     
-                try:                                                         
-                     PH_i=str(('STAT'
-                                 ,'KNOT~*~*~*~PH'
-                                 ,t0
-                                 ,t0
-                                 ))+'_i'
-                     self.V3_VBEL['PH_i']=self.V3_VBEL[PH_i]      
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['PH_i'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PH_i in V3_VBEL failed.'))    
-                     
-                try:                                                         
-                     PH_k=str(('STAT'
-                                 ,'KNOT~*~*~*~PH'
-                                 ,t0
-                                 ,t0
-                                 ))+'_k'
-                     self.V3_VBEL['PH_k']=self.V3_VBEL[PH_k]      
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['PH_k'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PH_k in V3_VBEL failed.'))                         
-     
-                  
-                try:                                                         
-                     T_i=str(('STAT'
-                                 ,'KNOT~*~*~*~T'
-                                 ,t0
-                                 ,t0
-                                 ))+'_i'
-                     self.V3_VBEL['T_i']=self.V3_VBEL[T_i]      
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['T_i'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T_i in V3_VBEL failed.'))     
-                     
-                try:                                                         
-                     T_k=str(('STAT'
-                                 ,'KNOT~*~*~*~T'
-                                 ,t0
-                                 ,t0
-                                 ))+'_k'
-                     self.V3_VBEL['T_k']=self.V3_VBEL[T_k]      
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['T_k'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T_k in V3_VBEL failed.'))                          
-        
-
-                try:                                                         
-                     H_i=str(('STAT'
-                                 ,'KNOT~*~*~*~H'
-                                 ,t0
-                                 ,t0
-                                 ))+'_i'
-                     self.V3_VBEL['H_i']=self.V3_VBEL[H_i]      
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['H_i'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col H_i in V3_VBEL failed.'))    
-                     
-                try:                                                         
-                     H_k=str(('STAT'
-                                 ,'KNOT~*~*~*~H'
-                                 ,t0
-                                 ,t0
-                                 ))+'_k'
-                     self.V3_VBEL['H_k']=self.V3_VBEL[H_k]      
-                     logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['H_k'] ok so far."))                                                      
-                except Exception as e:
-                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                     logger.debug(logStrTmp) 
-                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing col H_k in V3_VBEL failed.'))                
-                     
-                try:                                                         
-                    RHO_i=str(('STAT'
-                                ,'KNOT~*~*~*~RHO'
-                                ,t0
-                                ,t0
-                                ))+'_i'
-                    self.V3_VBEL['RHO_i']=self.V3_VBEL[RHO_i]      
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['RHO_i'] ok so far."))                                                      
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col RHO_i in V3_VBEL failed.'))    
-                    
-                try:                                                         
-                    RHO_k=str(('STAT'
-                                ,'KNOT~*~*~*~RHO'
-                                ,t0
-                                ,t0
-                                ))+'_k'
-                    self.V3_VBEL['RHO_k']=self.V3_VBEL[RHO_k]      
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['RHO_k'] ok so far."))                                                      
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col RHO_k in V3_VBEL failed.'))                                     
-                     
-                try:                                                                             
-                    self.V3_VBEL['mlc_i']=self.V3_VBEL[PH_i]*10**5/(self.V3_VBEL[RHO_i]*9.81)+self.V3_VBEL['ZKOR_i']
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['mlc_i'] ok so far."))                                                      
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col mlc_i in V3_VBEL failed.'))    
-                    
-                try:                                                                             
-                    self.V3_VBEL['mlc_k']=self.V3_VBEL[PH_k]*10**5/(self.V3_VBEL[RHO_k]*9.81)+self.V3_VBEL['ZKOR_k']
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['mlc_k'] ok so far."))                                                      
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col mlc_k in V3_VBEL failed.'))                        
-                                                                           
+                ### C
+                self.V3_VBEL=self._V3_VBEL(V3sErg['V3_VBEL'])
+                
+                t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+                                                                                                            
                 # ROHR                                 
                 try:                                    
                     #t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
@@ -789,16 +660,190 @@ class dxWithMx():
         finally:
             logger.debug(f"{logStr}_Done.") 
 
+    def _V3_VBEL(self,df_V3_VBEL):
+        """
+        V3_VBEL is a m object Attribute.
+        
+        :param df_V3_VBEL: V3sErg['V3_VBEL'] from dx.MxAdd(mx) 
+        :type df_V3_VBEL: df
+        
+        :return df_V3_VBEL: df_V3_VBEL expanded
+        :type df_V3_VBEL: df        
+        
+        .. note:: 
+            
+            VBEL is the German abbreviation for Edges (defined in the SIR 3S model).
+            In the returned V3_VBEL (one row per Edge) the following columns are added:
+                      
+                - PH_i,_k: STAT PH-result (i.e. bar) 
+                - H_i,_k: STAT H-result (i.e. barBzg) 
+                - mlc_i,_k: STAT H-result 
+                - RHO_i,_k: STAT RHO-result 
+                - T_i,_k: STAT T-result 
+                - QM: STAT QM-Result 
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try: 
+                    
+            try:                                    
+                 t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+                 QM=('STAT'
+                             ,'QM'
+                             ,t0
+                             ,t0
+                             )
+                 df_V3_VBEL['QM']=df_V3_VBEL[QM]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['QM'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_VBEL failed.'))   
+                 
+            try:                                                         
+                 PH_i=str(('STAT'
+                             ,'KNOT~*~*~*~PH'
+                             ,t0
+                             ,t0
+                             ))+'_i'
+                 df_V3_VBEL['PH_i']=df_V3_VBEL[PH_i]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['PH_i'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PH_i in V3_VBEL failed.'))    
+                 
+            try:                                                         
+                 PH_k=str(('STAT'
+                             ,'KNOT~*~*~*~PH'
+                             ,t0
+                             ,t0
+                             ))+'_k'
+                 df_V3_VBEL['PH_k']=df_V3_VBEL[PH_k]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['PH_k'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PH_k in V3_VBEL failed.'))                         
+ 
+              
+            try:                                                         
+                 T_i=str(('STAT'
+                             ,'KNOT~*~*~*~T'
+                             ,t0
+                             ,t0
+                             ))+'_i'
+                 df_V3_VBEL['T_i']=df_V3_VBEL[T_i]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['T_i'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T_i in V3_VBEL failed.'))     
+                 
+            try:                                                         
+                 T_k=str(('STAT'
+                             ,'KNOT~*~*~*~T'
+                             ,t0
+                             ,t0
+                             ))+'_k'
+                 df_V3_VBEL['T_k']=df_V3_VBEL[T_k]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['T_k'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T_k in V3_VBEL failed.'))                          
+    
+
+            try:                                                         
+                 H_i=str(('STAT'
+                             ,'KNOT~*~*~*~H'
+                             ,t0
+                             ,t0
+                             ))+'_i'
+                 df_V3_VBEL['H_i']=df_V3_VBEL[H_i]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['H_i'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col H_i in V3_VBEL failed.'))    
+                 
+            try:                                                         
+                 H_k=str(('STAT'
+                             ,'KNOT~*~*~*~H'
+                             ,t0
+                             ,t0
+                             ))+'_k'
+                 df_V3_VBEL['H_k']=df_V3_VBEL[H_k]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['H_k'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col H_k in V3_VBEL failed.'))                
+                 
+            try:                                                         
+                RHO_i=str(('STAT'
+                            ,'KNOT~*~*~*~RHO'
+                            ,t0
+                            ,t0
+                            ))+'_i'
+                df_V3_VBEL['RHO_i']=df_V3_VBEL[RHO_i]      
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['RHO_i'] ok so far."))                                                      
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col RHO_i in V3_VBEL failed.'))    
+                
+            try:                                                         
+                RHO_k=str(('STAT'
+                            ,'KNOT~*~*~*~RHO'
+                            ,t0
+                            ,t0
+                            ))+'_k'
+                df_V3_VBEL['RHO_k']=df_V3_VBEL[RHO_k]      
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['RHO_k'] ok so far."))                                                      
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col RHO_k in V3_VBEL failed.'))                                     
+                 
+            try:                                                                             
+                df_V3_VBEL['mlc_i']=df_V3_VBEL[PH_i]*10**5/(df_V3_VBEL[RHO_i]*9.81)+df_V3_VBEL['ZKOR_i']
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['mlc_i'] ok so far."))                                                      
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col mlc_i in V3_VBEL failed.'))    
+                
+            try:                                                                             
+                df_V3_VBEL['mlc_k']=df_V3_VBEL[PH_k]*10**5/(df_V3_VBEL[RHO_k]*9.81)+df_V3_VBEL['ZKOR_k']
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['mlc_k'] ok so far."))                                                      
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col mlc_k in V3_VBEL failed.'))                        
+                                                                           
+                              
+            return df_V3_VBEL   
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
 
 
     def _V3_AGSN(self,dfAGSN):
         """
-        V3_AGSN: Create V3_AGSN from dfAGSN. V3_AGSN is a dxWithMx object Attribute.
+        V3_AGSN is a m object Attribute.
         
-        :param dfAGSN: dxWithMx attribute
+        :param dfAGSN: dx.dfAGSN
         :type dfAGSN: df
         
-        :return: V3_AGSN: dfAGSN expanded to V3_AGSN.
+        :return: V3_AGSN: dfAGSN expanded to V3_AGSN
         :rtype: df        
         
         .. note:: 
@@ -834,6 +879,8 @@ class dxWithMx():
                 - LSum: cumulated L up to nextNODE
                 - direction: XL=0,1: 1 if edge defined in cut-direction, otherwise -1; XL=2: 1 if edge defined in reverse cut-direction, otherwise -1 
                 
+                - corresponding to the V3_VBEL attributes:
+                    
                 - PH_n: nextNODEs STAT PH-result (i.e. bar) (startNODEs result for Pos=-1)
                 - H_n: nextNODEs STAT H-result (i.e. barBzg) (startNODEs result for Pos=-1)
                 - mlc_n: nextNODEs STAT H-result (startNODEs result for Pos=-1) 
@@ -895,7 +942,8 @@ class dxWithMx():
                 #print(col_n)
                 dfAGSN[col_n]=None
                 colsSach_n.append(col_n)                  
-                            
+             
+            logger.debug("{0:s}dfAGSN.columns.to_list(): zugeh. Sachspalten _n angelegt: {1:s}".format(logStr,str(colsSach_n)))       
                         
             # Ergebnisspalten _i,_k
             colsErg_i=[col for col in colsErg if type(col) == str and re.search('_i$',col)]
@@ -909,6 +957,8 @@ class dxWithMx():
                 dfAGSN[col_n]=None
                 colsErg_n.append(col_n)  
                                 
+            logger.debug("{0:s}dfAGSN.columns.to_list(): zugeh. Ergspalten _n angelegt: {1:s}".format(logStr,str(colsErg_n)))       
+            
             #logger.debug("{0:s}dfAGSN.columns.to_list(): {1:s}".format(logStr,str(dfAGSN.columns.to_list())))       
                             
             dfAGSN=dfAGSN.reset_index().rename(columns={'level_0':'OBJTYPE','level_1':'OBJID'})
@@ -1052,12 +1102,14 @@ class dxWithMx():
                     except:
                         continue
             
-            # zugeh. Ergebnisspalte anlegen                
+            logger.debug("{0:s}dfAGSN.columns.to_list(): zugeh. Ergspalten mlc angelegt: {1:s}".format(logStr,str(colsMlc)))  
+                        
+            # zugeh. Ergebnisspalten mlc anlegen                
             for col in colsMlc:
                 dfAGSN[col]=None        
                 #logger.debug(f"{logStr} colMlc: {col}") 
             
-            # Ergebnisspalte bestücken
+            # Ergebnisspalten mlc bestücken
             for index, row in dfAGSN.iterrows():                                                                                       
                     for col_n,col_PH,col_RHO in zip(colsMlc,colsPH,colsRHO):                        
                         dfAGSN.loc[index,col_n]=row[col_PH]*10**5/(row[col_RHO]*9.81)+row['ZKOR_n']              
@@ -1074,12 +1126,12 @@ class dxWithMx():
 
     def _V3_AGSNVEC(self,V3_AGSN):
         """
-        V3_AGSNVEC: Create V3_AGSNVEC from V3_AGSN. V3_AGSNVEC is a dxWithMx object Attribute.
+        V3_AGSNVEC is a m object Attribute.
         
-        :param V3_AGSN: dxWithMx attribute
+        :param V3_AGSN: V3_AGSN
         :type V3_AGSN: df
         
-        :return: V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC.
+        :return: V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC
         :rtype: df        
         
         .. note:: 
