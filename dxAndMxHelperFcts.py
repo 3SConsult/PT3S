@@ -2368,14 +2368,15 @@ def constructNewMultiindexFromCols(df=pd.DataFrame(),mColNames=['OBJTYPE','OBJID
         """
 
         logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
-        #logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
     
         try:    
             
             arrays=[]
             for col in mColNames:
-                logger.debug(f"{col}: {type(df[col])}")
+                logger.debug(f"{logStr}{col}: {type(df[col])}")
                 arrays.append(df[col].tolist())
+            logger.debug(f"{logStr}arrays: {arrays}")
             tuples = list(zip(*(arrays)))
             index = pd.MultiIndex.from_tuples(tuples,names=mIdxNames)
             df.drop(mColNames,axis=1,inplace=True)   
@@ -2388,7 +2389,7 @@ def constructNewMultiindexFromCols(df=pd.DataFrame(),mColNames=['OBJTYPE','OBJID
             raise #df=pd.DataFrame()
         finally:
             pass
-            #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
+            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
             #return df  
             
 def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:00:00'), Timestamp('2024-09-01 08:00:00'))_i"
