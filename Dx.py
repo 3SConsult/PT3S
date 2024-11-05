@@ -1591,6 +1591,9 @@ class Dx():
                   try:    
                                                           
                     df=dfOBJTYPEs[edge]
+                    
+                    logger.debug(f"{logStr}{edge}: {type(df)}")
+                    
                     df.columns=df.columns.to_flat_index()
                     
                     newCols=df.columns.to_list()
@@ -1598,6 +1601,10 @@ class Dx():
                     df=pd.merge(dfVBEL.loc[(edge,),:],df,left_index=True,right_index=True,suffixes=('_VBEL','')).filter(items=newCols,axis=1)#.values
                     df['OBJID']=df.index
                     df['OBJTYPE']=edge
+                    
+                    logger.debug(f"{logStr}{edge}: {type(df)}")
+                    logger.debug(f"{logStr}{edge}: {df.head()}")
+                    
                     df=dxAndMxHelperFcts.constructNewMultiindexFromCols(df)
                     
                     #df=pd.merge(dfVBEL.loc[(edge,),:],df,left_index=True,right_index=True)

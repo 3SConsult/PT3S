@@ -3584,9 +3584,10 @@ class Mx():
                 dfOBJTYPEs[OBJTYPE]=dfOBJTYPE        
             
         
-            logger.debug(f"{dfOBJTYPEs.keys()}")
+            logger.debug(f"{logStr}{dfOBJTYPEs.keys()}")
             for key in dfOBJTYPEs.keys() :
-                logger.debug(f"{key} {type(dfOBJTYPEs[key])}")
+                logger.debug(f"{logStr}{key} {type(dfOBJTYPEs[key])}")
+                
             return dfOBJTYPEs
                                                      
         except MxError:
