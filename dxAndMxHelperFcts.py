@@ -99,10 +99,11 @@ class dxWithMx():
             self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)            
                         
             self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
-            self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)
+            
         
             
             ### A
+            self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)
             self.V3_VBEL=dx.dataFrames['V3_VBEL'].copy(deep=True)
             self.V3_FWVB=dx.dataFrames['V3_FWVB'].copy(deep=True)
             
@@ -122,18 +123,19 @@ class dxWithMx():
                 self.dx.MxSync(self.mx)
                 
                 self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
-                self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)                
+                               
                 
                 ### B
+                self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)
                 self.V3_VBEL=dx.dataFrames['V3_VBEL'].copy(deep=True)
                 self.V3_FWVB=dx.dataFrames['V3_FWVB'].copy(deep=True) 
                                 
                 # Vec-Results to V3_KNOT, V3_ROHR, V3_FWVB, etc.
                 V3sErg=self.dx.MxAdd(self.mx)                
-                self.V3_ROHR=V3sErg['V3_ROHR']
-                self.V3_KNOT=V3sErg['V3_KNOT']            
+                self.V3_ROHR=V3sErg['V3_ROHR']    
                 
                 ### C
+                self.V3_KNOT=self._V3_KNOT(V3sErg['V3_KNOT'])
                 self.V3_VBEL=self._V3_VBEL(V3sErg['V3_VBEL'])
                 self.V3_FWVB=self._V3_FWVB(V3sErg['V3_FWVB'])
                 
@@ -661,6 +663,80 @@ class dxWithMx():
         finally:
             logger.debug(f"{logStr}_Done.") 
 
+    def _V3_KNOT(self,df_V3_KNOT):
+        """
+        V3_KNOT is a m object Attribute.
+        
+        :param df_V3_KNOT: V3sErg['V3_KNOT'] from dx.MxAdd(mx) 
+        :type df_V3_VKNOT: df
+        
+        :return df_V3_VKNOT: df_V3_KNOT expanded
+        :type df_V3_KNOT: df        
+        
+        .. note:: 
+            
+            KNOT is the German abbreviation for Nodes (defined in the SIR 3S model).
+            In the returned V3_KNOT (one row per Edge) the following columns are added:
+                      
+                - PH: STAT PH-result (i.e. bar) 
+                - dPH: STAT (PHSL-PHRL)-result if Node-Partner is defined (i.e. bar) 
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try: 
+                    
+            t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+            
+
+            
+            try:                                                         
+                 PH=('STAT'
+                             ,'KNOT~*~*~*~PH'
+                             ,t0
+                             ,t0
+                             )
+                 df_V3_KNOT['PH']=df_V3_KNOT[PH]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_KNOT['PH'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PH in V3_KNOT failed.'))    
+               
+            try:                                                         
+                 dPH='dPH'
+                 def getdPH(row,df_V3_KNOT):
+                     
+                     df=df_V3_KNOT[df_V3_KNOT['tk']==row['fk2LKNOT']]
+                     if df.empty:
+                         return None
+                     s=df.iloc[0]
+                     if row['KVR'] in [1,1.,'1','1.']:
+                         return row['PH']-s.PH
+                     elif row['KVR'] in [2,2.,'2','2.']:
+                         return -(row['PH']-s.PH)
+                     else:
+                         return None
+                         
+                 df_V3_KNOT[dPH]=None   
+                 df_V3_KNOT[dPH]=df_V3_KNOT.apply(lambda row: getdPH(row,df_V3_KNOT),axis=1)
+                 logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far: {str(df_V3_KNOT[dPH].describe())}")                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col dPH in V3_KNOT failed.'))      
+               
+            return df_V3_KNOT   
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
+            
     def _V3_VBEL(self,df_V3_VBEL):
         """
         V3_VBEL is a m object Attribute.
