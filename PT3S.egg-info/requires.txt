@@ -17,6 +17,7 @@ matplotlib
 ipywidgets
 Pillow
 selenium
+yfiles_jupyter_graphs
 nbsphinx
 sphinx_copybutton
 sphinx-rtd-theme

@@ -127,7 +127,9 @@ setup(
             ,'Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1'
             ,'Examples\WDExample5\B1\V0\BZ1\M-1-0-1.XML'   
                     
-            ,'Examples\Example6.db3'            
+            ,'Examples\Example6.db3' 
+            ,'Examples\WDExample6\B1\V0\BZ1\M-1-0-1.1.MX1'
+            ,'Examples\WDExample6\B1\V0\BZ1\M-1-0-1.XML'  
             
             ,'Examples\Images\1_example2_interactive_widget_plot.png'
             ,'Examples\Images\2_example2_interactive_bokeh_plot.png'
