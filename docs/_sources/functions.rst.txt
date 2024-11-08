@@ -127,6 +127,10 @@ Initialization
 Dataframes
 ~~~~~~~~~~
 
+V3_VBEL
+"""""""
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_VBEL
+
 V3_AGSN
 """""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSN
