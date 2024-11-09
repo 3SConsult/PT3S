@@ -127,6 +127,14 @@ Initialization
 Dataframes
 ~~~~~~~~~~
 
+V3_ROHR
+"""""""
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHR
+
+V3_KNOT
+"""""""
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_KNOT
+
 V3_VBEL
 """""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_VBEL

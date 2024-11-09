@@ -97,12 +97,9 @@ class dxWithMx():
             
             self.dfWBLZ=dxDecodeObjsData.Wblz(self.dx)
             self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)            
-                        
-            self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
-            
-        
-            
+                                                           
             ### A
+            self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
             self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)
             self.V3_VBEL=dx.dataFrames['V3_VBEL'].copy(deep=True)
             self.V3_FWVB=dx.dataFrames['V3_FWVB'].copy(deep=True)
@@ -122,80 +119,25 @@ class dxWithMx():
                 # mx2Idx to V3_VBEL
                 self.dx.MxSync(self.mx)
                 
-                self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
-                               
-                
+                                                              
                 ### B
+                self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
                 self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)
                 self.V3_VBEL=dx.dataFrames['V3_VBEL'].copy(deep=True)
-                self.V3_FWVB=dx.dataFrames['V3_FWVB'].copy(deep=True) 
+                self.V3_FWVB=dx.dataFrames['V3_FWVB'].copy(deep=True)                
                                 
                 # Vec-Results to V3_KNOT, V3_ROHR, V3_FWVB, etc.
                 V3sErg=self.dx.MxAdd(self.mx)                
-                self.V3_ROHR=V3sErg['V3_ROHR']    
+                #self.V3_ROHR=V3sErg['V3_ROHR']    
                 
                 ### C
+                self.V3_ROHR=self._V3_ROHR(V3sErg['V3_ROHR'])
                 self.V3_KNOT=self._V3_KNOT(V3sErg['V3_KNOT'])
                 self.V3_VBEL=self._V3_VBEL(V3sErg['V3_VBEL'])
                 self.V3_FWVB=self._V3_FWVB(V3sErg['V3_FWVB'])
                 
-                t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+                #t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
                                                                                                             
-                # ROHR                                 
-                try:                                    
-                    #t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
-                    QMAV=('STAT'
-                                ,'ROHR~*~*~*~QMAV'
-                                ,t0
-                                ,t0
-                                )
-                    self.V3_ROHR['QMAVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[QMAV]) ,axis=1)      
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['QMAVAbs'] ok so far."))                                                      
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QMAVAbs=Abs(STAT ROHR~*~*~*~QMAV) in V3_ROHR failed.'))   
-                    
-                try:                                                        
-                    VAV=('STAT'
-                                ,'ROHR~*~*~*~VAV'
-                                ,t0
-                                ,t0
-                                )
-                    self.V3_ROHR['VAVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[VAV]) ,axis=1)       
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['VAVAbs'] ok so far."))                                                         
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col VAVAbs=Abs(STAT ROHR~*~*~*~VAV) in V3_ROHR failed.'))       
-                    
-                try:                                                        
-                    PHR=('STAT'
-                                ,'ROHR~*~*~*~PHR'
-                                ,t0
-                                ,t0
-                                )
-                    self.V3_ROHR['PHRAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[PHR]) ,axis=1)     
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['PHRAbs'] ok so far."))                                                           
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PHRAbs=Abs(STAT ROHR~*~*~*~PHR) in V3_ROHR failed.'))     
-
-                try:                                                        
-                    JV=('STAT'
-                                ,'ROHR~*~*~*~JV'
-                                ,t0
-                                ,t0
-                                )
-                    self.V3_ROHR['JVAbs']=self.V3_ROHR.apply(lambda row: math.fabs(row[JV]) ,axis=1)      
-                    logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['JVAbs'] ok so far."))                                                          
-                except Exception as e:
-                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                    logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.')) 
-                             
-                                                                            
                 # ROHRVEC
                 try:   
                     self.V3_ROHRVEC=self._V3_ROHRVEC(self.V3_ROHR)                
@@ -203,7 +145,7 @@ class dxWithMx():
                 except Exception as e:
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
-                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing of V3_ROHRVEC failed.'))                 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing of V3_ROHRVEC failed.'))
                 
                     
                     
@@ -364,6 +306,95 @@ class dxWithMx():
             logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))            
 
 
+    def _V3_ROHR(self,df_V3_ROHR):
+        """
+        V3_ROHR is a m object Attribute.
+        
+        :param V3_ROHR: V3sErg['V3_ROHR'] from dx.MxAdd(mx) 
+        :type df_V3_ROHR: df
+        
+        :return df_V3_ROHR: df_V3_ROHR expanded
+        :type df_V3_ROHR: df        
+        
+        .. note:: 
+            
+            ROHR is the German word for pipe (defined in the SIR 3S model).
+            In the returned V3_ROHR (one row per Edge) the following columns are added:
+                      
+                - QMAVAbs: Absolute value of STAT ROHR~*~*~*~QMAV
+                - VAVAbs: Absolute value of STAT ROHR~*~*~*~VAV
+                - PHRAbs: Absolute value of STAT ROHR~*~*~*~PHR
+                - JVAbs: Absolute value of STAT ROHR~*~*~*~JV
+        """   
+        
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.")                   
+            
+        try:
+            t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+            
+            try:                                                    
+                QMAV=('STAT'
+                            ,'ROHR~*~*~*~QMAV'
+                            ,t0
+                            ,t0
+                            )
+                df_V3_ROHR['QMAVAbs']=df_V3_ROHR.apply(lambda row: math.fabs(row[QMAV]) ,axis=1)      
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['QMAVAbs'] ok so far."))                                                      
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QMAVAbs=Abs(STAT ROHR~*~*~*~QMAV) in V3_ROHR failed.'))   
+                
+            try:                                                        
+                VAV=('STAT'
+                            ,'ROHR~*~*~*~VAV'
+                            ,t0
+                            ,t0
+                            )
+                df_V3_ROHR['VAVAbs']=df_V3_ROHR.apply(lambda row: math.fabs(row[VAV]) ,axis=1)       
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['VAVAbs'] ok so far."))                                                         
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col VAVAbs=Abs(STAT ROHR~*~*~*~VAV) in V3_ROHR failed.'))       
+                
+            try:                                                        
+                PHR=('STAT'
+                            ,'ROHR~*~*~*~PHR'
+                            ,t0
+                            ,t0
+                            )
+                df_V3_ROHR['PHRAbs']=df_V3_ROHR.apply(lambda row: math.fabs(row[PHR]) ,axis=1)     
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['PHRAbs'] ok so far."))                                                           
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PHRAbs=Abs(STAT ROHR~*~*~*~PHR) in V3_ROHR failed.'))     
+    
+            try:                                                        
+                JV=('STAT'
+                            ,'ROHR~*~*~*~JV'
+                            ,t0
+                            ,t0
+                            )
+                df_V3_ROHR['JVAbs']=df_V3_ROHR.apply(lambda row: math.fabs(row[JV]) ,axis=1)      
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['JVAbs'] ok so far."))                                                          
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.')) 
+                
+            return df_V3_ROHR   
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.")    
+                              
     def _V3_ROHRVEC(self,V3_ROHR):
         """
         V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.
@@ -592,20 +623,18 @@ class dxWithMx():
 
     def _gdfs(self,crs=None):
         """
-        Create gdfs from V3-dfs.
-        
-        :param crs: (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
-        :type crs: str, optional, default=None  
-        
-        :return: (gdf_FWVB, gdf_ROHR, gdf_KNOT)
-        :rtype: tuple of gdfs         
-
-        .. note:: 
-            V3_FWVB, V3_ROHR, V3_KNOT and gdf_FWVB, gdf_ROHR, gdf_KNOT are dxWithMx object Attributes.
+            gdf_FWVB, gdf_FWVB and gdf_KNOT are m objects.
             
-                - V3_FWVB: gdf_FWVB
-                - V3_ROHR: gdf_ROHR
-                - V3_KNOT: gdf_KNOT                
+            :param crs: (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value: 'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
+            :type crs: str, optional, default=None  
+            
+            :return: (gdf_FWVB, gdf_ROHR, gdf_KNOT)
+            :rtype: tuple of gdfs         
+        
+            .. note:: 
+                In the returned GeoDataFrames (gdf_FWVB, gdf_ROHR, gdf_KNOT) the following columns are added to V3_FWVB, V3_ROHR, V3_KNOT:
+                
+                - geometry (in each gdf) based on GEOMWKB (in each V3-df)
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -614,7 +643,7 @@ class dxWithMx():
         try:
             
             gdf_FWVB=geopandas.GeoDataFrame()
-            gdf_ROHR=geopandas.GeoDataFrame()
+            gdf_FWVB=geopandas.GeoDataFrame()
             gdf_KNOT=geopandas.GeoDataFrame()
             
             if not crs:
@@ -764,7 +793,7 @@ class dxWithMx():
         logger.debug(f"{logStr}Start.") 
         
         try: 
-                    
+            logger.debug("{0:s}{1:s}".format(logStr,'df_V3_VBEL:\n{df_V3_VBEL.columns}'))  
             try:                                    
                  t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
                  QM=('STAT'
@@ -1539,7 +1568,7 @@ class dxWithMx():
                 pass
                 colVEC=('STAT',colVECType,t0rVec,t0rVec)   
                 #logger.debug(f"{logStr}colVEC: {colVEC}")        
-                dfAGSNVec[col]=dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC],axis=1)
+                dfAGSNVec[col] = dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC], axis=1)
                 
             for col,colVECType in zip(['T_n'],['TVEC']):       
                 pass
@@ -2467,7 +2496,7 @@ def constructNewMultiindexFromCols(df=pd.DataFrame(),mColNames=['OBJTYPE','OBJID
             pass
             logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
             #return df  
-            
+
 def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:00:00'), Timestamp('2024-09-01 08:00:00'))_i"
                         ,colPost='_i'):
     
