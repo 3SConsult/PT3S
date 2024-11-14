@@ -146,64 +146,7 @@ class dxWithMx():
                     logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrTmp) 
                     logger.debug("{0:s}{1:s}".format(logStr,'Constructing of V3_ROHRVEC failed.'))
-                
-                    
-                    
-                # # FWVB
-                # if not self.V3_FWVB.empty:
-                #     try:                                                         
-                #          W=('STAT'
-                #                      ,'FWVB~*~*~*~W'
-                #                      ,t0
-                #                      ,t0
-                #                      )
-                #          self.V3_FWVB['W']=self.V3_FWVB[W]
-                #          logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['W'] ok so far."))                                                      
-                #     except Exception as e:
-                #          logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                #          logger.debug(logStrTmp) 
-                #          logger.debug("{0:s}{1:s}".format(logStr,'Constructing col W in V3_FWVB failed.'))   
-                         
-                #     try:                                             
-                #          QM=('STAT'
-                #                      ,'FWVB~*~*~*~QM'
-                #                      ,t0
-                #                      ,t0
-                #                      )
-                #          self.V3_FWVB['QM']=self.V3_FWVB[QM]
-                #          logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['QM'] ok so far."))                                                      
-                #     except Exception as e:
-                #          logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                #          logger.debug(logStrTmp) 
-                #          logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_FWVB failed.'))     
-                         
-                #     try:     
-                #          TI=('STAT'
-                #                      ,'FWVB~*~*~*~TI'
-                #                      ,t0
-                #                      ,t0
-                #                      )
-                #          self.V3_FWVB['TI']=self.V3_FWVB[TI]
-                #          logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TI'] ok so far."))                                                      
-                #     except Exception as e:
-                #          logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                #          logger.debug(logStrTmp) 
-                #          logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TI in V3_FWVB failed.'))    
-    
-                #     try:     
-                #          TK=('STAT'
-                #                      ,'FWVB~*~*~*~TK'
-                #                      ,t0
-                #                      ,t0
-                #                      )
-                #          self.V3_FWVB['TK']=self.V3_FWVB[TK]
-                #          logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TK'] ok so far."))                                                      
-                #     except Exception as e:
-                #          logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                #          logger.debug(logStrTmp) 
-                #          logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TK in V3_FWVB failed.'))    
-                     
-                
+                                    
                 # WBLZ
                 
                 try:                
@@ -290,7 +233,7 @@ class dxWithMx():
 
             try:                                                                        
                 # Rohrvektoren 
-                self.V3_AGSNVEC=self._V3_AGSNVEC(self.V3_AGSN)#.copy(deep=True))                            
+                self.V3_AGSNVEC=self._V3_AGSNVEC(self.V3_AGSN)                          
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
@@ -441,7 +384,13 @@ class dxWithMx():
                 
                 - ('STAT|TIME|TMIN|...','ROHR...MVEC|PVEC|RHOVEC|TVEC|...', a Timestamp, a Timestamp): point Results
                 
-                - ('STAT|TIME|TMIN|...','manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|...',  a Timestamp, a Timestamp): point Results calculated by PT3S               
+                - ('STAT|TIME|TMIN|...','manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|...',  a Timestamp, a Timestamp): point Results calculated by PT3S
+                
+                    - manPVEC: from PVEC ...
+                    - mlcPVEC: from PVEC ...
+                    - barBzgPVEC: from PVEC ...
+                    - QMVEC: from MVEC ... m3/h
+                    - tMVEC: from MVEC ... t/h
                                                 
         """   
                 
@@ -1051,34 +1000,8 @@ class dxWithMx():
                      logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                      logger.debug(logStrTmp) 
                      logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T_k in V3_FWVB failed.'))                            
-                     
-                     
-                # try:     
-                #      TI=('STAT'
-                #                  ,'FWVB~*~*~*~TI'
-                #                  ,t0
-                #                  ,t0
-                #                  )
-                #      df_V3_FWVB['TI']=df_V3_FWVB[TI]
-                #      logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TI'] ok so far."))                                                      
-                # except Exception as e:
-                #      logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                #      logger.debug(logStrTmp) 
-                #      logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TI in V3_FWVB failed.'))    
 
-                # try:     
-                #      TK=('STAT'
-                #                  ,'FWVB~*~*~*~TK'
-                #                  ,t0
-                #                  ,t0
-                #                  )
-                #      df_V3_FWVB['TK']=df_V3_FWVB[TK]
-                #      logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_FWVB['TK'] ok so far."))                                                      
-                # except Exception as e:
-                #      logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                #      logger.debug(logStrTmp) 
-                #      logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TK in V3_FWVB failed.'))               
-            
+                                                              
             return df_V3_FWVB   
         except dxWithMxError:
             raise            
@@ -1094,7 +1017,7 @@ class dxWithMx():
         """
         V3_AGSN is a m object Attribute.
         
-        :param dfAGSN: dx.dfAGSN
+        :param dfAGSN: m.dfAGSN
         :type dfAGSN: df
         
         :return: V3_AGSN: dfAGSN expanded to V3_AGSN
@@ -1102,7 +1025,7 @@ class dxWithMx():
         
         .. note:: 
             
-            AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model).
+            AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model). A section (a cut) can consist of several layers. In district heating systems for example the SL layer (supply line) and the RL (return line) layer.
             The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:
         
                 - Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)
@@ -1110,7 +1033,7 @@ class dxWithMx():
                 - tk: Section-tk
                 - LFDNR: Section-LFDNR (numeric)
                 - NAME: Section-Name
-                - XL: Section-Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)     
+                - XL: Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)     
                 - compNr: Number of the connected Component in (Section,Layer) starting with 1
                 - nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)
                 
@@ -1356,7 +1279,7 @@ class dxWithMx():
                     except:
                         continue
             
-            logger.debug("{0:s}dfAGSN.columns.to_list(): zugeh. Ergspalten mlc angelegt: {1:s}".format(logStr,str(colsMlc)))  
+            logger.debug("{0:s}dfAGSN.columns.to_list(): zugeh. Ergspalten mlc _n angelegt: {1:s}".format(logStr,str(colsMlc)))  
                         
             # zugeh. Ergebnisspalten mlc anlegen                
             for col in colsMlc:
@@ -1382,7 +1305,7 @@ class dxWithMx():
         """
         V3_AGSNVEC is a m object Attribute.
         
-        :param V3_AGSN: V3_AGSN
+        :param V3_AGSN: m.V3_AGSN
         :type V3_AGSN: df
         
         :return: V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC
@@ -1391,20 +1314,45 @@ class dxWithMx():
         .. note:: 
             
             The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:
+                
                 V3_AGSN-columns:
+                    
                     - Pos: Pos=-1: eliminated if Start-Edge is a Pipe                     
                     - nextNODE: Pos=0: startNODE @IptIdxAsNo=0 if Start-Edge is a Pipe
                     - LSum: Pos=0: 0. @IptIdxAsNo=0 if Start-Edge is a Pipe 
                     - ...
+                    
                     - cols mapped with VEC-Results:
+                        
                     - LSum
                     - ZKOR_n
+                    
                     - PH_n
                     - H_n
                     - mlc_n
                     - T_n
-                    - QM                 
+                    - QM         
+         
+                    - PH_n_end
+                    - H_n_end
+                    - mlc_n_end
+                    - T_n_end
+                    - QM_end 
+         
+                    - PH_n_min
+                    - H_n_min
+                    - mlc_n_min
+                    - T_n_min
+                    - QM_min (buggy)     
+                    
+                    - PH_n_max
+                    - H_n_max
+                    - mlc_n_max
+                    - T_n_max
+                    - QM_max (buggy)                       
+                    
                 V3_ROHRVEC-columns:
+                    
                     - pk_ROHRVEC: Pipe-pk
                     - tk_ROHRVEC: Pipe-tk                
                     - ...
@@ -1563,25 +1511,72 @@ class dxWithMx():
             dfAGSNVec['LSum']=dfAGSNVec.apply(lambda row: fLSum(row),axis=1)
                             
             # cols mapped with VEC-Results
-            t0rVec=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X'))#.%f'))
-            for col,colVECType in zip(['PH_n','mlc_n','H_n','QM'],['manPVEC','mlcPVEC','barBzgPVEC','QMVEC']):       
-                pass
-                colVEC=('STAT',colVECType,t0rVec,t0rVec)   
-                #logger.debug(f"{logStr}colVEC: {colVEC}")        
-                dfAGSNVec[col] = dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC], axis=1)
-                
-            for col,colVECType in zip(['T_n'],['TVEC']):       
-                pass
-                colVEC=('STAT','ROHR~*~*~*~'+colVECType,t0rVec,t0rVec)   
-                #logger.debug(f"{logStr}colVEC: {colVEC}")                
-                dfAGSNVec[col]=dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC],axis=1)      
-                
-            for col,colVEC in zip(['ZKOR_n'],['ZVEC']):       
-                pass
+                        
+            # Z
+            for col,colVEC in zip(['ZKOR_n'],['ZVEC']):                   
                 colVEC=colVEC 
                 #logger.debug(f"{logStr}colVEC: {colVEC}")                
-                dfAGSNVec[col]=dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC],axis=1)                     
-                                                                                                                                    
+                dfAGSNVec[col]=dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC],axis=1)                  
+            
+            # STAT 
+            t0rVec=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X'))#.%f'))
+            
+            # VEC source cols "pressure": calced by PT3S 
+            for col,colVECType in zip(['PH_n','mlc_n','H_n'],['manPVEC','mlcPVEC','barBzgPVEC']):        
+                self._V3_AGSNVEC_mapExistingColWithVecResults(dfAGSNVec,col,'STAT',colVECType,t0rVec,t0rVec)   
+                
+            # VEC source cols: native 
+            self._V3_AGSNVEC_mapExistingColWithVecResults(dfAGSNVec,'T_n','STAT','ROHR~*~*~*~TVEC',t0rVec,t0rVec)   
+                              
+            # Kanaltyp der zu den IDQM passt
+            flowMVEC='QMVEC'
+            dfALLG=self.dx.dataFrames['ALLG']
+            dfALLG=dfALLG[~dfALLG['pk'].isin([-1,'-1'])]
+            try:
+                vm=self.dx.dataFrames['VIEW_MODELLE']            
+                vms=vm[vm['pk'].isin([self.dx.QGISmodelXk])].iloc[0]                  
+                IDQM=dfALLG[dfALLG['fkDE']==vms.fkBASIS]['IDQM'].iloc[0]   
+                match IDQM:
+                    case 2.: # m3/h
+                        pass
+                        logger.debug(f"{logStr}IDQM={IDQM} (m3/h). {flowMVEC} wird verwendet fuer das Mapping in VBEL-QM.")
+                    case 5.: # t/h
+                        flowMVEC='tMVEC'
+                        logger.debug(f"{logStr}IDQM={IDQM} (t/h). {flowMVEC} wird verwendet fuer das Mapping in VBEL-QM.")
+                    case _:
+                        logger.debug(f"{logStr}IDQM={IDQM} ist unbehandelt. {flowMVEC} wird verwendet fuer das Mapping in VBEL-QM.")
+            except:                
+                logger.debug(f"{logStr}IDQM konnte nicht ermittelt werden. {flowMVEC} wird verwendet fuer das Mapping in VBEL-QM.")
+            self.flowMVEC=flowMVEC
+                
+            # VEC source cols "flow": calced by PT3S 
+            for col,colVECType in zip(['QM'
+                                       #,'MM'
+                                       ]
+                                      ,[self.flowMVEC
+                                        #,'tMVEC'
+                                        ]):                          
+                 self._V3_AGSNVEC_mapExistingColWithVecResults(dfAGSNVec,col,'STAT',colVECType,t0rVec,t0rVec)   
+               
+
+            dfAGSNVec=dfAGSNVec.reset_index(drop=True) 
+            
+            # min, max, end 
+            
+            # pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X'))#.%f'))
+            tA=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X')) # .%f')
+            tE=pd.Timestamp(self.mx.df.index[-1].strftime('%Y-%m-%d %X')) # .%f')
+            
+            self._V3_AGSNVEC_addNewCols(dfAGSNVec,
+            colNames=['T_n','PH_n','mlc_n','H_n','QM'],
+            colNamesPrefixes=['KNOT~*~*~*~','KNOT~*~*~*~','','',''],
+            vecNames=['ROHR~*~*~*~TVEC','manPVEC','mlcPVEC','barBzgPVEC',self.flowMVEC],
+            # pro Kanaltyp...
+            typeNames=['TMIN','TMAX','TIME'],
+            colsNamesPostfixes=['_min','_max','_end'],
+            timeTuples=[(tA,tE),(tA,tE),(tE,tE)] 
+                               )            
+        
             return dfAGSNVec
         except dxWithMxError:
             raise            
@@ -1592,54 +1587,107 @@ class dxWithMx():
         finally:
             logger.debug(f"{logStr}_Done.") 
 
-    # def setLayerContentTo(self,layerName,df):          
-    #     """
-    #     Updates content of layerName to df's-content.
-        
-    #     :param layerName: name of an existing layer
-    #     :type layerName: str
-        
-    #     :return: None
-    
-    #     .. note:: 
-    #         df's cols used:            
-    #             - TYPE 
-    #             - ID                 
-    #     """           
+    def _V3_AGSNVEC_mapExistingColWithVecResults(self,dfAGSNVec,col,sir3sType,sir3sChannel,t1,t2):
+        """
+ 
+        """   
                 
-    #     logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-    #     logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
         
-    #     try: 
-                  
-    #         xk=self.dfLAYR[self.dfLAYR['NAME'].isin([layerName])]['tk'].iloc[0]
+        try:             
+           colVEC=(sir3sType,sir3sChannel,t1,t2)      
+           dfAGSNVec[col] = dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC], axis=1)                      
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.")   
             
-    #         dfUpd=df.copy(deep=True)
-            
-    #         dfUpd['table']='LAYR'
-    #         dfUpd['attrib']='OBJS'
-    #         dfUpd['attribValue']=dfUpd.apply(lambda row: "{:s}~{:s}\t".format(row['TYPE'],row['ID']).encode('utf-8'),axis=1)
-    #         dfUpd['xk']='tk'
-    #         dfUpd['xkValue']=xk    
-            
-    #         dfUpd2=dfUpd.groupby(by=['xkValue']).agg({'xkValue': 'first'
-    #                                             ,'table': 'first'
-    #                                             ,'attrib': 'first'
-    #                                             ,'xk': 'first'
-    #                                             , 'attribValue': 'sum'}).reset_index(drop=True)
-    #         dfUpd2['attribValue']=dfUpd2['attribValue'].apply(lambda x: x.rstrip())
-              
-    #         self.dx.update(dfUpd2)               
+
+    def _V3_AGSNVEC_addNewCols(self,dfAGSNVec,
+            colNames=['T_n','PH_n','mlc_n','H_n','QM'],
+            colNamesPrefixes=['KNOT~*~*~*~','KNOT~*~*~*~','','',''],
+            vecNames=['ROHR~*~*~*~TVEC','manPVEC','mlcPVEC','barBzgPVEC','QMVEC'],
+            # pro Kanaltyp...
+            typeNames=['TMIN','TMAX','TIME'],
+            colsNamesPostfixes=['_min','_max','_end'],
+            timeTuples=[(pd.Timestamp(2017, 1, 1, 12),pd.Timestamp(2017, 1, 1, 12)),(pd.Timestamp(2017, 1, 1, 12),pd.Timestamp(2017, 1, 1, 12)),(pd.Timestamp(2017, 1, 1, 12),pd.Timestamp(2017, 1, 1, 12))] 
+                               ):
+        """
+ 
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
         
-    #     except dxWithMxError:
-    #         raise            
-    #     except Exception as e:
-    #         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-    #         logger.error(logStrFinal) 
-    #         raise dxWithMxError(logStrFinal)                       
-    #     finally:
-    #         logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))      
+        try:          
             
+            dfs={}
+            dfsCols={}
+            
+            mIdx=pd.MultiIndex.from_tuples(
+                        [fGetMultiindexTupleFromV3Col(col) for col in dfAGSNVec.columns.to_list()]
+                        ,names=['AColName','ResultChannels','Time1','Time2'])   
+            
+            columnsOld=dfAGSNVec.columns
+            dfAGSNVec.columns=mIdx
+            
+            for colName,colNamePrefix,vecName in zip(colNames,colNamesPrefixes,vecNames):
+                #print(f"{colNamePrefix} {colName}")
+                for typeName,colNamePostfix,timeTuple in zip(typeNames,colsNamesPostfixes,timeTuples):
+                    colNameNewFlat=colName+colNamePostfix
+                    #print(f"    {typeName} {colNamePostfix} {colNameNewFlat}")
+                    
+                    col=(typeName
+                            ,[colNamePrefix+colName,vecName] 
+                            ,timeTuple[0]
+                            ,timeTuple[1]
+                           )
+                    
+                    try:
+                        df=dfAGSNVec.loc[:,col]
+                        
+                        dfs[colNameNewFlat]=df
+                        dfsCols[colNameNewFlat]=((typeName
+                                ,colNamePrefix+colName 
+                                ,timeTuple[0]
+                                ,timeTuple[1]
+                               ),(typeName
+                                ,vecName 
+                                ,timeTuple[0]
+                                ,timeTuple[1]
+                               ))
+                    except Exception as e:
+                        logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                        logger.debug(logStrFinal)                      
+                        logger.debug(f"{logStr} dfAGSNVec.loc[:,col] with col={col} failed. {colNameNewFlat} not added.") 
+                                        
+            dfAGSNVec.columns=columnsOld
+            
+            for key,df in dfs.items():
+                try:
+                    cols=dfsCols[key]
+                    dfAGSNVec[key]=df.apply(lambda row: row[cols[0]] if pd.isnull(row[cols[1]]) else row[cols[1]],axis=1)
+                except Exception as e:
+                    logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrFinal) 
+                    logger.debug(f"{logStr} dfAGSNVec[key]=df.apply ... with col={cols} failed. {key} not added.") 
+                    pass
+                #print(key)
+                
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.error(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.")   
+
             
     def switchV3DfColsToMultiindex(self):
         """
@@ -1699,7 +1747,7 @@ def readDxAndMx(dbFile
                 ):
 
     """
-    Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.
+    Reads SIR 3S model and SIR 3S results and returns a dxWithMx object - also called m object.
     
     Use maxRecords=0  to read only the model.
     Use maxRecords=1  to read only STAT (the steady state result).
@@ -1715,14 +1763,14 @@ def readDxAndMx(dbFile
     :type maxRecords: int, optional, default=None
     :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']``
     :type mxsVecsResults2MxDf: list, optional, default=None
-    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]
+    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666,-1] (-1: last timestep)
     :type mxsVecsResults2MxDfVecAggs: list, optional, default=None
     :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
     :type crs: str, optional, default=None
     :param logPathOutputFct: func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
     :type logPathOutputFct: func, optional, default=os.path.relpath
 
-    :return: An object containing the SIR 3S model and SIR 3S results.
+    :return: An object containing the SIR 3S model and SIR 3S results - also called m object.
     :rtype: dxWithMx
 
     .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.
@@ -2061,89 +2109,7 @@ def readDxAndMx(dbFile
                 
             # 
             processMxVectorResults(mx,dx,mxsVecsResults2MxDf,mxsVecsResults2MxDfVecAggs)
-            
-            # ### Vector-Results 2 MxDf
-            # if mxsVecsResults2MxDf != None:
-            #     try:                
-            #         df=mx.readMxsVecsResultsForObjectType(Sir3sVecIDReExp=mxsVecsResults2MxDf,flatIndex=False)                    
-            #         logger.debug("{logStr:s} df from readMxsVecsResultsForObjectType: {dfStr:s}".format(
-            #             logStr=logStr,dfStr=df.head(5).to_string()))
                     
-            #         # Kanalweise bearbeiten
-            #         vecChannels=sorted(list(set(df.index.get_level_values(1))))
-                    
-            #         V3_VBEL=dx.dataFrames['V3_VBEL']
-                    
-                    
-            #         mxVecChannelDfs={}
-            #         for vecChannel in vecChannels:
-                        
-            #             #print(vecChannel)
-                        
-            #             dfVecChannel=df.loc[(slice(None),vecChannel,slice(None),slice(None)),:]
-            #             dfVecChannel.index=dfVecChannel.index.get_level_values(2).rename('TIME')
-            #             dfVecChannel=dfVecChannel.dropna(axis=1,how='all')
-                        
-            #             mObj=re.search(Mx.regExpSir3sVecIDObjAtr,vecChannel)                    
-            #             OBJTYPE,ATTRTYPE=mObj.groups()
-                               
-            #             # Zeiten aendern wg. spaeterem concat mit mx.df
-            #             dfVecChannel.index=[pd.Timestamp(t,tz='UTC') for t in dfVecChannel.index]
-                        
-            #             if OBJTYPE == 'KNOT':
-            #                 dfOBJT=dx.dataFrames['V_BVZ_KNOT'][['tk','NAME']]
-            #                 dfOBJT.index=dfOBJT['tk']
-            #                 colRenDctToNamesMxDf={col:"{:s}~{!s:s}~*~{:s}~{:s}".format(OBJTYPE,dfOBJT.loc[col,'NAME'],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}
-            #             else:    
-            #                 dfOBJT=V3_VBEL[['pk','NAME_i','NAME_k']].loc[(OBJTYPE,slice(None)),:]
-            #                 dfOBJT.index=dfOBJT.index.get_level_values(1) # die OBJID; xk
-            #                 colRenDctToNamesMxDf={col:"{:s}~{!s:s}~{!s:s}~{:s}~{:s}".format(OBJTYPE,dfOBJT.loc[col,'NAME_i'],dfOBJT.loc[col,'NAME_k'],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}
-                                  
-            #             dfVecChannel=dfVecChannel.rename(columns=colRenDctToNamesMxDf)
-                        
-            #             mxVecChannelDfs[vecChannel]=dfVecChannel         
-                                            
-            #         l=mx.df.columns.to_list()
-            #         logger.debug("{:s} Anzahl der Spalten vor Ergaenzung der Vektorspalten: {:d}".format(logStr,len(l)))
-                        
-            #         mx.df=pd.concat([mx.df]
-            #         +list(mxVecChannelDfs.values())               
-            #         ,axis=1)
-                    
-            #         l=mx.df.columns.to_list()
-            #         logger.debug("{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten: {:d}".format(logStr,len(l)))                
-                    
-            #         # Test auf mehrfach vorkommende Spaltennamen                
-            #         l=mx.df.loc[:,mx.df.columns.duplicated()].columns.to_list()
-            #         if len(l)>0:
-            #             logger.debug("{:s} Anzahl der Spaltennamen die mehrfach vorkommen: {:d}; eliminieren der mehrfach vorkommenden ... ".format(logStr,len(l)))
-            #             mx.df = mx.df.loc[:,~mx.df.columns.duplicated()]
-                           
-            #         l=mx.df.columns.to_list()    
-            #         logger.debug("{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten und nach eliminieren der mehrfach vorkommenden: {:d}".format(logStr,len(l)))
-                        
-                        
-            #     except Mx.MxError:
-            #         logStrFinal="{logStr:s}mxsVecsResults2MxDf failed".format(logStr=logStr)     
-            #         raise readDxAndMxError(logStrFinal)             
-        
-            # ### Vector-Results 2 MxDfVecAggs
-            # if mxsVecsResults2MxDfVecAggs != None:
-            #     try:         
-            #         for idxTime in mxsVecsResults2MxDfVecAggs:
-            #             try:
-            #                 aTime=mx.df.index[idxTime]
-            #             except:
-            #                 logger.info(f"{logStr}: Requested Timestep {idxTime} not in MX-Results.")  
-            #                 continue
-                        
-            #             df,tL,tR=mx.getVecAggs(time1st=aTime,aTIME=True)
-                                            
-            #     except Mx.MxError:
-            #         logStrFinal="{logStr:s}mxsVecsResults2MxDf failed".format(logStr=logStr)     
-            #         raise readDxAndMxError(logStrFinal)             
-
-        
             if not preventPklDump:
                 if isfile(dbFileMxPkl):
                     logger.info("{logStr:s}{dbFileMxPkl:s} exists and is overwritten...".format(
@@ -2272,7 +2238,7 @@ def processMxVectorResults(mx,dx
     :type dx: Dx.Dx    
     :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']``
     :type mxsVecsResults2MxDf: list, optional, default=None
-    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]
+    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666,-1] (-1: last timestep)
     :type mxsVecsResults2MxDfVecAggs: list, optional, default=None                    
     """
     
@@ -2513,6 +2479,9 @@ def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:
     return colTuple
 
 def fGetMultiindexTupleFromV3Col(col):
+    """
+    Splittet einen String-Spaltennamen in seine Bestandteile. Liefert ein Tuple aus 4 Bestandteilen.
+    """
     
     if isinstance(col,tuple):        
         return col
@@ -2533,5 +2502,29 @@ def fGetMultiindexTupleFromV3Col(col):
         if mObj != None:                
             return fStripV3Colik2Tuple(col,mObj.group('Postfix')) 
             
-        # keine ergaenzte Knotenwerte    
-        return (col,None,None,None)   
+        # keine ergaenzten Knotenwerte    
+        
+        # zwischen Sach- und Ergebnisspalten unterscheiden
+        
+        mObj=re.search('(?P<Praefix>[a-zA-Z0-9-]+)_(?P<Postfix>[ikn]{1})$',col) 
+        
+        if mObj != None:     
+            if col in ['KVR_n','ZKOR_n','BESCHREIBUNG_n','NAME_i','NAME_k','tk_i','tk_k']: 
+                # Sachspalte
+                return (col,None,None,None)  
+            else: 
+                # andere auf _ikn endende Spalten
+                return (None,col,None,None) 
+            
+        else:
+            if col in ['QM'
+                       ,'QM_min','QM_max','QM_end'
+                       ,'PH_n_min','PH_n_max','PH_n_end'	
+                       ,'mlc_n_min','mlc_n_max','mlc_n_end'
+                       ,'H_n_min','H_n_max','H_n_end'
+                       ]:
+                return (None,col,None,None)
+            else:
+                # Sachspalte
+                return (col,None,None,None) 
+                

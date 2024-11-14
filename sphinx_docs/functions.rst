@@ -143,13 +143,13 @@ V3_AGSN
 """""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSN
 
-V3_AGSNVEC
-""""""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC
-
 V3_ROHRVEC
 """"""""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC
+
+V3_AGSNVEC
+""""""""""
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC
 
 gdfs
 """"

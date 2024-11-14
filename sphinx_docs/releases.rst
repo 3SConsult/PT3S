@@ -3,6 +3,14 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.36.0.dev1
+---------------
+
+**Changed:**
+
+- Example 3
+- Dostrings of readDxAndMx and others
+
 90.14.35.0.dev1
 ---------------
 
