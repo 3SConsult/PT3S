@@ -10,7 +10,7 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 
 - V3_AGSNVEC: new cols: ..._end, ..._min, ..._max
 - Example 3
-- Dostrings of readDxAndMx and others
+- Docstrings of readDxAndMx and others
 
 90.14.35.0.dev1
 ---------------
