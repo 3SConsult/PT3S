@@ -8,6 +8,7 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 
 **Changed:**
 
+- V3_AGSNVEC: new cols: ..._end, ..._min, ..._max
 - Example 3
 - Dostrings of readDxAndMx and others
 
