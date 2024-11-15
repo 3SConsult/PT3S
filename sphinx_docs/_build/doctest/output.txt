@@ -1,4 +1,4 @@
-Results of doctest builder run on 2024-10-10 19:41:16
+Results of doctest builder run on 2024-11-15 10:28:51
 =====================================================
 
 Document: functions
@@ -10,7 +10,7 @@ Failed example:
 Expected:
     ['G', 'GSig', 'SirCalcExeFile', 'SirCalcXmlFile', 'dx', 'mx', 'nodeposDctNx', 'switchV3DfColsToMultiindex', 'wDirMx']
 Got:
-    ['G', 'GSig', 'SirCalcXmlFile', 'dx', 'mx', 'nodeposDctNx', 'switchV3DfColsToMultiindex', 'wDirMx']
+    ['G', 'GSig', 'SirCalcXmlFile', 'dx', 'flowMVEC', 'mx', 'nodeposDctNx', 'switchV3DfColsToMultiindex', 'wDirMx']
 **********************************************************************
 1 items had failures:
    1 of  15 in default

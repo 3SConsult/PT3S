@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://github.com/aw3s/PT3S/sphinx_docs/_build/html/sitemap.xml

@@ -72,8 +72,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#v3-knot">V3_KNOT</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#v3-vbel">V3_VBEL</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#v3-agsn">V3_AGSN</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#v3-agsnvec">V3_AGSNVEC</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#v3-rohrvec">V3_ROHRVEC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#v3-agsnvec">V3_AGSNVEC</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gdfs">gdfs</a></li>
 </ul>
 </li>
@@ -140,7 +140,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.readDxAndMx">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Permalink to this definition"></a></dt>
-<dd><p>Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.</p>
+<dd><p>Reads SIR 3S model and SIR 3S results and returns a dxWithMx object - also called m object.</p>
 <p>Use maxRecords=0  to read only the model.
 Use maxRecords=1  to read only STAT (the steady state result).
 Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
@@ -152,13 +152,13 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <li><p><strong>forceSir3sRead</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Determines whether to force reading from SIR 3S’ sources even if newer pickles exists. By default pickles are read if newer than SIR 3S’ sources.</p></li>
 <li><p><strong>maxRecords</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below <code class="docutils literal notranslate"><span class="pre">C:\3S</span></code>).</p></li>
 <li><p><strong>mxsVecsResults2MxDf</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of regular expressions for SIR 3S’ Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: <code class="docutils literal notranslate"><span class="pre">['ROHR~\*~\*~\*~PHR',</span> <span class="pre">'ROHR~\*~\*~\*~FS',</span> <span class="pre">'ROHR~\*~\*~\*~DSI',</span> <span class="pre">'ROHR~\*~\*~\*~DSK']</span></code></p></li>
-<li><p><strong>mxsVecsResults2MxDfVecAggs</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]</p></li>
+<li><p><strong>mxsVecsResults2MxDfVecAggs</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666,-1] (-1: last timestep)</p></li>
 <li><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p></li>
 <li><p><strong>logPathOutputFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=os.path.relpath</em>) – func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An object containing the SIR 3S model and SIR 3S results.</p>
+<dd class="field-even"><p>An object containing the SIR 3S model and SIR 3S results - also called m object.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dxWithMx</p>
@@ -446,7 +446,7 @@ In the returned V3_VBEL (one row per Edge) the following columns are added:</p>
 <dd><p>V3_AGSN is a m object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dfAGSN</strong> (<em>df</em>) – dx.dfAGSN</p>
+<dd class="field-odd"><p><strong>dfAGSN</strong> (<em>df</em>) – m.dfAGSN</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>V3_AGSN: dfAGSN expanded to V3_AGSN</p>
@@ -457,7 +457,7 @@ In the returned V3_VBEL (one row per Edge) the following columns are added:</p>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model).
+<p>AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model). A section (a cut) can consist of several layers. In district heating systems for example the SL layer (supply line) and the RL (return line) layer.
 The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:</p>
 <blockquote>
 <div><ul class="simple">
@@ -466,7 +466,7 @@ The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following col
 <li><p>tk: Section-tk</p></li>
 <li><p>LFDNR: Section-LFDNR (numeric)</p></li>
 <li><p>NAME: Section-Name</p></li>
-<li><p>XL: Section-Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)</p></li>
+<li><p>XL: Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)</p></li>
 <li><p>compNr: Number of the connected Component in (Section,Layer) starting with 1</p></li>
 <li><p>nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)</p></li>
 <li><p>OBJTYPE: Edge-Type</p></li>
@@ -499,64 +499,6 @@ The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following col
 </dd></dl>
 
 </section>
-<section id="v3-agsnvec">
-<h4>V3_AGSNVEC<a class="headerlink" href="#v3-agsnvec" title="Permalink to this heading"></a></h4>
-<dl class="py function">
-<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSNVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_AGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC" title="Permalink to this definition"></a></dt>
-<dd><p>V3_AGSNVEC is a m object Attribute.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>V3_AGSN</strong> (<em>df</em>) – V3_AGSN</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>df</p>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<dl class="simple">
-<dt>The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:</dt><dd><dl class="simple">
-<dt>V3_AGSN-columns:</dt><dd><ul class="simple">
-<li><p>Pos: Pos=-1: eliminated if Start-Edge is a Pipe</p></li>
-<li><p>nextNODE: Pos=0: startNODE &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
-<li><p>LSum: Pos=0: 0. &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
-<li><p>…</p></li>
-<li><p>cols mapped with VEC-Results:</p></li>
-<li><p>LSum</p></li>
-<li><p>ZKOR_n</p></li>
-<li><p>PH_n</p></li>
-<li><p>H_n</p></li>
-<li><p>mlc_n</p></li>
-<li><p>T_n</p></li>
-<li><p>QM</p></li>
-</ul>
-</dd>
-<dt>V3_ROHRVEC-columns:</dt><dd><ul class="simple">
-<li><p>pk_ROHRVEC: Pipe-pk</p></li>
-<li><p>tk_ROHRVEC: Pipe-tk</p></li>
-<li><p>…</p></li>
-<li><p>L_ROHRVEC</p></li>
-<li><p>…</p></li>
-<li><p>NAME_i_ROHRVEC, NAME_k_ROHRVEC</p></li>
-<li><p>mx2NofPts</p></li>
-<li><p>dL (=L/(mx2NofPts-1))</p></li>
-<li><p>…</p></li>
-<li><p>mx2Idx</p></li>
-<li><p>IptIdx: rows S or E are eliminated for all pipes except the 1st</p></li>
-<li><p>…</p></li>
-</ul>
-</dd>
-</dl>
-</dd>
-</dl>
-</div>
-</dd></dl>
-
-</section>
 <section id="v3-rohrvec">
 <h4>V3_ROHRVEC<a class="headerlink" href="#v3-rohrvec" title="Permalink to this heading"></a></h4>
 <dl class="py function">
@@ -579,7 +521,7 @@ The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following col
 <p>The interior points are defined by the output grid definition for pipes in the SIR 3S model. The numerical grid with which SIR 3S calculates is different from the output grid.
 The returned V3_ROHRVEC (one row per pipe and interior point) has the following columns:</p>
 <blockquote>
-<div><ul class="simple">
+<div><ul>
 <li><p>pk: Pipe-pk</p></li>
 <li><p>tk: Pipe-tk</p></li>
 <li><p>…</p></li>
@@ -604,8 +546,93 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <li><p>SVECRev (IptIdx=S: L; IptIdx=E: 0)</p></li>
 <li><p>ZVEC: z</p></li>
 <li><p>(‘STAT|TIME|TMIN|…’,’ROHR…MVEC|PVEC|RHOVEC|TVEC|…’, a Timestamp, a Timestamp): point Results</p></li>
-<li><p>(‘STAT|TIME|TMIN|…’,’manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|…’,  a Timestamp, a Timestamp): point Results calculated by PT3S</p></li>
+<li><p>(‘STAT|TIME|TMIN|…’,’manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|…’,  a Timestamp, a Timestamp): point Results calculated by PT3S</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>manPVEC: from PVEC …</p></li>
+<li><p>mlcPVEC: from PVEC …</p></li>
+<li><p>barBzgPVEC: from PVEC …</p></li>
+<li><p>QMVEC: from MVEC … m3/h</p></li>
+<li><p>tMVEC: from MVEC … t/h</p></li>
 </ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
+</section>
+<section id="v3-agsnvec">
+<h4>V3_AGSNVEC<a class="headerlink" href="#v3-agsnvec" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSNVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_AGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC" title="Permalink to this definition"></a></dt>
+<dd><p>V3_AGSNVEC is a m object Attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>V3_AGSN</strong> (<em>df</em>) – m.V3_AGSN</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:</p>
+<blockquote>
+<div><p>V3_AGSN-columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Pos: Pos=-1: eliminated if Start-Edge is a Pipe</p></li>
+<li><p>nextNODE: Pos=0: startNODE &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
+<li><p>LSum: Pos=0: 0. &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
+<li><p>…</p></li>
+<li><p>cols mapped with VEC-Results:</p></li>
+<li><p>LSum</p></li>
+<li><p>ZKOR_n</p></li>
+<li><p>PH_n</p></li>
+<li><p>H_n</p></li>
+<li><p>mlc_n</p></li>
+<li><p>T_n</p></li>
+<li><p>QM</p></li>
+<li><p>PH_n_end</p></li>
+<li><p>H_n_end</p></li>
+<li><p>mlc_n_end</p></li>
+<li><p>T_n_end</p></li>
+<li><p>QM_end</p></li>
+<li><p>PH_n_min</p></li>
+<li><p>H_n_min</p></li>
+<li><p>mlc_n_min</p></li>
+<li><p>T_n_min</p></li>
+<li><p>QM_min (buggy)</p></li>
+<li><p>PH_n_max</p></li>
+<li><p>H_n_max</p></li>
+<li><p>mlc_n_max</p></li>
+<li><p>T_n_max</p></li>
+<li><p>QM_max (buggy)</p></li>
+</ul>
+</div></blockquote>
+<p>V3_ROHRVEC-columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pk_ROHRVEC: Pipe-pk</p></li>
+<li><p>tk_ROHRVEC: Pipe-tk</p></li>
+<li><p>…</p></li>
+<li><p>L_ROHRVEC</p></li>
+<li><p>…</p></li>
+<li><p>NAME_i_ROHRVEC, NAME_k_ROHRVEC</p></li>
+<li><p>mx2NofPts</p></li>
+<li><p>dL (=L/(mx2NofPts-1))</p></li>
+<li><p>…</p></li>
+<li><p>mx2Idx</p></li>
+<li><p>IptIdx: rows S or E are eliminated for all pipes except the 1st</p></li>
+<li><p>…</p></li>
+</ul>
+</div></blockquote>
 </div></blockquote>
 </div>
 </dd></dl>

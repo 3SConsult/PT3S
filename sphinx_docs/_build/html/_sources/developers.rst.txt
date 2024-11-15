@@ -326,18 +326,14 @@ Now, your package is installed in editable mode. This means that you can make ch
 
 By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to your project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this `PT3S.egg-link` file. Delete also the PT3S-line in easy-install.pth.
 
-PT3S's Documentation
---------------------
-
-The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.
-
-
-If you want to edit the documentation yourself, you have to install sphinx as a python package first.
-
 .. _generating-documentation-label:
 
 Generating the Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
+
+The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.
+
+If you want to edit the documentation yourself, you have to install sphinx as a python package first.
 
 Before generating the documentation for the first time, follow the steps of :ref:`install-editmode-label`.
 
@@ -371,13 +367,55 @@ The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <h
    
 .. _test-the-deployment-label:
 
-Testing the Deployment
-~~~~~~~~~~~~~~~~~~~~~~
+.. _running-doctests-label:
+
+Running Doctests
+----------------
+
+Follow these tests to run all doctests included in this documentation:
+
+1. **Navigate to sphinx_docs directory:** Open your terminal or command prompt and navigate to the directory sphinx_docs.
+
+   .. code-block:: bash
+
+      cd "C:\Users\User\3S\PT3S\sphinx_docs"
+
+2. **Make a doctest build:** Use the ``.\make.bat doctest`` command.
+
+   .. code-block:: bash
+
+      .\make.bat doctest
+
+You will get a console output and a output.txt file in the sphinx_docs\_build\doctest directory.
+
+If you want the newly added or edited tests included into the hosted documentation follow the steps of :ref:`generating-documentation-label`. Running the tests beforehand is only necessary if the tests are inclueded outside of .rst files.
+
+Testing the Deployment with Docker
+----------------------------------
 
 To ensure that the examples provided on the :doc:`examples` page run smoothly on devices of users not involved in the development process, we test them using nbval inside a Docker container. This container simulates a Windows environment, including SIR 3S, the latest release of PT3S with its dependencies, the example data, and the example notebooks.
 
+.. _environment-versions-label:
+
+Environment Versions
+~~~~~~~~~~~~~~~~~~~~
+
+This list provides information about the versions of various tools used throughout this project regarding development, creation of documentation, use of examples, etc. It is recommended to use the same versions of these tools, especially if you are contributing. These versions are used in the Docker testing.
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - **Tool**
+     - **Version**
+   * - Python
+     - 3.8.0
+   * - Anaconda
+     - 24.7.1 (Not unified yet)
+   * - Sphinx
+     - 7.2.6
+
 Initial Test Setup Process
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
     Not all files mentioned below are publicly available.
@@ -413,7 +451,7 @@ To set up all necessary files and programs to run tests on Notebooks, follow the
 ..    :caption: Dockerfile
 
 Running Tests
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~
 
 These tests are run on :ref:`environment-versions-label`.
 
@@ -475,51 +513,3 @@ Follow these steps to run tests on the Example Notebooks currently hosted at :do
    .. code-block:: bash
 
       pytest --nbval
-
-.. _environment-versions-label:
-
-Environment Versions
---------------------
-
-This list provides information about the versions of various tools used throughout this project regarding development, creation of documentation, use of examples, etc. It is recommended to use the same versions of these tools, especially if you are contributing.
-
-.. list-table:: 
-   :header-rows: 1
-
-   * - **Tool**
-     - **Version**
-   * - Python
-     - 3.8.0
-   * - Anaconda
-     - 24.7.1 (Not unified yet)
-   * - Sphinx
-     - 7.2.6
-
-Doctests
---------
-
-.. note::
-    This part of the documentation is still a work in progess.
-
-.. _running-doctests-label:
-
-Running Doctests
-~~~~~~~~~~~~~~~~
-
-Follow these tests to run all doctests included in this documentation:
-
-1. **Navigate to sphinx_docs directory:** Open your terminal or command prompt and navigate to the directory sphinx_docs.
-
-   .. code-block:: bash
-
-      cd "C:\Users\User\3S\PT3S\sphinx_docs"
-
-2. **Make a doctest build:** Use the ``.\make.bat doctest`` command.
-
-   .. code-block:: bash
-
-      .\make.bat doctest
-
-You will get a console output and a output.txt file in the sphinx_docs\_build\doctest directory.
-
-If you want the newly added or edited tests included into the hosted documentation follow the steps of :ref:`generating-documentation-label`. Running the tests beforehand is only necessary if the tests are inclueded outside of .rst files.
