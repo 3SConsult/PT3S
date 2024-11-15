@@ -1,87 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://aw3s.github.io/PT3S/</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/started.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/examples.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/functions.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/releases.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/developers.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/genindex.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/index.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/Example0.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_downloads/d991878debcc3188f1d52b5b9327ec6b/Example0.ipynb</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/Example1.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_downloads/01818920def383fb6af3f4d40c3ee9c4/Example1.ipynb</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/Example2.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_downloads/299e26acb2002070ec1c89ce6ea548d8/Example2.ipynb</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/Example3.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_downloads/d42c30e48c65d976591d63da6466cc03/Example3.ipynb</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/Example4.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_downloads/cf61e3a17edfbfa9c45e5d957bc315ae/Example4.ipynb</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/Example5.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/Example6.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_downloads/a98a5f54904bcedc114e42b1317d2e1a/Example6.ipynb</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/ExampleX.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_downloads/e0b6d36416e664a9e1e6fbf6ee2554d7/ExampleX.ipynb</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_modules/dxAndMxHelperFcts.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_modules/Dx.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_modules/ncd.html</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_downloads/b62eb940c82b52ceac09bc0f90372be1/Example5.ipynb</loc>
-  </url>
-  <url>
-    <loc>https://aw3s.github.io/PT3S/_modules/index.html</loc>
-  </url>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://aw3s.github.io/PT3S/</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/started.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/examples.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/functions.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/releases.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/developers.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/genindex.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/index.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/Example0.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/Example1.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/Example2.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/Example3.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/Example4.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/Example5.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/Example6.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/ExampleX.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/_modules/dxAndMxHelperFcts.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/_modules/Dx.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/_modules/ncd.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://aw3s.github.io/PT3S/_modules/index.html</loc>
+  <lastmod>2024-11-15T13:03:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
 </urlset>
