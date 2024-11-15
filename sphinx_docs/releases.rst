@@ -3,18 +3,19 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.38.0.dev1
+---------------
+
+**Changend:**
+
+- pyrosm, cykhash, pyrobuf deleted as install_requires (pyrosm issue)
+
 90.14.37.0.dev1
 ---------------
 
 **New:**
 
 - cykhash, pyrobuf as install_requires
-
-**Changed:**
-
-- V3_AGSNVEC: new cols: ..._end, ..._min, ..._max
-- Example 3
-- Docstrings of readDxAndMx and others
 
 90.14.36.0.dev1
 ---------------

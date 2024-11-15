@@ -21,8 +21,5 @@ yfiles_jupyter_graphs
 nbsphinx
 sphinx_copybutton
 sphinx-rtd-theme
-cykhash
-pyrobuf
-pyrosm
 osmnx
 msvc-runtime
