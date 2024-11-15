@@ -408,11 +408,11 @@ This list provides information about the versions of various tools used througho
    * - **Tool**
      - **Version**
    * - Python
-     - 3.8.0
+     - 3.11.8
    * - Anaconda
      - 24.7.1 (Not unified yet)
-   * - Sphinx
-     - 7.2.6
+   * - Sphinx-build
+     - 5.0.2
 
 Initial Test Setup Process
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
