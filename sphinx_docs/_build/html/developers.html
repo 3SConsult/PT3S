@@ -77,18 +77,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-pt3s-in-editable-mode">Installing PT3S in Editable Mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pt3s-s-documentation">PT3S’s Documentation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#generating-the-documentation">Generating the Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#testing-the-deployment">Testing the Deployment</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#initial-test-setup-process">Initial Test Setup Process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#running-tests">Running Tests</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#environment-versions">Environment Versions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#doctests">Doctests</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#running-doctests">Running Doctests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-the-documentation">Generating the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-doctests">Running Doctests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-the-deployment-with-docker">Testing the Deployment with Docker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#environment-versions">Environment Versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-test-setup-process">Initial Test Setup Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-tests">Running Tests</a></li>
 </ul>
 </li>
 </ul>
@@ -378,7 +372,7 @@
 <p>Make sure to keep your API token secure and do not hard-code it in your scripts or code. It’s best to set it as an environment variable or store it in a secret configuration file.</p>
 </div>
 <ol class="arabic simple" start="7">
-<li><p><strong>Test the Deployment:</strong> Follow the steps in <a class="reference internal" href="#test-the-deployment-label"><span class="std std-ref">Testing the Deployment</span></a></p></li>
+<li><p><strong>Test the Deployment:</strong> Follow the steps in <a class="reference internal" href="#test-the-deployment-label"><span class="std std-ref">Running Doctests</span></a></p></li>
 </ol>
 </section>
 </section>
@@ -400,12 +394,10 @@
 <p>Now, your package is installed in editable mode. This means that you can make changes to the source code of the package and those changes will take effect immediately without needing to reinstall the package.</p>
 <p>By installing PT3S in editable mode, a <cite>PT3S.egg-link</cite> file is created in the <cite>C:\Users\User\AppData\Local\anaconda3\Lib\site-packages</cite> directory. This file is a link to your project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this <cite>PT3S.egg-link</cite> file. Delete also the PT3S-line in easy-install.pth.</p>
 </section>
-<section id="pt3s-s-documentation">
-<h2>PT3S’s Documentation<a class="headerlink" href="#pt3s-s-documentation" title="Permalink to this heading"></a></h2>
+<section id="generating-the-documentation">
+<span id="generating-documentation-label"></span><h2>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Permalink to this heading"></a></h2>
 <p>The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.</p>
 <p>If you want to edit the documentation yourself, you have to install sphinx as a python package first.</p>
-<section id="generating-the-documentation">
-<span id="generating-documentation-label"></span><h3>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Permalink to this heading"></a></h3>
 <p>Before generating the documentation for the first time, follow the steps of <a class="reference internal" href="#install-editmode-label"><span class="std std-ref">Installing PT3S in Editable Mode</span></a>.</p>
 <p>To generate documentation, follow these steps:</p>
 <ol class="arabic">
@@ -431,11 +423,51 @@
 <p>The created files in PT3S/sphinx/docs/_build/html on the master branch are moved to PT3S/docs on the gh-pages branch by one of our <a class="reference internal" href="#github-workflow-label"><span class="std std-ref">GitHub Workflows</span></a> and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.</p>
 </div>
 </section>
-<section id="testing-the-deployment">
-<span id="test-the-deployment-label"></span><h3>Testing the Deployment<a class="headerlink" href="#testing-the-deployment" title="Permalink to this heading"></a></h3>
+<section id="running-doctests">
+<span id="running-doctests-label"></span><span id="test-the-deployment-label"></span><h2>Running Doctests<a class="headerlink" href="#running-doctests" title="Permalink to this heading"></a></h2>
+<p>Follow these tests to run all doctests included in this documentation:</p>
+<ol class="arabic">
+<li><p><strong>Navigate to sphinx_docs directory:</strong> Open your terminal or command prompt and navigate to the directory sphinx_docs.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\PT3S\sphinx_docs&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Make a doctest build:</strong> Use the <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">doctest</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="se">\m</span>ake.bat<span class="w"> </span>doctest
+</pre></div>
+</div>
+</li>
+</ol>
+<p>You will get a console output and a output.txt file in the sphinx_docs_builddoctest directory.</p>
+<p>If you want the newly added or edited tests included into the hosted documentation follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>. Running the tests beforehand is only necessary if the tests are inclueded outside of .rst files.</p>
+</section>
+<section id="testing-the-deployment-with-docker">
+<h2>Testing the Deployment with Docker<a class="headerlink" href="#testing-the-deployment-with-docker" title="Permalink to this heading"></a></h2>
 <p>To ensure that the examples provided on the <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a> page run smoothly on devices of users not involved in the development process, we test them using nbval inside a Docker container. This container simulates a Windows environment, including SIR 3S, the latest release of PT3S with its dependencies, the example data, and the example notebooks.</p>
+<section id="environment-versions">
+<span id="environment-versions-label"></span><h3>Environment Versions<a class="headerlink" href="#environment-versions" title="Permalink to this heading"></a></h3>
+<p>This list provides information about the versions of various tools used throughout this project regarding development, creation of documentation, use of examples, etc. It is recommended to use the same versions of these tools, especially if you are contributing. These versions are used in the Docker testing.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Tool</strong></p></th>
+<th class="head"><p><strong>Version</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Python</p></td>
+<td><p>3.8.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Anaconda</p></td>
+<td><p>24.7.1 (Not unified yet)</p></td>
+</tr>
+<tr class="row-even"><td><p>Sphinx</p></td>
+<td><p>7.2.6</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="initial-test-setup-process">
-<h4>Initial Test Setup Process<a class="headerlink" href="#initial-test-setup-process" title="Permalink to this heading"></a></h4>
+<h3>Initial Test Setup Process<a class="headerlink" href="#initial-test-setup-process" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Not all files mentioned below are publicly available.</p>
@@ -460,7 +492,7 @@
 </ol>
 </section>
 <section id="running-tests">
-<h4>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this heading"></a></h4>
+<h3>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this heading"></a></h3>
 <p>These tests are run on <a class="reference internal" href="#environment-versions-label"><span class="std std-ref">Environment Versions</span></a>.</p>
 <p>Follow these steps to run tests on the Example Notebooks currently hosted at <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a>:</p>
 <ol class="arabic">
@@ -510,54 +542,6 @@
 </div>
 </li>
 </ol>
-</section>
-</section>
-</section>
-<section id="environment-versions">
-<span id="environment-versions-label"></span><h2>Environment Versions<a class="headerlink" href="#environment-versions" title="Permalink to this heading"></a></h2>
-<p>This list provides information about the versions of various tools used throughout this project regarding development, creation of documentation, use of examples, etc. It is recommended to use the same versions of these tools, especially if you are contributing.</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Tool</strong></p></th>
-<th class="head"><p><strong>Version</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Python</p></td>
-<td><p>3.8.0</p></td>
-</tr>
-<tr class="row-odd"><td><p>Anaconda</p></td>
-<td><p>24.7.1 (Not unified yet)</p></td>
-</tr>
-<tr class="row-even"><td><p>Sphinx</p></td>
-<td><p>7.2.6</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="doctests">
-<h2>Doctests<a class="headerlink" href="#doctests" title="Permalink to this heading"></a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This part of the documentation is still a work in progess.</p>
-</div>
-<section id="running-doctests">
-<span id="running-doctests-label"></span><h3>Running Doctests<a class="headerlink" href="#running-doctests" title="Permalink to this heading"></a></h3>
-<p>Follow these tests to run all doctests included in this documentation:</p>
-<ol class="arabic">
-<li><p><strong>Navigate to sphinx_docs directory:</strong> Open your terminal or command prompt and navigate to the directory sphinx_docs.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\PT3S\sphinx_docs&quot;</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Make a doctest build:</strong> Use the <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">doctest</span></code> command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="se">\m</span>ake.bat<span class="w"> </span>doctest
-</pre></div>
-</div>
-</li>
-</ol>
-<p>You will get a console output and a output.txt file in the sphinx_docs_builddoctest directory.</p>
-<p>If you want the newly added or edited tests included into the hosted documentation follow the steps of <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>. Running the tests beforehand is only necessary if the tests are inclueded outside of .rst files.</p>
 </section>
 </section>
 </section>

@@ -230,64 +230,7 @@
                     <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing of V3_ROHRVEC failed.&#39;</span><span class="p">))</span>
-                
-                    
-                    
-                <span class="c1"># # FWVB</span>
-                <span class="c1"># if not self.V3_FWVB.empty:</span>
-                <span class="c1">#     try:                                                         </span>
-                <span class="c1">#          W=(&#39;STAT&#39;</span>
-                <span class="c1">#                      ,&#39;FWVB~*~*~*~W&#39;</span>
-                <span class="c1">#                      ,t0</span>
-                <span class="c1">#                      ,t0</span>
-                <span class="c1">#                      )</span>
-                <span class="c1">#          self.V3_FWVB[&#39;W&#39;]=self.V3_FWVB[W]</span>
-                <span class="c1">#          logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&quot;Constructing of V3_FWVB[&#39;W&#39;] ok so far.&quot;))                                                      </span>
-                <span class="c1">#     except Exception as e:</span>
-                <span class="c1">#          logStrTmp=&quot;{:s}Exception: Line: {:d}: {!s:s}: {:s}&quot;.format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))</span>
-                <span class="c1">#          logger.debug(logStrTmp) </span>
-                <span class="c1">#          logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;Constructing col W in V3_FWVB failed.&#39;))   </span>
-                         
-                <span class="c1">#     try:                                             </span>
-                <span class="c1">#          QM=(&#39;STAT&#39;</span>
-                <span class="c1">#                      ,&#39;FWVB~*~*~*~QM&#39;</span>
-                <span class="c1">#                      ,t0</span>
-                <span class="c1">#                      ,t0</span>
-                <span class="c1">#                      )</span>
-                <span class="c1">#          self.V3_FWVB[&#39;QM&#39;]=self.V3_FWVB[QM]</span>
-                <span class="c1">#          logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&quot;Constructing of V3_FWVB[&#39;QM&#39;] ok so far.&quot;))                                                      </span>
-                <span class="c1">#     except Exception as e:</span>
-                <span class="c1">#          logStrTmp=&quot;{:s}Exception: Line: {:d}: {!s:s}: {:s}&quot;.format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))</span>
-                <span class="c1">#          logger.debug(logStrTmp) </span>
-                <span class="c1">#          logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;Constructing col QM in V3_FWVB failed.&#39;))     </span>
-                         
-                <span class="c1">#     try:     </span>
-                <span class="c1">#          TI=(&#39;STAT&#39;</span>
-                <span class="c1">#                      ,&#39;FWVB~*~*~*~TI&#39;</span>
-                <span class="c1">#                      ,t0</span>
-                <span class="c1">#                      ,t0</span>
-                <span class="c1">#                      )</span>
-                <span class="c1">#          self.V3_FWVB[&#39;TI&#39;]=self.V3_FWVB[TI]</span>
-                <span class="c1">#          logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&quot;Constructing of V3_FWVB[&#39;TI&#39;] ok so far.&quot;))                                                      </span>
-                <span class="c1">#     except Exception as e:</span>
-                <span class="c1">#          logStrTmp=&quot;{:s}Exception: Line: {:d}: {!s:s}: {:s}&quot;.format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))</span>
-                <span class="c1">#          logger.debug(logStrTmp) </span>
-                <span class="c1">#          logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;Constructing col TI in V3_FWVB failed.&#39;))    </span>
-    
-                <span class="c1">#     try:     </span>
-                <span class="c1">#          TK=(&#39;STAT&#39;</span>
-                <span class="c1">#                      ,&#39;FWVB~*~*~*~TK&#39;</span>
-                <span class="c1">#                      ,t0</span>
-                <span class="c1">#                      ,t0</span>
-                <span class="c1">#                      )</span>
-                <span class="c1">#          self.V3_FWVB[&#39;TK&#39;]=self.V3_FWVB[TK]</span>
-                <span class="c1">#          logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&quot;Constructing of V3_FWVB[&#39;TK&#39;] ok so far.&quot;))                                                      </span>
-                <span class="c1">#     except Exception as e:</span>
-                <span class="c1">#          logStrTmp=&quot;{:s}Exception: Line: {:d}: {!s:s}: {:s}&quot;.format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))</span>
-                <span class="c1">#          logger.debug(logStrTmp) </span>
-                <span class="c1">#          logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;Constructing col TK in V3_FWVB failed.&#39;))    </span>
-                     
-                
+                                    
                 <span class="c1"># WBLZ</span>
                 
                 <span class="k">try</span><span class="p">:</span>                
@@ -374,7 +317,7 @@
 
             <span class="k">try</span><span class="p">:</span>                                                                        
                 <span class="c1"># Rohrvektoren </span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_V3_AGSNVEC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">)</span><span class="c1">#.copy(deep=True))                            </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_V3_AGSNVEC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">)</span>                          
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
@@ -525,7 +468,13 @@
 <span class="sd">                </span>
 <span class="sd">                - (&#39;STAT|TIME|TMIN|...&#39;,&#39;ROHR...MVEC|PVEC|RHOVEC|TVEC|...&#39;, a Timestamp, a Timestamp): point Results</span>
 <span class="sd">                </span>
-<span class="sd">                - (&#39;STAT|TIME|TMIN|...&#39;,&#39;manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|...&#39;,  a Timestamp, a Timestamp): point Results calculated by PT3S               </span>
+<span class="sd">                - (&#39;STAT|TIME|TMIN|...&#39;,&#39;manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|...&#39;,  a Timestamp, a Timestamp): point Results calculated by PT3S</span>
+<span class="sd">                </span>
+<span class="sd">                    - manPVEC: from PVEC ...</span>
+<span class="sd">                    - mlcPVEC: from PVEC ...</span>
+<span class="sd">                    - barBzgPVEC: from PVEC ...</span>
+<span class="sd">                    - QMVEC: from MVEC ... m3/h</span>
+<span class="sd">                    - tMVEC: from MVEC ... t/h</span>
 <span class="sd">                                                </span>
 <span class="sd">        &quot;&quot;&quot;</span>   
                 
@@ -1135,34 +1084,8 @@
                      <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
                      <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
                      <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;Constructing col T_k in V3_FWVB failed.&#39;</span><span class="p">))</span>                            
-                     
-                     
-                <span class="c1"># try:     </span>
-                <span class="c1">#      TI=(&#39;STAT&#39;</span>
-                <span class="c1">#                  ,&#39;FWVB~*~*~*~TI&#39;</span>
-                <span class="c1">#                  ,t0</span>
-                <span class="c1">#                  ,t0</span>
-                <span class="c1">#                  )</span>
-                <span class="c1">#      df_V3_FWVB[&#39;TI&#39;]=df_V3_FWVB[TI]</span>
-                <span class="c1">#      logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&quot;Constructing of V3_FWVB[&#39;TI&#39;] ok so far.&quot;))                                                      </span>
-                <span class="c1"># except Exception as e:</span>
-                <span class="c1">#      logStrTmp=&quot;{:s}Exception: Line: {:d}: {!s:s}: {:s}&quot;.format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))</span>
-                <span class="c1">#      logger.debug(logStrTmp) </span>
-                <span class="c1">#      logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;Constructing col TI in V3_FWVB failed.&#39;))    </span>
 
-                <span class="c1"># try:     </span>
-                <span class="c1">#      TK=(&#39;STAT&#39;</span>
-                <span class="c1">#                  ,&#39;FWVB~*~*~*~TK&#39;</span>
-                <span class="c1">#                  ,t0</span>
-                <span class="c1">#                  ,t0</span>
-                <span class="c1">#                  )</span>
-                <span class="c1">#      df_V3_FWVB[&#39;TK&#39;]=df_V3_FWVB[TK]</span>
-                <span class="c1">#      logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&quot;Constructing of V3_FWVB[&#39;TK&#39;] ok so far.&quot;))                                                      </span>
-                <span class="c1"># except Exception as e:</span>
-                <span class="c1">#      logStrTmp=&quot;{:s}Exception: Line: {:d}: {!s:s}: {:s}&quot;.format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))</span>
-                <span class="c1">#      logger.debug(logStrTmp) </span>
-                <span class="c1">#      logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;Constructing col TK in V3_FWVB failed.&#39;))               </span>
-            
+                                                              
             <span class="k">return</span> <span class="n">df_V3_FWVB</span>   
         <span class="k">except</span> <span class="n">dxWithMxError</span><span class="p">:</span>
             <span class="k">raise</span>            
@@ -1178,7 +1101,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_AGSN is a m object Attribute.</span>
 <span class="sd">        </span>
-<span class="sd">        :param dfAGSN: dx.dfAGSN</span>
+<span class="sd">        :param dfAGSN: m.dfAGSN</span>
 <span class="sd">        :type dfAGSN: df</span>
 <span class="sd">        </span>
 <span class="sd">        :return: V3_AGSN: dfAGSN expanded to V3_AGSN</span>
@@ -1186,7 +1109,7 @@
 <span class="sd">        </span>
 <span class="sd">        .. note:: </span>
 <span class="sd">            </span>
-<span class="sd">            AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model).</span>
+<span class="sd">            AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model). A section (a cut) can consist of several layers. In district heating systems for example the SL layer (supply line) and the RL (return line) layer.</span>
 <span class="sd">            The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:</span>
 <span class="sd">        </span>
 <span class="sd">                - Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)</span>
@@ -1194,7 +1117,7 @@
 <span class="sd">                - tk: Section-tk</span>
 <span class="sd">                - LFDNR: Section-LFDNR (numeric)</span>
 <span class="sd">                - NAME: Section-Name</span>
-<span class="sd">                - XL: Section-Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)     </span>
+<span class="sd">                - XL: Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)     </span>
 <span class="sd">                - compNr: Number of the connected Component in (Section,Layer) starting with 1</span>
 <span class="sd">                - nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)</span>
 <span class="sd">                </span>
@@ -1440,7 +1363,7 @@
                     <span class="k">except</span><span class="p">:</span>
                         <span class="k">continue</span>
             
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">dfAGSN.columns.to_list(): zugeh. Ergspalten mlc angelegt: </span><span class="si">{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">colsMlc</span><span class="p">)))</span>  
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">dfAGSN.columns.to_list(): zugeh. Ergspalten mlc _n angelegt: </span><span class="si">{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">colsMlc</span><span class="p">)))</span>  
                         
             <span class="c1"># zugeh. Ergebnisspalten mlc anlegen                </span>
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">colsMlc</span><span class="p">:</span>
@@ -1466,7 +1389,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_AGSNVEC is a m object Attribute.</span>
 <span class="sd">        </span>
-<span class="sd">        :param V3_AGSN: V3_AGSN</span>
+<span class="sd">        :param V3_AGSN: m.V3_AGSN</span>
 <span class="sd">        :type V3_AGSN: df</span>
 <span class="sd">        </span>
 <span class="sd">        :return: V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC</span>
@@ -1475,20 +1398,45 @@
 <span class="sd">        .. note:: </span>
 <span class="sd">            </span>
 <span class="sd">            The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:</span>
+<span class="sd">                </span>
 <span class="sd">                V3_AGSN-columns:</span>
+<span class="sd">                    </span>
 <span class="sd">                    - Pos: Pos=-1: eliminated if Start-Edge is a Pipe                     </span>
 <span class="sd">                    - nextNODE: Pos=0: startNODE @IptIdxAsNo=0 if Start-Edge is a Pipe</span>
 <span class="sd">                    - LSum: Pos=0: 0. @IptIdxAsNo=0 if Start-Edge is a Pipe </span>
 <span class="sd">                    - ...</span>
+<span class="sd">                    </span>
 <span class="sd">                    - cols mapped with VEC-Results:</span>
+<span class="sd">                        </span>
 <span class="sd">                    - LSum</span>
 <span class="sd">                    - ZKOR_n</span>
+<span class="sd">                    </span>
 <span class="sd">                    - PH_n</span>
 <span class="sd">                    - H_n</span>
 <span class="sd">                    - mlc_n</span>
 <span class="sd">                    - T_n</span>
-<span class="sd">                    - QM                 </span>
+<span class="sd">                    - QM         </span>
+<span class="sd">         </span>
+<span class="sd">                    - PH_n_end</span>
+<span class="sd">                    - H_n_end</span>
+<span class="sd">                    - mlc_n_end</span>
+<span class="sd">                    - T_n_end</span>
+<span class="sd">                    - QM_end </span>
+<span class="sd">         </span>
+<span class="sd">                    - PH_n_min</span>
+<span class="sd">                    - H_n_min</span>
+<span class="sd">                    - mlc_n_min</span>
+<span class="sd">                    - T_n_min</span>
+<span class="sd">                    - QM_min (buggy)     </span>
+<span class="sd">                    </span>
+<span class="sd">                    - PH_n_max</span>
+<span class="sd">                    - H_n_max</span>
+<span class="sd">                    - mlc_n_max</span>
+<span class="sd">                    - T_n_max</span>
+<span class="sd">                    - QM_max (buggy)                       </span>
+<span class="sd">                    </span>
 <span class="sd">                V3_ROHRVEC-columns:</span>
+<span class="sd">                    </span>
 <span class="sd">                    - pk_ROHRVEC: Pipe-pk</span>
 <span class="sd">                    - tk_ROHRVEC: Pipe-tk                </span>
 <span class="sd">                    - ...</span>
@@ -1647,25 +1595,72 @@
             <span class="n">dfAGSNVec</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">fLSum</span><span class="p">(</span><span class="n">row</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                             
             <span class="c1"># cols mapped with VEC-Results</span>
-            <span class="n">t0rVec</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1">&#39;</span><span class="p">))</span><span class="c1">#.%f&#39;))</span>
-            <span class="k">for</span> <span class="n">col</span><span class="p">,</span><span class="n">colVECType</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;PH_n&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">,</span><span class="s1">&#39;H_n&#39;</span><span class="p">,</span><span class="s1">&#39;QM&#39;</span><span class="p">],[</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;barBzgPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;QMVEC&#39;</span><span class="p">]):</span>       
-                <span class="k">pass</span>
-                <span class="n">colVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span><span class="n">colVECType</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">)</span>   
-                <span class="c1">#logger.debug(f&quot;{logStr}colVEC: {colVEC}&quot;)        </span>
-                <span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">])</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                
-            <span class="k">for</span> <span class="n">col</span><span class="p">,</span><span class="n">colVECType</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;T_n&#39;</span><span class="p">],[</span><span class="s1">&#39;TVEC&#39;</span><span class="p">]):</span>       
-                <span class="k">pass</span>
-                <span class="n">colVEC</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span><span class="s1">&#39;ROHR~*~*~*~&#39;</span><span class="o">+</span><span class="n">colVECType</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">)</span>   
-                <span class="c1">#logger.debug(f&quot;{logStr}colVEC: {colVEC}&quot;)                </span>
-                <span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">])</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>      
-                
-            <span class="k">for</span> <span class="n">col</span><span class="p">,</span><span class="n">colVEC</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;ZKOR_n&#39;</span><span class="p">],[</span><span class="s1">&#39;ZVEC&#39;</span><span class="p">]):</span>       
-                <span class="k">pass</span>
+                        
+            <span class="c1"># Z</span>
+            <span class="k">for</span> <span class="n">col</span><span class="p">,</span><span class="n">colVEC</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;ZKOR_n&#39;</span><span class="p">],[</span><span class="s1">&#39;ZVEC&#39;</span><span class="p">]):</span>                   
                 <span class="n">colVEC</span><span class="o">=</span><span class="n">colVEC</span> 
                 <span class="c1">#logger.debug(f&quot;{logStr}colVEC: {colVEC}&quot;)                </span>
-                <span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">])</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                     
-                                                                                                                                    
+                <span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">])</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                  
+            
+            <span class="c1"># STAT </span>
+            <span class="n">t0rVec</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1">&#39;</span><span class="p">))</span><span class="c1">#.%f&#39;))</span>
+            
+            <span class="c1"># VEC source cols &quot;pressure&quot;: calced by PT3S </span>
+            <span class="k">for</span> <span class="n">col</span><span class="p">,</span><span class="n">colVECType</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;PH_n&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">,</span><span class="s1">&#39;H_n&#39;</span><span class="p">],[</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;barBzgPVEC&#39;</span><span class="p">]):</span>        
+                <span class="bp">self</span><span class="o">.</span><span class="n">_V3_AGSNVEC_mapExistingColWithVecResults</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span><span class="n">colVECType</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">)</span>   
+                
+            <span class="c1"># VEC source cols: native </span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_V3_AGSNVEC_mapExistingColWithVecResults</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="p">,</span><span class="s1">&#39;T_n&#39;</span><span class="p">,</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span><span class="s1">&#39;ROHR~*~*~*~TVEC&#39;</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">)</span>   
+                              
+            <span class="c1"># Kanaltyp der zu den IDQM passt</span>
+            <span class="n">flowMVEC</span><span class="o">=</span><span class="s1">&#39;QMVEC&#39;</span>
+            <span class="n">dfALLG</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;ALLG&#39;</span><span class="p">]</span>
+            <span class="n">dfALLG</span><span class="o">=</span><span class="n">dfALLG</span><span class="p">[</span><span class="o">~</span><span class="n">dfALLG</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;-1&#39;</span><span class="p">])]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">vm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;VIEW_MODELLE&#39;</span><span class="p">]</span>            
+                <span class="n">vms</span><span class="o">=</span><span class="n">vm</span><span class="p">[</span><span class="n">vm</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="o">.</span><span class="n">QGISmodelXk</span><span class="p">])]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                  
+                <span class="n">IDQM</span><span class="o">=</span><span class="n">dfALLG</span><span class="p">[</span><span class="n">dfALLG</span><span class="p">[</span><span class="s1">&#39;fkDE&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">vms</span><span class="o">.</span><span class="n">fkBASIS</span><span class="p">][</span><span class="s1">&#39;IDQM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   
+                <span class="k">match</span> <span class="n">IDQM</span><span class="p">:</span>
+                    <span class="k">case</span> <span class="mf">2.</span><span class="p">:</span> <span class="c1"># m3/h</span>
+                        <span class="k">pass</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">IDQM=</span><span class="si">{</span><span class="n">IDQM</span><span class="si">}</span><span class="s2"> (m3/h). </span><span class="si">{</span><span class="n">flowMVEC</span><span class="si">}</span><span class="s2"> wird verwendet fuer das Mapping in VBEL-QM.&quot;</span><span class="p">)</span>
+                    <span class="k">case</span> <span class="mf">5.</span><span class="p">:</span> <span class="c1"># t/h</span>
+                        <span class="n">flowMVEC</span><span class="o">=</span><span class="s1">&#39;tMVEC&#39;</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">IDQM=</span><span class="si">{</span><span class="n">IDQM</span><span class="si">}</span><span class="s2"> (t/h). </span><span class="si">{</span><span class="n">flowMVEC</span><span class="si">}</span><span class="s2"> wird verwendet fuer das Mapping in VBEL-QM.&quot;</span><span class="p">)</span>
+                    <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">IDQM=</span><span class="si">{</span><span class="n">IDQM</span><span class="si">}</span><span class="s2"> ist unbehandelt. </span><span class="si">{</span><span class="n">flowMVEC</span><span class="si">}</span><span class="s2"> wird verwendet fuer das Mapping in VBEL-QM.&quot;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>                
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">IDQM konnte nicht ermittelt werden. </span><span class="si">{</span><span class="n">flowMVEC</span><span class="si">}</span><span class="s2"> wird verwendet fuer das Mapping in VBEL-QM.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flowMVEC</span><span class="o">=</span><span class="n">flowMVEC</span>
+                
+            <span class="c1"># VEC source cols &quot;flow&quot;: calced by PT3S </span>
+            <span class="k">for</span> <span class="n">col</span><span class="p">,</span><span class="n">colVECType</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;QM&#39;</span>
+                                       <span class="c1">#,&#39;MM&#39;</span>
+                                       <span class="p">]</span>
+                                      <span class="p">,[</span><span class="bp">self</span><span class="o">.</span><span class="n">flowMVEC</span>
+                                        <span class="c1">#,&#39;tMVEC&#39;</span>
+                                        <span class="p">]):</span>                          
+                 <span class="bp">self</span><span class="o">.</span><span class="n">_V3_AGSNVEC_mapExistingColWithVecResults</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span><span class="n">colVECType</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">,</span><span class="n">t0rVec</span><span class="p">)</span>   
+               
+
+            <span class="n">dfAGSNVec</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+            
+            <span class="c1"># min, max, end </span>
+            
+            <span class="c1"># pd.Timestamp(self.mx.df.index[0].strftime(&#39;%Y-%m-%d %X&#39;))#.%f&#39;))</span>
+            <span class="n">tA</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1">&#39;</span><span class="p">))</span> <span class="c1"># .%f&#39;)</span>
+            <span class="n">tE</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1">&#39;</span><span class="p">))</span> <span class="c1"># .%f&#39;)</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">_V3_AGSNVEC_addNewCols</span><span class="p">(</span><span class="n">dfAGSNVec</span><span class="p">,</span>
+            <span class="n">colNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;T_n&#39;</span><span class="p">,</span><span class="s1">&#39;PH_n&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">,</span><span class="s1">&#39;H_n&#39;</span><span class="p">,</span><span class="s1">&#39;QM&#39;</span><span class="p">],</span>
+            <span class="n">colNamesPrefixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;KNOT~*~*~*~&#39;</span><span class="p">,</span><span class="s1">&#39;KNOT~*~*~*~&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
+            <span class="n">vecNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ROHR~*~*~*~TVEC&#39;</span><span class="p">,</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;barBzgPVEC&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">flowMVEC</span><span class="p">],</span>
+            <span class="c1"># pro Kanaltyp...</span>
+            <span class="n">typeNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TMIN&#39;</span><span class="p">,</span><span class="s1">&#39;TMAX&#39;</span><span class="p">,</span><span class="s1">&#39;TIME&#39;</span><span class="p">],</span>
+            <span class="n">colsNamesPostfixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_min&#39;</span><span class="p">,</span><span class="s1">&#39;_max&#39;</span><span class="p">,</span><span class="s1">&#39;_end&#39;</span><span class="p">],</span>
+            <span class="n">timeTuples</span><span class="o">=</span><span class="p">[(</span><span class="n">tA</span><span class="p">,</span><span class="n">tE</span><span class="p">),(</span><span class="n">tA</span><span class="p">,</span><span class="n">tE</span><span class="p">),(</span><span class="n">tE</span><span class="p">,</span><span class="n">tE</span><span class="p">)]</span> 
+                               <span class="p">)</span>            
+        
             <span class="k">return</span> <span class="n">dfAGSNVec</span>
         <span class="k">except</span> <span class="n">dxWithMxError</span><span class="p">:</span>
             <span class="k">raise</span>            
@@ -1676,54 +1671,107 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
-    <span class="c1"># def setLayerContentTo(self,layerName,df):          </span>
-    <span class="c1">#     &quot;&quot;&quot;</span>
-    <span class="c1">#     Updates content of layerName to df&#39;s-content.</span>
-        
-    <span class="c1">#     :param layerName: name of an existing layer</span>
-    <span class="c1">#     :type layerName: str</span>
-        
-    <span class="c1">#     :return: None</span>
-    
-    <span class="c1">#     .. note:: </span>
-    <span class="c1">#         df&#39;s cols used:            </span>
-    <span class="c1">#             - TYPE </span>
-    <span class="c1">#             - ID                 </span>
-    <span class="c1">#     &quot;&quot;&quot;           </span>
+    <span class="k">def</span> <span class="nf">_V3_AGSNVEC_mapExistingColWithVecResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSNVec</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">sir3sType</span><span class="p">,</span><span class="n">sir3sChannel</span><span class="p">,</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> </span>
+<span class="sd">        &quot;&quot;&quot;</span>   
                 
-    <span class="c1">#     logStr = &quot;{0:s}.{1:s}: &quot;.format(self.__class__.__name__, sys._getframe().f_code.co_name)</span>
-    <span class="c1">#     logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;Start.&#39;)) </span>
+        <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Start.&quot;</span><span class="p">)</span> 
         
-    <span class="c1">#     try: </span>
-                  
-    <span class="c1">#         xk=self.dfLAYR[self.dfLAYR[&#39;NAME&#39;].isin([layerName])][&#39;tk&#39;].iloc[0]</span>
+        <span class="k">try</span><span class="p">:</span>             
+           <span class="n">colVEC</span><span class="o">=</span><span class="p">(</span><span class="n">sir3sType</span><span class="p">,</span><span class="n">sir3sChannel</span><span class="p">,</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">)</span>      
+           <span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">])</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="n">colVEC</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                      
+        <span class="k">except</span> <span class="n">dxWithMxError</span><span class="p">:</span>
+            <span class="k">raise</span>            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logStrFinal</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span> 
+            <span class="k">raise</span> <span class="n">dxWithMxError</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span>                       
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span>   
             
-    <span class="c1">#         dfUpd=df.copy(deep=True)</span>
-            
-    <span class="c1">#         dfUpd[&#39;table&#39;]=&#39;LAYR&#39;</span>
-    <span class="c1">#         dfUpd[&#39;attrib&#39;]=&#39;OBJS&#39;</span>
-    <span class="c1">#         dfUpd[&#39;attribValue&#39;]=dfUpd.apply(lambda row: &quot;{:s}~{:s}\t&quot;.format(row[&#39;TYPE&#39;],row[&#39;ID&#39;]).encode(&#39;utf-8&#39;),axis=1)</span>
-    <span class="c1">#         dfUpd[&#39;xk&#39;]=&#39;tk&#39;</span>
-    <span class="c1">#         dfUpd[&#39;xkValue&#39;]=xk    </span>
-            
-    <span class="c1">#         dfUpd2=dfUpd.groupby(by=[&#39;xkValue&#39;]).agg({&#39;xkValue&#39;: &#39;first&#39;</span>
-    <span class="c1">#                                             ,&#39;table&#39;: &#39;first&#39;</span>
-    <span class="c1">#                                             ,&#39;attrib&#39;: &#39;first&#39;</span>
-    <span class="c1">#                                             ,&#39;xk&#39;: &#39;first&#39;</span>
-    <span class="c1">#                                             , &#39;attribValue&#39;: &#39;sum&#39;}).reset_index(drop=True)</span>
-    <span class="c1">#         dfUpd2[&#39;attribValue&#39;]=dfUpd2[&#39;attribValue&#39;].apply(lambda x: x.rstrip())</span>
-              
-    <span class="c1">#         self.dx.update(dfUpd2)               </span>
+
+    <span class="k">def</span> <span class="nf">_V3_AGSNVEC_addNewCols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSNVec</span><span class="p">,</span>
+            <span class="n">colNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;T_n&#39;</span><span class="p">,</span><span class="s1">&#39;PH_n&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">,</span><span class="s1">&#39;H_n&#39;</span><span class="p">,</span><span class="s1">&#39;QM&#39;</span><span class="p">],</span>
+            <span class="n">colNamesPrefixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;KNOT~*~*~*~&#39;</span><span class="p">,</span><span class="s1">&#39;KNOT~*~*~*~&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
+            <span class="n">vecNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ROHR~*~*~*~TVEC&#39;</span><span class="p">,</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;barBzgPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;QMVEC&#39;</span><span class="p">],</span>
+            <span class="c1"># pro Kanaltyp...</span>
+            <span class="n">typeNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TMIN&#39;</span><span class="p">,</span><span class="s1">&#39;TMAX&#39;</span><span class="p">,</span><span class="s1">&#39;TIME&#39;</span><span class="p">],</span>
+            <span class="n">colsNamesPostfixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_min&#39;</span><span class="p">,</span><span class="s1">&#39;_max&#39;</span><span class="p">,</span><span class="s1">&#39;_end&#39;</span><span class="p">],</span>
+            <span class="n">timeTuples</span><span class="o">=</span><span class="p">[(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">))]</span> 
+                               <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> </span>
+<span class="sd">        &quot;&quot;&quot;</span>   
+                
+        <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Start.&quot;</span><span class="p">)</span> 
         
-    <span class="c1">#     except dxWithMxError:</span>
-    <span class="c1">#         raise            </span>
-    <span class="c1">#     except Exception as e:</span>
-    <span class="c1">#         logStrFinal=&quot;{:s}Exception: Line: {:d}: {!s:s}: {:s}&quot;.format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))</span>
-    <span class="c1">#         logger.error(logStrFinal) </span>
-    <span class="c1">#         raise dxWithMxError(logStrFinal)                       </span>
-    <span class="c1">#     finally:</span>
-    <span class="c1">#         logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;_Done.&#39;))      </span>
+        <span class="k">try</span><span class="p">:</span>          
             
+            <span class="n">dfs</span><span class="o">=</span><span class="p">{}</span>
+            <span class="n">dfsCols</span><span class="o">=</span><span class="p">{}</span>
+            
+            <span class="n">mIdx</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">fGetMultiindexTupleFromV3Col</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()]</span>
+                        <span class="p">,</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AColName&#39;</span><span class="p">,</span><span class="s1">&#39;ResultChannels&#39;</span><span class="p">,</span><span class="s1">&#39;Time1&#39;</span><span class="p">,</span><span class="s1">&#39;Time2&#39;</span><span class="p">])</span>   
+            
+            <span class="n">columnsOld</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span>
+            <span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="n">mIdx</span>
+            
+            <span class="k">for</span> <span class="n">colName</span><span class="p">,</span><span class="n">colNamePrefix</span><span class="p">,</span><span class="n">vecName</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colNames</span><span class="p">,</span><span class="n">colNamesPrefixes</span><span class="p">,</span><span class="n">vecNames</span><span class="p">):</span>
+                <span class="c1">#print(f&quot;{colNamePrefix} {colName}&quot;)</span>
+                <span class="k">for</span> <span class="n">typeName</span><span class="p">,</span><span class="n">colNamePostfix</span><span class="p">,</span><span class="n">timeTuple</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">typeNames</span><span class="p">,</span><span class="n">colsNamesPostfixes</span><span class="p">,</span><span class="n">timeTuples</span><span class="p">):</span>
+                    <span class="n">colNameNewFlat</span><span class="o">=</span><span class="n">colName</span><span class="o">+</span><span class="n">colNamePostfix</span>
+                    <span class="c1">#print(f&quot;    {typeName} {colNamePostfix} {colNameNewFlat}&quot;)</span>
+                    
+                    <span class="n">col</span><span class="o">=</span><span class="p">(</span><span class="n">typeName</span>
+                            <span class="p">,[</span><span class="n">colNamePrefix</span><span class="o">+</span><span class="n">colName</span><span class="p">,</span><span class="n">vecName</span><span class="p">]</span> 
+                            <span class="p">,</span><span class="n">timeTuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="p">,</span><span class="n">timeTuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                           <span class="p">)</span>
+                    
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">df</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">col</span><span class="p">]</span>
+                        
+                        <span class="n">dfs</span><span class="p">[</span><span class="n">colNameNewFlat</span><span class="p">]</span><span class="o">=</span><span class="n">df</span>
+                        <span class="n">dfsCols</span><span class="p">[</span><span class="n">colNameNewFlat</span><span class="p">]</span><span class="o">=</span><span class="p">((</span><span class="n">typeName</span>
+                                <span class="p">,</span><span class="n">colNamePrefix</span><span class="o">+</span><span class="n">colName</span> 
+                                <span class="p">,</span><span class="n">timeTuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                                <span class="p">,</span><span class="n">timeTuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                               <span class="p">),(</span><span class="n">typeName</span>
+                                <span class="p">,</span><span class="n">vecName</span> 
+                                <span class="p">,</span><span class="n">timeTuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                                <span class="p">,</span><span class="n">timeTuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                               <span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="n">logStrFinal</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span>                      
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2"> dfAGSNVec.loc[:,col] with col=</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> failed. </span><span class="si">{</span><span class="n">colNameNewFlat</span><span class="si">}</span><span class="s2"> not added.&quot;</span><span class="p">)</span> 
+                                        
+            <span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="n">columnsOld</span>
+            
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">df</span> <span class="ow">in</span> <span class="n">dfs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cols</span><span class="o">=</span><span class="n">dfsCols</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="n">dfAGSNVec</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">logStrFinal</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span> 
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2"> dfAGSNVec[key]=df.apply ... with col=</span><span class="si">{</span><span class="n">cols</span><span class="si">}</span><span class="s2"> failed. </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> not added.&quot;</span><span class="p">)</span> 
+                    <span class="k">pass</span>
+                <span class="c1">#print(key)</span>
+                
+        <span class="k">except</span> <span class="n">dxWithMxError</span><span class="p">:</span>
+            <span class="k">raise</span>            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logStrFinal</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span> 
+            <span class="k">raise</span> <span class="n">dxWithMxError</span><span class="p">(</span><span class="n">logStrFinal</span><span class="p">)</span>                       
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span>   
+
             
     <span class="k">def</span> <span class="nf">switchV3DfColsToMultiindex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1783,7 +1831,7 @@
                 <span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Reads SIR 3S model and SIR 3S results and returns a dxWithMx object.</span>
+<span class="sd">    Reads SIR 3S model and SIR 3S results and returns a dxWithMx object - also called m object.</span>
 <span class="sd">    </span>
 <span class="sd">    Use maxRecords=0  to read only the model.</span>
 <span class="sd">    Use maxRecords=1  to read only STAT (the steady state result).</span>
@@ -1799,14 +1847,14 @@
 <span class="sd">    :type maxRecords: int, optional, default=None</span>
 <span class="sd">    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S&#39; Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``[&#39;ROHR~\*~\*~\*~PHR&#39;, &#39;ROHR~\*~\*~\*~FS&#39;, &#39;ROHR~\*~\*~\*~DSI&#39;, &#39;ROHR~\*~\*~\*~DSK&#39;]``</span>
 <span class="sd">    :type mxsVecsResults2MxDf: list, optional, default=None</span>
-<span class="sd">    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S&#39; Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]</span>
+<span class="sd">    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S&#39; Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666,-1] (-1: last timestep)</span>
 <span class="sd">    :type mxsVecsResults2MxDfVecAggs: list, optional, default=None</span>
 <span class="sd">    :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:&#39;EPSG:25832&#39;). If None, crs will be read from SIR 3S&#39; database file.</span>
 <span class="sd">    :type crs: str, optional, default=None</span>
 <span class="sd">    :param logPathOutputFct: func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</span>
 <span class="sd">    :type logPathOutputFct: func, optional, default=os.path.relpath</span>
 
-<span class="sd">    :return: An object containing the SIR 3S model and SIR 3S results.</span>
+<span class="sd">    :return: An object containing the SIR 3S model and SIR 3S results - also called m object.</span>
 <span class="sd">    :rtype: dxWithMx</span>
 
 <span class="sd">    .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.</span>
@@ -2145,89 +2193,7 @@
                 
             <span class="c1"># </span>
             <span class="n">processMxVectorResults</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mxsVecsResults2MxDf</span><span class="p">,</span><span class="n">mxsVecsResults2MxDfVecAggs</span><span class="p">)</span>
-            
-            <span class="c1"># ### Vector-Results 2 MxDf</span>
-            <span class="c1"># if mxsVecsResults2MxDf != None:</span>
-            <span class="c1">#     try:                </span>
-            <span class="c1">#         df=mx.readMxsVecsResultsForObjectType(Sir3sVecIDReExp=mxsVecsResults2MxDf,flatIndex=False)                    </span>
-            <span class="c1">#         logger.debug(&quot;{logStr:s} df from readMxsVecsResultsForObjectType: {dfStr:s}&quot;.format(</span>
-            <span class="c1">#             logStr=logStr,dfStr=df.head(5).to_string()))</span>
                     
-            <span class="c1">#         # Kanalweise bearbeiten</span>
-            <span class="c1">#         vecChannels=sorted(list(set(df.index.get_level_values(1))))</span>
-                    
-            <span class="c1">#         V3_VBEL=dx.dataFrames[&#39;V3_VBEL&#39;]</span>
-                    
-                    
-            <span class="c1">#         mxVecChannelDfs={}</span>
-            <span class="c1">#         for vecChannel in vecChannels:</span>
-                        
-            <span class="c1">#             #print(vecChannel)</span>
-                        
-            <span class="c1">#             dfVecChannel=df.loc[(slice(None),vecChannel,slice(None),slice(None)),:]</span>
-            <span class="c1">#             dfVecChannel.index=dfVecChannel.index.get_level_values(2).rename(&#39;TIME&#39;)</span>
-            <span class="c1">#             dfVecChannel=dfVecChannel.dropna(axis=1,how=&#39;all&#39;)</span>
-                        
-            <span class="c1">#             mObj=re.search(Mx.regExpSir3sVecIDObjAtr,vecChannel)                    </span>
-            <span class="c1">#             OBJTYPE,ATTRTYPE=mObj.groups()</span>
-                               
-            <span class="c1">#             # Zeiten aendern wg. spaeterem concat mit mx.df</span>
-            <span class="c1">#             dfVecChannel.index=[pd.Timestamp(t,tz=&#39;UTC&#39;) for t in dfVecChannel.index]</span>
-                        
-            <span class="c1">#             if OBJTYPE == &#39;KNOT&#39;:</span>
-            <span class="c1">#                 dfOBJT=dx.dataFrames[&#39;V_BVZ_KNOT&#39;][[&#39;tk&#39;,&#39;NAME&#39;]]</span>
-            <span class="c1">#                 dfOBJT.index=dfOBJT[&#39;tk&#39;]</span>
-            <span class="c1">#                 colRenDctToNamesMxDf={col:&quot;{:s}~{!s:s}~*~{:s}~{:s}&quot;.format(OBJTYPE,dfOBJT.loc[col,&#39;NAME&#39;],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}</span>
-            <span class="c1">#             else:    </span>
-            <span class="c1">#                 dfOBJT=V3_VBEL[[&#39;pk&#39;,&#39;NAME_i&#39;,&#39;NAME_k&#39;]].loc[(OBJTYPE,slice(None)),:]</span>
-            <span class="c1">#                 dfOBJT.index=dfOBJT.index.get_level_values(1) # die OBJID; xk</span>
-            <span class="c1">#                 colRenDctToNamesMxDf={col:&quot;{:s}~{!s:s}~{!s:s}~{:s}~{:s}&quot;.format(OBJTYPE,dfOBJT.loc[col,&#39;NAME_i&#39;],dfOBJT.loc[col,&#39;NAME_k&#39;],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}</span>
-                                  
-            <span class="c1">#             dfVecChannel=dfVecChannel.rename(columns=colRenDctToNamesMxDf)</span>
-                        
-            <span class="c1">#             mxVecChannelDfs[vecChannel]=dfVecChannel         </span>
-                                            
-            <span class="c1">#         l=mx.df.columns.to_list()</span>
-            <span class="c1">#         logger.debug(&quot;{:s} Anzahl der Spalten vor Ergaenzung der Vektorspalten: {:d}&quot;.format(logStr,len(l)))</span>
-                        
-            <span class="c1">#         mx.df=pd.concat([mx.df]</span>
-            <span class="c1">#         +list(mxVecChannelDfs.values())               </span>
-            <span class="c1">#         ,axis=1)</span>
-                    
-            <span class="c1">#         l=mx.df.columns.to_list()</span>
-            <span class="c1">#         logger.debug(&quot;{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten: {:d}&quot;.format(logStr,len(l)))                </span>
-                    
-            <span class="c1">#         # Test auf mehrfach vorkommende Spaltennamen                </span>
-            <span class="c1">#         l=mx.df.loc[:,mx.df.columns.duplicated()].columns.to_list()</span>
-            <span class="c1">#         if len(l)&gt;0:</span>
-            <span class="c1">#             logger.debug(&quot;{:s} Anzahl der Spaltennamen die mehrfach vorkommen: {:d}; eliminieren der mehrfach vorkommenden ... &quot;.format(logStr,len(l)))</span>
-            <span class="c1">#             mx.df = mx.df.loc[:,~mx.df.columns.duplicated()]</span>
-                           
-            <span class="c1">#         l=mx.df.columns.to_list()    </span>
-            <span class="c1">#         logger.debug(&quot;{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten und nach eliminieren der mehrfach vorkommenden: {:d}&quot;.format(logStr,len(l)))</span>
-                        
-                        
-            <span class="c1">#     except Mx.MxError:</span>
-            <span class="c1">#         logStrFinal=&quot;{logStr:s}mxsVecsResults2MxDf failed&quot;.format(logStr=logStr)     </span>
-            <span class="c1">#         raise readDxAndMxError(logStrFinal)             </span>
-        
-            <span class="c1"># ### Vector-Results 2 MxDfVecAggs</span>
-            <span class="c1"># if mxsVecsResults2MxDfVecAggs != None:</span>
-            <span class="c1">#     try:         </span>
-            <span class="c1">#         for idxTime in mxsVecsResults2MxDfVecAggs:</span>
-            <span class="c1">#             try:</span>
-            <span class="c1">#                 aTime=mx.df.index[idxTime]</span>
-            <span class="c1">#             except:</span>
-            <span class="c1">#                 logger.info(f&quot;{logStr}: Requested Timestep {idxTime} not in MX-Results.&quot;)  </span>
-            <span class="c1">#                 continue</span>
-                        
-            <span class="c1">#             df,tL,tR=mx.getVecAggs(time1st=aTime,aTIME=True)</span>
-                                            
-            <span class="c1">#     except Mx.MxError:</span>
-            <span class="c1">#         logStrFinal=&quot;{logStr:s}mxsVecsResults2MxDf failed&quot;.format(logStr=logStr)     </span>
-            <span class="c1">#         raise readDxAndMxError(logStrFinal)             </span>
-
-        
             <span class="k">if</span> <span class="ow">not</span> <span class="n">preventPklDump</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">dbFileMxPkl</span><span class="p">):</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{logStr:s}{dbFileMxPkl:s}</span><span class="s2"> exists and is overwritten...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -2356,7 +2322,7 @@
 <span class="sd">    :type dx: Dx.Dx    </span>
 <span class="sd">    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S&#39; Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``[&#39;ROHR~\*~\*~\*~PHR&#39;, &#39;ROHR~\*~\*~\*~FS&#39;, &#39;ROHR~\*~\*~\*~DSI&#39;, &#39;ROHR~\*~\*~\*~DSK&#39;]``</span>
 <span class="sd">    :type mxsVecsResults2MxDf: list, optional, default=None</span>
-<span class="sd">    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S&#39; Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666]</span>
+<span class="sd">    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S&#39; Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666,-1] (-1: last timestep)</span>
 <span class="sd">    :type mxsVecsResults2MxDfVecAggs: list, optional, default=None                    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -2597,6 +2563,9 @@
     <span class="k">return</span> <span class="n">colTuple</span>
 
 <span class="k">def</span> <span class="nf">fGetMultiindexTupleFromV3Col</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Splittet einen String-Spaltennamen in seine Bestandteile. Liefert ein Tuple aus 4 Bestandteilen.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="nb">tuple</span><span class="p">):</span>        
         <span class="k">return</span> <span class="n">col</span>
@@ -2617,8 +2586,32 @@
         <span class="k">if</span> <span class="n">mObj</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>                
             <span class="k">return</span> <span class="n">fStripV3Colik2Tuple</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="n">mObj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Postfix&#39;</span><span class="p">))</span> 
             
-        <span class="c1"># keine ergaenzte Knotenwerte    </span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>   
+        <span class="c1"># keine ergaenzten Knotenwerte    </span>
+        
+        <span class="c1"># zwischen Sach- und Ergebnisspalten unterscheiden</span>
+        
+        <span class="n">mObj</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(?P&lt;Praefix&gt;[a-zA-Z0-9-]+)_(?P&lt;Postfix&gt;[ikn]</span><span class="si">{1}</span><span class="s1">)$&#39;</span><span class="p">,</span><span class="n">col</span><span class="p">)</span> 
+        
+        <span class="k">if</span> <span class="n">mObj</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>     
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;KVR_n&#39;</span><span class="p">,</span><span class="s1">&#39;ZKOR_n&#39;</span><span class="p">,</span><span class="s1">&#39;BESCHREIBUNG_n&#39;</span><span class="p">,</span><span class="s1">&#39;NAME_i&#39;</span><span class="p">,</span><span class="s1">&#39;NAME_k&#39;</span><span class="p">,</span><span class="s1">&#39;tk_i&#39;</span><span class="p">,</span><span class="s1">&#39;tk_k&#39;</span><span class="p">]:</span> 
+                <span class="c1"># Sachspalte</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>  
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="c1"># andere auf _ikn endende Spalten</span>
+                <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span> 
+            
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;QM&#39;</span>
+                       <span class="p">,</span><span class="s1">&#39;QM_min&#39;</span><span class="p">,</span><span class="s1">&#39;QM_max&#39;</span><span class="p">,</span><span class="s1">&#39;QM_end&#39;</span>
+                       <span class="p">,</span><span class="s1">&#39;PH_n_min&#39;</span><span class="p">,</span><span class="s1">&#39;PH_n_max&#39;</span><span class="p">,</span><span class="s1">&#39;PH_n_end&#39;</span>	
+                       <span class="p">,</span><span class="s1">&#39;mlc_n_min&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n_max&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n_end&#39;</span>
+                       <span class="p">,</span><span class="s1">&#39;H_n_min&#39;</span><span class="p">,</span><span class="s1">&#39;H_n_max&#39;</span><span class="p">,</span><span class="s1">&#39;H_n_end&#39;</span>
+                       <span class="p">]:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Sachspalte</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span> 
+                
 </pre></div>
 
            </div>

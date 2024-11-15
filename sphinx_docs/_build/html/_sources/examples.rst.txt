@@ -26,9 +26,9 @@ This example demonstrates how GeoDataFrames (gdfs) created by PT3S can be used w
 
 You can view the Notebook `here <Example1.html>`_.
 
-(Work In Progress) You can open the Notebook in Google Colab `here <https://colab.research.google.com/github/aw3s/PT3S/blob/master/sphinx_docs/Example1.ipynb>`_. 
-
 You can download the Notebook file :download:`here <Example1.ipynb>`.
+
+..(Work In Progress) You can open the Notebook in Google Colab `here <https://colab.research.google.com/github/aw3s/PT3S/blob/master/sphinx_docs/Example1.ipynb>`_. 
 
 .. _ex2:
 
