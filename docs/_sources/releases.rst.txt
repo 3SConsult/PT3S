@@ -3,6 +3,42 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.40.0.dev1
+---------------
+
+Reupload of 90.14.39.0.dev1 due to higher required setuptools version(compatibility with PEP 625)
+
+90.14.39.0.dev1
+---------------
+
+**Changend:**
+
+- Packages necessary for Examples but not for PT3S itself are from now on not included in PT3S releases but instead installed in each Example. In setup.py these packages are commented away. Same applies for packages necessary for documentaion generation. Their installion is described at For Developers.
+
+- Example1
+    - 'selenium',
+    - 'Pillow',
+- Example2
+    - 'ipywidgets', 
+    - 'bokeh',
+    - 'ipython',
+- Example3    
+- Example4
+    - 'cykhash',
+    - 'pyrobuf',
+    - 'pyrosm',
+    - 'osmnx',
+    - 'msvc-runtime',
+- Example5
+    - 'ipython',
+    - Example6
+    - 'ipython',
+    - 'yfiles_jupyter_graphs',
+- Documentation Generation
+    - 'nbsphinx',
+    - 'sphinx_copybutton',
+    - 'sphinx-rtd-theme'
+
 90.14.38.0.dev1
 ---------------
 

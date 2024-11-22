@@ -3,7 +3,7 @@ Examples
 
 Welcome to the Examples Page! Here, you will find a variety of examples that demonstrate the capabilities and usage of PT3S. Each example is available for both **viewing** and **downloading** as an `.ipynb` file. 
 
-In the Example-Notebooks the corresponding SIR 3S Example-Models are (re-)calculated using your local SirCalc.
+In the Example-Notebooks the corresponding SIR 3S Example-Models are (re-)calculated using your local SirCalc and additonal necessary python packages are installed on your device using pip.
 
 .. _ex0:
 
