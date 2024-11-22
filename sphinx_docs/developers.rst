@@ -333,7 +333,11 @@ Generating the Documentation
 
 The PT3S documentation is edited in PT3S/sphinx_docs and files hosting the documentation are located in PT3S/docs.
 
-If you want to edit the documentation yourself, you have to install sphinx as a python package first.
+If you want to edit the documentation yourself, you have to install sphinx related python packages.
+
+   .. code-block:: bash
+
+      pip install nbsphinx sphinx_copybutton sphinx-rtd-theme
 
 Before generating the documentation for the first time, follow the steps of :ref:`install-editmode-label`.
 
