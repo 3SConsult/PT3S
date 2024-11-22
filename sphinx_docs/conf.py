@@ -42,7 +42,7 @@ html_logo = 'pt3s_logo.png'  # oder 'logo.svg', je nachdem, welche Datei Sie ver
 html_favicon = '_static/favicon.ico'
 html_theme_options = {
     'logo_only': True,  # Nur das Logo wird oben in der Seitenleiste angezeigt
-    'display_version': False,  # Die Versionsnummer wird nicht oben in der Seitenleiste angezeigt
+    'style_external_links': False,
 }
 # This function will be called before Sphinx starts to build documents.
 def setup(app):
