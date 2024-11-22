@@ -237,7 +237,6 @@
     }
    ],
    "source": [
-    "#NBVAL_IGNORE_OUTPUT\n",
     "m=dxAndMxHelperFcts.readDxAndMx(dbFile=dbFile                                 \n",
     "                                ,preventPklDump=True\n",
     "                                ,maxRecords=-1\n",
@@ -625,8 +624,7 @@
     "    image = Image(filename=os.path.dirname(os.path.abspath(dxAndMxHelperFcts.__file__))+r\"\\Examples\\Images\\1_example2_interactive_widget_plot.png\")\n",
     "    display(image)\n",
     "except:\n",
-    "    print('png not displayed')\n",
-    "#NBVAL_IGNORE_OUTPUT"
+    "    print('png not displayed')"
    ]
   },
   {
