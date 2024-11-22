@@ -65,39 +65,48 @@ setup(
     ###install_requiressssssssssssssssssssss=['peppercorn'],
     
     install_requires=[
-        'tables',
-        'pandas',
-        'numpy',
-        'h5py',
-        'pyodbc',
-       # 'sqlite3',
-        'geopandas',
-        'networkx',
-        'shapely',
-        'contextily',
-        'py7zr',
-        'folium',
-        'mapclassify',  
-        'sqlalchemy',
-        'ipython',
-        'bokeh',
-        'matplotlib',
-        'ipywidgets',
-        'Pillow',
-        'selenium',
-        'yfiles_jupyter_graphs',
-        # doc
-        'nbsphinx',
-        'sphinx_copybutton',
-        'sphinx-rtd-theme',
-        # Example 4
-        #'cykhash',
-        #'pyrobuf',
-        #'pyrosm',
-        'osmnx',
-        'msvc-runtime'
-        
-    ],    
+    #Included before 90.14.6.0.dev1
+    'tables',
+    'pandas',
+    'numpy',
+    'h5py',
+    'pyodbc',
+    # 'sqlite3',
+    'geopandas',
+    'networkx',
+    'shapely',
+    'contextily',
+    'py7zr',
+    'folium',
+    'mapclassify',
+    #Included after 90.14.6.0.dev1
+    'sqlalchemy',
+    'matplotlib',   
+    #Example1
+    # 'selenium',
+    # 'Pillow',
+    #Example2
+    # 'ipywidgets', 
+    # 'bokeh',
+    # 'ipython',
+    #Example3    
+    #Example4
+    # 'cykhash',
+    # 'pyrobuf',
+    # 'pyrosm',
+    # 'osmnx',
+    # 'msvc-runtime',
+    #Example5
+    # 'ipython',
+    #Example6
+    # 'ipython',
+    # 'yfiles_jupyter_graphs',
+    #Documentation Generation
+    # 'nbsphinx',
+    # 'sphinx_copybutton',
+    # 'sphinx-rtd-theme'
+    ],
+    
     
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
