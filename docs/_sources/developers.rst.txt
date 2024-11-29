@@ -413,8 +413,8 @@ This list provides information about the versions of various tools used througho
      - **Version**
    * - Python
      - 3.11.8
-   * - Anaconda
-     - 24.7.1 (Not unified yet)
+   * - Anaconda (Not used in Docker)
+     - 24.11.0 
    * - Sphinx-build
      - 5.0.2
 

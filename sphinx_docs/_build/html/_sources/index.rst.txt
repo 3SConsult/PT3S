@@ -26,3 +26,7 @@ Contents:
    releases
    developers
 * :ref:`genindex`
+
+.. meta::
+   :description: PT3S is a Python package developed by 3S Consult to serve as an interface between SIR 3S and Python. It enables the use of the SIR 3S model and calculated results in Python, facilitating pre- and post-processing steps for SIR 3S projects.
+   :keywords: PT3S, Sir3S, SirGraf, SirCalc, 3S Consult, 3sconsult, 3s, python, anaconda, jupyter, notebooks, dx, mx, documentation, Dokumentation, python tools
