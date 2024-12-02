@@ -170,41 +170,7 @@ class dxWithMx():
 
 
             # G    
-                                
-            try:
-                # Graph bauen    
-                self.G=nx.from_pandas_edgelist(df=self.V3_VBEL.reset_index(), source='NAME_i', target='NAME_k', edge_attr=True) 
-                nodeDct=self.V3_KNOT.to_dict(orient='index')    
-                nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
-                nx.set_node_attributes(self.G,nodeDctNx)     
-                logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G ok so far.'))                           
-                
-            except Exception as e:
-                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                logger.debug(logStrTmp) 
-                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G failed.')) 
-
-
-            try:               
-                # Darstellungskoordinaten des Netzes bezogen auf untere linke Ecke == 0,0
-                vKnot=self.dx.dataFrames['V3_KNOT']            
-                vKnotNet=vKnot[    
-                (vKnot['ID_CONT']==vKnot['IDPARENT_CONT'])
-                ]
-                xMin=vKnotNet['XKOR'].min()
-                yMin=vKnotNet['YKOR'].min()            
-                self.nodeposDctNx={name:(x-xMin
-                              ,y-yMin)
-                               for name,x,y in zip(vKnotNet['NAME']
-                                                  ,vKnotNet['XKOR']
-                                                  ,vKnotNet['YKOR']
-                                                  )
-                }
-                logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDctNx ok so far.'))    
-            except Exception as e:
-                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                logger.debug(logStrTmp) 
-                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDctNx failed.')) 
+            self.G,self.nodeposDctNx=self._G(self.V3_VBEL,self.V3_KNOT)
                
             # GSig
                  
@@ -889,7 +855,152 @@ class dxWithMx():
             raise dxWithMxError(logStrFinal)                       
         finally:
             logger.debug(f"{logStr}_Done.") 
+
+
+    # def _dfLAYR(self):
+    #     """
+    #     dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.
+                
+    #     .. note:: 
             
+    #         The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
+                
+    #              LAYR:
+    #                  - pk
+    #                  - tk
+    #                  - LFDNR (numeric)
+    #                  - NAME
+                
+    #              LAYR-Info:
+    #                  - AnzDerObjekteInGruppe
+    #                  - AnzDerObjekteDesTypsInGruppe
+                
+    #              OBJ:
+    #                  - TYPE
+    #                  - ID
+                
+    #              OBJ-Info:
+    #                  - NrDesObjektesDesTypsInGruppe
+    #                  - NrDesObjektesInGruppe
+    #                  - GruppenDesObjektsAnz
+    #                  - GruppenDesObjektsNamen       
+                      
+    #     """   
+                
+    #     logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+    #     logger.debug(f"{logStr}Start.") 
+        
+    #     try: 
+    #         dfLAYR=pd.DataFrame()
+    #         dfLAYR=dxDecodeObjsData.Layr(self.dx)                                   
+    #         return dfLAYR     
+    #     except dxWithMxError:
+    #         raise            
+    #     except Exception as e:
+    #         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+    #         logger.debug(logStrFinal) 
+    #         raise dxWithMxError(logStrFinal)                       
+    #     finally:
+    #         logger.debug(f"{logStr}_Done.") 
+
+
+    def _G(self, V3_VBEL, V3_KNOT):
+        """
+            G is a m object Attribute: The NetworkX Graph of the Hydraulic Model.
+            
+            :param V3_VBEL:
+            :type V3_VBEL: df
+            :param V3_KNOT:
+            :type V3_KNOT: df            
+            
+            :return: G
+            :rtype: NetworkX Graph
+            :return: nodeposDctNx (corresponding nodeposDct)
+            :rtype: dct
+        
+            .. note:: 
+                Builds NetworkX Graph from V3_VBEL (from_pandas_edgelist) with edge attributes. NAME_i and NAME_k are used as source and target. 
+                Corresponding node attributes from V3_KNOT.
+                edge and node attributes: keys: keys are tuples (not strings) if the source dfs contains cols which are tuples
+                nodeposDctNx: coordinates of nodes relative to the lower left network corner.
+
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try:                                
+            try:
+                # Graph bauen    
+                G = nx.Graph()
+
+                dfVBEL=V3_VBEL.reset_index()
+                for col in dfVBEL.columns.to_list():                
+                    if not isinstance(col,str):
+                        logger.debug(f"{logStr}: dfVBEL: col is not a string: {str(col)} - might be a problem later on in working with nx edge attributes ...")                            
+
+                dfKNOT=V3_KNOT
+                for col in dfKNOT.columns.to_list():                
+                    if not isinstance(col,str):
+                        logger.debug(f"{logStr}: dfKNOT: col is not a string: {str(col)} - might be a problem later on in working with nx node attributes ...")    
+
+                G=nx.from_pandas_edgelist(df=dfVBEL, source='NAME_i', target='NAME_k', edge_attr=True) 
+                for u,v,dct in G.edges(data=True):                    
+                    for key, value in dct.items():                
+                        if not isinstance(key,str):
+                            logger.debug(f"{logStr}: G.edges: data: key: {str(key)} not a string - value: {value}")                                        
+                    logger.debug(f"{logStr}: break ...")    
+                    break                    
+
+                nodeDct=dfKNOT.to_dict(orient='index')    
+                nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
+                nx.set_node_attributes(G,nodeDctNx)    
+                for u,dct in G.nodes(data=True):                    
+                    for key, value in dct.items():                
+                        if not isinstance(key,str):
+                            logger.debug(f"{logStr}: G.nodes: data: key: {str(key)} not a string - value: {value}")                                        
+                    logger.debug(f"{logStr}: break ...")    
+                    break                            
+
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G ok so far.'))                           
+                
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G failed.')) 
+
+
+            try:               
+                # Darstellungskoordinaten des Netzes bezogen auf untere linke Ecke == 0,0
+                nodeposDctNx={}
+                vKnotNet=dfKNOT[    
+                (dfKNOT['ID_CONT']==dfKNOT['IDPARENT_CONT'])
+                ]
+                xMin=vKnotNet['XKOR'].min()
+                yMin=vKnotNet['YKOR'].min()            
+                nodeposDctNx={name:(x-xMin
+                              ,y-yMin)
+                               for name,x,y in zip(vKnotNet['NAME']
+                                                  ,vKnotNet['XKOR']
+                                                  ,vKnotNet['YKOR']
+                                                  )
+                }
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDct ok so far.'))    
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDct failed.')) 
+    
+            return G,nodeposDctNx
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
+
     def _V3_FWVB(self,df_V3_FWVB):
         """
         V3_FWVB is a m object Attribute.
