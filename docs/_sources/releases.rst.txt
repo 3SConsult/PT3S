@@ -3,10 +3,17 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+upcoming:
+---------------
+
+**Changed:**
+
+dxAndMxHelperFcts.dxWithMx._G: refactoring as function; documentation
+
 90.14.40.0.dev1
 ---------------
 
-Reupload of 90.14.39.0.dev1 due to higher required setuptools version(compatibility with PEP 625)
+Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibility with PEP 625)
 
 90.14.39.0.dev1
 ---------------

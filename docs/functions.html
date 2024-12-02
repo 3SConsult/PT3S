@@ -77,6 +77,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#gdfs">gdfs</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#graphs">Graphs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#g">G</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sir-3s-model-data">SIR 3S Model-Data</a><ul>
@@ -661,6 +665,45 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <ul class="simple">
 <li><p>geometry (in each gdf) based on GEOMWKB (in each V3-df)</p></li>
 </ul>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="graphs">
+<h3>Graphs<a class="headerlink" href="#graphs" title="Permalink to this heading"></a></h3>
+<section id="g">
+<h4>G<a class="headerlink" href="#g" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._G">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_G</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_VBEL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_KNOT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._G" title="Permalink to this definition"></a></dt>
+<dd><p>G is a m object Attribute: The NetworkX Graph of the Hydraulic Model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>V3_VBEL</strong> (<em>df</em>) – </p></li>
+<li><p><strong>V3_KNOT</strong> (<em>df</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>G</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NetworkX Graph</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>nodeposDctNx (corresponding nodeposDct)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dct</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Builds NetworkX Graph from V3_VBEL (from_pandas_edgelist) with edge attributes. NAME_i and NAME_k are used as source and target. 
+Corresponding node attributes from V3_KNOT.
+edge and node attributes: keys: keys are tuples (not strings) if the source dfs contains cols which are tuples
+nodeposDctNx: coordinates of nodes relative to the lower left network corner.</p>
 </div>
 </dd></dl>
 

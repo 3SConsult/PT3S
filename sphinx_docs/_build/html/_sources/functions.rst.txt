@@ -155,6 +155,13 @@ gdfs
 """"
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._gdfs
 
+Graphs
+~~~~~~~~~~
+
+G
+"""""""
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._G
+
 
 SIR 3S Model-Data
 -----------------
