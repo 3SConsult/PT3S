@@ -294,12 +294,18 @@ def pNFD_FW(
                                 
                 norm_ROHR_color = plt.Normalize(vmin=norm_min_ROHR_Sach, vmax=norm_max_ROHR_Sach) 
                                 
-                logger.debug("{0:s}norm_ROHR_color(gdf_ROHR[attr_lws_ROHR_Sach]) * fac_lws_ROHR: {1:s}".format(logStr,str(norm_ROHR_color(gdf_ROHR[attr_lws_ROHR_Sach]) * fac_lws_ROHR))) 
+                #logger.debug("{0:s}norm_ROHR_color(gdf_ROHR[attr_lws_ROHR_Sach]) * fac_lws_ROHR: {1:s}".format(logStr,str(norm_ROHR_color(gdf_ROHR[attr_lws_ROHR_Sach]) * fac_lws_ROHR))) 
                 
                 # Plotten ROHRe
+                logger.debug(f"{logStr} Plotten ROHRe: gdf_ROHR.shape[0]: {gdf_ROHR.shape[0]}")
+
+                for index,row in (gdf_ROHR.iterrows()):
+                    pass
+                    #logger.debug(f"{logStr} fuer Plot vorgesehen: ROHR mit NAME_i {row['NAME_i']} NAME_k {row['NAME_k']} tk {row['tk']}")
+
                 gdf_ROHR.plot(ax = ax
                              ,zorder = attr_colors_ROHR_Sach_zOrder
-                             ,linewidth = norm_ROHR_color(gdf_ROHR[attr_lws_ROHR_Sach]) * fac_lws_ROHR
+                             ,linewidth = norm_ROHR_color(gdf_ROHR[attr_lws_ROHR_Sach].astype(float)) * fac_lws_ROHR
                              # wg. astype: ufunc 'isnan' not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule ''safe''
                              ,color = cmap_ROHR(norm_ROHR_color(gdf_ROHR[attr_colors_ROHR_Sach].astype(float)))
                              ,path_effects=[path_effects.Stroke(capstyle="round")]

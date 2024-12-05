@@ -3,7 +3,7 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
-upcoming:
+upcoming
 ---------------
 
 **Changed:**
@@ -18,32 +18,32 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
 90.14.39.0.dev1
 ---------------
 
-**Changend:**
+**Changed:**
 
-- Packages necessary for Examples but not for PT3S itself are from now on not included in PT3S releases but instead installed in each Example. In setup.py these packages are commented away. Same applies for packages necessary for documentaion generation. Their installion is described at For Developers.
+- Packages necessary for Examples but not for PT3S itself are from now on not included in PT3S releases but instead installed in each Example. In setup.py these packages are commented away. Same applies for packages necessary for documentaion generation. Their installion is described in Section For Developers.
 
 - Example1
-    - 'selenium',
-    - 'Pillow',
+    - 'selenium'
+    - 'Pillow'
 - Example2
-    - 'ipywidgets', 
-    - 'bokeh',
-    - 'ipython',
+    - 'ipywidgets'
+    - 'bokeh'
+    - 'ipython'
 - Example3    
 - Example4
-    - 'cykhash',
-    - 'pyrobuf',
-    - 'pyrosm',
-    - 'osmnx',
-    - 'msvc-runtime',
+    - 'cykhash'
+    - 'pyrobuf'
+    - 'pyrosm'
+    - 'osmnx'
+    - 'msvc-runtime'
 - Example5
-    - 'ipython',
-    - Example6
-    - 'ipython',
-    - 'yfiles_jupyter_graphs',
+    - 'ipython'
+- Example6
+    - 'ipython'
+    - 'yfiles_jupyter_graphs'
 - Documentation Generation
-    - 'nbsphinx',
-    - 'sphinx_copybutton',
+    - 'nbsphinx'
+    - 'sphinx_copybutton'
     - 'sphinx-rtd-theme'
 
 90.14.38.0.dev1

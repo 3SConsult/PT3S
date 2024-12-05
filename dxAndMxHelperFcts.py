@@ -908,9 +908,9 @@ class dxWithMx():
         """
             G is a m object Attribute: The NetworkX Graph of the Hydraulic Model.
             
-            :param V3_VBEL:
+            :param V3_VBEL: edges
             :type V3_VBEL: df
-            :param V3_KNOT:
+            :param V3_KNOT: nodes
             :type V3_KNOT: df            
             
             :return: G
@@ -921,7 +921,7 @@ class dxWithMx():
             .. note:: 
                 Builds NetworkX Graph from V3_VBEL (from_pandas_edgelist) with edge attributes. NAME_i and NAME_k are used as source and target. 
                 Corresponding node attributes from V3_KNOT.
-                edge and node attributes: keys: keys are tuples (not strings) if the source dfs contains cols which are tuples
+                edge and node attributes: keys: keys are tuples (not strings) if the source dfs contain cols which are tuples
                 nodeposDctNx: coordinates of nodes relative to the lower left network corner.
 
         """   

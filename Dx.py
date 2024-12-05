@@ -1293,7 +1293,7 @@ class Dx():
 
     def _dfLAYR(self):
         """
-        dfLAYR: one row per LAYR and OBJ. dfLAYR is a Dx object Attribute.
+        dfLAYR is a dx object Attribute.
                 
         .. note::             
             Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering and grouping. 

@@ -451,8 +451,6 @@ def Agsn(dx):
             # damit neue df-Spalten per .loc aus NetworkX im dataDict-Daten befüllbar sind
             df['index']=df.index
             
-            # 
-            
             # Schnittknotensequenz ermitteln
             
             for nr in df['LFDNR'].unique():                
