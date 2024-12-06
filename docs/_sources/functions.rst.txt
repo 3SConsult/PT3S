@@ -170,12 +170,13 @@ Dataframes
 ~~~~~~~~~~
 
 .. note::
-    Currently, by far not all dfs that are attributes of a Dx object are documented. These will be added in the future.
+    Currently, by far not all dfs that are attributes of a Dx object are documented. Maybe this will be added in the future.
+    V3-VBEL, _KNOT, _ROHR and _FWVB are dx attributes.
+    The corresponding m attributes (V3-VBEL, _KNOT, _ROHR and _FWVB) extend the dx dfs with result columns.
 
 dfLAYR
 """"""
 .. autofunction:: Dx.Dx._dfLAYR
-
 
 Methods
 ~~~~~~~

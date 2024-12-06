@@ -794,13 +794,18 @@
         <span class="k">try</span><span class="p">:</span> 
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;df_V3_VBEL:</span><span class="se">\n</span><span class="si">{df_V3_VBEL.columns}</span><span class="s1">&#39;</span><span class="p">))</span>  
             <span class="k">try</span><span class="p">:</span>                                    
+                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;df_V3_VBEL before QM add:</span><span class="se">\n</span><span class="si">{</span><span class="n">df_V3_VBEL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                  <span class="n">t0</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> </span><span class="si">%X</span><span class="s1">.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">))</span>
-                 <span class="n">QM</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span>
+                 <span class="n">QM</span><span class="o">=</span><span class="nb">str</span><span class="p">((</span><span class="s1">&#39;STAT&#39;</span>
                              <span class="p">,</span><span class="s1">&#39;QM&#39;</span>
                              <span class="p">,</span><span class="n">t0</span>
                              <span class="p">,</span><span class="n">t0</span>
-                             <span class="p">)</span>
-                 <span class="n">df_V3_VBEL</span><span class="p">[</span><span class="s1">&#39;QM&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df_V3_VBEL</span><span class="p">[</span><span class="n">QM</span><span class="p">]</span>      
+                             <span class="p">))</span>
+                 <span class="c1">#logger.debug(f&quot;QM before QM add:\n{QM}&quot;)</span>
+                 <span class="c1">#for col in df_V3_VBEL.columns:</span>
+                 <span class="c1">#    if &#39;QM&#39; in str(col):</span>
+                 <span class="c1">#        logger.debug(f&quot;df_V3_VBEL Column containing &#39;QM&#39;: {col}&quot;)</span>
+                 <span class="n">df_V3_VBEL</span><span class="p">[</span><span class="s1">&#39;QM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_V3_VBEL</span><span class="p">[</span><span class="n">QM</span><span class="p">]</span>
                  <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s2">&quot;Constructing of V3_VBEL[&#39;QM&#39;] ok so far.&quot;</span><span class="p">))</span>                                                      
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                  <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
@@ -992,9 +997,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            G is a m object Attribute: The NetworkX Graph of the Hydraulic Model.</span>
 <span class="sd">            </span>
-<span class="sd">            :param V3_VBEL:</span>
+<span class="sd">            :param V3_VBEL: edges</span>
 <span class="sd">            :type V3_VBEL: df</span>
-<span class="sd">            :param V3_KNOT:</span>
+<span class="sd">            :param V3_KNOT: nodes</span>
 <span class="sd">            :type V3_KNOT: df            </span>
 <span class="sd">            </span>
 <span class="sd">            :return: G</span>
@@ -1005,7 +1010,7 @@
 <span class="sd">            .. note:: </span>
 <span class="sd">                Builds NetworkX Graph from V3_VBEL (from_pandas_edgelist) with edge attributes. NAME_i and NAME_k are used as source and target. </span>
 <span class="sd">                Corresponding node attributes from V3_KNOT.</span>
-<span class="sd">                edge and node attributes: keys: keys are tuples (not strings) if the source dfs contains cols which are tuples</span>
+<span class="sd">                edge and node attributes: keys: keys are tuples (not strings) if the source dfs contain cols which are tuples</span>
 <span class="sd">                nodeposDctNx: coordinates of nodes relative to the lower left network corner.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>   
@@ -1278,7 +1283,10 @@
             <span class="k">if</span> <span class="n">dfAGSN</span><span class="p">[</span><span class="o">~</span><span class="n">dfAGSN</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;-1&#39;</span><span class="p">])]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2"> dfAGSN empty.&quot;</span><span class="p">)</span> 
                 <span class="k">return</span> <span class="n">dfAGSN</span>
-        
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dfAGSN before constructNewMultiindexFromCols data types:</span><span class="se">\n</span><span class="si">{</span><span class="n">dfAGSN</span><span class="o">.</span><span class="n">dtypes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dfAGSN before constructNewMultiindexFromCols dimensions: </span><span class="si">{</span><span class="n">dfAGSN</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dfAGSN before constructNewMultiindexFromCols:</span><span class="se">\n</span><span class="si">{</span><span class="n">dfAGSN</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">dfAGSN</span><span class="o">=</span><span class="n">constructNewMultiindexFromCols</span><span class="p">(</span><span class="n">dfAGSN</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">mColNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">,</span><span class="s1">&#39;ID&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">,</span><span class="s1">&#39;XL&#39;</span><span class="p">,</span><span class="s1">&#39;Pos&#39;</span><span class="p">])</span>
             <span class="c1"># urspruengliche Cols</span>
             <span class="n">colsAGSNBase</span><span class="o">=</span><span class="n">dfAGSN</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
@@ -1842,7 +1850,7 @@
                             <span class="p">,</span><span class="n">timeTuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                             <span class="p">,</span><span class="n">timeTuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                            <span class="p">)</span>
-                    
+                    <span class="c1">#logger.debug(f&quot;{col} {type(col)}\n&quot;)</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">df</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">col</span><span class="p">]</span>
                         

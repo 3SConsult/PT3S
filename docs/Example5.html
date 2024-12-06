@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loop over multiple SIR 3S calculations &mdash; PT3S 90.14.40.0.dev1 documentation</title>
+  <title>Loop over multiple SIR 3S calculations &mdash; PT3S 90.14.41.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -107,7 +107,7 @@
 <section id="Necessary-packages-for-this-Example">
 <h1>Necessary packages for this Example<a class="headerlink" href="#Necessary-packages-for-this-Example" title="Permalink to this heading"></a></h1>
 When running this example for the first time on your machine, please execute the cell below. Afterward, you may need to restart the kernel (using the ‘fast-forward’ button).<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">ipywidgets</span> <span class="n">folium</span> <span class="n">ipython</span>
@@ -126,7 +126,7 @@ Note: you may need to restart the kernel to use updated packages.
 <section id="Imports">
 <h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -180,7 +180,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
@@ -188,7 +188,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#importlib.reload(dxAndMxHelperFcts)</span>
@@ -199,7 +199,7 @@ Note: you may need to restart the kernel to use updated packages.
 <section id="Logging">
 <h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
@@ -227,7 +227,7 @@ Note: you may need to restart the kernel to use updated packages.
 <section id="Read-Model-and-Results">
 <h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example5&quot;</span>
@@ -240,7 +240,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -263,7 +263,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx:
 +..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
 +SirCalc&#39;s xmlFile is newer than SIR 3S&#39; mx1File
 +in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\Sir3s\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
+INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
@@ -274,7 +274,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <section id="As-Network-Color-Diagram">
 <h2>As Network Color Diagram<a class="headerlink" href="#As-Network-Color-Diagram" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_Result_ncd</span><span class="p">(</span><span class="n">gdf_ROHR</span><span class="p">,</span> <span class="n">gdf_FWVB</span><span class="p">,</span> <span class="n">axTitle</span><span class="o">=</span><span class="s1">&#39;initial condition&#39;</span><span class="p">):</span>
@@ -318,7 +318,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_Result_ncd</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf_FWVB</span><span class="p">)</span>
@@ -336,7 +336,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <section id="Longitudinal-Sections">
 <h2>Longitudinal Sections<a class="headerlink" href="#Longitudinal-Sections" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fyPH</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -392,7 +392,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_Result_ls</span><span class="p">(</span><span class="n">V3_AGSN</span><span class="p">):</span>
@@ -464,7 +464,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_Result_ls</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">)</span>
@@ -483,7 +483,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <section id="Show-Network-Graph">
 <h1>Show Network Graph<a class="headerlink" href="#Show-Network-Graph" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">netNodes</span><span class="o">=</span><span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">data</span><span class="p">)</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ID_CONT&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;IDPARENT_CONT&#39;</span><span class="p">]]</span> <span class="c1"># nur das Netz</span>
@@ -491,7 +491,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GNet</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">netNodes</span><span class="p">)</span>
@@ -499,7 +499,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">GNet</span><span class="p">)</span>
@@ -507,7 +507,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -516,7 +516,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">GNet</span><span class="p">,</span><span class="n">with_labels</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">nodeposDctNx</span><span class="p">)</span>
@@ -535,7 +535,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <h1>Decomposition into Areas<a class="headerlink" href="#Decomposition-into-Areas" title="Permalink to this heading"></a></h1>
 <p>In the network, areas can be separated by valves in the sense of an emergency concept. In this way, leaks can be isolated while maintaining supply in the other areas. All seperating valves are located in the SIR 3S Block “TS”. So the network graph without the content of “TS” must be decomposed into areas.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">netEdgesWithoutTS</span><span class="o">=</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">data</span> <span class="ow">in</span> <span class="n">GNet</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;NAME_CONT&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;TS&#39;</span><span class="p">]]</span>
@@ -543,7 +543,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GNetWithoutTS</span><span class="o">=</span><span class="n">GNet</span><span class="o">.</span><span class="n">edge_subgraph</span><span class="p">(</span><span class="n">netEdgesWithoutTS</span><span class="p">)</span>
@@ -551,7 +551,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nOfCC</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">GNetWithoutTS</span><span class="p">)</span>
@@ -560,7 +560,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -569,7 +569,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GNetWithoutTSAreas</span><span class="o">=</span><span class="p">[</span><span class="n">GNet</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">GNetWithoutTS</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
@@ -580,7 +580,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <section id="Read-SirCalc's-XmlFile">
 <h1>Read SirCalc’s XmlFile<a class="headerlink" href="#Read-SirCalc's-XmlFile" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
@@ -593,7 +593,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <section id="Loop-over-all-Areas">
 <h1>Loop over all Areas<a class="headerlink" href="#Loop-over-all-Areas" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_dfAGSN_SL</span> <span class="o">=</span> <span class="kc">None</span>
@@ -606,7 +606,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span><span class="n">G</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">GNetWithoutTSAreas</span><span class="p">):</span>
@@ -722,7 +722,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -760,7 +760,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -788,9 +788,17 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -798,16 +806,8 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_12.png" src="_images/Example5_39_12.png" />
-</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -820,6 +820,13 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
+<img alt="_images/Example5_39_14.png" src="_images/Example5_39_14.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Gebiet um Erzeuger H - keine Trennung
 </pre></div></div>
@@ -837,7 +844,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -852,14 +859,14 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_39_18.png" src="_images/Example5_39_18.png" />
+<img alt="_images/Example5_39_19.png" src="_images/Example5_39_19.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_39_19.png" src="_images/Example5_39_19.png" />
+<img alt="_images/Example5_39_20.png" src="_images/Example5_39_20.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -875,7 +882,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -885,13 +892,6 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 <div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_23.png" src="_images/Example5_39_23.png" />
-</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -904,8 +904,16 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
+<img alt="_images/Example5_39_25.png" src="_images/Example5_39_25.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Gebiet um Erzeuger H - keine Trennung
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -914,23 +922,15 @@ Gebiet um Erzeuger H - keine Trennung
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
+<img alt="_images/Example5_39_28.png" src="_images/Example5_39_28.png" />
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -942,13 +942,6 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_30.png" src="_images/Example5_39_30.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
@@ -959,7 +952,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -974,23 +967,15 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
+<img alt="_images/Example5_39_33.png" src="_images/Example5_39_33.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <img alt="_images/Example5_39_34.png" src="_images/Example5_39_34.png" />
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_35.png" src="_images/Example5_39_35.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -998,6 +983,21 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
@@ -1028,7 +1028,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1066,7 +1066,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1094,9 +1094,17 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1104,16 +1112,8 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_52.png" src="_images/Example5_39_52.png" />
-</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1125,6 +1125,13 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_39_54.png" src="_images/Example5_39_54.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
@@ -1135,7 +1142,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1150,15 +1157,23 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_39_57.png" src="_images/Example5_39_57.png" />
+<img alt="_images/Example5_39_58.png" src="_images/Example5_39_58.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_39_58.png" src="_images/Example5_39_58.png" />
+<img alt="_images/Example5_39_59.png" src="_images/Example5_39_59.png" />
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1166,21 +1181,6 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
@@ -1211,7 +1211,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1239,26 +1239,26 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
+<img alt="_images/Example5_39_71.png" src="_images/Example5_39_71.png" />
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1271,16 +1271,8 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_39_73.png" src="_images/Example5_39_73.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
 <div class="highlight"><pre>
 Gebiet um Erzeuger R - keine Trennung
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1289,15 +1281,23 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_39_76.png" src="_images/Example5_39_76.png" />
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1309,6 +1309,13 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_39_78.png" src="_images/Example5_39_78.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
@@ -1319,7 +1326,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1329,13 +1336,6 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 <div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_81.png" src="_images/Example5_39_81.png" />
-</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1347,6 +1347,13 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_39_83.png" src="_images/Example5_39_83.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
@@ -1357,7 +1364,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1367,13 +1374,6 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 <div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_86.png" src="_images/Example5_39_86.png" />
-</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1385,6 +1385,13 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_39_88.png" src="_images/Example5_39_88.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
@@ -1395,7 +1402,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1405,13 +1412,6 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 <div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_91.png" src="_images/Example5_39_91.png" />
-</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1423,6 +1423,13 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_39_93.png" src="_images/Example5_39_93.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
@@ -1433,7 +1440,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1443,13 +1450,6 @@ Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#
 <div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example5_39_96.png" src="_images/Example5_39_96.png" />
-</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1461,6 +1461,13 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area docutils container">
+<img alt="_images/Example5_39_98.png" src="_images/Example5_39_98.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
@@ -1471,7 +1478,7 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1486,15 +1493,23 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_39_101.png" src="_images/Example5_39_101.png" />
+<img alt="_images/Example5_39_102.png" src="_images/Example5_39_102.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example5_39_102.png" src="_images/Example5_39_102.png" />
+<img alt="_images/Example5_39_103.png" src="_images/Example5_39_103.png" />
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1502,21 +1517,6 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
@@ -1538,7 +1538,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <section id="Min/Max">
 <h1>Min/Max<a class="headerlink" href="#Min/Max" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_Result_ls_min_max</span><span class="p">(</span><span class="n">dfAGSN1</span><span class="p">,</span> <span class="n">dfAGSN2</span><span class="p">):</span>
@@ -1649,7 +1649,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_dfAGSN_SL</span><span class="p">[</span><span class="s1">&#39;XL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1663,7 +1663,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_dfAGSN</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;min&#39;</span>
@@ -1677,10 +1677,10 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "cf016e37dacb4c5c84d7a60a54134694", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "85f06fafd75e4802afa9e26da5ab0ce2", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
@@ -1703,7 +1703,7 @@ png not displayed
 <section id="Difference">
 <h1>Difference<a class="headerlink" href="#Difference" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_Result_ls_comparison</span><span class="p">(</span><span class="n">dfAGSN1</span><span class="p">,</span> <span class="n">dfAGSN2</span><span class="p">):</span>
@@ -1822,7 +1822,7 @@ png not displayed
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Indexing issue - to be fixed (JAB 01/11)</span>
@@ -1836,10 +1836,10 @@ png not displayed
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "16921146d776412eb2d4420e1c8fca40", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "edb42af94d6144a39b599df3af9a4152", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. A screenshot of the interacitve plot is provided below. To interact with the plot, download and run the script.<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
@@ -1862,7 +1862,7 @@ png not displayed
 <section id="Recalculate-initial-condition">
 <h1>Recalculate initial condition<a class="headerlink" href="#Recalculate-initial-condition" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Re-)Calculate initial condition</span>
@@ -1881,7 +1881,7 @@ png not displayed
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Command [&#39;C:\\\\3S\\Sir3s\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
+Command [&#39;C:\\\\3S\\SIR 3S\\SirCalc-90-14-02-10_Potsdam\\SirCalc.exe&#39;, &#39;c:\\users\\jablonski\\3s\\pt3s\\Examples\\WDExample5\\B1\\V0\\BZ1\\M-1-0-1.XML&#39;] exited with 0.
 </pre></div></div>
 </div>
 </section>

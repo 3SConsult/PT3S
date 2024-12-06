@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Developers &mdash; PT3S 90.14.40.0.dev1 documentation</title>
+  <title>For Developers &mdash; PT3S 90.14.41.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -483,6 +483,7 @@
 <li><p><strong>Enable Windows Containers</strong>: Right-click on the Docker Desktop icon in your taskbar and click “Switch to Windows Containers”.</p></li>
 <li><p><strong>Get Docker Files</strong>: Copy <cite>T:/interne_Projekte/PT3S/docker</cite> and <cite>T:/interne_Projekte/PT3S/dockerNotebooks</cite> to <cite>C:/Users/User/3S</cite>.</p></li>
 <li><p><strong>Copy SirCalc</strong>: The <cite>C:/Users/User/3S/docker/SIR 3S</cite> directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local <cite>C:/3S/SIR 3S</cite> to <cite>C:/Users/User/3S/docker/SIR 3S</cite> and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.</p></li>
+<li><p><strong>Create v</strong>: Create a folder at <cite>C:/Users/User/3S/dockerNotebooks</cite>. The <cite>dockerNotebooks</cite> folder on your local machine is used as a volume for the Docker container. Therefore, all changes made to the notebooks inside the container are applied to these files. You can also save additional notebooks to this folder to add them into the container for testing.</p></li>
 <li><p><strong>Start Docker Engine:</strong> Open Docker Desktop and start the engine.</p></li>
 <li><p><strong>Navigate to Docker Folder:</strong> Open your terminal or command prompt and navigate to the directory containing your Dockerfile.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>C:/Users/User/3S/docker

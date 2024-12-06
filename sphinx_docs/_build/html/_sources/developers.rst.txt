@@ -434,15 +434,17 @@ To set up all necessary files and programs to run tests on Notebooks, follow the
 
 4. **Copy SirCalc**: The `C:/Users/User/3S/docker/SIR 3S` directory is empty and needs a working copy of SirCalc. The easiest way to achieve this is to copy all files from your local `C:/3S/SIR 3S` to `C:/Users/User/3S/docker/SIR 3S` and then delete unnecessary files. This prevents them from being included in the container, which would make the build process even longer.
 
-5. **Start Docker Engine:** Open Docker Desktop and start the engine.
+5. **Create v**: Create a folder at `C:/Users/User/3S/dockerNotebooks`. The `dockerNotebooks` folder on your local machine is used as a volume for the Docker container. Therefore, all changes made to the notebooks inside the container are applied to these files. You can also save additional notebooks to this folder to add them into the container for testing.
 
-6. **Navigate to Docker Folder:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
+6. **Start Docker Engine:** Open Docker Desktop and start the engine.
+
+7. **Navigate to Docker Folder:** Open your terminal or command prompt and navigate to the directory containing your Dockerfile.
 
    .. code-block:: bash
 
        cd C:/Users/User/3S/docker
 
-7. **Build the Docker image**: Run the following command in a cmd with the name you want to give to your Docker image (e.g., `pt3stestpotsdam`). This process can take around half an hour. So make sure everything is set up properly.
+8. **Build the Docker image**: Run the following command in a cmd with the name you want to give to your Docker image (e.g., `pt3stestpotsdam`). This process can take around half an hour. So make sure everything is set up properly.
 
    .. code-block:: bash
 
