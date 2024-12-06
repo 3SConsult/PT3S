@@ -1579,6 +1579,7 @@ class Dx():
             # ####################
     
             dfVBEL=self.dataFrames['V3_VBEL']
+            logger.debug(f"dfVBEL before edge loop:\n{df}")
             
             #logger.debug("{0:s}dfVBEL: {1:s}".format(logStr,dfVBEL.head().to_string()))
             
@@ -1591,22 +1592,35 @@ class Dx():
                   try:    
                                                           
                     df=dfOBJTYPEs[edge]
-                    
-                    logger.debug(f"{logStr}{edge}: {type(df)}")
+                    logger.debug(f"df after df=dfOBJTYPEs[edge]:\n{df}")
+                    #logger.debug(f"{logStr}{edge}: {type(df)}")
                     
                     df.columns=df.columns.to_flat_index()
+                    df.columns = [str(col) for col in df.columns]
+                    logger.debug(f"df after df.columns = [str(col) for col in df.columns]:\n{df}")
+                    for col in df.columns.tolist():
+                        logger.debug(f"{col} {type(col)}\n")
+                    #df.columns = [str(col) for col in df.columns]
+                    #df = df.rename(columns=lambda x: x + '_df')
                     
                     newCols=df.columns.to_list()
+                    logger.debug(f"df after df.columns:\n{df}")
                     
-                    df=pd.merge(dfVBEL.loc[(edge,),:],df,left_index=True,right_index=True,suffixes=('_VBEL','')).filter(items=newCols,axis=1)#.values
+                    df=pd.merge(dfVBEL.loc[(edge,),:],df,left_index=True,right_index=True,suffixes=('_VBEL','')).filter(items=newCols,axis=1)
+                    logger.debug(f"df after merge:\n{df}")
+                    
                     df['OBJID']=df.index
                     df['OBJTYPE']=edge
+                    logger.debug(f"df after new OBJID OBJTYPE cols:\n{df}")
                     
-                    logger.debug(f"{logStr}{edge}: {type(df)}")
-                    logger.debug(f"{logStr}{edge}: {df.head()}")
+                    #logger.debug(f"{logStr}{edge}: {type(df)}")
+                    #logger.debug(f"{logStr}{edge}: {df.head()}")
                     
+                    #logger.debug(f"df before constructNewMultiindexFromCols data types:\n{df.dtypes}")
+                    #logger.debug(f"df before constructNewMultiindexFromCols dimensions: {df.shape}")
+                    #logger.debug(f"df before constructNewMultiindexFromCols:\n{df}")
                     df=dxAndMxHelperFcts.constructNewMultiindexFromCols(df)
-                    
+                                        
                     #df=pd.merge(dfVBEL.loc[(edge,),:],df,left_index=True,right_index=True)
                     dfs.append(df)
                      
@@ -1622,14 +1636,16 @@ class Dx():
                 dfVBEL=pd.merge(dfVBEL,pd.concat(dfs),left_index=True, right_index=True,how='left')
             
             logger.debug("{0:s}dfVBEL nach concat: {1:s}".format(logStr,dfVBEL.head().to_string()))
+            logger.debug(f"dfKnotRes before addNodeData:\n{dfKnotRes}")# contains QM Data
             
-            if addNodeData:                    
-                dfVBEL = pd.merge(dfVBEL, dfKnotRes.add_suffix(
-                    '_i'), left_on='fkKI', right_index=True, how='left')   
-                dfVBEL = pd.merge(dfVBEL, dfKnotRes.add_suffix(
-                    '_k'), left_on='fkKK', right_index=True, how='left')   
-                                                                                                      
+            if addNodeData:
+                
+                dfVBEL = pd.merge(dfVBEL, dfKnotRes.add_suffix('_i'), left_on='fkKI', right_index=True, how='left')
+                dfVBEL = pd.merge(dfVBEL, dfKnotRes.add_suffix('_k'), left_on='fkKK', right_index=True, how='left')
+                                                                                                                      
             V3['V3_VBEL'] = dfVBEL
+            
+            logger.debug(f"dfVBEL before return:\n{dfVBEL}")
                                     
             return V3
 

@@ -710,13 +710,18 @@ class dxWithMx():
         try: 
             logger.debug("{0:s}{1:s}".format(logStr,'df_V3_VBEL:\n{df_V3_VBEL.columns}'))  
             try:                                    
+                 logger.debug(f"df_V3_VBEL before QM add:\n{df_V3_VBEL}")
                  t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
-                 QM=('STAT'
+                 QM=str(('STAT'
                              ,'QM'
                              ,t0
                              ,t0
-                             )
-                 df_V3_VBEL['QM']=df_V3_VBEL[QM]      
+                             ))
+                 #logger.debug(f"QM before QM add:\n{QM}")
+                 #for col in df_V3_VBEL.columns:
+                 #    if 'QM' in str(col):
+                 #        logger.debug(f"df_V3_VBEL Column containing 'QM': {col}")
+                 df_V3_VBEL['QM'] = df_V3_VBEL[QM]
                  logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['QM'] ok so far."))                                                      
             except Exception as e:
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
@@ -1194,7 +1199,10 @@ class dxWithMx():
             if dfAGSN[~dfAGSN['pk'].isin([-1,'-1'])].empty:
                 logger.debug(f"{logStr} dfAGSN empty.") 
                 return dfAGSN
-        
+
+            logger.debug(f"dfAGSN before constructNewMultiindexFromCols data types:\n{dfAGSN.dtypes}")
+            logger.debug(f"dfAGSN before constructNewMultiindexFromCols dimensions: {dfAGSN.shape}")
+            logger.debug(f"dfAGSN before constructNewMultiindexFromCols:\n{dfAGSN}")
             dfAGSN=constructNewMultiindexFromCols(dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
             # urspruengliche Cols
             colsAGSNBase=dfAGSN.columns.to_list()
@@ -1758,7 +1766,7 @@ class dxWithMx():
                             ,timeTuple[0]
                             ,timeTuple[1]
                            )
-                    
+                    #logger.debug(f"{col} {type(col)}\n")
                     try:
                         df=dfAGSNVec.loc[:,col]
                         

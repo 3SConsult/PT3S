@@ -3,12 +3,17 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
-upcoming
+90.14.41.0.dev1
 ---------------
+
+**Fix**:
+
+- 'QM'-Error fixed: tuple index like ('STAT', 'QM', Timestamp('2023-02-12 23:00:00'), Timestamp('2023-02-12 23:00:00')) might be interpreted as multiindex. To fix this, convert tuple to string.
 
 **Changed:**
 
 dxAndMxHelperFcts.dxWithMx._G: refactoring as function; documentation
+
 
 90.14.40.0.dev1
 ---------------
