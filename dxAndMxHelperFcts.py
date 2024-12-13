@@ -1468,7 +1468,27 @@ class dxWithMx():
                     - H_n_max
                     - mlc_n_max
                     - T_n_max
-                    - QM_max (buggy)                       
+                    - QM_max (buggy)                 
+                    
+                    If mxsVecsResults2MxDfVecAggs=[3,2,4]     
+                    
+                    For mx.df.index[2]
+                    
+                    - PH_n_1
+                    - H_n_1
+                    - mlc_n_1
+                    - T_n_1
+                    - QM_1
+                    
+                    For mx.df.index[3]
+                    
+                    - PH_n_2
+                    - H_n_2
+                    - mlc_n_2
+                    - T_n_2
+                    - QM_2
+                    
+                    etc.
                     
                 V3_ROHRVEC-columns:
                     
@@ -1645,8 +1665,9 @@ class dxWithMx():
                 self._V3_AGSNVEC_mapExistingColWithVecResults(dfAGSNVec,col,'STAT',colVECType,t0rVec,t0rVec)   
                 
             # VEC source cols: native 
-            self._V3_AGSNVEC_mapExistingColWithVecResults(dfAGSNVec,'T_n','STAT','ROHR~*~*~*~TVEC',t0rVec,t0rVec)   
-                              
+            self._V3_AGSNVEC_mapExistingColWithVecResults(dfAGSNVec,'T_n','STAT','ROHR~*~*~*~TVEC',t0rVec,t0rVec)
+            
+                  
             # Kanaltyp der zu den IDQM passt
             flowMVEC='QMVEC'
             dfALLG=self.dx.dataFrames['ALLG']
@@ -1694,7 +1715,47 @@ class dxWithMx():
             typeNames=['TMIN','TMAX','TIME'],
             colsNamesPostfixes=['_min','_max','_end'],
             timeTuples=[(tA,tE),(tA,tE),(tE,tE)] 
-                               )            
+                               )
+            
+            # 1, 2, 3, ... timesteps
+            filtered_columns = []
+            
+            logger.debug("Starting to filter columns based on timestamps.")
+            
+            for col in dfAGSNVec.columns:
+                # Check if the column is a tuple and contains "TIME"
+                if isinstance(col, tuple) and "TIME" in col:
+                    # Check if the timestamps in the tuple are not equal to the first or last timestamp
+                    if col[2] != tA and col[3] != tE:
+                        filtered_columns.append(col)
+                        #logger.debug(f"Column {col} added to filtered_columns.")
+            
+            #logger.debug(f"Filtered columns: {filtered_columns}")
+            
+            unique_timestamps = set()
+            
+            #logger.debug("Extracting unique timestamps from filtered columns.")
+            
+            for col in filtered_columns:
+                unique_timestamps.add(col[2])
+                unique_timestamps.add(col[3])
+                logger.debug(f"Timestamps {col[2]} and {col[3]} added to unique_timestamps.")
+            
+            unique_timestamps = sorted(unique_timestamps)
+            
+            logger.debug(f"Unique timestamps sorted: {unique_timestamps}")
+                       
+            for idx, timestamp in enumerate(unique_timestamps):
+                self._V3_AGSNVEC_addNewCols(dfAGSNVec,
+                    colNames=['T_n', 'PH_n', 'mlc_n', 'H_n', 'QM'],
+                    colNamesPrefixes=['KNOT~*~*~*~', 'KNOT~*~*~*~', '', '', ''],
+                    vecNames=['ROHR~*~*~*~TVEC', 'manPVEC', 'mlcPVEC', 'barBzgPVEC', self.flowMVEC],
+                    # pro Kanaltyp...
+                    typeNames=['TIME'],
+                    colsNamesPostfixes=[f'_{idx + 1}'],
+                    timeTuples=[(timestamp, timestamp)]
+                )
+              
         
             return dfAGSNVec
         except dxWithMxError:
@@ -1882,7 +1943,7 @@ def readDxAndMx(dbFile
     :type maxRecords: int, optional, default=None
     :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']``
     :type mxsVecsResults2MxDf: list, optional, default=None
-    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666,-1] (-1: last timestep)
+    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3, 42, 666, -1] (-1: last timestep). 
     :type mxsVecsResults2MxDfVecAggs: list, optional, default=None
     :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
     :type crs: str, optional, default=None
@@ -2430,13 +2491,60 @@ def processMxVectorResults(mx,dx
                 except Mx.MxError:
                     logStrFinal="{logStr:s}mxsVecsResults2MxDf failed".format(logStr=logStr)     
                     raise readDxAndMxError(logStrFinal)             
-        
-            ### Vector-Results 2 MxDfVecAggs
+            
+            '''
+            if mxsVecsResults2MxDfVecAggs is not None:
+                    try:
+                        # Split mxsVecsResults2MxDfVecAggs into two lists based on data type
+                        absolute_functionality_indices = [int(idx) for idx in mxsVecsResults2MxDfVecAggs if isinstance(idx, int)]
+                        relative_functionality_indices = [int(idx) for idx in mxsVecsResults2MxDfVecAggs if isinstance(idx, str)]
+            
+                        logger.debug(f"{logStr}: absolute_functionality_indices {absolute_functionality_indices}")
+                        logger.debug(f"{logStr}: relative_functionality_indices {relative_functionality_indices}")
+                        
+                        # Process relative functionality indices
+                        if relative_functionality_indices:
+                            total_length = len(mx.df.index)
+                            max_part = max(relative_functionality_indices) + 1
+                            part_size = total_length // max_part
+            
+                            # Calculate the start indices for the specified parts
+                            relative_indices = [(part_size * idx + 1) for idx in relative_functionality_indices]
+            
+                            for idx in relative_indices:
+                                try:
+                                    aTime = mx.df.index[idx]
+                                    df, tL, tR = mx.getVecAggs(time1st=aTime, aTIME=True)
+                                except IndexError:
+                                    logger.info(f"{logStr}: Requested Timestep {idx} not in MX-Results.")
+                                except Mx.MxError:
+                                    logStrFinal = f"{logStr:s}mxsVecsResults2MxDf failed"
+                                    raise readDxAndMxError(logStrFinal)
+            
+                        # Process absolute functionality indices
+                        if absolute_functionality_indices:
+                            for idxTime in absolute_functionality_indices:
+                                try:
+                                    aTime = mx.df.index[idxTime]
+                                except IndexError:
+                                    logger.info(f"{logStr}: Requested Timestep {idxTime} not in MX-Results.")
+                                    continue
+            
+                                df, tL, tR = mx.getVecAggs(time1st=aTime, aTIME=True)
+            
+                    except Mx.MxError:
+                        logStrFinal = f"{logStr:s}mxsVecsResults2MxDf failed"
+                        raise readDxAndMxError(logStrFinal)          
+            '''
+            
+            ### Vector-Results 2 MxDfVecAggs                
             if mxsVecsResults2MxDfVecAggs != None:
-                try:         
+                try:
+                    #timestamps = []
                     for idxTime in mxsVecsResults2MxDfVecAggs:
                         try:
                             aTime=mx.df.index[idxTime]
+                            #timestamps.append(aTime)
                         except:
                             logger.info(f"{logStr}: Requested Timestep {idxTime} not in MX-Results.")  
                             continue
@@ -2445,10 +2553,9 @@ def processMxVectorResults(mx,dx
                                             
                 except Mx.MxError:
                     logStrFinal="{logStr:s}mxsVecsResults2MxDf failed".format(logStr=logStr)     
-                    raise readDxAndMxError(logStrFinal)             
-
+                    raise readDxAndMxError(logStrFinal)     
         
-
+            
                                
     except readDxAndMxGoto:        
         pass 
