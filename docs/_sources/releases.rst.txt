@@ -3,6 +3,11 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.42.0.dev1
+---------------
+
+**New**: V3_AGSNVEC has additional cols for mxsVecsResults2MxDfVecAggs=[3,2,4,-1] For timestep 2: PH_n_1, H_n_1, mlc_n_1, T_n_1, QM_1; For timestep 3: PH_n_2, H_n_2, mlc_n_2, T_n_2, QM_2; For timestep 4: PH_n_3, H_n_3, mlc_n_3, T_n_3, QM_3 For timestep -1: Already included with _end
+
 90.14.41.0.dev1
 ---------------
 

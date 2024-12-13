@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Functions &mdash; PT3S 90.14.41.0.dev1 documentation</title>
+  <title>Functions &mdash; PT3S 90.14.42.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -156,7 +156,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <li><p><strong>forceSir3sRead</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Determines whether to force reading from SIR 3S’ sources even if newer pickles exists. By default pickles are read if newer than SIR 3S’ sources.</p></li>
 <li><p><strong>maxRecords</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below <code class="docutils literal notranslate"><span class="pre">C:\3S</span></code>).</p></li>
 <li><p><strong>mxsVecsResults2MxDf</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of regular expressions for SIR 3S’ Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: <code class="docutils literal notranslate"><span class="pre">['ROHR~\*~\*~\*~PHR',</span> <span class="pre">'ROHR~\*~\*~\*~FS',</span> <span class="pre">'ROHR~\*~\*~\*~DSI',</span> <span class="pre">'ROHR~\*~\*~\*~DSK']</span></code></p></li>
-<li><p><strong>mxsVecsResults2MxDfVecAggs</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3,42,666,-1] (-1: last timestep)</p></li>
+<li><p><strong>mxsVecsResults2MxDfVecAggs</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of timesteps for SIR 3S’ Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3, 42, 666, -1] (-1: last timestep).</p></li>
 <li><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p></li>
 <li><p><strong>logPathOutputFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=os.path.relpath</em>) – func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p></li>
 </ul>
@@ -619,6 +619,24 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <li><p>T_n_max</p></li>
 <li><p>QM_max (buggy)</p></li>
 </ul>
+<p>If mxsVecsResults2MxDfVecAggs=[3,2,4]</p>
+<p>For mx.df.index[2]</p>
+<ul class="simple">
+<li><p>PH_n_1</p></li>
+<li><p>H_n_1</p></li>
+<li><p>mlc_n_1</p></li>
+<li><p>T_n_1</p></li>
+<li><p>QM_1</p></li>
+</ul>
+<p>For mx.df.index[3]</p>
+<ul class="simple">
+<li><p>PH_n_2</p></li>
+<li><p>H_n_2</p></li>
+<li><p>mlc_n_2</p></li>
+<li><p>T_n_2</p></li>
+<li><p>QM_2</p></li>
+</ul>
+<p>etc.</p>
 </div></blockquote>
 <p>V3_ROHRVEC-columns:</p>
 <blockquote>
