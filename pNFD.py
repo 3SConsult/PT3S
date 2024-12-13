@@ -506,7 +506,7 @@ def pNFD_FW(
                                                                                                                                    gdf[attr_colors_FWVB_Erg].max()])
                                                                                                                                    ]        
                         attr_colors_FWVB_Erg_patches[0].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[0].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)>0][attr_colors_FWVB_Erg].min()))                            
-                                                    
+                        attr_colors_FWVB_Erg_patches[1].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[1].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)>0][attr_colors_FWVB_Erg].max()))                            
                     
                         gdf=gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0]
                         if not gdf.empty:
@@ -523,8 +523,8 @@ def pNFD_FW(
                                                                                                                       ,cmap_FWVBErgNeg.N-1],[-gdf[attr_colors_FWVB_Erg].max(),                                                                                                                    
                                                                                                                                        -gdf[attr_colors_FWVB_Erg].min()])
                                                                                                                                        ]        
-                            attr_colors_FWVB_Erg_patches[2].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[2].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0][attr_colors_FWVB_Erg].max()))                            
-                            
+                            attr_colors_FWVB_Erg_patches[2].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[2].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0][attr_colors_FWVB_Erg].max()))           
+                            attr_colors_FWVB_Erg_patches[3].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[3].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0][attr_colors_FWVB_Erg].min()))  
                             
                             
                             
