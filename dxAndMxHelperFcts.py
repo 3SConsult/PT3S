@@ -1460,7 +1460,7 @@ class dxWithMx():
                     - H_n
                     - mlc_n
                     - T_n
-                    - QM         
+                    - QM  (see m's flowMVEC Attribute to determine which VEC-Result is used; default: QMVEC)       
          
                     - PH_n_end
                     - H_n_end
@@ -1708,6 +1708,16 @@ class dxWithMx():
                
 
             dfAGSNVec=dfAGSNVec.reset_index(drop=True) 
+
+            #Logs            
+            logger.debug(f"{logStr}tuple-cols vor min, max, end:") 
+            for col in dfAGSNVec.columns.to_list():
+                if isinstance(col,tuple):
+                    logger.debug(f"{logStr}{col}") 
+            logger.debug(f"{logStr}str-cols vor min, max, end:") 
+            for col in dfAGSNVec.columns.to_list():
+                if isinstance(col,str):
+                    logger.debug(f"{logStr}{col}")               
             
             # min, max, end 
             
@@ -1792,11 +1802,12 @@ class dxWithMx():
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
         logger.debug(f"{logStr}Start.") 
         
-        try:             
+        try:                     
            colVEC=(sir3sType,sir3sChannel,t1,t2)      
+           logger.debug(f"mapping {col} with {colVEC}")   
            dfAGSNVec[col] = dfAGSNVec.apply(lambda row: row[col] if pd.isnull(row[colVEC]) else row[colVEC], axis=1)                      
-        except dxWithMxError:
-            raise            
+        #except dxWithMxError:
+        #    raise            
         except Exception as e:
             logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
             logger.error(logStrFinal) 
@@ -1834,23 +1845,28 @@ class dxWithMx():
             columnsOld=dfAGSNVec.columns
             # voruebergehend Spalten als MIdx
             dfAGSNVec.columns=mIdx
+
+            logger.debug(f"{logStr} alle Spalten mIdx: {dfAGSNVec.columns.to_list()}") 
             
             for colName,colNamePrefix,vecName in zip(colNames,colNamesPrefixes,vecNames):                
                 for typeName,colNamePostfix,timeTuple in zip(typeNames,colsNamesPostfixes,timeTuples):
                     # der neue flache Spaltenname
                     colNameNewFlat=colName+colNamePostfix                
-                    # die zu referenzierende Spalte
+                    # die zu referenzierenden 2 Spalten                    
                     col=(typeName
                             ,[colNamePrefix+colName,vecName] 
                             ,timeTuple[0]
                             ,timeTuple[1]
-                           )
+                           )                    
+
                     try:
-                        # Spalte referenzieren
-                        df=dfAGSNVec.loc[:,col]    
+                        # Spalten referenzieren
+                        df=dfAGSNVec.loc[:,col]#.copy(deep=True)    
                         # Ergebnis merken
                         dfs[colNameNewFlat]=df
-                        # Wertepaar merken
+                        # Wertepaar merken:
+                        # 0: AGSN-Spalte
+                        # 1: VEC-Spalte
                         colNameNewFlatPair=((typeName
                                 ,colNamePrefix+colName 
                                 ,timeTuple[0]
@@ -1862,20 +1878,27 @@ class dxWithMx():
                                ))    
                         dfsCols[colNameNewFlat]=colNameNewFlatPair                          
                
-                        #dfsCols[colNameNewFlat]=((typeName
-                        #        ,colNamePrefix+colName 
-                        #        ,timeTuple[0]
-                        #        ,timeTuple[1]
-                        #       ),(typeName
-                        #        ,vecName 
-                        #        ,timeTuple[0]
-                        #        ,timeTuple[1]
-                        #       ))
+                        logger.debug(f"{logStr}colNameNewFlat:{colNameNewFlat}: Spaltenpaare extrahiert:") 
+                        logger.debug(f"{logStr}referencing .loc col-expression:{col}")     
 
-                        logger.debug(f"{logStr} referencing col:{col}")
-                        logger.debug(f"{logStr} as colNameNewFlat:{colNameNewFlat}") 
-                        logger.debug(f"{logStr} with colNameNewFlatPair[0]:{colNameNewFlatPair[0]}") 
-                        logger.debug(f"{logStr} and  colNameNewFlatPair[1]:{colNameNewFlatPair[1]} so far successfull.") 
+                        #Logs                           
+                        logger.debug(f"{logStr}df tuple-cols:") 
+                        for col in df.columns.to_list():
+                            if isinstance(col,tuple):
+                                logger.debug(f"{logStr}{col}") 
+                        logger.debug(f"{logStr}df str-cols:") 
+                        for col in df.columns.to_list():
+                            if isinstance(col,str):
+                                logger.debug(f"{logStr}{col}")  
+                        logger.debug(f"{logStr}df ?-cols:") 
+                        for col in df.columns.to_list():
+                            if not isinstance(col,str) and not isinstance(col,tuple):
+                                logger.debug(f"{logStr}{col}")  
+                        logger.debug(f"{logStr}#") 
+
+
+                        logger.debug(f"{logStr}with colNameNewFlatPair[0]:{colNameNewFlatPair[0]}") 
+                        logger.debug(f"{logStr}and  colNameNewFlatPair[1]:{colNameNewFlatPair[1]} so far successfull.") 
                     except Exception as e:
                         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                         logger.debug(logStrFinal)                      
@@ -1884,16 +1907,36 @@ class dxWithMx():
             # wieder alte Spalten
             dfAGSNVec.columns=columnsOld
             
-            for key,df in dfs.items():
-                #key: colNameNewFlat
+            for colNameNewFlat,df in dfs.items():
                 #df: corresponding df
+
+                #Logs  
+                logger.debug(f"{logStr}{colNameNewFlat}: Spaltenpaare mappen:")           
+                logger.debug(f"{logStr}df tuple-cols:") 
+                for col in df.columns.to_list():
+                    if isinstance(col,tuple):
+                        logger.debug(f"{logStr}{col}") 
+                logger.debug(f"{logStr}df str-cols:") 
+                for col in df.columns.to_list():
+                    if isinstance(col,str):
+                        logger.debug(f"{logStr}{col}")  
+                logger.debug(f"{logStr}df ?-cols:") 
+                for col in df.columns.to_list():
+                    if not isinstance(col,str) and not isinstance(col,tuple):
+                        logger.debug(f"{logStr}{col}")  
+                logger.debug(f"{logStr}#") 
+
                 try:
-                    cols=dfsCols[key] #cols: the col pair
-                    dfAGSNVec[key]=df.apply(lambda row: row[cols[0]] if pd.isnull(row[cols[1]]) else row[cols[1]],axis=1)
+                    cols=dfsCols[colNameNewFlat] #cols: the col pair
+
+                    logger.debug(f"{logStr}cols[0]:{cols[0]} type: {type(cols[0])}") 
+                    logger.debug(f"{logStr}cols[1]:{cols[1]} type: {type(cols[1])}" ) 
+
+                    dfAGSNVec[colNameNewFlat]=df.apply(lambda row: row[cols[0]] if pd.isnull(row[cols[1]]) else row[cols[1]],axis=1)
                 except Exception as e:
                     logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrFinal) 
-                    logger.debug(f"{logStr} dfAGSNVec[key]=df.apply ... with cols={cols} failed. {key} not added.") 
+                    logger.debug(f"{logStr} dfAGSNVec[key]=df.apply ... with cols={cols} failed. {colNameNewFlat} not added.") 
                                     
                 
         except dxWithMxError:
