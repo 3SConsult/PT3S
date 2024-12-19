@@ -1409,7 +1409,17 @@ class dxWithMx():
             for index, row in dfAGSN.iterrows():                                                                                       
                     for col_n,col_PH,col_RHO in zip(colsMlc,colsPH,colsRHO):                        
                         dfAGSN.loc[index,col_n]=row[col_PH]*10**5/(row[col_RHO]*9.81)+row['ZKOR_n']              
-                    
+
+            #Logs            
+            logger.debug(f"{logStr}tuple-cols:") 
+            for col in dfAGSN.columns.to_list():
+                if isinstance(col,tuple):
+                    logger.debug(f"{logStr}{col}") 
+            logger.debug(f"{logStr}str-cols:") 
+            for col in dfAGSN.columns.to_list():
+                if isinstance(col,str):
+                    logger.debug(f"{logStr}{col}")                       
+
             return dfAGSN     
         except dxWithMxError:
             raise            
@@ -1432,7 +1442,7 @@ class dxWithMx():
         
         .. note:: 
             
-            The returned V3_AGSNVEC (expand for PIPEs in (Section,Layer) one row to one row per point) has the following columns:
+            The returned V3_AGSNVEC (expands V3_AGSN from one row for each PIPE in (Section,Layer) to one row for each interior point)) has the following columns:
                 
                 V3_AGSN-columns:
                     
@@ -1470,25 +1480,12 @@ class dxWithMx():
                     - T_n_max
                     - QM_max (buggy)                 
                     
-                    If mxsVecsResults2MxDfVecAggs=[3,2,4]     
-                    
-                    For mx.df.index[2]
-                    
-                    - PH_n_1
-                    - H_n_1
-                    - mlc_n_1
-                    - T_n_1
-                    - QM_1
-                    
-                    For mx.df.index[3]
-                    
-                    - PH_n_2
-                    - H_n_2
-                    - mlc_n_2
-                    - T_n_2
-                    - QM_2
-                    
-                    etc.
+                    - cols _n_1,2,3,... derived from mxsVecsResults2MxDfVecAggs=[idxt1,idxt2,idxt3,...,-1]; _1,_2,_3,... corresponds to sorted([idxt1,idxt2,idxt3,...]):                        
+                        - PH_n_1,2,3,...
+                        - H_n_1,2,3,...
+                        - mlc_n_1,2,3,...
+                        - T_n_1,2,3,...
+                        - QM_1,2,3,...
                     
                 V3_ROHRVEC-columns:
                     
@@ -1515,6 +1512,17 @@ class dxWithMx():
                logger.debug(f"{logStr} V3_AGSN empty.") 
                return V3_AGSN
        
+            #Logs
+
+            logger.debug(f"{logStr}self.V3_ROHRVEC: tuple-cols:") 
+            for col in self.V3_ROHRVEC.columns.to_list():
+                if isinstance(col,tuple):
+                    logger.debug(f"{logStr}{col}") 
+            logger.debug(f"{logStr}self.V3_ROHRVEC: str-cols:") 
+            for col in self.V3_ROHRVEC.columns.to_list():
+                if isinstance(col,str):
+                    logger.debug(f"{logStr}{col}")                        
+
             V3_AGSN=V3_AGSN.copy(deep=True)
                         
             V3_AGSNPos=V3_AGSN[
@@ -1720,7 +1728,7 @@ class dxWithMx():
             # 1, 2, 3, ... timesteps
             filtered_columns = []
             
-            logger.debug("Starting to filter columns based on timestamps.")
+            logger.debug(f"{logStr}Starting to filter columns based on timestamps.")
             
             for col in dfAGSNVec.columns:
                 # Check if the column is a tuple and contains "TIME"
@@ -1739,11 +1747,11 @@ class dxWithMx():
             for col in filtered_columns:
                 unique_timestamps.add(col[2])
                 unique_timestamps.add(col[3])
-                logger.debug(f"Timestamps {col[2]} and {col[3]} added to unique_timestamps.")
+                #logger.debug(f"Timestamps {col[2]} and {col[3]} added to unique_timestamps.")
             
             unique_timestamps = sorted(unique_timestamps)
             
-            logger.debug(f"Unique timestamps sorted: {unique_timestamps}")
+            logger.debug(f"{logStr}Unique timestamps sorted: {unique_timestamps}")
                        
             for idx, timestamp in enumerate(unique_timestamps):
                 self._V3_AGSNVEC_addNewCols(dfAGSNVec,
@@ -1756,7 +1764,16 @@ class dxWithMx():
                     timeTuples=[(timestamp, timestamp)]
                 )
               
-        
+            #Logs            
+            logger.debug(f"{logStr}tuple-cols:") 
+            for col in dfAGSNVec.columns.to_list():
+                if isinstance(col,tuple):
+                    logger.debug(f"{logStr}{col}") 
+            logger.debug(f"{logStr}str-cols:") 
+            for col in dfAGSNVec.columns.to_list():
+                if isinstance(col,str):
+                    logger.debug(f"{logStr}{col}")   
+
             return dfAGSNVec
         except dxWithMxError:
             raise            
@@ -1813,26 +1830,28 @@ class dxWithMx():
                         [fGetMultiindexTupleFromV3Col(col) for col in dfAGSNVec.columns.to_list()]
                         ,names=['AColName','ResultChannels','Time1','Time2'])   
             
+            # alte Spalten
             columnsOld=dfAGSNVec.columns
+            # voruebergehend Spalten als MIdx
             dfAGSNVec.columns=mIdx
             
-            for colName,colNamePrefix,vecName in zip(colNames,colNamesPrefixes,vecNames):
-                #print(f"{colNamePrefix} {colName}")
+            for colName,colNamePrefix,vecName in zip(colNames,colNamesPrefixes,vecNames):                
                 for typeName,colNamePostfix,timeTuple in zip(typeNames,colsNamesPostfixes,timeTuples):
-                    colNameNewFlat=colName+colNamePostfix
-                    #print(f"    {typeName} {colNamePostfix} {colNameNewFlat}")
-                    
+                    # der neue flache Spaltenname
+                    colNameNewFlat=colName+colNamePostfix                
+                    # die zu referenzierende Spalte
                     col=(typeName
                             ,[colNamePrefix+colName,vecName] 
                             ,timeTuple[0]
                             ,timeTuple[1]
                            )
-                    #logger.debug(f"{col} {type(col)}\n")
                     try:
-                        df=dfAGSNVec.loc[:,col]
-                        
+                        # Spalte referenzieren
+                        df=dfAGSNVec.loc[:,col]    
+                        # Ergebnis merken
                         dfs[colNameNewFlat]=df
-                        dfsCols[colNameNewFlat]=((typeName
+                        # Wertepaar merken
+                        colNameNewFlatPair=((typeName
                                 ,colNamePrefix+colName 
                                 ,timeTuple[0]
                                 ,timeTuple[1]
@@ -1840,24 +1859,42 @@ class dxWithMx():
                                 ,vecName 
                                 ,timeTuple[0]
                                 ,timeTuple[1]
-                               ))
+                               ))    
+                        dfsCols[colNameNewFlat]=colNameNewFlatPair                          
+               
+                        #dfsCols[colNameNewFlat]=((typeName
+                        #        ,colNamePrefix+colName 
+                        #        ,timeTuple[0]
+                        #        ,timeTuple[1]
+                        #       ),(typeName
+                        #        ,vecName 
+                        #        ,timeTuple[0]
+                        #        ,timeTuple[1]
+                        #       ))
+
+                        logger.debug(f"{logStr} referencing col:{col}")
+                        logger.debug(f"{logStr} as colNameNewFlat:{colNameNewFlat}") 
+                        logger.debug(f"{logStr} with colNameNewFlatPair[0]:{colNameNewFlatPair[0]}") 
+                        logger.debug(f"{logStr} and  colNameNewFlatPair[1]:{colNameNewFlatPair[1]} so far successfull.") 
                     except Exception as e:
                         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                         logger.debug(logStrFinal)                      
                         logger.debug(f"{logStr} dfAGSNVec.loc[:,col] with col={col} failed. {colNameNewFlat} not added.") 
                                         
+            # wieder alte Spalten
             dfAGSNVec.columns=columnsOld
             
             for key,df in dfs.items():
+                #key: colNameNewFlat
+                #df: corresponding df
                 try:
-                    cols=dfsCols[key]
+                    cols=dfsCols[key] #cols: the col pair
                     dfAGSNVec[key]=df.apply(lambda row: row[cols[0]] if pd.isnull(row[cols[1]]) else row[cols[1]],axis=1)
                 except Exception as e:
                     logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                     logger.debug(logStrFinal) 
-                    logger.debug(f"{logStr} dfAGSNVec[key]=df.apply ... with col={cols} failed. {key} not added.") 
-                    pass
-                #print(key)
+                    logger.debug(f"{logStr} dfAGSNVec[key]=df.apply ... with cols={cols} failed. {key} not added.") 
+                                    
                 
         except dxWithMxError:
             raise            
@@ -1943,7 +1980,7 @@ def readDxAndMx(dbFile
     :type maxRecords: int, optional, default=None
     :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']``
     :type mxsVecsResults2MxDf: list, optional, default=None
-    :param mxsVecsResults2MxDfVecAggs: List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3, 42, 666, -1] (-1: last timestep). 
+    :param mxsVecsResults2MxDfVecAggs: List of timesteps indices for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3, 42, 666, -1] (-1: last timestep). 3: 3rd timestep. 42: 42th timestep. 666: 666th timestep.
     :type mxsVecsResults2MxDfVecAggs: list, optional, default=None
     :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
     :type crs: str, optional, default=None
@@ -2491,52 +2528,7 @@ def processMxVectorResults(mx,dx
                 except Mx.MxError:
                     logStrFinal="{logStr:s}mxsVecsResults2MxDf failed".format(logStr=logStr)     
                     raise readDxAndMxError(logStrFinal)             
-            
-            '''
-            if mxsVecsResults2MxDfVecAggs is not None:
-                    try:
-                        # Split mxsVecsResults2MxDfVecAggs into two lists based on data type
-                        absolute_functionality_indices = [int(idx) for idx in mxsVecsResults2MxDfVecAggs if isinstance(idx, int)]
-                        relative_functionality_indices = [int(idx) for idx in mxsVecsResults2MxDfVecAggs if isinstance(idx, str)]
-            
-                        logger.debug(f"{logStr}: absolute_functionality_indices {absolute_functionality_indices}")
-                        logger.debug(f"{logStr}: relative_functionality_indices {relative_functionality_indices}")
                         
-                        # Process relative functionality indices
-                        if relative_functionality_indices:
-                            total_length = len(mx.df.index)
-                            max_part = max(relative_functionality_indices) + 1
-                            part_size = total_length // max_part
-            
-                            # Calculate the start indices for the specified parts
-                            relative_indices = [(part_size * idx + 1) for idx in relative_functionality_indices]
-            
-                            for idx in relative_indices:
-                                try:
-                                    aTime = mx.df.index[idx]
-                                    df, tL, tR = mx.getVecAggs(time1st=aTime, aTIME=True)
-                                except IndexError:
-                                    logger.info(f"{logStr}: Requested Timestep {idx} not in MX-Results.")
-                                except Mx.MxError:
-                                    logStrFinal = f"{logStr:s}mxsVecsResults2MxDf failed"
-                                    raise readDxAndMxError(logStrFinal)
-            
-                        # Process absolute functionality indices
-                        if absolute_functionality_indices:
-                            for idxTime in absolute_functionality_indices:
-                                try:
-                                    aTime = mx.df.index[idxTime]
-                                except IndexError:
-                                    logger.info(f"{logStr}: Requested Timestep {idxTime} not in MX-Results.")
-                                    continue
-            
-                                df, tL, tR = mx.getVecAggs(time1st=aTime, aTIME=True)
-            
-                    except Mx.MxError:
-                        logStrFinal = f"{logStr:s}mxsVecsResults2MxDf failed"
-                        raise readDxAndMxError(logStrFinal)          
-            '''
-            
             ### Vector-Results 2 MxDfVecAggs                
             if mxsVecsResults2MxDfVecAggs != None:
                 try:
