@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Developers &mdash; PT3S 90.14.42.0.dev1 documentation</title>
+  <title>For Developers &mdash; PT3S 90.14.43.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -117,7 +117,7 @@
 <h1>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this heading"></a></h1>
 <p>Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S.</p>
 <ul class="simple">
-<li><p><strong>Contact</strong>: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact <a class="reference external" href="mailto:jablonski&#37;&#52;&#48;3sconsult&#46;de">jablonski<span>&#64;</span>3sconsult<span>&#46;</span>de</a>.</p></li>
+<li><p><strong>Contact</strong>: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact <a class="reference external" href="mailto:jablonski&#37;&#52;&#48;3sconsult&#46;de">jablonski<span>&#64;</span>3sconsult<span>&#46;</span>de</a>. If you need feedback on a specific issue with PT3S, please include the PT3S version you are using and, if available, the Jupyter Notebook you are working with.</p></li>
 <li><p><strong>GitHub Repository:</strong> You can find the source code and contribute to the project on our <a class="reference external" href="https://github.com/aw3s/PT3S">GitHub page</a>.</p></li>
 <li><p><strong>PyPI Project:</strong> The PT3S package is also available on <a class="reference external" href="https://pypi.org/project/PT3S">PyPI</a>.</p></li>
 </ul>
@@ -392,7 +392,7 @@
 </li>
 </ol>
 <p>Now, your package is installed in editable mode. This means that you can make changes to the source code of the package and those changes will take effect immediately without needing to reinstall the package.</p>
-<p>By installing PT3S in editable mode, a <cite>PT3S.egg-link</cite> file is created in the <cite>C:\Users\User\AppData\Local\anaconda3\Lib\site-packages</cite> directory. This file is a link to your project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this <cite>PT3S.egg-link</cite> file. Delete also the PT3S-line in easy-install.pth.</p>
+<p>By installing PT3S in editable mode, a <cite>PT3S.egg-link</cite> file is created in the <cite>C:\Users\User\AppData\Local\anaconda3\Lib\site-packages</cite> directory. This file is a link to your project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply reinstall PT3S (or delete this <cite>PT3S.egg-link</cite> file. Delete also the PT3S-line in easy-install.pth).</p>
 </section>
 <section id="generating-the-documentation">
 <span id="generating-documentation-label"></span><h2>Generating the Documentation<a class="headerlink" href="#generating-the-documentation" title="Permalink to this heading"></a></h2>
@@ -412,7 +412,10 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Make an HTML build:</strong> Use the <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">html</span></code> command.</p>
+<li><p><strong>Make an HTML build:</strong> Use <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">sphinx.cmd.build</span> <span class="pre">-b</span> <span class="pre">html</span> <span class="pre">.</span> <span class="pre">/_build/html</span></code> (for python env)  or <code class="docutils literal notranslate"><span class="pre">.\make.bat</span> <span class="pre">html</span></code> (for conda env).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>sphinx.cmd.build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>.<span class="w"> </span>/_build/html
+</pre></div>
+</div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="se">\m</span>ake.bat<span class="w"> </span>html
 </pre></div>
 </div>
