@@ -34,7 +34,7 @@ You can download the Notebook file :download:`here <Example1.ipynb>`.
 Example 2: Time Curves
 ----------------------
 
-This example demonstrates how raw time curve data read by PT3S can be used to create both interactive and non-interactive plots with Matplotlib and bokeh, and to generate a printable output.
+This example demonstrates how raw time curve data read by PT3S can be used to create both interactive and non-interactive plots with Matplotlib and Bokeh, and to generate a printable output.
 
 You can view the Notebook `here <Example2.html>`_.
 
@@ -46,7 +46,7 @@ You can download the Notebook file :download:`here <Example2.ipynb>`.
 Example 3: Longitudinal Sections
 --------------------------------
 
-This example demonstrates how longitudinal sections data read by PT3S can be accessed and used to create non-interactive plots with Matplotlib and interactive plots with bokeh.
+This example demonstrates how longitudinal sections data read by PT3S can be accessed and used to create non-interactive plots with Matplotlib and interactive plots with Bokeh.
 
 You can view the Notebook `here <Example3.html>`_.
 

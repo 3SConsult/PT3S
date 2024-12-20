@@ -94,10 +94,13 @@ class dxWithMx():
             #self.mx = mx
             
             #self.dfLAYR=self._dfLAYR()    
-            
             self.dfWBLZ=dxDecodeObjsData.Wblz(self.dx)
-            self.dfAGSN=dxDecodeObjsData.Agsn(self.dx)            
-                                                           
+            try:
+                self.dfAGSN = dxDecodeObjsData.Agsn(self.dx)
+            except Exception as e:
+                logger.debug("self.dfAGSN error") 
+                self.dfAGSN = None  
+                                               
             ### A
             self.V3_ROHR=dx.dataFrames['V3_ROHR'].copy(deep=True)
             self.V3_KNOT=dx.dataFrames['V3_KNOT'].copy(deep=True)

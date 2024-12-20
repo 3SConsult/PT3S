@@ -3,17 +3,28 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.43.0.dev1
+---------------
+
+**Fix**:
+
+- V3_AGSNVEC: Changes from 90.14.42.0.dev1 dont cause issues with _end, _min, _max columns anymore
+
+- self.dfAGSN = dxDecodeObjsData.Agsn(self.dx) in dxAndMxHelperFcts put in try/except to prevent reading stop in case of an issue with the called function. Proper fix of this function still to be done.
+
 90.14.42.0.dev1
 ---------------
 
-**New**: V3_AGSNVEC has additional cols for mxsVecsResults2MxDfVecAggs=[3,2,4,-1] For timestep 2: PH_n_1, H_n_1, mlc_n_1, T_n_1, QM_1; For timestep 3: PH_n_2, H_n_2, mlc_n_2, T_n_2, QM_2; For timestep 4: PH_n_3, H_n_3, mlc_n_3, T_n_3, QM_3 For timestep -1: Already included with _end
+**New**: 
+
+- V3_AGSNVEC: additional cols _n_1,2,3,... derived from mxsVecsResults2MxDfVecAggs=[idxt1,idxt2,idxt3,...,-1]; _1,_2,_3,... corresponds to sorted([idxt1,idxt2,idxt3,...])
 
 90.14.41.0.dev1
 ---------------
 
 **Fix**:
 
-- 'QM'-Error fixed: tuple index like ('STAT', 'QM', Timestamp('2023-02-12 23:00:00'), Timestamp('2023-02-12 23:00:00')) might be interpreted as multiindex. To fix this, convert tuple to string.
+- 'QM'-Error fixed: tuple col index like ('STAT', 'QM', Timestamp('2023-02-12 23:00:00'), Timestamp('2023-02-12 23:00:00')) might be interpreted as multiindex depending on local versions of python and pandas. To fix this, tuple converted to string.
 
 **Changed:**
 

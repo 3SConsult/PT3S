@@ -3,7 +3,7 @@ For Developers
 
 Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S. 
 
-- **Contact**: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact `jablonski@3sconsult.de <mailto:jablonski@3sconsult.de>`_.
+- **Contact**: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact `jablonski@3sconsult.de <mailto:jablonski@3sconsult.de>`_. If you need feedback on a specific issue with PT3S, please include the PT3S version you are using and, if available, the Jupyter Notebook you are working with.
 
 - **GitHub Repository:** You can find the source code and contribute to the project on our `GitHub page <https://github.com/aw3s/PT3S>`_.
 
@@ -324,7 +324,7 @@ After :ref:`cloning-github-label`, you can install the package in editable mode.
 
 Now, your package is installed in editable mode. This means that you can make changes to the source code of the package and those changes will take effect immediately without needing to reinstall the package.
 
-By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to your project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply delete this `PT3S.egg-link` file. Delete also the PT3S-line in easy-install.pth.
+By installing PT3S in editable mode, a `PT3S.egg-link` file is created in the `C:\\Users\\User\\AppData\\Local\\anaconda3\\Lib\\site-packages` directory. This file is a link to your project directory and allows Python to import the package as if it were installed normally. If you no longer need the package to be in editable mode, you can simply reinstall PT3S (or delete this `PT3S.egg-link` file. Delete also the PT3S-line in easy-install.pth). 
 
 .. _generating-documentation-label:
 
@@ -351,8 +351,12 @@ To generate documentation, follow these steps:
 
       cd "C:\Users\User\3S\PT3S\sphinx_docs"
 
-3. **Make an HTML build:** Use the ``.\make.bat html`` command.
+3. **Make an HTML build:** Use ``python3 -m sphinx.cmd.build -b html . /_build/html`` (for python env)  or ``.\make.bat html`` (for conda env).
 
+   .. code-block:: bash
+
+      python3 -m sphinx.cmd.build -b html . /_build/html
+   
    .. code-block:: bash
 
       .\make.bat html

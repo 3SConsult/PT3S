@@ -3,6 +3,15 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.43.0.dev1
+---------------
+
+**Fix**:
+
+- V3_AGSNVEC: Changes from 90.14.42.0.dev1 dont cause issues with _end, _min, _max columns anymore
+
+- self.dfAGSN = dxDecodeObjsData.Agsn(self.dx) in dxAndMxHelperFcts put in try/except to prevent reading stop in case of an issue with the called function. Proper fix of this function still to be done.
+
 90.14.42.0.dev1
 ---------------
 

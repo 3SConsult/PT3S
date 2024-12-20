@@ -17,7 +17,7 @@ project = 'PT3S'
 current_year = datetime.now().year
 copyright = f'1986-{current_year}, 3S Consult GmbH'
 author = '3S Consult GmbH'
-release = '90.14.42.0.dev1'
+release = '90.14.43.0.dev1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
