@@ -1837,100 +1837,125 @@ class dxWithMx():
             dfs={}
             dfsCols={}
             
-            mIdx=pd.MultiIndex.from_tuples(
-                        [fGetMultiindexTupleFromV3Col(col) for col in dfAGSNVec.columns.to_list()]
-                        ,names=['AColName','ResultChannels','Time1','Time2'])   
+            ###mIdx=pd.MultiIndex.from_tuples(
+            ###            [fGetMultiindexTupleFromV3Col(col) for col in dfAGSNVec.columns.to_list()]
+            ###            ,names=['AColName','ResultChannels','Time1','Time2'])   
             
             # alte Spalten
-            columnsOld=dfAGSNVec.columns
+            ###columnsOld=dfAGSNVec.columns
             # voruebergehend Spalten als MIdx
-            dfAGSNVec.columns=mIdx
+            ###dfAGSNVec.columns=mIdx
 
-            logger.debug(f"{logStr} alle Spalten mIdx: {dfAGSNVec.columns.to_list()}") 
+            ###logger.debug(f"{logStr} alle Spalten mIdx: {dfAGSNVec.columns.to_list()}") 
             
             for colName,colNamePrefix,vecName in zip(colNames,colNamesPrefixes,vecNames):                
                 for typeName,colNamePostfix,timeTuple in zip(typeNames,colsNamesPostfixes,timeTuples):
                     # der neue flache Spaltenname
-                    colNameNewFlat=colName+colNamePostfix                
-                    # die zu referenzierenden 2 Spalten                    
-                    col=(typeName
-                            ,[colNamePrefix+colName,vecName] 
+                    colNameNewFlat=colName+colNamePostfix   # i.e.  'PH_n' + '_end' or 'QM' + '_end'        
+                    # die zu referenzierenden Spalten        
+                    if re.search('^QM',colName) == None:      
+                        pass
+                        # eine KNOTen wertige Groesse
+                        colNameParts=colName.split('_')
+                        colNameEff=colNameParts[0]
+                        colVBEL=str((typeName # i.e. 'TIME'
+                                ,colNamePrefix+colNameEff # i.e. KNOT~*~*~*~' or '' + 'PH'
+                                ,timeTuple[0]
+                                ,timeTuple[1]
+                            ))+'_n'  
+                    else:
+                        colVBEL=str((typeName # i.e. 'TIME'
+                                ,colNamePrefix+colName # i.e. '' + 'QM'
+                                ,timeTuple[0]
+                                ,timeTuple[1]
+                            ))    
+                        
+                    colVEC=(typeName # i.e. 'TIME'
+                            ,vecName # i.e. 'manPVEC' or 'ROHR~*~*~*~...'
                             ,timeTuple[0]
                             ,timeTuple[1]
-                           )                    
+                           )    
+
+
+
+                    #col=(typeName
+                    #        ,[colNamePrefix+colName,vecName] 
+                    #        ,timeTuple[0]
+                    #        ,timeTuple[1]
+                    #       )                    
 
                     try:
                         # Spalten referenzieren
-                        df=dfAGSNVec.loc[:,col]#.copy(deep=True)    
+                        df=dfAGSNVec[[colVBEL,colVEC]]# .loc[:,colVBEL]                                                    #.copy(deep=True)    
                         # Ergebnis merken
                         dfs[colNameNewFlat]=df
                         # Wertepaar merken:
-                        # 0: AGSN-Spalte
-                        # 1: VEC-Spalte
-                        colNameNewFlatPair=((typeName
-                                ,colNamePrefix+colName 
-                                ,timeTuple[0]
-                                ,timeTuple[1]
-                               ),(typeName
-                                ,vecName 
-                                ,timeTuple[0]
-                                ,timeTuple[1]
-                               ))    
+                        colNameNewFlatPair=(colVBEL,colVEC)
+                        #colNameNewFlatPair=((typeName
+                        #        ,colNamePrefix+colName 
+                        #        ,timeTuple[0]
+                        #        ,timeTuple[1]
+                        #       ),(typeName
+                        #        ,vecName 
+                        #        ,timeTuple[0]
+                        #        ,timeTuple[1]
+                        #       ))    
                         dfsCols[colNameNewFlat]=colNameNewFlatPair                          
                
                         logger.debug(f"{logStr}colNameNewFlat:{colNameNewFlat}: Spaltenpaare extrahiert:") 
-                        logger.debug(f"{logStr}referencing .loc col-expression:{col}")     
+                        logger.debug(f"{logStr}referencing {colVBEL} and {colVEC} OK")     
 
                         #Logs                           
-                        logger.debug(f"{logStr}df tuple-cols:") 
-                        for col in df.columns.to_list():
-                            if isinstance(col,tuple):
-                                logger.debug(f"{logStr}{col}") 
-                        logger.debug(f"{logStr}df str-cols:") 
-                        for col in df.columns.to_list():
-                            if isinstance(col,str):
-                                logger.debug(f"{logStr}{col}")  
-                        logger.debug(f"{logStr}df ?-cols:") 
-                        for col in df.columns.to_list():
-                            if not isinstance(col,str) and not isinstance(col,tuple):
-                                logger.debug(f"{logStr}{col}")  
-                        logger.debug(f"{logStr}#") 
+                        #logger.debug(f"{logStr}df tuple-cols:") 
+                        #for col in df.columns.to_list():
+                        #    if isinstance(col,tuple):
+                        #        logger.debug(f"{logStr}{col}") 
+                        #logger.debug(f"{logStr}df str-cols:") 
+                        #for col in df.columns.to_list():
+                        #    if isinstance(col,str):
+                        #        logger.debug(f"{logStr}{col}")  
+                        #logger.debug(f"{logStr}df ?-cols:") 
+                        #for col in df.columns.to_list():
+                        #    if not isinstance(col,str) and not isinstance(col,tuple):
+                        #        logger.debug(f"{logStr}{col}")  
+                        #logger.debug(f"{logStr}#") 
 
 
-                        logger.debug(f"{logStr}with colNameNewFlatPair[0]:{colNameNewFlatPair[0]}") 
-                        logger.debug(f"{logStr}and  colNameNewFlatPair[1]:{colNameNewFlatPair[1]} so far successfull.") 
+                        #logger.debug(f"{logStr}with colNameNewFlatPair[0]:{colNameNewFlatPair[0]}") 
+                        #logger.debug(f"{logStr}and  colNameNewFlatPair[1]:{colNameNewFlatPair[1]} so far successfull.") 
                     except Exception as e:
                         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                        logger.debug(logStrFinal)                      
-                        logger.debug(f"{logStr} dfAGSNVec.loc[:,col] with col={col} failed. {colNameNewFlat} not added.") 
+                        logger.debug(logStrFinal)   
+                        logger.debug(f"{logStr}colNameNewFlat:{colNameNewFlat}: Spaltenpaare NCHT extrahiert:")                    
+                        logger.debug(f"{logStr}referencing {colVBEL} and {colVEC} FAILED")     
                                         
             # wieder alte Spalten
-            dfAGSNVec.columns=columnsOld
+            ###dfAGSNVec.columns=columnsOld
             
             for colNameNewFlat,df in dfs.items():
                 #df: corresponding df
 
                 #Logs  
-                logger.debug(f"{logStr}{colNameNewFlat}: Spaltenpaare mappen:")           
-                logger.debug(f"{logStr}df tuple-cols:") 
-                for col in df.columns.to_list():
-                    if isinstance(col,tuple):
-                        logger.debug(f"{logStr}{col}") 
-                logger.debug(f"{logStr}df str-cols:") 
-                for col in df.columns.to_list():
-                    if isinstance(col,str):
-                        logger.debug(f"{logStr}{col}")  
-                logger.debug(f"{logStr}df ?-cols:") 
-                for col in df.columns.to_list():
-                    if not isinstance(col,str) and not isinstance(col,tuple):
-                        logger.debug(f"{logStr}{col}")  
-                logger.debug(f"{logStr}#") 
+                #logger.debug(f"{logStr}{colNameNewFlat}: Spaltenpaare mappen:")           
+                #logger.debug(f"{logStr}df tuple-cols:") 
+                #for col in df.columns.to_list():
+                #    if isinstance(col,tuple):
+                #        logger.debug(f"{logStr}{col}") 
+                #logger.debug(f"{logStr}df str-cols:") 
+                #for col in df.columns.to_list():
+                #    if isinstance(col,str):
+                #        logger.debug(f"{logStr}{col}")  
+                #logger.debug(f"{logStr}df ?-cols:") 
+                #for col in df.columns.to_list():
+                #    if not isinstance(col,str) and not isinstance(col,tuple):
+                #        logger.debug(f"{logStr}{col}")  
+                #logger.debug(f"{logStr}#") 
 
                 try:
                     cols=dfsCols[colNameNewFlat] #cols: the col pair
 
-                    logger.debug(f"{logStr}cols[0]:{cols[0]} type: {type(cols[0])}") 
-                    logger.debug(f"{logStr}cols[1]:{cols[1]} type: {type(cols[1])}" ) 
+                    #logger.debug(f"{logStr}cols[0]:{cols[0]} type: {type(cols[0])}") 
+                    #logger.debug(f"{logStr}cols[1]:{cols[1]} type: {type(cols[1])}" ) 
 
                     dfAGSNVec[colNameNewFlat]=df.apply(lambda row: row[cols[0]] if pd.isnull(row[cols[1]]) else row[cols[1]],axis=1)
                 except Exception as e:
