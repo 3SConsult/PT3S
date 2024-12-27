@@ -3,6 +3,13 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+To be released: 90.14.44.0.dev1
+-------------------------------
+
+**New**: 
+
+- Documentation and Repository page both included as links in setup.py
+
 90.14.43.0.dev1
 ---------------
 
