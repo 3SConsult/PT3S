@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ncd &mdash; PT3S 90.14.32.0.dev1 documentation</title>
+  <title>ncd &mdash; PT3S 90.14.43.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -11,6 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
   
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -166,7 +167,6 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Plotted </span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1"> data.&#39;</span><span class="p">))</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
         <span class="c1"># Create Legend Patches</span>
         <span class="n">legend_values</span> <span class="o">=</span> <span class="n">legend_values</span> <span class="k">if</span> <span class="n">legend_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">legend_values: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">legend_values</span><span class="p">))</span>
@@ -237,7 +237,7 @@
         <span class="c1"># Filter and Sort Data if Query is Provided</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="k">if</span> <span class="n">query</span> <span class="k">else</span> <span class="n">gdf</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="n">attribute</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
+        
         <span class="c1"># Plotting Data with Markers</span>
         <span class="n">sizes</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span> <span class="o">*</span> <span class="n">marker_size_factor</span>  <span class="c1"># Scale sizes appropriately</span>
         <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
@@ -250,7 +250,6 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Plotted </span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1"> data.&#39;</span><span class="p">))</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
         <span class="c1"># Create Legend Patches</span>
         <span class="n">legend_values</span> <span class="o">=</span> <span class="n">legend_values</span> <span class="k">if</span> <span class="n">legend_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm_min</span><span class="p">,</span> <span class="n">norm_max</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">legend_values: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="n">legend_values</span><span class="p">))</span>

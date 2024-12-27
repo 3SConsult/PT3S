@@ -28,9 +28,10 @@ setup(
     description='Python Tools 3S',
     long_description=long_description,
 
-    # The project's main homepage.
-    url='https://github.com/aw3s/PT3S',
-
+    project_urls={
+        'Documentation': 'https://aw3s.github.io/PT3S/index.html',  # Documentation URL
+        'Source': 'https://github.com/aw3s/PT3S',  # GitHub repository
+    },
     # Author details
     author='PT3S',
     author_email='andreashwolters@gmail.com',

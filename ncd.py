@@ -83,7 +83,6 @@ def pNcd_pipes(ax=None, gdf=None, attribute=None, colors=['darkgreen', 'magenta'
         logger.debug("{0:s}{1:s}".format(logStr, f'Plotted {attribute} data.'))
 
         plt.axis('off')
-
         # Create Legend Patches
         legend_values = legend_values if legend_values is not None else np.linspace(norm_min, norm_max, num=5)
         logger.debug("{0:s}legend_values: {1}".format(logStr, legend_values))
@@ -154,7 +153,7 @@ def pNcd_nodes(ax=None, gdf=None, attribute=None, colors=['darkgreen', 'magenta'
         # Filter and Sort Data if Query is Provided
         df = gdf.query(query) if query else gdf
         df = df.sort_values(by=[attribute], ascending=True)
-
+        
         # Plotting Data with Markers
         sizes = norm(df[attribute].astype(float)) * marker_size_factor  # Scale sizes appropriately
         df.plot(ax=ax,
@@ -167,7 +166,6 @@ def pNcd_nodes(ax=None, gdf=None, attribute=None, colors=['darkgreen', 'magenta'
         logger.debug("{0:s}{1:s}".format(logStr, f'Plotted {attribute} data.'))
 
         plt.axis('off')
-
         # Create Legend Patches
         legend_values = legend_values if legend_values is not None else np.linspace(norm_min, norm_max, num=5)
         logger.debug("{0:s}legend_values: {1}".format(logStr, legend_values))
