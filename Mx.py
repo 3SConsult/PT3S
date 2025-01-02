@@ -477,7 +477,7 @@ import doctest
 # Sir3sID regExp Example
 reSir3sIDSep='~'
 
-reSir3sID='(?P<OBJTYPE>\S+)'+reSir3sIDSep+'(?P<NAME1>[\S ]*)'+reSir3sIDSep+'(?P<NAME2>\S*)'+reSir3sIDSep+'(?P<OBJTYPE_PK>\d+)'+reSir3sIDSep+'(?P<ATTRTYPE>\S+)'    
+reSir3sID='(?P<OBJTYPE>\S+)'+reSir3sIDSep+'(?P<NAME1>[\S ]*)'+reSir3sIDSep+'(?P<NAME2>[\S ]*)'+reSir3sIDSep+'(?P<OBJTYPE_PK>\d+)'+reSir3sIDSep+'(?P<ATTRTYPE>\S+)'    
 reSir3sIDcompiled=re.compile(reSir3sID) 
 
 # Wording OBJID
