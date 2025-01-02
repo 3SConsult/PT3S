@@ -710,30 +710,57 @@ def pNFD_FW(
                                             
                         logger.debug(f"{logStr}min. ms Factor: {msFactor[np.logical_not(np.isnan(msFactor))].min()} * fac_ms_KNOT max. ms Factor: {msFactor[np.logical_not(np.isnan(msFactor))].max()} * fac_ms_KNOT")
                         
-                        gdf_KNOT.plot(ax = ax
-                                    ,zorder = attr_colors_KNOT_Erg_zOrder 
-                                    ,marker = marker_KNOT_Erg                        
-                                    ,markersize = msFactor * fac_ms_KNOT      
-                                    ,color = cmap_KNOTErg(norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))) 
-                                    )   
+                        norm_diff_KNOT_Erg=norm_max_KNOT_Erg-norm_min_KNOT_Erg
+
+                        if norm_diff_KNOT_Erg == 0:     
+                            logger.debug(f"{logStr}norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}:1==0!")              
+
+                            gdf_KNOT.plot(ax = ax
+                                        ,zorder = attr_colors_KNOT_Erg_zOrder 
+                                        ,marker = marker_KNOT_Erg                        
+                                        ,markersize = msFactor * fac_ms_KNOT      
+                                        ,color = cmap_KNOTErg(255) 
+                                        )   
+
+                        else:
+
+                            gdf_KNOT.plot(ax = ax
+                                        ,zorder = attr_colors_KNOT_Erg_zOrder 
+                                        ,marker = marker_KNOT_Erg                        
+                                        ,markersize = msFactor * fac_ms_KNOT      
+                                        ,color = cmap_KNOTErg(norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))) 
+                                        )   
                         
                         # Legendeneinräge                                                     
                         if attr_colors_KNOT_Erg_patchValues == None:
-                            norm_diff_KNOT_Erg=norm_max_KNOT_Erg-norm_min_KNOT_Erg
-                            if norm_diff_KNOT_Erg == 0:
-                                
+                            #norm_diff_KNOT_Erg=norm_max_KNOT_Erg-norm_min_KNOT_Erg
+                            if norm_diff_KNOT_Erg == 0:     
+                                logger.debug(f"{logStr}norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}:2==0!")                           
                                 attr_colors_KNOT_Erg_patchValues=np.arange(norm_min_KNOT_Erg,norm_max_KNOT_Erg+1,1)   
                             else:
                                 attr_colors_KNOT_Erg_patchValues=np.arange(norm_min_KNOT_Erg,norm_max_KNOT_Erg,norm_diff_KNOT_Erg/4)   
                                 
-                            logger.debug(f"{logStr} norm_min_KNOT_Erg: {norm_min_KNOT_Erg} norm_max_KNOT_Erg: {norm_max_KNOT_Erg} norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}")
-                                        
-                        attr_colors_KNOT_Erg_patches = [mpatches.Patch(
-                                                        color=cmap_KNOTErg(norm_KNOTErg_Size(value))
-                                                        ,label=attr_colors_KNOT_Erg_patches_fmt.format(value)
-                                                        ) 
-                                                        for value in attr_colors_KNOT_Erg_patchValues
-                                                        ]
+                            logger.debug(f"{logStr}norm_min_KNOT_Erg: {norm_min_KNOT_Erg} norm_max_KNOT_Erg: {norm_max_KNOT_Erg} norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}")
+
+
+                        if norm_diff_KNOT_Erg == 0:     
+                            logger.debug(f"{logStr}norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}:3==0!")       
+                            attr_colors_KNOT_Erg_patches = [mpatches.Patch(
+                                                            color=cmap_KNOTErg(255)
+                                                            ,label=attr_colors_KNOT_Erg_patches_fmt.format(value)
+                                                            ) 
+                                                            for value in attr_colors_KNOT_Erg_patchValues
+                                                            ]       
+                        else:
+                            attr_colors_KNOT_Erg_patches = [mpatches.Patch(
+                                                            color=cmap_KNOTErg(norm_KNOTErg_Size(value))
+                                                            ,label=attr_colors_KNOT_Erg_patches_fmt.format(value)
+                                                            ) 
+                                                            for value in attr_colors_KNOT_Erg_patchValues
+                                                            ]
+                        
+
+
                         attr_colors_KNOT_Erg_patches[0].set_label("{:s} (min.: {:4.2f})".format(
                             attr_colors_KNOT_Erg_patches[0].get_label()
                             ,gdf_KNOT[attr_colors_KNOT_Erg].min()
