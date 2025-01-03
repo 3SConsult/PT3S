@@ -56,40 +56,43 @@ def pNcd_pipes(ax=None, gdf=None, attribute=None, colors=['darkgreen', 'magenta'
         if gdf is None or gdf.empty:
             logger.debug("{0:s}{1:s}".format(logStr, 'No plot data provided.'))
             return
+        if isinstance(attribute, list):
+            pass
+        else:
+            # Set default legend_fmt if not provided
+            if legend_fmt is None:
+                legend_fmt = attribute + ' {:4.0f}'
+            logger.debug("Fine 1")
+            # Create Colormap
+            cmap = mcolors.LinearSegmentedColormap.from_list('cmap', colors, N=256)
+            norm_min = norm_min if norm_min is not None else gdf[attribute].min()
+            norm_max = norm_max if norm_max is not None else gdf[attribute].max()
+            norm = plt.Normalize(vmin=norm_min, vmax=norm_max)
+            logger.debug("{0:s}norm_min: {1:10.2f} norm_max: {2:10.2f}".format(logStr, norm_min, norm_max))
+            # Filter and Sort Data if Query is Provided
+            df = gdf.query(query) if query else gdf
+            df = df.sort_values(by=[attribute], ascending=True)
 
-        # Set default legend_fmt if not provided
-        if legend_fmt is None:
-            legend_fmt = attribute + ' {:4.0f}'
+            # Plotting Data with Lines
+            sizes = norm(df[attribute].astype(float)) * line_width_factor  # Scale sizes appropriately
+            
+            df.plot(ax=ax,
+                    linewidth=sizes,
+                    color=cmap(norm(df[attribute].astype(float))),
+                    path_effects=[path_effects.Stroke(capstyle="round")],
+                    label=attribute,
+                    #alpha=0.5,
+                    zorder=zorder)  # Add label for legend
+            logger.debug("{0:s}{1:s}".format(logStr, f'Plotted {attribute} data.'))
 
-        # Create Colormap
-        cmap = mcolors.LinearSegmentedColormap.from_list('cmap', colors, N=256)
-        norm_min = norm_min if norm_min is not None else gdf[attribute].min()
-        norm_max = norm_max if norm_max is not None else gdf[attribute].max()
-        norm = plt.Normalize(vmin=norm_min, vmax=norm_max)
-        logger.debug("{0:s}norm_min: {1:10.2f} norm_max: {2:10.2f}".format(logStr, norm_min, norm_max))
+            plt.axis('off')
+            # Create Legend Patches
+            legend_values = legend_values if legend_values is not None else np.linspace(norm_min, norm_max, num=5)
+            logger.debug("{0:s}legend_values: {1}".format(logStr, legend_values))
+            patches = [mpatches.Patch(color=cmap(norm(value)), label=legend_fmt.format(value)) for value in legend_values]
 
-        # Filter and Sort Data if Query is Provided
-        df = gdf.query(query) if query else gdf
-        df = df.sort_values(by=[attribute], ascending=True)
-
-        # Plotting Data with Lines
-        sizes = norm(df[attribute].astype(float)) * line_width_factor  # Scale sizes appropriately
-        df.plot(ax=ax,
-                linewidth=sizes,
-                color=cmap(norm(df[attribute].astype(float))),
-                path_effects=[path_effects.Stroke(capstyle="round")],
-                label=attribute,
-                zorder=zorder)  # Add label for legend
-        logger.debug("{0:s}{1:s}".format(logStr, f'Plotted {attribute} data.'))
-
-        plt.axis('off')
-        # Create Legend Patches
-        legend_values = legend_values if legend_values is not None else np.linspace(norm_min, norm_max, num=5)
-        logger.debug("{0:s}legend_values: {1}".format(logStr, legend_values))
-        patches = [mpatches.Patch(color=cmap(norm(value)), label=legend_fmt.format(value)) for value in legend_values]
-
-        return patches
-
+            return patches
+        
     except Exception as e:
         logger.error("{0:s}{1:s} - {2}".format(logStr, 'Error.', str(e)))
 

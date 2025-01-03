@@ -673,7 +673,23 @@ class dxWithMx():
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                  logger.debug(logStrTmp) 
                  logger.debug("{0:s}{1:s}".format(logStr,'Constructing col dPH in V3_KNOT failed.'))      
-               
+            try:                                                         
+                qs=('STAT'
+                            ,'KNOT~*~*~*~ESQUELLSP'
+                            ,t0
+                            ,t0
+                            )
+                #logger.debug("df before: {}".format(df_V3_KNOT))
+                df_V3_KNOT['qsStr'] = df_V3_KNOT[qs].str.decode('utf-8')
+                df_V3_KNOT['qsStr'] = df_V3_KNOT['qsStr'].str.rstrip()    
+                df_V3_KNOT['srcvector'] = df_V3_KNOT['qsStr'].apply(lambda x: [x.split('\t')[0].strip()] + [elem.strip() for elem in x.split('\t')[1:]])  
+                df_V3_KNOT = df_V3_KNOT.drop(columns=['qsStr'])
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_KNOT['srcvector'] ok so far."))      
+                #logger.debug("df after: {}".format(df_V3_KNOT))                                                
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col srcvector in V3_KNOT failed.'))                
             return df_V3_KNOT   
         except dxWithMxError:
             raise            

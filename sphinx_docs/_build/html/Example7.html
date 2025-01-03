@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quellspektren &mdash; PT3S 90.14.43.0.dev1 documentation</title>
+  <title>Example7: Work in Progress &mdash; PT3S 90.14.43.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -75,7 +75,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Quellspektren</li>
+      <li class="breadcrumb-item active">Example7: Work in Progress</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Example7.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,8 +85,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Quellspektren">
-<h1>Quellspektren<a class="headerlink" href="#Quellspektren" title="Permalink to this heading"></a></h1>
+  <section id="Example7:-Work-in-Progress">
+<h1>Example7: Work in Progress<a class="headerlink" href="#Example7:-Work-in-Progress" title="Permalink to this heading"></a></h1>
 <p>Short description of example notebook for the Examples Page Additional information</p>
 </section>
 <section id="PT3S-Release">
@@ -114,7 +114,7 @@ When running this example for the first time on your machine, please execute the
 <section id="Imports">
 <h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -123,6 +123,12 @@ When running this example for the first time on your machine, please execute the
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">LineString</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
 <span class="c1">#...</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -241,8 +247,225 @@ INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
 </div>
+</section>
+<section id="Plot-with-new-method">
+<h1>Plot with new method<a class="headerlink" href="#Plot-with-new-method" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">])</span>
+<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mix_colors</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+    <span class="n">vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># Ensure the vector is of type float</span>
+    <span class="n">colors_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># Ensure the colors are of type float</span>
+    <span class="n">mixed_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">colors_array</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mixed_color</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">convert_to_hex</span><span class="p">(</span><span class="n">color_array</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;#</span><span class="si">{:02x}{:02x}{:02x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">color_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">color_array</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">color_array</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_mixed_colors</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mixed_color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mix_colors</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">colors</span><span class="p">))</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mixed_color_hex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mixed_color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">convert_to_hex</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)))</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;mixed_color_hex&#39;</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">])]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_mixed_colors</span><span class="p">(</span><span class="n">dfROHR</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example7_25_0.png" src="_images/Example7_25_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHRrand</span><span class="o">=</span><span class="n">dfROHR</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_random_vector</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">random_vectors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">generate_random_vector</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dfROHR</span><span class="p">))])</span>
+<span class="n">dfROHRrand</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random_vectors</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">])]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_mixed_colors</span><span class="p">(</span><span class="n">dfROHRrand</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example7_29_0.png" src="_images/Example7_29_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#black_rows = dfROHR[dfROHR[&#39;mixed_color_hex&#39;] == &#39;#000000&#39;]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Plot-with-ncd.py">
+<h1>Plot with ncd.py<a class="headerlink" href="#Plot-with-ncd.py" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">])</span>
+<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;difference&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
+
+<span class="n">pipes_patches_1</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                                 <span class="n">gdf</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">,</span>
+                                 <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;difference&#39;</span><span class="p">,</span>
+                                 <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">],</span>
+                                 <span class="n">legend_fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{:4.0f}</span><span class="s1"> mm&#39;</span><span class="p">,</span>
+                                 <span class="n">line_width_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                 <span class="n">legend_values</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span>
+                                 <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">all_patches</span> <span class="o">=</span> <span class="n">pipes_patches_1</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">all_patches</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+
+<span class="c1">#cx.add_basemap(ax, crs=gdf_ROHR.crs.to_string(), source=cx.providers.CartoDB.PositronNoLabels)</span>
+<span class="c1">#cx.add_basemap(ax, crs=gdf_ROHR.crs.to_string(), source=cx.providers.CartoDB.PositronOnlyLabels)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Network Color Diagram&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Example7_Output_1.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example7_36_0.png" src="_images/Example7_36_0.png" />
+</div>
+</div>
+</section>
+<section id="Working">
+<h1>Working<a class="headerlink" href="#Working" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfEBES</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;EBES&#39;</span><span class="p">]</span>
@@ -250,302 +473,89 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge dfEBES and dfEBES_BZ on columns &#39;pk&#39; and &#39;fk&#39;</span>
 <span class="n">vEBES</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dfEBES</span><span class="p">,</span> <span class="n">dfEBES_BZ</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;fk&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_BZ&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">,</span> <span class="s1">&#39;AKTIVQS&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">vEBES</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>index</th>
-      <th>pk</th>
-      <th>fkDE</th>
-      <th>rk</th>
-      <th>tk</th>
-      <th>NAME</th>
-      <th>LFDNR</th>
-      <th>OBJS</th>
-      <th>DELETED</th>
-      <th>SELECT1</th>
-      <th>IDREFERENZ</th>
-      <th>pk_BZ</th>
-      <th>fkDE_BZ</th>
-      <th>fk</th>
-      <th>AKTIV</th>
-      <th>AKTIVQS</th>
-      <th>VERSAGENSW</th>
-      <th>GRAF</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>5408410878987506184</td>
-      <td>5613149064237404433</td>
-      <td>5408410878987506184</td>
-      <td>4947747250455344469</td>
-      <td>A</td>
-      <td>1.0</td>
-      <td>b'FWES~5237816858835684263'</td>
-      <td>0.0</td>
-      <td>None</td>
-      <td>-1</td>
-      <td>5011706316339838135</td>
-      <td>5032285329913031496</td>
-      <td>5408410878987506184</td>
-      <td>101.0</td>
-      <td>101.0</td>
-      <td>0.0</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0</td>
-      <td>5622504138093320653</td>
-      <td>5613149064237404433</td>
-      <td>5622504138093320653</td>
-      <td>5601957102971980247</td>
-      <td>B</td>
-      <td>2.0</td>
-      <td>b'FWES~5175187672733343279'</td>
-      <td>0.0</td>
-      <td>None</td>
-      <td>-1</td>
-      <td>5184693889865717961</td>
-      <td>5032285329913031496</td>
-      <td>5622504138093320653</td>
-      <td>100.0</td>
-      <td>101.0</td>
-      <td>0.0</td>
-      <td>None</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create lists of NAME and LFDNR from the merged DataFrame</span>
+<span class="c1"># Create lists of NAME and LFDNR from the merged DataFrame</span>
 <span class="n">Names</span> <span class="o">=</span> <span class="n">vEBES</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">Lfdnrs</span> <span class="o">=</span> <span class="n">vEBES</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Names</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;A&#39;, &#39;B&#39;]
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Lfdnrs</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[1.0, 2.0]
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate a list of column names based on LFDNR and NAME</span>
 <span class="n">expColNames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;qs&#39;</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Lfdnr</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">Name</span> <span class="k">for</span> <span class="n">Lfdnr</span><span class="p">,</span> <span class="n">Name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">Lfdnrs</span><span class="p">,</span> <span class="n">Names</span><span class="p">)]</span>
-<span class="n">expColNames</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;qs_1.0_A&#39;, &#39;qs_2.0_B&#39;]
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check for inactive groups with AKTIVQS as float</span>
+<span class="c1"># Check for inactive groups with AKTIVQS as float</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">vEBES</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">vEBES</span><span class="p">[</span><span class="n">vEBES</span><span class="p">[</span><span class="s1">&#39;AKTIVQS&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">101.0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Es gibt inaktive Einspeisergruppen!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~*~*~*~ESQUELLSP&#39;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2024-01-09 23:00:00&#39;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2024-01-09 23:00:00&#39;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span> <span class="s1">&#39;KNOT~*~*~*~ESQUELLSP&#39;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2024-01-09 23:00:00&#39;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2024-01-09 23:00:00&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;qsStr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_tuple</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;qsStr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;qsStr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;qsStr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">+</span> <span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]])</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf_KNOT</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf_KNOT</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="p">[</span><span class="s1">&#39;qsStr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="p">[</span><span class="n">qs</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">gdf_KNOT</span><span class="p">,</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="s1">&#39;srcvector&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;pk&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="p">[</span><span class="s1">&#39;qsStr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="p">[</span><span class="s1">&#39;qsStr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="p">[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="p">[</span><span class="s1">&#39;qsStr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">+</span> <span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]])</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#dfKNOT[[&#39;srcvector&#39;,&#39;qsStr&#39;,qs]]</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;dPH&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-df_sorted_by_YKOR = df.sort_values(by='YKOR')
-df_sorted_by_XKOR = df.sort_values(by='XKOR')
-
-# Display the sorted columns
-print("Sorted YKOR column:")
-print(df_sorted_by_YKOR['YKOR'])
-
-print("\nSorted XKOR column:")
-print(df_sorted_by_XKOR['XKOR'])<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop rows where &#39;YKOR&#39; is less than 90000 or &#39;XKOR&#39; is less than 40000</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;YKOR&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">90000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;XKOR&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">40000</span><span class="p">)]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter dfKNOT to include only rows where all elements in srcvector are 0</span>
+<span class="n">filtered_dfKNOT</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="p">[</span><span class="n">dfKNOT</span><span class="p">[</span><span class="s1">&#39;srcvector&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span><span class="n">element</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">x</span><span class="p">))]</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_dfKNOT</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -578,14 +588,1191 @@ print(df_sorted_by_XKOR['XKOR'])<div class="nbinput nblast docutils container">
       <th>ZKOR</th>
       <th>QM_EIN</th>
       <th>...</th>
+      <th>(STAT, KNOT~*~*~*~PMAX_INST, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~PMIN_INST, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
       <th>(STAT, KNOT~*~*~*~QM, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
       <th>(STAT, KNOT~*~*~*~RHO, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
       <th>(STAT, KNOT~*~*~*~T, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
       <th>(STAT, KNOT~*~*~*~VOLD, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
       <th>PH</th>
       <th>dPH</th>
-      <th>geometry</th>
       <th>srcvector</th>
+      <th>qsStr</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<p>0 rows × 150 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfSRC</span><span class="o">=</span><span class="n">dfKNOT</span><span class="p">[[</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span><span class="s1">&#39;srcvector&#39;</span><span class="p">]]</span>
+<span class="n">dfSRC</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tk</th>
+      <th>srcvector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4680103632661687203</td>
+      <td>[0, 100]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5540855804579832866</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5517245021561014546</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5025567272877293202</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4660263951317730783</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1557</th>
+      <td>5322477349772075450</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>1558</th>
+      <td>5524372468946832093</td>
+      <td>[0, 100]</td>
+    </tr>
+    <tr>
+      <th>1559</th>
+      <td>5733371532701512468</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>1560</th>
+      <td>4993345350482955278</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>1561</th>
+      <td>5649673474297384806</td>
+      <td>[0, 0]</td>
+    </tr>
+  </tbody>
+</table>
+<p>1559 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHRSRC</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">,</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]]</span>
+<span class="n">dfROHRSRC</span><span class="p">[</span><span class="s1">&#39;fkKI_exists_in_dfSRC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHRSRC</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">dfSRC</span><span class="p">[</span><span class="s1">&#39;tk&#39;</span><span class="p">])</span>
+<span class="n">dfROHRSRC</span><span class="p">[</span><span class="s1">&#39;fkKK_exists_in_dfSRC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHRSRC</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">dfSRC</span><span class="p">[</span><span class="s1">&#39;tk&#39;</span><span class="p">])</span>
+
+<span class="n">contains_false_fkKI</span> <span class="o">=</span> <span class="n">dfROHRSRC</span><span class="p">[</span><span class="s1">&#39;fkKI_exists_in_dfSRC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span>
+<span class="n">contains_false_fkKK</span> <span class="o">=</span> <span class="n">dfROHRSRC</span><span class="p">[</span><span class="s1">&#39;fkKK_exists_in_dfSRC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Does the column &#39;exists_in_dfSRC&#39; contain False? </span><span class="si">{</span><span class="n">contains_false_fkKI</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Does the column &#39;exists_in_dfSRC&#39; contain False? </span><span class="si">{</span><span class="n">contains_false_fkKK</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">dfROHRSRC</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Does the column &#39;exists_in_dfSRC&#39; contain False? False
+Does the column &#39;exists_in_dfSRC&#39; contain False? False
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fkKI</th>
+      <th>fkKK</th>
+      <th>fkKI_exists_in_dfSRC</th>
+      <th>fkKK_exists_in_dfSRC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4633923442641649780</td>
+      <td>4861612333722514824</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5385242986988925951</td>
+      <td>4968957302162750102</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4789032251376812728</td>
+      <td>4714338053628675689</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4680103632661687203</td>
+      <td>5432609004919372061</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4640545062585607086</td>
+      <td>5139756443698698284</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1667</th>
+      <td>5128045753491799259</td>
+      <td>4867102035081211028</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1668</th>
+      <td>5641694688519704748</td>
+      <td>5564264675869374696</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1669</th>
+      <td>4856150400548314169</td>
+      <td>4900329574258273507</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1670</th>
+      <td>4860951051859022136</td>
+      <td>5694310466494827395</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1671</th>
+      <td>4861612333722514824</td>
+      <td>5115345020267258051</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+<p>1672 rows × 4 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dfROHRSRC</span><span class="p">,</span> <span class="n">dfSRC</span><span class="p">[[</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="s1">&#39;srcvector&#39;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;fkKI&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tk&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srcvector&#39;</span><span class="p">:</span> <span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fkKI</th>
+      <th>fkKK</th>
+      <th>fkKI_exists_in_dfSRC</th>
+      <th>fkKK_exists_in_dfSRC</th>
+      <th>srcvector_fkKI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4633923442641649780</td>
+      <td>4861612333722514824</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5385242986988925951</td>
+      <td>4968957302162750102</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4789032251376812728</td>
+      <td>4714338053628675689</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4680103632661687203</td>
+      <td>5432609004919372061</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 100]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4640545062585607086</td>
+      <td>5139756443698698284</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1667</th>
+      <td>5128045753491799259</td>
+      <td>4867102035081211028</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+    </tr>
+    <tr>
+      <th>1668</th>
+      <td>5641694688519704748</td>
+      <td>5564264675869374696</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>1669</th>
+      <td>4856150400548314169</td>
+      <td>4900329574258273507</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>1670</th>
+      <td>4860951051859022136</td>
+      <td>5694310466494827395</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>1671</th>
+      <td>4861612333722514824</td>
+      <td>5115345020267258051</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+    </tr>
+  </tbody>
+</table>
+<p>1672 rows × 5 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">dfSRC</span><span class="p">[[</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="s1">&#39;srcvector&#39;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;fkKK&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tk&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srcvector&#39;</span><span class="p">:</span> <span class="s1">&#39;srcvector_fkKK&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fkKI</th>
+      <th>fkKK</th>
+      <th>fkKI_exists_in_dfSRC</th>
+      <th>fkKK_exists_in_dfSRC</th>
+      <th>srcvector_fkKI</th>
+      <th>srcvector_fkKK</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4633923442641649780</td>
+      <td>4861612333722514824</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5385242986988925951</td>
+      <td>4968957302162750102</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4789032251376812728</td>
+      <td>4714338053628675689</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4680103632661687203</td>
+      <td>5432609004919372061</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 100]</td>
+      <td>[0, 100]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4640545062585607086</td>
+      <td>5139756443698698284</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1667</th>
+      <td>5128045753491799259</td>
+      <td>4867102035081211028</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[98, 2]</td>
+    </tr>
+    <tr>
+      <th>1668</th>
+      <td>5641694688519704748</td>
+      <td>5564264675869374696</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>1669</th>
+      <td>4856150400548314169</td>
+      <td>4900329574258273507</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>1670</th>
+      <td>4860951051859022136</td>
+      <td>5694310466494827395</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>1671</th>
+      <td>4861612333722514824</td>
+      <td>5115345020267258051</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+      <td>[95, 5]</td>
+    </tr>
+  </tbody>
+</table>
+<p>1672 rows × 6 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">differing_rows</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKK&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">differing_rows</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fkKI</th>
+      <th>fkKK</th>
+      <th>fkKI_exists_in_dfSRC</th>
+      <th>fkKK_exists_in_dfSRC</th>
+      <th>srcvector_fkKI</th>
+      <th>srcvector_fkKK</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>57</th>
+      <td>5398837071191369601</td>
+      <td>5267246667282084348</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[90, 10]</td>
+      <td>[75, 25]</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>5302161036120205748</td>
+      <td>5696286129939720928</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[87, 13]</td>
+      <td>[58, 42]</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>5465377790656857485</td>
+      <td>5487494706380924171</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 100]</td>
+      <td>[45, 55]</td>
+    </tr>
+    <tr>
+      <th>191</th>
+      <td>5301624050296190402</td>
+      <td>5144770862341515670</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[59, 41]</td>
+      <td>[58, 42]</td>
+    </tr>
+    <tr>
+      <th>199</th>
+      <td>4916661390301568572</td>
+      <td>5671366723829060255</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[99, 1]</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>246</th>
+      <td>4804557823529386905</td>
+      <td>4837967340067928800</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[99, 1]</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>257</th>
+      <td>4825698248521372919</td>
+      <td>5419941292222858592</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[97, 3]</td>
+      <td>[98, 2]</td>
+    </tr>
+    <tr>
+      <th>258</th>
+      <td>5053047766437794171</td>
+      <td>4912644895321712213</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[11, 89]</td>
+      <td>[34, 66]</td>
+    </tr>
+    <tr>
+      <th>285</th>
+      <td>5295662925240869173</td>
+      <td>4732525992409597169</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[97, 3]</td>
+    </tr>
+    <tr>
+      <th>310</th>
+      <td>5126251062680666376</td>
+      <td>5496105756871471300</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 100]</td>
+      <td>[15, 85]</td>
+    </tr>
+    <tr>
+      <th>366</th>
+      <td>4933906092092944101</td>
+      <td>5670935278778854984</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[96, 4]</td>
+      <td>[90, 10]</td>
+    </tr>
+    <tr>
+      <th>393</th>
+      <td>5487494706380924171</td>
+      <td>5191455435867208827</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[45, 55]</td>
+      <td>[54, 46]</td>
+    </tr>
+    <tr>
+      <th>401</th>
+      <td>5258861183398215736</td>
+      <td>5716582368539258909</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[97, 3]</td>
+      <td>[90, 10]</td>
+    </tr>
+    <tr>
+      <th>519</th>
+      <td>5031166415418048028</td>
+      <td>4804557823529386905</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[99, 1]</td>
+    </tr>
+    <tr>
+      <th>526</th>
+      <td>4804557823529386905</td>
+      <td>5509520755042418424</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[99, 1]</td>
+      <td>[98, 2]</td>
+    </tr>
+    <tr>
+      <th>542</th>
+      <td>4916661390301568572</td>
+      <td>4837967340067928800</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[99, 1]</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>608</th>
+      <td>4997520779010326791</td>
+      <td>5490305337592760652</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 100]</td>
+      <td>[3, 97]</td>
+    </tr>
+    <tr>
+      <th>638</th>
+      <td>5696286129939720928</td>
+      <td>5448548681680644289</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[58, 42]</td>
+      <td>[40, 60]</td>
+    </tr>
+    <tr>
+      <th>668</th>
+      <td>5432248042677302815</td>
+      <td>5294235852321810388</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[90, 10]</td>
+    </tr>
+    <tr>
+      <th>672</th>
+      <td>5489003886579673747</td>
+      <td>5174544282834247145</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>690</th>
+      <td>5694310466494827395</td>
+      <td>5508604436670812750</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[98, 2]</td>
+    </tr>
+    <tr>
+      <th>700</th>
+      <td>5187164701350669518</td>
+      <td>4916661390301568572</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[99, 1]</td>
+    </tr>
+    <tr>
+      <th>718</th>
+      <td>4941187833999631229</td>
+      <td>5135971168065784188</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 100]</td>
+      <td>[23, 77]</td>
+    </tr>
+    <tr>
+      <th>738</th>
+      <td>4955373489706324087</td>
+      <td>5611031766206964315</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[97, 3]</td>
+      <td>[79, 21]</td>
+    </tr>
+    <tr>
+      <th>780</th>
+      <td>5487494706380924171</td>
+      <td>4789123648157868879</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[45, 55]</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>828</th>
+      <td>5138474092733471076</td>
+      <td>5144770862341515670</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[77, 23]</td>
+      <td>[58, 42]</td>
+    </tr>
+    <tr>
+      <th>849</th>
+      <td>5365188720060776260</td>
+      <td>5409814237786290482</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[97, 3]</td>
+    </tr>
+    <tr>
+      <th>869</th>
+      <td>5615048211634621618</td>
+      <td>5525125717847968738</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[90, 10]</td>
+    </tr>
+    <tr>
+      <th>874</th>
+      <td>5232133941526053133</td>
+      <td>5360759856116745230</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[58, 42]</td>
+      <td>[34, 66]</td>
+    </tr>
+    <tr>
+      <th>895</th>
+      <td>4732525992409597169</td>
+      <td>4793608931282787178</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[97, 3]</td>
+      <td>[34, 66]</td>
+    </tr>
+    <tr>
+      <th>901</th>
+      <td>5419941292222858592</td>
+      <td>4629640814433374506</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>968</th>
+      <td>5525125717847968738</td>
+      <td>5263180678376141268</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[90, 10]</td>
+      <td>[0, 100]</td>
+    </tr>
+    <tr>
+      <th>1051</th>
+      <td>5611031766206964315</td>
+      <td>5240057736165248871</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[79, 21]</td>
+      <td>[34, 66]</td>
+    </tr>
+    <tr>
+      <th>1052</th>
+      <td>5191455435867208827</td>
+      <td>5662012287420212425</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[54, 46]</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>1087</th>
+      <td>4961317154241148904</td>
+      <td>5258861183398215736</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[97, 3]</td>
+    </tr>
+    <tr>
+      <th>1131</th>
+      <td>4646239326998743312</td>
+      <td>5174544282834247145</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[90, 10]</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>1152</th>
+      <td>4877009140800142170</td>
+      <td>5490305337592760652</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[15, 85]</td>
+      <td>[3, 97]</td>
+    </tr>
+    <tr>
+      <th>1156</th>
+      <td>5733523741574333290</td>
+      <td>4912644895321712213</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[34, 66]</td>
+    </tr>
+    <tr>
+      <th>1163</th>
+      <td>4804557823529386905</td>
+      <td>5449283705007764487</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[99, 1]</td>
+      <td>[98, 2]</td>
+    </tr>
+    <tr>
+      <th>1171</th>
+      <td>5577448408546857738</td>
+      <td>5567047119891889984</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[76, 24]</td>
+    </tr>
+    <tr>
+      <th>1176</th>
+      <td>5107104632237549014</td>
+      <td>5365188720060776260</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[97, 3]</td>
+      <td>[98, 2]</td>
+    </tr>
+    <tr>
+      <th>1219</th>
+      <td>5040685249222528828</td>
+      <td>5267246667282084348</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 100]</td>
+      <td>[75, 25]</td>
+    </tr>
+    <tr>
+      <th>1225</th>
+      <td>4738377477444899325</td>
+      <td>5448548681680644289</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[34, 66]</td>
+      <td>[40, 60]</td>
+    </tr>
+    <tr>
+      <th>1243</th>
+      <td>5138474092733471076</td>
+      <td>5302161036120205748</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[77, 23]</td>
+      <td>[87, 13]</td>
+    </tr>
+    <tr>
+      <th>1246</th>
+      <td>5567047119891889984</td>
+      <td>4715091783184927746</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[76, 24]</td>
+      <td>[59, 41]</td>
+    </tr>
+    <tr>
+      <th>1331</th>
+      <td>5074594183838392416</td>
+      <td>4933906092092944101</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[97, 3]</td>
+      <td>[96, 4]</td>
+    </tr>
+    <tr>
+      <th>1349</th>
+      <td>4815864388724319759</td>
+      <td>5496105756871471300</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[15, 85]</td>
+    </tr>
+    <tr>
+      <th>1411</th>
+      <td>5294235852321810388</td>
+      <td>5188001838088698751</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[90, 10]</td>
+      <td>[76, 24]</td>
+    </tr>
+    <tr>
+      <th>1416</th>
+      <td>4679168270864626273</td>
+      <td>5301624050296190402</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[77, 23]</td>
+      <td>[59, 41]</td>
+    </tr>
+    <tr>
+      <th>1453</th>
+      <td>5302161036120205748</td>
+      <td>5535419120893782618</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[87, 13]</td>
+      <td>[97, 3]</td>
+    </tr>
+    <tr>
+      <th>1462</th>
+      <td>5551411141468416056</td>
+      <td>5053047766437794171</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[75, 25]</td>
+      <td>[11, 89]</td>
+    </tr>
+    <tr>
+      <th>1538</th>
+      <td>4672146773283724363</td>
+      <td>5232133941526053133</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[79, 21]</td>
+      <td>[58, 42]</td>
+    </tr>
+    <tr>
+      <th>1570</th>
+      <td>5129237009807641729</td>
+      <td>5135971168065784188</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+      <td>[23, 77]</td>
+    </tr>
+    <tr>
+      <th>1637</th>
+      <td>5053047766437794171</td>
+      <td>5395195692820400032</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[11, 89]</td>
+      <td>[0, 100]</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fkKI</th>
+      <th>fkKK</th>
+      <th>fkKI_exists_in_dfSRC</th>
+      <th>fkKK_exists_in_dfSRC</th>
+      <th>srcvector_fkKI</th>
+      <th>srcvector_fkKK</th>
       <th>first_element</th>
       <th>second_element</th>
     </tr>
@@ -593,164 +1780,491 @@ print(df_sorted_by_XKOR['XKOR'])<div class="nbinput nblast docutils container">
   <tbody>
     <tr>
       <th>0</th>
-      <td>4678355169005004036</td>
-      <td>5613149064237404433</td>
-      <td>4678355169005004036</td>
-      <td>4680103632661687203</td>
-      <td>V-3354</td>
-      <td>QKON</td>
-      <td>55176.323661</td>
-      <td>98780.494875</td>
-      <td>29.299999</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>-0.0</td>
-      <td>1000.299988</td>
-      <td>10.0</td>
-      <td>0.0</td>
-      <td>9.065271</td>
-      <td>-9.536743e-07</td>
-      <td>POINT (55176.324 98780.495)</td>
-      <td>[0, 0]</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>4633923442641649780</td>
+      <td>4861612333722514824</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+      <td>[95, 5]</td>
+      <td>95</td>
+      <td>5</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>5759822415014073091</td>
-      <td>5613149064237404433</td>
-      <td>5759822415014073091</td>
-      <td>5540855804579832866</td>
-      <td>V-1503</td>
-      <td>QKON</td>
-      <td>48826.419913</td>
-      <td>98285.548412</td>
-      <td>30.500000</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>935.395935</td>
-      <td>129.782288</td>
-      <td>0.0</td>
-      <td>8.247993</td>
-      <td>2.906271e+00</td>
-      <td>POINT (48826.420 98285.548)</td>
-      <td>[100, 0]</td>
-      <td>100.0</td>
-      <td>100.0</td>
+      <td>5385242986988925951</td>
+      <td>4968957302162750102</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>4937617602785191405</td>
-      <td>5613149064237404433</td>
-      <td>4937617602785191405</td>
-      <td>5517245021561014546</td>
-      <td>R-3120</td>
-      <td>QKON</td>
-      <td>54520.835675</td>
-      <td>98283.398808</td>
-      <td>28.100000</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>-0.0</td>
-      <td>1000.299988</td>
-      <td>10.0</td>
-      <td>0.0</td>
-      <td>9.183028</td>
-      <td>-1.907349e-06</td>
-      <td>POINT (54520.836 98283.399)</td>
+      <td>4789032251376812728</td>
+      <td>4714338053628675689</td>
+      <td>True</td>
+      <td>True</td>
       <td>[0, 0]</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>5468959419408453250</td>
-      <td>5613149064237404433</td>
-      <td>5468959419408453250</td>
-      <td>5025567272877293202</td>
-      <td>V-3604</td>
-      <td>QKON</td>
-      <td>53007.627163</td>
-      <td>98806.657826</td>
-      <td>26.600000</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>936.481689</td>
-      <td>128.522919</td>
-      <td>0.0</td>
-      <td>8.77282</td>
-      <td>3.201668e+00</td>
-      <td>POINT (53007.627 98806.658)</td>
-      <td>[45, 55]</td>
-      <td>45.0</td>
-      <td>45.0</td>
+      <td>4680103632661687203</td>
+      <td>5432609004919372061</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 100]</td>
+      <td>[0, 100]</td>
+      <td>0</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>5526072131156860534</td>
-      <td>5613149064237404433</td>
-      <td>5526072131156860534</td>
-      <td>4660263951317730783</td>
-      <td>V-IHAF1</td>
-      <td>QKON</td>
-      <td>47711.710479</td>
-      <td>98384.669793</td>
-      <td>27.600000</td>
-      <td>0.0</td>
+      <td>4640545062585607086</td>
+      <td>5139756443698698284</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
       <td>...</td>
-      <td>0.0</td>
-      <td>938.922852</td>
-      <td>125.596466</td>
-      <td>0.0</td>
-      <td>7.848343</td>
-      <td>1.547821e+00</td>
-      <td>POINT (47711.710 98384.670)</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1667</th>
+      <td>5128045753491799259</td>
+      <td>4867102035081211028</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[98, 2]</td>
+      <td>98</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1668</th>
+      <td>5641694688519704748</td>
+      <td>5564264675869374696</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1669</th>
+      <td>4856150400548314169</td>
+      <td>4900329574258273507</td>
+      <td>True</td>
+      <td>True</td>
       <td>[100, 0]</td>
-      <td>100.0</td>
-      <td>100.0</td>
+      <td>[100, 0]</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1670</th>
+      <td>4860951051859022136</td>
+      <td>5694310466494827395</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[100, 0]</td>
+      <td>[100, 0]</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1671</th>
+      <td>4861612333722514824</td>
+      <td>5115345020267258051</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+      <td>[95, 5]</td>
+      <td>95</td>
+      <td>5</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 152 columns</p>
+<p>1672 rows × 8 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfZERO</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfNONZERO</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;first_element&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;second_element&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfZERO</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fkKI</th>
+      <th>fkKK</th>
+      <th>fkKI_exists_in_dfSRC</th>
+      <th>fkKK_exists_in_dfSRC</th>
+      <th>srcvector_fkKI</th>
+      <th>srcvector_fkKK</th>
+      <th>first_element</th>
+      <th>second_element</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>5385242986988925951</td>
+      <td>4968957302162750102</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4789032251376812728</td>
+      <td>4714338053628675689</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4640545062585607086</td>
+      <td>5139756443698698284</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5493516499270992191</td>
+      <td>5662971635761773976</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>5580659932269400552</td>
+      <td>5233361229874136148</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1658</th>
+      <td>5147254168279984407</td>
+      <td>5416299466389719783</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1662</th>
+      <td>4892601735259440959</td>
+      <td>4915609493631133953</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1663</th>
+      <td>4980116957351545066</td>
+      <td>5739158652428222909</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1666</th>
+      <td>5725671001528138570</td>
+      <td>5625617188419534365</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1668</th>
+      <td>5641694688519704748</td>
+      <td>5564264675869374696</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[0, 0]</td>
+      <td>[0, 0]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>836 rows × 8 columns</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfNONZERO</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="n">nodes_patches_1</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                                 <span class="n">gdf</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
-                                 <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;first_element&#39;</span><span class="p">,</span>  <span class="c1"># kW</span>
-                                 <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;oldlace&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">],</span>
-                                 <span class="n">marker_style</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
-                                 <span class="n">marker_size_factor</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-                                 <span class="c1">#legend_fmt=&#39;&#39;,</span>
-                                 <span class="c1">#legend_values=[0, 20, 40, 60, 80],</span>
-                                 <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">nodes_patches_1</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                                 <span class="n">gdf</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
-                                 <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;second_element&#39;</span><span class="p">,</span>  <span class="c1"># kW</span>
-                                 <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">],</span>
-                                 <span class="n">marker_style</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
-                                 <span class="n">marker_size_factor</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-                                 <span class="c1">#legend_fmt=&#39;&#39;,</span>
-                                 <span class="c1">#legend_values=[0, 20, 40, 60, 80],</span>
-                                 <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="n">all_patches</span> <span class="o">=</span> <span class="n">nodes_patches_1</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">all_patches</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fkKI</th>
+      <th>fkKK</th>
+      <th>fkKI_exists_in_dfSRC</th>
+      <th>fkKK_exists_in_dfSRC</th>
+      <th>srcvector_fkKI</th>
+      <th>srcvector_fkKK</th>
+      <th>first_element</th>
+      <th>second_element</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4633923442641649780</td>
+      <td>4861612333722514824</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+      <td>[95, 5]</td>
+      <td>95</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>5074594183838392416</td>
+      <td>4828427080100360189</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[97, 3]</td>
+      <td>[97, 3]</td>
+      <td>97</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>5537792572962299168</td>
+      <td>4631921264858376170</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[98, 2]</td>
+      <td>98</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>5494856247482742405</td>
+      <td>5581382032624837035</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[34, 66]</td>
+      <td>[34, 66]</td>
+      <td>34</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>5063000535941710264</td>
+      <td>5665362208938470093</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[34, 66]</td>
+      <td>[34, 66]</td>
+      <td>34</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1648</th>
+      <td>5044539320873010557</td>
+      <td>4951130038878843519</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[23, 77]</td>
+      <td>[23, 77]</td>
+      <td>23</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <th>1651</th>
+      <td>5694875246151878747</td>
+      <td>5187164701350669518</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[98, 2]</td>
+      <td>98</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1665</th>
+      <td>5031396644404617342</td>
+      <td>5225476564759504529</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+      <td>[95, 5]</td>
+      <td>95</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1667</th>
+      <td>5128045753491799259</td>
+      <td>4867102035081211028</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[98, 2]</td>
+      <td>[98, 2]</td>
+      <td>98</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1671</th>
+      <td>4861612333722514824</td>
+      <td>5115345020267258051</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[95, 5]</td>
+      <td>[95, 5]</td>
+      <td>95</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+<p>324 rows × 8 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check for equals between fkKI and fkKK in dfZERO and fkKI and fkKK in dfNONZERO</span>
+<span class="n">crossreference_equals</span> <span class="o">=</span> <span class="n">dfZERO</span><span class="p">[</span><span class="n">dfZERO</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">dfNONZERO</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">])]</span>
 
-<span class="c1">#cx.add_basemap(ax, crs=gdf_ROHR.crs.to_string(), source=cx.providers.CartoDB.PositronNoLabels)</span>
-<span class="c1">#cx.add_basemap(ax, crs=gdf_ROHR.crs.to_string(), source=cx.providers.CartoDB.PositronOnlyLabels)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Network Color Diagram&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Example7_Output_1.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Crossreferenced equals between dfZERO and dfNONZERO:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">crossreference_equals</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -758,7 +2272,358 @@ print(df_sorted_by_XKOR['XKOR'])<div class="nbinput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example7_39_0.png" src="_images/Example7_39_0.png" />
+<div class="highlight"><pre>
+Crossreferenced equals between dfZERO and dfNONZERO:
+Empty DataFrame
+Columns: [fkKI, fkKK, fkKI_exists_in_dfSRC, fkKK_exists_in_dfSRC, srcvector_fkKI, srcvector_fkKK, first_element, second_element]
+Index: []
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dfKNOT</span><span class="p">[[</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="s1">&#39;srcvector&#39;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;fkKI&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srcvector&#39;</span><span class="p">:</span> <span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#dfROHR.drop(columns=[&#39;tk&#39;], inplace=True)</span>
+
+<span class="c1"># Merge dfROHR with dfKNOT on fkKK and tk</span>
+<span class="n">dfROHR</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dfKNOT</span><span class="p">[[</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="s1">&#39;srcvector&#39;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;fkKK&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srcvector&#39;</span><span class="p">:</span> <span class="s1">&#39;srcvector_fkKK&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#dfROHR.drop(columns=[&#39;tk&#39;], inplace=True)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pk</th>
+      <th>fkDE</th>
+      <th>rk</th>
+      <th>tk_x</th>
+      <th>fkKI</th>
+      <th>fkKK</th>
+      <th>fkDTRO_ROWD</th>
+      <th>fkLTGR</th>
+      <th>fkSTRASSE</th>
+      <th>L</th>
+      <th>...</th>
+      <th>srcvector_fkKK</th>
+      <th>mixed_color</th>
+      <th>mixed_color_hex</th>
+      <th>first_element</th>
+      <th>second_element</th>
+      <th>difference</th>
+      <th>tk_y</th>
+      <th>srcvector_fkKI</th>
+      <th>tk</th>
+      <th>srcvector_fkKK</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5109195716093378957</td>
+      <td>5613149064237404433</td>
+      <td>5109195716093378957</td>
+      <td>5449345369546692719</td>
+      <td>4633923442641649780</td>
+      <td>4861612333722514824</td>
+      <td>5097406239665719560</td>
+      <td>5326766509284399853</td>
+      <td>-1</td>
+      <td>160.000000</td>
+      <td>...</td>
+      <td>[95, 5]</td>
+      <td>[156, 43, 252]</td>
+      <td>#9c2bfc</td>
+      <td>95.0</td>
+      <td>5.0</td>
+      <td>190.0</td>
+      <td>4633923442641649780</td>
+      <td>[95, 5]</td>
+      <td>4861612333722514824</td>
+      <td>[95, 5]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5454715077635807193</td>
+      <td>5613149064237404433</td>
+      <td>5454715077635807193</td>
+      <td>5735818605379287475</td>
+      <td>5385242986988925951</td>
+      <td>4968957302162750102</td>
+      <td>5172173297092247082</td>
+      <td>5326766509284399853</td>
+      <td>-1</td>
+      <td>125.000000</td>
+      <td>...</td>
+      <td>[0, 0]</td>
+      <td>[236, 1, 103]</td>
+      <td>#ec0167</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>5385242986988925951</td>
+      <td>[0, 0]</td>
+      <td>4968957302162750102</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5547011855269037345</td>
+      <td>5613149064237404433</td>
+      <td>5547011855269037345</td>
+      <td>4974222656556376383</td>
+      <td>4789032251376812728</td>
+      <td>4714338053628675689</td>
+      <td>5358056248241253720</td>
+      <td>5199453223326228720</td>
+      <td>-1</td>
+      <td>111.796997</td>
+      <td>...</td>
+      <td>[0, 0]</td>
+      <td>[197, 17, 57]</td>
+      <td>#c51139</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>4789032251376812728</td>
+      <td>[0, 0]</td>
+      <td>4714338053628675689</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5678273483201896811</td>
+      <td>5613149064237404433</td>
+      <td>5678273483201896811</td>
+      <td>5460759352148475007</td>
+      <td>4680103632661687203</td>
+      <td>5432609004919372061</td>
+      <td>5419539925221172320</td>
+      <td>5199453223326228720</td>
+      <td>-1</td>
+      <td>75.000000</td>
+      <td>...</td>
+      <td>[0, 100]</td>
+      <td>[134, 8, 188]</td>
+      <td>#8608bc</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>4680103632661687203</td>
+      <td>[0, 100]</td>
+      <td>5432609004919372061</td>
+      <td>[0, 100]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5316257320622561613</td>
+      <td>5613149064237404433</td>
+      <td>5316257320622561613</td>
+      <td>5705661604719704313</td>
+      <td>4640545062585607086</td>
+      <td>5139756443698698284</td>
+      <td>5419539925221172320</td>
+      <td>5199453223326228720</td>
+      <td>-1</td>
+      <td>75.000000</td>
+      <td>...</td>
+      <td>[0, 0]</td>
+      <td>[235, 20, 166]</td>
+      <td>#eb14a6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>4640545062585607086</td>
+      <td>[0, 0]</td>
+      <td>5139756443698698284</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1667</th>
+      <td>5221069093731638843</td>
+      <td>5613149064237404433</td>
+      <td>5221069093731638843</td>
+      <td>5414146693336048598</td>
+      <td>5128045753491799259</td>
+      <td>4867102035081211028</td>
+      <td>5538673226758468241</td>
+      <td>5326766509284399853</td>
+      <td>-1</td>
+      <td>90.000000</td>
+      <td>...</td>
+      <td>[98, 2]</td>
+      <td>[249, 2, 5]</td>
+      <td>#f90205</td>
+      <td>98.0</td>
+      <td>2.0</td>
+      <td>196.0</td>
+      <td>5128045753491799259</td>
+      <td>[98, 2]</td>
+      <td>4867102035081211028</td>
+      <td>[98, 2]</td>
+    </tr>
+    <tr>
+      <th>1668</th>
+      <td>5701302053526812802</td>
+      <td>5613149064237404433</td>
+      <td>5701302053526812802</td>
+      <td>4734037309077581553</td>
+      <td>5641694688519704748</td>
+      <td>5564264675869374696</td>
+      <td>5538673226758468241</td>
+      <td>5326766509284399853</td>
+      <td>-1</td>
+      <td>60.000000</td>
+      <td>...</td>
+      <td>[0, 0]</td>
+      <td>[145, 19, 213]</td>
+      <td>#9113d5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>5641694688519704748</td>
+      <td>[0, 0]</td>
+      <td>5564264675869374696</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <th>1669</th>
+      <td>5300846026047076006</td>
+      <td>5613149064237404433</td>
+      <td>5300846026047076006</td>
+      <td>4785931077566306273</td>
+      <td>4856150400548314169</td>
+      <td>4900329574258273507</td>
+      <td>5097406239665719560</td>
+      <td>5326766509284399853</td>
+      <td>-1</td>
+      <td>65.000000</td>
+      <td>...</td>
+      <td>[100, 0]</td>
+      <td>[32, 0, 205]</td>
+      <td>#2000cd</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>200.0</td>
+      <td>4856150400548314169</td>
+      <td>[100, 0]</td>
+      <td>4900329574258273507</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>1670</th>
+      <td>5676453563661878160</td>
+      <td>5613149064237404433</td>
+      <td>5676453563661878160</td>
+      <td>4654356254567213187</td>
+      <td>4860951051859022136</td>
+      <td>5694310466494827395</td>
+      <td>4615667097597887019</td>
+      <td>5199453223326228720</td>
+      <td>-1</td>
+      <td>145.000000</td>
+      <td>...</td>
+      <td>[100, 0]</td>
+      <td>[89, 12, 128]</td>
+      <td>#590c80</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>200.0</td>
+      <td>4860951051859022136</td>
+      <td>[100, 0]</td>
+      <td>5694310466494827395</td>
+      <td>[100, 0]</td>
+    </tr>
+    <tr>
+      <th>1671</th>
+      <td>5565147425335570868</td>
+      <td>5613149064237404433</td>
+      <td>5565147425335570868</td>
+      <td>5560874807547367026</td>
+      <td>4861612333722514824</td>
+      <td>5115345020267258051</td>
+      <td>5097406239665719560</td>
+      <td>5326766509284399853</td>
+      <td>-1</td>
+      <td>180.000000</td>
+      <td>...</td>
+      <td>[95, 5]</td>
+      <td>[153, 2, 189]</td>
+      <td>#9902bd</td>
+      <td>95.0</td>
+      <td>5.0</td>
+      <td>190.0</td>
+      <td>4861612333722514824</td>
+      <td>[95, 5]</td>
+      <td>5115345020267258051</td>
+      <td>[95, 5]</td>
+    </tr>
+  </tbody>
+</table>
+<p>1672 rows × 138 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -773,17 +2638,24 @@ print(df_sorted_by_XKOR['XKOR'])<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Rm</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">Rm</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">ncd</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">ncd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">contextily</span> <span class="k">as</span> <span class="nn">cx</span>
-<br/><br/></pre></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>
@@ -796,7 +2668,7 @@ print(df_sorted_by_XKOR['XKOR'])<div class="nbinput nblast docutils container">
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 1986-2024, 3S Consult GmbH.</p>
+    <p>&#169; Copyright 1986-2025, 3S Consult GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

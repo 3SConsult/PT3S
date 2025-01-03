@@ -89,6 +89,16 @@ You can view the Notebook `here <Example6.html>`_.
 
 You can download the Notebook file :download:`here <Example6.ipynb>`.
 
+Example 7: Work in Progress
+---------------------------
+
+Work in Progress
+
+You can view the Notebook `here <Example7.html>`_.
+
+
+You can download the Notebook file :download:`here <Example7.ipynb>`.
+
 Example X: Example Template
 ---------------------------
 

@@ -10,6 +10,8 @@ To be released: 90.14.44.0.dev1
 
 - Documentation and Repository page both included as links in setup.py
 
+- V3_KNOT has new col srcvector for Quellspektren
+
 90.14.43.0.dev1
 ---------------
 
