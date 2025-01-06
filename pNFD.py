@@ -654,7 +654,8 @@ def pNFD_FW(
                                                                                                                  ,cmap_KNOTErg.N-1],[gdf[attr_colors_KNOT_Erg].min(),                                                                                                                    
                                                                                                                                   gdf[attr_colors_KNOT_Erg].max()])
                                                                                                                                   ]        
-                        attr_colors_KNOT_Erg_patches[0].set_label("{:s} ({:7.6f})".format(attr_colors_KNOT_Erg_patches[0].get_label(),gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)>0][attr_colors_KNOT_Erg].min()))
+                        attr_colors_KNOT_Erg_patches[0].set_label("{:s} ({:5.3f})".format(attr_colors_KNOT_Erg_patches[0].get_label(),gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)>0][attr_colors_KNOT_Erg].min()))
+                        attr_colors_KNOT_Erg_patches[1].set_label("{:s} ({:5.3f})".format(attr_colors_KNOT_Erg_patches[1].get_label(),gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)>0][attr_colors_KNOT_Erg].max()))
                             
                     
                     norm_KNOTErgNeg_color=plt.Normalize(vmin=minValue, vmax=0.)   
@@ -676,8 +677,11 @@ def pNFD_FW(
                                                                                                                                   gdf[attr_colors_KNOT_Erg].max()])
                                                                                                                                   ]     
                                                                                                                                         
-                        attr_colors_KNOT_Erg_patchesNeg[0].set_label("{:s} ({:7.6f})".format(attr_colors_KNOT_Erg_patchesNeg[0].get_label()
-                                                                                             ,gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)<0][attr_colors_KNOT_Erg].max()))                                                                                                                                    
+                        attr_colors_KNOT_Erg_patchesNeg[0].set_label("{:s} ({:5.3f})".format(attr_colors_KNOT_Erg_patchesNeg[0].get_label()
+                                                                                             ,gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)<0][attr_colors_KNOT_Erg].min()))                                                                                                            
+
+                        attr_colors_KNOT_Erg_patchesNeg[1].set_label("{:s} ({:5.3f})".format(attr_colors_KNOT_Erg_patchesNeg[1].get_label()
+                                                                                             ,gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)<0][attr_colors_KNOT_Erg].max()))                                                             
                         
                     attr_colors_KNOT_Erg_patches=attr_colors_KNOT_Erg_patches+attr_colors_KNOT_Erg_patchesNeg
                         
