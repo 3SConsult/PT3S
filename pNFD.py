@@ -500,14 +500,21 @@ def pNFD_FW(
                                         ,color = cmap_FWVBErg(norm_FWVBErg_color(gdf[attr_colors_FWVB_Erg].astype(float))) 
                                         )  
                             
-                        colors=cmap_FWVBErg(np.arange(cmap_FWVBErg.N))
-                        attr_colors_FWVB_Erg_patches = [ mpatches.Patch(color=colors[i], label=attr_colors_FWVB_Erg_patches_fmt.format(value) ) for (i,value) in zip([0
-                                                                                                                  ,cmap_FWVBErg.N-1],[gdf[attr_colors_FWVB_Erg].min(),                                                                                                                    
-                                                                                                                                   gdf[attr_colors_FWVB_Erg].max()])
-                                                                                                                                   ]        
-                        attr_colors_FWVB_Erg_patches[0].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[0].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)>0][attr_colors_FWVB_Erg].min()))                            
-                        attr_colors_FWVB_Erg_patches[1].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[1].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)>0][attr_colors_FWVB_Erg].max()))                            
-                    
+                            colors=cmap_FWVBErg(np.arange(cmap_FWVBErg.N))
+                            attr_colors_FWVB_Erg_patches = [ mpatches.Patch(color=colors[i], label=attr_colors_FWVB_Erg_patches_fmt.format(value) ) for (i,value) in zip([0
+                                                                                                                    ,cmap_FWVBErg.N-1],[gdf[attr_colors_FWVB_Erg].min(),                                                                                                                    
+                                                                                                                                    gdf[attr_colors_FWVB_Erg].max()])
+                                                                                                                                    ]        
+                                                
+                            attr_colors_FWVB_Erg_patches[0].set_label("{:s} ({:>5.3f})".format(attr_colors_FWVB_Erg_patches[0].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)>0][attr_colors_FWVB_Erg].min()))                            
+                            attr_colors_FWVB_Erg_patches[1].set_label("{:s} ({:>5.3f})".format(attr_colors_FWVB_Erg_patches[1].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)>0][attr_colors_FWVB_Erg].max()))                            
+
+                        else:                            
+                            colors=cmap_FWVBErg(np.arange(cmap_FWVBErg.N))
+                            attr_colors_FWVB_Erg_patches = [ mpatches.Patch(color=colors[i], label=attr_colors_FWVB_Erg_patches_fmt.format(value) ) for (i,value) in zip([0
+                                                                                                                    ,cmap_FWVBErg.N-1],[0,                                                                                                                    
+                                                                                                                                    0])
+                                                                                                                                    ]                            
                         gdf=gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0]
                         if not gdf.empty:
                             gdf.plot(ax = ax
@@ -523,8 +530,8 @@ def pNFD_FW(
                                                                                                                       ,cmap_FWVBErgNeg.N-1],[-gdf[attr_colors_FWVB_Erg].max(),                                                                                                                    
                                                                                                                                        -gdf[attr_colors_FWVB_Erg].min()])
                                                                                                                                        ]        
-                            attr_colors_FWVB_Erg_patches[2].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[2].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0][attr_colors_FWVB_Erg].max()))           
-                            attr_colors_FWVB_Erg_patches[3].set_label("{:s} ({:7.6f})".format(attr_colors_FWVB_Erg_patches[3].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0][attr_colors_FWVB_Erg].min()))  
+                            attr_colors_FWVB_Erg_patches[2].set_label("{:s} ({:>5.3f})".format(attr_colors_FWVB_Erg_patches[2].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0][attr_colors_FWVB_Erg].max()))           
+                            attr_colors_FWVB_Erg_patches[3].set_label("{:s} ({:>5.3f})".format(attr_colors_FWVB_Erg_patches[3].get_label(),gdf_FWVB[gdf_FWVB[attr_colors_FWVB_Erg].astype(float)<0][attr_colors_FWVB_Erg].min()))  
                             
                             
                             
@@ -570,7 +577,7 @@ def pNFD_FW(
                     cmap_KNOTErgNeg = matplotlib.colors.LinearSegmentedColormap.from_list('cmap_KNOTErgNeg', colors_KNOT_ErgNeg, N = 256)                      
                 # Funktionsweise Farbskalen nach Normierung: Werte ]0,1[ erhalten die Randfarben 0,1
 
-                logger.debug(f"{logStr}norm_min_KNOT_Erg: {norm_min_KNOT_Erg} norm_max_KNOT_Erg: {norm_max_KNOT_Erg} ...")
+                logger.debug(f"{logStr}vorgegeben: norm_min_KNOT_Erg: {norm_min_KNOT_Erg} norm_max_KNOT_Erg: {norm_max_KNOT_Erg} ...")
             
                 # Normierungen fuer Groesse und Farbe                
                 if norm_min_KNOT_Erg == None:       
@@ -586,7 +593,7 @@ def pNFD_FW(
                     else:
                         norm_max_KNOT_Erg=gdf_KNOT[attr_colors_KNOT_Erg].astype(float).max()                    
                 
-                logger.debug(f"{logStr}norm_min_KNOT_Erg: {norm_min_KNOT_Erg:12.6f} norm_max_KNOT_Erg: {norm_max_KNOT_Erg:12.6f}")
+                logger.debug(f"{logStr}nach Errechnung: norm_min_KNOT_Erg: {norm_min_KNOT_Erg:12.6f} norm_max_KNOT_Erg: {norm_max_KNOT_Erg:12.6f}")
 
                 norm_KNOTErg_Size = plt.Normalize(vmin=norm_min_KNOT_Erg, vmax=norm_max_KNOT_Erg)  
 
@@ -607,12 +614,38 @@ def pNFD_FW(
 
                     logger.debug(f"{logStr}KNOTen: Plotten mit minValue < 0 und maxValue > 0 ...")               
 
+                    msFactor=norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))   
+                                        
+                    if size_min_KNOT_Erg!= None and size_min_KNOT_Erg>0 and size_min_KNOT_Erg<1:   
+                        if size_max_KNOT_Erg==None or size_max_KNOT_Erg>size_min_KNOT_Erg:
+                            for idx,(index,row) in enumerate(gdf_KNOT.iterrows()):
+                                if msFactor[idx] < size_min_KNOT_Erg:
+                                        msFactor[idx]=size_min_KNOT_Erg                                         
+                    if size_max_KNOT_Erg!= None and size_max_KNOT_Erg>0 and size_max_KNOT_Erg<1:
+                        if size_min_KNOT_Erg==None or size_min_KNOT_Erg<size_max_KNOT_Erg:
+                            for idx,(index,row) in enumerate(gdf_KNOT.iterrows()):
+                                if msFactor[idx] > size_max_KNOT_Erg:
+                                        msFactor[idx]=size_max_KNOT_Erg      
+                                        
+                    logger.debug(f"{logStr}min. ms Factor: {msFactor[np.logical_not(np.isnan(msFactor))].min()} * fac_ms_KNOT max. ms Factor: {msFactor[np.logical_not(np.isnan(msFactor))].max()} * fac_ms_KNOT")
+                    
+                    
+
+
+
+
+                    ###############################
+                    
+                    norm_KNOTErg_color=plt.Normalize(vmin=0., vmax=max(-minValue,maxValue))  
+
                     gdf=gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)>=0]
                     if not gdf.empty:
                         gdf.plot(ax = ax
                                     ,zorder = attr_colors_KNOT_Erg_zOrder 
-                                    ,marker = '.'                           
-                                    ,markersize = norm_KNOTErg_Size(gdf[attr_colors_KNOT_Erg].astype(float)) * fac_ms_KNOT   
+                                    ,marker = marker_KNOT_Erg                        
+                                    ,markersize = msFactor * fac_ms_KNOT      
+                                    #,marker = '.'                           
+                                    #,markersize = norm_KNOTErg_Size(gdf[attr_colors_KNOT_Erg].astype(float)) * fac_ms_KNOT   
                                     ,color = cmap_KNOTErg(norm_KNOTErg_color(gdf[attr_colors_KNOT_Erg].astype(float))) 
                                     )  
                         
@@ -624,22 +657,27 @@ def pNFD_FW(
                         attr_colors_KNOT_Erg_patches[0].set_label("{:s} ({:7.6f})".format(attr_colors_KNOT_Erg_patches[0].get_label(),gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)>0][attr_colors_KNOT_Erg].min()))
                             
                     
+                    norm_KNOTErgNeg_color=plt.Normalize(vmin=minValue, vmax=0.)   
+
                     gdf=gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)<0]
                     if not gdf.empty:
                         gdf.plot(ax = ax
-                                    ,zorder = 2 
-                                    ,marker = '.'                           
-                                    ,markersize = norm_KNOTErg_Size(gdf[attr_colors_KNOT_Erg].astype(float).apply(lambda x: math.fabs(x))) * fac_ms_KNOT   
-                                    ,color = cmap_KNOTErgNeg(norm_KNOTErgNeg_color(gdf[attr_colors_KNOT_Erg].astype(float).apply(lambda x: math.fabs(x)))) 
+                                    ,zorder = attr_colors_KNOT_Erg_zOrder #2 
+                                    ,marker = marker_KNOT_Erg                        
+                                    ,markersize = msFactor * fac_ms_KNOT                                      
+                                    #,marker = '.'                           
+                                    #,markersize = norm_KNOTErg_Size(gdf[attr_colors_KNOT_Erg].astype(float).apply(lambda x: math.fabs(x))) * fac_ms_KNOT   
+                                    ,color = cmap_KNOTErgNeg(norm_KNOTErgNeg_color(gdf[attr_colors_KNOT_Erg].astype(float)))#.apply(lambda x: math.fabs(x)))) 
                                     )  
 
                         colors=cmap_KNOTErgNeg(np.arange(cmap_KNOTErgNeg.N))
                         attr_colors_KNOT_Erg_patchesNeg = [ mpatches.Patch(color=colors[i], label=attr_colors_KNOT_ErgNeg_patches_fmt.format(value) ) for (i,value) in zip([0
-                                                                                                                 ,cmap_KNOTErgNeg.N-1],[-gdf[attr_colors_KNOT_Erg].max(),                                                                                                                    
-                                                                                                                                  -gdf[attr_colors_KNOT_Erg].min()])
+                                                                                                                 ,cmap_KNOTErgNeg.N-1],[gdf[attr_colors_KNOT_Erg].min(),                                                                                                                    
+                                                                                                                                  gdf[attr_colors_KNOT_Erg].max()])
                                                                                                                                   ]     
                                                                                                                                         
-                        attr_colors_KNOT_Erg_patchesNeg[0].set_label("{:s} ({:7.6f})".format(attr_colors_KNOT_Erg_patchesNeg[0].get_label(),gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)<0][attr_colors_KNOT_Erg].max()))                                                                                                                                    
+                        attr_colors_KNOT_Erg_patchesNeg[0].set_label("{:s} ({:7.6f})".format(attr_colors_KNOT_Erg_patchesNeg[0].get_label()
+                                                                                             ,gdf_KNOT[gdf_KNOT[attr_colors_KNOT_Erg].astype(float)<0][attr_colors_KNOT_Erg].max()))                                                                                                                                    
                         
                     attr_colors_KNOT_Erg_patches=attr_colors_KNOT_Erg_patches+attr_colors_KNOT_Erg_patchesNeg
                         
@@ -719,7 +757,7 @@ def pNFD_FW(
                                         ,zorder = attr_colors_KNOT_Erg_zOrder 
                                         ,marker = marker_KNOT_Erg                        
                                         ,markersize = msFactor * fac_ms_KNOT      
-                                        ,color = cmap_KNOTErg(255) 
+                                        ,color = cmap_KNOTErgNeg(255) 
                                         )   
 
                         else:
@@ -728,7 +766,7 @@ def pNFD_FW(
                                         ,zorder = attr_colors_KNOT_Erg_zOrder 
                                         ,marker = marker_KNOT_Erg                        
                                         ,markersize = msFactor * fac_ms_KNOT      
-                                        ,color = cmap_KNOTErg(norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))) 
+                                        ,color = cmap_KNOTErgNeg(norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))) 
                                         )   
                         
                         # Legendeneinräge                                                     
@@ -746,14 +784,14 @@ def pNFD_FW(
                         if norm_diff_KNOT_Erg == 0:     
                             logger.debug(f"{logStr}norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}:3==0!")       
                             attr_colors_KNOT_Erg_patches = [mpatches.Patch(
-                                                            color=cmap_KNOTErg(255)
+                                                            color=cmap_KNOTErgNeg(255)
                                                             ,label=attr_colors_KNOT_Erg_patches_fmt.format(value)
                                                             ) 
                                                             for value in attr_colors_KNOT_Erg_patchValues
                                                             ]       
                         else:
                             attr_colors_KNOT_Erg_patches = [mpatches.Patch(
-                                                            color=cmap_KNOTErg(norm_KNOTErg_Size(value))
+                                                            color=cmap_KNOTErgNeg(norm_KNOTErg_Size(value))
                                                             ,label=attr_colors_KNOT_Erg_patches_fmt.format(value)
                                                             ) 
                                                             for value in attr_colors_KNOT_Erg_patchValues
