@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.patheffects as path_effects
 import matplotlib.patches as mpatches
+import Rm
 
 logger = logging.getLogger('PT3S')
 
@@ -180,3 +181,48 @@ def pNcd_nodes(ax=None, gdf=None, attribute=None, colors=['darkgreen', 'magenta'
         logger.error("{0:s}{1:s} - {2}".format(logStr, 'Error.', str(e)))
 
     logger.debug("{0:s}{1:s}".format(logStr, 'End.'))
+
+# Quellspektren
+def mix_colors(vector, colors):
+    vector = np.array(vector, dtype=float)  # Ensure the vector is of type float
+    colors_array = np.array(colors, dtype=float)  # Ensure the colors are of type float
+    mixed_color = np.dot(vector, colors_array)
+    return mixed_color.astype(int)
+
+def convert_to_hex(color_array):
+    return "#{:02x}{:02x}{:02x}".format(int(color_array[0]), int(color_array[1]), int(color_array[2]))
+
+def plot_src_spectrum(ax=None, gdf=None, attribute=None, colors=None, line_width=2):
+
+    logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
+    logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+
+    try:
+        
+        if ax is None:
+            fig, ax = plt.subplots(figsize=Rm.DINA3q) 
+            logger.debug("{0:s}{1:s}".format(logStr, 'Created new axis.'))
+
+        if gdf is None or gdf.empty:
+            logger.debug("{0:s}{1:s}".format(logStr, 'No plot data provided.'))
+            return
+
+        gdf['mixed_color'] = gdf[attribute].apply(lambda x: mix_colors(x, colors))
+        gdf['mixed_color_hex'] = gdf['mixed_color'].apply(lambda x: convert_to_hex(np.array(x).clip(0, 255)))
+
+        for idx, row in gdf.iterrows():
+            x, y = row['geometry'].xy
+            color = row['mixed_color_hex']
+            ax.plot(x, y, color=color, linewidth=line_width)
+
+        # Create a legend for the colors
+        legend_handles = []
+        for i, color in enumerate(colors):
+            color_hex = convert_to_hex(color.clip(0, 255))
+            legend_handles.append(plt.Line2D([0], [0], color=color_hex, lw=line_width, label=f"Source {i+1}"))
+
+        ax.legend(handles=legend_handles, loc='best')
+        plt.axis('off')
+
+    except Exception as e:
+        logger.error("{0:s}{1:s} - {2}".format(logStr, 'Error.', str(e)))
