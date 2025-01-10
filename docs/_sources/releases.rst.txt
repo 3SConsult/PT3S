@@ -12,6 +12,10 @@ To be released: 90.14.44.0.dev1
 
 - V3_KNOT has new col srcvector for Quellspektren
 
+**Fix**:
+
+- Mx.reSir3sID: blank in node name (in dst node name of edges) is now handled correct
+
 90.14.43.0.dev1
 ---------------
 
