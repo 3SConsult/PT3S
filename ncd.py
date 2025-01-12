@@ -12,7 +12,10 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.patheffects as path_effects
 import matplotlib.patches as mpatches
-import Rm
+try:
+    from PT3S import Rm
+except:
+    import Rm
 
 logger = logging.getLogger('PT3S')
 
