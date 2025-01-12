@@ -184,23 +184,56 @@ def pNcd_nodes(ax=None, gdf=None, attribute=None, colors=['darkgreen', 'magenta'
 
 # Quellspektren
 def mix_colors(vector, colors):
+    """
+    Mixes colors based on the provided vector.
+
+    :param vector: A vector of weights for the colors.
+    :type vector: np.ndarray
+    :param colors: An array of colors to be mixed.
+    :type colors: np.ndarray
+    :return: The mixed color as an integer array.
+    :rtype: np.ndarray
+    """
     vector = np.array(vector, dtype=float)  # Ensure the vector is of type float
+    vector /= vector.sum()  # Normalize the vector so that its elements sum to 1
     colors_array = np.array(colors, dtype=float)  # Ensure the colors are of type float
     mixed_color = np.dot(vector, colors_array)
     return mixed_color.astype(int)
 
 def convert_to_hex(color_array):
-    return "#{:02x}{:02x}{:02x}".format(int(color_array[0]), int(color_array[1]), int(color_array[2]))
+    """
+    Converts an RGB color array to a hexadecimal color string.
+
+    :param color_array: An array with RGB values.
+    :type color_array: np.ndarray
+    :return: The hexadecimal color string.
+    :rtype: str
+    """
+    hex_color = "#{:02x}{:02x}{:02x}".format(int(color_array[0]), int(color_array[1]), int(color_array[2]))
+    logger.debug(f"Converted color: {hex_color}")
+    return hex_color
 
 def plot_src_spectrum(ax=None, gdf=None, attribute=None, colors=None, line_width=2):
+    """
+    Plots the source spectrum based on the provided GeoDataFrame and attributes.
 
+    :param ax: The axis to plot on. If None, a new axis is created.
+    :type ax: matplotlib.axes.Axes, optional
+    :param gdf: The GeoDataFrame containing the data to plot.
+    :type gdf: geopandas.GeoDataFrame
+    :param attribute: The attribute column in the GeoDataFrame to use for color mixing.
+    :type attribute: str
+    :param colors: The colors to use for mixing.
+    :type colors: list of np.ndarray
+    :param line_width: The width of the lines in the plot.
+    :type line_width: int, optional, default=2
+    """
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
     logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
 
     try:
-        
         if ax is None:
-            fig, ax = plt.subplots(figsize=Rm.DINA3q) 
+            fig, ax = plt.subplots(figsize=Rm.DINA3q)  # Adjusted to A3 size
             logger.debug("{0:s}{1:s}".format(logStr, 'Created new axis.'))
 
         if gdf is None or gdf.empty:

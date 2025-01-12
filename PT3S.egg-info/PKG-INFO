@@ -1,11 +1,12 @@
 Metadata-Version: 2.1
 Name: PT3S
-Version: 90.14.43.0.dev1
+Version: 90.14.44.0.dev1
 Summary: Python Tools 3S
-Home-page: https://github.com/aw3s/PT3S
 Author: PT3S
 Author-email: andreashwolters@gmail.com
 License: MIT
+Project-URL: Documentation, https://aw3s.github.io/PT3S/index.html
+Project-URL: Source, https://github.com/aw3s/PT3S
 Keywords: Python Tools 3S
 Requires-Python: >=3
 Requires-Dist: tables
