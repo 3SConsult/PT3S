@@ -3,6 +3,13 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.45.0.dev1
+---------------
+
+**Fix**:
+
+- Importing issue of ncd.py fixed
+
 90.14.44.0.dev1
 ---------------
 
