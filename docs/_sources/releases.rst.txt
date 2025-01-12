@@ -3,14 +3,16 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
-To be released: 90.14.44.0.dev1
--------------------------------
+90.14.44.0.dev1
+---------------
 
 **New**: 
 
 - Documentation and Repository page both included as links in setup.py
 
-- V3_KNOT has new col srcvector for Quellspektren
+- V3_KNOT has new col srcvector for source spectrum (Quellspektren)
+ 
+- ncd.plot_src_spectrum() function for plotting source spectrum as a network color diagram with ncd.mix_colors() and ncd.convert_to_hex() as helper functions
 
 **Fix**:
 

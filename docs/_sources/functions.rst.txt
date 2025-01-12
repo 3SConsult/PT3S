@@ -239,6 +239,8 @@ Plot on an axes. Use pNcd_pipes for pipes and pNcd_nodes for nodes.
 
 If you plot multiple times on the same axes, use zorder to determine plotting order.
 
+:ref:`ex1` explains its application.
+
 .. doctest::
 
     >>> fig, ax = plt.subplots()
@@ -249,3 +251,9 @@ If you plot multiple times on the same axes, use zorder to determine plotting or
     >>> plt.show()
     Figure(640x480)
  
+Plot Source Spectrum
+--------------------
+
+.. autofunction:: ncd.plot_src_spectrum
+    
+:ref:`ex7` explains its application.    

@@ -373,8 +373,6 @@ The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <h
 
    The created files in PT3S/sphinx/docs/_build/html on the master branch are moved to PT3S/docs on the gh-pages branch by one of our :ref:`github-workflow-label` and then hosted via GitHubPages. It might take a couple of minutes until the changes are visible on the website.
    
-.. _test-the-deployment-label:
-
 .. _running-doctests-label:
 
 Running Doctests
@@ -459,6 +457,8 @@ To set up all necessary files and programs to run tests on Notebooks, follow the
 .. .. literalinclude:: /../../docker/Dockerfile
 ..    :language: dockerfile
 ..    :caption: Dockerfile
+
+.. _test-the-deployment-label:
 
 Running Tests
 ~~~~~~~~~~~~~

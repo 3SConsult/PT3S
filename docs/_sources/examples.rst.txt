@@ -89,6 +89,8 @@ You can view the Notebook `here <Example6.html>`_.
 
 You can download the Notebook file :download:`here <Example6.ipynb>`.
 
+.. _ex7:
+
 Example 7: Source Spectrum
 --------------------------
 
@@ -98,6 +100,8 @@ You can view the Notebook `here <Example7.html>`_.
 
 
 You can download the Notebook file :download:`here <Example7.ipynb>`.
+
+.. _exX:
 
 Example X: Example Template
 ---------------------------
