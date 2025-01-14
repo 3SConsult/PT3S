@@ -650,6 +650,19 @@ class dxWithMx():
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                  logger.debug(logStrTmp) 
                  logger.debug("{0:s}{1:s}".format(logStr,'Constructing col PH in V3_KNOT failed.'))    
+                 
+            try:                                                         
+                 QM=('STAT'
+                             ,'KNOT~*~*~*~QM'
+                             ,t0
+                             ,t0
+                             )
+                 df_V3_KNOT['QM']=df_V3_KNOT[QM]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_KNOT['QM'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_KNOT failed.'))
                
             try:                                                         
                  dPH='dPH'
