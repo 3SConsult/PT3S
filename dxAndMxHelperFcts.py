@@ -627,6 +627,8 @@ class dxWithMx():
                       
                 - PH: STAT PH-result (i.e. bar) 
                 - dPH: STAT (PHSL-PHRL)-result if Node-Partner is defined (i.e. bar) 
+                - QM: STAT QM-result
+                - srcvector: Source signature vector eg. [30, 0, 20, 50]
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)

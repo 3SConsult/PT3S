@@ -5,7 +5,7 @@
    "id": "f233bd54-261e-497a-9c91-f1b7a8031a70",
    "metadata": {},
    "source": [
-    "# yFiles"
+    "# Example 6: yFiles"
    ]
   },
   {
