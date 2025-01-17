@@ -94,7 +94,7 @@ You can download the Notebook file :download:`here <Example6.ipynb>`.
 Example 7: Source Spectrum
 --------------------------
 
-This example demonstrates how GeoDataFrames (gdfs) and V3 dataframes created by PT3S can be used with matplotlib to depict a source spectrum.
+This example demonstrates how GeoDataFrames (gdfs) and V3_dataframe created by PT3S can be used with matplotlib to create an interactive depiction of a source spectrum.
 
 You can view the Notebook `here <Example7.html>`_.
 
