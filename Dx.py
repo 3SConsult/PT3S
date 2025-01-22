@@ -1177,6 +1177,9 @@ class Dx():
                     vRUES = self.dataFrames['V_BVZ_RUES']
                     vRUES = pd.merge(vRUES, vRUES, how='left', left_on='rkRUES',
                                      right_on='tk', suffixes=('', '_rkRUES'))
+                    
+                    # IOTYP:  0=undefiniert|1=Eingang|3=Ausgang
+                    
                     vRUES['Kn'] = vRUES.apply(
                         lambda row: row.IDUE if row.IOTYP == '1' else row.IDUE_rkRUES, axis=1)
                     vRUES['OBJTYPE'] = 'RUES'
@@ -1217,15 +1220,21 @@ class Dx():
                                     ]
 
 
-                if not vRUES[vRUES['pk'].isin([-1])].empty:
+                if not vRUES[~vRUES['pk'].isin([-1,'-1'])].empty:
+                #if not vRUES[vRUES['pk'].isin([-1])].empty:
                 
                     # RUES-Verbindungen zur Quelle hin aufloesen ...                
-                    #logger.debug("{0:s}{1:s} RUES-Verbindungen zur Quelle hin aufloesen ...".format(logStr, 'V3_RVBEL'))
+                    logger.debug("{0:s}{1:s} RUES-Verbindungen zur Quelle hin aufloesen ...".format(logStr, 'V3_RVBEL'))
     
                     V3_RVBEL = V3_RVBEL.reset_index()
                     V3_RRUES = self.dataFrames['V3_RRUES']
+
+                    # alle VBEL die von RUES ausgehen
+                    # das sollten RUES-Ausgaenge sein ...
                     for index, row in V3_RVBEL[V3_RVBEL['OBJTYPE_i'].isin(['RUES'])].iterrows():
                         
+                        # die in RUES suchen
+                        # es sollte sich um Ausgaenge handeln ...
                         dfx=V3_RRUES[V3_RRUES['tk'] == row['fkKi']]
                         (Treffer,dummy)=dfx.shape
                         
@@ -1245,11 +1254,12 @@ class Dx():
                                                                                           
                         s = dfx.iloc[0]
                         
-                        #logger.debug("{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s} Treffer: {Treffer!s:s}?!".format(logStr=logStr                                
-                        #        ,OBJTYPE_i=row['OBJTYPE_i']      
-                        #        ,Kn_i=row['Kn_i']      
-                        #        ,Treffer=s
-                        #            ))         
+                        # logger.debug("{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s} Kn_i_neu: {Kn_i_neu:s} Treffer: {Treffer!s:s}?!".format(logStr=logStr                                
+                        #         ,OBJTYPE_i=row['OBJTYPE_i']      
+                        #         ,Kn_i=row['Kn_i']     
+                        #         ,Kn_i_neu=s['Kn_SRC']     
+                        #         ,Treffer=s
+                        #             ))         
     
                         V3_RVBEL.loc[index, 'OBJTYPE_i'] = s['OBJTYPE_SRC']
                         # V3_RVBEL.loc[index,'OBJID_i']=s['OBJID_SRC']

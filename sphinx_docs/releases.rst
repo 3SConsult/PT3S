@@ -3,6 +3,14 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+TBDefined
+---------------
+
+**Fix**:
+
+- m.GSig: nx.shortest_path(m.GSig,node): paths with RUES transitions were not found because ...
+- ... because in mx.dx.dataFrames['V3_RVBEL'] edges with RUES as source node were not replaced by the RUES source node 
+
 90.14.45.0.dev1
 ---------------
 

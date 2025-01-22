@@ -176,21 +176,23 @@ class dxWithMx():
             self.G,self.nodeposDctNx=self._G(self.V3_VBEL,self.V3_KNOT)
                
             # GSig
-                 
             if 'V3_RVBEL' in self.dx.dataFrames.keys():  
-                df=self.dx.dataFrames['V3_RVBEL'].reset_index()
-                if not df.empty:
-                    try:
-                        # Graph Signalmodell bauen
-                        self.GSig=nx.from_pandas_edgelist(df=df, source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
-                        nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
-                        nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
-                        nx.set_node_attributes(self.GSig,nodeDctNx)
-                        logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig ok so far.'))    
-                    except Exception as e:
-                        logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                        logger.debug(logStrTmp) 
-                        logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))            
+                self.GSig=self._GSig(self.dx.dataFrames['V3_RVBEL'],self.dx.dataFrames['V3_RKNOT'])
+                 
+            # if 'V3_RVBEL' in self.dx.dataFrames.keys():  
+            #     df=self.dx.dataFrames['V3_RVBEL'].reset_index()
+            #     if not df.empty:
+            #         try:
+            #             # Graph Signalmodell bauen
+            #             self.GSig=nx.from_pandas_edgelist(df=df, source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
+            #             nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
+            #             nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
+            #             nx.set_node_attributes(self.GSig,nodeDctNx)
+            #             logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig ok so far.'))    
+            #         except Exception as e:
+            #             logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            #             logger.debug(logStrTmp) 
+            #             logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))            
                                 
             # AGSN                        
             try:                                                        
@@ -895,54 +897,6 @@ class dxWithMx():
         finally:
             logger.debug(f"{logStr}_Done.") 
 
-
-    # def _dfLAYR(self):
-    #     """
-    #     dfLAYR: one row per LAYR and OBJ. dfLAYR is a dxWithMx object Attribute.
-                
-    #     .. note:: 
-            
-    #         The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
-                
-    #              LAYR:
-    #                  - pk
-    #                  - tk
-    #                  - LFDNR (numeric)
-    #                  - NAME
-                
-    #              LAYR-Info:
-    #                  - AnzDerObjekteInGruppe
-    #                  - AnzDerObjekteDesTypsInGruppe
-                
-    #              OBJ:
-    #                  - TYPE
-    #                  - ID
-                
-    #              OBJ-Info:
-    #                  - NrDesObjektesDesTypsInGruppe
-    #                  - NrDesObjektesInGruppe
-    #                  - GruppenDesObjektsAnz
-    #                  - GruppenDesObjektsNamen       
-                      
-    #     """   
-                
-    #     logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
-    #     logger.debug(f"{logStr}Start.") 
-        
-    #     try: 
-    #         dfLAYR=pd.DataFrame()
-    #         dfLAYR=dxDecodeObjsData.Layr(self.dx)                                   
-    #         return dfLAYR     
-    #     except dxWithMxError:
-    #         raise            
-    #     except Exception as e:
-    #         logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-    #         logger.debug(logStrFinal) 
-    #         raise dxWithMxError(logStrFinal)                       
-    #     finally:
-    #         logger.debug(f"{logStr}_Done.") 
-
-
     def _G(self, V3_VBEL, V3_KNOT):
         """
             G is a m object Attribute: The NetworkX Graph of the Hydraulic Model.
@@ -984,22 +938,22 @@ class dxWithMx():
                         logger.debug(f"{logStr}: dfKNOT: col is not a string: {str(col)} - might be a problem later on in working with nx node attributes ...")    
 
                 G=nx.from_pandas_edgelist(df=dfVBEL, source='NAME_i', target='NAME_k', edge_attr=True) 
-                for u,v,dct in G.edges(data=True):                    
-                    for key, value in dct.items():                
-                        if not isinstance(key,str):
-                            logger.debug(f"{logStr}: G.edges: data: key: {str(key)} not a string - value: {value}")                                        
-                    logger.debug(f"{logStr}: break ...")    
-                    break                    
+                # for u,v,dct in G.edges(data=True):                    
+                #     for key, value in dct.items():                
+                #         if not isinstance(key,str):
+                #             logger.debug(f"{logStr}: G.edges: data: key: {str(key)} not a string - value: {value}")                                        
+                #     logger.debug(f"{logStr}: break ...")    
+                #     break                    
 
                 nodeDct=dfKNOT.to_dict(orient='index')    
                 nodeDctNx={value['NAME']:value|{'idx':key} for key,value in nodeDct.items()}
                 nx.set_node_attributes(G,nodeDctNx)    
-                for u,dct in G.nodes(data=True):                    
-                    for key, value in dct.items():                
-                        if not isinstance(key,str):
-                            logger.debug(f"{logStr}: G.nodes: data: key: {str(key)} not a string - value: {value}")                                        
-                    logger.debug(f"{logStr}: break ...")    
-                    break                            
+                # for u,dct in G.nodes(data=True):                    
+                #     for key, value in dct.items():                
+                #         if not isinstance(key,str):
+                #             logger.debug(f"{logStr}: G.nodes: data: key: {str(key)} not a string - value: {value}")                                        
+                #     logger.debug(f"{logStr}: break ...")    
+                #     break                            
 
                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G ok so far.'))                           
                 
@@ -1031,6 +985,58 @@ class dxWithMx():
                 logger.info("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph G nodeposDct failed.')) 
     
             return G,nodeposDctNx
+        except dxWithMxError:
+            raise            
+        except Exception as e:
+            logStrFinal="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+            logger.debug(logStrFinal) 
+            raise dxWithMxError(logStrFinal)                       
+        finally:
+            logger.debug(f"{logStr}_Done.") 
+
+    def _GSig(self, V3_RVBEL, V3_RKNOT):
+        """
+            GSig is a m object Attribute: The NetworkX Graph of the Signal Model.
+            
+            :param V3_RVBEL: edges
+            :type V3_RVBEL: df
+            :param V3_RKNOT: nodes
+            :type V3_RKNOT: df            
+            
+            :return: GSig
+            :rtype: NetworkX DiGraph        
+        
+            .. note:: 
+                Builds NetworkX Graph from V3_RVBEL (from_pandas_edgelist) with edge attributes. 
+                Corresponding node attributes from V3_RKNOT.
+                The Signal Model Elements (like RSLW or RSTN) are the nodes of GSig and the connections between these Signal Model Elements are the edges of GSig.    
+                V3_RKNOT: nodes: node IDs: Kn            
+                V3_RVBEL: edges: node IDs: Kn_i (source) and Kn_k (target)
+                node ID: KA (Element's attribute KA is the ID of the Element's output signal)
+        """   
+                
+        logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
+        logger.debug(f"{logStr}Start.") 
+        
+        try:                                
+            # Graph bauen    
+            GSig = nx.DiGraph()
+
+            df=V3_RVBEL.reset_index()
+            if not df.empty:
+                try:
+                    # Graph Signalmodell bauen
+                    GSig=nx.from_pandas_edgelist(df=df, source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
+                    nodeDct=V3_RKNOT.to_dict(orient='index')
+                    nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
+                    nx.set_node_attributes(GSig,nodeDctNx)
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig ok so far.'))    
+                except Exception as e:
+                    logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                    logger.debug(logStrTmp) 
+                    logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))                        
+
+            return GSig
         except dxWithMxError:
             raise            
         except Exception as e:
