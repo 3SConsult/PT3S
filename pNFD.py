@@ -573,7 +573,7 @@ def pNFD_FW(
                 
                 # Erstellen der Colormaps 
                 cmap_KNOTErg = matplotlib.colors.LinearSegmentedColormap.from_list('cmap_KNOTErg', colors_KNOT_Erg, N = 256)                 
-                if colors_KNOT_ErgNeg != None and minValue <0:                    
+                if colors_KNOT_ErgNeg != None and minValue <=0:                    
                     cmap_KNOTErgNeg = matplotlib.colors.LinearSegmentedColormap.from_list('cmap_KNOTErgNeg', colors_KNOT_ErgNeg, N = 256)                      
                 # Funktionsweise Farbskalen nach Normierung: Werte ]0,1[ erhalten die Randfarben 0,1
 
@@ -755,7 +755,7 @@ def pNFD_FW(
                         norm_diff_KNOT_Erg=norm_max_KNOT_Erg-norm_min_KNOT_Erg
 
                         if norm_diff_KNOT_Erg == 0:     
-                            logger.debug(f"{logStr}norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}:1==0!")              
+                            logger.debug(f"{logStr}norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}: ==0!")              
 
                             gdf_KNOT.plot(ax = ax
                                         ,zorder = attr_colors_KNOT_Erg_zOrder 
