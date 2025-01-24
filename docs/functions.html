@@ -79,6 +79,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#graphs">Graphs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#g">G</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gsig">GSig</a></li>
 </ul>
 </li>
 </ul>
@@ -718,6 +719,38 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 Corresponding node attributes from V3_KNOT.
 edge and node attributes: keys: keys are tuples (not strings) if the source dfs contain cols which are tuples
 nodeposDctNx: coordinates of nodes relative to the lower left network corner.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="gsig">
+<h4>GSig<a class="headerlink" href="#gsig" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._GSig">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_GSig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_RVBEL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_RKNOT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._GSig" title="Permalink to this definition"></a></dt>
+<dd><p>GSig is a m object Attribute: The NetworkX Graph of the Signal Model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>V3_RVBEL</strong> (<em>df</em>) – edges</p></li>
+<li><p><strong>V3_RKNOT</strong> (<em>df</em>) – nodes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>GSig</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NetworkX DiGraph</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Builds NetworkX Graph from V3_RVBEL (from_pandas_edgelist) with edge attributes. 
+Corresponding node attributes from V3_RKNOT.
+The Signal Model Elements (like RSLW or RSTN) are the nodes of GSig and the connections between these Signal Model Elements are the edges of GSig.    
+V3_RKNOT: nodes: node IDs: Kn            
+V3_RVBEL: edges: node IDs: Kn_i (source) and Kn_k (target)
+node ID: KA (Element’s attribute KA is the ID of the Element’s output signal)</p>
 </div>
 </dd></dl>
 

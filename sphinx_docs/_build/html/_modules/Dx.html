@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dx &mdash; PT3S 90.14.40.0.dev1 documentation</title>
+  <title>Dx &mdash; PT3S 90.14.45.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -1261,6 +1261,9 @@
                     <span class="n">vRUES</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;V_BVZ_RUES&#39;</span><span class="p">]</span>
                     <span class="n">vRUES</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">vRUES</span><span class="p">,</span> <span class="n">vRUES</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;rkRUES&#39;</span><span class="p">,</span>
                                      <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_rkRUES&#39;</span><span class="p">))</span>
+                    
+                    <span class="c1"># IOTYP:  0=undefiniert|1=Eingang|3=Ausgang</span>
+                    
                     <span class="n">vRUES</span><span class="p">[</span><span class="s1">&#39;Kn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vRUES</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
                         <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">IDUE</span> <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">IOTYP</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span> <span class="k">else</span> <span class="n">row</span><span class="o">.</span><span class="n">IDUE_rkRUES</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                     <span class="n">vRUES</span><span class="p">[</span><span class="s1">&#39;OBJTYPE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;RUES&#39;</span>
@@ -1301,15 +1304,21 @@
                                     <span class="p">]</span>
 
 
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">vRUES</span><span class="p">[</span><span class="n">vRUES</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">vRUES</span><span class="p">[</span><span class="o">~</span><span class="n">vRUES</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;-1&#39;</span><span class="p">])]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="c1">#if not vRUES[vRUES[&#39;pk&#39;].isin([-1])].empty:</span>
                 
                     <span class="c1"># RUES-Verbindungen zur Quelle hin aufloesen ...                </span>
-                    <span class="c1">#logger.debug(&quot;{0:s}{1:s} RUES-Verbindungen zur Quelle hin aufloesen ...&quot;.format(logStr, &#39;V3_RVBEL&#39;))</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2"> RUES-Verbindungen zur Quelle hin aufloesen ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;V3_RVBEL&#39;</span><span class="p">))</span>
     
                     <span class="n">V3_RVBEL</span> <span class="o">=</span> <span class="n">V3_RVBEL</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
                     <span class="n">V3_RRUES</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;V3_RRUES&#39;</span><span class="p">]</span>
+
+                    <span class="c1"># alle VBEL die von RUES ausgehen</span>
+                    <span class="c1"># das sollten RUES-Ausgaenge sein ...</span>
                     <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">V3_RVBEL</span><span class="p">[</span><span class="n">V3_RVBEL</span><span class="p">[</span><span class="s1">&#39;OBJTYPE_i&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;RUES&#39;</span><span class="p">])]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
                         
+                        <span class="c1"># die in RUES suchen</span>
+                        <span class="c1"># es sollte sich um Ausgaenge handeln ...</span>
                         <span class="n">dfx</span><span class="o">=</span><span class="n">V3_RRUES</span><span class="p">[</span><span class="n">V3_RRUES</span><span class="p">[</span><span class="s1">&#39;tk&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;fkKi&#39;</span><span class="p">]]</span>
                         <span class="p">(</span><span class="n">Treffer</span><span class="p">,</span><span class="n">dummy</span><span class="p">)</span><span class="o">=</span><span class="n">dfx</span><span class="o">.</span><span class="n">shape</span>
                         
@@ -1329,11 +1338,12 @@
                                                                                           
                         <span class="n">s</span> <span class="o">=</span> <span class="n">dfx</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                         
-                        <span class="c1">#logger.debug(&quot;{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s} Treffer: {Treffer!s:s}?!&quot;.format(logStr=logStr                                </span>
-                        <span class="c1">#        ,OBJTYPE_i=row[&#39;OBJTYPE_i&#39;]      </span>
-                        <span class="c1">#        ,Kn_i=row[&#39;Kn_i&#39;]      </span>
-                        <span class="c1">#        ,Treffer=s</span>
-                        <span class="c1">#            ))         </span>
+                        <span class="c1"># logger.debug(&quot;{logStr:s}OBJTYPE_i: {OBJTYPE_i:s} Kn_i: {Kn_i:s} Kn_i_neu: {Kn_i_neu:s} Treffer: {Treffer!s:s}?!&quot;.format(logStr=logStr                                </span>
+                        <span class="c1">#         ,OBJTYPE_i=row[&#39;OBJTYPE_i&#39;]      </span>
+                        <span class="c1">#         ,Kn_i=row[&#39;Kn_i&#39;]     </span>
+                        <span class="c1">#         ,Kn_i_neu=s[&#39;Kn_SRC&#39;]     </span>
+                        <span class="c1">#         ,Treffer=s</span>
+                        <span class="c1">#             ))         </span>
     
                         <span class="n">V3_RVBEL</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;OBJTYPE_i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;OBJTYPE_SRC&#39;</span><span class="p">]</span>
                         <span class="c1"># V3_RVBEL.loc[index,&#39;OBJID_i&#39;]=s[&#39;OBJID_SRC&#39;]</span>
@@ -1663,7 +1673,7 @@
             <span class="c1"># ####################</span>
     
             <span class="n">dfVBEL</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;V3_VBEL&#39;</span><span class="p">]</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dfVBEL before edge loop:</span><span class="se">\n</span><span class="si">{</span><span class="n">df</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dfVBEL before edge loop:</span><span class="se">\n</span><span class="si">{</span><span class="n">dfVBEL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             
             <span class="c1">#logger.debug(&quot;{0:s}dfVBEL: {1:s}&quot;.format(logStr,dfVBEL.head().to_string()))</span>
             
@@ -2848,7 +2858,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 1986-2024, 3S Consult GmbH.</p>
+    <p>&#169; Copyright 1986-2025, 3S Consult GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

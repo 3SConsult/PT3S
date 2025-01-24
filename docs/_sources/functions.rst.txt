@@ -162,6 +162,10 @@ G
 """""""
 .. autofunction:: dxAndMxHelperFcts.dxWithMx._G
 
+GSig
+"""""""
+.. autofunction:: dxAndMxHelperFcts.dxWithMx._GSig    
+
 
 SIR 3S Model-Data
 -----------------
