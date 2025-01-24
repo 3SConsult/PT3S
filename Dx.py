@@ -1589,7 +1589,7 @@ class Dx():
             # ####################
     
             dfVBEL=self.dataFrames['V3_VBEL']
-            logger.debug(f"dfVBEL before edge loop:\n{df}")
+            logger.debug(f"dfVBEL before edge loop:\n{dfVBEL}")
             
             #logger.debug("{0:s}dfVBEL: {1:s}".format(logStr,dfVBEL.head().to_string()))
             
