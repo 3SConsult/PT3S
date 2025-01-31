@@ -1,10 +1,110 @@
-Results of doctest builder run on 2024-11-15 10:28:51
+Results of doctest builder run on 2025-01-31 13:49:43
 =====================================================
+
+Document: objects
+-----------------
+**********************************************************************
+File "objects.rst", line 61, in default
+Failed example:
+    m.V3_ROHR.head()
+Expected:
+    pk                 fkDE  ...    PHRAbs     JVAbs
+    0  5442010239090746007  5306805303452857793  ...  0.010414  0.285856
+    1  4917786378639043296  5306805303452857793  ...  0.014643  0.255914
+    2  4762482310382009633  5306805303452857793  ...  0.010845  0.264538
+    3  4987229536643024523  5306805303452857793  ...  0.001804  0.264079
+    4  5722206630503885118  5306805303452857793  ...  0.001979  0.264080
+Got:
+                        pk                 fkDE  ...    PHRAbs     JVAbs
+    0  5442010239090746007  5306805303452857793  ...  0.010414  0.285856
+    1  4917786378639043296  5306805303452857793  ...  0.014643  0.255914
+    2  4762482310382009633  5306805303452857793  ...  0.010845  0.264538
+    3  4987229536643024523  5306805303452857793  ...  0.001804  0.264079
+    4  5722206630503885118  5306805303452857793  ...  0.001979  0.264080
+    <BLANKLINE>
+    [5 rows x 216 columns]
+**********************************************************************
+File "objects.rst", line 74, in default
+Failed example:
+    m.V3_KNOT.head()
+Expected nothing
+Got:
+                        pk                 fkDE  ...   QM       dPH
+    3  5669301360686511351  5306805303452857793  ...  0.0  1.488921
+    4  5397948523091900401  5306805303452857793  ...  0.0  1.467910
+    5  5239335112004772156  5306805303452857793  ...  0.0  1.444288
+    6  5298886695042021307  5306805303452857793  ...  0.0  1.434558
+    7  4993257270457791438  5306805303452857793  ...  0.0  1.432193
+    <BLANKLINE>
+    [5 rows x 214 columns]
+**********************************************************************
+File "objects.rst", line 81, in default
+Failed example:
+    m.V3_VBEL.head()
+Expected nothing
+Got:
+                                                  pk  ...       mlc_k
+    OBJTYPE OBJID                                     ...            
+    FWES    5194722485643852853  5194722485643852853  ...  577.049723
+            5393031835236689087  5393031835236689087  ...  593.013845
+    FWVB    4611752310942477664  4611752310942477664  ...  574.339884
+            4612528660388965271  4612528660388965271  ...  551.357794
+            4612562908060328263  4612562908060328263  ...  574.527331
+    <BLANKLINE>
+    [5 rows x 619 columns]
+**********************************************************************
+File "objects.rst", line 88, in default
+Failed example:
+    m.V3_AGSN.head()
+Expected nothing
+Got:
+      Pos  ... ('TMAX', 'mlc', Timestamp('2023-02-12 23:00:00'), Timestamp('2023-02-13 23:00:00'))_n
+    0  -1  ...                                          602.48758                                   
+    0   0  ...                                          602.48758                                   
+    1   1  ...                                         602.419501                                   
+    2   2  ...                                         602.385399                                   
+    3   3  ...                                         602.306951                                   
+    <BLANKLINE>
+    [5 rows x 52 columns]
+**********************************************************************
+File "objects.rst", line 95, in default
+Failed example:
+    m.V3_ROHRVEC.head()
+Expected nothing
+Got:
+                        pk  ... (TMAX, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)
+    0  5442010239090746007  ...                                          98.646645     
+    1  5442010239090746007  ...                                          98.646645     
+    2  4917786378639043296  ...                                          55.044947     
+    3  4917786378639043296  ...                                          55.044947     
+    4  4762482310382009633  ...                                          56.352818     
+    <BLANKLINE>
+    [5 rows x 294 columns]
+**********************************************************************
+File "objects.rst", line 102, in default
+Failed example:
+    m.V3_AGSNVEC.head()
+Expected nothing
+Got:
+      Pos                   pk  ...      QM_min      QM_max
+    0   0  5755933101669454049  ...  287.090085  538.206592
+    1   0  5755933101669454049  ...  287.090085  538.206592
+    2   1  5755933101669454049  ...  287.090085  538.206592
+    3   2  5755933101669454049  ... -538.206592 -287.090085
+    4   3  5755933101669454049  ... -538.206592 -287.090085
+    <BLANKLINE>
+    [5 rows x 352 columns]
+**********************************************************************
+1 items had failures:
+   6 of   7 in default
+7 tests in 1 items.
+1 passed and 6 failed.
+***Test Failed*** 6 failures.
 
 Document: functions
 -------------------
 **********************************************************************
-File "functions.rst", line 84, in default
+File "functions.rst", line 78, in default
 Failed example:
     print([attr for attr in dir(m) if not attr.startswith('_') and not isinstance(getattr(m, attr), pd.DataFrame)])
 Expected:
@@ -13,14 +113,14 @@ Got:
     ['G', 'GSig', 'SirCalcXmlFile', 'dx', 'flowMVEC', 'mx', 'nodeposDctNx', 'switchV3DfColsToMultiindex', 'wDirMx']
 **********************************************************************
 1 items had failures:
-   1 of  15 in default
-15 tests in 1 items.
-14 passed and 1 failed.
+   1 of  14 in default
+14 tests in 1 items.
+13 passed and 1 failed.
 ***Test Failed*** 1 failures.
 
 Doctest summary
 ===============
-   15 tests
-    1 failure in tests
+   21 tests
+    7 failures in tests
     0 failures in setup code
     0 failures in cleanup code

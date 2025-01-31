@@ -28,7 +28,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Releases" href="releases.html" />
+    <link rel="next" title="Classes and Objects" href="objects.html" />
     <link rel="prev" title="Examples" href="examples.html" /> 
 </head>
 
@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#plot-source-spectrum">Plot Source Spectrum</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">Classes and Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developers.html">For Developers</a></li>
 </ul>
@@ -142,7 +143,7 @@
 <p>Currently, not all functions that are included in PT3S are documented. These will be added in the future.</p>
 </div>
 <section id="read-sir-3s-model-and-results">
-<h2>Read SIR 3S Model and Results<a class="headerlink" href="#read-sir-3s-model-and-results" title="Permalink to this heading"></a></h2>
+<span id="readdxandmx-label"></span><h2>Read SIR 3S Model and Results<a class="headerlink" href="#read-sir-3s-model-and-results" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.readDxAndMx">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Permalink to this definition"></a></dt>
@@ -345,10 +346,6 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </ul>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for Dx with attached Mx; a dxWithMx object is allso called m object in this documentation</p>
-</div>
 </dd></dl>
 
 </section>
@@ -662,7 +659,7 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._gdfs">
 <span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_gdfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._gdfs" title="Permalink to this definition"></a></dt>
-<dd><p>gdf_FWVB, gdf_FWVB and gdf_KNOT are m objects.</p>
+<dd><p>gdf_FWVB, gdf_FWVB and gdf_KNOT are m object attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value: ‘EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p>
@@ -1137,7 +1134,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="releases.html" class="btn btn-neutral float-right" title="Releases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="objects.html" class="btn btn-neutral float-right" title="Classes and Objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

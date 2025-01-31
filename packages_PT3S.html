@@ -1,0 +1,79 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          class PT3S {
+          }
+          class Am {
+          }
+          class Dm {
+          }
+          class Dx {
+          }
+          class Lx {
+          }
+          class Mx {
+          }
+          class NFD {
+          }
+          class Rm {
+          }
+          class UTILS {
+          }
+          class Db {
+          }
+          class Xml {
+          }
+          class Xm {
+          }
+          class conf {
+          }
+          class dxAndMxHelperFcts {
+          }
+          class dxDecodeObjsData {
+          }
+          class lds {
+          }
+          class rpts {
+          }
+          class ncd {
+          }
+          class pNFD {
+          }
+          class sdfCsv {
+          }
+          class setup {
+          }
+          Am --> PT3S
+          Am --> Dm
+          Am --> Xm
+          Dx --> PT3S
+          Dx --> Xm
+          Dx --> dxAndMxHelperFcts
+          Dx --> dxDecodeObjsData
+          Mx --> PT3S
+          Mx --> Xm
+          Rm --> PT3S
+          Rm --> Am
+          Rm --> Lx
+          Rm --> Mx
+          Rm --> Xm
+          Xml --> UTILS
+          Xml --> Db
+          Xm --> PT3S
+          Xm --> Mx
+          dxAndMxHelperFcts --> PT3S
+          dxAndMxHelperFcts --> Dx
+          dxAndMxHelperFcts --> Mx
+          dxAndMxHelperFcts --> dxDecodeObjsData
+          rpts --> PT3S
+          rpts --> Lx
+          rpts --> Rm
+          ncd --> PT3S
+          ncd --> Rm
+  
+       </div>
+  </body>
+</html>

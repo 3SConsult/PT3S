@@ -80,9 +80,7 @@ class dxWithMx():
         :param mx: a Mx object
         :type mx: Mx.Mx()        
         :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
-        :type crs: str, optional, default=None  
-                      
-        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for Dx with attached Mx; a dxWithMx object is allso called m object in this documentation  
+        :type crs: str, optional, default=None   
                         
         """        
         
@@ -543,7 +541,7 @@ class dxWithMx():
 
     def _gdfs(self,crs=None):
         """
-            gdf_FWVB, gdf_FWVB and gdf_KNOT are m objects.
+            gdf_FWVB, gdf_FWVB and gdf_KNOT are m object attributes.
             
             :param crs: (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value: 'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
             :type crs: str, optional, default=None  

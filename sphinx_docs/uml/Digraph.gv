@@ -1,0 +1,60 @@
+digraph {
+	A [label=dxWithMx]
+	subgraph cluster_0 {
+		color=blue label="Dx object Group"
+		B [label="Dx object"]
+		B1 [label="dx.dataFrames"]
+		B -> B1
+	}
+	subgraph cluster_1 {
+		color=green label="Mx object Group"
+		C [label="Mx object"]
+		C1 [label="mx.df"]
+		C2 [label="mx.dfVecAggs"]
+		C -> C1
+		C -> C2
+	}
+	subgraph cluster_2 {
+		color=pink label="Miscellaneous Group"
+		A13 [label=wDirMx color=pink style=filled]
+		A14 [label=SirCalcXmlFile color=pink style=filled]
+		A15 [label=SirCalcExeFile color=pink style=filled]
+		A -> A13
+		A -> A14
+		A -> A15
+	}
+	subgraph cluster_3 {
+		color=red label="pandas-Dfs Group"
+		A1 [label=V3_ROHR color=red style=filled]
+		A2 [label=V3_FWVB color=red style=filled]
+		A3 [label=V3_KNOT color=red style=filled]
+		A4 [label=V3_VBEL color=red style=filled]
+		A5 [label=V3_ROHRVEC color=red style=filled]
+		A6 [label=V3_AGSN color=red style=filled]
+		A7 [label=V3_AGSNVEC color=red style=filled]
+		A -> A1
+		A -> A2
+		A -> A3
+		A -> A4
+		A -> A5
+		A -> A6
+		A -> A7
+	}
+	subgraph cluster_4 {
+		color=orange label="geopandas-Dfs Group"
+		A8 [label=gdf_ROHR color=orange style=filled]
+		A9 [label=gdf_FWVB color=orange style=filled]
+		A10 [label=gdf_KNOT color=orange style=filled]
+		A -> A8
+		A -> A9
+		A -> A10
+	}
+	subgraph cluster_5 {
+		color=lime label="NetworkX-Graphs Group"
+		A11 [label=G color=lime style=filled]
+		A12 [label=GSig color=lime style=filled]
+		A -> A11
+		A -> A12
+	}
+	rankdir=LR
+}
