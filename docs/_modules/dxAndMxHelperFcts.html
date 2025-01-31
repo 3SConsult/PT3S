@@ -53,6 +53,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../objects.html">Classes and Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developers.html">For Developers</a></li>
 </ul>
@@ -164,9 +165,7 @@
 <span class="sd">        :param mx: a Mx object</span>
 <span class="sd">        :type mx: Mx.Mx()        </span>
 <span class="sd">        :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:&#39;EPSG:25832&#39;). If None, crs will be read from SIR 3S&#39; database file.</span>
-<span class="sd">        :type crs: str, optional, default=None  </span>
-<span class="sd">                      </span>
-<span class="sd">        .. note:: a dxWithMx object is returned by dxAndMxHelperFcts.readDxAndMx(); see also documentation there; the object is a wrapper for Dx with attached Mx; a dxWithMx object is allso called m object in this documentation  </span>
+<span class="sd">        :type crs: str, optional, default=None   </span>
 <span class="sd">                        </span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         
@@ -627,7 +626,7 @@
 
     <span class="k">def</span> <span class="nf">_gdfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            gdf_FWVB, gdf_FWVB and gdf_KNOT are m objects.</span>
+<span class="sd">            gdf_FWVB, gdf_FWVB and gdf_KNOT are m object attributes.</span>
 <span class="sd">            </span>
 <span class="sd">            :param crs: (=coordinate reference system) Determines crs used in the geopandas-Dfs (Possible value: &#39;EPSG:25832&#39;). If None, crs will be read from SIR 3S&#39; database file.</span>
 <span class="sd">            :type crs: str, optional, default=None  </span>

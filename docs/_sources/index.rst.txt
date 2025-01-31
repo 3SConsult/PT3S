@@ -23,6 +23,7 @@ Contents:
    started
    examples
    functions
+   objects
    releases
    developers
 * :ref:`genindex`
