@@ -70,7 +70,7 @@ You can download the Notebook file :download:`here <Example4.ipynb>`.
 Example 5: Loop over multiple SIR 3S calculations
 -------------------------------------------------
 
-This example demonstrates how to loop over several SIR 3S calculations, calculate each different state and plot it.
+This example demonstrates how to modify the SirCalcXmlFile, perform calculations on its state, and plot the results. These steps are executed in a loop over several different SIR 3S calculations.
 
 You can view the Notebook `here <Example5.html>`_.
 

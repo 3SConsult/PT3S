@@ -3,7 +3,7 @@ Classes and Objects
 
 .. note:: This page is still Work in Progress.
 
-Welcome to the Objects page! Here, we will delve into the details of each Object.
+Welcome to the Classes and Objects page! Here, we will delve into the differnt classes and objects and their relationship.
 
 .. note::
     Currently, not all Objects that exist in PT3S are documented. These will be added in the future.
@@ -46,6 +46,10 @@ The m object or dxWithMx object is a wrapper for Dx with attached Mx and the cen
    :align: center
 |
 
+.. raw:: html
+
+   <iframe src="C:\\Users\\jablonski\\3S\\PT3S\\sphinx_docs\\uml\\interactive_diagram.html" width="100%" height="600"></iframe>
+
 Dataframes
 ~~~~~~~~~~
 
@@ -56,6 +60,7 @@ From the object m, you can access a variety of dataframes created by PT3S based 
     >>> print([attr for attr in dir(m) if isinstance(getattr(m, attr), pd.DataFrame)])    
     ['V3_AGSN', 'V3_AGSNVEC', 'V3_FWVB', 'V3_KNOT', 'V3_ROHR', 'V3_ROHRVEC', 'V3_VBEL', 'V3_WBLZ', 'dfAGSN', 'dfWBLZ', 'gdf_FWVB', 'gdf_KNOT', 'gdf_ROHR']
 
+The following section presents these dataframes by functions that create these dataframes.
 
 V3_ROHR
 """""""

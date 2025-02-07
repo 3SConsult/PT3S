@@ -44,6 +44,18 @@ digraph {
 		A -> A5
 		A -> A6
 		A -> A7
+		A1_1 [label="PH_i,_k" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+		A1_2 [label="H_i,_k" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+		A1_3 [label="mlc_i,_k" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+		A1_4 [label="RHO_i,_k" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+		A1_5 [label="T_i,_k" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+		A1_6 [label=QM color=purple fontname="Arial Bold" fontsize=14 style=filled]
+		A1 -> A1_1
+		A1 -> A1_2
+		A1 -> A1_3
+		A1 -> A1_4
+		A1 -> A1_5
+		A1 -> A1_6
 	}
 	subgraph cluster_4 {
 		color=orange fontname="Arial Bold" fontsize=14 label="geopandas-Dfs Group"
