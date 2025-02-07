@@ -119,7 +119,7 @@
 <p class="admonition-title">Note</p>
 <p>This page is still Work in Progress.</p>
 </div>
-<p>Welcome to the Objects page! Here, we will delve into the details of each Object.</p>
+<p>Welcome to the Classes and Objects page! Here, we will delve into the differnt classes and objects and their relationship.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Currently, not all Objects that exist in PT3S are documented. These will be added in the future.</p>
@@ -145,13 +145,14 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<section id="dataframes">
+<iframe src="C:\\Users\\jablonski\\3S\\PT3S\\sphinx_docs\\uml\\interactive_diagram.html" width="100%" height="600"></iframe><section id="dataframes">
 <h3>Dataframes<a class="headerlink" href="#dataframes" title="Permalink to this heading"></a></h3>
 <p>From the object m, you can access a variety of dataframes created by PT3S based on the model and results</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)])</span>
 <span class="go">[&#39;V3_AGSN&#39;, &#39;V3_AGSNVEC&#39;, &#39;V3_FWVB&#39;, &#39;V3_KNOT&#39;, &#39;V3_ROHR&#39;, &#39;V3_ROHRVEC&#39;, &#39;V3_VBEL&#39;, &#39;V3_WBLZ&#39;, &#39;dfAGSN&#39;, &#39;dfWBLZ&#39;, &#39;gdf_FWVB&#39;, &#39;gdf_KNOT&#39;, &#39;gdf_ROHR&#39;]</span>
 </pre></div>
 </div>
+<p>The following section presents these dataframes by functions that create these dataframes.</p>
 <section id="v3-rohr">
 <h4>V3_ROHR<a class="headerlink" href="#v3-rohr" title="Permalink to this heading"></a></h4>
 <dl class="py function">
