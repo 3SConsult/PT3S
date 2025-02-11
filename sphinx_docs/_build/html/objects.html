@@ -73,16 +73,21 @@
 <li class="toctree-l4"><a class="reference internal" href="#gsig">GSig</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#dx-object">Dx object</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Dataframes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Dataframes</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dflayr">dfLAYR</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#mx-object">Mx object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-issues">Known Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#column-tuple-names">Column tuple names</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
@@ -115,17 +120,13 @@
              
   <section id="classes-and-objects">
 <h1>Classes and Objects<a class="headerlink" href="#classes-and-objects" title="Permalink to this heading"></a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This page is still Work in Progress.</p>
-</div>
-<p>Welcome to the Classes and Objects page! Here, we will delve into the differnt classes and objects and their relationship.</p>
+<p>Welcome to the Classes and Objects page! Here, we will delve into the differnt classes and objects and their relationship. Refer to the <a class="reference internal" href="functions.html"><span class="doc">Functions</span></a> page to learn more about the functions that create these objects.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Currently, not all Objects that exist in PT3S are documented. These will be added in the future.</p>
 </div>
 <section id="m-object">
-<h2>m Object<a class="headerlink" href="#m-object" title="Permalink to this heading"></a></h2>
+<span id="id1"></span><h2>m Object<a class="headerlink" href="#m-object" title="Permalink to this heading"></a></h2>
 <p>The m object or dxWithMx object is a wrapper for Dx with attached Mx and the center piece in working with PT3S. It is created by <a class="reference internal" href="functions.html#readdxandmx-label"><span class="std std-ref">Read SIR 3S Model and Results</span></a></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx.__init__">
@@ -139,20 +140,81 @@
 </ul>
 </dd>
 </dl>
+<p>A dxWithMx (or m) object has the following attributes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Model: Dx object:</dt><dd><ul>
+<li><p>dx.dataFrames[…]: pandas-Dfs 1:1 from SIR 3S’ tables in database file</p></li>
+<li><p>dx.dataFrames[…]: several pandas-Dfs derived from the 1:1 Dfs</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Results: Mx object:</dt><dd><ul>
+<li><p>mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)</p></li>
+<li><p>mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Miscellaneous:   </dt><dd><ul>
+<li><p>wDirMx: Mx-directory of the model</p></li>
+<li><p>SirCalcXmlFile: SirCalc’s Xml-File of the model</p></li>
+<li><p>SirCalcExeFile: SirCalc Executable used to (re-)calculate the model</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>pandas-Dfs with Model- AND Result-Data:</dt><dd><ul>
+<li><p>V3_ROHR: Pipes</p></li>
+<li><p>V3_FWVB: Housestations District Heating</p></li>
+<li><p>V3_KNOT: Nodes</p></li>
+<li><p>V3_VBEL: Edges</p></li>
+<li><p>V3_ROHRVEC: Pipes including interior points</p></li>
+<li><p>V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)</p></li>
+<li><p>V3_AGSNVEC: Longitudinal Sections including Pipe interior points</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>geopandas-Dfs based upon the Dfs above:</dt><dd><ul>
+<li><p>gdf_ROHR: Pipes</p></li>
+<li><p>gdf_FWVB: Housestations District Heating</p></li>
+<li><p>gdf_KNOT: Nodes</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>NetworkX-Graphs:</dt><dd><ul>
+<li><p>G</p></li>
+<li><p>GSig</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.</p>
+</div></blockquote>
 </dd></dl>
 
 <a class="reference internal image-reference" href="_images/combined_image.png"><img alt="classes_dxAndMxHelperFcts" class="align-center" src="_images/combined_image.png" style="width: 100%;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<iframe src="C:\\Users\\jablonski\\3S\\PT3S\\sphinx_docs\\uml\\interactive_diagram.html" width="100%" height="600"></iframe><section id="dataframes">
+<section id="dataframes">
 <h3>Dataframes<a class="headerlink" href="#dataframes" title="Permalink to this heading"></a></h3>
-<p>From the object m, you can access a variety of dataframes created by PT3S based on the model and results</p>
+<p>From this object m, you can now access a variety of dataframes created by PT3S based on the model and results</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)])</span>
 <span class="go">[&#39;V3_AGSN&#39;, &#39;V3_AGSNVEC&#39;, &#39;V3_FWVB&#39;, &#39;V3_KNOT&#39;, &#39;V3_ROHR&#39;, &#39;V3_ROHRVEC&#39;, &#39;V3_VBEL&#39;, &#39;V3_WBLZ&#39;, &#39;dfAGSN&#39;, &#39;dfWBLZ&#39;, &#39;gdf_FWVB&#39;, &#39;gdf_KNOT&#39;, &#39;gdf_ROHR&#39;]</span>
 </pre></div>
 </div>
-<p>The following section presents these dataframes by functions that create these dataframes.</p>
+<p>The following section presents these dataframes by documenting the functions that create them.</p>
 <section id="v3-rohr">
 <h4>V3_ROHR<a class="headerlink" href="#v3-rohr" title="Permalink to this heading"></a></h4>
 <dl class="py function">
@@ -167,28 +229,45 @@
 <dd class="field-even"><p>df_V3_ROHR expanded</p>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>ROHR is the German word for pipe (defined in the SIR 3S model).
-In the returned V3_ROHR (one row per Edge) the following columns are added:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>QMAVAbs: Absolute value of STAT ROHR~*~*~*~QMAV</p></li>
-<li><p>VAVAbs: Absolute value of STAT ROHR~*~*~*~VAV</p></li>
-<li><p>PHRAbs: Absolute value of STAT ROHR~*~*~*~PHR</p></li>
-<li><p>JVAbs: Absolute value of STAT ROHR~*~*~*~JV</p></li>
-</ul>
-</div></blockquote>
-</div>
+<p>ROHR is the German word for pipe (defined in the SIR 3S model). In the returned V3_ROHR (one row per Edge) the following columns are added:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>QMAVAbs</p></td>
+<td><p>Absolute value of STAT ROHR~*~*~*~QMAV</p></td>
+</tr>
+<tr class="row-odd"><td><p>VAVAbs</p></td>
+<td><p>Absolute value of STAT ROHR~*~*~*~VAV</p></td>
+</tr>
+<tr class="row-even"><td><p>PHRAbs</p></td>
+<td><p>Absolute value of STAT ROHR~*~*~*~PHR</p></td>
+</tr>
+<tr class="row-odd"><td><p>JVAbs</p></td>
+<td><p>Absolute value of STAT ROHR~*~*~*~JV</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">                    pk                 fkDE  ...    PHRAbs     JVAbs</span>
-<span class="go">0  5442010239090746007  5306805303452857793  ...  0.010414  0.285856</span>
-<span class="go">1  4917786378639043296  5306805303452857793  ...  0.014643  0.255914</span>
-<span class="go">2  4762482310382009633  5306805303452857793  ...  0.010845  0.264538</span>
-<span class="go">3  4987229536643024523  5306805303452857793  ...  0.001804  0.264079</span>
-<span class="go">4  5722206630503885118  5306805303452857793  ...  0.001979  0.264080</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">)</span>
+<span class="go">                      pk                 fkDE  ...        PHRAbs         JVAbs</span>
+<span class="go">0    5442010239090746007  5306805303452857793  ...  1.041356e-02  2.858564e-01</span>
+<span class="go">1    4917786378639043296  5306805303452857793  ...  1.464281e-02  2.559136e-01</span>
+<span class="go">2    4762482310382009633  5306805303452857793  ...  1.084467e-02  2.645375e-01</span>
+<span class="go">3    4987229536643024523  5306805303452857793  ...  1.804474e-03  2.640792e-01</span>
+<span class="go">4    5722206630503885118  5306805303452857793  ...  1.978778e-03  2.640800e-01</span>
+<span class="go">..                   ...                  ...  ...           ...           ...</span>
+<span class="go">519  4919408196640282331  5306805303452857793  ...  7.555330e-25  2.897193e-23</span>
+<span class="go">520  4957957828740199285  5306805303452857793  ...  0.000000e+00  0.000000e+00</span>
+<span class="go">521  5499776682108862751  5306805303452857793  ...  0.000000e+00  0.000000e+00</span>
+<span class="go">522  5285235772707481262  5306805303452857793  ...  7.560484e-03  7.560484e-01</span>
+<span class="go">523  5373158549695106826  5306805303452857793  ...  7.642428e-03  7.642428e-01</span>
+
+<span class="go">[524 rows x 216 columns]</span>
 </pre></div>
 </div>
 </section>
@@ -206,28 +285,46 @@ In the returned V3_ROHR (one row per Edge) the following columns are added:</p>
 <dd class="field-even"><p>df_V3_KNOT expanded</p>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>KNOT is the German abbreviation for Nodes (defined in the SIR 3S model).
-In the returned V3_KNOT (one row per Edge) the following columns are added:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>PH: STAT PH-result (i.e. bar)</p></li>
-<li><p>dPH: STAT (PHSL-PHRL)-result if Node-Partner is defined (i.e. bar)</p></li>
-<li><p>QM: STAT QM-result</p></li>
-<li><p>srcvector: Source signature vector eg. [30, 0, 20, 50]</p></li>
-</ul>
-</div></blockquote>
-</div>
+<p>KNOT is the German abbreviation for Nodes (defined in the SIR 3S model). In the returned V3_KNOT (one row per Edge) the following columns are added:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PH</p></td>
+<td><p>STAT PH-result (i.e. bar)</p></td>
+</tr>
+<tr class="row-odd"><td><p>dPH</p></td>
+<td><p>STAT (PHSL-PHRL)-result if Node-Partner is defined
+(i.e. bar)</p></td>
+</tr>
+<tr class="row-even"><td><p>QM</p></td>
+<td><p>STAT QM-result</p></td>
+</tr>
+<tr class="row-odd"><td><p>srcvector</p></td>
+<td><p>Source signature vector eg. [30, 0, 20, 50]</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">                    pk                 fkDE  ...   QM       dPH</span>
-<span class="go">3  5669301360686511351  5306805303452857793  ...  0.0  1.488921</span>
-<span class="go">4  5397948523091900401  5306805303452857793  ...  0.0  1.467910</span>
-<span class="go">5  5239335112004772156  5306805303452857793  ...  0.0  1.444288</span>
-<span class="go">6  5298886695042021307  5306805303452857793  ...  0.0  1.434558</span>
-<span class="go">7  4993257270457791438  5306805303452857793  ...  0.0  1.432193</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span><span class="p">)</span>
+<span class="go">                      pk                 fkDE  ...   QM       dPH</span>
+<span class="go">3    5669301360686511351  5306805303452857793  ...  0.0  1.488921</span>
+<span class="go">4    5397948523091900401  5306805303452857793  ...  0.0  1.467910</span>
+<span class="go">5    5239335112004772156  5306805303452857793  ...  0.0  1.444288</span>
+<span class="go">6    5298886695042021307  5306805303452857793  ...  0.0  1.434558</span>
+<span class="go">7    4993257270457791438  5306805303452857793  ...  0.0  1.432193</span>
+<span class="go">..                   ...                  ...  ...  ...       ...</span>
+<span class="go">515  5705481928638455076  5306805303452857793  ...  0.0       NaN</span>
+<span class="go">516  4910948593863484232  5306805303452857793  ...  0.0       NaN</span>
+<span class="go">517  5032870132214455820  5306805303452857793  ...  0.0 -0.038701</span>
+<span class="go">518  4808122385198820357  5306805303452857793  ...  0.0 -0.038701</span>
+<span class="go">519  4810663080415972317  5306805303452857793  ...  0.0       NaN</span>
+
+<span class="go">[517 rows x 214 columns]</span>
 </pre></div>
 </div>
 </section>
@@ -245,24 +342,37 @@ In the returned V3_KNOT (one row per Edge) the following columns are added:</p>
 <dd class="field-even"><p>df_V3_VBEL expanded</p>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>VBEL is the German abbreviation for Edges (defined in the SIR 3S model).
-In the returned V3_VBEL (one row per Edge) the following columns are added:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>PH_i,_k: STAT PH-result (i.e. bar)</p></li>
-<li><p>H_i,_k: STAT H-result (i.e. barBzg)</p></li>
-<li><p>mlc_i,_k: STAT H-result</p></li>
-<li><p>RHO_i,_k: STAT RHO-result</p></li>
-<li><p>T_i,_k: STAT T-result</p></li>
-<li><p>QM: STAT QM-Result</p></li>
-</ul>
-</div></blockquote>
-</div>
+<p>VBEL is the German abbreviation for Edges (defined in the SIR 3S model). In the returned V3_VBEL (one row per Edge) the following columns are added:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PH_i,_k</p></td>
+<td><p>STAT PH-result (i.e. bar)</p></td>
+</tr>
+<tr class="row-odd"><td><p>H_i,_k</p></td>
+<td><p>STAT H-result (i.e. barBzg)</p></td>
+</tr>
+<tr class="row-even"><td><p>mlc_i,_k</p></td>
+<td><p>STAT H-result</p></td>
+</tr>
+<tr class="row-odd"><td><p>RHO_i,_k</p></td>
+<td><p>STAT RHO-result</p></td>
+</tr>
+<tr class="row-even"><td><p>T_i,_k</p></td>
+<td><p>STAT T-result</p></td>
+</tr>
+<tr class="row-odd"><td><p>QM</p></td>
+<td><p>STAT QM-Result</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_VBEL</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_VBEL</span><span class="p">)</span>
 <span class="go">                                              pk  ...       mlc_k</span>
 <span class="go">OBJTYPE OBJID                                     ...</span>
 <span class="go">FWES    5194722485643852853  5194722485643852853  ...  577.049723</span>
@@ -270,6 +380,14 @@ In the returned V3_VBEL (one row per Edge) the following columns are added:</p>
 <span class="go">FWVB    4611752310942477664  4611752310942477664  ...  574.339884</span>
 <span class="go">        4612528660388965271  4612528660388965271  ...  551.357794</span>
 <span class="go">        4612562908060328263  4612562908060328263  ...  574.527331</span>
+<span class="go">...                                          ...  ...         ...</span>
+<span class="go">VENT    5397401198360947165  5397401198360947165  ...   577.04972</span>
+<span class="go">        5514879539114546017  5514879539114546017  ...  586.490818</span>
+<span class="go">        5586353371153335311  5586353371153335311  ...   577.15915</span>
+<span class="go">        5652541284139882253  5652541284139882253  ...  592.208663</span>
+<span class="go">        5684594766069449552  5684594766069449552  ...  577.085888</span>
+
+<span class="go">[883 rows x 619 columns]</span>
 </pre></div>
 </div>
 </section>
@@ -290,57 +408,135 @@ In the returned V3_VBEL (one row per Edge) the following columns are added:</p>
 <dd class="field-odd"><p>df</p>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model). A section (a cut) can consist of several layers. In district heating systems for example the SL layer (supply line) and the RL (return line) layer.
-The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)</p></li>
-<li><p>pk: Section-pk</p></li>
-<li><p>tk: Section-tk</p></li>
-<li><p>LFDNR: Section-LFDNR (numeric)</p></li>
-<li><p>NAME: Section-Name</p></li>
-<li><p>XL: Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)</p></li>
-<li><p>compNr: Number of the connected Component in (Section,Layer) starting with 1</p></li>
-<li><p>nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)</p></li>
-<li><p>OBJTYPE: Edge-Type</p></li>
-<li><p>OBJID: Edge-ID</p></li>
-<li><p>L (0 for Pos=-1)</p></li>
-<li><p>DN</p></li>
-<li><p>Am2</p></li>
-<li><p>Vm3</p></li>
-<li><p>NAME_CONT</p></li>
-<li><p>NAME_i</p></li>
-<li><p>NAME_k</p></li>
-<li><p>ZKOR_n: nextNODEs ZKOR</p></li>
-<li><p>BESCHREIBUNG_n: nextNODEs BESCHREIBUNG</p></li>
-<li><p>KVR_n: nextNODEs KVR</p></li>
-<li><p>LSum: cumulated L up to nextNODE</p></li>
-<li><p>direction: XL=0,1: 1 if edge defined in cut-direction, otherwise -1; XL=2: 1 if edge defined in reverse cut-direction, otherwise -1</p></li>
-<li><p>corresponding to the V3_VBEL attributes:</p></li>
-<li><p>PH_n: nextNODEs STAT PH-result (i.e. bar) (startNODEs result for Pos=-1)</p></li>
-<li><p>H_n: nextNODEs STAT H-result (i.e. barBzg) (startNODEs result for Pos=-1)</p></li>
-<li><p>mlc_n: nextNODEs STAT H-result (startNODEs result for Pos=-1)</p></li>
-<li><p>RHO_n: nextNODEs STAT RHO-result (startNODEs result for Pos=-1)</p></li>
-<li><p>T_n: nextNODEs STAT T-result (startNODEs result for Pos=-1)</p></li>
-<li><p>QM: Egde STAT QM-Result (startNODEs result for Pos=-1)</p></li>
-<li><p>(‘STAT|TIME|TMIN|…’,’QM’, a Timestamp, a Timestamp): Egde QM-Results</p></li>
-<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’, a Timestamp, a Timestamp)”_n: nextNODEs Results</p></li>
-<li><p>“(‘STAT|TIME|TMIN|…’,’mlc|…’        , a Timestamp, a Timestamp)”_n: nextNODEs Results calculated by PT3S</p></li>
-</ul>
-</div></blockquote>
-</div>
+<p>AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model). A section (a cut) can consist of several layers. In district heating systems, for example, the SL layer (supply line) and the RL (return line) layer. The returned V3_AGSN (one row per Edge in (Section, Layer)) has the following columns:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pos</p></td>
+<td><p>Position of Edge in (Section, Layer) starting with 0; Pos=-1: startNODE-row
+(same index as Pos=0 row)</p></td>
+</tr>
+<tr class="row-odd"><td><p>pk</p></td>
+<td><p>Section-pk</p></td>
+</tr>
+<tr class="row-even"><td><p>tk</p></td>
+<td><p>Section-tk</p></td>
+</tr>
+<tr class="row-odd"><td><p>LFDNR</p></td>
+<td><p>Section-LFDNR (numeric)</p></td>
+</tr>
+<tr class="row-even"><td><p>NAME</p></td>
+<td><p>Section-Name</p></td>
+</tr>
+<tr class="row-odd"><td><p>XL</p></td>
+<td><p>Layer: 0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the
+stuff after BLn in SIR 3S BLOB)</p></td>
+</tr>
+<tr class="row-even"><td><p>compNr</p></td>
+<td><p>Number of the connected Component in (Section, Layer) starting with 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>nextNODE</p></td>
+<td><p>Name of the next Node in cut-direction reached by the Edge (startNODE-Name for
+Pos=-1)</p></td>
+</tr>
+<tr class="row-even"><td><p>OBJTYPE</p></td>
+<td><p>Edge-Type</p></td>
+</tr>
+<tr class="row-odd"><td><p>OBJID</p></td>
+<td><p>Edge-ID</p></td>
+</tr>
+<tr class="row-even"><td><p>L</p></td>
+<td><p>0 for Pos=-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>DN</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Am2</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Vm3</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NAME_CONT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>NAME_i</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NAME_k</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ZKOR_n</p></td>
+<td><p>nextNODE’s ZKOR</p></td>
+</tr>
+<tr class="row-even"><td><p>BESCHREIBUNG_n</p></td>
+<td><p>nextNODE’s BESCHREIBUNG</p></td>
+</tr>
+<tr class="row-odd"><td><p>KVR_n</p></td>
+<td><p>nextNODE’s KVR</p></td>
+</tr>
+<tr class="row-even"><td><p>LSum</p></td>
+<td><p>cumulated L up to nextNODE</p></td>
+</tr>
+<tr class="row-odd"><td><p>direction</p></td>
+<td><p>XL=0,1: 1 if edge defined in cut-direction, otherwise -1; XL=2: 1 if edge defined
+in reverse cut-direction, otherwise -1</p></td>
+</tr>
+<tr class="row-even"><td><p>PH_n</p></td>
+<td><p>nextNODE’s STAT PH-result (i.e. bar) (startNODE’s result for Pos=-1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>H_n</p></td>
+<td><p>nextNODE’s STAT H-result (i.e. barBzg) (startNODE’s result for Pos=-1)</p></td>
+</tr>
+<tr class="row-even"><td><p>mlc_n</p></td>
+<td><p>nextNODE’s STAT H-result (startNODE’s result for Pos=-1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>RHO_n</p></td>
+<td><p>nextNODE’s STAT RHO-result (startNODE’s result for Pos=-1)</p></td>
+</tr>
+<tr class="row-even"><td><p>T_n</p></td>
+<td><p>nextNODE’s STAT T-result (startNODE’s result for Pos=-1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>QM</p></td>
+<td><p>Edge STAT QM-Result (startNODE’s result for Pos=-1)</p></td>
+</tr>
+<tr class="row-even"><td><p>(‘STAT|TIME|TMIN|…’, ‘QM’,
+a Timestamp, a Timestamp)</p></td>
+<td><p>Edge QM-Results</p></td>
+</tr>
+<tr class="row-odd"><td><p>“(‘STAT|TIME|TMIN|…’,
+‘KNOT…PH|H|…’, a
+Timestamp, a Timestamp)”_n</p></td>
+<td><p>nextNODE’s Results</p></td>
+</tr>
+<tr class="row-even"><td><p>“(‘STAT|TIME|TMIN|…’,
+‘mlc|…’, a Timestamp, a
+Timestamp)”_n</p></td>
+<td><p>nextNODE’s Results calculated by PT3S</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">  Pos  ... (&#39;TMAX&#39;, &#39;mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n</span>
-<span class="go">0  -1  ...                                          602.48758</span>
-<span class="go">0   0  ...                                          602.48758</span>
-<span class="go">1   1  ...                                         602.419501</span>
-<span class="go">2   2  ...                                         602.385399</span>
-<span class="go">3   3  ...</span>
-<span class="go">                                     602.306951</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">)</span>
+<span class="go">    Pos  ... (&#39;TMAX&#39;, &#39;mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n</span>
+<span class="go">0    -1  ...                                          602.48758</span>
+<span class="go">0     0  ...                                          602.48758</span>
+<span class="go">1     1  ...                                         602.419501</span>
+<span class="go">2     2  ...                                         602.385399</span>
+<span class="go">3     3  ...                                         602.306951</span>
+<span class="go">..   ..  ...                                                ...</span>
+<span class="go">523  39  ...                                         582.046941</span>
+<span class="go">524  40  ...                                         582.197052</span>
+<span class="go">525  41  ...                                         582.361158</span>
+<span class="go">526  42  ...                                         582.680754</span>
+<span class="go">527  43  ...                                         583.017569</span>
+
+<span class="go">[537 rows x 52 columns]</span>
 </pre></div>
 </div>
 </section>
@@ -361,59 +557,131 @@ The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following col
 <dd class="field-odd"><p>df</p>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The interior points are defined by the output grid definition for pipes in the SIR 3S model. The numerical grid with which SIR 3S calculates is different from the output grid.
-The returned V3_ROHRVEC (one row per pipe and interior point) has the following columns:</p>
-<blockquote>
-<div><ul>
-<li><p>pk: Pipe-pk</p></li>
-<li><p>tk: Pipe-tk</p></li>
-<li><p>…</p></li>
-<li><p>L</p></li>
-<li><p>…</p></li>
-<li><p>NAME_i, NAME_k</p></li>
-<li><p>mx2NofPts</p></li>
-<li><p>dL (=L/(mx2NofPts-1))</p></li>
-<li><p>…</p></li>
-<li><p>mx2Idx</p></li>
-<li><p>(‘STAT|TIME|TMIN|…’,’ROHR…QMAV|PHR|…’, a Timestamp, a Timestamp): Pipe-Results</p></li>
-<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’,     a Timestamp, a Timestamp)”_i: Pipe i-NODE Results</p></li>
-<li><p>“(‘STAT|TIME|TMIN|…’,’KNOT…PH|H|…’,     a Timestamp, a Timestamp)”_k: Pipe k-NODE Results</p></li>
-<li><p>QMAVAbs: Pipes STAT QMAV-Result (absolute value)</p></li>
-<li><p>VAVAbs: Pipes STAT VAV-Result (absolute value)</p></li>
-<li><p>PHRAbs: Pipes STAT PHR-Result (absolute value)</p></li>
-<li><p>JVAbs: Pipes STAT JV-Result (absolute value)</p></li>
-<li><p>IptIdx: an Index of the points: S: Start (i-NODE), E: End (k-NODE), interior points: 0,1,2,…</p></li>
-<li><p>IptIdxAsNo: an Index of the points starting with 0 at i-NODE: 0,1,2,…</p></li>
-<li><p>IptIdxAsNoRev: an Index of the points starting with 0 at k-NODE: 0,1,2,…</p></li>
-<li><p>SVEC: x in Edge-direction (IptIdx=S: 0.; IptIdx=E: L)</p></li>
-<li><p>SVECRev (IptIdx=S: L; IptIdx=E: 0)</p></li>
-<li><p>ZVEC: z</p></li>
-<li><p>(‘STAT|TIME|TMIN|…’,’ROHR…MVEC|PVEC|RHOVEC|TVEC|…’, a Timestamp, a Timestamp): point Results</p></li>
-<li><p>(‘STAT|TIME|TMIN|…’,’manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|…’,  a Timestamp, a Timestamp): point Results calculated by PT3S</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>manPVEC: from PVEC …</p></li>
-<li><p>mlcPVEC: from PVEC …</p></li>
-<li><p>barBzgPVEC: from PVEC …</p></li>
-<li><p>QMVEC: from MVEC … m3/h</p></li>
-<li><p>tMVEC: from MVEC … t/h</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
-</div>
+<p>The interior points are defined by the output grid definition for pipes in the SIR 3S model. The numerical grid with which SIR 3S calculates is different from the output grid. The returned V3_ROHRVEC (one row per pipe and interior point) has the following columns:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>pk</p></td>
+<td><p>Pipe-pk</p></td>
+</tr>
+<tr class="row-odd"><td><p>tk</p></td>
+<td><p>Pipe-tk</p></td>
+</tr>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>L</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>NAME_i, NAME_k</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>mx2NofPts</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dL (=L/(mx2NofPts-1))</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>mx2Idx</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>(‘STAT|TIME|TMIN|…’, ‘ROHR…QMAV|PHR|…’,
+a Timestamp, a Timestamp)</p></td>
+<td><p>Pipe-Results</p></td>
+</tr>
+<tr class="row-odd"><td><p>“(‘STAT|TIME|TMIN|…’, ‘KNOT…PH|H|…’,
+a Timestamp, a Timestamp)”_i</p></td>
+<td><p>Pipe i-NODE Results</p></td>
+</tr>
+<tr class="row-even"><td><p>“(‘STAT|TIME|TMIN|…’, ‘KNOT…PH|H|…’,
+a Timestamp, a Timestamp)”_k</p></td>
+<td><p>Pipe k-NODE Results</p></td>
+</tr>
+<tr class="row-odd"><td><p>QMAVAbs</p></td>
+<td><p>Pipes STAT QMAV-Result (absolute value)</p></td>
+</tr>
+<tr class="row-even"><td><p>VAVAbs</p></td>
+<td><p>Pipes STAT VAV-Result (absolute value)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PHRAbs</p></td>
+<td><p>Pipes STAT PHR-Result (absolute value)</p></td>
+</tr>
+<tr class="row-even"><td><p>JVAbs</p></td>
+<td><p>Pipes STAT JV-Result (absolute value)</p></td>
+</tr>
+<tr class="row-odd"><td><p>IptIdx</p></td>
+<td><p>An Index of the points: S: Start (i-NODE),
+E: End (k-NODE), interior points: 0,1,2,…</p></td>
+</tr>
+<tr class="row-even"><td><p>IptIdxAsNo</p></td>
+<td><p>An Index of the points starting with 0 at i-NODE:
+0,1,2,…</p></td>
+</tr>
+<tr class="row-odd"><td><p>IptIdxAsNoRev</p></td>
+<td><p>An Index of the points starting with 0 at k-NODE:
+0,1,2,…</p></td>
+</tr>
+<tr class="row-even"><td><p>SVEC</p></td>
+<td><p>x in Edge-direction (IptIdx=S: 0.; IptIdx=E: L)</p></td>
+</tr>
+<tr class="row-odd"><td><p>SVECRev</p></td>
+<td><p>(IptIdx=S: L; IptIdx=E: 0)</p></td>
+</tr>
+<tr class="row-even"><td><p>ZVEC</p></td>
+<td><p>z</p></td>
+</tr>
+<tr class="row-odd"><td><p>(‘STAT|TIME|TMIN|…’, ‘ROHR…MVEC|PVEC|RHOVEC|…’,
+a Timestamp, a Timestamp)</p></td>
+<td><p>Point Results</p></td>
+</tr>
+<tr class="row-even"><td><p>(‘STAT|TIME|TMIN|…’, ‘manPVEC|mlcPVEC|barBzgPVEC|’,
+QMVEC|tMVEC|…’, a Timestamp, a Timestamp)</p></td>
+<td><p>Point Results calculated by PT3S</p></td>
+</tr>
+<tr class="row-odd"><td><p>manPVEC</p></td>
+<td><p>from PVEC …</p></td>
+</tr>
+<tr class="row-even"><td><p>mlcPVEC</p></td>
+<td><p>from PVEC …</p></td>
+</tr>
+<tr class="row-odd"><td><p>barBzgPVEC</p></td>
+<td><p>from PVEC …</p></td>
+</tr>
+<tr class="row-even"><td><p>QMVEC</p></td>
+<td><p>from MVEC … m3/h</p></td>
+</tr>
+<tr class="row-odd"><td><p>tMVEC</p></td>
+<td><p>from MVEC … t/h</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">                    pk  ... (TMAX, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</span>
-<span class="go">0  5442010239090746007  ...                                          98.646645</span>
-<span class="go">1  5442010239090746007  ...                                          98.646645</span>
-<span class="go">2  4917786378639043296  ...                                          55.044947</span>
-<span class="go">3  4917786378639043296  ...                                          55.044947</span>
-<span class="go">4  4762482310382009633  ...                                          56.352818</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="p">)</span>
+<span class="go">                       pk  ... (TMAX, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</span>
+<span class="go">0     5442010239090746007  ...                                          98.646645</span>
+<span class="go">1     5442010239090746007  ...                                          98.646645</span>
+<span class="go">2     4917786378639043296  ...                                          55.044947</span>
+<span class="go">3     4917786378639043296  ...                                          55.044947</span>
+<span class="go">4     4762482310382009633  ...                                          56.352818</span>
+<span class="go">...                   ...  ...                                                ...</span>
+<span class="go">1065  5499776682108862751  ...                                                0.0</span>
+<span class="go">1066  5285235772707481262  ...                                          56.845562</span>
+<span class="go">1067  5285235772707481262  ...                                          56.845562</span>
+<span class="go">1068  5373158549695106826  ...                                         -30.267313</span>
+<span class="go">1069  5373158549695106826  ...                                         -30.267313</span>
+
+<span class="go">[1070 rows x 294 columns]</span>
 </pre></div>
 </div>
 </section>
@@ -434,81 +702,177 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dd class="field-odd"><p>df</p>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The returned V3_AGSNVEC (expands V3_AGSN from one row for each PIPE in (Section,Layer) to one row for each interior point)) has the following columns:</p>
-<blockquote>
-<div><p>V3_AGSN-columns:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Pos: Pos=-1: eliminated if Start-Edge is a Pipe</p></li>
-<li><p>nextNODE: Pos=0: startNODE &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
-<li><p>LSum: Pos=0: 0. &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></li>
-<li><p>…</p></li>
-<li><p>cols mapped with VEC-Results:</p></li>
-<li><p>LSum</p></li>
-<li><p>ZKOR_n</p></li>
-<li><p>PH_n</p></li>
-<li><p>H_n</p></li>
-<li><p>mlc_n</p></li>
-<li><p>T_n</p></li>
-<li><p>QM  (see m’s flowMVEC Attribute to determine which VEC-Result is used; default: QMVEC)</p></li>
-<li><p>PH_n_end</p></li>
-<li><p>H_n_end</p></li>
-<li><p>mlc_n_end</p></li>
-<li><p>T_n_end</p></li>
-<li><p>QM_end</p></li>
-<li><p>PH_n_min</p></li>
-<li><p>H_n_min</p></li>
-<li><p>mlc_n_min</p></li>
-<li><p>T_n_min</p></li>
-<li><p>QM_min (buggy)</p></li>
-<li><p>PH_n_max</p></li>
-<li><p>H_n_max</p></li>
-<li><p>mlc_n_max</p></li>
-<li><p>T_n_max</p></li>
-<li><p>QM_max (buggy)</p></li>
-<li><dl class="simple">
-<dt>cols _n_1,2,3,… derived from mxsVecsResults2MxDfVecAggs=[idxt1,idxt2,idxt3,…,-1]; _1,_2,_3,… corresponds to sorted([idxt1,idxt2,idxt3,…]):                        </dt><dd><ul>
-<li><p>PH_n_1,2,3,…</p></li>
-<li><p>H_n_1,2,3,…</p></li>
-<li><p>mlc_n_1,2,3,…</p></li>
-<li><p>T_n_1,2,3,…</p></li>
-<li><p>QM_1,2,3,…</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-</div></blockquote>
-<p>V3_ROHRVEC-columns:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>pk_ROHRVEC: Pipe-pk</p></li>
-<li><p>tk_ROHRVEC: Pipe-tk</p></li>
-<li><p>…</p></li>
-<li><p>L_ROHRVEC</p></li>
-<li><p>…</p></li>
-<li><p>NAME_i_ROHRVEC, NAME_k_ROHRVEC</p></li>
-<li><p>mx2NofPts</p></li>
-<li><p>dL (=L/(mx2NofPts-1))</p></li>
-<li><p>…</p></li>
-<li><p>mx2Idx</p></li>
-<li><p>IptIdx: rows S or E are eliminated for all pipes except the 1st</p></li>
-<li><p>…</p></li>
-</ul>
-</div></blockquote>
-</div></blockquote>
-</div>
+<p>The returned V3_AGSNVEC (expands V3_AGSN from one row for each PIPE in (Section, Layer) to one row for each interior point) has the following columns:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>V3_AGSN-columns:</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Pos</p></td>
+<td><p>Pos=-1: eliminated if Start-Edge is a Pipe</p></td>
+</tr>
+<tr class="row-even"><td><p>nextNODE</p></td>
+<td><p>Pos=0: startNODE &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></td>
+</tr>
+<tr class="row-odd"><td><p>LSum</p></td>
+<td><p>Pos=0: 0. &#64;IptIdxAsNo=0 if Start-Edge is a Pipe</p></td>
+</tr>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>cols mapped with VEC-Results:</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LSum</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ZKOR_n</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>PH_n</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>H_n</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>mlc_n</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>T_n</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>QM</p></td>
+<td><p>(see m’s flowMVEC Attribute to determine which
+VEC-Result is used; default: QMVEC)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PH_n_end</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>H_n_end</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>mlc_n_end</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>T_n_end</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>QM_end</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>PH_n_min</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>H_n_min</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>mlc_n_min</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>T_n_min</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>QM_min</p></td>
+<td><p>(buggy)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PH_n_max</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>H_n_max</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>mlc_n_max</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>T_n_max</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>QM_max</p></td>
+<td><p>(buggy)</p></td>
+</tr>
+<tr class="row-even"><td><p>cols _n_1,2,3,… derived from
+mxsVecsResults2MxDfVecAggs=[idxt1,idxt2,idxt3,…,-1]</p></td>
+<td><p>_1,_2,_3,… corresponds to
+sorted([idxt1,idxt2,idxt3,…]):</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>PH_n_1,2,3,…</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>H_n_1,2,3,…</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>mlc_n_1,2,3,…</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>T_n_1,2,3,…</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>QM_1,2,3,…</p></td>
+</tr>
+<tr class="row-even"><td><p>V3_ROHRVEC-columns:</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pk_ROHRVEC</p></td>
+<td><p>Pipe-pk</p></td>
+</tr>
+<tr class="row-even"><td><p>tk_ROHRVEC</p></td>
+<td><p>Pipe-tk</p></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even"><td><p>L_ROHRVEC</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even"><td><p>NAME_i_ROHRVEC, NAME_k_ROHRVEC</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>mx2NofPts</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dL (=L/(mx2NofPts-1))</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even"><td><p>mx2Idx</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>IptIdx</p></td>
+<td><p>rows S or E are eliminated for all pipes except the 1st</p></td>
+</tr>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">  Pos                   pk  ...      QM_min      QM_max</span>
-<span class="go">0   0  5755933101669454049  ...  287.090085  538.206592</span>
-<span class="go">1   0  5755933101669454049  ...  287.090085  538.206592</span>
-<span class="go">2   1  5755933101669454049  ...  287.090085  538.206592</span>
-<span class="go">3   2  5755933101669454049  ... -538.206592 -287.090085</span>
-<span class="go">4   3  5755933101669454049  ... -538.206592 -287.090085</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="p">)</span>
+<span class="go">    Pos                   pk  ...      QM_min      QM_max</span>
+<span class="go">0     0  5755933101669454049  ...  287.090085  538.206592</span>
+<span class="go">1     0  5755933101669454049  ...  287.090085  538.206592</span>
+<span class="go">2     1  5755933101669454049  ...  287.090085  538.206592</span>
+<span class="go">3     2  5755933101669454049  ... -538.206592 -287.090085</span>
+<span class="go">4     3  5755933101669454049  ... -538.206592 -287.090085</span>
+<span class="go">..   ..                  ...  ...         ...         ...</span>
+<span class="go">532  39  4868980900521118307  ...  -28.479333  -15.303667</span>
+<span class="go">533  40  4868980900521118307  ...  -28.479333  -15.303667</span>
+<span class="go">534  41  4868980900521118307  ...  -26.661928  -14.329748</span>
+<span class="go">535  42  4868980900521118307  ...  -18.238317   -9.812775</span>
+<span class="go">536  43  4868980900521118307  ...   -5.141132   -2.769349</span>
+
+<span class="go">[537 rows x 352 columns]</span>
 </pre></div>
 </div>
 </section>
@@ -529,19 +893,70 @@ The returned V3_ROHRVEC (one row per pipe and interior point) has the following 
 <dd class="field-odd"><p>tuple of gdfs</p>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>In the returned GeoDataFrames (gdf_FWVB, gdf_ROHR, gdf_KNOT) the following columns are added to V3_FWVB, V3_ROHR, V3_KNOT:</p>
 <ul class="simple">
 <li><p>geometry (in each gdf) based on GEOMWKB (in each V3-df)</p></li>
 </ul>
-</div>
 </dd></dl>
 
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span><span class="p">)</span>
+<span class="go">                      pk  ...                        geometry</span>
+<span class="go">3    5669301360686511351  ...  POINT (713620.268 5578828.419)</span>
+<span class="go">4    5397948523091900401  ...  POINT (713602.295 5578860.106)</span>
+<span class="go">5    5239335112004772156  ...  POINT (713574.062 5578909.873)</span>
+<span class="go">6    5298886695042021307  ...  POINT (713553.840 5578945.533)</span>
+<span class="go">7    4993257270457791438  ...  POINT (713553.394 5578952.352)</span>
+<span class="go">..                   ...  ...                             ...</span>
+<span class="go">515  5705481928638455076  ...         POINT (645.000 285.000)</span>
+<span class="go">516  4910948593863484232  ...         POINT (650.000 170.000)</span>
+<span class="go">517  5032870132214455820  ...         POINT (530.000 285.000)</span>
+<span class="go">518  4808122385198820357  ...         POINT (530.000 170.000)</span>
+<span class="go">519  4810663080415972317  ...         POINT (530.000 103.000)</span>
+
+<span class="go">[517 rows x 215 columns]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_KNOT</span><span class="p">)</span>
+<span class="go">                      pk  ...                        geometry</span>
+<span class="go">0    4743997951091160959  ...  POINT (713181.847 5578489.925)</span>
+<span class="go">1    5014209100699808035  ...  POINT (713369.327 5578395.123)</span>
+<span class="go">2    4627580049017248376  ...  POINT (713251.536 5578455.252)</span>
+<span class="go">3    5018070164989726059  ...  POINT (713037.635 5578289.847)</span>
+<span class="go">4    5668240250035163192  ...  POINT (713066.258 5578315.171)</span>
+<span class="go">..                   ...  ...                             ...</span>
+<span class="go">333  5604960832731508460  ...  POINT (713185.109 5578370.183)</span>
+<span class="go">334  5365421822901958434  ...  POINT (713186.745 5578333.649)</span>
+<span class="go">335  5430995747331401210  ...  POINT (713116.958 5578379.965)</span>
+<span class="go">336  5066450637911116733  ...  POINT (713080.421 5578361.379)</span>
+<span class="go">337  5540117011473392085  ...                            None</span>
+
+<span class="go">[338 rows x 204 columns]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_FWVB</span><span class="p">)</span>
+<span class="go">                      pk  ...                        geometry</span>
+<span class="go">0    4743997951091160959  ...  POINT (713181.847 5578489.925)</span>
+<span class="go">1    5014209100699808035  ...  POINT (713369.327 5578395.123)</span>
+<span class="go">2    4627580049017248376  ...  POINT (713251.536 5578455.252)</span>
+<span class="go">3    5018070164989726059  ...  POINT (713037.635 5578289.847)</span>
+<span class="go">4    5668240250035163192  ...  POINT (713066.258 5578315.171)</span>
+<span class="go">..                   ...  ...                             ...</span>
+<span class="go">333  5604960832731508460  ...  POINT (713185.109 5578370.183)</span>
+<span class="go">334  5365421822901958434  ...  POINT (713186.745 5578333.649)</span>
+<span class="go">335  5430995747331401210  ...  POINT (713116.958 5578379.965)</span>
+<span class="go">336  5066450637911116733  ...  POINT (713080.421 5578361.379)</span>
+<span class="go">337  5540117011473392085  ...                            None</span>
+
+<span class="go">[338 rows x 204 columns]</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="graphs">
 <h3>Graphs<a class="headerlink" href="#graphs" title="Permalink to this heading"></a></h3>
+<p>Also accesible are NetworkX-Graphs and a corresponding dictionnary with node positions.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))])</span>
+<span class="go">[&#39;G&#39;, &#39;GSig&#39;, &#39;nodeposDctNx&#39;]</span>
+</pre></div>
+</div>
 <section id="g">
 <h4>G<a class="headerlink" href="#g" title="Permalink to this heading"></a></h4>
 <dl class="py function">
@@ -611,11 +1026,29 @@ node ID: KA (Element’s attribute KA is the ID of the Element’s output signal
 
 </section>
 </section>
+<section id="miscellaneous">
+<h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this heading"></a></h3>
+<p>Also accesible SirCalcExecution- and -Xml-File and the dir to mx files</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="nb">str</span><span class="p">)])</span>
+<span class="go">[&#39;SirCalcExeFile&#39;,&#39;SirCalcXmlFile&#39;, &#39;flowMVEC&#39;, &#39;wDirMx&#39;]</span>
+</pre></div>
+</div>
+<p>SirCalcExeFile exists if maxRecords=-1. Additioal forceSir3sRead=True might be necessary.</p>
+</section>
 </section>
 <section id="dx-object">
-<h2>Dx object<a class="headerlink" href="#dx-object" title="Permalink to this heading"></a></h2>
-<section id="id1">
-<h3>Dataframes<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<span id="id2"></span><h2>Dx object<a class="headerlink" href="#dx-object" title="Permalink to this heading"></a></h2>
+<p>You can find data regarding the model at the m.dx object</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">dx</span>
+</pre></div>
+</div>
+<p>From this object, you can access the model’s database and its tables.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dfALLG</span><span class="o">=</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;ALLG&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<section id="id3">
+<h3>Dataframes<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Currently, by far not all dfs that are attributes of a Dx object are documented. Maybe this will be added in the future.
@@ -628,46 +1061,133 @@ The corresponding m attributes (V3-VBEL, _KNOT, _ROHR and _FWVB) extend the dx d
 <dt class="sig sig-object py" id="Dx.Dx._dfLAYR">
 <span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx._dfLAYR" title="Permalink to this definition"></a></dt>
 <dd><p>dfLAYR is a dx object Attribute.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering and grouping.</p>
+<p>Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering, and grouping.</p>
 <p>The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>LAYR:</dt><dd><ul class="simple">
-<li><p>pk</p></li>
-<li><p>tk</p></li>
-<li><p>LFDNR (numeric)</p></li>
-<li><p>NAME</p></li>
-</ul>
-</dd>
-<dt>LAYR-Info:</dt><dd><ul class="simple">
-<li><p>AnzDerObjekteInGruppe</p></li>
-<li><p>AnzDerObjekteDesTypsInGruppe</p></li>
-</ul>
-</dd>
-<dt>OBJ:</dt><dd><ul class="simple">
-<li><p>TYPE</p></li>
-<li><p>ID</p></li>
-</ul>
-</dd>
-<dt>OBJ-Info:</dt><dd><ul class="simple">
-<li><p>NrDesObjektesDesTypsInGruppe</p></li>
-<li><p>NrDesObjektesInGruppe</p></li>
-<li><p>GruppenDesObjektsAnz</p></li>
-<li><p>GruppenDesObjektsNamen</p></li>
-</ul>
-</dd>
-</dl>
-</div></blockquote>
-</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>LAYR:</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pk</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>tk</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LFDNR (numeric)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NAME</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>LAYR-Info:</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>AnzDerObjekteInGruppe</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>AnzDerObjekteDesTypsInGruppe</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>OBJ:</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>TYPE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>OBJ-Info:</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NrDesObjektesDesTypsInGruppe</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>NrDesObjektesInGruppe</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>GruppenDesObjektsAnz</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>GruppenDesObjektsNamen</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </section>
 </section>
 </section>
 <section id="mx-object">
-<h2>Mx object<a class="headerlink" href="#mx-object" title="Permalink to this heading"></a></h2>
+<span id="id4"></span><h2>Mx object<a class="headerlink" href="#mx-object" title="Permalink to this heading"></a></h2>
+<p>You can find additional regarding the results at the m.mx object</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">mx</span>
+</pre></div>
+</div>
+<p>From this object you can acces the raw time curve and the vector data</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">.</span><span class="n">dfVecAggs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+</pre></div>
+</div>
+</section>
+<section id="known-issues">
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h2>
+<section id="column-tuple-names">
+<h3>Column tuple names<a class="headerlink" href="#column-tuple-names" title="Permalink to this heading"></a></h3>
+<p>Columns containing values that are not generated by PT3S but directly read from SIR 3S are tuples like <cite>(‘STAT’, ‘ROHR~*~*~*~A’, Timestamp(‘2023-02-12 23:00:00’))</cite>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)][:</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">[(&#39;STAT&#39;, &#39;ROHR~*~*~*~A&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TIME&#39;, &#39;ROHR~*~*~*~A&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TMIN&#39;, &#39;ROHR~*~*~*~A&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)), (&#39;TMAX&#39;, &#39;ROHR~*~*~*~A&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)), (&#39;STAT&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TMIN&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)), (&#39;TMAX&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)), (&#39;STAT&#39;, &#39;ROHR~*~*~*~DWVERL&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TIME&#39;, &#39;ROHR~*~*~*~DWVERL&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))]</span>
+</pre></div>
+</div>
+<p>Often times when using these names with other libraries like pandas, several issues can arise.</p>
+<p>You are not able to access a pandas DataFrame column with such a name. You might have tried like this.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="s2">&quot;(&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))&quot;</span><span class="p">]</span> 
+<span class="go">KeyError: &quot;(&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))&quot;</span>
+</pre></div>
+</div>
+<p>Try this instead:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Timestamp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_name</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;TIME&#39;</span><span class="p">,</span> <span class="s1">&#39;ROHR~*~*~*~DTTR&#39;</span><span class="p">,</span> <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2023-02-12 23:00:00&#39;</span><span class="p">),</span> <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2023-02-12 23:00:00&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_data</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">column_data</span><span class="p">)</span>
+<span class="go">0       0.013439</span>
+<span class="go">1       0.025363</span>
+<span class="go">2       0.017844</span>
+<span class="go">3       0.002976</span>
+<span class="go">4       0.003263</span>
+<span class="go">        ...</span>
+<span class="go">519    26.078106</span>
+<span class="go">520    17.345263</span>
+<span class="go">521    20.641092</span>
+<span class="go">522     0.002895</span>
+<span class="go">523      0.00293</span>
+<span class="go">Name: (TIME, ROHR~*~*~*~DTTR, 2023-02-12 23:00:00, 2023-02-12 23:00:00), Length: 524, dtype: object</span>
+</pre></div>
+</div>
+<p>You could also transform all indices from tuple to string:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="s2">&quot;(&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))&quot;</span><span class="p">])</span>
+<span class="go">1       0.025363</span>
+<span class="go">2       0.017844</span>
+<span class="go">3       0.002976</span>
+<span class="go">4       0.003263</span>
+<span class="go">        ...</span>
+<span class="go">519    26.078106</span>
+<span class="go">520    17.345263</span>
+<span class="go">521    20.641092</span>
+<span class="go">522     0.002895</span>
+<span class="go">523      0.00293</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 

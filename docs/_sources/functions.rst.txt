@@ -1,7 +1,7 @@
 Functions
 ================================
 
-Welcome to the Functions page! Here, we will delve into the details of each function, its purpose, parameters and returns.
+Welcome to the Functions page! Here, we will delve into the details of each function, its purpose, parameters and returns. Links to the description of returned objects on the :doc:`objects` page will be provided.
 
 .. note::
     Currently, not all functions that are included in PT3S are documented. These will be added in the future.
@@ -28,12 +28,10 @@ Welcome to the Functions page! Here, we will delve into the details of each func
 Read SIR 3S Model and Results
 -----------------------------
 .. autofunction:: dxAndMxHelperFcts.readDxAndMx
+Returns :ref:`m object`.
 
 Usage Tutorial
 ~~~~~~~~~~~~~~
-    
-Getting dbFile(str)
-"""""""""""""""""""
 
 Enter the name of the .db3 file you want to read    
 
@@ -60,131 +58,33 @@ dbFile can now be used as a parameter for readDxAndMx()
     >>> dbFile
     'C:\\Users\\jablonski\\3S\\PT3S\\Examples\\Example1.db3'
 
-Reading data
-""""""""""""
-
 Create a dxWithMx object using readDxAndMx(). 
 
 .. doctest::
     
     >>> m=dxAndMxHelperFcts.readDxAndMx(dbFile=dbFile)
 
-From this object m, you can now access a variety of dataframes created by PT3S based on the model and results
+Refer to the :doc:`examples` page. The Examples 1-X use this function.
 
-.. doctest::
-    
-    >>> print([attr for attr in dir(m) if isinstance(getattr(m, attr), pd.DataFrame)])    
-    ['V3_AGSN', 'V3_AGSNVEC', 'V3_FWVB', 'V3_KNOT', 'V3_ROHR', 'V3_ROHRVEC', 'V3_VBEL', 'V3_WBLZ', 'dfAGSN', 'dfWBLZ', 'gdf_FWVB', 'gdf_KNOT', 'gdf_ROHR']
-
-.. doctest::
-    
-    >>> m.V3_AGSN.head() # doctest: +SKIP
-
-Also accesible are NetworkX-Graphs, SirCalcExecution- and -Xml-File and the dir to mx files
-
-.. doctest::
-    
-    >>> print([attr for attr in dir(m) if not attr.startswith('_') and not isinstance(getattr(m, attr), pd.DataFrame)])
-    ['G', 'GSig', 'SirCalcExeFile', 'SirCalcXmlFile', 'dx', 'mx', 'nodeposDctNx', 'switchV3DfColsToMultiindex', 'wDirMx']
-
-You can find additional data regarding the model at the m.dx object
-
-.. doctest::
-    
-    >>> dx=m.dx    
-
-From this object, you can access the model’s database and its tables.
-
-.. doctest::
-    
-    >>> dx.dataFrames.keys() # doctest: +SKIP
-    >>> dfALLG=dx.dataFrames['ALLG']
-
-You can find additional data regarding the results at the m.mx object
-
-.. doctest::
-    
-    >>> mx=m.mx
- 
-From this object you can acces the time curve data and the vector data
-
-.. doctest::
-    
-    >>> mx.df.head() # doctest: +SKIP
-    >>> mx.dfVecAggs.head() # doctest: +SKIP
-     
 Read SIR 3S Results only
 ------------------------
 .. autofunction:: dxAndMxHelperFcts.readMx
+Returns :ref:`Mx object`.
 
-SIR 3S Model- and Result-Data
------------------------------
-
-Initialization
-~~~~~~~~~~~~~~
-
-.. autofunction:: dxAndMxHelperFcts.dxWithMx.__init__
-
-Dataframes
-~~~~~~~~~~
-
-V3_ROHR
-"""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHR
-
-V3_KNOT
-"""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_KNOT
-
-V3_VBEL
-"""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_VBEL
-
-V3_AGSN
-"""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSN
-
-V3_ROHRVEC
-""""""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC
-
-V3_AGSNVEC
-""""""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC
-
-gdfs
-""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._gdfs
-
-Graphs
-~~~~~~~~~~
-
-G
-"""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._G
-
-GSig
-"""""""
-.. autofunction:: dxAndMxHelperFcts.dxWithMx._GSig    
-
-
-SIR 3S Model-Data
------------------
-
-Dataframes
-~~~~~~~~~~
-
-.. note::
-    Currently, by far not all dfs that are attributes of a Dx object are documented. Maybe this will be added in the future.
-    V3-VBEL, _KNOT, _ROHR and _FWVB are dx attributes.
-    The corresponding m attributes (V3-VBEL, _KNOT, _ROHR and _FWVB) extend the dx dfs with result columns.
-
-dfLAYR
-""""""
-.. autofunction:: Dx.Dx._dfLAYR
+Refer to :ref:`ex2`. It uses this function. 
 
 Methods
-~~~~~~~
+-------
+
+Methods regarding :ref:`m object`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+switchV3DfColsToMultiindex
+""""""""""""""""""""""""""
+.. autofunction:: dxAndMxHelperFcts.dxWithMx.switchV3DfColsToMultiindex
+
+Methods regarding :ref:`Dx object` 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 update
 """"""
@@ -197,12 +97,11 @@ insert
 importFromSIR3S
 """""""""""""""
 .. autofunction:: Dx.Dx.importFromSIR3S
-.. autofunction:: Dx.fimportFromSIR3S
+.. autofunction:: Dx.fimportFromSIR3S #Not really dx object
 
 setLayerContentTo
 """""""""""""""""
 .. autofunction:: Dx.Dx.setLayerContentTo
-
 
 SdfCsv
 ------
@@ -244,7 +143,7 @@ Plot on an axes. Use pNcd_pipes for pipes and pNcd_nodes for nodes.
 
 If you plot multiple times on the same axes, use zorder to determine plotting order.
 
-:ref:`ex1` explains its application.
+Refer to :ref:`ex1`. It uses this function. 
 
 .. doctest::
 
@@ -260,5 +159,5 @@ Plot Source Spectrum
 --------------------
 
 .. autofunction:: ncd.plot_src_spectrum
-    
-:ref:`ex7` explains its application.    
+
+Refer to :ref:`ex7`. It uses this function.      
