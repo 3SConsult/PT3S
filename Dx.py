@@ -1304,32 +1304,47 @@ class Dx():
     def _dfLAYR(self):
         """
         dfLAYR is a dx object Attribute.
-                
-        .. note::             
-            Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering and grouping. 
             
-            The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
-                
-                 LAYR:
-                     - pk
-                     - tk
-                     - LFDNR (numeric)
-                     - NAME
-                
-                 LAYR-Info:
-                     - AnzDerObjekteInGruppe
-                     - AnzDerObjekteDesTypsInGruppe
-                
-                 OBJ:
-                     - TYPE
-                     - ID
-                
-                 OBJ-Info:
-                     - NrDesObjektesDesTypsInGruppe
-                     - NrDesObjektesInGruppe
-                     - GruppenDesObjektsAnz
-                     - GruppenDesObjektsNamen       
-                      
+        Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering, and grouping.
+
+        The returned dfLAYR (one row per LAYR and OBJ) has the following columns:
+
+        +------------------------------------------------------+------------------------------------------------------+
+        | Column Name                                          | Description                                          |
+        +======================================================+======================================================+
+        | **LAYR:**                                            |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | pk                                                   |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | tk                                                   |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | LFDNR (numeric)                                      |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | NAME                                                 |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | **LAYR-Info:**                                       |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | AnzDerObjekteInGruppe                                |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | AnzDerObjekteDesTypsInGruppe                         |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | **OBJ:**                                             |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | TYPE                                                 |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | ID                                                   |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | **OBJ-Info:**                                        |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | NrDesObjektesDesTypsInGruppe                         |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | NrDesObjektesInGruppe                                |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | GruppenDesObjektsAnz                                 |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+
+        | GruppenDesObjektsNamen                               |                                                      |
+        +------------------------------------------------------+------------------------------------------------------+       
+            
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -2029,19 +2044,19 @@ class Dx():
         .. note:: 
             Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on type/operation/parameterization - can also overwrite (update) existing model data. Nonetheless, scripted model changes can be helpful.
 
-        .. note:: 
-            dfUpd's cols used:            
-                - table i.e. 'FWVB'
-                - attrib i.e. 'W0'
-            dfUpd's cols optional:         
-                - attribValue, default=dfUpd[attrib] 
-                - xk, default='tk'
-                - xkValue, default=dfUpd[xk] 
-            row-wise:
-                - set attrib to attribValue in table where xk is xkValue
-                - update an attribute of an object
-            updInverseValue:
-                - set attrib to updInverseValue for all objects of type table not mentioned in dfUpd                
+        dfUpd's cols used:            
+            - table i.e. 'FWVB'
+            - attrib i.e. 'W0'
+        dfUpd's cols optional:         
+            - attribValue, default=dfUpd[attrib] 
+            - xk, default='tk'
+            - xkValue, default=dfUpd[xk] 
+        row-wise:
+            - set attrib to attribValue in table where xk is xkValue
+            - update an attribute of an object
+        updInverseValue:
+            - set attrib to updInverseValue for all objects of type table not mentioned in dfUpd                
+    
         """           
         
         logStr = "{0:s}.{1:s}: ".format(
@@ -2148,11 +2163,10 @@ class Dx():
         .. note:: 
             New model mass data should be created via the SIR 3S import interfaces. Nevertheless, generating model mass data via script can be helpful.
 
-        .. note:: 
-            dfIns' cols used:            
-                - all cols which are also cols of table                
-            row-wise:
-                - insert into table                
+        dfIns' cols used:            
+            - all cols which are also cols of table                
+        row-wise:
+            - insert into table                
         """           
         
         logStr = "{0:s}.{1:s}: ".format(
@@ -2543,10 +2557,9 @@ class Dx():
         .. note:: 
             Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done (explicit) via the SIR 3S user interface or (implicit) via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.
 
-        .. note:: 
-            df's cols used:            
-                - TYPE 
-                - ID                 
+        df's cols used:            
+            - TYPE 
+            - ID                 
         """           
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)

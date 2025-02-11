@@ -1,0 +1,268 @@
+digraph {
+	root [label=m color=white fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN [label=V3_AGSN color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_AGSN
+	V3_AGSN_Pos [label=Pos color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_Pos
+	V3_AGSN_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_pk
+	V3_AGSN_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_tk
+	V3_AGSN_LFDNR [label=LFDNR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_LFDNR
+	V3_AGSN_NAME [label=NAME color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_NAME
+	V3_AGSN_XL [label=XL color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_XL
+	V3_AGSN_compNr [label=compNr color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_compNr
+	V3_AGSN_nextNODE [label=nextNODE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_nextNODE
+	V3_AGSN_OBJTYPE [label=OBJTYPE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_OBJTYPE
+	V3_AGSN_OBJID [label=OBJID color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> V3_AGSN_OBJID
+	V3_AGSNVEC [label=V3_AGSNVEC color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_AGSNVEC
+	V3_AGSNVEC_Pos [label=Pos color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_Pos
+	V3_AGSNVEC_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_pk
+	V3_AGSNVEC_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_tk
+	V3_AGSNVEC_LFDNR [label=LFDNR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_LFDNR
+	V3_AGSNVEC_NAME [label=NAME color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_NAME
+	V3_AGSNVEC_XL [label=XL color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_XL
+	V3_AGSNVEC_compNr [label=compNr color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_compNr
+	V3_AGSNVEC_nextNODE [label=nextNODE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_nextNODE
+	V3_AGSNVEC_OBJTYPE [label=OBJTYPE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_OBJTYPE
+	V3_AGSNVEC_OBJID [label=OBJID color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> V3_AGSNVEC_OBJID
+	V3_FWVB [label=V3_FWVB color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_FWVB
+	V3_FWVB_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_pk
+	V3_FWVB_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_fkDE
+	V3_FWVB_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_rk
+	V3_FWVB_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_tk
+	V3_FWVB_fkKI [label=fkKI color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_fkKI
+	V3_FWVB_fkKK [label=fkKK color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_fkKK
+	V3_FWVB_BESCHREIBUNG [label=BESCHREIBUNG color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_BESCHREIBUNG
+	V3_FWVB_W0 [label=W0 color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_W0
+	V3_FWVB_TVL0 [label=TVL0 color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_TVL0
+	V3_FWVB_TRS0 [label=TRS0 color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> V3_FWVB_TRS0
+	V3_KNOT [label=V3_KNOT color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_KNOT
+	V3_KNOT_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_pk
+	V3_KNOT_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_fkDE
+	V3_KNOT_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_rk
+	V3_KNOT_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_tk
+	V3_KNOT_NAME [label=NAME color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_NAME
+	V3_KNOT_KTYP [label=KTYP color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_KTYP
+	V3_KNOT_XKOR [label=XKOR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_XKOR
+	V3_KNOT_YKOR [label=YKOR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_YKOR
+	V3_KNOT_ZKOR [label=ZKOR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_ZKOR
+	V3_KNOT_QM_EIN [label=QM_EIN color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> V3_KNOT_QM_EIN
+	V3_ROHR [label=V3_ROHR color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_ROHR
+	V3_ROHR_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_pk
+	V3_ROHR_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_fkDE
+	V3_ROHR_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_rk
+	V3_ROHR_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_tk
+	V3_ROHR_fkKI [label=fkKI color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_fkKI
+	V3_ROHR_fkKK [label=fkKK color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_fkKK
+	V3_ROHR_fkDTRO_ROWD [label=fkDTRO_ROWD color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_fkDTRO_ROWD
+	V3_ROHR_fkLTGR [label=fkLTGR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_fkLTGR
+	V3_ROHR_fkSTRASSE [label=fkSTRASSE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_fkSTRASSE
+	V3_ROHR_L [label=L color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> V3_ROHR_L
+	V3_ROHRVEC [label=V3_ROHRVEC color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_ROHRVEC
+	V3_ROHRVEC_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_pk
+	V3_ROHRVEC_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_fkDE
+	V3_ROHRVEC_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_rk
+	V3_ROHRVEC_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_tk
+	V3_ROHRVEC_fkKI [label=fkKI color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_fkKI
+	V3_ROHRVEC_fkKK [label=fkKK color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_fkKK
+	V3_ROHRVEC_fkDTRO_ROWD [label=fkDTRO_ROWD color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_fkDTRO_ROWD
+	V3_ROHRVEC_fkLTGR [label=fkLTGR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_fkLTGR
+	V3_ROHRVEC_fkSTRASSE [label=fkSTRASSE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_fkSTRASSE
+	V3_ROHRVEC_L [label=L color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> V3_ROHRVEC_L
+	V3_VBEL [label=V3_VBEL color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_VBEL
+	V3_VBEL_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_pk
+	V3_VBEL_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_fkDE
+	V3_VBEL_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_rk
+	V3_VBEL_fkKI [label=fkKI color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_fkKI
+	V3_VBEL_BESCHREIBUNG [label=BESCHREIBUNG color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_BESCHREIBUNG
+	V3_VBEL_DGR [label=DGR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_DGR
+	V3_VBEL_DKL [label=DKL color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_DKL
+	V3_VBEL_ALPHA [label=ALPHA color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_ALPHA
+	V3_VBEL_VGREST [label=VGREST color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_VGREST
+	V3_VBEL_QLBMAX [label=QLBMAX color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> V3_VBEL_QLBMAX
+	V3_WBLZ [label=V3_WBLZ color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_WBLZ
+	V3_WBLZ_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_pk
+	V3_WBLZ_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_fkDE
+	V3_WBLZ_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_rk
+	V3_WBLZ_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_tk
+	V3_WBLZ_BESCHREIBUNG [label=BESCHREIBUNG color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_BESCHREIBUNG
+	V3_WBLZ_NAME [label=NAME color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_NAME
+	V3_WBLZ_TYP [label=TYP color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_TYP
+	V3_WBLZ_AKTIV [label=AKTIV color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_AKTIV
+	V3_WBLZ_IDIM [label=IDIM color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> V3_WBLZ_IDIM
+	"V3_WBLZ_(\'STAT\', \'WBLZ~*~*~*~WES\', Timestamp(\'2023-02-12 23:00:00\'), Timestamp(\'2023-02-12 23:00:00\'))" [label="(\'STAT\', \'WBLZ~*~*~*~WES\', Timestamp(\'2023-02-12 23:00:00\'), Timestamp(\'2023-02-12 23:00:00\'))" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_(\'STAT\', \'WBLZ~*~*~*~WES\', Timestamp(\'2023-02-12 23":00:00\'), Timestamp(\'2023-02-12 23:00:00\'))
+	dfAGSN [label=dfAGSN color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> dfAGSN
+	dfAGSN_Pos [label=Pos color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_Pos
+	dfAGSN_TYPE [label=TYPE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_TYPE
+	dfAGSN_ID [label=ID color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_ID
+	dfAGSN_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_pk
+	dfAGSN_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_tk
+	dfAGSN_LFDNR [label=LFDNR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_LFDNR
+	dfAGSN_NAME [label=NAME color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_NAME
+	dfAGSN_XL [label=XL color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_XL
+	dfAGSN_compNr [label=compNr color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_compNr
+	dfAGSN_nextNODE [label=nextNODE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> dfAGSN_nextNODE
+	gdf_FWVB [label=gdf_FWVB color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> gdf_FWVB
+	gdf_FWVB_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_pk
+	gdf_FWVB_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_fkDE
+	gdf_FWVB_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_rk
+	gdf_FWVB_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_tk
+	gdf_FWVB_fkKI [label=fkKI color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_fkKI
+	gdf_FWVB_fkKK [label=fkKK color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_fkKK
+	gdf_FWVB_BESCHREIBUNG [label=BESCHREIBUNG color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_BESCHREIBUNG
+	gdf_FWVB_W0 [label=W0 color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_W0
+	gdf_FWVB_TVL0 [label=TVL0 color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_TVL0
+	gdf_FWVB_TRS0 [label=TRS0 color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> gdf_FWVB_TRS0
+	gdf_KNOT [label=gdf_KNOT color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> gdf_KNOT
+	gdf_KNOT_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_pk
+	gdf_KNOT_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_fkDE
+	gdf_KNOT_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_rk
+	gdf_KNOT_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_tk
+	gdf_KNOT_NAME [label=NAME color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_NAME
+	gdf_KNOT_KTYP [label=KTYP color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_KTYP
+	gdf_KNOT_XKOR [label=XKOR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_XKOR
+	gdf_KNOT_YKOR [label=YKOR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_YKOR
+	gdf_KNOT_ZKOR [label=ZKOR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_ZKOR
+	gdf_KNOT_QM_EIN [label=QM_EIN color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> gdf_KNOT_QM_EIN
+	gdf_ROHR [label=gdf_ROHR color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> gdf_ROHR
+	gdf_ROHR_pk [label=pk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_pk
+	gdf_ROHR_fkDE [label=fkDE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_fkDE
+	gdf_ROHR_rk [label=rk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_rk
+	gdf_ROHR_tk [label=tk color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_tk
+	gdf_ROHR_fkKI [label=fkKI color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_fkKI
+	gdf_ROHR_fkKK [label=fkKK color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_fkKK
+	gdf_ROHR_fkDTRO_ROWD [label=fkDTRO_ROWD color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_fkDTRO_ROWD
+	gdf_ROHR_fkLTGR [label=fkLTGR color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_fkLTGR
+	gdf_ROHR_fkSTRASSE [label=fkSTRASSE color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_fkSTRASSE
+	gdf_ROHR_L [label=L color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> gdf_ROHR_L
+	rankdir=LR
+}

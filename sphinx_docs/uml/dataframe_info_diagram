@@ -1,0 +1,268 @@
+digraph {
+	root [label=m color=white fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN [label=V3_AGSN color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_AGSN
+	"V3_AGSN_\"Pos\"" [label="\"Pos\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"Pos\""
+	"V3_AGSN_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"pk\""
+	"V3_AGSN_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"tk\""
+	"V3_AGSN_\"LFDNR\"" [label="\"LFDNR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"LFDNR\""
+	"V3_AGSN_\"NAME\"" [label="\"NAME\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"NAME\""
+	"V3_AGSN_\"XL\"" [label="\"XL\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"XL\""
+	"V3_AGSN_\"compNr\"" [label="\"compNr\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"compNr\""
+	"V3_AGSN_\"nextNODE\"" [label="\"nextNODE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"nextNODE\""
+	"V3_AGSN_\"OBJTYPE\"" [label="\"OBJTYPE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"OBJTYPE\""
+	"V3_AGSN_\"OBJID\"" [label="\"OBJID\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSN -> "V3_AGSN_\"OBJID\""
+	V3_AGSNVEC [label=V3_AGSNVEC color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_AGSNVEC
+	"V3_AGSNVEC_\"Pos\"" [label="\"Pos\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"Pos\""
+	"V3_AGSNVEC_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"pk\""
+	"V3_AGSNVEC_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"tk\""
+	"V3_AGSNVEC_\"LFDNR\"" [label="\"LFDNR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"LFDNR\""
+	"V3_AGSNVEC_\"NAME\"" [label="\"NAME\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"NAME\""
+	"V3_AGSNVEC_\"XL\"" [label="\"XL\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"XL\""
+	"V3_AGSNVEC_\"compNr\"" [label="\"compNr\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"compNr\""
+	"V3_AGSNVEC_\"nextNODE\"" [label="\"nextNODE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"nextNODE\""
+	"V3_AGSNVEC_\"OBJTYPE\"" [label="\"OBJTYPE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"OBJTYPE\""
+	"V3_AGSNVEC_\"OBJID\"" [label="\"OBJID\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_AGSNVEC -> "V3_AGSNVEC_\"OBJID\""
+	V3_FWVB [label=V3_FWVB color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_FWVB
+	"V3_FWVB_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"pk\""
+	"V3_FWVB_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"fkDE\""
+	"V3_FWVB_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"rk\""
+	"V3_FWVB_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"tk\""
+	"V3_FWVB_\"fkKI\"" [label="\"fkKI\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"fkKI\""
+	"V3_FWVB_\"fkKK\"" [label="\"fkKK\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"fkKK\""
+	"V3_FWVB_\"BESCHREIBUNG\"" [label="\"BESCHREIBUNG\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"BESCHREIBUNG\""
+	"V3_FWVB_\"W0\"" [label="\"W0\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"W0\""
+	"V3_FWVB_\"TVL0\"" [label="\"TVL0\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"TVL0\""
+	"V3_FWVB_\"TRS0\"" [label="\"TRS0\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_FWVB -> "V3_FWVB_\"TRS0\""
+	V3_KNOT [label=V3_KNOT color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_KNOT
+	"V3_KNOT_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"pk\""
+	"V3_KNOT_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"fkDE\""
+	"V3_KNOT_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"rk\""
+	"V3_KNOT_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"tk\""
+	"V3_KNOT_\"NAME\"" [label="\"NAME\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"NAME\""
+	"V3_KNOT_\"KTYP\"" [label="\"KTYP\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"KTYP\""
+	"V3_KNOT_\"XKOR\"" [label="\"XKOR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"XKOR\""
+	"V3_KNOT_\"YKOR\"" [label="\"YKOR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"YKOR\""
+	"V3_KNOT_\"ZKOR\"" [label="\"ZKOR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"ZKOR\""
+	"V3_KNOT_\"QM_EIN\"" [label="\"QM_EIN\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_KNOT -> "V3_KNOT_\"QM_EIN\""
+	V3_ROHR [label=V3_ROHR color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_ROHR
+	"V3_ROHR_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"pk\""
+	"V3_ROHR_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"fkDE\""
+	"V3_ROHR_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"rk\""
+	"V3_ROHR_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"tk\""
+	"V3_ROHR_\"fkKI\"" [label="\"fkKI\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"fkKI\""
+	"V3_ROHR_\"fkKK\"" [label="\"fkKK\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"fkKK\""
+	"V3_ROHR_\"fkDTRO_ROWD\"" [label="\"fkDTRO_ROWD\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"fkDTRO_ROWD\""
+	"V3_ROHR_\"fkLTGR\"" [label="\"fkLTGR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"fkLTGR\""
+	"V3_ROHR_\"fkSTRASSE\"" [label="\"fkSTRASSE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"fkSTRASSE\""
+	"V3_ROHR_\"L\"" [label="\"L\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHR -> "V3_ROHR_\"L\""
+	V3_ROHRVEC [label=V3_ROHRVEC color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_ROHRVEC
+	"V3_ROHRVEC_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"pk\""
+	"V3_ROHRVEC_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"fkDE\""
+	"V3_ROHRVEC_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"rk\""
+	"V3_ROHRVEC_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"tk\""
+	"V3_ROHRVEC_\"fkKI\"" [label="\"fkKI\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"fkKI\""
+	"V3_ROHRVEC_\"fkKK\"" [label="\"fkKK\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"fkKK\""
+	"V3_ROHRVEC_\"fkDTRO_ROWD\"" [label="\"fkDTRO_ROWD\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"fkDTRO_ROWD\""
+	"V3_ROHRVEC_\"fkLTGR\"" [label="\"fkLTGR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"fkLTGR\""
+	"V3_ROHRVEC_\"fkSTRASSE\"" [label="\"fkSTRASSE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"fkSTRASSE\""
+	"V3_ROHRVEC_\"L\"" [label="\"L\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_ROHRVEC -> "V3_ROHRVEC_\"L\""
+	V3_VBEL [label=V3_VBEL color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_VBEL
+	"V3_VBEL_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"pk\""
+	"V3_VBEL_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"fkDE\""
+	"V3_VBEL_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"rk\""
+	"V3_VBEL_\"fkKI\"" [label="\"fkKI\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"fkKI\""
+	"V3_VBEL_\"BESCHREIBUNG\"" [label="\"BESCHREIBUNG\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"BESCHREIBUNG\""
+	"V3_VBEL_\"DGR\"" [label="\"DGR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"DGR\""
+	"V3_VBEL_\"DKL\"" [label="\"DKL\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"DKL\""
+	"V3_VBEL_\"ALPHA\"" [label="\"ALPHA\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"ALPHA\""
+	"V3_VBEL_\"VGREST\"" [label="\"VGREST\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"VGREST\""
+	"V3_VBEL_\"QLBMAX\"" [label="\"QLBMAX\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_VBEL -> "V3_VBEL_\"QLBMAX\""
+	V3_WBLZ [label=V3_WBLZ color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> V3_WBLZ
+	"V3_WBLZ_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"pk\""
+	"V3_WBLZ_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"fkDE\""
+	"V3_WBLZ_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"rk\""
+	"V3_WBLZ_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"tk\""
+	"V3_WBLZ_\"BESCHREIBUNG\"" [label="\"BESCHREIBUNG\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"BESCHREIBUNG\""
+	"V3_WBLZ_\"NAME\"" [label="\"NAME\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"NAME\""
+	"V3_WBLZ_\"TYP\"" [label="\"TYP\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"TYP\""
+	"V3_WBLZ_\"AKTIV\"" [label="\"AKTIV\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"AKTIV\""
+	"V3_WBLZ_\"IDIM\"" [label="\"IDIM\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"IDIM\""
+	"V3_WBLZ_\"('STAT', 'WBLZ~*~*~*~WES', Timestamp('2023-02-12 23:00:00'), Timestamp('2023-02-12 23:00:00'))\"" [label="\"('STAT', 'WBLZ~*~*~*~WES', Timestamp('2023-02-12 23:00:00'), Timestamp('2023-02-12 23:00:00'))\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	V3_WBLZ -> "V3_WBLZ_\"('STAT', 'WBLZ~*~*~*~WES', Timestamp('2023-02-12 23":00:00'), Timestamp('2023-02-12 23:00:00'))"
+	dfAGSN [label=dfAGSN color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> dfAGSN
+	"dfAGSN_\"Pos\"" [label="\"Pos\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"Pos\""
+	"dfAGSN_\"TYPE\"" [label="\"TYPE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"TYPE\""
+	"dfAGSN_\"ID\"" [label="\"ID\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"ID\""
+	"dfAGSN_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"pk\""
+	"dfAGSN_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"tk\""
+	"dfAGSN_\"LFDNR\"" [label="\"LFDNR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"LFDNR\""
+	"dfAGSN_\"NAME\"" [label="\"NAME\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"NAME\""
+	"dfAGSN_\"XL\"" [label="\"XL\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"XL\""
+	"dfAGSN_\"compNr\"" [label="\"compNr\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"compNr\""
+	"dfAGSN_\"nextNODE\"" [label="\"nextNODE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	dfAGSN -> "dfAGSN_\"nextNODE\""
+	gdf_FWVB [label=gdf_FWVB color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> gdf_FWVB
+	"gdf_FWVB_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"pk\""
+	"gdf_FWVB_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"fkDE\""
+	"gdf_FWVB_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"rk\""
+	"gdf_FWVB_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"tk\""
+	"gdf_FWVB_\"fkKI\"" [label="\"fkKI\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"fkKI\""
+	"gdf_FWVB_\"fkKK\"" [label="\"fkKK\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"fkKK\""
+	"gdf_FWVB_\"BESCHREIBUNG\"" [label="\"BESCHREIBUNG\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"BESCHREIBUNG\""
+	"gdf_FWVB_\"W0\"" [label="\"W0\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"W0\""
+	"gdf_FWVB_\"TVL0\"" [label="\"TVL0\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"TVL0\""
+	"gdf_FWVB_\"TRS0\"" [label="\"TRS0\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_FWVB -> "gdf_FWVB_\"TRS0\""
+	gdf_KNOT [label=gdf_KNOT color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> gdf_KNOT
+	"gdf_KNOT_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"pk\""
+	"gdf_KNOT_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"fkDE\""
+	"gdf_KNOT_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"rk\""
+	"gdf_KNOT_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"tk\""
+	"gdf_KNOT_\"NAME\"" [label="\"NAME\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"NAME\""
+	"gdf_KNOT_\"KTYP\"" [label="\"KTYP\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"KTYP\""
+	"gdf_KNOT_\"XKOR\"" [label="\"XKOR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"XKOR\""
+	"gdf_KNOT_\"YKOR\"" [label="\"YKOR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"YKOR\""
+	"gdf_KNOT_\"ZKOR\"" [label="\"ZKOR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"ZKOR\""
+	"gdf_KNOT_\"QM_EIN\"" [label="\"QM_EIN\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_KNOT -> "gdf_KNOT_\"QM_EIN\""
+	gdf_ROHR [label=gdf_ROHR color=blue fontname="Arial Bold" fontsize=14 style=filled]
+	root -> gdf_ROHR
+	"gdf_ROHR_\"pk\"" [label="\"pk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"pk\""
+	"gdf_ROHR_\"fkDE\"" [label="\"fkDE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"fkDE\""
+	"gdf_ROHR_\"rk\"" [label="\"rk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"rk\""
+	"gdf_ROHR_\"tk\"" [label="\"tk\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"tk\""
+	"gdf_ROHR_\"fkKI\"" [label="\"fkKI\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"fkKI\""
+	"gdf_ROHR_\"fkKK\"" [label="\"fkKK\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"fkKK\""
+	"gdf_ROHR_\"fkDTRO_ROWD\"" [label="\"fkDTRO_ROWD\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"fkDTRO_ROWD\""
+	"gdf_ROHR_\"fkLTGR\"" [label="\"fkLTGR\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"fkLTGR\""
+	"gdf_ROHR_\"fkSTRASSE\"" [label="\"fkSTRASSE\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"fkSTRASSE\""
+	"gdf_ROHR_\"L\"" [label="\"L\"" color=purple fontname="Arial Bold" fontsize=14 style=filled]
+	gdf_ROHR -> "gdf_ROHR_\"L\""
+	rankdir=LR
+}

@@ -53,6 +53,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../objects.html">Classes and Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developers.html">For Developers</a></li>
 </ul>
@@ -1388,32 +1389,47 @@
     <span class="k">def</span> <span class="nf">_dfLAYR</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        dfLAYR is a dx object Attribute.</span>
-<span class="sd">                </span>
-<span class="sd">        .. note::             </span>
-<span class="sd">            Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering and grouping. </span>
 <span class="sd">            </span>
-<span class="sd">            The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</span>
-<span class="sd">                </span>
-<span class="sd">                 LAYR:</span>
-<span class="sd">                     - pk</span>
-<span class="sd">                     - tk</span>
-<span class="sd">                     - LFDNR (numeric)</span>
-<span class="sd">                     - NAME</span>
-<span class="sd">                </span>
-<span class="sd">                 LAYR-Info:</span>
-<span class="sd">                     - AnzDerObjekteInGruppe</span>
-<span class="sd">                     - AnzDerObjekteDesTypsInGruppe</span>
-<span class="sd">                </span>
-<span class="sd">                 OBJ:</span>
-<span class="sd">                     - TYPE</span>
-<span class="sd">                     - ID</span>
-<span class="sd">                </span>
-<span class="sd">                 OBJ-Info:</span>
-<span class="sd">                     - NrDesObjektesDesTypsInGruppe</span>
-<span class="sd">                     - NrDesObjektesInGruppe</span>
-<span class="sd">                     - GruppenDesObjektsAnz</span>
-<span class="sd">                     - GruppenDesObjektsNamen       </span>
-<span class="sd">                      </span>
+<span class="sd">        Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering, and grouping.</span>
+
+<span class="sd">        The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</span>
+
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | Column Name                                          | Description                                          |</span>
+<span class="sd">        +======================================================+======================================================+</span>
+<span class="sd">        | **LAYR:**                                            |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | pk                                                   |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | tk                                                   |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | LFDNR (numeric)                                      |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | NAME                                                 |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | **LAYR-Info:**                                       |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | AnzDerObjekteInGruppe                                |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | AnzDerObjekteDesTypsInGruppe                         |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | **OBJ:**                                             |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | TYPE                                                 |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | ID                                                   |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | **OBJ-Info:**                                        |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | NrDesObjektesDesTypsInGruppe                         |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | NrDesObjektesInGruppe                                |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | GruppenDesObjektsAnz                                 |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+</span>
+<span class="sd">        | GruppenDesObjektsNamen                               |                                                      |</span>
+<span class="sd">        +------------------------------------------------------+------------------------------------------------------+       </span>
+<span class="sd">            </span>
 <span class="sd">        &quot;&quot;&quot;</span>   
                 
         <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
@@ -2113,19 +2129,19 @@
 <span class="sd">        .. note:: </span>
 <span class="sd">            Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on type/operation/parameterization - can also overwrite (update) existing model data. Nonetheless, scripted model changes can be helpful.</span>
 
-<span class="sd">        .. note:: </span>
-<span class="sd">            dfUpd&#39;s cols used:            </span>
-<span class="sd">                - table i.e. &#39;FWVB&#39;</span>
-<span class="sd">                - attrib i.e. &#39;W0&#39;</span>
-<span class="sd">            dfUpd&#39;s cols optional:         </span>
-<span class="sd">                - attribValue, default=dfUpd[attrib] </span>
-<span class="sd">                - xk, default=&#39;tk&#39;</span>
-<span class="sd">                - xkValue, default=dfUpd[xk] </span>
-<span class="sd">            row-wise:</span>
-<span class="sd">                - set attrib to attribValue in table where xk is xkValue</span>
-<span class="sd">                - update an attribute of an object</span>
-<span class="sd">            updInverseValue:</span>
-<span class="sd">                - set attrib to updInverseValue for all objects of type table not mentioned in dfUpd                </span>
+<span class="sd">        dfUpd&#39;s cols used:            </span>
+<span class="sd">            - table i.e. &#39;FWVB&#39;</span>
+<span class="sd">            - attrib i.e. &#39;W0&#39;</span>
+<span class="sd">        dfUpd&#39;s cols optional:         </span>
+<span class="sd">            - attribValue, default=dfUpd[attrib] </span>
+<span class="sd">            - xk, default=&#39;tk&#39;</span>
+<span class="sd">            - xkValue, default=dfUpd[xk] </span>
+<span class="sd">        row-wise:</span>
+<span class="sd">            - set attrib to attribValue in table where xk is xkValue</span>
+<span class="sd">            - update an attribute of an object</span>
+<span class="sd">        updInverseValue:</span>
+<span class="sd">            - set attrib to updInverseValue for all objects of type table not mentioned in dfUpd                </span>
+<span class="sd">    </span>
 <span class="sd">        &quot;&quot;&quot;</span>           
         
         <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -2232,11 +2248,10 @@
 <span class="sd">        .. note:: </span>
 <span class="sd">            New model mass data should be created via the SIR 3S import interfaces. Nevertheless, generating model mass data via script can be helpful.</span>
 
-<span class="sd">        .. note:: </span>
-<span class="sd">            dfIns&#39; cols used:            </span>
-<span class="sd">                - all cols which are also cols of table                </span>
-<span class="sd">            row-wise:</span>
-<span class="sd">                - insert into table                </span>
+<span class="sd">        dfIns&#39; cols used:            </span>
+<span class="sd">            - all cols which are also cols of table                </span>
+<span class="sd">        row-wise:</span>
+<span class="sd">            - insert into table                </span>
 <span class="sd">        &quot;&quot;&quot;</span>           
         
         <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -2627,10 +2642,9 @@
 <span class="sd">        .. note:: </span>
 <span class="sd">            Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done (explicit) via the SIR 3S user interface or (implicit) via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.</span>
 
-<span class="sd">        .. note:: </span>
-<span class="sd">            df&#39;s cols used:            </span>
-<span class="sd">                - TYPE </span>
-<span class="sd">                - ID                 </span>
+<span class="sd">        df&#39;s cols used:            </span>
+<span class="sd">            - TYPE </span>
+<span class="sd">            - ID                 </span>
 <span class="sd">        &quot;&quot;&quot;</span>           
                 
         <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>

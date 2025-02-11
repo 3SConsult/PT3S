@@ -81,7 +81,41 @@ class dxWithMx():
         :type mx: Mx.Mx()        
         :param crs: (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:'EPSG:25832'). If None, crs will be read from SIR 3S' database file.
         :type crs: str, optional, default=None   
-                        
+
+        A dxWithMx (or m) object has the following attributes:
+    
+            - Model: Dx object:
+                - dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
+                - dx.dataFrames[...]: several pandas-Dfs derived from the 1:1 Dfs 
+        
+            - Results: Mx object:
+                - mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
+                - mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
+
+            - Miscellaneous:   
+                - wDirMx: Mx-directory of the model
+                - SirCalcXmlFile: SirCalc's Xml-File of the model
+                - SirCalcExeFile: SirCalc Executable used to (re-)calculate the model
+    
+            - pandas-Dfs with Model- AND Result-Data:
+                - V3_ROHR: Pipes
+                - V3_FWVB: Housestations District Heating
+                - V3_KNOT: Nodes 
+                - V3_VBEL: Edges
+                - V3_ROHRVEC: Pipes including interior points 
+                - V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
+                - V3_AGSNVEC: Longitudinal Sections including Pipe interior points 
+                    
+            - geopandas-Dfs based upon the Dfs above:
+                - gdf_ROHR: Pipes
+                - gdf_FWVB: Housestations District Heating
+                - gdf_KNOT: Nodes 
+                                                
+            - NetworkX-Graphs:
+                - G
+                - GSig     
+
+            Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.           
         """        
         
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -228,15 +262,20 @@ class dxWithMx():
         :return df_V3_ROHR: df_V3_ROHR expanded
         :type df_V3_ROHR: df        
         
-        .. note:: 
+        ROHR is the German word for pipe (defined in the SIR 3S model). In the returned V3_ROHR (one row per Edge) the following columns are added:
+
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | Column Name                 | Description                                                                       |
+        +=============================+===================================================================================+
+        | QMAVAbs                     | Absolute value of STAT ROHR~*~*~*~QMAV                                            |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | VAVAbs                      | Absolute value of STAT ROHR~*~*~*~VAV                                             |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | PHRAbs                      | Absolute value of STAT ROHR~*~*~*~PHR                                             |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | JVAbs                       | Absolute value of STAT ROHR~*~*~*~JV                                              |
+        +-----------------------------+-----------------------------------------------------------------------------------+
             
-            ROHR is the German word for pipe (defined in the SIR 3S model).
-            In the returned V3_ROHR (one row per Edge) the following columns are added:
-                      
-                - QMAVAbs: Absolute value of STAT ROHR~*~*~*~QMAV
-                - VAVAbs: Absolute value of STAT ROHR~*~*~*~VAV
-                - PHRAbs: Absolute value of STAT ROHR~*~*~*~PHR
-                - JVAbs: Absolute value of STAT ROHR~*~*~*~JV
         """   
         
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -315,52 +354,82 @@ class dxWithMx():
         :type V3_ROHR: df
         
         :return: V3_ROHRVEC
-        :rtype: df        
+        :rtype: df
         
-        .. note:: 
+        The interior points are defined by the output grid definition for pipes in the SIR 3S model. The numerical grid with which SIR 3S calculates is different from the output grid. The returned V3_ROHRVEC (one row per pipe and interior point) has the following columns:
+
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | Column Name                                                | Description                                                |
+        +============================================================+============================================================+
+        | pk                                                         | Pipe-pk                                                    |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | tk                                                         | Pipe-tk                                                    |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ...                                                        | ...                                                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | L                                                          |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ...                                                        | ...                                                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | NAME_i, NAME_k                                             |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mx2NofPts                                                  |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | dL (=L/(mx2NofPts-1))                                      |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ...                                                        | ...                                                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mx2Idx                                                     |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ('STAT|TIME|TMIN|...', 'ROHR...QMAV|PHR|...',              | Pipe-Results                                               |
+        | a Timestamp, a Timestamp)                                  |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | "('STAT|TIME|TMIN|...', 'KNOT...PH|H|...',                 | Pipe i-NODE Results                                        |
+        | a Timestamp, a Timestamp)"_i                               |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | "('STAT|TIME|TMIN|...', 'KNOT...PH|H|...',                 | Pipe k-NODE Results                                        |
+        | a Timestamp, a Timestamp)"_k                               |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | QMAVAbs                                                    | Pipes STAT QMAV-Result (absolute value)                    |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | VAVAbs                                                     | Pipes STAT VAV-Result (absolute value)                     |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | PHRAbs                                                     | Pipes STAT PHR-Result (absolute value)                     |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | JVAbs                                                      | Pipes STAT JV-Result (absolute value)                      |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | IptIdx                                                     | An Index of the points: S: Start (i-NODE),                 |
+        |                                                            | E: End (k-NODE), interior points: 0,1,2,...                |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | IptIdxAsNo                                                 | An Index of the points starting with 0 at i-NODE:          |
+        |                                                            | 0,1,2,...                                                  |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | IptIdxAsNoRev                                              | An Index of the points starting with 0 at k-NODE:          |
+        |                                                            | 0,1,2,...                                                  |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | SVEC                                                       | x in Edge-direction (IptIdx=S: 0.; IptIdx=E: L)            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | SVECRev                                                    | (IptIdx=S: L; IptIdx=E: 0)                                 |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ZVEC                                                       | z                                                          |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ('STAT|TIME|TMIN|...', 'ROHR...MVEC|PVEC|RHOVEC|...',      | Point Results                                              |
+        | a Timestamp, a Timestamp)                                  |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ('STAT|TIME|TMIN|...', 'manPVEC|mlcPVEC|barBzgPVEC|',      | Point Results calculated by PT3S                           |
+        | QMVEC|tMVEC|...', a Timestamp, a Timestamp)                |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | manPVEC                                                    | from PVEC ...                                              |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mlcPVEC                                                    | from PVEC ...                                              |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | barBzgPVEC                                                 | from PVEC ...                                              |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | QMVEC                                                      | from MVEC ... m3/h                                         |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | tMVEC                                                      | from MVEC ... t/h                                          |
+        +------------------------------------------------------------+------------------------------------------------------------+    
             
-            The interior points are defined by the output grid definition for pipes in the SIR 3S model. The numerical grid with which SIR 3S calculates is different from the output grid.
-            The returned V3_ROHRVEC (one row per pipe and interior point) has the following columns:
-                        
-                - pk: Pipe-pk
-                - tk: Pipe-tk                
-                - ...
-                - L
-                - ...
-                - NAME_i, NAME_k
-                - mx2NofPts
-                - dL (=L/(mx2NofPts-1))
-                - ...
-                - mx2Idx
-                
-                -  ('STAT|TIME|TMIN|...','ROHR...QMAV|PHR|...', a Timestamp, a Timestamp): Pipe-Results
-                
-                - "('STAT|TIME|TMIN|...','KNOT...PH|H|...',     a Timestamp, a Timestamp)"_i: Pipe i-NODE Results
-                - "('STAT|TIME|TMIN|...','KNOT...PH|H|...',     a Timestamp, a Timestamp)"_k: Pipe k-NODE Results
-                
-                - QMAVAbs: Pipes STAT QMAV-Result (absolute value)
-                - VAVAbs: Pipes STAT VAV-Result (absolute value)
-                - PHRAbs: Pipes STAT PHR-Result (absolute value)
-                - JVAbs: Pipes STAT JV-Result (absolute value)
-                
-                - IptIdx: an Index of the points: S: Start (i-NODE), E: End (k-NODE), interior points: 0,1,2,... 
-                - IptIdxAsNo: an Index of the points starting with 0 at i-NODE: 0,1,2,...
-                - IptIdxAsNoRev: an Index of the points starting with 0 at k-NODE: 0,1,2,...
-                
-                - SVEC: x in Edge-direction (IptIdx=S: 0.; IptIdx=E: L)
-                - SVECRev (IptIdx=S: L; IptIdx=E: 0)
-                - ZVEC: z
-                
-                - ('STAT|TIME|TMIN|...','ROHR...MVEC|PVEC|RHOVEC|TVEC|...', a Timestamp, a Timestamp): point Results
-                
-                - ('STAT|TIME|TMIN|...','manPVEC|mlcPVEC|barBzgPVEC|QMVEC|tMVEC|...',  a Timestamp, a Timestamp): point Results calculated by PT3S
-                
-                    - manPVEC: from PVEC ...
-                    - mlcPVEC: from PVEC ...
-                    - barBzgPVEC: from PVEC ...
-                    - QMVEC: from MVEC ... m3/h
-                    - tMVEC: from MVEC ... t/h
-                                                
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -549,10 +618,9 @@ class dxWithMx():
             :return: (gdf_FWVB, gdf_ROHR, gdf_KNOT)
             :rtype: tuple of gdfs         
         
-            .. note:: 
-                In the returned GeoDataFrames (gdf_FWVB, gdf_ROHR, gdf_KNOT) the following columns are added to V3_FWVB, V3_ROHR, V3_KNOT:
-                
-                - geometry (in each gdf) based on GEOMWKB (in each V3-df)
+            In the returned GeoDataFrames (gdf_FWVB, gdf_ROHR, gdf_KNOT) the following columns are added to V3_FWVB, V3_ROHR, V3_KNOT:
+            
+            - geometry (in each gdf) based on GEOMWKB (in each V3-df)
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -620,15 +688,21 @@ class dxWithMx():
         :return df_V3_VKNOT: df_V3_KNOT expanded
         :type df_V3_KNOT: df        
         
-        .. note:: 
-            
-            KNOT is the German abbreviation for Nodes (defined in the SIR 3S model).
-            In the returned V3_KNOT (one row per Edge) the following columns are added:
-                      
-                - PH: STAT PH-result (i.e. bar) 
-                - dPH: STAT (PHSL-PHRL)-result if Node-Partner is defined (i.e. bar) 
-                - QM: STAT QM-result
-                - srcvector: Source signature vector eg. [30, 0, 20, 50]
+        KNOT is the German abbreviation for Nodes (defined in the SIR 3S model). In the returned V3_KNOT (one row per Edge) the following columns are added:
+
+        +-----------------------------+------------------------------------------------------+
+        | Column Name                 | Description                                          |
+        +=============================+======================================================+
+        | PH                          | STAT PH-result (i.e. bar)                            |
+        +-----------------------------+------------------------------------------------------+
+        | dPH                         | STAT (PHSL-PHRL)-result if Node-Partner is defined   |
+        |                             | (i.e. bar)                                           |
+        +-----------------------------+------------------------------------------------------+
+        | QM                          | STAT QM-result                                       |
+        +-----------------------------+------------------------------------------------------+
+        | srcvector                   | Source signature vector eg. [30, 0, 20, 50]          |
+        +-----------------------------+------------------------------------------------------+
+    
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -725,17 +799,24 @@ class dxWithMx():
         :return df_V3_VBEL: df_V3_VBEL expanded
         :type df_V3_VBEL: df        
         
-        .. note:: 
+        VBEL is the German abbreviation for Edges (defined in the SIR 3S model). In the returned V3_VBEL (one row per Edge) the following columns are added:
+
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | Column Name                 | Description                                                                       |
+        +=============================+===================================================================================+
+        | PH_i,_k                     | STAT PH-result (i.e. bar)                                                         |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | H_i,_k                      | STAT H-result (i.e. barBzg)                                                       |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | mlc_i,_k                    | STAT H-result                                                                     |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | RHO_i,_k                    | STAT RHO-result                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | T_i,_k                      | STAT T-result                                                                     |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | QM                          | STAT QM-Result                                                                    |
+        +-----------------------------+-----------------------------------------------------------------------------------+
             
-            VBEL is the German abbreviation for Edges (defined in the SIR 3S model).
-            In the returned V3_VBEL (one row per Edge) the following columns are added:
-                      
-                - PH_i,_k: STAT PH-result (i.e. bar) 
-                - H_i,_k: STAT H-result (i.e. barBzg) 
-                - mlc_i,_k: STAT H-result 
-                - RHO_i,_k: STAT RHO-result 
-                - T_i,_k: STAT T-result 
-                - QM: STAT QM-Result 
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -1054,15 +1135,21 @@ class dxWithMx():
         :return df_V3_FWVB: df_V3_FWVB expanded
         :type df_V3_FWVB: df        
         
-        .. note:: 
+        KNOT is the German abbreviation for Nodes (defined in the SIR 3S model). In the returned V3_KNOT (one row per Edge) the following columns are added:
+
+        +-----------------------------+------------------------------------------------------+
+        | Column Name                 | Description                                          |
+        +=============================+======================================================+
+        | PH                          | STAT PH-result (i.e. bar)                            |
+        +-----------------------------+------------------------------------------------------+
+        | dPH                         | STAT (PHSL-PHRL)-result if Node-Partner is defined   |
+        |                             | (i.e. bar)                                           |
+        +-----------------------------+------------------------------------------------------+
+        | QM                          | STAT QM-result                                       |
+        +-----------------------------+------------------------------------------------------+
+        | srcvector                   | Source signature vector eg. [30, 0, 20, 50]          |
+        +-----------------------------+------------------------------------------------------+               
             
-            FWVB is the German abbreviation for District Heating House Stations (defined in the SIR 3S model).
-            In the returned V3_FWVB (one row per FWVB) the following columns are added:
-                      
-                - W: STAT W-Result 
-                - QM: STAT QM-Result 
-                - T_i,_k: STAT T-result  
-                - PH_i,_k: STAT PH-result (i.e. bar)                 
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -1177,57 +1264,83 @@ class dxWithMx():
         :return: V3_AGSN: dfAGSN expanded to V3_AGSN
         :rtype: df        
         
-        .. note:: 
-            
-            AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model). A section (a cut) can consist of several layers. In district heating systems for example the SL layer (supply line) and the RL (return line) layer.
-            The returned V3_AGSN (one row per Edge in (Section,Layer)) has the following columns:
-        
-                - Pos: Position of Edge in (Section,Layer) starting with 0; Pos=-1: startNODE-row (same index as Pos=0 row)
-                - pk: Section-pk
-                - tk: Section-tk
-                - LFDNR: Section-LFDNR (numeric)
-                - NAME: Section-Name
-                - XL: Layer:  0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the stuff after BLn in SIR 3S BLOB)     
-                - compNr: Number of the connected Component in (Section,Layer) starting with 1
-                - nextNODE: Name of the next Node in cut-direction reached by the Edge (startNODE-Name for Pos=-1)
+        AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model). A section (a cut) can consist of several layers. In district heating systems, for example, the SL layer (supply line) and the RL (return line) layer. The returned V3_AGSN (one row per Edge in (Section, Layer)) has the following columns:
+
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | Column Name                 | Description                                                                       |
+        +=============================+===================================================================================+
+        | Pos                         | Position of Edge in (Section, Layer) starting with 0; Pos=-1: startNODE-row       |
+        |                             | (same index as Pos=0 row)                                                         |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | pk                          | Section-pk                                                                        |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | tk                          | Section-tk                                                                        |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | LFDNR                       | Section-LFDNR (numeric)                                                           |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | NAME                        | Section-Name                                                                      |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | XL                          | Layer: 0: everything; 1: SL (the stuff before BLn in SIR 3S BLOB); 2: RL (the     |
+        |                             | stuff after BLn in SIR 3S BLOB)                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | compNr                      | Number of the connected Component in (Section, Layer) starting with 1             |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | nextNODE                    | Name of the next Node in cut-direction reached by the Edge (startNODE-Name for    |
+        |                             | Pos=-1)                                                                           |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | OBJTYPE                     | Edge-Type                                                                         |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | OBJID                       | Edge-ID                                                                           |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | L                           | 0 for Pos=-1                                                                      |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | DN                          |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | Am2                         |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | Vm3                         |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | NAME_CONT                   |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | NAME_i                      |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | NAME_k                      |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | ZKOR_n                      | nextNODE's ZKOR                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | BESCHREIBUNG_n              | nextNODE's BESCHREIBUNG                                                           |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | KVR_n                       | nextNODE's KVR                                                                    |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | LSum                        | cumulated L up to nextNODE                                                        |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | direction                   | XL=0,1: 1 if edge defined in cut-direction, otherwise -1; XL=2: 1 if edge defined |
+        |                             | in reverse cut-direction, otherwise -1                                            |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | PH_n                        | nextNODE's STAT PH-result (i.e. bar) (startNODE's result for Pos=-1)              |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | H_n                         | nextNODE's STAT H-result (i.e. barBzg) (startNODE's result for Pos=-1)            |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | mlc_n                       | nextNODE's STAT H-result (startNODE's result for Pos=-1)                          |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | RHO_n                       | nextNODE's STAT RHO-result (startNODE's result for Pos=-1)                        |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | T_n                         | nextNODE's STAT T-result (startNODE's result for Pos=-1)                          |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | QM                          | Edge STAT QM-Result (startNODE's result for Pos=-1)                               |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | ('STAT|TIME|TMIN|...', 'QM',| Edge QM-Results                                                                   |
+        | a Timestamp, a Timestamp)   |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | "('STAT|TIME|TMIN|...',     | nextNODE's Results                                                                |
+        | 'KNOT...PH|H|...', a        |                                                                                   |
+        | Timestamp, a Timestamp)"_n  |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
+        | "('STAT|TIME|TMIN|...',     | nextNODE's Results calculated by PT3S                                             |
+        | 'mlc|...', a Timestamp, a   |                                                                                   |
+        | Timestamp)"_n               |                                                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+
                 
-                - OBJTYPE: Edge-Type
-                - OBJID: Edge-ID
-                
-                - L (0 for Pos=-1)
-                - DN
-                - Am2
-                - Vm3
-                
-                - NAME_CONT
-                - NAME_i
-                - NAME_k
-                
-                - ZKOR_n: nextNODEs ZKOR
-                - BESCHREIBUNG_n: nextNODEs BESCHREIBUNG
-                - KVR_n: nextNODEs KVR
-                
-                - LSum: cumulated L up to nextNODE
-                - direction: XL=0,1: 1 if edge defined in cut-direction, otherwise -1; XL=2: 1 if edge defined in reverse cut-direction, otherwise -1 
-                
-                - corresponding to the V3_VBEL attributes:
-                    
-                - PH_n: nextNODEs STAT PH-result (i.e. bar) (startNODEs result for Pos=-1)
-                - H_n: nextNODEs STAT H-result (i.e. barBzg) (startNODEs result for Pos=-1)
-                - mlc_n: nextNODEs STAT H-result (startNODEs result for Pos=-1) 
-                - RHO_n: nextNODEs STAT RHO-result (startNODEs result for Pos=-1)
-                - T_n: nextNODEs STAT T-result (startNODEs result for Pos=-1)                 
-                - QM: Egde STAT QM-Result (startNODEs result for Pos=-1)
-                
-                -  ('STAT|TIME|TMIN|...','QM', a Timestamp, a Timestamp): Egde QM-Results
-                
-                - "('STAT|TIME|TMIN|...','KNOT...PH|H|...', a Timestamp, a Timestamp)"_n: nextNODEs Results
-                
-                - "('STAT|TIME|TMIN|...','mlc|...'        , a Timestamp, a Timestamp)"_n: nextNODEs Results calculated by PT3S 
-                
-                    
-                
-            
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -1477,68 +1590,109 @@ class dxWithMx():
         
         :return: V3_AGSNVEC: V3_AGSN expanded to V3_AGSNVEC
         :rtype: df        
+
+        The returned V3_AGSNVEC (expands V3_AGSN from one row for each PIPE in (Section, Layer) to one row for each interior point) has the following columns:
+
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | Column Name                                                | Description                                                |
+        +============================================================+============================================================+
+        | V3_AGSN-columns:                                           |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | Pos                                                        | Pos=-1: eliminated if Start-Edge is a Pipe                 |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | nextNODE                                                   | Pos=0: startNODE @IptIdxAsNo=0 if Start-Edge is a Pipe     |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | LSum                                                       | Pos=0: 0. @IptIdxAsNo=0 if Start-Edge is a Pipe            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ...                                                        | ...                                                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | cols mapped with VEC-Results:                              |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | LSum                                                       |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ZKOR_n                                                     |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | PH_n                                                       |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | H_n                                                        |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mlc_n                                                      |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | T_n                                                        |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | QM                                                         | (see m's flowMVEC Attribute to determine which             |
+        |                                                            | VEC-Result is used; default: QMVEC)                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | PH_n_end                                                   |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | H_n_end                                                    |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mlc_n_end                                                  |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | T_n_end                                                    |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | QM_end                                                     |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | PH_n_min                                                   |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | H_n_min                                                    |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mlc_n_min                                                  |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | T_n_min                                                    |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | QM_min                                                     | (buggy)                                                    |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | PH_n_max                                                   |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | H_n_max                                                    |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mlc_n_max                                                  |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | T_n_max                                                    |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | QM_max                                                     | (buggy)                                                    |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | cols _n_1,2,3,... derived from                             | _1,_2,_3,... corresponds to                                |
+        | mxsVecsResults2MxDfVecAggs=[idxt1,idxt2,idxt3,...,-1]      | sorted([idxt1,idxt2,idxt3,...]):                           |   
+        +------------------------------------------------------------+------------------------------------------------------------+
+        |                                                            | PH_n_1,2,3,...                                             |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        |                                                            | H_n_1,2,3,...                                              |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        |                                                            | mlc_n_1,2,3,...                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        |                                                            | T_n_1,2,3,...                                              |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        |                                                            | QM_1,2,3,...                                               |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | V3_ROHRVEC-columns:                                        |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | pk_ROHRVEC                                                 | Pipe-pk                                                    |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | tk_ROHRVEC                                                 | Pipe-tk                                                    |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ...                                                        | ...                                                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | L_ROHRVEC                                                  |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ...                                                        | ...                                                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | NAME_i_ROHRVEC, NAME_k_ROHRVEC                             |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mx2NofPts                                                  |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | dL (=L/(mx2NofPts-1))                                      |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ...                                                        | ...                                                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | mx2Idx                                                     |                                                            |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | IptIdx                                                     | rows S or E are eliminated for all pipes except the 1st    |
+        +------------------------------------------------------------+------------------------------------------------------------+
+        | ...                                                        | ...                                                        |
+        +------------------------------------------------------------+------------------------------------------------------------+
         
-        .. note:: 
-            
-            The returned V3_AGSNVEC (expands V3_AGSN from one row for each PIPE in (Section,Layer) to one row for each interior point)) has the following columns:
-                
-                V3_AGSN-columns:
-                    
-                    - Pos: Pos=-1: eliminated if Start-Edge is a Pipe                     
-                    - nextNODE: Pos=0: startNODE @IptIdxAsNo=0 if Start-Edge is a Pipe
-                    - LSum: Pos=0: 0. @IptIdxAsNo=0 if Start-Edge is a Pipe 
-                    - ...
-                    
-                    - cols mapped with VEC-Results:
-                        
-                    - LSum
-                    - ZKOR_n
-                    
-                    - PH_n
-                    - H_n
-                    - mlc_n
-                    - T_n
-                    - QM  (see m's flowMVEC Attribute to determine which VEC-Result is used; default: QMVEC)       
-         
-                    - PH_n_end
-                    - H_n_end
-                    - mlc_n_end
-                    - T_n_end
-                    - QM_end 
-         
-                    - PH_n_min
-                    - H_n_min
-                    - mlc_n_min
-                    - T_n_min
-                    - QM_min (buggy)     
-                    
-                    - PH_n_max
-                    - H_n_max
-                    - mlc_n_max
-                    - T_n_max
-                    - QM_max (buggy)                 
-                    
-                    - cols _n_1,2,3,... derived from mxsVecsResults2MxDfVecAggs=[idxt1,idxt2,idxt3,...,-1]; _1,_2,_3,... corresponds to sorted([idxt1,idxt2,idxt3,...]):                        
-                        - PH_n_1,2,3,...
-                        - H_n_1,2,3,...
-                        - mlc_n_1,2,3,...
-                        - T_n_1,2,3,...
-                        - QM_1,2,3,...
-                    
-                V3_ROHRVEC-columns:
-                    
-                    - pk_ROHRVEC: Pipe-pk
-                    - tk_ROHRVEC: Pipe-tk                
-                    - ...
-                    - L_ROHRVEC
-                    - ...
-                    - NAME_i_ROHRVEC, NAME_k_ROHRVEC
-                    - mx2NofPts
-                    - dL (=L/(mx2NofPts-1))
-                    - ...
-                    - mx2Idx
-                    - IptIdx: rows S or E are eliminated for all pipes except the 1st 
-                    - ...           
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -2014,7 +2168,8 @@ class dxWithMx():
             
     def switchV3DfColsToMultiindex(self):
         """
-        Switches V3-Df cols to Multiindex-Cols.               
+        Switches V3-Df cols to Multiindex-Cols.    
+        switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex           
         """        
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -2095,44 +2250,6 @@ def readDxAndMx(dbFile
 
     :return: An object containing the SIR 3S model and SIR 3S results - also called m object.
     :rtype: dxWithMx
-
-    .. note:: Dx contains data for all models in the SIR 3S database. Mx contains only the results for one model. SYSTEMKONFIG / VIEW_MODELLE are used to determine which one.
-        
-        The returned dxWithMx object has the following attributes:
-    
-            - Model: Dx object:
-                - dx.dataFrames[...]: pandas-Dfs 1:1 from SIR 3S' tables in database file
-                - dx.dataFrames[...]: several pandas-Dfs derived from the 1:1 Dfs 
-        
-            - Results: Mx object:
-                - mx.df: pandas-Df ('time curve data') from from SIR 3S' MXS file(s)
-                - mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
-            - Miscellaneous:   
-                - wDirMx: Mx-directory of the model
-                - SirCalcXmlFile: SirCalc's Xml-File of the model
-                - SirCalcExeFile: SirCalc Executable used to (re-)calculate the model
-    
-            - pandas-Dfs with Model- AND Result-Data:
-                - V3_ROHR: Pipes
-                - V3_FWVB: Housestations District Heating
-                - V3_KNOT: Nodes 
-                - V3_VBEL: Edges
-                - V3_ROHRVEC: Pipes including interior points 
-                - V3_AGSN: Longitudinal Sections; AGSN is the German abbreviation for longitudinal sections / cuts (defined in the SIR 3S model)
-                - V3_AGSNVEC: Longitudinal Sections including Pipe interior points 
-                    
-            - geopandas-Dfs based upon the Dfs above:
-                - gdf_ROHR: Pipes
-                - gdf_FWVB: Housestations District Heating
-                - gdf_KNOT: Nodes 
-                                                
-            - NetworkX-Graphs:
-                - G
-                - GSig
-
-        Selected functions of the returned dxWithMx object:                
-                - switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex
-
     """
     
     import os
