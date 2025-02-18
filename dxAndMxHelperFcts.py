@@ -210,22 +210,7 @@ class dxWithMx():
             # GSig
             if 'V3_RVBEL' in self.dx.dataFrames.keys():  
                 self.GSig=self._GSig(self.dx.dataFrames['V3_RVBEL'],self.dx.dataFrames['V3_RKNOT'])
-                 
-            # if 'V3_RVBEL' in self.dx.dataFrames.keys():  
-            #     df=self.dx.dataFrames['V3_RVBEL'].reset_index()
-            #     if not df.empty:
-            #         try:
-            #             # Graph Signalmodell bauen
-            #             self.GSig=nx.from_pandas_edgelist(df=df, source='Kn_i', target='Kn_k', edge_attr=True,create_using=nx.DiGraph())
-            #             nodeDct=self.dx.dataFrames['V3_RKNOT'].to_dict(orient='index')
-            #             nodeDctNx={value['Kn']:value|{'idx':key} for key,value in nodeDct.items()}
-            #             nx.set_node_attributes(self.GSig,nodeDctNx)
-            #             logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig ok so far.'))    
-            #         except Exception as e:
-            #             logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-            #             logger.debug(logStrTmp) 
-            #             logger.debug("{0:s}{1:s}".format(logStr,'Constructing NetworkX Graph GSig failed.'))            
-                                
+                                                 
             # AGSN                        
             try:                                                        
                 self.V3_AGSN=self._V3_AGSN(self.dfAGSN)                                                              
