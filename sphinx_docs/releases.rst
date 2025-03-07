@@ -11,6 +11,7 @@ TBDefined
 - m.GSig: nx.shortest_path(m.GSig,node): paths with RUES transitions were not found because ...
 - ... because in mx.dx.dataFrames['V3_RVBEL'] edges with RUES as source node were not replaced by the RUES source node 
 - Dx.py ln 1592: logger.debug(f"dfVBEL before edge loop:\n{df}") => logger.debug(f"dfVBEL before edge loop:\n{dfVBEL}")
+- m.GSig: concatenation of transition symbols (of RUES) resulted in GSig not being constructed
 
 90.14.45.0.dev1
 ---------------

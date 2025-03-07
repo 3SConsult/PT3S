@@ -1007,13 +1007,13 @@ class Dx():
                             
                             
                     # Kontrollausgaben
-                    #logger.debug("{logStr:s}vRUESDefs: {vRUESDefs:s}".format(logStr=logStr,vRUESDefs=vRUESDefs.to_string()))      
+                    logger.debug("{logStr:s}vRUESDefs: {vRUESDefs:s}".format(logStr=logStr,vRUESDefs=vRUESDefs.to_string()))      
                     
                     #logger.debug("{logStr:s}V3_RKNOT: {V3_RKNOT:s}".format(logStr=logStr,V3_RKNOT=V3_RKNOT.to_string()))      
                        
                     def get_UE_SRC(UeName  # Name der Ue deren SRC gesucht wird
                                    , dfUes  # alle Ues (Defs und Refs)
-                                   , dfUesDefs  # alle Signalverbindungen die Ues definieren
+                                   , dfUesDefs  # alle Defs ### alle Signalverbindungen die Ues definieren; IDUE ist der Name des Ues welches definiert wird
                                    ):
                         """
                         gibt per df diejenige Zeile von dfUesDefs zurueck die schlussendlich UeName definiert
@@ -1026,18 +1026,18 @@ class Dx():
                         if df['fkKi'].iloc[0] in dfUes['tk'].to_list():
                             
                             # die SRC der Ue ist eine Ue
-                            #logger.debug("Die SRC der Ue {:s} ist eine Ue - die Ue-Def:\n{:s}".format(
-                            #    UeName, str(df[['IDUE', 'pk', 'rkRUES', 'fkKi', 'fkKk']].iloc[0])))
+                            logger.debug("Die SRC der Ue {:s} ist eine Ue - die Daten der Ue {:s}:\n{:s}".format(
+                                UeName,UeName, str(df[['IDUE', 'pk', 'rkRUES', 'fkKi', 'fkKk']].iloc[0])))
     
-                            # die Referenz
-                            df = dfUes[dfUes['pk'] == df['fkKi'].iloc[0]]
-                            df = dfUes[dfUes['pk'] ==
-                                       df['rkRUES'].iloc[0]]  # die SRC
-    
-                            # print("{:s}".format((str(df[['IDUE','pk'
-                            #                                                                      ,'rkRUES'
-                            #                            #                                          ,'fkKi','fkKk'
-                            #                            ]].iloc[0]))))
+                            # die SRC
+                            df = dfUes[dfUes['tk'] == df['fkKi'].iloc[0]]
+
+                            logger.debug(f"die Daten der Ue-SRC der {UeName}:\n {df.to_string()}")
+
+                            df = dfUesDefs[dfUesDefs['tk'] ==
+                                       df['rkRUES'].iloc[0]]  # die Def.
+                                                                            
+                            logger.debug(f"die Daten der Def. der Ue-SRC der {UeName}:\n {df.to_string()}")
     
                             # Rekursion bis zur wahren Quelle
                             df = get_UE_SRC(df['IDUE'].iloc[0], dfUes, dfUesDefs
@@ -1055,33 +1055,35 @@ class Dx():
                     dcts = []
                     for index, row in vRUESDefs.iterrows():
     
-                        dfX = get_UE_SRC(row['IDUE']  # Name der Ue deren SRC gesucht wird
-                                         , vRUES  # Ues
-                                         , vRUESDefs  # Ue-Definitionen per Kante
-                                         )
-                        
-                        #logger.debug("{logStr:s}dfX: {dfX:s}".format(logStr=logStr,dfX=dfX.to_string()))      
-                                            
-                        # df['fkKi'] ist die SRC
-                        df=pd.DataFrame()                                        
-                        
-                        df = V3_RKNOT[V3_RKNOT['pk'] == dfX['fkKi'].iloc[0]]
-                        if df.empty:
+                        df=pd.DataFrame()               
+
+                        try:
+                            dfX = get_UE_SRC(row['IDUE']  # Name der Ue deren SRC gesucht wird
+                                            , vRUES  # Ues
+                                            , vRUESDefs  # Ue-Definitionen per Kante
+                                            )
                             
-                            #logger.debug(
-                            #    "{0:s}V3_RKNOT: Referenz zu pk leer?! ...".format(logStr))
-    
-                            df = V3_RKNOT[V3_RKNOT['tk'] == dfX['fkKi'].iloc[0]]
-                        else:
-                            df2 = V3_RKNOT[V3_RKNOT['tk'] == dfX['fkKi'].iloc[0]]
-    
-                            rows, dummy = df.shape
-                            rows2, dummy = df2.shape
-    
-                            if rows2 >= rows:
+                            #logger.debug("{logStr:s}dfX: {dfX:s}".format(logStr=logStr,dfX=dfX.to_string()))     
+                        
+                            df = V3_RKNOT[V3_RKNOT['pk'] == dfX['fkKi'].iloc[0]]
+                            if df.empty:
+                                
                                 #logger.debug(
-                                #    "{0:s}V3_RKNOT: Referenz zu pk nicht leer aber tk findet mindestens genausoviel Treffer ...".format(logStr))
-                                df = df2
+                                #    "{0:s}V3_RKNOT: Referenz zu pk leer?! ...".format(logStr))
+        
+                                df = V3_RKNOT[V3_RKNOT['tk'] == dfX['fkKi'].iloc[0]]
+                            else:
+                                df2 = V3_RKNOT[V3_RKNOT['tk'] == dfX['fkKi'].iloc[0]]
+        
+                                rows, dummy = df.shape
+                                rows2, dummy = df2.shape
+        
+                                if rows2 >= rows:
+                                    #logger.debug(
+                                    #    "{0:s}V3_RKNOT: Referenz zu pk nicht leer aber tk findet mindestens genausoviel Treffer ...".format(logStr))
+                                    df = df2
+                        except:
+                            logger.debug(f"{logStr:s} Fehler beim Finden der SRC für diese RUES: {row}")
                         
                         if df.empty:                        
                              logger.info("{:s}{:12s} {:s}: UE-Symbol ohne Referenz?!".format(logStr,row['IDUE'],row['NAME_CONT']))        
