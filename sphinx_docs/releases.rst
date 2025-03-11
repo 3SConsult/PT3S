@@ -12,6 +12,7 @@ TBDefined
 - ... because in mx.dx.dataFrames['V3_RVBEL'] edges with RUES as source node were not replaced by the RUES source node 
 - Dx.py ln 1592: logger.debug(f"dfVBEL before edge loop:\n{df}") => logger.debug(f"dfVBEL before edge loop:\n{dfVBEL}")
 - m.GSig: concatenation of transition symbols (of RUES) resulted in GSig not being constructed
+- readDxAndMx: mxsVecsResults2MxDf: Mix of OBJTYPEs (i.e. KNOT and ROHR) was not implemented 
 
 90.14.45.0.dev1
 ---------------

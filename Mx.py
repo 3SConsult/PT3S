@@ -3721,7 +3721,7 @@ class Mx():
                 #OBJTYPE=re.match(regExpSir3sVecID,Sir3sIDsMatching[0]).group('OBJTYPE')     
                 
                 if len(OBJTYPEs) > 1:                    
-                    logger.debug("{:s}:OBJTYPEs {!s:s}: Verschiedene OBJTYPEs - angeforderte Spaltenumbenennung in pks nicht möglich!".format(logStr,OBJTYPEs)) 
+                    logger.warning("{:s}:OBJTYPEs {!s:s}: Verschiedene OBJTYPEs - angeforderte Spaltenumbenennung in pks nicht möglich!".format(logStr,OBJTYPEs)) 
                 else:
                     
                     # pks/tks 

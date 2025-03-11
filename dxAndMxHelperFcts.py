@@ -2224,7 +2224,7 @@ def readDxAndMx(dbFile
     :type forceSir3sRead: bool, optional, default=False
     :param maxRecords: Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below ``C:\\3S``).
     :type maxRecords: int, optional, default=None
-    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example: ``['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']``
+    :param mxsVecsResults2MxDf: List of regular expressions for SIR 3S' Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example 1: ``['ROHR~\*~\*~\*~PHR', 'ROHR~\*~\*~\*~FS', 'ROHR~\*~\*~\*~DSI', 'ROHR~\*~\*~\*~DSK']``  Example 2: ``['KNOT~\*~\*~\*~VOLD','ROHR~\*~\*~\*~VOLDA']``
     :type mxsVecsResults2MxDf: list, optional, default=None
     :param mxsVecsResults2MxDfVecAggs: List of timesteps indices for SIR 3S' Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3, 42, 666, -1] (-1: last timestep). 3: 3rd timestep. 42: 42th timestep. 666: 666th timestep.
     :type mxsVecsResults2MxDfVecAggs: list, optional, default=None
@@ -2674,63 +2674,71 @@ def processMxVectorResults(mx,dx
                         
             ### Vector-Results 2 MxDf
             if mxsVecsResults2MxDf != None:
-                try:                
-                    df=mx.readMxsVecsResultsForObjectType(Sir3sVecIDReExp=mxsVecsResults2MxDf,flatIndex=False)                    
-                    logger.debug("{logStr:s} df from readMxsVecsResultsForObjectType: {dfStr:s}".format(
-                        logStr=logStr,dfStr=df.head(5).to_string()))
-                    
-                    # Kanalweise bearbeiten
-                    vecChannels=sorted(list(set(df.index.get_level_values(1))))
-                    
-                    V3_VBEL=dx.dataFrames['V3_VBEL']
-                    
-                    
-                    mxVecChannelDfs={}
-                    for vecChannel in vecChannels:
+                try:     
+                    for mxsVecsResult2MxDf  in mxsVecsResults2MxDf: 
+
+                        logger.debug(f"{logStr} mxsVecsResult2MxDf: {mxsVecsResult2MxDf}")
+
+                        df=mx.readMxsVecsResultsForObjectType(Sir3sVecIDReExp=[mxsVecsResult2MxDf],flatIndex=False)                    
+                        logger.debug("{logStr:s} df from readMxsVecsResultsForObjectType: {dfStr:s}".format(
+                            logStr=logStr,dfStr=df.head(5).to_string()))
                         
-                        #print(vecChannel)
+                        # Kanalweise bearbeiten
+                        vecChannels=sorted(list(set(df.index.get_level_values(1))))
                         
-                        dfVecChannel=df.loc[(slice(None),vecChannel,slice(None),slice(None)),:]
-                        dfVecChannel.index=dfVecChannel.index.get_level_values(2).rename('TIME')
-                        dfVecChannel=dfVecChannel.dropna(axis=1,how='all')
+                        V3_VBEL=dx.dataFrames['V3_VBEL']
                         
-                        mObj=re.search(Mx.regExpSir3sVecIDObjAtr,vecChannel)                    
-                        OBJTYPE,ATTRTYPE=mObj.groups()
-                               
-                        # Zeiten aendern wg. spaeterem concat mit mx.df
-                        dfVecChannel.index=[pd.Timestamp(t,tz='UTC') for t in dfVecChannel.index]
                         
-                        if OBJTYPE == 'KNOT':
-                            dfOBJT=dx.dataFrames['V_BVZ_KNOT'][['tk','NAME']]
-                            dfOBJT.index=dfOBJT['tk']
-                            colRenDctToNamesMxDf={col:"{:s}~{!s:s}~*~{:s}~{:s}".format(OBJTYPE,dfOBJT.loc[col,'NAME'],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}
-                        else:    
-                            dfOBJT=V3_VBEL[['pk','NAME_i','NAME_k']].loc[(OBJTYPE,slice(None)),:]
-                            dfOBJT.index=dfOBJT.index.get_level_values(1) # die OBJID; xk
-                            colRenDctToNamesMxDf={col:"{:s}~{!s:s}~{!s:s}~{:s}~{:s}".format(OBJTYPE,dfOBJT.loc[col,'NAME_i'],dfOBJT.loc[col,'NAME_k'],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}
-                                  
-                        dfVecChannel=dfVecChannel.rename(columns=colRenDctToNamesMxDf)
-                        
-                        mxVecChannelDfs[vecChannel]=dfVecChannel         
+                        mxVecChannelDfs={}
+                        for vecChannel in vecChannels:
                                             
-                    l=mx.df.columns.to_list()
-                    logger.debug("{:s} Anzahl der Spalten vor Ergaenzung der Vektorspalten: {:d}".format(logStr,len(l)))
+                            logger.debug(f"{logStr} vecChannel: {vecChannel}")
+                            
+                            dfVecChannel=df.loc[(slice(None),vecChannel,slice(None),slice(None)),:]
+                            dfVecChannel.index=dfVecChannel.index.get_level_values(2).rename('TIME')
+                            dfVecChannel=dfVecChannel.dropna(axis=1,how='all')
+                            
+                            mObj=re.search(Mx.regExpSir3sVecIDObjAtr,vecChannel)                    
+                            OBJTYPE,ATTRTYPE=mObj.groups()
+
+                            logger.debug(f"{logStr} OBJTYPE: {OBJTYPE} ATTRTYPE: {ATTRTYPE}")
+                                
+                            # Zeiten aendern wg. spaeterem concat mit mx.df
+                            dfVecChannel.index=[pd.Timestamp(t,tz='UTC') for t in dfVecChannel.index]
+                            
+                            if OBJTYPE == 'KNOT':
+                                dfOBJT=dx.dataFrames['V_BVZ_KNOT'][['tk','NAME']]
+                                dfOBJT.index=dfOBJT['tk']
+                                logger.debug(f"{logStr} dfVecChannel.columns.to_list(): {dfVecChannel.columns.to_list()}")
+                                logger.debug(f"{logStr} dfOBJT.loc[:,'NAME']: {dfOBJT.loc[:,'NAME']}")
+                                colRenDctToNamesMxDf={col:"{:s}~{!s:s}~*~{:s}~{:s}".format(OBJTYPE,dfOBJT.loc[col,'NAME'],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}
+                            else:    
+                                dfOBJT=V3_VBEL[['pk','NAME_i','NAME_k']].loc[(OBJTYPE,slice(None)),:]
+                                dfOBJT.index=dfOBJT.index.get_level_values(1) # die OBJID; xk
+                                colRenDctToNamesMxDf={col:"{:s}~{!s:s}~{!s:s}~{:s}~{:s}".format(OBJTYPE,dfOBJT.loc[col,'NAME_i'],dfOBJT.loc[col,'NAME_k'],col,ATTRTYPE) for col in dfVecChannel.columns.to_list()}
+                                    
+                            dfVecChannel=dfVecChannel.rename(columns=colRenDctToNamesMxDf)
+                            
+                            mxVecChannelDfs[vecChannel]=dfVecChannel         
+                                                
+                        l=mx.df.columns.to_list()
+                        logger.debug("{:s} Anzahl der Spalten vor Ergaenzung der Vektorspalten: {:d}".format(logStr,len(l)))
+                            
+                        mx.df=pd.concat([mx.df]
+                        +list(mxVecChannelDfs.values())               
+                        ,axis=1)
                         
-                    mx.df=pd.concat([mx.df]
-                    +list(mxVecChannelDfs.values())               
-                    ,axis=1)
-                    
-                    l=mx.df.columns.to_list()
-                    logger.debug("{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten: {:d}".format(logStr,len(l)))                
-                    
-                    # Test auf mehrfach vorkommende Spaltennamen                
-                    l=mx.df.loc[:,mx.df.columns.duplicated()].columns.to_list()
-                    if len(l)>0:
-                        logger.debug("{:s} Anzahl der Spaltennamen die mehrfach vorkommen: {:d}; eliminieren der mehrfach vorkommenden ... ".format(logStr,len(l)))
-                        mx.df = mx.df.loc[:,~mx.df.columns.duplicated()]
-                           
-                    l=mx.df.columns.to_list()    
-                    logger.debug("{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten und nach eliminieren der mehrfach vorkommenden: {:d}".format(logStr,len(l)))
+                        l=mx.df.columns.to_list()
+                        logger.debug("{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten: {:d}".format(logStr,len(l)))                
+                        
+                        # Test auf mehrfach vorkommende Spaltennamen                
+                        l=mx.df.loc[:,mx.df.columns.duplicated()].columns.to_list()
+                        if len(l)>0:
+                            logger.debug("{:s} Anzahl der Spaltennamen die mehrfach vorkommen: {:d}; eliminieren der mehrfach vorkommenden ... ".format(logStr,len(l)))
+                            mx.df = mx.df.loc[:,~mx.df.columns.duplicated()]
+                            
+                        l=mx.df.columns.to_list()    
+                        logger.debug("{:s} Anzahl der Spalten nach Ergaenzung der Vektorspalten und nach eliminieren der mehrfach vorkommenden: {:d}".format(logStr,len(l)))
                         
                         
                 except Mx.MxError:
