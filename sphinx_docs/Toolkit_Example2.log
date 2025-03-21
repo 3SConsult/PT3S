@@ -1,0 +1,19 @@
+2025-03-21 10:17:24,353 ; PT3S                                                         ; DEBUG   ; in MODULEFILE: Not __main__ Context: __name__: dxAndMxHelperFcts .
+2025-03-21 10:17:24,354 ; PT3S                                                         ; DEBUG   ; ImportError: from PT3S import Dx - trying import Dx instead ... maybe pip install -e . is active ...
+2025-03-21 10:17:25,343 ; PT3S                                                         ; DEBUG   ; in MODULEFILE: Not __main__ Context: __name__: Dx .
+2025-03-21 10:17:25,344 ; PT3S                                                         ; DEBUG   ; ImportError: from PT3S import Xm - trying import Xm instead ... maybe pip install -e . is active ...
+2025-03-21 10:17:29,005 ; h5py._conv                                                   ; DEBUG   ; Creating converter from 7 to 5
+2025-03-21 10:17:29,006 ; h5py._conv                                                   ; DEBUG   ; Creating converter from 5 to 7
+2025-03-21 10:17:29,006 ; h5py._conv                                                   ; DEBUG   ; Creating converter from 7 to 5
+2025-03-21 10:17:29,007 ; h5py._conv                                                   ; DEBUG   ; Creating converter from 5 to 7
+2025-03-21 10:17:29,142 ; PT3S                                                         ; DEBUG   ; in MODULEFILE: Not __main__ Context: __name__: Xm .
+2025-03-21 10:17:29,143 ; PT3S                                                         ; DEBUG   ; in MODULEFILE: ImportError: from PT3S import Mx - trying import Mx instead ... maybe pip install -e . is active ...
+2025-03-21 10:17:29,149 ; PT3S                                                         ; DEBUG   ; in MODULEFILE: Not __main__ Context: __name__: Mx .
+2025-03-21 10:17:29,162 ; PT3S                                                         ; DEBUG   ; in MODULEFILE: ImportError: from PT3S import Xm - trying import Xm instead ... maybe pip install -e . is active ...
+2025-03-21 10:17:29,163 ; PT3S                                                         ; DEBUG   ; ImportError: from PT3S import dxAndMxHelperFcts - trying import dxAndMxHelperFcts instead ... maybe pip install -e . is active ...
+2025-03-21 10:17:29,168 ; PT3S                                                         ; DEBUG   ; in MODULEFILE: Not __main__ Context: __name__: dxDecodeObjsData .
+2025-03-21 10:17:29,170 ; PT3S                                                         ; DEBUG   ; ImportError: from PT3S import Mx - trying import Mx instead ... maybe pip install -e . is active ...
+2025-03-21 13:05:35,735 ; ipykernel.comm                                               ; ERROR   ; No such comm target registered: jupyter.widget.control
+2025-03-21 13:05:35,754 ; Comm                                                         ; WARNING ; No such comm: cb6c4d26-66cc-4cc7-9a5b-91f941b19d10
+2025-03-21 13:05:35,756 ; Comm                                                         ; DEBUG   ; Current comms: []
+Current comms: []
