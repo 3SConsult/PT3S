@@ -3540,7 +3540,7 @@ class Mx():
             # alle matchenden Kanaele
             df=self.dfVecAggs.loc[(slice(None),Sir3sIDsMatching,slice(None),slice(None)),:]#.dropna(axis='columns')
             
-            logger.debug("{:s}alle matchenden Kanaele: {:s}".format(logStr,df.head().to_string()))
+            ###logger.debug("{:s}alle matchenden Kanaele: {:s}".format(logStr,df.head().to_string()))
             
             OBJTYPEs=[re.match(regExpSir3sVecID,Sir3sIDMatching).group('OBJTYPE') for Sir3sIDMatching in Sir3sIDsMatching]
             
@@ -3559,17 +3559,17 @@ class Mx():
         
                 dfOBJTYPE=df.loc[(slice(None),Sir3sIDMatching,slice(None),slice(None)),:].dropna(axis='columns')
             
-                logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
+                ###logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
         
                 # Spalten umbenennen in pks/tks   
                 dfOBJTYPE.rename(columns={i:mx2Idx[i] for i in dfOBJTYPE.columns.to_list()},inplace=True)
                 
-                logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs mit OBJID (statt lfd. Nr.) als Spalten: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
+                ###logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs mit OBJID (statt lfd. Nr.) als Spalten: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
                 
                 # transponieren
                 dfOBJTYPE=dfOBJTYPE.transpose()
                 
-                logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs mit OBJID als Zeilen: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
+                ###logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs mit OBJID als Zeilen: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
                 
                
                     

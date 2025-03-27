@@ -742,7 +742,7 @@ class dxWithMx():
                          
                  df_V3_KNOT[dPH]=None   
                  df_V3_KNOT[dPH]=df_V3_KNOT.apply(lambda row: getdPH(row,df_V3_KNOT),axis=1)
-                 logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far: {str(df_V3_KNOT[dPH].describe())}")                                                      
+                 logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far.")                                                      
             except Exception as e:
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                  logger.debug(logStrTmp) 
@@ -808,9 +808,9 @@ class dxWithMx():
         logger.debug(f"{logStr}Start.") 
         
         try: 
-            logger.debug("{0:s}{1:s}".format(logStr,'df_V3_VBEL:\n{df_V3_VBEL.columns}'))  
+            ###logger.debug("{0:s}{1:s}".format(logStr,'df_V3_VBEL:\n{df_V3_VBEL.columns}'))  
             try:                                    
-                 logger.debug(f"df_V3_VBEL before QM add:\n{df_V3_VBEL}")
+                 ###logger.debug(f"df_V3_VBEL before QM add:\n{df_V3_VBEL}")
                  t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
                  QM=str(('STAT'
                              ,'QM'
@@ -1336,9 +1336,9 @@ class dxWithMx():
                 logger.debug(f"{logStr} dfAGSN empty.") 
                 return dfAGSN
 
-            logger.debug(f"dfAGSN before constructNewMultiindexFromCols data types:\n{dfAGSN.dtypes}")
-            logger.debug(f"dfAGSN before constructNewMultiindexFromCols dimensions: {dfAGSN.shape}")
-            logger.debug(f"dfAGSN before constructNewMultiindexFromCols:\n{dfAGSN}")
+            #logger.debug(f"dfAGSN before constructNewMultiindexFromCols data types:\n{dfAGSN.dtypes}")
+            #logger.debug(f"dfAGSN before constructNewMultiindexFromCols dimensions: {dfAGSN.shape}")
+            #logger.debug(f"dfAGSN before constructNewMultiindexFromCols:\n{dfAGSN}")
             dfAGSN=constructNewMultiindexFromCols(dfAGSN.copy(deep=True),mColNames=['TYPE','ID']).sort_values(by=['LFDNR','XL','Pos'])
             # urspruengliche Cols
             colsAGSNBase=dfAGSN.columns.to_list()
@@ -2680,8 +2680,8 @@ def processMxVectorResults(mx,dx
                         logger.debug(f"{logStr} mxsVecsResult2MxDf: {mxsVecsResult2MxDf}")
 
                         df=mx.readMxsVecsResultsForObjectType(Sir3sVecIDReExp=[mxsVecsResult2MxDf],flatIndex=False)                    
-                        logger.debug("{logStr:s} df from readMxsVecsResultsForObjectType: {dfStr:s}".format(
-                            logStr=logStr,dfStr=df.head(5).to_string()))
+                        ###logger.debug("{logStr:s} df from readMxsVecsResultsForObjectType: {dfStr:s}".format(
+                        ###    logStr=logStr,dfStr=df.head(5).to_string()))
                         
                         # Kanalweise bearbeiten
                         vecChannels=sorted(list(set(df.index.get_level_values(1))))

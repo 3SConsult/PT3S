@@ -687,7 +687,7 @@ def pNFD_FW(
                         
                 elif minValue > 0:            
 
-                    logger.debug(f"{logStr}KNOTen: Plotten nur pos. Werte  ...")            
+                    logger.debug(f"{logStr}KNOTen: Plotten nur pos. > Werte  ...")            
                     
                     msFactor=norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))   
                                         
@@ -735,7 +735,7 @@ def pNFD_FW(
                     
                 elif maxValue <= 0:            
 
-                        logger.debug(f"{logStr}KNOTen: Plotten nur neg. Werte  ...")            
+                        logger.debug(f"{logStr}KNOTen: Plotten nur neg. <= Werte  ...")            
                         
                         msFactor=norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))   
                                             
@@ -809,7 +809,54 @@ def pNFD_FW(
                             )
                             )
                         
+
+                elif minValue >= 0:            
+
+                    logger.debug(f"{logStr}KNOTen: Plotten nur pos. >= Werte  ...")            
                     
+                    msFactor=norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))   
+                                        
+                    if size_min_KNOT_Erg!= None and size_min_KNOT_Erg>0 and size_min_KNOT_Erg<1:   
+                        if size_max_KNOT_Erg==None or size_max_KNOT_Erg>size_min_KNOT_Erg:
+                            for idx,(index,row) in enumerate(gdf_KNOT.iterrows()):
+                                if msFactor[idx] < size_min_KNOT_Erg:
+                                        msFactor[idx]=size_min_KNOT_Erg                                         
+                    if size_max_KNOT_Erg!= None and size_max_KNOT_Erg>0 and size_max_KNOT_Erg<1:
+                        if size_min_KNOT_Erg==None or size_min_KNOT_Erg<size_max_KNOT_Erg:
+                            for idx,(index,row) in enumerate(gdf_KNOT.iterrows()):
+                                if msFactor[idx] > size_max_KNOT_Erg:
+                                        msFactor[idx]=size_max_KNOT_Erg      
+                                        
+                    logger.debug(f"{logStr}min. ms Factor: {msFactor[np.logical_not(np.isnan(msFactor))].min()} * fac_ms_KNOT max. ms Factor: {msFactor[np.logical_not(np.isnan(msFactor))].max()} * fac_ms_KNOT")
+                    
+                    gdf_KNOT.plot(ax = ax
+                                ,zorder = attr_colors_KNOT_Erg_zOrder 
+                                ,marker = marker_KNOT_Erg                        
+                                ,markersize = msFactor * fac_ms_KNOT      
+                                ,color = cmap_KNOTErg(norm_KNOTErg_Size(gdf_KNOT[attr_colors_KNOT_Erg].astype(float))) 
+                                )   
+                    
+                    # Legendeneinräge                                                     
+                    if attr_colors_KNOT_Erg_patchValues == None:
+                         norm_diff_KNOT_Erg=norm_max_KNOT_Erg-norm_min_KNOT_Erg
+                         if norm_diff_KNOT_Erg == 0:                            
+                            attr_colors_KNOT_Erg_patchValues=np.arange(norm_min_KNOT_Erg,norm_max_KNOT_Erg+1,1)   
+                         else:
+                            attr_colors_KNOT_Erg_patchValues=np.arange(norm_min_KNOT_Erg,norm_max_KNOT_Erg,norm_diff_KNOT_Erg/4)   
+                            
+                         logger.debug(f"{logStr}norm_min_KNOT_Erg: {norm_min_KNOT_Erg} norm_max_KNOT_Erg: {norm_max_KNOT_Erg} norm_diff_KNOT_Erg: {norm_diff_KNOT_Erg}")
+                                     
+                    attr_colors_KNOT_Erg_patches = [mpatches.Patch(
+                                                     color=cmap_KNOTErg(norm_KNOTErg_Size(value))
+                                                    ,label=attr_colors_KNOT_Erg_patches_fmt.format(value)
+                                                    ) 
+                                                    for value in attr_colors_KNOT_Erg_patchValues
+                                                    ]
+                    attr_colors_KNOT_Erg_patches[-1].set_label("{:s} (max.: {:4.2f})".format(
+                          attr_colors_KNOT_Erg_patches[-1].get_label()
+                         ,gdf_KNOT[attr_colors_KNOT_Erg].max()
+                        )
+                        )                    
 
 
 
