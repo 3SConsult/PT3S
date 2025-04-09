@@ -1,0 +1,76 @@
+Information	0	2025-04-08 11:46:09.786	-1	IObjectModel::StartTransaction()	Gitter zeigen  	-1  	
+Information	0	2025-04-08 11:46:10.342	-1	IObjectModel::StartTransaction()	Objekte einfangen  	-1  	
+Information	0	2025-04-08 11:46:22.310	-1	IObjectModel::StartTransaction()	Hinzufügen: Knoten  	-1  	
+Information	0	2025-04-08 11:46:27.166	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten TemplateNode: Symbolfaktor --> 3  	-1  	
+Information	0	2025-04-08 11:46:35.269	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten TemplateNode: Symbolfaktor --> 30  	-1  	
+Information	0	2025-04-08 11:46:38.848	-1	IObjectModel::StartTransaction()	Hinzufügen: Knoten  	-1  	
+Information	0	2025-04-08 11:46:46.925	-1	IObjectModel::StartTransaction()	Verschieben: Knoten K0001  	-1  	
+Information	0	2025-04-08 11:46:53.674	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten K0001: Symbolfaktor --> 10  	-1  	
+Information	0	2025-04-08 11:46:58.989	-1	IObjectModel::StartTransaction()	Verschieben: Knoten K0001  	-1  	
+Information	0	2025-04-08 11:47:07.645	-1	IObjectModel::StartTransaction()	Objekte löschen  	-1  	
+Information	0	2025-04-08 11:47:15.262	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten K0001: Symbolfaktor --> 5  	-1  	
+Information	0	2025-04-08 11:47:23.434	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten K0001: Knotenname --> j1  	-1  	
+Information	0	2025-04-08 11:47:26.062	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten j1: Knotennamen anzeigen --> True  	-1  	
+Information	0	2025-04-08 11:47:33.678	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten j1: Z-Koordinate (geod. Höhe) --> 0  	-1  	
+Information	0	2025-04-08 11:47:46.635	-1	IObjectModel::StartTransaction()	Einfügen aus Zwischenablage  	-1  	
+Information	0	2025-04-08 11:47:54.446	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2025-04-08 11:48:02.971	-1	IObjectModel::StartTransaction()	Markierte Elemente verschieben  	-1  	
+Information	0	2025-04-08 11:48:11.522	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten j11: Knotenname --> j2  	-1  	
+Information	0	2025-04-08 11:48:22.670	-1	IObjectModel::StartTransaction()	Hinzufügen: Rohr  	-1  	
+Information	0	2025-04-08 11:48:29.640	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr: Nennweite --> DN   200  	-1  	
+Information	0	2025-04-08 11:48:52.799	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr: Länge --> 1000  	-1  	
+Information	0	2025-04-08 11:49:06.602	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten j1: Knotentyp --> PKON  	-1  	
+Information	0	2025-04-08 11:49:10.593	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten j1: Druck/Druckhöhe --> 10  	-1  	
+Information	0	2025-04-08 11:49:32.716	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten j2: Volumen- /Massenstrom --> -100  	-1  	
+Information	0	2025-04-08 11:49:59.737	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten j1: Position des Knotennamens  --> 2  	-1  	
+Information	0	2025-04-08 11:50:17.787	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Nennweite --> DN   200  	-1  	
+Information	0	2025-04-08 11:50:39.943	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:50:39.973	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:50:39.975	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
+Information	0	2025-04-08 11:50:53.606	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:50:53.629	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:50:53.632	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
+Information	0	2025-04-08 11:51:48.179	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:51:48.195	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:51:48.198	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
+Information	0	2025-04-08 11:52:12.759	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Länge --> 1000  	-1  	
+Information	0	2025-04-08 11:52:43.824	-1	IObjectModel::StartTransaction()	Stoffwertegruppe bearbeiten  	-1  	
+Information	0	2025-04-08 11:52:56.015	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2025-04-08 11:53:24.588	-1	IObjectModel::StartTransaction()	Daten setzen: Knoten j1: Einspeisetemp. --> 90  	-1  	
+Information	0	2025-04-08 11:53:32.779	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2025-04-08 11:53:33.569	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2025-04-08 11:54:05.412	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:54:05.447	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:54:05.453	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
+Information	0	2025-04-08 11:54:28.556	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:54:28.567	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:54:28.570	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
+Information	0	2025-04-08 11:55:05.081	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:55:05.105	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 11:55:05.123	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
+Information	0	2025-04-08 11:57:32.583	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 11:59:53.525	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 12:02:13.590	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 12:02:13.669	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 12:02:17.456	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Rohr j1 j2 -->Reibungsbeiwert: Nachkommastellen --> 4  	-1  	
+Information	0	2025-04-08 12:03:56.805	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 12:03:56.875	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-08 12:04:00.790	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Rohr j1 j2 -->Mittlerer Massenstrom: Nachkommastellen --> 4  	-1  	
+Information	0	2025-04-08 12:04:29.740	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2025-04-08 12:04:30.182	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2025-04-08 12:16:35.963	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 12:16:42.049	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 12:17:02.205	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 12:17:31.163	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 12:17:33.494	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 12:26:30.674	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 12:26:36.594	-1	IObjectModel::StartTransaction()	Datenpunkt einfügen.  	-1  	
+Information	0	2025-04-08 12:28:16.387	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Rohr j1 j2 -->Reibungsbeiwert: Nachkommastellen --> 6  	-1  	
+Information	0	2025-04-08 16:51:16.972	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Knoten j2 -->Druck: Nachkommastellen --> 3  	-1  	
+Information	0	2025-04-08 16:51:27.819	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2025-04-08 16:51:28.307	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2025-04-08 16:56:18.240	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2025-04-09 11:04:20.209	-1	IObjectModel::StartTransaction()	Daten setzen: Datenpunkte  	-1  	
+Information	0	2025-04-09 13:05:31.306	-1	IObjectModel::StartTransaction()	Datenpunkte bearbeiten  	-1  	
+Information	0	2025-04-09 13:05:36.010	-1	IObjectModel::StartTransaction()	Daten setzen: Datenpunkte  	-1  	
+Information	0	2025-04-09 13:11:56.039	-1	IObjectModel::StartTransaction()	Daten setzen: Datenpunkte  	-1  	

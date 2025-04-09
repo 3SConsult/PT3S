@@ -162,8 +162,7 @@ class dxWithMx():
                 self.V3_FWVB=dx.dataFrames['V3_FWVB'].copy(deep=True)                
                                 
                 # Vec-Results to V3_KNOT, V3_ROHR, V3_FWVB, etc.
-                V3sErg=self.dx.MxAdd(self.mx)                
-                #self.V3_ROHR=V3sErg['V3_ROHR']    
+                V3sErg=self.dx.MxAdd(self.mx)                                 
                 
                 ### C
                 self.V3_ROHR=self._V3_ROHR(V3sErg['V3_ROHR'])
@@ -247,12 +246,12 @@ class dxWithMx():
         :return df_V3_ROHR: df_V3_ROHR expanded
         :type df_V3_ROHR: df        
         
-        ROHR is the German word for pipe (defined in the SIR 3S model). In the returned V3_ROHR (one row per Edge) the following columns are added:
+        ROHR is the German word for pipe (defined in the SIR 3S model). In the returned V3_ROHR (one row per Pipe) the following columns are added:
 
         +-----------------------------+-----------------------------------------------------------------------------------+
         | Column Name                 | Description                                                                       |
         +=============================+===================================================================================+
-        | QMAVAbs                     | Absolute value of STAT ROHR~*~*~*~QMAV                                            |
+        | QMAVAbs                     | Absolute value of STAT ROHR~*~*~*~QMAV (i.e. t/h, m3/h, l/s, ...)                 |
         +-----------------------------+-----------------------------------------------------------------------------------+
         | VAVAbs                      | Absolute value of STAT ROHR~*~*~*~VAV                                             |
         +-----------------------------+-----------------------------------------------------------------------------------+
@@ -260,6 +259,11 @@ class dxWithMx():
         +-----------------------------+-----------------------------------------------------------------------------------+
         | JVAbs                       | Absolute value of STAT ROHR~*~*~*~JV                                              |
         +-----------------------------+-----------------------------------------------------------------------------------+
+        | MAV                         | value of STAT ROHR~*~*~*~MAV (kg/s)                                               |
+        +-----------------------------+-----------------------------------------------------------------------------------+   
+        | LAMBDA                      | value of STAT ROHR~*~*~*~LAMBDA                                                   |
+        +-----------------------------+-----------------------------------------------------------------------------------+        
+        
             
         """   
         
@@ -320,6 +324,33 @@ class dxWithMx():
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col JVAbs=Abs(STAT ROHR~*~*~*~JV) in V3_ROHR failed.')) 
+
+            try:                                                        
+                MAV=('STAT'
+                            ,'ROHR~*~*~*~MAV'
+                            ,t0
+                            ,t0
+                            )
+                df_V3_ROHR['MAV']=df_V3_ROHR.apply(lambda row: math.fabs(row[MAV]) ,axis=1)       
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['MAV'] ok so far."))                                                         
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col MAV=STAT ROHR~*~*~*~MAV in V3_ROHR failed.'))   
+
+            try:                                                        
+                LAMBDA=('STAT'
+                            ,'ROHR~*~*~*~LAMBDA'
+                            ,t0
+                            ,t0
+                            )
+                df_V3_ROHR['LAMBDA']=df_V3_ROHR.apply(lambda row: math.fabs(row[LAMBDA]) ,axis=1)       
+                logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['LAMBDA'] ok so far."))                                                         
+            except Exception as e:
+                logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                logger.debug(logStrTmp) 
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col LAMBDA=STAT ROHR~*~*~*~LAMBDA in V3_ROHR failed.'))                   
+
                 
             return df_V3_ROHR   
         except dxWithMxError:
@@ -605,7 +636,7 @@ class dxWithMx():
         
             In the returned GeoDataFrames (gdf_FWVB, gdf_ROHR, gdf_KNOT) the following columns are added to V3_FWVB, V3_ROHR, V3_KNOT:
             
-            - geometry (in each gdf) based on GEOMWKB (in each V3-df)
+            - geometry (in each gdf_ gdf) based on GEOMWKB (in each V3_ df)
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
@@ -614,7 +645,7 @@ class dxWithMx():
         try:
             
             gdf_FWVB=geopandas.GeoDataFrame()
-            gdf_FWVB=geopandas.GeoDataFrame()
+            gdf_ROHR=geopandas.GeoDataFrame()
             gdf_KNOT=geopandas.GeoDataFrame()
             
             if not crs:
@@ -671,9 +702,9 @@ class dxWithMx():
         :type df_V3_VKNOT: df
         
         :return df_V3_VKNOT: df_V3_KNOT expanded
-        :type df_V3_KNOT: df        
+        :type df_V3_KNOT: df
         
-        KNOT is the German abbreviation for Nodes (defined in the SIR 3S model). In the returned V3_KNOT (one row per Edge) the following columns are added:
+        KNOT is the German abbreviation for Nodes (defined in the SIR 3S model). In the returned V3_KNOT (one row per Node) the following columns are added:
 
         +-----------------------------+------------------------------------------------------+
         | Column Name                 | Description                                          |
@@ -683,10 +714,15 @@ class dxWithMx():
         | dPH                         | STAT (PHSL-PHRL)-result if Node-Partner is defined   |
         |                             | (i.e. bar)                                           |
         +-----------------------------+------------------------------------------------------+
-        | QM                          | STAT QM-result                                       |
+        | QM                          | STAT QM-result (i.e. t/h, m3/h, l/s, ...)            |
         +-----------------------------+------------------------------------------------------+
         | srcvector                   | Source signature vector eg. [30, 0, 20, 50]          |
         +-----------------------------+------------------------------------------------------+
+        | T                           | STAT T-result                                        |
+        +-----------------------------+------------------------------------------------------+
+        | M                           | STAT M-result (kg/s)                                 |
+        +-----------------------------+------------------------------------------------------+
+                
     
         """   
                 
@@ -696,8 +732,6 @@ class dxWithMx():
         try: 
                     
             t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
-            
-
             
             try:                                                         
                  PH=('STAT'
@@ -747,6 +781,7 @@ class dxWithMx():
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                  logger.debug(logStrTmp) 
                  logger.debug("{0:s}{1:s}".format(logStr,'Constructing col dPH in V3_KNOT failed.'))      
+
             try:                                                         
                 qs=('STAT'
                             ,'KNOT~*~*~*~ESQUELLSP'
@@ -763,7 +798,34 @@ class dxWithMx():
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                 logger.debug(logStrTmp) 
-                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col srcvector in V3_KNOT failed.'))                
+                logger.debug("{0:s}{1:s}".format(logStr,'Constructing col srcvector in V3_KNOT failed.'))        
+
+            try:                                                         
+                 T=('STAT'
+                             ,'KNOT~*~*~*~T'
+                             ,t0
+                             ,t0
+                             )
+                 df_V3_KNOT['T']=df_V3_KNOT[T]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_KNOT['T'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col T in V3_KNOT failed.'))                
+
+            try:                                                         
+                 M=('STAT'
+                             ,'KNOT~*~*~*~M'
+                             ,t0
+                             ,t0
+                             )
+                 df_V3_KNOT['M']=df_V3_KNOT[M]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_KNOT['M'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col M in V3_KNOT failed.'))                       
+
             return df_V3_KNOT   
         except dxWithMxError:
             raise            
