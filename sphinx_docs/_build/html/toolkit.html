@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toolkit (Work In Progress) &mdash; PT3S 90.14.46.0.dev1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="For Developers" href="developers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/pt3s_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">Classes and Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">For Developers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Toolkit (Work In Progress)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-is-the-toolkit-valuable-when-working-with-sir-3s">Why is the Toolkit valuable when Working with SIR 3S</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-toolkit">Install Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-manual">User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-1-create-new-model">Example 1: Create new model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PT3S</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Toolkit (Work In Progress)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/toolkit.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="toolkit-work-in-progress">
+<h1>Toolkit (Work In Progress)<a class="headerlink" href="#toolkit-work-in-progress" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a preliminary shortened draft of a documentation for the SIR 3S Toolkit. In the future, we hope to offer a separate documentation for the Toolkit just as complete and user-friendly as the current PT3S version or maybe something better. Also important to note is that the Toolkit is not publicly available yet and therefore this documentation is just a guideline for people with access.</p>
+</div>
+<p>Welcome to the Getting Started guide for the SIR 3S Toolkit! This guide is your first step towards understanding and utilizing the Toolkit. The purpose of the Toolkit and its applications will be explained.</p>
+<section id="why-is-the-toolkit-valuable-when-working-with-sir-3s">
+<h2>Why is the Toolkit valuable when Working with SIR 3S<a class="headerlink" href="#why-is-the-toolkit-valuable-when-working-with-sir-3s" title="Permalink to this heading"></a></h2>
+<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+<p><strong>The SIR 3S Toolkit is only of interest to users with access to SIR 3S models.</strong></p>
+</section>
+<section id="install-toolkit">
+<h2>Install Toolkit<a class="headerlink" href="#install-toolkit" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current deployment process is not optimized.</p>
+</div>
+<p>To install the Toolkit, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Install SIR 3S Version with Python Compatibility</strong>: Copy <cite>S:/Softwareentwicklung/SIR 3S/Sir3S-90/Release_Intern/2024-11-26_Release_Quebec(Alpha)/SirCalc-90-15-00-12_Quebec.alpha_x64.zip</cite> and <cite>S:/Softwareentwicklung/SIR 3S/Sir3S-90/Release_Intern/2024-11-26_Release_Quebec(Alpha)/SirGraf-90-15-00-04x64.ZIP</cite> to your local machine preferably to <cite>C:/3S/SIR 3S Entwicklung</cite></p></li>
+<li><p><strong>Unpack .zip files</strong>: Unpack both zip-folders.</p></li>
+<li><p><strong>Get Common directory for SIR 3S 90</strong>: Copy <cite>S:/Softwareentwicklung/SIR 3S/Sir3S-90/Common</cite> to <cite>C:/3S/SIR 3S Entwicklung</cite></p></li>
+<li><p><strong>Get License for SIR 3S 90</strong>: Copy <cite>SIR3S-90.LIC</cite> from <cite>T:/SCRATCH/Jablonski</cite> to <cite>C:/3S/SIR 3S Entwicklung/Common</cite></p></li>
+<li><p><strong>Get Toolkit dll</strong>: Copy <cite>Sir3S_Toolkit.dll</cite> from <cite>T:/SCRATCH/Jablonski</cite> to the <cite>C:/3S/SIR 3S Entwicklung/SirGraf-90-15-00-04x64</cite> directory in the new SIR 3S Installation</p></li>
+<li><p><strong>Upgrade pip and install numpy</strong>: Open a cmd and enter the following commands.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:/3S/SIR 3S Entwicklung/SirGraf-90-15-00-04x64/Python312&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+pip<span class="w"> </span>install<span class="w"> </span>numpy
+</pre></div>
+</div>
+</li>
+<li><p><strong>Get Current Work Package</strong>: Copy the most recent work package version from <cite>T:/SCRATCH/Nischal/Work_Packages/Toolkit_WorkPackage</cite> to <cite>C:/Users/User/3S</cite> and rename it to <cite>Toolkit_WorkPackage</cite> (for uniformity and practicality)</p></li>
+<li><p><strong>Install Toolkit in editable mode:</strong> Open a cmd and enter the following commands.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:/3S/SIR 3S Entwicklung/SirGraf-90-15-00-04x64/Python312&quot;</span>
+python.exe<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;C:/Users/User/3S/Toolkit_WorkPackage&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Edit config.txt file:</strong> Open <cite>C:/Users/jablonski/3S/Toolkit_WorkPackage/PythonWrapperToolkit/Config.txt</cite> and change the content to <cite>C:/3S/SIR 3S Entwicklung/SirGraf-90-15-00-04x64</cite></p></li>
+</ol>
+<p>Now you should be good to go to use the Toolkit in the Python Console in your new SirGraf installation, but be aware that if you want to use the Toolkit in another python environment, you will have to install it there in editable mode as well.</p>
+</section>
+<section id="user-manual">
+<h2>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this heading"></a></h2>
+<p>To get a general understanding of how the Toolkit works and get an overview of the provided functions, refer to the following pdf.</p>
+<a href="TOOLKIT_USER_MANUAL.pdf">Open PDF</a>
+<br><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As the Toolkit is rapidly evolving as of now, in some cases better ways to solve certain tasks than presented in the Examples have been implemented by now.</p>
+</div>
+<p>The examples currentley still rely on data from PT3S examples therefore PT3S has to be installed.</p>
+<section id="example-1-create-new-model">
+<span id="ex1"></span><h3>Example 1: Create new model<a class="headerlink" href="#example-1-create-new-model" title="Permalink to this heading"></a></h3>
+<p>This example demonstrates how to set up a new SIR 3S model. Nodes and pipes are inserted and the model is calculated.</p>
+<p>You can view the Notebook <a class="reference external" href="Toolkit_Example1.html">here</a>.</p>
+<p>You can download the Notebook file <a class="reference download internal" download="" href="_downloads/1f3e463cf18d805eecf877faa36a512b/Toolkit_Example1.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="developers.html" class="btn btn-neutral float-left" title="For Developers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1986-2025, 3S Consult GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

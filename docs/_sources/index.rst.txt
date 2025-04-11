@@ -26,6 +26,7 @@ Contents:
    objects
    releases
    developers
+   toolkit
 * :ref:`genindex`
 
 .. meta::

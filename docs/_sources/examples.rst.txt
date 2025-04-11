@@ -103,8 +103,8 @@ You can download the Notebook file :download:`here <Example7.ipynb>`.
 
 .. _ex8:
 
-Example 8: pp - pandapipes
---------------------------
+Example 8: pandapipes
+---------------------
 
 This Example demonstrates a pandapipes calculation of a 1-pipe, 2-nodes SIR 3S model.
 

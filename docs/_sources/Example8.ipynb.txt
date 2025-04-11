@@ -4,14 +4,55 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Example 8: pp - pandapipes"
+    "# Example 8: pandapipes"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This Example demonstrates a pandapipes calculation of a 1-pipe, 2-nodes SIR 3S model."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# PT3S Release"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#pip install PT3S -U --no-deps"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Necessary packages for this Example"
    ]
   },
   {
    "cell_type": "raw",
    "metadata": {},
    "source": [
-    "This Example demonstrates a pandapipes calculation of a 1-pipe, 2-nodes SIR 3S model."
+    "When running this example for the first time on your machine, please execute the cell below. Afterward, you may need to restart the kernel (using the ‘fast-forward’ button)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "!pip install -q pandapipes numba "
    ]
   },
   {
@@ -23,7 +64,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 3,
    "metadata": {
     "vscode": {
      "languageId": "raw"
@@ -62,9 +103,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 4,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "INFO    ; NumExpr defaulting to 8 threads.\n"
+     ]
+    }
+   ],
    "source": [
     "try:\n",
     "    from PT3S import dxAndMxHelperFcts\n",
@@ -74,7 +123,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -89,9 +138,24 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 6,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "INFO    ; Dx.__init__: dbFile (abspath): c:\\users\\aUserName\\3s\\pt3s\\Examples\\Example8.db3 exists readable ...\n",
+      "INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value(ID=3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined ...\n",
+      "INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\\Examples\\Example8-dx.pkl exists and is overwritten...\n",
+      "INFO    ; dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used ...\n",
+      "INFO    ; Mx.setResultsToMxsFile: Mxs: ..\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.1.MXS reading ...\n",
+      "INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\\Examples\\Example8-mx-_Examples_WDExample8_B1_V0_BZ1_M_1_0_1_1_MX1.pkl exists and is overwritten...\n",
+      "INFO    ; dxWithMx.__init__: Example8: processing dx and mx ...\n",
+      "INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\\Examples\\Example8-m.pkl exists and is overwritten...\n"
+     ]
+    }
+   ],
    "source": [
     "m=dxAndMxHelperFcts.readDxAndMx(dbFile=dbFile)"
    ]
@@ -105,7 +169,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -115,7 +179,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -131,7 +195,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -149,76 +213,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "name",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "pn_bar",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "tfluid_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "height_m",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "in_service",
-         "rawType": "bool",
-         "type": "boolean"
-        },
-        {
-         "name": "type",
-         "rawType": "object",
-         "type": "string"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "056c9849-c7cb-48a8-90f6-a172fb2ec462",
-       "rows": [
-        [
-         "0",
-         "j1~5545156887373324999",
-         "10.0",
-         "363.15",
-         "0.0",
-         "True",
-         "junction"
-        ],
-        [
-         "1",
-         "j2~4658286599152640406",
-         "9.57851505279541",
-         "363.15",
-         "0.0",
-         "True",
-         "junction"
-        ]
-       ],
-       "shape": {
-        "columns": 6,
-        "rows": 2
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -275,7 +274,7 @@
        "1  j2~4658286599152640406   9.578515    363.15       0.0        True  junction"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -293,7 +292,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -302,7 +301,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -322,115 +321,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "name",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "from_junction",
-         "rawType": "uint32",
-         "type": "integer"
-        },
-        {
-         "name": "to_junction",
-         "rawType": "uint32",
-         "type": "integer"
-        },
-        {
-         "name": "std_type",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "length_km",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "diameter_m",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "k_mm",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "loss_coefficient",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "u_w_per_m2k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "text_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "qext_w",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "sections",
-         "rawType": "uint32",
-         "type": "integer"
-        },
-        {
-         "name": "in_service",
-         "rawType": "bool",
-         "type": "boolean"
-        },
-        {
-         "name": "type",
-         "rawType": "object",
-         "type": "string"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "f1b8d452-7717-4706-b76f-527d80b5787b",
-       "rows": [
-        [
-         "0",
-         "j1~j2~5436899515124385631",
-         "0",
-         "1",
-         null,
-         "1.0",
-         "0.2",
-         "0.25",
-         "0.0",
-         "0.0",
-         null,
-         "0.0",
-         "1",
-         "True",
-         "pipe"
-        ]
-       ],
-       "shape": {
-        "columns": 14,
-        "rows": 1
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -499,7 +394,7 @@
        "0        True  pipe  "
       ]
      },
-     "execution_count": 10,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -517,7 +412,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -537,67 +432,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "name",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "junction",
-         "rawType": "uint32",
-         "type": "integer"
-        },
-        {
-         "name": "p_bar",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "in_service",
-         "rawType": "bool",
-         "type": "boolean"
-        },
-        {
-         "name": "type",
-         "rawType": "object",
-         "type": "string"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "36dc446e-55a4-4fdb-8c7a-4a04d184960f",
-       "rows": [
-        [
-         "0",
-         "Src: j1~5545156887373324999",
-         "0",
-         "10.0",
-         "363.15",
-         "True",
-         "pt"
-        ]
-       ],
-       "shape": {
-        "columns": 6,
-        "rows": 1
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -644,7 +483,7 @@
        "0  Src: j1~5545156887373324999         0   10.0  363.15        True   pt"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 15,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -662,7 +501,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -682,67 +521,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "name",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "junction",
-         "rawType": "uint32",
-         "type": "integer"
-        },
-        {
-         "name": "mdot_kg_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "scaling",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "in_service",
-         "rawType": "bool",
-         "type": "boolean"
-        },
-        {
-         "name": "type",
-         "rawType": "object",
-         "type": "string"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "a374f069-780d-4163-82d8-44ac202815d8",
-       "rows": [
-        [
-         "0",
-         "Snk: j2~4658286599152640406",
-         "1",
-         "27.77777862548828",
-         "1.0",
-         "True",
-         "sink"
-        ]
-       ],
-       "shape": {
-        "columns": 6,
-        "rows": 1
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -792,7 +575,7 @@
        "0  sink  "
       ]
      },
-     "execution_count": 14,
+     "execution_count": 17,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -810,9 +593,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 18,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "INFO    ; numba is not installed. Install numba first before you set the 'use_numba' flag to True. The pipeflow will be performed without numba speedup.\n"
+     ]
+    }
+   ],
    "source": [
     "pp.pipeflow(net\n",
     "            ,friction_model='colebrook'        \n",
@@ -836,48 +627,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 19,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "p_bar",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_k",
-         "rawType": "float64",
-         "type": "float"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "685273c8-5a67-4c76-a425-b3b9b60fdfd4",
-       "rows": [
-        [
-         "0",
-         "10.0",
-         "363.15"
-        ],
-        [
-         "1",
-         "9.570866636624316",
-         "363.15"
-        ]
-       ],
-       "shape": {
-        "columns": 2,
-        "rows": 2
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -922,7 +676,7 @@
        "1   9.570867  363.15"
       ]
      },
-     "execution_count": 16,
+     "execution_count": 19,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -940,97 +694,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 20,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "v_mean_m_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "p_from_bar",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "p_to_bar",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_from_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_to_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_outlet_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "mdot_from_kg_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "mdot_to_kg_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "vdot_m3_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "reynolds",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "lambda",
-         "rawType": "float64",
-         "type": "float"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "cb935cc5-9da7-49d9-a176-96d0f0e0415f",
-       "rows": [
-        [
-         "0",
-         "0.9160664902400983",
-         "10.0",
-         "9.570866636624316",
-         "363.15",
-         "363.15",
-         "363.15",
-         "27.77777862548828",
-         "-27.77777862548828",
-         "0.028779077559380792",
-         "562357.1552959172",
-         "0.021192277643790672"
-        ]
-       ],
-       "shape": {
-        "columns": 11,
-        "rows": 1
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -1093,7 +761,7 @@
        "0  0.021192  "
       ]
      },
-     "execution_count": 17,
+     "execution_count": 20,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1111,37 +779,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "mdot_kg_per_s",
-         "rawType": "float64",
-         "type": "float"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "29d40674-01f2-4e77-8d93-79001ea6693d",
-       "rows": [
-        [
-         "0",
-         "-27.77777862548828"
-        ]
-       ],
-       "shape": {
-        "columns": 1,
-        "rows": 1
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -1178,7 +820,7 @@
        "0     -27.777779"
       ]
      },
-     "execution_count": 18,
+     "execution_count": 21,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1196,37 +838,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 22,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "mdot_kg_per_s",
-         "rawType": "float64",
-         "type": "float"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "e9d3b107-90a1-4938-bcf0-05a0c04185b3",
-       "rows": [
-        [
-         "0",
-         "27.77777862548828"
-        ]
-       ],
-       "shape": {
-        "columns": 1,
-        "rows": 1
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -1263,7 +879,7 @@
        "0      27.777779"
       ]
      },
-     "execution_count": 19,
+     "execution_count": 22,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1288,7 +904,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1297,7 +913,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 24,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1306,7 +922,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 25,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1324,1140 +940,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 26,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "pk",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkDE",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "rk",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "tk",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "NAME",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "KTYP",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "XKOR",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "YKOR",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "ZKOR",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "QM_EIN",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "LFAKT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "fkPZON",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkFSTF",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkUTMP",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkFQPS",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkCONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fk2LKNOT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "BESCHREIBUNG",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "GEOMWKB",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "DELETED",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "SELECT1",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "IDREFERENZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "KENNUNG",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "IPLANUNG",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "KVR",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "DRAKONZ",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "pk_BZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkDE_BZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fk",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkPVAR",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkQVAR",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkLFKT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "PH_EIN",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "TM",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "TE",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "PH_MIN",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GRAF",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "MId",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "MText",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "Basis",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "Variante",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "BZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "Geaendert",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "Erstellt",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "pk_VMBZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkBASIS",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkVARIANTE",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkBZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "MZ",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "MT",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "pk_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkDE_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "rk_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "tk_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "ID_CONT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "NAME_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "IDPARENT_CONT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "rkPARENT_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "LFDNR_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GRAF_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "FONT_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GEOM_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "DELETED_CONT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "SELECT1_CONT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "IDREFERENZ_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "pk_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkDE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "rk_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkKNOT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkCONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "SHOWNAME_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "POSNAME_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "POINTINSERTX_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "POINTINSERTY_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "SYMBOLFACT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "DISPLAYMODE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "DELETED_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "SELECT1_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "MId_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "MText_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "Basis_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "Variante_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "BZ_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "Geaendert_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "Erstellt_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "pk_VMBASIS_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkBASIS_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkBZ_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "MZ_VKNO",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "MT_VKNO",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "MId_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "MText_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "Basis_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "Variante_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "BZ_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "Geaendert_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "Erstellt_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "pk_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkBASIS_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkVARIANTE_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkBZ_VMVARIANTE_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "MZ_VMVARIANTE_VKNO",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "MT_VMVARIANTE_VKNO",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "pk_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkDE_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "rk_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "tk_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "ID_CONT_VKNO",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "NAME_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "IDPARENT_CONT_VKNO",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "rkPARENT_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "LFDNR_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GRAF_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "FONT_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GEOM_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "DELETED_CONT_VKNO",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "SELECT1_CONT_VKNO",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "IDREFERENZ_CONT_VKNO",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "NAME_LFKT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "NAME_PVAR",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "NAME_PZON",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "NAME_QVAR",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "NAME_UTMP",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "NAME_FSTF",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "NAME_FQPS",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "mx2Idx",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~BCIND', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~DP', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~DPH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~FITT_BASTYPE', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~FITT_DP1', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~FITT_DP2', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~FITT_DP3', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~FITT_STATE', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~IAKTIV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~LFAKTAKT', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~M', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~P', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~PDAMPF', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~PHMINMAXDIF', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~PH_EIN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~PH_MIN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~QM', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~TTR', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~VOLD', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "PH",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "QM",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "dPH",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "T",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "M",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "ppID",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "p_bar",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_k",
-         "rawType": "float64",
-         "type": "float"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "010ab294-df70-4bb9-9252-bdacaef32679",
-       "rows": [
-        [
-         "3",
-         "5545156887373324999",
-         "4982567935033599504",
-         "5545156887373324999",
-         "5545156887373324999",
-         "j1",
-         "PKON",
-         "300.00001192092896",
-         "649.9999761581421",
-         "0.0",
-         null,
-         "1.0",
-         "-1",
-         "5297658028320820931",
-         "5154968777807259962",
-         "-1",
-         "5060822126933396627",
-         "-1",
-         "Template Element for single Node Creation",
-         null,
-         null,
-         null,
-         "3S5671171592228004325",
-         null,
-         "1.0",
-         null,
-         null,
-         "5473573628395650757",
-         "4804028781596645401",
-         "5545156887373324999",
-         "-1",
-         "-1",
-         "-1",
-         "10.0",
-         null,
-         "90.0",
-         null,
-         "b'\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x02\\x00\\x00\\x00\\x00\\x00\\x80\\xa8\\xff\\xffx@\\x00\\x00\\x80v\\xff\\x1f|@\\x00\\x00\\x00\\x00\\x00\\x00\\x14@\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'",
-         "M-1-0-1",
-         "",
-         "B1",
-         "V0",
-         "BZ1",
-         "2025-04-09 13:12:25",
-         "2025-04-08 11:45:59",
-         "5703508123076770847",
-         "4982567935033599504",
-         "5151772185690695097",
-         "4804028781596645401",
-         "1",
-         "1",
-         "5060822126933396627",
-         "4982567935033599504",
-         "5060822126933396627",
-         "5060822126933396627",
-         "1001.0",
-         "M-1-0-1",
-         "1001.0",
-         "5060822126933396627",
-         null,
-         null,
-         null,
-         "b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00I@\\x00\\x00\\x00\\x00\\x00\\x00I@\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\xb3@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\xfc\\xa9\\xf1\\xd2MbP?\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?'",
-         "0.0",
-         "0.0",
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         "Standard",
-         "Standard",
-         null,
-         null,
-         "24.0",
-         "-3.333333443937845e+32",
-         "-3.333333443937845e+32",
-         "-333333333.0",
-         "-3.333333443937845e+32",
-         "-3.333333443937845e+32",
-         "-3.333333443937845e+32",
-         "-333333333.0",
-         "10.0",
-         "0.0",
-         "1.0",
-         "27.77777862548828",
-         "11.0",
-         "0.7010999917984009",
-         "10.0",
-         "0.0",
-         "10.0",
-         "0.0",
-         "100.0",
-         "965.2000122070312",
-         "90.0",
-         "0.0",
-         "0.0",
-         "10.0",
-         "100.0",
-         null,
-         "90.0",
-         "27.77777862548828",
-         "0",
-         "10.0",
-         "363.15"
-        ],
-        [
-         "4",
-         "4658286599152640406",
-         "4982567935033599504",
-         "4658286599152640406",
-         "4658286599152640406",
-         "j2",
-         "QKON",
-         "449.9999165534973",
-         "499.9998688697815",
-         "0.0",
-         "-100.0",
-         "1.0",
-         "-1",
-         "5297658028320820931",
-         "5154968777807259962",
-         "-1",
-         "5060822126933396627",
-         "-1",
-         "Template Element for single Node Creation",
-         null,
-         null,
-         null,
-         "3S5671171592228004325",
-         null,
-         "1.0",
-         null,
-         null,
-         "4927625957676832607",
-         "4804028781596645401",
-         "4658286599152640406",
-         "-1",
-         "-1",
-         "-1",
-         null,
-         null,
-         null,
-         null,
-         "b'\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xc0]\\x00\\x00\\x89@\\x00\\x00\\x80\\xa8\\xff\\x1f|@\\x00\\x00\\x00\\x00\\x00\\x00\\x14@\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'",
-         "M-1-0-1",
-         "",
-         "B1",
-         "V0",
-         "BZ1",
-         "2025-04-09 13:12:25",
-         "2025-04-08 11:45:59",
-         "5703508123076770847",
-         "4982567935033599504",
-         "5151772185690695097",
-         "4804028781596645401",
-         "1",
-         "1",
-         "5060822126933396627",
-         "4982567935033599504",
-         "5060822126933396627",
-         "5060822126933396627",
-         "1001.0",
-         "M-1-0-1",
-         "1001.0",
-         "5060822126933396627",
-         null,
-         null,
-         null,
-         "b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00I@\\x00\\x00\\x00\\x00\\x00\\x00I@\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\xb3@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\xfc\\xa9\\xf1\\xd2MbP?\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?'",
-         "0.0",
-         "0.0",
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         "Standard",
-         "Standard",
-         null,
-         null,
-         "21.0",
-         "-3.333333443937845e+32",
-         "-3.333333443937845e+32",
-         "-333333333.0",
-         "-3.333333443937845e+32",
-         "-3.333333443937845e+32",
-         "-3.333333443937845e+32",
-         "-333333333.0",
-         "9.57851505279541",
-         "0.0",
-         "1.0",
-         "-27.77777862548828",
-         "10.57851505279541",
-         "0.7010999917984009",
-         "9.57851505279541",
-         "0.0",
-         "9.57851505279541",
-         "0.0",
-         "-100.0",
-         "965.2000122070312",
-         "90.0",
-         "0.30877140164375305",
-         "0.0",
-         "9.57851505279541",
-         "-100.0",
-         null,
-         "90.0",
-         "-27.77777862548828",
-         "1",
-         "9.570866636624316",
-         "363.15"
-        ]
-       ],
-       "shape": {
-        "columns": 158,
-        "rows": 2
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -3174,7 +1661,7 @@
        "4   9.578515 -100.0  None  90.0 -27.777779     1   9.570867  363.15  "
       ]
      },
-     "execution_count": 23,
+     "execution_count": 26,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -3185,847 +1672,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 27,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
-       "columns": [
-        {
-         "name": "index",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "pk",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkDE",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "rk",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "tk",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkKI",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkKK",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkDTRO_ROWD",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkLTGR",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkSTRASSE",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "L",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "LZU",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "RAU",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "JLAMBS",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "LAMBDA0",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "ZEIN",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "ZAUS",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "ZUML",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "ASOLL",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "INDSCHALL",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "BAUJAHR",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "HAL",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "fkCONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fk2LROHR",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "BESCHREIBUNG",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "GEOMWKB",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "DELETED",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "SELECT1",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "IDREFERENZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "KENNUNG",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "IPLANUNG",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "KVR",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "pk_BZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkDE_BZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fk",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "QSVB",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "IRTRENN",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "LECKSTATUS",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "LECKSTART",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "LECKEND",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "LECKORT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "LECKMENGE",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "IMPTNZ",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "ZVLIMPTNZ",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "KANTENZV",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GEOM",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GRAF",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "MId",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "MText",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "Basis",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "Variante",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "BZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "Geaendert",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "Erstellt",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "pk_VMBZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkBASIS",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkVARIANTE",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkBZ",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "MZ",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "MT",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "pk_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "fkDE_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "rk_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "tk_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "ID_CONT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "NAME_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "IDPARENT_CONT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "rkPARENT_CONT",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "LFDNR_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GRAF_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "FONT_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "GEOM_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "DELETED_CONT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "SELECT1_CONT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "IDREFERENZ_CONT",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "NAME_DTRO",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "DN",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "DI",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "DA",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "S",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "KT",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "PN",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "Am2",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "Vm3",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "NAME_LTGR",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "NAME_STRASSE",
-         "rawType": "object",
-         "type": "unknown"
-        },
-        {
-         "name": "tk_i",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "NAME_i",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "tk_k",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "NAME_k",
-         "rawType": "object",
-         "type": "string"
-        },
-        {
-         "name": "mx2NofPts",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "dL",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "mx2Idx",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~A', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~DTTR', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~DWVERL', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~DWVERLABS', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~IAKTIV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~IRTRENN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~JV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~LAMBDA', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~MAV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~PDAMPF', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~PHR', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~PMIN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~QMAV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~VAV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~VOLDA', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~WVL', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~ZAUS', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'ROHR~*~*~*~ZEIN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "QMAVAbs",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "VAVAbs",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "PHRAbs",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "JVAbs",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "MAV",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "LAMBDA",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "ppID",
-         "rawType": "int64",
-         "type": "integer"
-        },
-        {
-         "name": "v_mean_m_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "p_from_bar",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "p_to_bar",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_from_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_to_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "t_outlet_k",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "mdot_from_kg_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "mdot_to_kg_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "vdot_m3_per_s",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "reynolds",
-         "rawType": "float64",
-         "type": "float"
-        },
-        {
-         "name": "lambda",
-         "rawType": "float64",
-         "type": "float"
-        }
-       ],
-       "conversionMethod": "pd.DataFrame",
-       "ref": "c1e6c990-1a24-4b7a-bbf1-093b43d4a1e3",
-       "rows": [
-        [
-         "0",
-         "5436899515124385631",
-         "4982567935033599504",
-         "5436899515124385631",
-         "5436899515124385631",
-         "5545156887373324999",
-         "4658286599152640406",
-         "4988912237861306746",
-         "5515842498618683031",
-         "-1",
-         "1000.0",
-         null,
-         "0.25",
-         "1.0",
-         "0.02500000037252903",
-         null,
-         null,
-         null,
-         "1000.0",
-         null,
-         null,
-         null,
-         "5060822126933396627",
-         "-1",
-         "Template Element for single Pipe Creation",
-         null,
-         null,
-         null,
-         "3S5201225267441779810",
-         null,
-         "1.0",
-         null,
-         "4741144811589278980",
-         "4804028781596645401",
-         "5436899515124385631",
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         null,
-         "b'\\x01\\x02\\x00\\x00\\x00\\x02\\x00\\x00\\x00\\x00\\x00\\x80\\xa8\\xff\\xffx@\\x00\\x00\\x80v\\xff\\x1f|@\\x00\\x00\\xc0]\\x00\\x00\\x89@\\x00\\x00\\x80\\xa8\\xff\\x1f|@'",
-         "b'\\x00\\x00\\x80?\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\xfc\\xa9\\xf1\\xd2MbP?\\x04\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'",
-         "M-1-0-1",
-         "",
-         "B1",
-         "V0",
-         "BZ1",
-         "2025-04-09 13:12:25",
-         "2025-04-08 11:45:59",
-         "5703508123076770847",
-         "4982567935033599504",
-         "5151772185690695097",
-         "4804028781596645401",
-         "1",
-         "1",
-         "5060822126933396627",
-         "4982567935033599504",
-         "5060822126933396627",
-         "5060822126933396627",
-         "1001.0",
-         "M-1-0-1",
-         "1001.0",
-         "5060822126933396627",
-         null,
-         null,
-         null,
-         "b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00I@\\x00\\x00\\x00\\x00\\x00\\x00I@\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\xb3@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\xfc\\xa9\\xf1\\xd2MbP?\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?'",
-         "0.0",
-         "0.0",
-         null,
-         "STDROHR",
-         "200",
-         "200.0",
-         "0.0",
-         "0.0",
-         "0.0",
-         "0.0",
-         "0.031415926535897934",
-         "31.415926535897935",
-         "STDROHR",
-         null,
-         "5545156887373324999",
-         "j1",
-         "4658286599152640406",
-         "j2",
-         "11",
-         "100.0",
-         "0",
-         "0.0",
-         "0.30877140164375305",
-         "0.0",
-         "0.0",
-         "0.0",
-         "0.0",
-         "0.41403910517692566",
-         "0.02120133303105831",
-         "27.77777862548828",
-         "0.7010999917984009",
-         "0.41403907537460327",
-         "10.57851505279541",
-         "100.0",
-         "0.8996227383613586",
-         "-3.333333443937845e+32",
-         "0.0",
-         "0.0",
-         "0.0",
-         "10.0",
-         "10.0",
-         "90.0",
-         "965.2000122070312",
-         "9.57851505279541",
-         "9.57851505279541",
-         "90.0",
-         "965.2000122070312",
-         "100.0",
-         "0.8996227383613586",
-         "0.41403907537460327",
-         "0.41403910517692566",
-         "27.77777862548828",
-         "0.02120133303105831",
-         "0",
-         "0.9160664902400983",
-         "10.0",
-         "9.570866636624316",
-         "363.15",
-         "363.15",
-         "363.15",
-         "27.77777862548828",
-         "-27.77777862548828",
-         "0.028779077559380792",
-         "562357.1552959172",
-         "0.021192277643790672"
-        ]
-       ],
-       "shape": {
-        "columns": 136,
-        "rows": 1
-       }
-      },
       "text/html": [
        "<div>\n",
        "<style scoped>\n",
@@ -4476,7 +2127,7 @@
        "0  0.021192  "
       ]
      },
-     "execution_count": 24,
+     "execution_count": 27,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4487,7 +2138,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 28,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -4536,54 +2187,54 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 29,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/html": [
        "<style type=\"text/css\">\n",
-       "#T_f9c5e_row0_col2, #T_f9c5e_row0_col4, #T_f9c5e_row1_col2, #T_f9c5e_row1_col4 {\n",
+       "#T_dae25_row0_col2, #T_dae25_row0_col4, #T_dae25_row1_col2, #T_dae25_row1_col4 {\n",
        "  color: green;\n",
        "}\n",
        "</style>\n",
-       "<table id=\"T_f9c5e\">\n",
+       "<table id=\"T_dae25\">\n",
        "  <caption>SIR 3S vs. pp: Junctions</caption>\n",
        "  <thead>\n",
        "    <tr>\n",
        "      <th class=\"blank level0\" >&nbsp;</th>\n",
-       "      <th id=\"T_f9c5e_level0_col0\" class=\"col_heading level0 col0\" >NAME</th>\n",
-       "      <th id=\"T_f9c5e_level0_col1\" class=\"col_heading level0 col1\" >PH</th>\n",
-       "      <th id=\"T_f9c5e_level0_col2\" class=\"col_heading level0 col2\" >p_bar</th>\n",
-       "      <th id=\"T_f9c5e_level0_col3\" class=\"col_heading level0 col3\" >T</th>\n",
-       "      <th id=\"T_f9c5e_level0_col4\" class=\"col_heading level0 col4\" >t_k</th>\n",
+       "      <th id=\"T_dae25_level0_col0\" class=\"col_heading level0 col0\" >NAME</th>\n",
+       "      <th id=\"T_dae25_level0_col1\" class=\"col_heading level0 col1\" >PH</th>\n",
+       "      <th id=\"T_dae25_level0_col2\" class=\"col_heading level0 col2\" >p_bar</th>\n",
+       "      <th id=\"T_dae25_level0_col3\" class=\"col_heading level0 col3\" >T</th>\n",
+       "      <th id=\"T_dae25_level0_col4\" class=\"col_heading level0 col4\" >t_k</th>\n",
        "    </tr>\n",
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th id=\"T_f9c5e_level0_row0\" class=\"row_heading level0 row0\" >3</th>\n",
-       "      <td id=\"T_f9c5e_row0_col0\" class=\"data row0 col0\" >j1</td>\n",
-       "      <td id=\"T_f9c5e_row0_col1\" class=\"data row0 col1\" >10.000</td>\n",
-       "      <td id=\"T_f9c5e_row0_col2\" class=\"data row0 col2\" >10.000</td>\n",
-       "      <td id=\"T_f9c5e_row0_col3\" class=\"data row0 col3\" >90.00</td>\n",
-       "      <td id=\"T_f9c5e_row0_col4\" class=\"data row0 col4\" >363.15</td>\n",
+       "      <th id=\"T_dae25_level0_row0\" class=\"row_heading level0 row0\" >3</th>\n",
+       "      <td id=\"T_dae25_row0_col0\" class=\"data row0 col0\" >j1</td>\n",
+       "      <td id=\"T_dae25_row0_col1\" class=\"data row0 col1\" >10.000</td>\n",
+       "      <td id=\"T_dae25_row0_col2\" class=\"data row0 col2\" >10.000</td>\n",
+       "      <td id=\"T_dae25_row0_col3\" class=\"data row0 col3\" >90.00</td>\n",
+       "      <td id=\"T_dae25_row0_col4\" class=\"data row0 col4\" >363.15</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th id=\"T_f9c5e_level0_row1\" class=\"row_heading level0 row1\" >4</th>\n",
-       "      <td id=\"T_f9c5e_row1_col0\" class=\"data row1 col0\" >j2</td>\n",
-       "      <td id=\"T_f9c5e_row1_col1\" class=\"data row1 col1\" >9.579</td>\n",
-       "      <td id=\"T_f9c5e_row1_col2\" class=\"data row1 col2\" >9.571</td>\n",
-       "      <td id=\"T_f9c5e_row1_col3\" class=\"data row1 col3\" >90.00</td>\n",
-       "      <td id=\"T_f9c5e_row1_col4\" class=\"data row1 col4\" >363.15</td>\n",
+       "      <th id=\"T_dae25_level0_row1\" class=\"row_heading level0 row1\" >4</th>\n",
+       "      <td id=\"T_dae25_row1_col0\" class=\"data row1 col0\" >j2</td>\n",
+       "      <td id=\"T_dae25_row1_col1\" class=\"data row1 col1\" >9.579</td>\n",
+       "      <td id=\"T_dae25_row1_col2\" class=\"data row1 col2\" >9.571</td>\n",
+       "      <td id=\"T_dae25_row1_col3\" class=\"data row1 col3\" >90.00</td>\n",
+       "      <td id=\"T_dae25_row1_col4\" class=\"data row1 col4\" >363.15</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n"
       ],
       "text/plain": [
-       "<pandas.io.formats.style.Styler at 0x19b1c446f90>"
+       "<pandas.io.formats.style.Styler at 0x1f5e196e610>"
       ]
      },
-     "execution_count": 26,
+     "execution_count": 29,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4594,7 +2245,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 30,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -4628,52 +2279,52 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 31,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/html": [
        "<style type=\"text/css\">\n",
-       "#T_6e8cd_row0_col4, #T_6e8cd_row0_col6 {\n",
+       "#T_0154b_row0_col4, #T_0154b_row0_col6 {\n",
        "  color: green;\n",
        "}\n",
        "</style>\n",
-       "<table id=\"T_6e8cd\">\n",
+       "<table id=\"T_0154b\">\n",
        "  <caption>SIR 3S vs. pp: Pipes</caption>\n",
        "  <thead>\n",
        "    <tr>\n",
        "      <th class=\"blank level0\" >&nbsp;</th>\n",
-       "      <th id=\"T_6e8cd_level0_col0\" class=\"col_heading level0 col0\" >NAME_i</th>\n",
-       "      <th id=\"T_6e8cd_level0_col1\" class=\"col_heading level0 col1\" >NAME_k</th>\n",
-       "      <th id=\"T_6e8cd_level0_col2\" class=\"col_heading level0 col2\" >QMAVAbs</th>\n",
-       "      <th id=\"T_6e8cd_level0_col3\" class=\"col_heading level0 col3\" >MAV</th>\n",
-       "      <th id=\"T_6e8cd_level0_col4\" class=\"col_heading level0 col4\" >mdot_from_kg_per_s</th>\n",
-       "      <th id=\"T_6e8cd_level0_col5\" class=\"col_heading level0 col5\" >LAMBDA</th>\n",
-       "      <th id=\"T_6e8cd_level0_col6\" class=\"col_heading level0 col6\" >lambda</th>\n",
-       "      <th id=\"T_6e8cd_level0_col7\" class=\"col_heading level0 col7\" >reynolds</th>\n",
+       "      <th id=\"T_0154b_level0_col0\" class=\"col_heading level0 col0\" >NAME_i</th>\n",
+       "      <th id=\"T_0154b_level0_col1\" class=\"col_heading level0 col1\" >NAME_k</th>\n",
+       "      <th id=\"T_0154b_level0_col2\" class=\"col_heading level0 col2\" >QMAVAbs</th>\n",
+       "      <th id=\"T_0154b_level0_col3\" class=\"col_heading level0 col3\" >MAV</th>\n",
+       "      <th id=\"T_0154b_level0_col4\" class=\"col_heading level0 col4\" >mdot_from_kg_per_s</th>\n",
+       "      <th id=\"T_0154b_level0_col5\" class=\"col_heading level0 col5\" >LAMBDA</th>\n",
+       "      <th id=\"T_0154b_level0_col6\" class=\"col_heading level0 col6\" >lambda</th>\n",
+       "      <th id=\"T_0154b_level0_col7\" class=\"col_heading level0 col7\" >reynolds</th>\n",
        "    </tr>\n",
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th id=\"T_6e8cd_level0_row0\" class=\"row_heading level0 row0\" >0</th>\n",
-       "      <td id=\"T_6e8cd_row0_col0\" class=\"data row0 col0\" >j1</td>\n",
-       "      <td id=\"T_6e8cd_row0_col1\" class=\"data row0 col1\" >j2</td>\n",
-       "      <td id=\"T_6e8cd_row0_col2\" class=\"data row0 col2\" >100.00</td>\n",
-       "      <td id=\"T_6e8cd_row0_col3\" class=\"data row0 col3\" >27.78</td>\n",
-       "      <td id=\"T_6e8cd_row0_col4\" class=\"data row0 col4\" >27.78</td>\n",
-       "      <td id=\"T_6e8cd_row0_col5\" class=\"data row0 col5\" >0.02120</td>\n",
-       "      <td id=\"T_6e8cd_row0_col6\" class=\"data row0 col6\" >0.02119</td>\n",
-       "      <td id=\"T_6e8cd_row0_col7\" class=\"data row0 col7\" >562357</td>\n",
+       "      <th id=\"T_0154b_level0_row0\" class=\"row_heading level0 row0\" >0</th>\n",
+       "      <td id=\"T_0154b_row0_col0\" class=\"data row0 col0\" >j1</td>\n",
+       "      <td id=\"T_0154b_row0_col1\" class=\"data row0 col1\" >j2</td>\n",
+       "      <td id=\"T_0154b_row0_col2\" class=\"data row0 col2\" >100.00</td>\n",
+       "      <td id=\"T_0154b_row0_col3\" class=\"data row0 col3\" >27.78</td>\n",
+       "      <td id=\"T_0154b_row0_col4\" class=\"data row0 col4\" >27.78</td>\n",
+       "      <td id=\"T_0154b_row0_col5\" class=\"data row0 col5\" >0.02120</td>\n",
+       "      <td id=\"T_0154b_row0_col6\" class=\"data row0 col6\" >0.02119</td>\n",
+       "      <td id=\"T_0154b_row0_col7\" class=\"data row0 col7\" >562357</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n"
       ],
       "text/plain": [
-       "<pandas.io.formats.style.Styler at 0x19b1c406910>"
+       "<pandas.io.formats.style.Styler at 0x1f5d6bf6fd0>"
       ]
      },
-     "execution_count": 28,
+     "execution_count": 31,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4681,13 +2332,6 @@
    "source": [
     "dfCmpPipes[['NAME_i','NAME_k','QMAVAbs','MAV', 'mdot_from_kg_per_s','LAMBDA','lambda','reynolds']].style.pipe(stylerPipes)"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   },
   {
    "cell_type": "markdown",
@@ -4698,7 +2342,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 32,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -4740,15 +2384,25 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 30,
+   "execution_count": 35,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "pIst=9.400 dp=0.000 k=0.9062 (dk=0.0078)\n"
+      "pIst=9.400 dp=0.000 k=0.9062 (dk=1.0000)\n"
      ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "(9.39972378512933, 0.90625)"
+      ]
+     },
+     "execution_count": 35,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
