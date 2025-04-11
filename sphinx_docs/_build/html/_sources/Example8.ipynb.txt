@@ -1,0 +1,4780 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Example 8: pp - pandapipes"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {},
+   "source": [
+    "This Example demonstrates a pandapipes calculation of a 1-pipe, 2-nodes SIR 3S model."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Logging"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "vscode": {
+     "languageId": "raw"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "import logging\n",
+    "\n",
+    "logger = logging.getLogger()  \n",
+    "\n",
+    "logFileName= r\"Example8.log\" \n",
+    "\n",
+    "loglevel = logging.DEBUG\n",
+    "logging.basicConfig(filename=logFileName\n",
+    "                        ,filemode='w'\n",
+    "                        ,level=loglevel\n",
+    "                        ,format=\"%(asctime)s ; %(name)-60s ; %(levelname)-7s ; %(message)s\")    \n",
+    "\n",
+    "fileHandler = logging.FileHandler(logFileName)     \n",
+    "\n",
+    "logger.addHandler(fileHandler)\n",
+    "\n",
+    "consoleHandler = logging.StreamHandler()\n",
+    "consoleHandler.setFormatter(logging.Formatter(\"%(levelname)-7s ; %(message)s\"))\n",
+    "consoleHandler.setLevel(logging.INFO)\n",
+    "logger.addHandler(consoleHandler)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Read SIR 3S Model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "try:\n",
+    "    from PT3S import dxAndMxHelperFcts\n",
+    "except:\n",
+    "    import dxAndMxHelperFcts"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dbFilename=\"Example8\"\n",
+    "import os\n",
+    "dbFile=os.path.join(os.path.dirname(os.path.abspath(dxAndMxHelperFcts.__file__))\n",
+    "                    +'/Examples/'\n",
+    "                    +dbFilename\n",
+    "                    +'.db3'\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m=dxAndMxHelperFcts.readDxAndMx(dbFile=dbFile)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Generate corresponding  pp model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandapipes as pp\n",
+    "net = pp.create_empty_network(fluid=\"water\") "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    " #m.V3_KNOT.columns.to_list()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## junctions"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# create junctions\n",
+    "js={}\n",
+    "for idx,row in m.V3_KNOT.iterrows():\n",
+    "    j=pp.create_junction(net\n",
+    "                       ,pn_bar=row['PH']\n",
+    "                       ,tfluid_k=273.15+row['T']\n",
+    "                       ,height_m=row['ZKOR']\n",
+    "                       ,name=f\"{row['NAME']}~{row['tk']}\"\n",
+    "    )    \n",
+    "    js[row['tk']]=j"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "name",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "pn_bar",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "tfluid_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "height_m",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "in_service",
+         "rawType": "bool",
+         "type": "boolean"
+        },
+        {
+         "name": "type",
+         "rawType": "object",
+         "type": "string"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "056c9849-c7cb-48a8-90f6-a172fb2ec462",
+       "rows": [
+        [
+         "0",
+         "j1~5545156887373324999",
+         "10.0",
+         "363.15",
+         "0.0",
+         "True",
+         "junction"
+        ],
+        [
+         "1",
+         "j2~4658286599152640406",
+         "9.57851505279541",
+         "363.15",
+         "0.0",
+         "True",
+         "junction"
+        ]
+       ],
+       "shape": {
+        "columns": 6,
+        "rows": 2
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>name</th>\n",
+       "      <th>pn_bar</th>\n",
+       "      <th>tfluid_k</th>\n",
+       "      <th>height_m</th>\n",
+       "      <th>in_service</th>\n",
+       "      <th>type</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>j1~5545156887373324999</td>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>True</td>\n",
+       "      <td>junction</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>j2~4658286599152640406</td>\n",
+       "      <td>9.578515</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>True</td>\n",
+       "      <td>junction</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                     name     pn_bar  tfluid_k  height_m  in_service      type\n",
+       "0  j1~5545156887373324999  10.000000    363.15       0.0        True  junction\n",
+       "1  j2~4658286599152640406   9.578515    363.15       0.0        True  junction"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "net.junction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## pipes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#m.V3_ROHR.columns.to_list()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# create pipes\n",
+    "ps={}\n",
+    "for idx,row in m.V3_ROHR.iterrows():\n",
+    "     p=pp.create_pipe_from_parameters(net\n",
+    "                                  ,from_junction=js[row['fkKI']]\n",
+    "                                  ,to_junction=js[row['fkKK']]\n",
+    "                                  ,length_km=row['L']/1000.\n",
+    "                                  ,diameter_m=row['DI']/1000.\n",
+    "                                  ,k_mm=row['RAU']\n",
+    "                                  ,name=f\"{row['NAME_i']}~{row['NAME_k']}~{row['tk']}\"\n",
+    "     )\n",
+    "     ps[row['tk']]=p\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "name",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "from_junction",
+         "rawType": "uint32",
+         "type": "integer"
+        },
+        {
+         "name": "to_junction",
+         "rawType": "uint32",
+         "type": "integer"
+        },
+        {
+         "name": "std_type",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "length_km",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "diameter_m",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "k_mm",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "loss_coefficient",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "u_w_per_m2k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "text_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "qext_w",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "sections",
+         "rawType": "uint32",
+         "type": "integer"
+        },
+        {
+         "name": "in_service",
+         "rawType": "bool",
+         "type": "boolean"
+        },
+        {
+         "name": "type",
+         "rawType": "object",
+         "type": "string"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "f1b8d452-7717-4706-b76f-527d80b5787b",
+       "rows": [
+        [
+         "0",
+         "j1~j2~5436899515124385631",
+         "0",
+         "1",
+         null,
+         "1.0",
+         "0.2",
+         "0.25",
+         "0.0",
+         "0.0",
+         null,
+         "0.0",
+         "1",
+         "True",
+         "pipe"
+        ]
+       ],
+       "shape": {
+        "columns": 14,
+        "rows": 1
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>name</th>\n",
+       "      <th>from_junction</th>\n",
+       "      <th>to_junction</th>\n",
+       "      <th>std_type</th>\n",
+       "      <th>length_km</th>\n",
+       "      <th>diameter_m</th>\n",
+       "      <th>k_mm</th>\n",
+       "      <th>loss_coefficient</th>\n",
+       "      <th>u_w_per_m2k</th>\n",
+       "      <th>text_k</th>\n",
+       "      <th>qext_w</th>\n",
+       "      <th>sections</th>\n",
+       "      <th>in_service</th>\n",
+       "      <th>type</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>j1~j2~5436899515124385631</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>None</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.2</td>\n",
+       "      <td>0.25</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>True</td>\n",
+       "      <td>pipe</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                        name  from_junction  to_junction std_type  length_km  \\\n",
+       "0  j1~j2~5436899515124385631              0            1     None        1.0   \n",
+       "\n",
+       "   diameter_m  k_mm  loss_coefficient  u_w_per_m2k  text_k  qext_w  sections  \\\n",
+       "0         0.2  0.25               0.0          0.0     NaN     0.0         1   \n",
+       "\n",
+       "   in_service  type  \n",
+       "0        True  pipe  "
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "net.pipe"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## sources (ext. grids)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# sources (ext. grids)\n",
+    "for idx,row in m.V3_KNOT.iterrows():\n",
+    "    match row['KTYP']:\n",
+    "        case 'PKON':\n",
+    "            pp.create_ext_grid(net\n",
+    "                              ,junction=js[row['tk']]\n",
+    "                              ,p_bar=row['PH']\n",
+    "                              ,t_k=273.15+row['T']\n",
+    "                              ,name=f\"Src: {row['NAME']}~{row['tk']}\"\n",
+    "            )\n",
+    "        case _:\n",
+    "            continue"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "name",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "junction",
+         "rawType": "uint32",
+         "type": "integer"
+        },
+        {
+         "name": "p_bar",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "in_service",
+         "rawType": "bool",
+         "type": "boolean"
+        },
+        {
+         "name": "type",
+         "rawType": "object",
+         "type": "string"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "36dc446e-55a4-4fdb-8c7a-4a04d184960f",
+       "rows": [
+        [
+         "0",
+         "Src: j1~5545156887373324999",
+         "0",
+         "10.0",
+         "363.15",
+         "True",
+         "pt"
+        ]
+       ],
+       "shape": {
+        "columns": 6,
+        "rows": 1
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>name</th>\n",
+       "      <th>junction</th>\n",
+       "      <th>p_bar</th>\n",
+       "      <th>t_k</th>\n",
+       "      <th>in_service</th>\n",
+       "      <th>type</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Src: j1~5545156887373324999</td>\n",
+       "      <td>0</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>True</td>\n",
+       "      <td>pt</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                          name  junction  p_bar     t_k  in_service type\n",
+       "0  Src: j1~5545156887373324999         0   10.0  363.15        True   pt"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "net.ext_grid"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## sinks"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# sinks\n",
+    "for idx,row in m.V3_KNOT.iterrows():\n",
+    "    match row['KTYP']:\n",
+    "        case 'QKON':\n",
+    "            pp.create_sink(net\n",
+    "                         ,junction=js[row['tk']]\n",
+    "                         ,mdot_kg_per_s=-row['M']\n",
+    "                         ,name=f\"Snk: {row['NAME']}~{row['tk']}\"\n",
+    "            )\n",
+    "\n",
+    "        case _:\n",
+    "            continue"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "name",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "junction",
+         "rawType": "uint32",
+         "type": "integer"
+        },
+        {
+         "name": "mdot_kg_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "scaling",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "in_service",
+         "rawType": "bool",
+         "type": "boolean"
+        },
+        {
+         "name": "type",
+         "rawType": "object",
+         "type": "string"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "a374f069-780d-4163-82d8-44ac202815d8",
+       "rows": [
+        [
+         "0",
+         "Snk: j2~4658286599152640406",
+         "1",
+         "27.77777862548828",
+         "1.0",
+         "True",
+         "sink"
+        ]
+       ],
+       "shape": {
+        "columns": 6,
+        "rows": 1
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>name</th>\n",
+       "      <th>junction</th>\n",
+       "      <th>mdot_kg_per_s</th>\n",
+       "      <th>scaling</th>\n",
+       "      <th>in_service</th>\n",
+       "      <th>type</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Snk: j2~4658286599152640406</td>\n",
+       "      <td>1</td>\n",
+       "      <td>27.777779</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>True</td>\n",
+       "      <td>sink</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                          name  junction  mdot_kg_per_s  scaling  in_service  \\\n",
+       "0  Snk: j2~4658286599152640406         1      27.777779      1.0        True   \n",
+       "\n",
+       "   type  \n",
+       "0  sink  "
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "net.sink"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# calculate pp model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pp.pipeflow(net\n",
+    "            ,friction_model='colebrook'        \n",
+    "            #,mode='sequential'\n",
+    "            )"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# examine pp result"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## junctions"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "p_bar",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_k",
+         "rawType": "float64",
+         "type": "float"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "685273c8-5a67-4c76-a425-b3b9b60fdfd4",
+       "rows": [
+        [
+         "0",
+         "10.0",
+         "363.15"
+        ],
+        [
+         "1",
+         "9.570866636624316",
+         "363.15"
+        ]
+       ],
+       "shape": {
+        "columns": 2,
+        "rows": 2
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>p_bar</th>\n",
+       "      <th>t_k</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>363.15</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>9.570867</td>\n",
+       "      <td>363.15</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       p_bar     t_k\n",
+       "0  10.000000  363.15\n",
+       "1   9.570867  363.15"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "net.res_junction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## pipes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "v_mean_m_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "p_from_bar",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "p_to_bar",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_from_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_to_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_outlet_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "mdot_from_kg_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "mdot_to_kg_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "vdot_m3_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "reynolds",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "lambda",
+         "rawType": "float64",
+         "type": "float"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "cb935cc5-9da7-49d9-a176-96d0f0e0415f",
+       "rows": [
+        [
+         "0",
+         "0.9160664902400983",
+         "10.0",
+         "9.570866636624316",
+         "363.15",
+         "363.15",
+         "363.15",
+         "27.77777862548828",
+         "-27.77777862548828",
+         "0.028779077559380792",
+         "562357.1552959172",
+         "0.021192277643790672"
+        ]
+       ],
+       "shape": {
+        "columns": 11,
+        "rows": 1
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>v_mean_m_per_s</th>\n",
+       "      <th>p_from_bar</th>\n",
+       "      <th>p_to_bar</th>\n",
+       "      <th>t_from_k</th>\n",
+       "      <th>t_to_k</th>\n",
+       "      <th>t_outlet_k</th>\n",
+       "      <th>mdot_from_kg_per_s</th>\n",
+       "      <th>mdot_to_kg_per_s</th>\n",
+       "      <th>vdot_m3_per_s</th>\n",
+       "      <th>reynolds</th>\n",
+       "      <th>lambda</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0.916066</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>9.570867</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>27.777779</td>\n",
+       "      <td>-27.777779</td>\n",
+       "      <td>0.028779</td>\n",
+       "      <td>562357.155296</td>\n",
+       "      <td>0.021192</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   v_mean_m_per_s  p_from_bar  p_to_bar  t_from_k  t_to_k  t_outlet_k  \\\n",
+       "0        0.916066        10.0  9.570867    363.15  363.15      363.15   \n",
+       "\n",
+       "   mdot_from_kg_per_s  mdot_to_kg_per_s  vdot_m3_per_s       reynolds  \\\n",
+       "0           27.777779        -27.777779       0.028779  562357.155296   \n",
+       "\n",
+       "     lambda  \n",
+       "0  0.021192  "
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "net.res_pipe"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## sources (ext. grids)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "mdot_kg_per_s",
+         "rawType": "float64",
+         "type": "float"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "29d40674-01f2-4e77-8d93-79001ea6693d",
+       "rows": [
+        [
+         "0",
+         "-27.77777862548828"
+        ]
+       ],
+       "shape": {
+        "columns": 1,
+        "rows": 1
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>mdot_kg_per_s</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>-27.777779</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   mdot_kg_per_s\n",
+       "0     -27.777779"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "net.res_ext_grid"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## sinks"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "mdot_kg_per_s",
+         "rawType": "float64",
+         "type": "float"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "e9d3b107-90a1-4938-bcf0-05a0c04185b3",
+       "rows": [
+        [
+         "0",
+         "27.77777862548828"
+        ]
+       ],
+       "shape": {
+        "columns": 1,
+        "rows": 1
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>mdot_kg_per_s</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>27.777779</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   mdot_kg_per_s\n",
+       "0      27.777779"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "net.res_sink"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# compare results"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## mapping"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m.V3_KNOT['ppID']=m.V3_KNOT.apply(lambda row: js[row['tk']],axis=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m.V3_ROHR['ppID']=m.V3_ROHR.apply(lambda row: ps[row['tk']],axis=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "dfCmpJunctions=pd.merge(m.V3_KNOT,net.res_junction,left_on='ppID',right_index=True)\n",
+    "dfCmpPipes=pd.merge(m.V3_ROHR,net.res_pipe,left_on='ppID',right_index=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## comparison"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "pk",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkDE",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "rk",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "tk",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "NAME",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "KTYP",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "XKOR",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "YKOR",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "ZKOR",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "QM_EIN",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "LFAKT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "fkPZON",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkFSTF",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkUTMP",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkFQPS",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkCONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fk2LKNOT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "BESCHREIBUNG",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "GEOMWKB",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "DELETED",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "SELECT1",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "IDREFERENZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "KENNUNG",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "IPLANUNG",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "KVR",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "DRAKONZ",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "pk_BZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkDE_BZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fk",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkPVAR",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkQVAR",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkLFKT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "PH_EIN",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "TM",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "TE",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "PH_MIN",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GRAF",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "MId",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "MText",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "Basis",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "Variante",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "BZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "Geaendert",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "Erstellt",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "pk_VMBZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkBASIS",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkVARIANTE",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkBZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "MZ",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "MT",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "pk_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkDE_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "rk_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "tk_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "ID_CONT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "NAME_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "IDPARENT_CONT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "rkPARENT_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "LFDNR_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GRAF_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "FONT_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GEOM_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "DELETED_CONT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "SELECT1_CONT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "IDREFERENZ_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "pk_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkDE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "rk_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkKNOT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkCONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "SHOWNAME_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "POSNAME_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "POINTINSERTX_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "POINTINSERTY_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "SYMBOLFACT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "DISPLAYMODE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "DELETED_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "SELECT1_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "MId_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "MText_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "Basis_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "Variante_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "BZ_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "Geaendert_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "Erstellt_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "pk_VMBASIS_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkBASIS_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkBZ_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "MZ_VKNO",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "MT_VKNO",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "MId_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "MText_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "Basis_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "Variante_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "BZ_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "Geaendert_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "Erstellt_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "pk_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkBASIS_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkVARIANTE_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkBZ_VMVARIANTE_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "MZ_VMVARIANTE_VKNO",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "MT_VMVARIANTE_VKNO",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "pk_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkDE_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "rk_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "tk_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "ID_CONT_VKNO",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "NAME_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "IDPARENT_CONT_VKNO",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "rkPARENT_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "LFDNR_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GRAF_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "FONT_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GEOM_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "DELETED_CONT_VKNO",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "SELECT1_CONT_VKNO",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "IDREFERENZ_CONT_VKNO",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "NAME_LFKT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "NAME_PVAR",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "NAME_PZON",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "NAME_QVAR",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "NAME_UTMP",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "NAME_FSTF",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "NAME_FQPS",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "mx2Idx",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~BCIND', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~DP', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~DPH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~FITT_BASTYPE', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~FITT_DP1', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~FITT_DP2', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~FITT_DP3', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~FITT_STATE', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~IAKTIV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~LFAKTAKT', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~M', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~P', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~PDAMPF', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~PHMINMAXDIF', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~PH_EIN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~PH_MIN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~QM', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~TTR', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~VOLD', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "PH",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "QM",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "dPH",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "T",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "M",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "ppID",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "p_bar",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_k",
+         "rawType": "float64",
+         "type": "float"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "010ab294-df70-4bb9-9252-bdacaef32679",
+       "rows": [
+        [
+         "3",
+         "5545156887373324999",
+         "4982567935033599504",
+         "5545156887373324999",
+         "5545156887373324999",
+         "j1",
+         "PKON",
+         "300.00001192092896",
+         "649.9999761581421",
+         "0.0",
+         null,
+         "1.0",
+         "-1",
+         "5297658028320820931",
+         "5154968777807259962",
+         "-1",
+         "5060822126933396627",
+         "-1",
+         "Template Element for single Node Creation",
+         null,
+         null,
+         null,
+         "3S5671171592228004325",
+         null,
+         "1.0",
+         null,
+         null,
+         "5473573628395650757",
+         "4804028781596645401",
+         "5545156887373324999",
+         "-1",
+         "-1",
+         "-1",
+         "10.0",
+         null,
+         "90.0",
+         null,
+         "b'\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x02\\x00\\x00\\x00\\x00\\x00\\x80\\xa8\\xff\\xffx@\\x00\\x00\\x80v\\xff\\x1f|@\\x00\\x00\\x00\\x00\\x00\\x00\\x14@\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'",
+         "M-1-0-1",
+         "",
+         "B1",
+         "V0",
+         "BZ1",
+         "2025-04-09 13:12:25",
+         "2025-04-08 11:45:59",
+         "5703508123076770847",
+         "4982567935033599504",
+         "5151772185690695097",
+         "4804028781596645401",
+         "1",
+         "1",
+         "5060822126933396627",
+         "4982567935033599504",
+         "5060822126933396627",
+         "5060822126933396627",
+         "1001.0",
+         "M-1-0-1",
+         "1001.0",
+         "5060822126933396627",
+         null,
+         null,
+         null,
+         "b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00I@\\x00\\x00\\x00\\x00\\x00\\x00I@\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\xb3@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\xfc\\xa9\\xf1\\xd2MbP?\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?'",
+         "0.0",
+         "0.0",
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         "Standard",
+         "Standard",
+         null,
+         null,
+         "24.0",
+         "-3.333333443937845e+32",
+         "-3.333333443937845e+32",
+         "-333333333.0",
+         "-3.333333443937845e+32",
+         "-3.333333443937845e+32",
+         "-3.333333443937845e+32",
+         "-333333333.0",
+         "10.0",
+         "0.0",
+         "1.0",
+         "27.77777862548828",
+         "11.0",
+         "0.7010999917984009",
+         "10.0",
+         "0.0",
+         "10.0",
+         "0.0",
+         "100.0",
+         "965.2000122070312",
+         "90.0",
+         "0.0",
+         "0.0",
+         "10.0",
+         "100.0",
+         null,
+         "90.0",
+         "27.77777862548828",
+         "0",
+         "10.0",
+         "363.15"
+        ],
+        [
+         "4",
+         "4658286599152640406",
+         "4982567935033599504",
+         "4658286599152640406",
+         "4658286599152640406",
+         "j2",
+         "QKON",
+         "449.9999165534973",
+         "499.9998688697815",
+         "0.0",
+         "-100.0",
+         "1.0",
+         "-1",
+         "5297658028320820931",
+         "5154968777807259962",
+         "-1",
+         "5060822126933396627",
+         "-1",
+         "Template Element for single Node Creation",
+         null,
+         null,
+         null,
+         "3S5671171592228004325",
+         null,
+         "1.0",
+         null,
+         null,
+         "4927625957676832607",
+         "4804028781596645401",
+         "4658286599152640406",
+         "-1",
+         "-1",
+         "-1",
+         null,
+         null,
+         null,
+         null,
+         "b'\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xc0]\\x00\\x00\\x89@\\x00\\x00\\x80\\xa8\\xff\\x1f|@\\x00\\x00\\x00\\x00\\x00\\x00\\x14@\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'",
+         "M-1-0-1",
+         "",
+         "B1",
+         "V0",
+         "BZ1",
+         "2025-04-09 13:12:25",
+         "2025-04-08 11:45:59",
+         "5703508123076770847",
+         "4982567935033599504",
+         "5151772185690695097",
+         "4804028781596645401",
+         "1",
+         "1",
+         "5060822126933396627",
+         "4982567935033599504",
+         "5060822126933396627",
+         "5060822126933396627",
+         "1001.0",
+         "M-1-0-1",
+         "1001.0",
+         "5060822126933396627",
+         null,
+         null,
+         null,
+         "b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00I@\\x00\\x00\\x00\\x00\\x00\\x00I@\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\xb3@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\xfc\\xa9\\xf1\\xd2MbP?\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?'",
+         "0.0",
+         "0.0",
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         "Standard",
+         "Standard",
+         null,
+         null,
+         "21.0",
+         "-3.333333443937845e+32",
+         "-3.333333443937845e+32",
+         "-333333333.0",
+         "-3.333333443937845e+32",
+         "-3.333333443937845e+32",
+         "-3.333333443937845e+32",
+         "-333333333.0",
+         "9.57851505279541",
+         "0.0",
+         "1.0",
+         "-27.77777862548828",
+         "10.57851505279541",
+         "0.7010999917984009",
+         "9.57851505279541",
+         "0.0",
+         "9.57851505279541",
+         "0.0",
+         "-100.0",
+         "965.2000122070312",
+         "90.0",
+         "0.30877140164375305",
+         "0.0",
+         "9.57851505279541",
+         "-100.0",
+         null,
+         "90.0",
+         "-27.77777862548828",
+         "1",
+         "9.570866636624316",
+         "363.15"
+        ]
+       ],
+       "shape": {
+        "columns": 158,
+        "rows": 2
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>pk</th>\n",
+       "      <th>fkDE</th>\n",
+       "      <th>rk</th>\n",
+       "      <th>tk</th>\n",
+       "      <th>NAME</th>\n",
+       "      <th>KTYP</th>\n",
+       "      <th>XKOR</th>\n",
+       "      <th>YKOR</th>\n",
+       "      <th>ZKOR</th>\n",
+       "      <th>QM_EIN</th>\n",
+       "      <th>LFAKT</th>\n",
+       "      <th>fkPZON</th>\n",
+       "      <th>fkFSTF</th>\n",
+       "      <th>fkUTMP</th>\n",
+       "      <th>fkFQPS</th>\n",
+       "      <th>fkCONT</th>\n",
+       "      <th>fk2LKNOT</th>\n",
+       "      <th>BESCHREIBUNG</th>\n",
+       "      <th>GEOMWKB</th>\n",
+       "      <th>DELETED</th>\n",
+       "      <th>SELECT1</th>\n",
+       "      <th>IDREFERENZ</th>\n",
+       "      <th>KENNUNG</th>\n",
+       "      <th>IPLANUNG</th>\n",
+       "      <th>KVR</th>\n",
+       "      <th>DRAKONZ</th>\n",
+       "      <th>pk_BZ</th>\n",
+       "      <th>fkDE_BZ</th>\n",
+       "      <th>fk</th>\n",
+       "      <th>fkPVAR</th>\n",
+       "      <th>fkQVAR</th>\n",
+       "      <th>fkLFKT</th>\n",
+       "      <th>PH_EIN</th>\n",
+       "      <th>TM</th>\n",
+       "      <th>TE</th>\n",
+       "      <th>PH_MIN</th>\n",
+       "      <th>GRAF</th>\n",
+       "      <th>MId</th>\n",
+       "      <th>MText</th>\n",
+       "      <th>Basis</th>\n",
+       "      <th>Variante</th>\n",
+       "      <th>BZ</th>\n",
+       "      <th>Geaendert</th>\n",
+       "      <th>Erstellt</th>\n",
+       "      <th>pk_VMBZ</th>\n",
+       "      <th>fkBASIS</th>\n",
+       "      <th>fkVARIANTE</th>\n",
+       "      <th>fkBZ</th>\n",
+       "      <th>MZ</th>\n",
+       "      <th>MT</th>\n",
+       "      <th>pk_CONT</th>\n",
+       "      <th>fkDE_CONT</th>\n",
+       "      <th>rk_CONT</th>\n",
+       "      <th>tk_CONT</th>\n",
+       "      <th>ID_CONT</th>\n",
+       "      <th>NAME_CONT</th>\n",
+       "      <th>IDPARENT_CONT</th>\n",
+       "      <th>rkPARENT_CONT</th>\n",
+       "      <th>LFDNR_CONT</th>\n",
+       "      <th>GRAF_CONT</th>\n",
+       "      <th>FONT_CONT</th>\n",
+       "      <th>GEOM_CONT</th>\n",
+       "      <th>DELETED_CONT</th>\n",
+       "      <th>SELECT1_CONT</th>\n",
+       "      <th>IDREFERENZ_CONT</th>\n",
+       "      <th>pk_VKNO</th>\n",
+       "      <th>fkDE_VKNO</th>\n",
+       "      <th>rk_VKNO</th>\n",
+       "      <th>fkKNOT_VKNO</th>\n",
+       "      <th>fkCONT_VKNO</th>\n",
+       "      <th>SHOWNAME_VKNO</th>\n",
+       "      <th>POSNAME_VKNO</th>\n",
+       "      <th>POINTINSERTX_VKNO</th>\n",
+       "      <th>POINTINSERTY_VKNO</th>\n",
+       "      <th>SYMBOLFACT_VKNO</th>\n",
+       "      <th>DISPLAYMODE_VKNO</th>\n",
+       "      <th>DELETED_VKNO</th>\n",
+       "      <th>SELECT1_VKNO</th>\n",
+       "      <th>MId_VKNO</th>\n",
+       "      <th>MText_VKNO</th>\n",
+       "      <th>Basis_VKNO</th>\n",
+       "      <th>Variante_VKNO</th>\n",
+       "      <th>BZ_VKNO</th>\n",
+       "      <th>Geaendert_VKNO</th>\n",
+       "      <th>Erstellt_VKNO</th>\n",
+       "      <th>pk_VMBASIS_VKNO</th>\n",
+       "      <th>fkBASIS_VKNO</th>\n",
+       "      <th>fkVARIANTE_VKNO</th>\n",
+       "      <th>fkBZ_VKNO</th>\n",
+       "      <th>MZ_VKNO</th>\n",
+       "      <th>MT_VKNO</th>\n",
+       "      <th>MId_VMVARIANTE_VKNO</th>\n",
+       "      <th>MText_VMVARIANTE_VKNO</th>\n",
+       "      <th>Basis_VMVARIANTE_VKNO</th>\n",
+       "      <th>Variante_VMVARIANTE_VKNO</th>\n",
+       "      <th>BZ_VMVARIANTE_VKNO</th>\n",
+       "      <th>Geaendert_VMVARIANTE_VKNO</th>\n",
+       "      <th>Erstellt_VMVARIANTE_VKNO</th>\n",
+       "      <th>pk_VMVARIANTE_VKNO</th>\n",
+       "      <th>fkBASIS_VMVARIANTE_VKNO</th>\n",
+       "      <th>fkVARIANTE_VMVARIANTE_VKNO</th>\n",
+       "      <th>fkBZ_VMVARIANTE_VKNO</th>\n",
+       "      <th>MZ_VMVARIANTE_VKNO</th>\n",
+       "      <th>MT_VMVARIANTE_VKNO</th>\n",
+       "      <th>pk_CONT_VKNO</th>\n",
+       "      <th>fkDE_CONT_VKNO</th>\n",
+       "      <th>rk_CONT_VKNO</th>\n",
+       "      <th>tk_CONT_VKNO</th>\n",
+       "      <th>ID_CONT_VKNO</th>\n",
+       "      <th>NAME_CONT_VKNO</th>\n",
+       "      <th>IDPARENT_CONT_VKNO</th>\n",
+       "      <th>rkPARENT_CONT_VKNO</th>\n",
+       "      <th>LFDNR_CONT_VKNO</th>\n",
+       "      <th>GRAF_CONT_VKNO</th>\n",
+       "      <th>FONT_CONT_VKNO</th>\n",
+       "      <th>GEOM_CONT_VKNO</th>\n",
+       "      <th>DELETED_CONT_VKNO</th>\n",
+       "      <th>SELECT1_CONT_VKNO</th>\n",
+       "      <th>IDREFERENZ_CONT_VKNO</th>\n",
+       "      <th>NAME_LFKT</th>\n",
+       "      <th>NAME_PVAR</th>\n",
+       "      <th>NAME_PZON</th>\n",
+       "      <th>NAME_QVAR</th>\n",
+       "      <th>NAME_UTMP</th>\n",
+       "      <th>NAME_FSTF</th>\n",
+       "      <th>NAME_FQPS</th>\n",
+       "      <th>mx2Idx</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~BCIND, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~DP, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~DPH, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~FITT_BASTYPE, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~FITT_DP1, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~FITT_DP2, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~FITT_DP3, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~FITT_STATE, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~H, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~IAKTIV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~LFAKTAKT, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~M, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~P, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~PDAMPF, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~PH, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~PHMINMAXDIF, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~PH_EIN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~PH_MIN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~QM, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~RHO, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~T, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~TTR, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, KNOT~*~*~*~VOLD, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>PH</th>\n",
+       "      <th>QM</th>\n",
+       "      <th>dPH</th>\n",
+       "      <th>T</th>\n",
+       "      <th>M</th>\n",
+       "      <th>ppID</th>\n",
+       "      <th>p_bar</th>\n",
+       "      <th>t_k</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>5545156887373324999</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>5545156887373324999</td>\n",
+       "      <td>5545156887373324999</td>\n",
+       "      <td>j1</td>\n",
+       "      <td>PKON</td>\n",
+       "      <td>300.000012</td>\n",
+       "      <td>649.999976</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>5297658028320820931</td>\n",
+       "      <td>5154968777807259962</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>Template Element for single Node Creation</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>3S5671171592228004325</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>None</td>\n",
+       "      <td>5473573628395650757</td>\n",
+       "      <td>4804028781596645401</td>\n",
+       "      <td>5545156887373324999</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>b'\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x02\\x00\\x00...</td>\n",
+       "      <td>M-1-0-1</td>\n",
+       "      <td></td>\n",
+       "      <td>B1</td>\n",
+       "      <td>V0</td>\n",
+       "      <td>BZ1</td>\n",
+       "      <td>2025-04-09 13:12:25</td>\n",
+       "      <td>2025-04-08 11:45:59</td>\n",
+       "      <td>5703508123076770847</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>5151772185690695097</td>\n",
+       "      <td>4804028781596645401</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>1001.0</td>\n",
+       "      <td>M-1-0-1</td>\n",
+       "      <td>1001.0</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x0...</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>Standard</td>\n",
+       "      <td>Standard</td>\n",
+       "      <td>None</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>24.0</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-333333333.0</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-333333333.0</td>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>27.777779</td>\n",
+       "      <td>11.000000</td>\n",
+       "      <td>0.7011</td>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>965.200012</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>27.777779</td>\n",
+       "      <td>0</td>\n",
+       "      <td>10.000000</td>\n",
+       "      <td>363.15</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>4658286599152640406</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>4658286599152640406</td>\n",
+       "      <td>4658286599152640406</td>\n",
+       "      <td>j2</td>\n",
+       "      <td>QKON</td>\n",
+       "      <td>449.999917</td>\n",
+       "      <td>499.999869</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-100.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>5297658028320820931</td>\n",
+       "      <td>5154968777807259962</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>Template Element for single Node Creation</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>3S5671171592228004325</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>None</td>\n",
+       "      <td>4927625957676832607</td>\n",
+       "      <td>4804028781596645401</td>\n",
+       "      <td>4658286599152640406</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>None</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>None</td>\n",
+       "      <td>b'\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00...</td>\n",
+       "      <td>M-1-0-1</td>\n",
+       "      <td></td>\n",
+       "      <td>B1</td>\n",
+       "      <td>V0</td>\n",
+       "      <td>BZ1</td>\n",
+       "      <td>2025-04-09 13:12:25</td>\n",
+       "      <td>2025-04-08 11:45:59</td>\n",
+       "      <td>5703508123076770847</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>5151772185690695097</td>\n",
+       "      <td>4804028781596645401</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>1001.0</td>\n",
+       "      <td>M-1-0-1</td>\n",
+       "      <td>1001.0</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x0...</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>Standard</td>\n",
+       "      <td>Standard</td>\n",
+       "      <td>None</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>21.0</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-333333333.0</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>-333333333.0</td>\n",
+       "      <td>9.578515</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>-27.777779</td>\n",
+       "      <td>10.578515</td>\n",
+       "      <td>0.7011</td>\n",
+       "      <td>9.578515</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>9.578515</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-100.0</td>\n",
+       "      <td>965.200012</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>0.308771</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>9.578515</td>\n",
+       "      <td>-100.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>-27.777779</td>\n",
+       "      <td>1</td>\n",
+       "      <td>9.570867</td>\n",
+       "      <td>363.15</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                    pk                 fkDE                   rk  \\\n",
+       "3  5545156887373324999  4982567935033599504  5545156887373324999   \n",
+       "4  4658286599152640406  4982567935033599504  4658286599152640406   \n",
+       "\n",
+       "                    tk NAME  KTYP        XKOR        YKOR  ZKOR  QM_EIN  \\\n",
+       "3  5545156887373324999   j1  PKON  300.000012  649.999976   0.0     NaN   \n",
+       "4  4658286599152640406   j2  QKON  449.999917  499.999869   0.0  -100.0   \n",
+       "\n",
+       "   LFAKT fkPZON               fkFSTF               fkUTMP fkFQPS  \\\n",
+       "3    1.0     -1  5297658028320820931  5154968777807259962     -1   \n",
+       "4    1.0     -1  5297658028320820931  5154968777807259962     -1   \n",
+       "\n",
+       "                fkCONT fk2LKNOT                               BESCHREIBUNG  \\\n",
+       "3  5060822126933396627       -1  Template Element for single Node Creation   \n",
+       "4  5060822126933396627       -1  Template Element for single Node Creation   \n",
+       "\n",
+       "  GEOMWKB DELETED SELECT1             IDREFERENZ  KENNUNG  IPLANUNG  KVR  \\\n",
+       "3    None    None    None  3S5671171592228004325      NaN       1.0  NaN   \n",
+       "4    None    None    None  3S5671171592228004325      NaN       1.0  NaN   \n",
+       "\n",
+       "  DRAKONZ                pk_BZ              fkDE_BZ                   fk  \\\n",
+       "3    None  5473573628395650757  4804028781596645401  5545156887373324999   \n",
+       "4    None  4927625957676832607  4804028781596645401  4658286599152640406   \n",
+       "\n",
+       "  fkPVAR fkQVAR fkLFKT  PH_EIN    TM    TE PH_MIN  \\\n",
+       "3     -1     -1     -1    10.0  None  90.0   None   \n",
+       "4     -1     -1     -1     NaN  None   NaN   None   \n",
+       "\n",
+       "                                                GRAF      MId MText Basis  \\\n",
+       "3  b'\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x02\\x00\\x00...  M-1-0-1          B1   \n",
+       "4  b'\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00...  M-1-0-1          B1   \n",
+       "\n",
+       "  Variante   BZ            Geaendert             Erstellt  \\\n",
+       "3       V0  BZ1  2025-04-09 13:12:25  2025-04-08 11:45:59   \n",
+       "4       V0  BZ1  2025-04-09 13:12:25  2025-04-08 11:45:59   \n",
+       "\n",
+       "               pk_VMBZ              fkBASIS           fkVARIANTE  \\\n",
+       "3  5703508123076770847  4982567935033599504  5151772185690695097   \n",
+       "4  5703508123076770847  4982567935033599504  5151772185690695097   \n",
+       "\n",
+       "                  fkBZ  MZ  MT              pk_CONT            fkDE_CONT  \\\n",
+       "3  4804028781596645401   1   1  5060822126933396627  4982567935033599504   \n",
+       "4  4804028781596645401   1   1  5060822126933396627  4982567935033599504   \n",
+       "\n",
+       "               rk_CONT              tk_CONT  ID_CONT NAME_CONT  IDPARENT_CONT  \\\n",
+       "3  5060822126933396627  5060822126933396627   1001.0   M-1-0-1         1001.0   \n",
+       "4  5060822126933396627  5060822126933396627   1001.0   M-1-0-1         1001.0   \n",
+       "\n",
+       "         rkPARENT_CONT LFDNR_CONT GRAF_CONT FONT_CONT  \\\n",
+       "3  5060822126933396627       None      None      None   \n",
+       "4  5060822126933396627       None      None      None   \n",
+       "\n",
+       "                                           GEOM_CONT  DELETED_CONT  \\\n",
+       "3  b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x0...           0.0   \n",
+       "4  b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x0...           0.0   \n",
+       "\n",
+       "   SELECT1_CONT IDREFERENZ_CONT pk_VKNO fkDE_VKNO rk_VKNO fkKNOT_VKNO  \\\n",
+       "3           0.0            None     NaN       NaN     NaN         NaN   \n",
+       "4           0.0            None     NaN       NaN     NaN         NaN   \n",
+       "\n",
+       "  fkCONT_VKNO SHOWNAME_VKNO POSNAME_VKNO POINTINSERTX_VKNO POINTINSERTY_VKNO  \\\n",
+       "3         NaN           NaN          NaN               NaN               NaN   \n",
+       "4         NaN           NaN          NaN               NaN               NaN   \n",
+       "\n",
+       "  SYMBOLFACT_VKNO DISPLAYMODE_VKNO DELETED_VKNO SELECT1_VKNO MId_VKNO  \\\n",
+       "3             NaN              NaN          NaN          NaN      NaN   \n",
+       "4             NaN              NaN          NaN          NaN      NaN   \n",
+       "\n",
+       "  MText_VKNO Basis_VKNO Variante_VKNO BZ_VKNO Geaendert_VKNO Erstellt_VKNO  \\\n",
+       "3        NaN        NaN           NaN     NaN            NaN           NaN   \n",
+       "4        NaN        NaN           NaN     NaN            NaN           NaN   \n",
+       "\n",
+       "  pk_VMBASIS_VKNO fkBASIS_VKNO fkVARIANTE_VKNO fkBZ_VKNO  MZ_VKNO  MT_VKNO  \\\n",
+       "3             NaN          NaN             NaN       NaN      NaN      NaN   \n",
+       "4             NaN          NaN             NaN       NaN      NaN      NaN   \n",
+       "\n",
+       "  MId_VMVARIANTE_VKNO MText_VMVARIANTE_VKNO Basis_VMVARIANTE_VKNO  \\\n",
+       "3                 NaN                   NaN                   NaN   \n",
+       "4                 NaN                   NaN                   NaN   \n",
+       "\n",
+       "  Variante_VMVARIANTE_VKNO BZ_VMVARIANTE_VKNO Geaendert_VMVARIANTE_VKNO  \\\n",
+       "3                      NaN                NaN                       NaN   \n",
+       "4                      NaN                NaN                       NaN   \n",
+       "\n",
+       "  Erstellt_VMVARIANTE_VKNO pk_VMVARIANTE_VKNO fkBASIS_VMVARIANTE_VKNO  \\\n",
+       "3                      NaN                NaN                     NaN   \n",
+       "4                      NaN                NaN                     NaN   \n",
+       "\n",
+       "  fkVARIANTE_VMVARIANTE_VKNO fkBZ_VMVARIANTE_VKNO  MZ_VMVARIANTE_VKNO  \\\n",
+       "3                        NaN                  NaN                 NaN   \n",
+       "4                        NaN                  NaN                 NaN   \n",
+       "\n",
+       "   MT_VMVARIANTE_VKNO pk_CONT_VKNO fkDE_CONT_VKNO rk_CONT_VKNO tk_CONT_VKNO  \\\n",
+       "3                 NaN          NaN            NaN          NaN          NaN   \n",
+       "4                 NaN          NaN            NaN          NaN          NaN   \n",
+       "\n",
+       "   ID_CONT_VKNO NAME_CONT_VKNO  IDPARENT_CONT_VKNO rkPARENT_CONT_VKNO  \\\n",
+       "3           NaN            NaN                 NaN                NaN   \n",
+       "4           NaN            NaN                 NaN                NaN   \n",
+       "\n",
+       "  LFDNR_CONT_VKNO GRAF_CONT_VKNO FONT_CONT_VKNO GEOM_CONT_VKNO  \\\n",
+       "3             NaN            NaN            NaN            NaN   \n",
+       "4             NaN            NaN            NaN            NaN   \n",
+       "\n",
+       "   DELETED_CONT_VKNO  SELECT1_CONT_VKNO IDREFERENZ_CONT_VKNO NAME_LFKT  \\\n",
+       "3                NaN                NaN                  NaN      None   \n",
+       "4                NaN                NaN                  NaN      None   \n",
+       "\n",
+       "  NAME_PVAR NAME_PZON NAME_QVAR NAME_UTMP NAME_FSTF NAME_FQPS  mx2Idx  \\\n",
+       "3      None      None      None  Standard  Standard      None     NaN   \n",
+       "4      None      None      None  Standard  Standard      None     NaN   \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~BCIND, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                               24.0                    \n",
+       "4                                               21.0                    \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~DP, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                      -3.333333e+32                 \n",
+       "4                                      -3.333333e+32                 \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~DPH, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                      -3.333333e+32                  \n",
+       "4                                      -3.333333e+32                  \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~FITT_BASTYPE, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                       -333333333.0                           \n",
+       "4                                       -333333333.0                           \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~FITT_DP1, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                      -3.333333e+32                       \n",
+       "4                                      -3.333333e+32                       \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~FITT_DP2, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                      -3.333333e+32                       \n",
+       "4                                      -3.333333e+32                       \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~FITT_DP3, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                      -3.333333e+32                       \n",
+       "4                                      -3.333333e+32                       \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~FITT_STATE, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                       -333333333.0                         \n",
+       "4                                       -333333333.0                         \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~H, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                          10.000000                \n",
+       "4                                           9.578515                \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~IAKTIV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                                0.0                     \n",
+       "4                                                0.0                     \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~LFAKTAKT, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                                1.0                       \n",
+       "4                                                1.0                       \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~M, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                          27.777779                \n",
+       "4                                         -27.777779                \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~P, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                          11.000000                \n",
+       "4                                          10.578515                \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~PDAMPF, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                             0.7011                     \n",
+       "4                                             0.7011                     \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~PH, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                          10.000000                 \n",
+       "4                                           9.578515                 \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~PHMINMAXDIF, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                                0.0                          \n",
+       "4                                                0.0                          \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~PH_EIN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                          10.000000                     \n",
+       "4                                           9.578515                     \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~PH_MIN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                                0.0                     \n",
+       "4                                                0.0                     \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~QM, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                              100.0                 \n",
+       "4                                             -100.0                 \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~RHO, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                         965.200012                  \n",
+       "4                                         965.200012                  \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~T, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                               90.0                \n",
+       "4                                               90.0                \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~TTR, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                           0.000000                  \n",
+       "4                                           0.308771                  \n",
+       "\n",
+       "   (STAT, KNOT~*~*~*~VOLD, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "3                                                0.0                   \n",
+       "4                                                0.0                   \n",
+       "\n",
+       "          PH     QM   dPH     T          M  ppID      p_bar     t_k  \n",
+       "3  10.000000  100.0  None  90.0  27.777779     0  10.000000  363.15  \n",
+       "4   9.578515 -100.0  None  90.0 -27.777779     1   9.570867  363.15  "
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "dfCmpJunctions"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.microsoft.datawrangler.viewer.v0+json": {
+       "columns": [
+        {
+         "name": "index",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "pk",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkDE",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "rk",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "tk",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkKI",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkKK",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkDTRO_ROWD",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkLTGR",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkSTRASSE",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "L",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "LZU",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "RAU",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "JLAMBS",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "LAMBDA0",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "ZEIN",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "ZAUS",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "ZUML",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "ASOLL",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "INDSCHALL",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "BAUJAHR",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "HAL",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "fkCONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fk2LROHR",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "BESCHREIBUNG",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "GEOMWKB",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "DELETED",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "SELECT1",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "IDREFERENZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "KENNUNG",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "IPLANUNG",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "KVR",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "pk_BZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkDE_BZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fk",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "QSVB",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "IRTRENN",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "LECKSTATUS",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "LECKSTART",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "LECKEND",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "LECKORT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "LECKMENGE",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "IMPTNZ",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "ZVLIMPTNZ",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "KANTENZV",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GEOM",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GRAF",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "MId",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "MText",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "Basis",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "Variante",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "BZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "Geaendert",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "Erstellt",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "pk_VMBZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkBASIS",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkVARIANTE",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkBZ",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "MZ",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "MT",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "pk_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "fkDE_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "rk_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "tk_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "ID_CONT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "NAME_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "IDPARENT_CONT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "rkPARENT_CONT",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "LFDNR_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GRAF_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "FONT_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "GEOM_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "DELETED_CONT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "SELECT1_CONT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "IDREFERENZ_CONT",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "NAME_DTRO",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "DN",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "DI",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "DA",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "S",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "KT",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "PN",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "Am2",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "Vm3",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "NAME_LTGR",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "NAME_STRASSE",
+         "rawType": "object",
+         "type": "unknown"
+        },
+        {
+         "name": "tk_i",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "NAME_i",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "tk_k",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "NAME_k",
+         "rawType": "object",
+         "type": "string"
+        },
+        {
+         "name": "mx2NofPts",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "dL",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "mx2Idx",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~A', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~DTTR', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~DWVERL', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~DWVERLABS', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~IAKTIV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~IRTRENN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~JV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~LAMBDA', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~MAV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~PDAMPF', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~PHR', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~PMIN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~QMAV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~VAV', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~VOLDA', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~WVL', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~ZAUS', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'ROHR~*~*~*~ZEIN', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "QMAVAbs",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "VAVAbs",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "PHRAbs",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "JVAbs",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "MAV",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "LAMBDA",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "ppID",
+         "rawType": "int64",
+         "type": "integer"
+        },
+        {
+         "name": "v_mean_m_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "p_from_bar",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "p_to_bar",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_from_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_to_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "t_outlet_k",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "mdot_from_kg_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "mdot_to_kg_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "vdot_m3_per_s",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "reynolds",
+         "rawType": "float64",
+         "type": "float"
+        },
+        {
+         "name": "lambda",
+         "rawType": "float64",
+         "type": "float"
+        }
+       ],
+       "conversionMethod": "pd.DataFrame",
+       "ref": "c1e6c990-1a24-4b7a-bbf1-093b43d4a1e3",
+       "rows": [
+        [
+         "0",
+         "5436899515124385631",
+         "4982567935033599504",
+         "5436899515124385631",
+         "5436899515124385631",
+         "5545156887373324999",
+         "4658286599152640406",
+         "4988912237861306746",
+         "5515842498618683031",
+         "-1",
+         "1000.0",
+         null,
+         "0.25",
+         "1.0",
+         "0.02500000037252903",
+         null,
+         null,
+         null,
+         "1000.0",
+         null,
+         null,
+         null,
+         "5060822126933396627",
+         "-1",
+         "Template Element for single Pipe Creation",
+         null,
+         null,
+         null,
+         "3S5201225267441779810",
+         null,
+         "1.0",
+         null,
+         "4741144811589278980",
+         "4804028781596645401",
+         "5436899515124385631",
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         "b'\\x01\\x02\\x00\\x00\\x00\\x02\\x00\\x00\\x00\\x00\\x00\\x80\\xa8\\xff\\xffx@\\x00\\x00\\x80v\\xff\\x1f|@\\x00\\x00\\xc0]\\x00\\x00\\x89@\\x00\\x00\\x80\\xa8\\xff\\x1f|@'",
+         "b'\\x00\\x00\\x80?\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\xfc\\xa9\\xf1\\xd2MbP?\\x04\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'",
+         "M-1-0-1",
+         "",
+         "B1",
+         "V0",
+         "BZ1",
+         "2025-04-09 13:12:25",
+         "2025-04-08 11:45:59",
+         "5703508123076770847",
+         "4982567935033599504",
+         "5151772185690695097",
+         "4804028781596645401",
+         "1",
+         "1",
+         "5060822126933396627",
+         "4982567935033599504",
+         "5060822126933396627",
+         "5060822126933396627",
+         "1001.0",
+         "M-1-0-1",
+         "1001.0",
+         "5060822126933396627",
+         null,
+         null,
+         null,
+         "b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00I@\\x00\\x00\\x00\\x00\\x00\\x00I@\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\xb3@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x88\\x93@\\x00\\x00\\x00\\x00\\x00 \\x8c@\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?\\xfc\\xa9\\xf1\\xd2MbP?\\x00\\x00\\x00\\x00\\x00\\x00\\xf0?'",
+         "0.0",
+         "0.0",
+         null,
+         "STDROHR",
+         "200",
+         "200.0",
+         "0.0",
+         "0.0",
+         "0.0",
+         "0.0",
+         "0.031415926535897934",
+         "31.415926535897935",
+         "STDROHR",
+         null,
+         "5545156887373324999",
+         "j1",
+         "4658286599152640406",
+         "j2",
+         "11",
+         "100.0",
+         "0",
+         "0.0",
+         "0.30877140164375305",
+         "0.0",
+         "0.0",
+         "0.0",
+         "0.0",
+         "0.41403910517692566",
+         "0.02120133303105831",
+         "27.77777862548828",
+         "0.7010999917984009",
+         "0.41403907537460327",
+         "10.57851505279541",
+         "100.0",
+         "0.8996227383613586",
+         "-3.333333443937845e+32",
+         "0.0",
+         "0.0",
+         "0.0",
+         "10.0",
+         "10.0",
+         "90.0",
+         "965.2000122070312",
+         "9.57851505279541",
+         "9.57851505279541",
+         "90.0",
+         "965.2000122070312",
+         "100.0",
+         "0.8996227383613586",
+         "0.41403907537460327",
+         "0.41403910517692566",
+         "27.77777862548828",
+         "0.02120133303105831",
+         "0",
+         "0.9160664902400983",
+         "10.0",
+         "9.570866636624316",
+         "363.15",
+         "363.15",
+         "363.15",
+         "27.77777862548828",
+         "-27.77777862548828",
+         "0.028779077559380792",
+         "562357.1552959172",
+         "0.021192277643790672"
+        ]
+       ],
+       "shape": {
+        "columns": 136,
+        "rows": 1
+       }
+      },
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>pk</th>\n",
+       "      <th>fkDE</th>\n",
+       "      <th>rk</th>\n",
+       "      <th>tk</th>\n",
+       "      <th>fkKI</th>\n",
+       "      <th>fkKK</th>\n",
+       "      <th>fkDTRO_ROWD</th>\n",
+       "      <th>fkLTGR</th>\n",
+       "      <th>fkSTRASSE</th>\n",
+       "      <th>L</th>\n",
+       "      <th>LZU</th>\n",
+       "      <th>RAU</th>\n",
+       "      <th>JLAMBS</th>\n",
+       "      <th>LAMBDA0</th>\n",
+       "      <th>ZEIN</th>\n",
+       "      <th>ZAUS</th>\n",
+       "      <th>ZUML</th>\n",
+       "      <th>ASOLL</th>\n",
+       "      <th>INDSCHALL</th>\n",
+       "      <th>BAUJAHR</th>\n",
+       "      <th>HAL</th>\n",
+       "      <th>fkCONT</th>\n",
+       "      <th>fk2LROHR</th>\n",
+       "      <th>BESCHREIBUNG</th>\n",
+       "      <th>GEOMWKB</th>\n",
+       "      <th>DELETED</th>\n",
+       "      <th>SELECT1</th>\n",
+       "      <th>IDREFERENZ</th>\n",
+       "      <th>KENNUNG</th>\n",
+       "      <th>IPLANUNG</th>\n",
+       "      <th>KVR</th>\n",
+       "      <th>pk_BZ</th>\n",
+       "      <th>fkDE_BZ</th>\n",
+       "      <th>fk</th>\n",
+       "      <th>QSVB</th>\n",
+       "      <th>IRTRENN</th>\n",
+       "      <th>LECKSTATUS</th>\n",
+       "      <th>LECKSTART</th>\n",
+       "      <th>LECKEND</th>\n",
+       "      <th>LECKORT</th>\n",
+       "      <th>LECKMENGE</th>\n",
+       "      <th>IMPTNZ</th>\n",
+       "      <th>ZVLIMPTNZ</th>\n",
+       "      <th>KANTENZV</th>\n",
+       "      <th>GEOM</th>\n",
+       "      <th>GRAF</th>\n",
+       "      <th>MId</th>\n",
+       "      <th>MText</th>\n",
+       "      <th>Basis</th>\n",
+       "      <th>Variante</th>\n",
+       "      <th>BZ</th>\n",
+       "      <th>Geaendert</th>\n",
+       "      <th>Erstellt</th>\n",
+       "      <th>pk_VMBZ</th>\n",
+       "      <th>fkBASIS</th>\n",
+       "      <th>fkVARIANTE</th>\n",
+       "      <th>fkBZ</th>\n",
+       "      <th>MZ</th>\n",
+       "      <th>MT</th>\n",
+       "      <th>pk_CONT</th>\n",
+       "      <th>fkDE_CONT</th>\n",
+       "      <th>rk_CONT</th>\n",
+       "      <th>tk_CONT</th>\n",
+       "      <th>ID_CONT</th>\n",
+       "      <th>NAME_CONT</th>\n",
+       "      <th>IDPARENT_CONT</th>\n",
+       "      <th>rkPARENT_CONT</th>\n",
+       "      <th>LFDNR_CONT</th>\n",
+       "      <th>GRAF_CONT</th>\n",
+       "      <th>FONT_CONT</th>\n",
+       "      <th>GEOM_CONT</th>\n",
+       "      <th>DELETED_CONT</th>\n",
+       "      <th>SELECT1_CONT</th>\n",
+       "      <th>IDREFERENZ_CONT</th>\n",
+       "      <th>NAME_DTRO</th>\n",
+       "      <th>DN</th>\n",
+       "      <th>DI</th>\n",
+       "      <th>DA</th>\n",
+       "      <th>S</th>\n",
+       "      <th>KT</th>\n",
+       "      <th>PN</th>\n",
+       "      <th>Am2</th>\n",
+       "      <th>Vm3</th>\n",
+       "      <th>NAME_LTGR</th>\n",
+       "      <th>NAME_STRASSE</th>\n",
+       "      <th>tk_i</th>\n",
+       "      <th>NAME_i</th>\n",
+       "      <th>tk_k</th>\n",
+       "      <th>NAME_k</th>\n",
+       "      <th>mx2NofPts</th>\n",
+       "      <th>dL</th>\n",
+       "      <th>mx2Idx</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~A, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~DTTR, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~DWVERL, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~DWVERLABS, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~IAKTIV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~IRTRENN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~JV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~LAMBDA, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~MAV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~PDAMPF, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~PHR, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~PMIN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~QMAV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~VAV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~VOLDA, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~WVL, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~ZAUS, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>(STAT, ROHR~*~*~*~ZEIN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)</th>\n",
+       "      <th>('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i</th>\n",
+       "      <th>('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i</th>\n",
+       "      <th>('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i</th>\n",
+       "      <th>('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i</th>\n",
+       "      <th>('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k</th>\n",
+       "      <th>('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k</th>\n",
+       "      <th>('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k</th>\n",
+       "      <th>('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k</th>\n",
+       "      <th>QMAVAbs</th>\n",
+       "      <th>VAVAbs</th>\n",
+       "      <th>PHRAbs</th>\n",
+       "      <th>JVAbs</th>\n",
+       "      <th>MAV</th>\n",
+       "      <th>LAMBDA</th>\n",
+       "      <th>ppID</th>\n",
+       "      <th>v_mean_m_per_s</th>\n",
+       "      <th>p_from_bar</th>\n",
+       "      <th>p_to_bar</th>\n",
+       "      <th>t_from_k</th>\n",
+       "      <th>t_to_k</th>\n",
+       "      <th>t_outlet_k</th>\n",
+       "      <th>mdot_from_kg_per_s</th>\n",
+       "      <th>mdot_to_kg_per_s</th>\n",
+       "      <th>vdot_m3_per_s</th>\n",
+       "      <th>reynolds</th>\n",
+       "      <th>lambda</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>5436899515124385631</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>5436899515124385631</td>\n",
+       "      <td>5436899515124385631</td>\n",
+       "      <td>5545156887373324999</td>\n",
+       "      <td>4658286599152640406</td>\n",
+       "      <td>4988912237861306746</td>\n",
+       "      <td>5515842498618683031</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>1000.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>0.25</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>0.025</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>1000.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>-1</td>\n",
+       "      <td>Template Element for single Pipe Creation</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>3S5201225267441779810</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>4741144811589278980</td>\n",
+       "      <td>4804028781596645401</td>\n",
+       "      <td>5436899515124385631</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>b'\\x01\\x02\\x00\\x00\\x00\\x02\\x00\\x00\\x00\\x00\\x00...</td>\n",
+       "      <td>b'\\x00\\x00\\x80?\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x0...</td>\n",
+       "      <td>M-1-0-1</td>\n",
+       "      <td></td>\n",
+       "      <td>B1</td>\n",
+       "      <td>V0</td>\n",
+       "      <td>BZ1</td>\n",
+       "      <td>2025-04-09 13:12:25</td>\n",
+       "      <td>2025-04-08 11:45:59</td>\n",
+       "      <td>5703508123076770847</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>5151772185690695097</td>\n",
+       "      <td>4804028781596645401</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>4982567935033599504</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>1001.0</td>\n",
+       "      <td>M-1-0-1</td>\n",
+       "      <td>1001.0</td>\n",
+       "      <td>5060822126933396627</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>None</td>\n",
+       "      <td>b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x0...</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>None</td>\n",
+       "      <td>STDROHR</td>\n",
+       "      <td>200</td>\n",
+       "      <td>200.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.031416</td>\n",
+       "      <td>31.415927</td>\n",
+       "      <td>STDROHR</td>\n",
+       "      <td>None</td>\n",
+       "      <td>5545156887373324999</td>\n",
+       "      <td>j1</td>\n",
+       "      <td>4658286599152640406</td>\n",
+       "      <td>j2</td>\n",
+       "      <td>11</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.308771</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.414039</td>\n",
+       "      <td>0.021201</td>\n",
+       "      <td>27.777779</td>\n",
+       "      <td>0.7011</td>\n",
+       "      <td>0.414039</td>\n",
+       "      <td>10.578515</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>0.899623</td>\n",
+       "      <td>-3.333333e+32</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>965.200012</td>\n",
+       "      <td>9.578515</td>\n",
+       "      <td>9.578515</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>965.200012</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>0.899623</td>\n",
+       "      <td>0.414039</td>\n",
+       "      <td>0.414039</td>\n",
+       "      <td>27.777779</td>\n",
+       "      <td>0.021201</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0.916066</td>\n",
+       "      <td>10.0</td>\n",
+       "      <td>9.570867</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>363.15</td>\n",
+       "      <td>27.777779</td>\n",
+       "      <td>-27.777779</td>\n",
+       "      <td>0.028779</td>\n",
+       "      <td>562357.155296</td>\n",
+       "      <td>0.021192</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                    pk                 fkDE                   rk  \\\n",
+       "0  5436899515124385631  4982567935033599504  5436899515124385631   \n",
+       "\n",
+       "                    tk                 fkKI                 fkKK  \\\n",
+       "0  5436899515124385631  5545156887373324999  4658286599152640406   \n",
+       "\n",
+       "           fkDTRO_ROWD               fkLTGR fkSTRASSE       L   LZU   RAU  \\\n",
+       "0  4988912237861306746  5515842498618683031        -1  1000.0  None  0.25   \n",
+       "\n",
+       "   JLAMBS  LAMBDA0  ZEIN  ZAUS  ZUML   ASOLL INDSCHALL BAUJAHR   HAL  \\\n",
+       "0     1.0    0.025  None  None  None  1000.0      None    None  None   \n",
+       "\n",
+       "                fkCONT fk2LROHR                               BESCHREIBUNG  \\\n",
+       "0  5060822126933396627       -1  Template Element for single Pipe Creation   \n",
+       "\n",
+       "  GEOMWKB DELETED SELECT1             IDREFERENZ  KENNUNG  IPLANUNG  KVR  \\\n",
+       "0    None    None    None  3S5201225267441779810      NaN       1.0  NaN   \n",
+       "\n",
+       "                 pk_BZ              fkDE_BZ                   fk  QSVB  \\\n",
+       "0  4741144811589278980  4804028781596645401  5436899515124385631  None   \n",
+       "\n",
+       "  IRTRENN LECKSTATUS LECKSTART LECKEND LECKORT LECKMENGE IMPTNZ ZVLIMPTNZ  \\\n",
+       "0    None       None      None    None    None      None   None      None   \n",
+       "\n",
+       "  KANTENZV                                               GEOM  \\\n",
+       "0     None  b'\\x01\\x02\\x00\\x00\\x00\\x02\\x00\\x00\\x00\\x00\\x00...   \n",
+       "\n",
+       "                                                GRAF      MId MText Basis  \\\n",
+       "0  b'\\x00\\x00\\x80?\\x00\\x00\\x00\\x00\\x01\\x00\\x00\\x0...  M-1-0-1          B1   \n",
+       "\n",
+       "  Variante   BZ            Geaendert             Erstellt  \\\n",
+       "0       V0  BZ1  2025-04-09 13:12:25  2025-04-08 11:45:59   \n",
+       "\n",
+       "               pk_VMBZ              fkBASIS           fkVARIANTE  \\\n",
+       "0  5703508123076770847  4982567935033599504  5151772185690695097   \n",
+       "\n",
+       "                  fkBZ  MZ  MT              pk_CONT            fkDE_CONT  \\\n",
+       "0  4804028781596645401   1   1  5060822126933396627  4982567935033599504   \n",
+       "\n",
+       "               rk_CONT              tk_CONT  ID_CONT NAME_CONT  IDPARENT_CONT  \\\n",
+       "0  5060822126933396627  5060822126933396627   1001.0   M-1-0-1         1001.0   \n",
+       "\n",
+       "         rkPARENT_CONT LFDNR_CONT GRAF_CONT FONT_CONT  \\\n",
+       "0  5060822126933396627       None      None      None   \n",
+       "\n",
+       "                                           GEOM_CONT  DELETED_CONT  \\\n",
+       "0  b'\\x00\\x00\\x80?\\x01\\x00\\x00\\x00\\x01\\x00\\x00\\x0...           0.0   \n",
+       "\n",
+       "   SELECT1_CONT IDREFERENZ_CONT NAME_DTRO   DN     DI   DA    S   KT   PN  \\\n",
+       "0           0.0            None   STDROHR  200  200.0  0.0  0.0  0.0  0.0   \n",
+       "\n",
+       "        Am2        Vm3 NAME_LTGR NAME_STRASSE                 tk_i NAME_i  \\\n",
+       "0  0.031416  31.415927   STDROHR         None  5545156887373324999     j1   \n",
+       "\n",
+       "                  tk_k NAME_k  mx2NofPts     dL  mx2Idx  \\\n",
+       "0  4658286599152640406     j2         11  100.0       0   \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~A, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                                0.0                \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~DTTR, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                           0.308771                   \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~DWVERL, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                                0.0                     \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~DWVERLABS, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                                0.0                        \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~IAKTIV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                                0.0                     \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~IRTRENN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                                0.0                      \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~JV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                           0.414039                 \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~LAMBDA, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                           0.021201                     \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~MAV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                          27.777779                  \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~PDAMPF, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                             0.7011                     \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~PHR, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                           0.414039                  \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~PMIN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                          10.578515                   \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~QMAV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                              100.0                   \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~VAV, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                           0.899623                  \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~VOLDA, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                      -3.333333e+32                    \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~WVL, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                                0.0                  \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~ZAUS, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                                0.0                   \n",
+       "\n",
+       "   (STAT, ROHR~*~*~*~ZEIN, 2025-04-08 09:45:59, 2025-04-08 09:45:59)  \\\n",
+       "0                                                0.0                   \n",
+       "\n",
+       "   ('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i  \\\n",
+       "0                                               10.0                                                 \n",
+       "\n",
+       "   ('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i  \\\n",
+       "0                                               10.0                                                \n",
+       "\n",
+       "   ('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i  \\\n",
+       "0                                               90.0                                                \n",
+       "\n",
+       "   ('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_i  \\\n",
+       "0                                         965.200012                                                  \n",
+       "\n",
+       "   ('STAT', 'KNOT~*~*~*~PH', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k  \\\n",
+       "0                                           9.578515                                                 \n",
+       "\n",
+       "   ('STAT', 'KNOT~*~*~*~H', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k  \\\n",
+       "0                                           9.578515                                                \n",
+       "\n",
+       "   ('STAT', 'KNOT~*~*~*~T', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k  \\\n",
+       "0                                               90.0                                                \n",
+       "\n",
+       "   ('STAT', 'KNOT~*~*~*~RHO', Timestamp('2025-04-08 09:45:59'), Timestamp('2025-04-08 09:45:59'))_k  \\\n",
+       "0                                         965.200012                                                  \n",
+       "\n",
+       "   QMAVAbs    VAVAbs    PHRAbs     JVAbs        MAV    LAMBDA  ppID  \\\n",
+       "0    100.0  0.899623  0.414039  0.414039  27.777779  0.021201     0   \n",
+       "\n",
+       "   v_mean_m_per_s  p_from_bar  p_to_bar  t_from_k  t_to_k  t_outlet_k  \\\n",
+       "0        0.916066        10.0  9.570867    363.15  363.15      363.15   \n",
+       "\n",
+       "   mdot_from_kg_per_s  mdot_to_kg_per_s  vdot_m3_per_s       reynolds  \\\n",
+       "0           27.777779        -27.777779       0.028779  562357.155296   \n",
+       "\n",
+       "     lambda  \n",
+       "0  0.021192  "
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "dfCmpPipes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import math\n",
+    "\n",
+    "def fCmp2(row\n",
+    "         ,col1\n",
+    "         ,col2 \n",
+    "         ,col2Offset=0.\n",
+    "         ,dAbsMax=0.01 # max. tol. Abw. \n",
+    "         ,dProzMax=0.1 # max. tol. Abw. in %\n",
+    "    ):\n",
+    "    \n",
+    "    #print(row)\n",
+    "    #print(dAbsMax)\n",
+    "    d=row[col1]-(row[col2]+col2Offset)\n",
+    "    dAbs=math.fabs(d)\n",
+    "    \n",
+    "\n",
+    "    dProz=dAbs/row[col1]*100\n",
+    "    \n",
+    "    \n",
+    "    l = ['color: red' if dProz > dProzMax or dAbs > dAbsMax else 'color: green' for _ in row]    \n",
+    "    return ['',l[1]]\n",
+    "\n",
+    "def stylerJunctions(styler):\n",
+    "    styler.set_caption(\"SIR 3S vs. pp: Junctions\")\n",
+    "    styler.format(\n",
+    "    {\n",
+    "        'PH': '{:,.3f}',\n",
+    "        'p_bar': '{:,.3f}',\n",
+    "        'T': '{:,.2f}',\n",
+    "        't_k': '{:,.2f}',        \n",
+    "    },\n",
+    "    na_rep='-',\n",
+    "    precision=0\n",
+    "    )\n",
+    "\n",
+    "    \n",
+    "    styler.apply(fCmp2,axis=1,subset=['PH','p_bar'],col1='PH',col2='p_bar',dAbsMax=0.01)\n",
+    "\n",
+    "    styler.apply(fCmp2,axis=1,subset=['T','t_k'],col1='T',col2='t_k',dAbsMax=0.01,col2Offset=-273.15)\n",
+    "\n",
+    "    return styler"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style type=\"text/css\">\n",
+       "#T_f9c5e_row0_col2, #T_f9c5e_row0_col4, #T_f9c5e_row1_col2, #T_f9c5e_row1_col4 {\n",
+       "  color: green;\n",
+       "}\n",
+       "</style>\n",
+       "<table id=\"T_f9c5e\">\n",
+       "  <caption>SIR 3S vs. pp: Junctions</caption>\n",
+       "  <thead>\n",
+       "    <tr>\n",
+       "      <th class=\"blank level0\" >&nbsp;</th>\n",
+       "      <th id=\"T_f9c5e_level0_col0\" class=\"col_heading level0 col0\" >NAME</th>\n",
+       "      <th id=\"T_f9c5e_level0_col1\" class=\"col_heading level0 col1\" >PH</th>\n",
+       "      <th id=\"T_f9c5e_level0_col2\" class=\"col_heading level0 col2\" >p_bar</th>\n",
+       "      <th id=\"T_f9c5e_level0_col3\" class=\"col_heading level0 col3\" >T</th>\n",
+       "      <th id=\"T_f9c5e_level0_col4\" class=\"col_heading level0 col4\" >t_k</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th id=\"T_f9c5e_level0_row0\" class=\"row_heading level0 row0\" >3</th>\n",
+       "      <td id=\"T_f9c5e_row0_col0\" class=\"data row0 col0\" >j1</td>\n",
+       "      <td id=\"T_f9c5e_row0_col1\" class=\"data row0 col1\" >10.000</td>\n",
+       "      <td id=\"T_f9c5e_row0_col2\" class=\"data row0 col2\" >10.000</td>\n",
+       "      <td id=\"T_f9c5e_row0_col3\" class=\"data row0 col3\" >90.00</td>\n",
+       "      <td id=\"T_f9c5e_row0_col4\" class=\"data row0 col4\" >363.15</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th id=\"T_f9c5e_level0_row1\" class=\"row_heading level0 row1\" >4</th>\n",
+       "      <td id=\"T_f9c5e_row1_col0\" class=\"data row1 col0\" >j2</td>\n",
+       "      <td id=\"T_f9c5e_row1_col1\" class=\"data row1 col1\" >9.579</td>\n",
+       "      <td id=\"T_f9c5e_row1_col2\" class=\"data row1 col2\" >9.571</td>\n",
+       "      <td id=\"T_f9c5e_row1_col3\" class=\"data row1 col3\" >90.00</td>\n",
+       "      <td id=\"T_f9c5e_row1_col4\" class=\"data row1 col4\" >363.15</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n"
+      ],
+      "text/plain": [
+       "<pandas.io.formats.style.Styler at 0x19b1c446f90>"
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "dfCmpJunctions[['NAME','PH','p_bar','T','t_k']].style.pipe(stylerJunctions)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "def stylerPipes(styler):\n",
+    "    styler.set_caption(\"SIR 3S vs. pp: Pipes\")\n",
+    "    styler.format(\n",
+    "    {\n",
+    "        'QMAVAbs': '{:,.2f}',\n",
+    "        'mdot_from_kg_per_s': '{:,.2f}',\n",
+    "        'MAV': '{:,.2f}',        \n",
+    "        'LAMBDA': '{:,.5f}',\n",
+    "        'lambda': '{:,.5f}',\n",
+    "      \n",
+    "    },\n",
+    "    na_rep='-',\n",
+    "    precision=0\n",
+    "    )\n",
+    "\n",
+    "    \n",
+    "    styler.apply(fCmp2,axis=1,subset=['LAMBDA','lambda'],col1='LAMBDA',col2='lambda',dAbsMax=0.00001)\n",
+    "\n",
+    "    styler.apply(fCmp2,axis=1,subset=['MAV','mdot_from_kg_per_s'],col1='MAV',col2='mdot_from_kg_per_s',dAbsMax=0.01)\n",
+    "\n",
+    "\n",
+    "\n",
+    "    \n",
+    "\n",
+    "    return styler"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style type=\"text/css\">\n",
+       "#T_6e8cd_row0_col4, #T_6e8cd_row0_col6 {\n",
+       "  color: green;\n",
+       "}\n",
+       "</style>\n",
+       "<table id=\"T_6e8cd\">\n",
+       "  <caption>SIR 3S vs. pp: Pipes</caption>\n",
+       "  <thead>\n",
+       "    <tr>\n",
+       "      <th class=\"blank level0\" >&nbsp;</th>\n",
+       "      <th id=\"T_6e8cd_level0_col0\" class=\"col_heading level0 col0\" >NAME_i</th>\n",
+       "      <th id=\"T_6e8cd_level0_col1\" class=\"col_heading level0 col1\" >NAME_k</th>\n",
+       "      <th id=\"T_6e8cd_level0_col2\" class=\"col_heading level0 col2\" >QMAVAbs</th>\n",
+       "      <th id=\"T_6e8cd_level0_col3\" class=\"col_heading level0 col3\" >MAV</th>\n",
+       "      <th id=\"T_6e8cd_level0_col4\" class=\"col_heading level0 col4\" >mdot_from_kg_per_s</th>\n",
+       "      <th id=\"T_6e8cd_level0_col5\" class=\"col_heading level0 col5\" >LAMBDA</th>\n",
+       "      <th id=\"T_6e8cd_level0_col6\" class=\"col_heading level0 col6\" >lambda</th>\n",
+       "      <th id=\"T_6e8cd_level0_col7\" class=\"col_heading level0 col7\" >reynolds</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th id=\"T_6e8cd_level0_row0\" class=\"row_heading level0 row0\" >0</th>\n",
+       "      <td id=\"T_6e8cd_row0_col0\" class=\"data row0 col0\" >j1</td>\n",
+       "      <td id=\"T_6e8cd_row0_col1\" class=\"data row0 col1\" >j2</td>\n",
+       "      <td id=\"T_6e8cd_row0_col2\" class=\"data row0 col2\" >100.00</td>\n",
+       "      <td id=\"T_6e8cd_row0_col3\" class=\"data row0 col3\" >27.78</td>\n",
+       "      <td id=\"T_6e8cd_row0_col4\" class=\"data row0 col4\" >27.78</td>\n",
+       "      <td id=\"T_6e8cd_row0_col5\" class=\"data row0 col5\" >0.02120</td>\n",
+       "      <td id=\"T_6e8cd_row0_col6\" class=\"data row0 col6\" >0.02119</td>\n",
+       "      <td id=\"T_6e8cd_row0_col7\" class=\"data row0 col7\" >562357</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n"
+      ],
+      "text/plain": [
+       "<pandas.io.formats.style.Styler at 0x19b1c406910>"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "dfCmpPipes[['NAME_i','NAME_k','QMAVAbs','MAV', 'mdot_from_kg_per_s','LAMBDA','lambda','reynolds']].style.pipe(stylerPipes)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# example for determining roughness"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def fDetRau(net=net, pSoll=9.4, dk=1):\n",
+    "\n",
+    "    pIst=net.res_junction.loc[1,'p_bar']\n",
+    "    dp=pSoll-pIst\n",
+    "\n",
+    "    if math.fabs(dp) <= 0.001:\n",
+    "        print(f\"pIst={pIst:.3f} dp={dp:.3f} k={net.pipe.loc[0,'k_mm']:.4f} (dk={dk:.4f})\")\n",
+    "        return(pIst,net.pipe.loc[0,'k_mm'])\n",
+    "\n",
+    "    dpVStart=math.copysign(1,dp)\n",
+    "    dpV=dpVStart\n",
+    "\n",
+    "    while dpV == dpVStart:\n",
+    "\n",
+    "        # Rauheit veraendern\n",
+    "        if dp > 0:\n",
+    "            dkAdd=-dk\n",
+    "        else:\n",
+    "            dkAdd=dk\n",
+    "\n",
+    "        net.pipe.loc[0,'k_mm']=net.pipe.loc[0,'k_mm']+dkAdd\n",
+    "\n",
+    "        # rechnen\n",
+    "        pp.pipeflow(net\n",
+    "                ,friction_model='colebrook'        \n",
+    "                #,mode='sequential'\n",
+    "                )\n",
+    "        \n",
+    "        pIst=net.res_junction.loc[1,'p_bar']\n",
+    "        dp=pSoll-pIst\n",
+    "\n",
+    "        dpV=math.copysign(1,dp)\n",
+    "    \n",
+    "    fDetRau(net=net, pSoll=9.4, dk=dk/2)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "pIst=9.400 dp=0.000 k=0.9062 (dk=0.0078)\n"
+     ]
+    }
+   ],
+   "source": [
+    "fDetRau()"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.8"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

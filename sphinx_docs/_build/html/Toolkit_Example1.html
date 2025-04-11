@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toolkit Example1: NetworkX To SIR 3S and SIR 3S to NetworkX via Toolkit &mdash; PT3S 90.14.45.0.dev1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/pt3s_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">Classes and Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">For Developers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PT3S</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Toolkit Example1: NetworkX To SIR 3S and SIR 3S to NetworkX via Toolkit</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Toolkit_Example1.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Toolkit-Example1:-NetworkX-To-SIR-3S-and-SIR-3S-to-NetworkX-via-Toolkit">
+<h1>Toolkit Example1: NetworkX To SIR 3S and SIR 3S to NetworkX via Toolkit<a class="headerlink" href="#Toolkit-Example1:-NetworkX-To-SIR-3S-and-SIR-3S-to-NetworkX-via-Toolkit" title="Permalink to this heading"></a></h1>
+This Example demonstrates how to create a networkx graph and generate Toolkit commands to recreate the graph as a SIR 3S Modle with nodes and pipes. The code can be copied into the sript tab of the SIR 3S Python console to create the graph in a model or applied directley in a Notebook as explained in Toolkit_Example2. It is also demonstrated how to use Toolkit to get model data of node and pipes and create a networkx graph based on it.</section>
+<section id="Imports">
+<h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">clr</span> <span class="k">as</span> <span class="nn">net</span>
+<span class="n">net</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S Entwicklung\SirGraf-90-15-00-04x64\Sir3S_Repository.Interfaces.dll&quot;</span><span class="p">)</span> <span class="c1">#Change to local path</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;System.Reflection.RuntimeAssembly object at 0x00000190147B0BC0&gt;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PythonWrapperToolkit</span>
+<span class="kn">from</span> <span class="nn">PythonWrapperToolkit</span> <span class="kn">import</span> <span class="n">SIR3S_Model</span><span class="p">,</span> <span class="n">SIR3S_View</span>
+<span class="kn">import</span> <span class="nn">Sir3S_Repository.Interfaces</span> <span class="k">as</span> <span class="nn">Interfaces</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="NetworkX">
+<h1>NetworkX<a class="headerlink" href="#NetworkX" title="Permalink to this heading"></a></h1>
+<section id="Cretate-edges-connecting-nodes">
+<h2>Cretate edges connecting nodes<a class="headerlink" href="#Cretate-edges-connecting-nodes" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spnG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spnG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">spnG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span> <span class="n">D</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">spnG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span> <span class="n">D</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">spnG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">spnG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span> <span class="n">D</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">spnG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span> <span class="n">D</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">spnG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Set-Node-positions">
+<h2>Set Node positions<a class="headerlink" href="#Set-Node-positions" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1250</span><span class="p">),</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1250</span><span class="p">),</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="p">(</span><span class="mi">1250</span><span class="p">,</span> <span class="mi">1500</span><span class="p">),</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="p">(</span><span class="mi">1250</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="p">(</span><span class="mi">1500</span><span class="p">,</span> <span class="mi">1250</span><span class="p">),</span>
+    <span class="mi">6</span><span class="p">:</span> <span class="p">(</span><span class="mi">2500</span><span class="p">,</span> <span class="mi">1250</span><span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">pos</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">spnG</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="n">x</span><span class="p">},</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">spnG</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="n">y</span><span class="p">},</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">spnG</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Draw">
+<h2>Draw<a class="headerlink" href="#Draw" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">spnG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">spnG</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Toolkit_Example1_14_0.png" src="_images/Toolkit_Example1_14_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Generate-Toolkit-Commands-from-NX-Graph">
+<h1>Generate Toolkit Commands from NX Graph<a class="headerlink" href="#Generate-Toolkit-Commands-from-NX-Graph" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_toolkit_commands</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">session_name</span><span class="o">=</span><span class="s2">&quot;DefaultSession&quot;</span><span class="p">):</span>
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;import PythonWrapperToolkit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;import Sir3S_Repository.Interfaces as Interfaces&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;instance = PythonWrapperToolkit.SIR3S_Model()&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;instance.StartTransaction(SessionName=&#39;</span><span class="si">{</span><span class="n">session_name</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Generate commands for nodes</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">node_tk</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x_coord</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+        <span class="n">y_coord</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+        <span class="n">z_coord</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Create the command to insert the node</span>
+        <span class="n">insert_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2"> = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)&quot;</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">insert_command</span><span class="p">)</span>
+
+        <span class="c1"># Create the commands to set the node&#39;s coordinates</span>
+        <span class="n">set_x_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;instance.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Xkor&#39;, &#39;</span><span class="si">{</span><span class="n">x_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+        <span class="n">set_y_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;instance.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Ykor&#39;, &#39;</span><span class="si">{</span><span class="n">y_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+        <span class="n">set_z_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;instance.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Zkor&#39;, &#39;</span><span class="si">{</span><span class="n">z_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_x_command</span><span class="p">)</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_y_command</span><span class="p">)</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_z_command</span><span class="p">)</span>
+
+    <span class="c1"># Generate commands for pipes</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Create the command to insert the pipe</span>
+        <span class="n">pipe_tk</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;pipe</span><span class="si">{</span><span class="n">node1</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">node2</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">insert_pipe_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pipe_tk</span><span class="si">}</span><span class="s2"> = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)&quot;</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">insert_pipe_command</span><span class="p">)</span>
+
+        <span class="c1"># Create the command to connect the pipe with nodes</span>
+        <span class="n">connect_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;instance.ConnectConnectingElementWithNodes(</span><span class="si">{</span><span class="n">pipe_tk</span><span class="si">}</span><span class="s2">, node</span><span class="si">{</span><span class="n">node1</span><span class="si">}</span><span class="s2">, node</span><span class="si">{</span><span class="n">node2</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">connect_command</span><span class="p">)</span>
+
+    <span class="c1"># End the transaction</span>
+    <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;instance.EndTransaction()&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">commands</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commands</span> <span class="o">=</span> <span class="n">generate_toolkit_commands</span><span class="p">(</span><span class="n">spnG</span><span class="p">,</span> <span class="n">session_name</span><span class="o">=</span><span class="s2">&quot;DefaultSession&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+import PythonWrapperToolkit
+import Sir3S_Repository.Interfaces as Interfaces
+instance = PythonWrapperToolkit.SIR3S_Model()
+instance.StartTransaction(SessionName=&#39;DefaultSession&#39;)
+node1 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node1, &#39;Xkor&#39;, &#39;0&#39;)
+instance.SetValue(node1, &#39;Ykor&#39;, &#39;1250&#39;)
+instance.SetValue(node1, &#39;Zkor&#39;, &#39;0&#39;)
+node2 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node2, &#39;Xkor&#39;, &#39;1000&#39;)
+instance.SetValue(node2, &#39;Ykor&#39;, &#39;1250&#39;)
+instance.SetValue(node2, &#39;Zkor&#39;, &#39;0&#39;)
+node3 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node3, &#39;Xkor&#39;, &#39;1250&#39;)
+instance.SetValue(node3, &#39;Ykor&#39;, &#39;1500&#39;)
+instance.SetValue(node3, &#39;Zkor&#39;, &#39;0&#39;)
+node4 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node4, &#39;Xkor&#39;, &#39;1250&#39;)
+instance.SetValue(node4, &#39;Ykor&#39;, &#39;1000&#39;)
+instance.SetValue(node4, &#39;Zkor&#39;, &#39;0&#39;)
+node5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node5, &#39;Xkor&#39;, &#39;1500&#39;)
+instance.SetValue(node5, &#39;Ykor&#39;, &#39;1250&#39;)
+instance.SetValue(node5, &#39;Zkor&#39;, &#39;0&#39;)
+node6 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node6, &#39;Xkor&#39;, &#39;2500&#39;)
+instance.SetValue(node6, &#39;Ykor&#39;, &#39;1250&#39;)
+instance.SetValue(node6, &#39;Zkor&#39;, &#39;0&#39;)
+pipe1_2 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe1_2, node1, node2)
+pipe2_3 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe2_3, node2, node3)
+pipe2_4 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe2_4, node2, node4)
+pipe3_4 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe3_4, node3, node4)
+pipe3_5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe3_5, node3, node5)
+pipe4_5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe4_5, node4, node5)
+pipe5_6 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe5_6, node5, node6)
+instance.EndTransaction()
+</pre></div></div>
+</div>
+Feel free to execute the toolkit commands to recreate the graph in SIR 3S and compare it to the graph plotted above.</section>
+<section id="Testing-with-randomized-graph">
+<h1>Testing with randomized graph<a class="headerlink" href="#Testing-with-randomized-graph" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function to create a random graph on a 2500x2500 grid</span>
+<span class="k">def</span> <span class="nf">create_random_graph</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">num_edges</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_nodes</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2500</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2500</span><span class="p">)</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_edges</span><span class="p">):</span>
+        <span class="n">node1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">)</span>
+        <span class="n">node2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node1</span> <span class="o">!=</span> <span class="n">node2</span><span class="p">:</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">G</span>
+</pre></div>
+</div>
+</div>
+<section id="Graph-1">
+<h2>Graph 1<a class="headerlink" href="#Graph-1" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph1</span> <span class="o">=</span> <span class="n">create_random_graph</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span> <span class="c1">#numbe of nodes/edges</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commands_graph1</span> <span class="o">=</span> <span class="n">generate_toolkit_commands</span><span class="p">(</span><span class="n">graph1</span><span class="p">,</span> <span class="n">session_name</span><span class="o">=</span><span class="s2">&quot;Graph1Session&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands_graph1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+import PythonWrapperToolkit
+import Sir3S_Repository.Interfaces as Interfaces
+instance = PythonWrapperToolkit.SIR3S_Model()
+instance.StartTransaction(SessionName=&#39;Graph1Session&#39;)
+node1 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node1, &#39;Xkor&#39;, &#39;448&#39;)
+instance.SetValue(node1, &#39;Ykor&#39;, &#39;2116&#39;)
+instance.SetValue(node1, &#39;Zkor&#39;, &#39;0&#39;)
+node2 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node2, &#39;Xkor&#39;, &#39;1699&#39;)
+instance.SetValue(node2, &#39;Ykor&#39;, &#39;727&#39;)
+instance.SetValue(node2, &#39;Zkor&#39;, &#39;0&#39;)
+node3 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node3, &#39;Xkor&#39;, &#39;2293&#39;)
+instance.SetValue(node3, &#39;Ykor&#39;, &#39;609&#39;)
+instance.SetValue(node3, &#39;Zkor&#39;, &#39;0&#39;)
+node4 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node4, &#39;Xkor&#39;, &#39;1248&#39;)
+instance.SetValue(node4, &#39;Ykor&#39;, &#39;705&#39;)
+instance.SetValue(node4, &#39;Zkor&#39;, &#39;0&#39;)
+node5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node5, &#39;Xkor&#39;, &#39;1771&#39;)
+instance.SetValue(node5, &#39;Ykor&#39;, &#39;938&#39;)
+instance.SetValue(node5, &#39;Zkor&#39;, &#39;0&#39;)
+node6 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node6, &#39;Xkor&#39;, &#39;1715&#39;)
+instance.SetValue(node6, &#39;Ykor&#39;, &#39;1854&#39;)
+instance.SetValue(node6, &#39;Zkor&#39;, &#39;0&#39;)
+node7 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node7, &#39;Xkor&#39;, &#39;997&#39;)
+instance.SetValue(node7, &#39;Ykor&#39;, &#39;882&#39;)
+instance.SetValue(node7, &#39;Zkor&#39;, &#39;0&#39;)
+node8 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node8, &#39;Xkor&#39;, &#39;15&#39;)
+instance.SetValue(node8, &#39;Ykor&#39;, &#39;1575&#39;)
+instance.SetValue(node8, &#39;Zkor&#39;, &#39;0&#39;)
+node9 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node9, &#39;Xkor&#39;, &#39;48&#39;)
+instance.SetValue(node9, &#39;Ykor&#39;, &#39;2142&#39;)
+instance.SetValue(node9, &#39;Zkor&#39;, &#39;0&#39;)
+node10 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node10, &#39;Xkor&#39;, &#39;881&#39;)
+instance.SetValue(node10, &#39;Ykor&#39;, &#39;663&#39;)
+instance.SetValue(node10, &#39;Zkor&#39;, &#39;0&#39;)
+node11 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node11, &#39;Xkor&#39;, &#39;1541&#39;)
+instance.SetValue(node11, &#39;Ykor&#39;, &#39;1354&#39;)
+instance.SetValue(node11, &#39;Zkor&#39;, &#39;0&#39;)
+node12 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node12, &#39;Xkor&#39;, &#39;28&#39;)
+instance.SetValue(node12, &#39;Ykor&#39;, &#39;1473&#39;)
+instance.SetValue(node12, &#39;Zkor&#39;, &#39;0&#39;)
+node13 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node13, &#39;Xkor&#39;, &#39;390&#39;)
+instance.SetValue(node13, &#39;Ykor&#39;, &#39;2012&#39;)
+instance.SetValue(node13, &#39;Zkor&#39;, &#39;0&#39;)
+node14 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node14, &#39;Xkor&#39;, &#39;579&#39;)
+instance.SetValue(node14, &#39;Ykor&#39;, &#39;1266&#39;)
+instance.SetValue(node14, &#39;Zkor&#39;, &#39;0&#39;)
+node15 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node15, &#39;Xkor&#39;, &#39;912&#39;)
+instance.SetValue(node15, &#39;Ykor&#39;, &#39;2037&#39;)
+instance.SetValue(node15, &#39;Zkor&#39;, &#39;0&#39;)
+node16 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node16, &#39;Xkor&#39;, &#39;2370&#39;)
+instance.SetValue(node16, &#39;Ykor&#39;, &#39;97&#39;)
+instance.SetValue(node16, &#39;Zkor&#39;, &#39;0&#39;)
+node17 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node17, &#39;Xkor&#39;, &#39;1025&#39;)
+instance.SetValue(node17, &#39;Ykor&#39;, &#39;405&#39;)
+instance.SetValue(node17, &#39;Zkor&#39;, &#39;0&#39;)
+node18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node18, &#39;Xkor&#39;, &#39;2387&#39;)
+instance.SetValue(node18, &#39;Ykor&#39;, &#39;1847&#39;)
+instance.SetValue(node18, &#39;Zkor&#39;, &#39;0&#39;)
+node19 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node19, &#39;Xkor&#39;, &#39;904&#39;)
+instance.SetValue(node19, &#39;Ykor&#39;, &#39;1809&#39;)
+instance.SetValue(node19, &#39;Zkor&#39;, &#39;0&#39;)
+node20 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node20, &#39;Xkor&#39;, &#39;427&#39;)
+instance.SetValue(node20, &#39;Ykor&#39;, &#39;909&#39;)
+instance.SetValue(node20, &#39;Zkor&#39;, &#39;0&#39;)
+node21 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node21, &#39;Xkor&#39;, &#39;2457&#39;)
+instance.SetValue(node21, &#39;Ykor&#39;, &#39;1879&#39;)
+instance.SetValue(node21, &#39;Zkor&#39;, &#39;0&#39;)
+node22 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node22, &#39;Xkor&#39;, &#39;563&#39;)
+instance.SetValue(node22, &#39;Ykor&#39;, &#39;1442&#39;)
+instance.SetValue(node22, &#39;Zkor&#39;, &#39;0&#39;)
+node23 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node23, &#39;Xkor&#39;, &#39;1867&#39;)
+instance.SetValue(node23, &#39;Ykor&#39;, &#39;426&#39;)
+instance.SetValue(node23, &#39;Zkor&#39;, &#39;0&#39;)
+node24 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node24, &#39;Xkor&#39;, &#39;1031&#39;)
+instance.SetValue(node24, &#39;Ykor&#39;, &#39;752&#39;)
+instance.SetValue(node24, &#39;Zkor&#39;, &#39;0&#39;)
+node25 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node25, &#39;Xkor&#39;, &#39;2144&#39;)
+instance.SetValue(node25, &#39;Ykor&#39;, &#39;2271&#39;)
+instance.SetValue(node25, &#39;Zkor&#39;, &#39;0&#39;)
+node26 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node26, &#39;Xkor&#39;, &#39;1607&#39;)
+instance.SetValue(node26, &#39;Ykor&#39;, &#39;783&#39;)
+instance.SetValue(node26, &#39;Zkor&#39;, &#39;0&#39;)
+node27 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node27, &#39;Xkor&#39;, &#39;331&#39;)
+instance.SetValue(node27, &#39;Ykor&#39;, &#39;995&#39;)
+instance.SetValue(node27, &#39;Zkor&#39;, &#39;0&#39;)
+node28 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node28, &#39;Xkor&#39;, &#39;1735&#39;)
+instance.SetValue(node28, &#39;Ykor&#39;, &#39;2314&#39;)
+instance.SetValue(node28, &#39;Zkor&#39;, &#39;0&#39;)
+node29 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node29, &#39;Xkor&#39;, &#39;1694&#39;)
+instance.SetValue(node29, &#39;Ykor&#39;, &#39;1276&#39;)
+instance.SetValue(node29, &#39;Zkor&#39;, &#39;0&#39;)
+node30 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node30, &#39;Xkor&#39;, &#39;1342&#39;)
+instance.SetValue(node30, &#39;Ykor&#39;, &#39;475&#39;)
+instance.SetValue(node30, &#39;Zkor&#39;, &#39;0&#39;)
+pipe1_5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe1_5, node1, node5)
+pipe1_23 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe1_23, node1, node23)
+pipe3_17 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe3_17, node3, node17)
+pipe4_18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe4_18, node4, node18)
+pipe4_13 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe4_13, node4, node13)
+pipe4_5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe4_5, node4, node5)
+pipe5_28 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe5_28, node5, node28)
+pipe5_18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe5_18, node5, node18)
+pipe6_16 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe6_16, node6, node16)
+pipe7_27 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe7_27, node7, node27)
+pipe8_26 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe8_26, node8, node26)
+pipe9_10 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe9_10, node9, node10)
+pipe9_14 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe9_14, node9, node14)
+pipe10_21 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe10_21, node10, node21)
+pipe10_22 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe10_22, node10, node22)
+pipe11_18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe11_18, node11, node18)
+pipe12_25 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe12_25, node12, node25)
+pipe12_29 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe12_29, node12, node29)
+pipe12_20 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe12_20, node12, node20)
+pipe12_19 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe12_19, node12, node19)
+pipe13_24 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe13_24, node13, node24)
+pipe13_25 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe13_25, node13, node25)
+pipe13_18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe13_18, node13, node18)
+pipe13_22 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe13_22, node13, node22)
+pipe14_16 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe14_16, node14, node16)
+pipe15_24 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe15_24, node15, node24)
+pipe16_23 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe16_23, node16, node23)
+pipe18_30 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe18_30, node18, node30)
+pipe18_27 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe18_27, node18, node27)
+pipe18_28 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe18_28, node18, node28)
+pipe19_30 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe19_30, node19, node30)
+pipe20_25 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe20_25, node20, node25)
+pipe20_29 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe20_29, node20, node29)
+pipe20_26 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe20_26, node20, node26)
+pipe22_23 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe22_23, node22, node23)
+pipe23_29 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe23_29, node23, node29)
+instance.EndTransaction()
+</pre></div></div>
+</div>
+<p>Feel free to execute the toolkit commands to recreate the graph in SIR 3S and compare it to the graph plotted below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">pos_graph1</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">graph1</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">graph1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos_graph1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Graph 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Toolkit_Example1_26_0.png" src="_images/Toolkit_Example1_26_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Create-NetworkX-graph-from-SIR-3S-Model">
+<h1>Create NetworkX graph from SIR 3S Model<a class="headerlink" href="#Create-NetworkX-graph-from-SIR-3S-Model" title="Permalink to this heading"></a></h1>
+<section id="Instance">
+<h2>Instance<a class="headerlink" href="#Instance" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instance</span> <span class="o">=</span> <span class="n">PythonWrapperToolkit</span><span class="o">.</span><span class="n">SIR3S_Model</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Initialization complete
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># file path</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
+<span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Toolkit_Example1&quot;</span>
+<span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+                    <span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span>
+                    <span class="o">+</span><span class="n">dbFilename</span>
+                    <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instance</span><span class="o">.</span><span class="n">OpenModel</span><span class="p">(</span><span class="n">dbName</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span>
+                   <span class="n">providerType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">SirDBProviderType</span><span class="o">.</span><span class="n">SQLite</span><span class="p">,</span>
+                   <span class="n">Mid</span><span class="o">=</span><span class="s2">&quot;M-1-0-1&quot;</span><span class="p">,</span>
+                   <span class="n">saveCurrentlyOpenModel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                   <span class="n">namedInstance</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                   <span class="n">userID</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                   <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Model is open for further operation
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_tks</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+<span class="n">pipe_tks</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">pipes_data</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve node data</span>
+<span class="k">for</span> <span class="n">node_tk</span> <span class="ow">in</span> <span class="n">node_tks</span><span class="p">:</span>
+    <span class="n">x_coord</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">)</span>
+    <span class="n">y_coord</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">)</span>
+    <span class="n">node_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+    <span class="n">nodes_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;node_tk&#39;</span><span class="p">:</span> <span class="n">node_tk</span><span class="p">,</span>
+        <span class="s1">&#39;node_name&#39;</span><span class="p">:</span> <span class="n">node_name</span><span class="p">,</span>
+        <span class="s1">&#39;x_coord&#39;</span><span class="p">:</span> <span class="n">x_coord</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;y_coord&#39;</span><span class="p">:</span> <span class="n">y_coord</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve pipe data</span>
+<span class="k">for</span> <span class="n">pipe_tk</span> <span class="ow">in</span> <span class="n">pipe_tks</span><span class="p">:</span>
+    <span class="n">from_node</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s1">&#39;FromNode.Name&#39;</span><span class="p">)</span>
+    <span class="n">to_node</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s1">&#39;ToNode.Name&#39;</span><span class="p">)</span>
+    <span class="n">pipes_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;pipe_tk&#39;</span><span class="p">:</span> <span class="n">pipe_tk</span><span class="p">,</span>
+        <span class="s1">&#39;from_node&#39;</span><span class="p">:</span> <span class="n">from_node</span><span class="p">,</span>
+        <span class="s1">&#39;to_node&#39;</span><span class="p">:</span> <span class="n">to_node</span>
+    <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+<span class="n">pipes_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pipes_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter out nodes with x &lt; 700000 and y &lt; 5000000</span>
+<span class="n">nodes_df</span><span class="p">[</span><span class="s1">&#39;x_coord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodes_df</span><span class="p">[</span><span class="s1">&#39;x_coord&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">nodes_df</span><span class="p">[</span><span class="s1">&#39;y_coord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodes_df</span><span class="p">[</span><span class="s1">&#39;y_coord&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">filtered_nodes_df</span> <span class="o">=</span> <span class="n">nodes_df</span><span class="p">[(</span><span class="n">nodes_df</span><span class="p">[</span><span class="s1">&#39;x_coord&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">700000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">nodes_df</span><span class="p">[</span><span class="s1">&#39;y_coord&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">5000000</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add nodes</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">filtered_nodes_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;node_tk&#39;</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;x_coord&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;y_coord&#39;</span><span class="p">],</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add edges (pipes) between nodes</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">pipes_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">from_node_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;from_node&#39;</span><span class="p">]</span>
+    <span class="n">to_node_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;to_node&#39;</span><span class="p">]</span>
+    <span class="n">from_node_tk</span> <span class="o">=</span> <span class="n">filtered_nodes_df</span><span class="p">[</span><span class="n">filtered_nodes_df</span><span class="p">[</span><span class="s1">&#39;node_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">from_node_name</span><span class="p">][</span><span class="s1">&#39;node_tk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">to_node_tk</span> <span class="o">=</span> <span class="n">filtered_nodes_df</span><span class="p">[</span><span class="n">filtered_nodes_df</span><span class="p">[</span><span class="s1">&#39;node_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">to_node_name</span><span class="p">][</span><span class="s1">&#39;node_tk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">from_node_tk</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span> <span class="ow">and</span> <span class="n">to_node_tk</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">from_node_tk</span><span class="p">,</span> <span class="n">to_node_tk</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;x&#39;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="s1">&#39;y&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">font_weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Toolkit_Example1_41_0.png" src="_images/Toolkit_Example1_41_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s2">&quot;4917786378639043296&quot;</span><span class="p">,</span> <span class="s2">&quot;FkdtroRowd&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">pipe_tk</span> <span class="ow">in</span> <span class="n">pipe_tks</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s2">&quot;FkdtroRowd&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4845758090437917162&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;5044062710479530573&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;5044062710479530573&#39;, &#39;string&#39;)
+(&#39;5044062710479530573&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5103141232976878720&#39;, &#39;string&#39;)
+(&#39;4684070986837856878&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4845758090437917162&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;5486832651120375572&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5394143049338618777&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;5044062710479530573&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;4816511167455310973&#39;, &#39;string&#39;)
+(&#39;5227809287145441987&#39;, &#39;string&#39;)
+(&#39;5044062710479530573&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;5728256818453294508&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4857854795103167623&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;4689226368751411179&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+(&#39;5516336706687055417&#39;, &#39;string&#39;)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipe_tks</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;5442010239090746007&#39;,
+ &#39;4917786378639043296&#39;,
+ &#39;4762482310382009633&#39;,
+ &#39;4987229536643024523&#39;,
+ &#39;5722206630503885118&#39;,
+ &#39;5089459212485379804&#39;,
+ &#39;5526871502288882655&#39;,
+ &#39;4809089329099085219&#39;,
+ &#39;5170001087020228683&#39;,
+ &#39;5625716875961234775&#39;,
+ &#39;5501916898830363065&#39;,
+ &#39;5192970129555982907&#39;,
+ &#39;5027225217797463802&#39;,
+ &#39;5107343838750080243&#39;,
+ &#39;4840056338230495043&#39;,
+ &#39;5700872284015490704&#39;,
+ &#39;5290590848336792638&#39;,
+ &#39;4781821593135991761&#39;,
+ &#39;4770083637349644299&#39;,
+ &#39;5140383994159421977&#39;,
+ &#39;4615723899944629797&#39;,
+ &#39;5485743457841402038&#39;,
+ &#39;5061682782623660813&#39;,
+ &#39;4868922965129592512&#39;,
+ &#39;5253822763469470014&#39;,
+ &#39;5468996363795343031&#39;,
+ &#39;5339499657518903527&#39;,
+ &#39;4811306899232458618&#39;,
+ &#39;4928779983564758026&#39;,
+ &#39;4965578769510488820&#39;,
+ &#39;5600841315591171772&#39;,
+ &#39;4995034655758156710&#39;,
+ &#39;5209057104414292468&#39;,
+ &#39;5726827761099671871&#39;,
+ &#39;5080791944541542127&#39;,
+ &#39;4996979568467922520&#39;,
+ &#39;4893521402166887668&#39;,
+ &#39;4943852467771545411&#39;,
+ &#39;5294908835443772392&#39;,
+ &#39;5407639481169980338&#39;,
+ &#39;5494345815849234157&#39;,
+ &#39;5559756735287401600&#39;,
+ &#39;4688455252738739891&#39;,
+ &#39;5120913591494019846&#39;,
+ &#39;5189136483684313738&#39;,
+ &#39;5027271755713739562&#39;,
+ &#39;4843364651593046845&#39;,
+ &#39;4763398616537422727&#39;,
+ &#39;5211657964305638265&#39;,
+ &#39;4899878437571936054&#39;,
+ &#39;5017291090985710926&#39;,
+ &#39;4968195666913259627&#39;,
+ &#39;4872293615039533867&#39;,
+ &#39;5073852406571450055&#39;,
+ &#39;5460451359190976355&#39;,
+ &#39;5680559127926603859&#39;,
+ &#39;5701217076123185999&#39;,
+ &#39;5343389149567015241&#39;,
+ &#39;5004534437760811077&#39;,
+ &#39;5638727652971481339&#39;,
+ &#39;4933247170382646480&#39;,
+ &#39;5144558095415012328&#39;,
+ &#39;4676843093813396651&#39;,
+ &#39;5238385499211955735&#39;,
+ &#39;5431464167607748731&#39;,
+ &#39;5021757307925561906&#39;,
+ &#39;5735390708503613465&#39;,
+ &#39;5602200558168325137&#39;,
+ &#39;4976126317058169697&#39;,
+ &#39;5611058499224570176&#39;,
+ &#39;4951309552891536851&#39;,
+ &#39;4734625425618016004&#39;,
+ &#39;5003475594426980558&#39;,
+ &#39;5199984776776235548&#39;,
+ &#39;5146987453990281112&#39;,
+ &#39;4664282009021425543&#39;,
+ &#39;4730098385004060223&#39;,
+ &#39;5143417057295500465&#39;,
+ &#39;4870893641534242754&#39;,
+ &#39;4751771958060245818&#39;,
+ &#39;5431352512414392985&#39;,
+ &#39;4756919352045195395&#39;,
+ &#39;4950699445422043390&#39;,
+ &#39;5443612009555325057&#39;,
+ &#39;5130272059781459965&#39;,
+ &#39;5030450908543536722&#39;,
+ &#39;5425728209090108132&#39;,
+ &#39;4897883139609927597&#39;,
+ &#39;5385910423114382788&#39;,
+ &#39;4815053638180850703&#39;,
+ &#39;5520594566396266859&#39;,
+ &#39;4822932207368532352&#39;,
+ &#39;4943632133505495565&#39;,
+ &#39;5136719248606301905&#39;,
+ &#39;5222700144096421193&#39;,
+ &#39;5209596079625295991&#39;,
+ &#39;5215757535605464866&#39;,
+ &#39;5089350764087843246&#39;,
+ &#39;4922208128354560629&#39;,
+ &#39;5176883269076091732&#39;,
+ &#39;4882993749777364317&#39;,
+ &#39;5374456943006507008&#39;,
+ &#39;4843836890906700052&#39;,
+ &#39;5535463940319820632&#39;,
+ &#39;5012186927559751405&#39;,
+ &#39;4986912592668362327&#39;,
+ &#39;5119633900217288954&#39;,
+ &#39;5293317689029296733&#39;,
+ &#39;4766100927082653384&#39;,
+ &#39;5638908776577558151&#39;,
+ &#39;5244494914545547298&#39;,
+ &#39;4818046255571175936&#39;,
+ &#39;4826614335972511296&#39;,
+ &#39;5223081641641736592&#39;,
+ &#39;5248841557788033271&#39;,
+ &#39;5612538195203776712&#39;,
+ &#39;5446352019210100674&#39;,
+ &#39;5198739705259994278&#39;,
+ &#39;5120004980087359327&#39;,
+ &#39;5081007708328729580&#39;,
+ &#39;5332936729509410779&#39;,
+ &#39;5193926613850153217&#39;,
+ &#39;5669055683311185692&#39;,
+ &#39;5142801769428353146&#39;,
+ &#39;5570925755149935463&#39;,
+ &#39;5089627882145801048&#39;,
+ &#39;5749509498631743083&#39;,
+ &#39;5313314888424094938&#39;,
+ &#39;5672198676406030965&#39;,
+ &#39;5492269585462839687&#39;,
+ &#39;4878085949235357089&#39;,
+ &#39;5009009696813138306&#39;,
+ &#39;5417154223408487165&#39;,
+ &#39;4888087184557203150&#39;,
+ &#39;5482200169109927461&#39;,
+ &#39;5506250915346749683&#39;,
+ &#39;5249576152024204638&#39;,
+ &#39;5377200445080630699&#39;,
+ &#39;5293057810555927426&#39;,
+ &#39;4869711570166799356&#39;,
+ &#39;5116990929886803340&#39;,
+ &#39;5735615340560878820&#39;,
+ &#39;4881353465437199724&#39;,
+ &#39;5621715799375882738&#39;,
+ &#39;5012002718030878203&#39;,
+ &#39;5398733809575429001&#39;,
+ &#39;5028247962181469636&#39;,
+ &#39;4900101542637177072&#39;,
+ &#39;5277687384123072302&#39;,
+ &#39;5494173646602854486&#39;,
+ &#39;5052735000191334434&#39;,
+ &#39;5539639795342428023&#39;,
+ &#39;5278182790120832611&#39;,
+ &#39;5199049455293895634&#39;,
+ &#39;4921179458989199657&#39;,
+ &#39;4916972176026821426&#39;,
+ &#39;5022571509924021844&#39;,
+ &#39;4763784987464972068&#39;,
+ &#39;5277721701940071811&#39;,
+ &#39;5134029809569092929&#39;,
+ &#39;5078017899111203433&#39;,
+ &#39;5254059088049802980&#39;,
+ &#39;5371971925339056665&#39;,
+ &#39;5431036277668526595&#39;,
+ &#39;5483354135827032665&#39;,
+ &#39;5285379841869150294&#39;,
+ &#39;5293405653296791451&#39;,
+ &#39;4819969964299896962&#39;,
+ &#39;5351904744714142235&#39;,
+ &#39;5646757598295302988&#39;,
+ &#39;5691533564979419761&#39;,
+ &#39;5048873293262650113&#39;,
+ &#39;5643610361723733925&#39;,
+ &#39;5199821632200720341&#39;,
+ &#39;5532148500642435090&#39;,
+ &#39;5595641383032896800&#39;,
+ &#39;5473664242867087532&#39;,
+ &#39;5537095863454943245&#39;,
+ &#39;4971302338639629382&#39;,
+ &#39;5013314486814762862&#39;,
+ &#39;5242300102291724928&#39;,
+ &#39;5546837522852121331&#39;,
+ &#39;5019054790932573745&#39;,
+ &#39;4728990773140988900&#39;,
+ &#39;5367689158219221191&#39;,
+ &#39;5218286473243188911&#39;,
+ &#39;5539804019387586531&#39;,
+ &#39;5617925833435212075&#39;,
+ &#39;5306936070034225058&#39;,
+ &#39;5358411267245496507&#39;,
+ &#39;4713734746689397424&#39;,
+ &#39;5149494653460530987&#39;,
+ &#39;5084014870632527368&#39;,
+ &#39;5657819787231956123&#39;,
+ &#39;4869220947327072403&#39;,
+ &#39;4715322105206840823&#39;,
+ &#39;5187233458674428963&#39;,
+ &#39;5629674368074184841&#39;,
+ &#39;5435501069470547583&#39;,
+ &#39;5330653354008278132&#39;,
+ &#39;5046788308257498968&#39;,
+ &#39;5533352733021876828&#39;,
+ &#39;4768631712844719739&#39;,
+ &#39;5005484350725146842&#39;,
+ &#39;4872282937361972118&#39;,
+ &#39;5016948138155572756&#39;,
+ &#39;4703401536268630837&#39;,
+ &#39;5134010500800575790&#39;,
+ &#39;5406399909528044374&#39;,
+ &#39;4885580927738649460&#39;,
+ &#39;4963336754663987411&#39;,
+ &#39;4884019193798941071&#39;,
+ &#39;4933076724177745599&#39;,
+ &#39;5159803586983620393&#39;,
+ &#39;5516466299205310619&#39;,
+ &#39;5650023590814923905&#39;,
+ &#39;5148527180660772222&#39;,
+ &#39;5733296470387480717&#39;,
+ &#39;4843558237591196246&#39;,
+ &#39;5574298204235077852&#39;,
+ &#39;5540212992243853698&#39;,
+ &#39;5204052626441544440&#39;,
+ &#39;5413647981880727734&#39;,
+ &#39;5715081934973525403&#39;,
+ &#39;5049850420107484598&#39;,
+ &#39;5151949115143286654&#39;,
+ &#39;4850985582584640333&#39;,
+ &#39;5239323956327534825&#39;,
+ &#39;4872083323315675215&#39;,
+ &#39;5545006552869488471&#39;,
+ &#39;4914318281388203358&#39;,
+ &#39;4940249178612513030&#39;,
+ &#39;4865719808919222395&#39;,
+ &#39;5030286229329505216&#39;,
+ &#39;5654103281831968598&#39;,
+ &#39;5274208788032323971&#39;,
+ &#39;5432030627205614416&#39;,
+ &#39;5678999774105413213&#39;,
+ &#39;5411654464898266377&#39;,
+ &#39;5494158682719286822&#39;,
+ &#39;4666648304097759127&#39;,
+ &#39;5583848838979993630&#39;,
+ &#39;5407158776565178838&#39;,
+ &#39;5490058612904213628&#39;,
+ &#39;4940641414538572224&#39;,
+ &#39;5330033425064712691&#39;,
+ &#39;4725353832359918046&#39;,
+ &#39;5212920957299536292&#39;,
+ &#39;5139415049019779096&#39;,
+ &#39;5216551464960890161&#39;,
+ &#39;4932864161416422017&#39;,
+ &#39;4662750983668529783&#39;,
+ &#39;4621904482639719098&#39;,
+ &#39;5762662884005687310&#39;,
+ &#39;5051200720290132170&#39;,
+ &#39;4724579414526535751&#39;,
+ &#39;4835521197190012711&#39;,
+ &#39;5501439883170584957&#39;,
+ &#39;5320924715143254515&#39;,
+ &#39;5527708506831105852&#39;,
+ &#39;4784194127925527221&#39;,
+ &#39;4819753480904838964&#39;,
+ &#39;4777543161401667328&#39;,
+ &#39;4893758407691905968&#39;,
+ &#39;5599336871069742349&#39;,
+ &#39;5665727567141950070&#39;,
+ &#39;4872394391221621956&#39;,
+ &#39;5403072911519479645&#39;,
+ &#39;5632535504581227171&#39;,
+ &#39;4911163381730147472&#39;,
+ &#39;4621030304810285220&#39;,
+ &#39;5046251450517706156&#39;,
+ &#39;5478012163155701568&#39;,
+ &#39;4968402990875758821&#39;,
+ &#39;4814824415166736381&#39;,
+ &#39;5160148507372155398&#39;,
+ &#39;5222416508700874446&#39;,
+ &#39;5577839867555842193&#39;,
+ &#39;5265917424980344695&#39;,
+ &#39;5156286767720203180&#39;,
+ &#39;5201051985323719864&#39;,
+ &#39;4938076287810941486&#39;,
+ &#39;4774024378293463139&#39;,
+ &#39;4746018808933447194&#39;,
+ &#39;5027675617076586731&#39;,
+ &#39;5455923196513710258&#39;,
+ &#39;5553926756074644077&#39;,
+ &#39;5634219527808782241&#39;,
+ &#39;4779287091720027067&#39;,
+ &#39;5052895375079833082&#39;,
+ &#39;4892814998088140546&#39;,
+ &#39;5557681840166028244&#39;,
+ &#39;4644296836939159306&#39;,
+ &#39;5612994386593440195&#39;,
+ &#39;4722380583683805849&#39;,
+ &#39;5148042754495509547&#39;,
+ &#39;4730897255677035135&#39;,
+ &#39;5153582661293133702&#39;,
+ &#39;5299123425971459389&#39;,
+ &#39;5171452993003233254&#39;,
+ &#39;5504198339205496589&#39;,
+ &#39;4719357763484034357&#39;,
+ &#39;5225837880074756830&#39;,
+ &#39;5510181626553100351&#39;,
+ &#39;4760946687921724871&#39;,
+ &#39;5614427492096377103&#39;,
+ &#39;4927641140942847414&#39;,
+ &#39;5729604610944816597&#39;,
+ &#39;4882552315784164880&#39;,
+ &#39;5257981584043456915&#39;,
+ &#39;4938996375166925756&#39;,
+ &#39;5421398405406913635&#39;,
+ &#39;4962100702860212938&#39;,
+ &#39;5421430877263527292&#39;,
+ &#39;5339196156765864322&#39;,
+ &#39;5661020219914976772&#39;,
+ &#39;5132260782031874052&#39;,
+ &#39;5610645671126907531&#39;,
+ &#39;5088118559395908241&#39;,
+ &#39;4682308450817945744&#39;,
+ &#39;5310631739077016355&#39;,
+ &#39;4642691676158694066&#39;,
+ &#39;4878625090161970035&#39;,
+ &#39;5415611881890744808&#39;,
+ &#39;4684277220425971306&#39;,
+ &#39;5047578765029460904&#39;,
+ &#39;4710770352756501353&#39;,
+ &#39;4969276367511773662&#39;,
+ &#39;5214318112729379445&#39;,
+ &#39;4928854908449192958&#39;,
+ &#39;5044818536193229919&#39;,
+ &#39;5051867400881669938&#39;,
+ &#39;4882102600088880371&#39;,
+ &#39;4827621148114216810&#39;,
+ &#39;5530001766339324882&#39;,
+ &#39;5574368916270404706&#39;,
+ &#39;5212135885184953691&#39;,
+ &#39;4863413926279416222&#39;,
+ &#39;5112632375838439801&#39;,
+ &#39;5034102557273960207&#39;,
+ &#39;5217545821557049000&#39;,
+ &#39;5463140090162498635&#39;,
+ &#39;5734197539612395211&#39;,
+ &#39;4727280315925004921&#39;,
+ &#39;5588591001661089031&#39;,
+ &#39;4730349653629096831&#39;,
+ &#39;4918527022885165282&#39;,
+ &#39;5571916004254321469&#39;,
+ &#39;5404108937658643642&#39;,
+ &#39;4626298778883320488&#39;,
+ &#39;4845981198970833615&#39;,
+ &#39;4747303711713930863&#39;,
+ &#39;5700451917749700780&#39;,
+ &#39;5240598442189838861&#39;,
+ &#39;4885312725237891338&#39;,
+ &#39;5142321230404303001&#39;,
+ &#39;5215539772096610729&#39;,
+ &#39;4846735402607458277&#39;,
+ &#39;5044521504014195043&#39;,
+ &#39;5207492011174002136&#39;,
+ &#39;5058928636361668066&#39;,
+ &#39;5246422164772942528&#39;,
+ &#39;5120200112115793078&#39;,
+ &#39;5408386271763427083&#39;,
+ &#39;5020595804850039689&#39;,
+ &#39;4806407422748114463&#39;,
+ &#39;5259867563633533635&#39;,
+ &#39;5737735714239704290&#39;,
+ &#39;5504700288230346869&#39;,
+ &#39;4868190606680946910&#39;,
+ &#39;5170375361067785571&#39;,
+ &#39;4996296504383504871&#39;,
+ &#39;5724522424252558811&#39;,
+ &#39;5590814984777753657&#39;,
+ &#39;5372713622801715679&#39;,
+ &#39;5449014635431218568&#39;,
+ &#39;4745781253473544150&#39;,
+ &#39;4813723342227793459&#39;,
+ &#39;4832698291978284341&#39;,
+ &#39;5497524052304204460&#39;,
+ &#39;5164866772337285491&#39;,
+ &#39;5535881834434832605&#39;,
+ &#39;5691580718686834263&#39;,
+ &#39;4753421910059873362&#39;,
+ &#39;5102328320686607707&#39;,
+ &#39;5388236272637760764&#39;,
+ &#39;5244316939682317750&#39;,
+ &#39;4629907932103493008&#39;,
+ &#39;5250108024251858510&#39;,
+ &#39;5539222534062219365&#39;,
+ &#39;5724709454522975449&#39;,
+ &#39;4946907145947093770&#39;,
+ &#39;5010841248861547024&#39;,
+ &#39;4946660727138603312&#39;,
+ &#39;4730481032770365008&#39;,
+ &#39;4646777926018012533&#39;,
+ &#39;4685096220994950172&#39;,
+ &#39;4867029473074725377&#39;,
+ &#39;5476573944120214165&#39;,
+ &#39;4757737626092948164&#39;,
+ &#39;4736379593968735345&#39;,
+ &#39;5234354459699789538&#39;,
+ &#39;5519100829614390747&#39;,
+ &#39;4830938580045344276&#39;,
+ &#39;5749276576386297901&#39;,
+ &#39;5205186198770431875&#39;,
+ &#39;4880674315427701471&#39;,
+ &#39;5042815752291441380&#39;,
+ &#39;4720252396094244657&#39;,
+ &#39;5128607651797435321&#39;,
+ &#39;5355887361787275905&#39;,
+ &#39;5397834454637092532&#39;,
+ &#39;5047118840904603964&#39;,
+ &#39;5354238701959876646&#39;,
+ &#39;5191878519166468059&#39;,
+ &#39;4672178163429150245&#39;,
+ &#39;4890718426220097002&#39;,
+ &#39;5545776320196545942&#39;,
+ &#39;5251654897528003108&#39;,
+ &#39;4665618379396092129&#39;,
+ &#39;5526390888327447502&#39;,
+ &#39;5027758408993827300&#39;,
+ &#39;4808816045815330468&#39;,
+ &#39;4719684468262235792&#39;,
+ &#39;4653917802285889060&#39;,
+ &#39;5100363997794015782&#39;,
+ &#39;5542353615796683962&#39;,
+ &#39;4856621214843687119&#39;,
+ &#39;5091035922526307609&#39;,
+ &#39;5462527908760086398&#39;,
+ &#39;5299893048728663899&#39;,
+ &#39;5025945677694931826&#39;,
+ &#39;5216742060270992761&#39;,
+ &#39;5206715119922080390&#39;,
+ &#39;5614561155954926685&#39;,
+ &#39;4974194145964522381&#39;,
+ &#39;5671958289203153153&#39;,
+ &#39;4990543560575760524&#39;,
+ &#39;5247124307283071566&#39;,
+ &#39;4735975890664373580&#39;,
+ &#39;4842513789798839810&#39;,
+ &#39;5285960184348381629&#39;,
+ &#39;4957901171316760845&#39;,
+ &#39;5069492939710800234&#39;,
+ &#39;4751609783097570467&#39;,
+ &#39;4689288032911398385&#39;,
+ &#39;5283312165961731762&#39;,
+ &#39;4716572325333554424&#39;,
+ &#39;5200557978311528793&#39;,
+ &#39;5345505431541824275&#39;,
+ &#39;5763157564781355962&#39;,
+ &#39;4614463970292122863&#39;,
+ &#39;5308401669311842409&#39;,
+ &#39;5562790236254752555&#39;,
+ &#39;5063424580015977984&#39;,
+ &#39;4649085734598630044&#39;,
+ &#39;5626442095740506183&#39;,
+ &#39;5141058989776128436&#39;,
+ &#39;5204457366531553036&#39;,
+ &#39;4663021439473051607&#39;,
+ &#39;5288784997737800489&#39;,
+ &#39;5300463730694955198&#39;,
+ &#39;5199813036506389861&#39;,
+ &#39;5259997559642942680&#39;,
+ &#39;4966137347301400903&#39;,
+ &#39;5265646923527127094&#39;,
+ &#39;5267684323378048607&#39;,
+ &#39;5172603529959074868&#39;,
+ &#39;5204837016964086891&#39;,
+ &#39;5125273453451056492&#39;,
+ &#39;4840577257896235184&#39;,
+ &#39;5314980284944318634&#39;,
+ &#39;5569015712468846406&#39;,
+ &#39;5608266520595830790&#39;,
+ &#39;5670634661786163203&#39;,
+ &#39;5547929108205842356&#39;,
+ &#39;5325979640694265557&#39;,
+ &#39;5309389718470399165&#39;,
+ &#39;4858769154205497127&#39;,
+ &#39;4744152276765399160&#39;,
+ &#39;4832141333841349233&#39;,
+ &#39;5685600617346450154&#39;,
+ &#39;4794261027124244870&#39;,
+ &#39;5299861566239260044&#39;,
+ &#39;4919359344392474301&#39;,
+ &#39;4819106626657300012&#39;,
+ &#39;5634392781200984475&#39;,
+ &#39;4895368922126406008&#39;,
+ &#39;5377073214297285114&#39;,
+ &#39;4806335761459244120&#39;,
+ &#39;5445675821666151876&#39;,
+ &#39;5151948180726626898&#39;,
+ &#39;5216604222073162798&#39;,
+ &#39;4922860284273709287&#39;,
+ &#39;4623301797443553869&#39;,
+ &#39;4936935202016711641&#39;,
+ &#39;5547051071040108641&#39;,
+ &#39;5320576812120795706&#39;,
+ &#39;5693000264828698789&#39;,
+ &#39;5411578293161860891&#39;,
+ &#39;4905468706944801791&#39;,
+ &#39;5579607382442232035&#39;,
+ &#39;5506211537324438173&#39;,
+ &#39;5542801165145139080&#39;,
+ &#39;5013949825709681825&#39;,
+ &#39;4631495679500266540&#39;,
+ &#39;5268910820355280011&#39;,
+ &#39;4673529796143308930&#39;,
+ &#39;5502845593951347652&#39;,
+ &#39;5269134948859572308&#39;,
+ &#39;5491353045770208506&#39;,
+ &#39;5351083508550202918&#39;,
+ &#39;5405503540588733856&#39;,
+ &#39;5409157591891833907&#39;,
+ &#39;5288551187767515760&#39;,
+ &#39;5273136311620767333&#39;,
+ &#39;5331559348183931626&#39;,
+ &#39;5263881428814102490&#39;,
+ &#39;5139154449387664728&#39;,
+ &#39;4919408196640282331&#39;,
+ &#39;4957957828740199285&#39;,
+ &#39;5499776682108862751&#39;,
+ &#39;5285235772707481262&#39;,
+ &#39;5373158549695106826&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#print_graph_info(G)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_graph_info</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+    <span class="c1"># Print basic information about the graph</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Graph Information:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of nodes: </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of edges: </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Print nodes with their attributes</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Nodes and their attributes:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">attrs</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">attrs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Print edges with their attributes</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Edges and their attributes:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Edge </span><span class="si">{</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="NetworkX-graph-edit-(unsure-what-to-with-it)">
+<h1>NetworkX graph edit (unsure what to with it)<a class="headerlink" href="#NetworkX-graph-edit-(unsure-what-to-with-it)" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spnG</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="n2i">
+<h1>n2i<a class="headerlink" href="#n2i" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">spnG</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_list</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_list_opt</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">reverse_cuthill_mckee_ordering</span><span class="p">(</span><span class="n">spnG</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_list_opt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n2i</span><span class="o">=</span><span class="p">{}</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span><span class="n">u</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nodes_list_opt</span><span class="p">):</span>
+    <span class="n">n2i</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">=</span><span class="n">idx</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n2i</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="L">
+<h1>L<a class="headerlink" href="#L" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">laplacian_matrix</span><span class="p">(</span><span class="n">spnG</span><span class="p">,</span> <span class="n">nodelist</span><span class="o">=</span><span class="n">nodes_list_opt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Useful-Scripts-to-copy">
+<h1>Useful Scripts to copy<a class="headerlink" href="#Useful-Scripts-to-copy" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">wipe_elements</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
+    <span class="c1"># Get lists of node and pipe IDs</span>
+    <span class="n">node_tks</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+    <span class="n">pipe_tks</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+
+    <span class="c1"># Delete all nodes</span>
+    <span class="k">for</span> <span class="n">node_tk</span> <span class="ow">in</span> <span class="n">node_tks</span><span class="p">:</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">DeleteElement</span><span class="p">(</span><span class="n">node_tk</span><span class="p">)</span>
+
+    <span class="c1"># Delete all pipes</span>
+    <span class="k">for</span> <span class="n">pipe_tk</span> <span class="ow">in</span> <span class="n">pipe_tks</span><span class="p">:</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">DeleteElement</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">)</span>
+
+<span class="n">wipe_elements</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1986-2025, 3S Consult GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -122,11 +122,19 @@
 <p>Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.</p>
 <section id="tbdefined">
 <h2>TBDefined<a class="headerlink" href="#tbdefined" title="Permalink to this heading"></a></h2>
+<p><strong>New</strong>:</p>
+<ul class="simple">
+<li><p>V3_KNOT has new cols: T (Temperature in °C) and M (ext. Flow in kg/s)</p></li>
+<li><p>V3_ROHR has new cols: MAV (av. Flow in kg/s) and LAMBDA</p></li>
+</ul>
 <p><strong>Fix</strong>:</p>
 <ul class="simple">
 <li><p>m.GSig: nx.shortest_path(m.GSig,node): paths with RUES transitions were not found because …</p></li>
 <li><p>… because in mx.dx.dataFrames[‘V3_RVBEL’] edges with RUES as source node were not replaced by the RUES source node</p></li>
 <li><p>Dx.py ln 1592: logger.debug(f”dfVBEL before edge loop:n{df}”) =&gt; logger.debug(f”dfVBEL before edge loop:n{dfVBEL}”)</p></li>
+<li><p>m.GSig: concatenation of transition symbols (of RUES) resulted in GSig not being constructed</p></li>
+<li><p>readDxAndMx: mxsVecsResults2MxDf: Mix of OBJTYPEs (i.e. KNOT and ROHR) was not implemented</p></li>
+<li><p>_gdfs: empty gdf_ROHR was not checked</p></li>
 </ul>
 </section>
 <section id="dev1">
@@ -141,7 +149,7 @@
 <p><strong>New</strong>:</p>
 <ul class="simple">
 <li><p>Documentation and Repository page both included as links in setup.py</p></li>
-<li><p>V3_KNOT has new col srcvector for source spectrum (Quellspektren)</p></li>
+<li><p>V3_KNOT has new col srcvector for source spectrum (Quellspektrum)</p></li>
 <li><p>ncd.plot_src_spectrum() function for plotting source spectrum as a network color diagram with ncd.mix_colors() and ncd.convert_to_hex() as helper functions</p></li>
 </ul>
 <p><strong>Fix</strong>:</p>
