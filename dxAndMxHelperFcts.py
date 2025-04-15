@@ -331,7 +331,7 @@ class dxWithMx():
                             ,t0
                             ,t0
                             )
-                df_V3_ROHR['MAV']=df_V3_ROHR.apply(lambda row: math.fabs(row[MAV]) ,axis=1)       
+                df_V3_ROHR['MAV']=df_V3_ROHR[MAV]#.apply(lambda row: math.fabs(row[MAV]) ,axis=1)       
                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['MAV'] ok so far."))                                                         
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
@@ -344,7 +344,7 @@ class dxWithMx():
                             ,t0
                             ,t0
                             )
-                df_V3_ROHR['LAMBDA']=df_V3_ROHR.apply(lambda row: math.fabs(row[LAMBDA]) ,axis=1)       
+                df_V3_ROHR['LAMBDA']=df_V3_ROHR[LAMBDA]#.apply(lambda row: math.fabs(row[LAMBDA]) ,axis=1)       
                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_ROHR['LAMBDA'] ok so far."))                                                         
             except Exception as e:
                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
@@ -863,6 +863,8 @@ class dxWithMx():
         +-----------------------------+-----------------------------------------------------------------------------------+
         | QM                          | STAT QM-Result                                                                    |
         +-----------------------------+-----------------------------------------------------------------------------------+
+        | M                           | STAT M-Result (kg/s)                                                              |
+        +-----------------------------+-----------------------------------------------------------------------------------+        
             
         """   
                 
@@ -871,6 +873,7 @@ class dxWithMx():
         
         try: 
             ###logger.debug("{0:s}{1:s}".format(logStr,'df_V3_VBEL:\n{df_V3_VBEL.columns}'))  
+
             try:                                    
                  ###logger.debug(f"df_V3_VBEL before QM add:\n{df_V3_VBEL}")
                  t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
@@ -889,6 +892,22 @@ class dxWithMx():
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                  logger.debug(logStrTmp) 
                  logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_VBEL failed.'))   
+
+            try:                                    
+                 
+                 t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
+                 M=str(('STAT'
+                             ,'M'
+                             ,t0
+                             ,t0
+                             ))
+
+                 df_V3_VBEL['M'] = df_V3_VBEL[M]
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_VBEL['M'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col M in V3_VBEL failed.'))                    
                  
             try:                                                         
                  PH_i=str(('STAT'
@@ -2935,15 +2954,15 @@ def constructNewMultiindexFromCols(df=pd.DataFrame(),mColNames=['OBJTYPE','OBJID
         """
 
         logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
-        logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
+        #logger.debug("{0:s}{1:s}".format(logStr,'Start.')) 
     
         try:    
             
             arrays=[]
             for col in mColNames:
-                logger.debug(f"{logStr}{col}: {type(df[col])}")
+                #logger.debug(f"{logStr}{col}: {type(df[col])}")
                 arrays.append(df[col].tolist())
-            logger.debug(f"{logStr}arrays: {arrays}")
+            #logger.debug(f"{logStr}arrays: {arrays}")
             tuples = list(zip(*(arrays)))
             index = pd.MultiIndex.from_tuples(tuples,names=mIdxNames)
             df.drop(mColNames,axis=1,inplace=True)   
@@ -2956,7 +2975,7 @@ def constructNewMultiindexFromCols(df=pd.DataFrame(),mColNames=['OBJTYPE','OBJID
             raise #df=pd.DataFrame()
         finally:
             pass
-            logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
+            #logger.debug("{0:s}{1:s}".format(logStr,'_Done.'))
             #return df  
 
 def fStripV3Colik2Tuple(col="('STAT', 'KNOT~*~*~*~PH', Timestamp('2024-09-01 08:00:00'), Timestamp('2024-09-01 08:00:00'))_i"

@@ -6,6 +6,17 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 TBDefined
 ---------------
 
+**Changed**: 
+
+- V3_ROHR col MAV: changed from abs. STAT av. Flow kg/s to STAT av. Flow kg/s
+
+**New**: 
+
+- V3_VBEL has new col: M: STAT Flow kg/s
+
+90.14.46.0.dev1
+---------------
+
 **New**: 
 
 - V3_KNOT has new cols: T (Temperature in °C) and M (ext. Flow in kg/s)

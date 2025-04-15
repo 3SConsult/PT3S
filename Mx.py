@@ -3497,7 +3497,7 @@ class Mx():
     #         return df   
 
 
-    def getVecAggsResultsForAttributeType(self,Sir3sVecIDReExp='QMA{0,1}V{0,1}$'):
+    def getVecAggsResultsForAttributeType(self,Sir3sVecIDReExp='~QMA{0,1}V{0,1}$'):
         """        
         Sir3sVecIDReExp definiert Kanaele (1 pro VBEL-Typ) die ueber alle VBEL-Typen hinweg als 1 Kanal interpretiert werden koennen bzw. sollen.
         Typisch für einen solchen Kanal ist "QM" für den Durchfluss: Jeder VBEL-Typ errechnet einen Durchfluss.
@@ -3570,23 +3570,18 @@ class Mx():
                 dfOBJTYPE=dfOBJTYPE.transpose()
                 
                 ###logger.debug("{:s}alle matchenden Kanaele des OBJTYPEs mit OBJID als Zeilen: {:s}".format(logStr,dfOBJTYPE.head().to_string()))
-                
-               
-                    
+                                                   
                 dfOBJTYPE.columns=pd.MultiIndex.from_tuples([(lev0,ATTRTYPE_Common,lev2,lev3) for lev0,lev2,lev3 in zip(dfOBJTYPE.columns.get_level_values(0)
                     ,dfOBJTYPE.columns.get_level_values(2)
                     ,dfOBJTYPE.columns.get_level_values(3))]
                     ,names=self.dfVecAggs.index.names
                     )                    
-                
-
-                
+                                
                 dfOBJTYPEs[OBJTYPE]=dfOBJTYPE        
-            
-        
-            logger.debug(f"{logStr}{dfOBJTYPEs.keys()}")
-            for key in dfOBJTYPEs.keys() :
-                logger.debug(f"{logStr}{key} {type(dfOBJTYPEs[key])}")
+                    
+            #logger.debug(f"{logStr}{dfOBJTYPEs.keys()}")
+            #for key in dfOBJTYPEs.keys() :
+            #    logger.debug(f"{logStr}{key} {type(dfOBJTYPEs[key])}")
                 
             return dfOBJTYPEs
                                                      
