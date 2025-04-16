@@ -1,7 +1,7 @@
 Classes and Objects
 ================================
 
-Welcome to the Classes and Objects page! Here, we will delve into the differnt classes and objects and their relationship. Refer to the :doc:`functions` page to learn more about the functions that create these objects.
+Welcome to the Classes and Objects page! Here, we will delve into the different classes and objects and their relationship. Refer to the :doc:`functions` page to learn more about the functions that create these objects.
 
 .. note::
     Currently, not all Objects that exist in PT3S are documented. These will be added in the future.

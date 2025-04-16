@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toolkit Example 1: Create new SIR 3S model &mdash; PT3S 90.14.46.0.dev1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/pt3s_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">Classes and Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">For Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toolkit.html">Toolkit (Work In Progress)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PT3S</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Toolkit Example 1: Create new SIR 3S model</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Toolkit_Example1.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Toolkit-Example-1:-Create-new-SIR-3S-model">
+<h1>Toolkit Example 1: Create new SIR 3S model<a class="headerlink" href="#Toolkit-Example-1:-Create-new-SIR-3S-model" title="Permalink to this heading"></a></h1>
+This example demonstrates how to set up a new SIR 3S model. Nodes and pipes are inserted and the model is calculated.</section>
+<section id="Imports">
+<h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">clr</span> <span class="k">as</span> <span class="nn">net</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S Entwicklung\SirGraf-90-15-00-04x64\Sir3S_Repository.Interfaces.dll&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;System.Reflection.RuntimeAssembly object at 0x000001F83449A180&gt;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PythonWrapperToolkit</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PythonWrapperToolkit</span> <span class="kn">import</span> <span class="n">SIR3S_Model</span><span class="p">,</span> <span class="n">SIR3S_View</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span> <span class="o">=</span> <span class="n">PythonWrapperToolkit</span><span class="o">.</span><span class="n">SIR3S_Model</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Initialization complete
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Sir3S_Repository.Interfaces</span> <span class="k">as</span> <span class="nn">Interfaces</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Create-new-model-file">
+<h1>Create new model file<a class="headerlink" href="#Create-new-model-file" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
+<span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Toolkit_Example2&quot;</span>
+<span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+                    <span class="o">+</span><span class="s1">&#39;/Examples&#39;</span>
+                    <span class="o">+</span><span class="s1">&#39;/Toolkit_Examples/&#39;</span>
+                    <span class="o">+</span><span class="n">dbFilename</span>
+                    <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span> captured_output
+<span class="n">s3s</span><span class="o">.</span><span class="n">NewModel</span><span class="p">(</span><span class="n">dbName</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span>
+                           <span class="n">providerType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">SirDBProviderType</span><span class="o">.</span><span class="n">SQLite</span><span class="p">,</span>
+                           <span class="n">namedInstance</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                           <span class="n">netType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">NetworkType</span><span class="o">.</span><span class="n">DistrictHeating</span><span class="p">,</span>
+                           <span class="n">modelDescription</span><span class="o">=</span><span class="s2">&quot;Toolkit_Example2&quot;</span><span class="p">,</span>
+                           <span class="n">userID</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                           <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output_str</span> <span class="o">=</span> <span class="n">captured_output</span><span class="o">.</span><span class="n">stdout</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the first number between two hyphens from the output</span>
+<span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;New model is created with the model identifier: M-(\d+)-\d+-\d+&quot;</span><span class="p">,</span> <span class="n">output_str</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+    <span class="n">identifier_number</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="mi">1</span> <span class="c1">#scaling factor for network</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Nodes">
+<h1>Nodes<a class="headerlink" href="#Nodes" title="Permalink to this heading"></a></h1>
+<section id="Insert-Nodes">
+<h2>Insert Nodes<a class="headerlink" href="#Insert-Nodes" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Insert nodes&quot;</span><span class="p">)</span>
+
+<span class="n">node0</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+
+<span class="n">node1</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+
+<span class="n">node2</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+
+<span class="n">node3</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+
+<span class="n">node4</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+
+<span class="n">node5</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">EndEditSession</span><span class="p">()</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SaveChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Now you can make changes to the model
+Element inserted successfully into the model with Tk: 5321099033247111201
+Element inserted successfully into the model with Tk: 4693279059508338015
+Element inserted successfully into the model with Tk: 5449145764669062959
+Element inserted successfully into the model with Tk: 5315913336781347732
+Element inserted successfully into the model with Tk: 5194369748158004646
+Element inserted successfully into the model with Tk: 5210570430448112064
+Edit Session has ended. Please open up a new session if you want to make further changes
+Changes saved successfully
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_tks</span><span class="o">=</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Set-Coordinates">
+<h2>Set Coordinates<a class="headerlink" href="#Set-Coordinates" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Set coords (x,y)&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node0</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node0</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">25</span><span class="p">))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">25</span><span class="p">))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node2</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">125</span><span class="p">))</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node2</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">50</span><span class="p">))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">125</span><span class="p">))</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node4</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">150</span><span class="p">))</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node4</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">25</span><span class="p">))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node5</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">250</span><span class="p">))</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node5</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">25</span><span class="p">))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">EndEditSession</span><span class="p">()</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SaveChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Now you can make changes to the model
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Nothing done, because no Transaction is being in Use
+Changes saved successfully
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Set coords (z)&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">node_tk</span> <span class="ow">in</span> <span class="n">node_tks</span><span class="p">:</span>
+    <span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s2">&quot;Zkor&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">EndEditSession</span><span class="p">()</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SaveChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Now you can make changes to the model
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Edit Session has ended. Please open up a new session if you want to make further changes
+Changes saved successfully
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Pipes">
+<h1>Pipes<a class="headerlink" href="#Pipes" title="Permalink to this heading"></a></h1>
+<section id="Insert-Pipes">
+<h2>Insert Pipes<a class="headerlink" href="#Insert-Pipes" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Insert Pipes&quot;</span><span class="p">)</span>
+
+<span class="n">pipe01</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">ConnectConnectingElementWithNodes</span><span class="p">(</span><span class="n">pipe01</span><span class="p">,</span> <span class="n">node0</span><span class="p">,</span> <span class="n">node1</span><span class="p">)</span>
+
+<span class="n">pipe12</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">ConnectConnectingElementWithNodes</span><span class="p">(</span><span class="n">pipe12</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
+
+<span class="n">pipe13</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">ConnectConnectingElementWithNodes</span><span class="p">(</span><span class="n">pipe13</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node3</span><span class="p">)</span>
+
+<span class="n">pipe23</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">ConnectConnectingElementWithNodes</span><span class="p">(</span><span class="n">pipe23</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">node3</span><span class="p">)</span>
+
+<span class="n">pipe24</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">ConnectConnectingElementWithNodes</span><span class="p">(</span><span class="n">pipe24</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">node4</span><span class="p">)</span>
+
+<span class="n">pipe34</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">ConnectConnectingElementWithNodes</span><span class="p">(</span><span class="n">pipe34</span><span class="p">,</span> <span class="n">node3</span><span class="p">,</span> <span class="n">node4</span><span class="p">)</span>
+
+<span class="n">pipe45</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">InsertElement</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">ConnectConnectingElementWithNodes</span><span class="p">(</span><span class="n">pipe45</span><span class="p">,</span> <span class="n">node4</span><span class="p">,</span> <span class="n">node5</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">EndEditSession</span><span class="p">()</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SaveChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Now you can make changes to the model
+Element inserted successfully into the model with Tk: 5293401913306684493
+Objects connected successfully
+Element inserted successfully into the model with Tk: 5088758886343064810
+Objects connected successfully
+Element inserted successfully into the model with Tk: 5586333943805392557
+Objects connected successfully
+Element inserted successfully into the model with Tk: 4642718115365895174
+Objects connected successfully
+Element inserted successfully into the model with Tk: 5609337679797668537
+Objects connected successfully
+Element inserted successfully into the model with Tk: 4681734429769829334
+Objects connected successfully
+Element inserted successfully into the model with Tk: 4706393255563735279
+Objects connected successfully
+Edit Session has ended. Please open up a new session if you want to make further changes
+Changes saved successfully
+</pre></div></div>
+</div>
+</section>
+<section id="Set-Length">
+<h2>Set Length<a class="headerlink" href="#Set-Length" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Set pipe lengths&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">pipe01</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">pipe12</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">2</span><span class="p">))))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">pipe13</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">2</span><span class="p">))))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">pipe23</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">500</span><span class="p">))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">pipe24</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">2</span><span class="p">))))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">pipe34</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">2</span><span class="p">))))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">pipe45</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">EndEditSession</span><span class="p">()</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SaveChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Now you can make changes to the model
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Edit Session has ended. Please open up a new session if you want to make further changes
+Changes saved successfully
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipe_tks</span><span class="o">=</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Set-DN-(Workaround)">
+<h2>Set DN (Workaround)<a class="headerlink" href="#Set-DN-(Workaround)" title="Permalink to this heading"></a></h2>
+<p>The following way of setting the reference to DN values is only a workaround. Hopefully a better way using the Toolkit can be applied in the future.</p>
+<section id="Trigger-First-Calculation">
+<h3>Trigger First Calculation<a class="headerlink" href="#Trigger-First-Calculation" title="Permalink to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">ExecCalculation</span><span class="p">(</span><span class="n">waitForSirCalcToExit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># this calculation will not be properly executed it serves to ensure a xml calculation file exists</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Model Calculation is complete
+</pre></div></div>
+</div>
+</section>
+<section id="Read-Calculation-XML-file">
+<h3>Read Calculation XML file<a class="headerlink" href="#Read-Calculation-XML-file" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xml_file_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+                    <span class="o">+</span><span class="s1">&#39;/Examples&#39;</span>
+                    <span class="o">+</span><span class="s1">&#39;/Toolkit_Examples/WD&#39;</span>
+                    <span class="o">+</span><span class="n">dbFilename</span>
+                    <span class="o">+</span><span class="s1">&#39;/B&#39;</span>
+                    <span class="o">+</span><span class="n">identifier_number</span>
+                    <span class="o">+</span><span class="s1">&#39;\V0\BZ1\M-&#39;</span>
+                    <span class="o">+</span><span class="n">identifier_number</span>
+                    <span class="o">+</span><span class="s1">&#39;-0-1.XML&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xml_file_path</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;c:\\users\\jablonski\\3s\\pt3s/Examples/Toolkit_Created_Models/WDNew_Toolkit_Example1/B3\\V0\\BZ1\\M-3-0-1.XML&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xml_file_path</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+
+    <span class="c1"># Function to find and extract all DTRO_ROWD elements</span>
+    <span class="k">def</span> <span class="nf">extract_table_elements</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">child</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">element</span> <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="n">table_name</span><span class="p">]</span>
+
+    <span class="c1"># Extract all DTRO_ROWD elements</span>
+    <span class="n">dtro_rowd_elements</span> <span class="o">=</span> <span class="n">extract_table_elements</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;DTRO_ROWD&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Convert the DTRO_ROWD elements to a pandas DataFrame</span>
+    <span class="k">def</span> <span class="nf">elements_to_dataframe</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">elements</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The table is empty or not found.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+            <span class="n">row_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_data</span><span class="p">)</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+
+    <span class="c1"># Convert the extracted elements to a DataFrame</span>
+    <span class="n">dtro_rowd_df</span> <span class="o">=</span> <span class="n">elements_to_dataframe</span><span class="p">(</span><span class="n">dtro_rowd_elements</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The specified file was not found.&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">ET</span><span class="o">.</span><span class="n">ParseError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error parsing the XML file.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">pipe_tk</span> <span class="ow">in</span> <span class="n">pipe_tks</span><span class="p">:</span>
+    <span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s2">&quot;FkdtroRowd&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtro_rowd_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">15</span><span class="p">][</span><span class="s1">&#39;pk&#39;</span><span class="p">]))</span> <span class="c1">#DN 150</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s2">&quot;FkdtroRowd&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Value is set
+(&#39;5724951366993448773&#39;, &#39;string&#39;)
+Value is set
+(&#39;5724951366993448773&#39;, &#39;string&#39;)
+Value is set
+(&#39;5724951366993448773&#39;, &#39;string&#39;)
+Value is set
+(&#39;5724951366993448773&#39;, &#39;string&#39;)
+Value is set
+(&#39;5724951366993448773&#39;, &#39;string&#39;)
+Value is set
+(&#39;5724951366993448773&#39;, &#39;string&#39;)
+Value is set
+(&#39;5724951366993448773&#39;, &#39;string&#39;)
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="Boundary-Conditions">
+<h1>Boundary Conditions<a class="headerlink" href="#Boundary-Conditions" title="Permalink to this heading"></a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Set Boundary Conditions&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node0</span><span class="p">,</span> <span class="s2">&quot;Ktyp&quot;</span><span class="p">,</span> <span class="s2">&quot;PKON&quot;</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node0</span><span class="p">,</span> <span class="s2">&quot;bz.PhEin&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="s2">&quot;Ktyp&quot;</span><span class="p">,</span> <span class="s2">&quot;QKON&quot;</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="s2">&quot;QmEin&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node2</span><span class="p">,</span> <span class="s2">&quot;Ktyp&quot;</span><span class="p">,</span> <span class="s2">&quot;QKON&quot;</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node2</span><span class="p">,</span> <span class="s2">&quot;QmEin&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="s2">&quot;Ktyp&quot;</span><span class="p">,</span> <span class="s2">&quot;QKON&quot;</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="s2">&quot;QmEin&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node4</span><span class="p">,</span> <span class="s2">&quot;Ktyp&quot;</span><span class="p">,</span> <span class="s2">&quot;QKON&quot;</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node4</span><span class="p">,</span> <span class="s2">&quot;QmEin&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node5</span><span class="p">,</span> <span class="s2">&quot;Ktyp&quot;</span><span class="p">,</span> <span class="s2">&quot;PKON&quot;</span><span class="p">)</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">node5</span><span class="p">,</span> <span class="s2">&quot;bz.PhEin&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">)</span>
+
+<span class="n">s3s</span><span class="o">.</span><span class="n">EndEditSession</span><span class="p">()</span>
+<span class="n">s3s</span><span class="o">.</span><span class="n">SaveChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Now you can make changes to the model
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Value is set
+Edit Session has ended. Please open up a new session if you want to make further changes
+Changes saved successfully
+</pre></div></div>
+</div>
+</section>
+<section id="Calculation">
+<h1>Calculation<a class="headerlink" href="#Calculation" title="Permalink to this heading"></a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">ExecCalculation</span><span class="p">(</span><span class="n">waitForSirCalcToExit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Model Calculation is complete
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node_tk</span> <span class="ow">in</span> <span class="n">node_tks</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">: x: </span><span class="si">{</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Xkor&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, y: </span><span class="si">{</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Ykor&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, PH: </span><span class="si">{</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Result.PH.Value&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, QM: </span><span class="si">{</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Result.QM.Value&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Node 5321099033247111201: x: 0, y: 25, PH: 4, QM: 115.7509
+Node 4693279059508338015: x: 100, y: 25, PH: 3.74013, QM: 0
+Node 5449145764669062959: x: 125, y: 50, PH: 3.5, QM: 0
+Node 5315913336781347732: x: 125, y: 0, PH: 3.5, QM: 0
+Node 5194369748158004646: x: 150, y: 25, PH: 3.25987, QM: 0
+Node 5210570430448112064: x: 250, y: 25, PH: 3, QM: -115.7509
+</pre></div></div>
+</div>
+</section>
+<section id="Reset">
+<h1>Reset<a class="headerlink" href="#Reset" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">wipe_elements</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
+    <span class="c1"># Get lists of node and pipe IDs</span>
+    <span class="n">node_tks</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+    <span class="n">pipe_tks</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+
+    <span class="c1"># Delete all nodes</span>
+    <span class="k">for</span> <span class="n">node_tk</span> <span class="ow">in</span> <span class="n">node_tks</span><span class="p">:</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">DeleteElement</span><span class="p">(</span><span class="n">node_tk</span><span class="p">)</span>
+
+    <span class="c1"># Delete all pipes</span>
+    <span class="k">for</span> <span class="n">pipe_tk</span> <span class="ow">in</span> <span class="n">pipe_tks</span><span class="p">:</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">DeleteElement</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">)</span>
+
+<span class="n">wipe_elements</span><span class="p">(</span><span class="n">s3s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">SaveChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Collection-of-often-needed-Toolkit-commands">
+<h1>Collection of often needed Toolkit commands<a class="headerlink" href="#Collection-of-often-needed-Toolkit-commands" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">GetPropertiesofElementType</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">GetPropertiesofElementType</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipe_tks</span><span class="o">=</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_tks</span><span class="o">=</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1986-2025, 3S Consult GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
