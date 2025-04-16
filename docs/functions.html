@@ -203,7 +203,7 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 </dd></dl>
 
 <p>Returns <a class="reference internal" href="objects.html#mx-object"><span class="std std-ref">Mx object</span></a>.</p>
-<p>Refer to <span class="xref std std-ref">ex2</span>. It uses this function.</p>
+<p>Refer to <a class="reference internal" href="examples.html#ex2"><span class="std std-ref">Example 2: Time Curves</span></a>. It uses this function.</p>
 </section>
 <section id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h2>
@@ -473,7 +473,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 <h3>Usage Tutorial<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <p>Plot on an axes. Use pNcd_pipes for pipes and pNcd_nodes for nodes.</p>
 <p>If you plot multiple times on the same axes, use zorder to determine plotting order.</p>
-<p>Refer to <a class="reference internal" href="toolkit.html#ex1"><span class="std std-ref">Example 1: Create new model</span></a>. It uses this function.</p>
+<p>Refer to <a class="reference internal" href="examples.html#ex1"><span class="std std-ref">Example 1: Interactive Map and Network Color Diagram</span></a>. It uses this function.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pipes_patches</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="n">gdf_ROHR</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;DI&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nodes_patches</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="n">gdf_FWVB</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;QM&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>

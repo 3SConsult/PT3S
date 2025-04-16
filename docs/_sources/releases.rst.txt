@@ -3,6 +3,17 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+TBDefined
+---------------
+
+**Changed**: 
+
+- V3_ROHR col MAV: changed from abs. STAT av. Flow kg/s to STAT av. Flow kg/s
+
+**New**: 
+
+- V3_VBEL has new col: M: STAT Flow kg/s
+
 90.14.46.0.dev1
 ---------------
 

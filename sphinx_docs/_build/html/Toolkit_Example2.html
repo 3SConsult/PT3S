@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Toolkit Example 2: Insert Nodes and Pipes via SirGraf Python Console &mdash; PT3S 90.14.46.0.dev1 documentation</title>
+  <title>Toolkit Example2: NetworkX To SIR 3S and SIR 3S to NetworkX via Toolkit &mdash; PT3S 90.14.46.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -77,7 +77,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Toolkit Example 2: Insert Nodes and Pipes via SirGraf Python Console</li>
+      <li class="breadcrumb-item active">Toolkit Example2: NetworkX To SIR 3S and SIR 3S to NetworkX via Toolkit</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Toolkit_Example2.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -87,10 +87,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Toolkit-Example-2:-Insert-Nodes-and-Pipes-via-SirGraf-Python-Console">
-<h1>Toolkit Example 2: Insert Nodes and Pipes via SirGraf Python Console<a class="headerlink" href="#Toolkit-Example-2:-Insert-Nodes-and-Pipes-via-SirGraf-Python-Console" title="Permalink to this heading"></a></h1>
-<p>This Example demonstrates how to generate Toolkit commands that create a graph of nodes and pipes in a SIR 3S model. The user is encouraged to copy the code into the sript tab of the SIR 3S Python console to create the graph in a model. It is also demonstrated how to use Toolkit to get model data of node and pipes and create a networkx graph based on it.</p>
-</section>
+  <section id="Toolkit-Example2:-NetworkX-To-SIR-3S-and-SIR-3S-to-NetworkX-via-Toolkit">
+<h1>Toolkit Example2: NetworkX To SIR 3S and SIR 3S to NetworkX via Toolkit<a class="headerlink" href="#Toolkit-Example2:-NetworkX-To-SIR-3S-and-SIR-3S-to-NetworkX-via-Toolkit" title="Permalink to this heading"></a></h1>
+This Example demonstrates how to create a networkx graph and generate Toolkit commands to recreate the graph as a SIR 3S Modle with nodes and pipes. The code can be copied into the sript tab of the SIR 3S Python console to create the graph in a model or applied directley in a Notebook as explained in Toolkit_Example2. It is also demonstrated how to use Toolkit to get model data of node and pipes and create a networkx graph based on it.</section>
 <section id="Imports">
 <h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
@@ -121,7 +120,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;System.Reflection.RuntimeAssembly object at 0x000001EB7E422A80&gt;
+&lt;System.Reflection.RuntimeAssembly object at 0x00000190147B0BC0&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -223,8 +222,8 @@
     <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;import PythonWrapperToolkit&quot;</span><span class="p">,</span>
         <span class="s2">&quot;import Sir3S_Repository.Interfaces as Interfaces&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;s3s = PythonWrapperToolkit.SIR3S_Model()&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;s3s.StartTransaction(SessionName=&#39;</span><span class="si">{</span><span class="n">session_name</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+        <span class="s2">&quot;instance = PythonWrapperToolkit.SIR3S_Model()&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;instance.StartTransaction(SessionName=&#39;</span><span class="si">{</span><span class="n">session_name</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
     <span class="p">]</span>
 
     <span class="c1"># Generate commands for nodes</span>
@@ -235,13 +234,13 @@
         <span class="n">z_coord</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
 
         <span class="c1"># Create the command to insert the node</span>
-        <span class="n">insert_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2"> = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)&quot;</span>
+        <span class="n">insert_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2"> = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)&quot;</span>
         <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">insert_command</span><span class="p">)</span>
 
         <span class="c1"># Create the commands to set the node&#39;s coordinates</span>
-        <span class="n">set_x_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;s3s.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Xkor&#39;, &#39;</span><span class="si">{</span><span class="n">x_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
-        <span class="n">set_y_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;s3s.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Ykor&#39;, &#39;</span><span class="si">{</span><span class="n">y_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
-        <span class="n">set_z_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;s3s.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Zkor&#39;, &#39;</span><span class="si">{</span><span class="n">z_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+        <span class="n">set_x_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;instance.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Xkor&#39;, &#39;</span><span class="si">{</span><span class="n">x_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+        <span class="n">set_y_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;instance.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Ykor&#39;, &#39;</span><span class="si">{</span><span class="n">y_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+        <span class="n">set_z_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;instance.SetValue(node</span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">, &#39;Zkor&#39;, &#39;</span><span class="si">{</span><span class="n">z_coord</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
         <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_x_command</span><span class="p">)</span>
         <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_y_command</span><span class="p">)</span>
         <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_z_command</span><span class="p">)</span>
@@ -252,22 +251,22 @@
 
         <span class="c1"># Create the command to insert the pipe</span>
         <span class="n">pipe_tk</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;pipe</span><span class="si">{</span><span class="n">node1</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">node2</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">insert_pipe_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pipe_tk</span><span class="si">}</span><span class="s2"> = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)&quot;</span>
+        <span class="n">insert_pipe_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pipe_tk</span><span class="si">}</span><span class="s2"> = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)&quot;</span>
         <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">insert_pipe_command</span><span class="p">)</span>
 
         <span class="c1"># Create the command to connect the pipe with nodes</span>
-        <span class="n">connect_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;s3s.ConnectConnectingElementWithNodes(</span><span class="si">{</span><span class="n">pipe_tk</span><span class="si">}</span><span class="s2">, node</span><span class="si">{</span><span class="n">node1</span><span class="si">}</span><span class="s2">, node</span><span class="si">{</span><span class="n">node2</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="n">connect_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;instance.ConnectConnectingElementWithNodes(</span><span class="si">{</span><span class="n">pipe_tk</span><span class="si">}</span><span class="s2">, node</span><span class="si">{</span><span class="n">node1</span><span class="si">}</span><span class="s2">, node</span><span class="si">{</span><span class="n">node2</span><span class="si">}</span><span class="s2">)&quot;</span>
         <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">connect_command</span><span class="p">)</span>
 
     <span class="c1"># End the transaction</span>
-    <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;s3s.EndTransaction()&quot;</span><span class="p">)</span>
+    <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;instance.EndTransaction()&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">commands</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commands</span> <span class="o">=</span> <span class="n">generate_toolkit_commands</span><span class="p">(</span><span class="n">spnG</span><span class="p">,</span> <span class="n">session_name</span><span class="o">=</span><span class="s2">&quot;DefaultSession&quot;</span><span class="p">)</span>
@@ -283,54 +282,54 @@
 <div class="highlight"><pre>
 import PythonWrapperToolkit
 import Sir3S_Repository.Interfaces as Interfaces
-s3s = PythonWrapperToolkit.SIR3S_Model()
-s3s.StartTransaction(SessionName=&#39;DefaultSession&#39;)
-node1 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node1, &#39;Xkor&#39;, &#39;0&#39;)
-s3s.SetValue(node1, &#39;Ykor&#39;, &#39;1250&#39;)
-s3s.SetValue(node1, &#39;Zkor&#39;, &#39;0&#39;)
-node2 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node2, &#39;Xkor&#39;, &#39;1000&#39;)
-s3s.SetValue(node2, &#39;Ykor&#39;, &#39;1250&#39;)
-s3s.SetValue(node2, &#39;Zkor&#39;, &#39;0&#39;)
-node3 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node3, &#39;Xkor&#39;, &#39;1250&#39;)
-s3s.SetValue(node3, &#39;Ykor&#39;, &#39;1500&#39;)
-s3s.SetValue(node3, &#39;Zkor&#39;, &#39;0&#39;)
-node4 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node4, &#39;Xkor&#39;, &#39;1250&#39;)
-s3s.SetValue(node4, &#39;Ykor&#39;, &#39;1000&#39;)
-s3s.SetValue(node4, &#39;Zkor&#39;, &#39;0&#39;)
-node5 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node5, &#39;Xkor&#39;, &#39;1500&#39;)
-s3s.SetValue(node5, &#39;Ykor&#39;, &#39;1250&#39;)
-s3s.SetValue(node5, &#39;Zkor&#39;, &#39;0&#39;)
-node6 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node6, &#39;Xkor&#39;, &#39;2500&#39;)
-s3s.SetValue(node6, &#39;Ykor&#39;, &#39;1250&#39;)
-s3s.SetValue(node6, &#39;Zkor&#39;, &#39;0&#39;)
-pipe1_2 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe1_2, node1, node2)
-pipe2_3 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe2_3, node2, node3)
-pipe2_4 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe2_4, node2, node4)
-pipe3_4 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe3_4, node3, node4)
-pipe3_5 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe3_5, node3, node5)
-pipe4_5 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe4_5, node4, node5)
-pipe5_6 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe5_6, node5, node6)
-s3s.EndTransaction()
+instance = PythonWrapperToolkit.SIR3S_Model()
+instance.StartTransaction(SessionName=&#39;DefaultSession&#39;)
+node1 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node1, &#39;Xkor&#39;, &#39;0&#39;)
+instance.SetValue(node1, &#39;Ykor&#39;, &#39;1250&#39;)
+instance.SetValue(node1, &#39;Zkor&#39;, &#39;0&#39;)
+node2 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node2, &#39;Xkor&#39;, &#39;1000&#39;)
+instance.SetValue(node2, &#39;Ykor&#39;, &#39;1250&#39;)
+instance.SetValue(node2, &#39;Zkor&#39;, &#39;0&#39;)
+node3 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node3, &#39;Xkor&#39;, &#39;1250&#39;)
+instance.SetValue(node3, &#39;Ykor&#39;, &#39;1500&#39;)
+instance.SetValue(node3, &#39;Zkor&#39;, &#39;0&#39;)
+node4 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node4, &#39;Xkor&#39;, &#39;1250&#39;)
+instance.SetValue(node4, &#39;Ykor&#39;, &#39;1000&#39;)
+instance.SetValue(node4, &#39;Zkor&#39;, &#39;0&#39;)
+node5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node5, &#39;Xkor&#39;, &#39;1500&#39;)
+instance.SetValue(node5, &#39;Ykor&#39;, &#39;1250&#39;)
+instance.SetValue(node5, &#39;Zkor&#39;, &#39;0&#39;)
+node6 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node6, &#39;Xkor&#39;, &#39;2500&#39;)
+instance.SetValue(node6, &#39;Ykor&#39;, &#39;1250&#39;)
+instance.SetValue(node6, &#39;Zkor&#39;, &#39;0&#39;)
+pipe1_2 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe1_2, node1, node2)
+pipe2_3 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe2_3, node2, node3)
+pipe2_4 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe2_4, node2, node4)
+pipe3_4 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe3_4, node3, node4)
+pipe3_5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe3_5, node3, node5)
+pipe4_5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe4_5, node4, node5)
+pipe5_6 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe5_6, node5, node6)
+instance.EndTransaction()
 </pre></div></div>
 </div>
-Feel free to execute the toolkit commands as a script to recreate the graph in SirGraf and compare it to the graph plotted above. You might need to change the grid size in SirGraf.</section>
+Feel free to execute the toolkit commands to recreate the graph in SIR 3S and compare it to the graph plotted above.</section>
 <section id="Testing-with-randomized-graph">
 <h1>Testing with randomized graph<a class="headerlink" href="#Testing-with-randomized-graph" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function to create a random graph on a 2500x2500 grid</span>
@@ -351,8 +350,10 @@ Feel free to execute the toolkit commands as a script to recreate the graph in S
 </pre></div>
 </div>
 </div>
+<section id="Graph-1">
+<h2>Graph 1<a class="headerlink" href="#Graph-1" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph1</span> <span class="o">=</span> <span class="n">create_random_graph</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span> <span class="c1">#numbe of nodes/edges</span>
@@ -360,7 +361,7 @@ Feel free to execute the toolkit commands as a script to recreate the graph in S
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commands_graph1</span> <span class="o">=</span> <span class="n">generate_toolkit_commands</span><span class="p">(</span><span class="n">graph1</span><span class="p">,</span> <span class="n">session_name</span><span class="o">=</span><span class="s2">&quot;Graph1Session&quot;</span><span class="p">)</span>
@@ -368,7 +369,7 @@ Feel free to execute the toolkit commands as a script to recreate the graph in S
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands_graph1</span><span class="p">:</span>
@@ -383,212 +384,206 @@ Feel free to execute the toolkit commands as a script to recreate the graph in S
 <div class="highlight"><pre>
 import PythonWrapperToolkit
 import Sir3S_Repository.Interfaces as Interfaces
-s3s = PythonWrapperToolkit.SIR3S_Model()
-s3s.StartTransaction(SessionName=&#39;Graph1Session&#39;)
-node1 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node1, &#39;Xkor&#39;, &#39;2145&#39;)
-s3s.SetValue(node1, &#39;Ykor&#39;, &#39;2061&#39;)
-s3s.SetValue(node1, &#39;Zkor&#39;, &#39;0&#39;)
-node2 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node2, &#39;Xkor&#39;, &#39;791&#39;)
-s3s.SetValue(node2, &#39;Ykor&#39;, &#39;1793&#39;)
-s3s.SetValue(node2, &#39;Zkor&#39;, &#39;0&#39;)
-node3 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node3, &#39;Xkor&#39;, &#39;929&#39;)
-s3s.SetValue(node3, &#39;Ykor&#39;, &#39;2378&#39;)
-s3s.SetValue(node3, &#39;Zkor&#39;, &#39;0&#39;)
-node4 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node4, &#39;Xkor&#39;, &#39;879&#39;)
-s3s.SetValue(node4, &#39;Ykor&#39;, &#39;1907&#39;)
-s3s.SetValue(node4, &#39;Zkor&#39;, &#39;0&#39;)
-node5 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node5, &#39;Xkor&#39;, &#39;1944&#39;)
-s3s.SetValue(node5, &#39;Ykor&#39;, &#39;1005&#39;)
-s3s.SetValue(node5, &#39;Zkor&#39;, &#39;0&#39;)
-node6 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node6, &#39;Xkor&#39;, &#39;129&#39;)
-s3s.SetValue(node6, &#39;Ykor&#39;, &#39;461&#39;)
-s3s.SetValue(node6, &#39;Zkor&#39;, &#39;0&#39;)
-node7 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node7, &#39;Xkor&#39;, &#39;372&#39;)
-s3s.SetValue(node7, &#39;Ykor&#39;, &#39;1521&#39;)
-s3s.SetValue(node7, &#39;Zkor&#39;, &#39;0&#39;)
-node8 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node8, &#39;Xkor&#39;, &#39;1813&#39;)
-s3s.SetValue(node8, &#39;Ykor&#39;, &#39;1698&#39;)
-s3s.SetValue(node8, &#39;Zkor&#39;, &#39;0&#39;)
-node9 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node9, &#39;Xkor&#39;, &#39;952&#39;)
-s3s.SetValue(node9, &#39;Ykor&#39;, &#39;685&#39;)
-s3s.SetValue(node9, &#39;Zkor&#39;, &#39;0&#39;)
-node10 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node10, &#39;Xkor&#39;, &#39;70&#39;)
-s3s.SetValue(node10, &#39;Ykor&#39;, &#39;2031&#39;)
-s3s.SetValue(node10, &#39;Zkor&#39;, &#39;0&#39;)
-node11 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node11, &#39;Xkor&#39;, &#39;936&#39;)
-s3s.SetValue(node11, &#39;Ykor&#39;, &#39;1885&#39;)
-s3s.SetValue(node11, &#39;Zkor&#39;, &#39;0&#39;)
-node12 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node12, &#39;Xkor&#39;, &#39;2018&#39;)
-s3s.SetValue(node12, &#39;Ykor&#39;, &#39;1278&#39;)
-s3s.SetValue(node12, &#39;Zkor&#39;, &#39;0&#39;)
-node13 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node13, &#39;Xkor&#39;, &#39;1555&#39;)
-s3s.SetValue(node13, &#39;Ykor&#39;, &#39;1488&#39;)
-s3s.SetValue(node13, &#39;Zkor&#39;, &#39;0&#39;)
-node14 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node14, &#39;Xkor&#39;, &#39;2222&#39;)
-s3s.SetValue(node14, &#39;Ykor&#39;, &#39;728&#39;)
-s3s.SetValue(node14, &#39;Zkor&#39;, &#39;0&#39;)
-node15 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node15, &#39;Xkor&#39;, &#39;1243&#39;)
-s3s.SetValue(node15, &#39;Ykor&#39;, &#39;937&#39;)
-s3s.SetValue(node15, &#39;Zkor&#39;, &#39;0&#39;)
-node16 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node16, &#39;Xkor&#39;, &#39;865&#39;)
-s3s.SetValue(node16, &#39;Ykor&#39;, &#39;1524&#39;)
-s3s.SetValue(node16, &#39;Zkor&#39;, &#39;0&#39;)
-node17 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node17, &#39;Xkor&#39;, &#39;651&#39;)
-s3s.SetValue(node17, &#39;Ykor&#39;, &#39;1155&#39;)
-s3s.SetValue(node17, &#39;Zkor&#39;, &#39;0&#39;)
-node18 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node18, &#39;Xkor&#39;, &#39;832&#39;)
-s3s.SetValue(node18, &#39;Ykor&#39;, &#39;1164&#39;)
-s3s.SetValue(node18, &#39;Zkor&#39;, &#39;0&#39;)
-node19 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node19, &#39;Xkor&#39;, &#39;591&#39;)
-s3s.SetValue(node19, &#39;Ykor&#39;, &#39;898&#39;)
-s3s.SetValue(node19, &#39;Zkor&#39;, &#39;0&#39;)
-node20 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node20, &#39;Xkor&#39;, &#39;402&#39;)
-s3s.SetValue(node20, &#39;Ykor&#39;, &#39;383&#39;)
-s3s.SetValue(node20, &#39;Zkor&#39;, &#39;0&#39;)
-node21 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node21, &#39;Xkor&#39;, &#39;102&#39;)
-s3s.SetValue(node21, &#39;Ykor&#39;, &#39;417&#39;)
-s3s.SetValue(node21, &#39;Zkor&#39;, &#39;0&#39;)
-node22 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node22, &#39;Xkor&#39;, &#39;954&#39;)
-s3s.SetValue(node22, &#39;Ykor&#39;, &#39;637&#39;)
-s3s.SetValue(node22, &#39;Zkor&#39;, &#39;0&#39;)
-node23 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node23, &#39;Xkor&#39;, &#39;347&#39;)
-s3s.SetValue(node23, &#39;Ykor&#39;, &#39;2315&#39;)
-s3s.SetValue(node23, &#39;Zkor&#39;, &#39;0&#39;)
-node24 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node24, &#39;Xkor&#39;, &#39;1190&#39;)
-s3s.SetValue(node24, &#39;Ykor&#39;, &#39;2054&#39;)
-s3s.SetValue(node24, &#39;Zkor&#39;, &#39;0&#39;)
-node25 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node25, &#39;Xkor&#39;, &#39;2325&#39;)
-s3s.SetValue(node25, &#39;Ykor&#39;, &#39;1967&#39;)
-s3s.SetValue(node25, &#39;Zkor&#39;, &#39;0&#39;)
-node26 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node26, &#39;Xkor&#39;, &#39;1261&#39;)
-s3s.SetValue(node26, &#39;Ykor&#39;, &#39;2020&#39;)
-s3s.SetValue(node26, &#39;Zkor&#39;, &#39;0&#39;)
-node27 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node27, &#39;Xkor&#39;, &#39;1371&#39;)
-s3s.SetValue(node27, &#39;Ykor&#39;, &#39;2017&#39;)
-s3s.SetValue(node27, &#39;Zkor&#39;, &#39;0&#39;)
-node28 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node28, &#39;Xkor&#39;, &#39;280&#39;)
-s3s.SetValue(node28, &#39;Ykor&#39;, &#39;710&#39;)
-s3s.SetValue(node28, &#39;Zkor&#39;, &#39;0&#39;)
-node29 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node29, &#39;Xkor&#39;, &#39;972&#39;)
-s3s.SetValue(node29, &#39;Ykor&#39;, &#39;1681&#39;)
-s3s.SetValue(node29, &#39;Zkor&#39;, &#39;0&#39;)
-node30 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
-s3s.SetValue(node30, &#39;Xkor&#39;, &#39;210&#39;)
-s3s.SetValue(node30, &#39;Ykor&#39;, &#39;535&#39;)
-s3s.SetValue(node30, &#39;Zkor&#39;, &#39;0&#39;)
-pipe1_7 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe1_7, node1, node7)
-pipe1_15 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe1_15, node1, node15)
-pipe1_21 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe1_21, node1, node21)
-pipe1_5 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe1_5, node1, node5)
-pipe2_24 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe2_24, node2, node24)
-pipe2_7 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe2_7, node2, node7)
-pipe2_3 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe2_3, node2, node3)
-pipe3_19 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe3_19, node3, node19)
-pipe4_20 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe4_20, node4, node20)
-pipe4_29 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe4_29, node4, node29)
-pipe4_21 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe4_21, node4, node21)
-pipe4_15 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe4_15, node4, node15)
-pipe5_23 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe5_23, node5, node23)
-pipe5_24 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe5_24, node5, node24)
-pipe5_17 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe5_17, node5, node17)
-pipe6_27 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe6_27, node6, node27)
-pipe6_15 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe6_15, node6, node15)
-pipe6_28 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe6_28, node6, node28)
-pipe7_8 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe7_8, node7, node8)
-pipe7_27 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe7_27, node7, node27)
-pipe8_22 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe8_22, node8, node22)
-pipe9_12 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe9_12, node9, node12)
-pipe9_23 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe9_23, node9, node23)
-pipe11_17 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe11_17, node11, node17)
-pipe11_26 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe11_26, node11, node26)
-pipe11_22 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe11_22, node11, node22)
-pipe12_26 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe12_26, node12, node26)
-pipe12_16 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe12_16, node12, node16)
-pipe14_25 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe14_25, node14, node25)
-pipe14_16 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe14_16, node14, node16)
-pipe15_27 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe15_27, node15, node27)
-pipe15_24 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe15_24, node15, node24)
-pipe17_19 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe17_19, node17, node19)
-pipe18_27 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe18_27, node18, node27)
-pipe19_30 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe19_30, node19, node30)
-pipe19_25 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe19_25, node19, node25)
-pipe20_25 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe20_25, node20, node25)
-pipe20_22 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe20_22, node20, node22)
-pipe23_29 = s3s.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
-s3s.ConnectConnectingElementWithNodes(pipe23_29, node23, node29)
-s3s.EndTransaction()
+instance = PythonWrapperToolkit.SIR3S_Model()
+instance.StartTransaction(SessionName=&#39;Graph1Session&#39;)
+node1 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node1, &#39;Xkor&#39;, &#39;448&#39;)
+instance.SetValue(node1, &#39;Ykor&#39;, &#39;2116&#39;)
+instance.SetValue(node1, &#39;Zkor&#39;, &#39;0&#39;)
+node2 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node2, &#39;Xkor&#39;, &#39;1699&#39;)
+instance.SetValue(node2, &#39;Ykor&#39;, &#39;727&#39;)
+instance.SetValue(node2, &#39;Zkor&#39;, &#39;0&#39;)
+node3 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node3, &#39;Xkor&#39;, &#39;2293&#39;)
+instance.SetValue(node3, &#39;Ykor&#39;, &#39;609&#39;)
+instance.SetValue(node3, &#39;Zkor&#39;, &#39;0&#39;)
+node4 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node4, &#39;Xkor&#39;, &#39;1248&#39;)
+instance.SetValue(node4, &#39;Ykor&#39;, &#39;705&#39;)
+instance.SetValue(node4, &#39;Zkor&#39;, &#39;0&#39;)
+node5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node5, &#39;Xkor&#39;, &#39;1771&#39;)
+instance.SetValue(node5, &#39;Ykor&#39;, &#39;938&#39;)
+instance.SetValue(node5, &#39;Zkor&#39;, &#39;0&#39;)
+node6 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node6, &#39;Xkor&#39;, &#39;1715&#39;)
+instance.SetValue(node6, &#39;Ykor&#39;, &#39;1854&#39;)
+instance.SetValue(node6, &#39;Zkor&#39;, &#39;0&#39;)
+node7 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node7, &#39;Xkor&#39;, &#39;997&#39;)
+instance.SetValue(node7, &#39;Ykor&#39;, &#39;882&#39;)
+instance.SetValue(node7, &#39;Zkor&#39;, &#39;0&#39;)
+node8 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node8, &#39;Xkor&#39;, &#39;15&#39;)
+instance.SetValue(node8, &#39;Ykor&#39;, &#39;1575&#39;)
+instance.SetValue(node8, &#39;Zkor&#39;, &#39;0&#39;)
+node9 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node9, &#39;Xkor&#39;, &#39;48&#39;)
+instance.SetValue(node9, &#39;Ykor&#39;, &#39;2142&#39;)
+instance.SetValue(node9, &#39;Zkor&#39;, &#39;0&#39;)
+node10 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node10, &#39;Xkor&#39;, &#39;881&#39;)
+instance.SetValue(node10, &#39;Ykor&#39;, &#39;663&#39;)
+instance.SetValue(node10, &#39;Zkor&#39;, &#39;0&#39;)
+node11 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node11, &#39;Xkor&#39;, &#39;1541&#39;)
+instance.SetValue(node11, &#39;Ykor&#39;, &#39;1354&#39;)
+instance.SetValue(node11, &#39;Zkor&#39;, &#39;0&#39;)
+node12 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node12, &#39;Xkor&#39;, &#39;28&#39;)
+instance.SetValue(node12, &#39;Ykor&#39;, &#39;1473&#39;)
+instance.SetValue(node12, &#39;Zkor&#39;, &#39;0&#39;)
+node13 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node13, &#39;Xkor&#39;, &#39;390&#39;)
+instance.SetValue(node13, &#39;Ykor&#39;, &#39;2012&#39;)
+instance.SetValue(node13, &#39;Zkor&#39;, &#39;0&#39;)
+node14 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node14, &#39;Xkor&#39;, &#39;579&#39;)
+instance.SetValue(node14, &#39;Ykor&#39;, &#39;1266&#39;)
+instance.SetValue(node14, &#39;Zkor&#39;, &#39;0&#39;)
+node15 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node15, &#39;Xkor&#39;, &#39;912&#39;)
+instance.SetValue(node15, &#39;Ykor&#39;, &#39;2037&#39;)
+instance.SetValue(node15, &#39;Zkor&#39;, &#39;0&#39;)
+node16 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node16, &#39;Xkor&#39;, &#39;2370&#39;)
+instance.SetValue(node16, &#39;Ykor&#39;, &#39;97&#39;)
+instance.SetValue(node16, &#39;Zkor&#39;, &#39;0&#39;)
+node17 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node17, &#39;Xkor&#39;, &#39;1025&#39;)
+instance.SetValue(node17, &#39;Ykor&#39;, &#39;405&#39;)
+instance.SetValue(node17, &#39;Zkor&#39;, &#39;0&#39;)
+node18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node18, &#39;Xkor&#39;, &#39;2387&#39;)
+instance.SetValue(node18, &#39;Ykor&#39;, &#39;1847&#39;)
+instance.SetValue(node18, &#39;Zkor&#39;, &#39;0&#39;)
+node19 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node19, &#39;Xkor&#39;, &#39;904&#39;)
+instance.SetValue(node19, &#39;Ykor&#39;, &#39;1809&#39;)
+instance.SetValue(node19, &#39;Zkor&#39;, &#39;0&#39;)
+node20 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node20, &#39;Xkor&#39;, &#39;427&#39;)
+instance.SetValue(node20, &#39;Ykor&#39;, &#39;909&#39;)
+instance.SetValue(node20, &#39;Zkor&#39;, &#39;0&#39;)
+node21 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node21, &#39;Xkor&#39;, &#39;2457&#39;)
+instance.SetValue(node21, &#39;Ykor&#39;, &#39;1879&#39;)
+instance.SetValue(node21, &#39;Zkor&#39;, &#39;0&#39;)
+node22 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node22, &#39;Xkor&#39;, &#39;563&#39;)
+instance.SetValue(node22, &#39;Ykor&#39;, &#39;1442&#39;)
+instance.SetValue(node22, &#39;Zkor&#39;, &#39;0&#39;)
+node23 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node23, &#39;Xkor&#39;, &#39;1867&#39;)
+instance.SetValue(node23, &#39;Ykor&#39;, &#39;426&#39;)
+instance.SetValue(node23, &#39;Zkor&#39;, &#39;0&#39;)
+node24 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node24, &#39;Xkor&#39;, &#39;1031&#39;)
+instance.SetValue(node24, &#39;Ykor&#39;, &#39;752&#39;)
+instance.SetValue(node24, &#39;Zkor&#39;, &#39;0&#39;)
+node25 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node25, &#39;Xkor&#39;, &#39;2144&#39;)
+instance.SetValue(node25, &#39;Ykor&#39;, &#39;2271&#39;)
+instance.SetValue(node25, &#39;Zkor&#39;, &#39;0&#39;)
+node26 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node26, &#39;Xkor&#39;, &#39;1607&#39;)
+instance.SetValue(node26, &#39;Ykor&#39;, &#39;783&#39;)
+instance.SetValue(node26, &#39;Zkor&#39;, &#39;0&#39;)
+node27 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node27, &#39;Xkor&#39;, &#39;331&#39;)
+instance.SetValue(node27, &#39;Ykor&#39;, &#39;995&#39;)
+instance.SetValue(node27, &#39;Zkor&#39;, &#39;0&#39;)
+node28 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node28, &#39;Xkor&#39;, &#39;1735&#39;)
+instance.SetValue(node28, &#39;Ykor&#39;, &#39;2314&#39;)
+instance.SetValue(node28, &#39;Zkor&#39;, &#39;0&#39;)
+node29 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node29, &#39;Xkor&#39;, &#39;1694&#39;)
+instance.SetValue(node29, &#39;Ykor&#39;, &#39;1276&#39;)
+instance.SetValue(node29, &#39;Zkor&#39;, &#39;0&#39;)
+node30 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Node)
+instance.SetValue(node30, &#39;Xkor&#39;, &#39;1342&#39;)
+instance.SetValue(node30, &#39;Ykor&#39;, &#39;475&#39;)
+instance.SetValue(node30, &#39;Zkor&#39;, &#39;0&#39;)
+pipe1_5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe1_5, node1, node5)
+pipe1_23 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe1_23, node1, node23)
+pipe3_17 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe3_17, node3, node17)
+pipe4_18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe4_18, node4, node18)
+pipe4_13 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe4_13, node4, node13)
+pipe4_5 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe4_5, node4, node5)
+pipe5_28 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe5_28, node5, node28)
+pipe5_18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe5_18, node5, node18)
+pipe6_16 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe6_16, node6, node16)
+pipe7_27 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe7_27, node7, node27)
+pipe8_26 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe8_26, node8, node26)
+pipe9_10 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe9_10, node9, node10)
+pipe9_14 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe9_14, node9, node14)
+pipe10_21 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe10_21, node10, node21)
+pipe10_22 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe10_22, node10, node22)
+pipe11_18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe11_18, node11, node18)
+pipe12_25 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe12_25, node12, node25)
+pipe12_29 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe12_29, node12, node29)
+pipe12_20 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe12_20, node12, node20)
+pipe12_19 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe12_19, node12, node19)
+pipe13_24 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe13_24, node13, node24)
+pipe13_25 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe13_25, node13, node25)
+pipe13_18 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe13_18, node13, node18)
+pipe13_22 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe13_22, node13, node22)
+pipe14_16 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe14_16, node14, node16)
+pipe15_24 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe15_24, node15, node24)
+pipe16_23 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe16_23, node16, node23)
+pipe18_30 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe18_30, node18, node30)
+pipe18_27 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe18_27, node18, node27)
+pipe18_28 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe18_28, node18, node28)
+pipe19_30 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe19_30, node19, node30)
+pipe20_25 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe20_25, node20, node25)
+pipe20_29 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe20_29, node20, node29)
+pipe20_26 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe20_26, node20, node26)
+pipe22_23 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe22_23, node22, node23)
+pipe23_29 = instance.InsertElement(ElementType=Interfaces.Sir3SObjectTypes.Pipe)
+instance.ConnectConnectingElementWithNodes(pipe23_29, node23, node29)
+instance.EndTransaction()
 </pre></div></div>
 </div>
-<p>Feel free to execute the toolkit commands as a script to recreate the graph in SirGraf and compare it to the graph plotted above. You might need to change the grid size in SirGraf.</p>
+<p>Feel free to execute the toolkit commands to recreate the graph in SIR 3S and compare it to the graph plotted below.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -603,19 +598,20 @@ s3s.EndTransaction()
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Toolkit_Example2_25_0.png" src="_images/Toolkit_Example2_25_0.png" />
+<img alt="_images/Toolkit_Example2_26_0.png" src="_images/Toolkit_Example2_26_0.png" />
 </div>
 </div>
 </section>
+</section>
 <section id="Create-NetworkX-graph-from-SIR-3S-Model">
 <h1>Create NetworkX graph from SIR 3S Model<a class="headerlink" href="#Create-NetworkX-graph-from-SIR-3S-Model" title="Permalink to this heading"></a></h1>
-<section id="s3s">
-<h2>s3s<a class="headerlink" href="#s3s" title="Permalink to this heading"></a></h2>
+<section id="Instance">
+<h2>Instance<a class="headerlink" href="#Instance" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span> <span class="o">=</span> <span class="n">PythonWrapperToolkit</span><span class="o">.</span><span class="n">SIR3S_Model</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instance</span> <span class="o">=</span> <span class="n">PythonWrapperToolkit</span><span class="o">.</span><span class="n">SIR3S_Model</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -628,7 +624,7 @@ Initialization complete
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># file path</span>
@@ -638,7 +634,7 @@ Initialization complete
     <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
 <span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Toolkit_Example1&quot;</span>
 <span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
-                    <span class="o">+</span><span class="s1">&#39;/Examples/Toolkit_Examples/&#39;</span>
+                    <span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span>
                     <span class="o">+</span><span class="n">dbFilename</span>
                     <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
 <span class="p">)</span>
@@ -646,10 +642,10 @@ Initialization complete
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">OpenModel</span><span class="p">(</span><span class="n">dbName</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instance</span><span class="o">.</span><span class="n">OpenModel</span><span class="p">(</span><span class="n">dbName</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span>
                    <span class="n">providerType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">SirDBProviderType</span><span class="o">.</span><span class="n">SQLite</span><span class="p">,</span>
                    <span class="n">Mid</span><span class="o">=</span><span class="s2">&quot;M-1-0-1&quot;</span><span class="p">,</span>
                    <span class="n">saveCurrentlyOpenModel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -668,16 +664,16 @@ Model is open for further operation
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_tks</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
-<span class="n">pipe_tks</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_tks</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+<span class="n">pipe_tks</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">ElementType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -686,14 +682,14 @@ Model is open for further operation
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve node data</span>
 <span class="k">for</span> <span class="n">node_tk</span> <span class="ow">in</span> <span class="n">node_tks</span><span class="p">:</span>
-    <span class="n">x_coord</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">)</span>
-    <span class="n">y_coord</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">)</span>
-    <span class="n">node_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+    <span class="n">x_coord</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Xkor&#39;</span><span class="p">)</span>
+    <span class="n">y_coord</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Ykor&#39;</span><span class="p">)</span>
+    <span class="n">node_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">)</span>
     <span class="n">nodes_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
         <span class="s1">&#39;node_tk&#39;</span><span class="p">:</span> <span class="n">node_tk</span><span class="p">,</span>
         <span class="s1">&#39;node_name&#39;</span><span class="p">:</span> <span class="n">node_name</span><span class="p">,</span>
@@ -704,13 +700,13 @@ Model is open for further operation
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve pipe data</span>
 <span class="k">for</span> <span class="n">pipe_tk</span> <span class="ow">in</span> <span class="n">pipe_tks</span><span class="p">:</span>
-    <span class="n">from_node</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s1">&#39;FromNode.Name&#39;</span><span class="p">)</span>
-    <span class="n">to_node</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s1">&#39;ToNode.Name&#39;</span><span class="p">)</span>
+    <span class="n">from_node</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s1">&#39;FromNode.Name&#39;</span><span class="p">)</span>
+    <span class="n">to_node</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">pipe_tk</span><span class="p">,</span> <span class="s1">&#39;ToNode.Name&#39;</span><span class="p">)</span>
     <span class="n">pipes_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
         <span class="s1">&#39;pipe_tk&#39;</span><span class="p">:</span> <span class="n">pipe_tk</span><span class="p">,</span>
         <span class="s1">&#39;from_node&#39;</span><span class="p">:</span> <span class="n">from_node</span><span class="p">,</span>
@@ -720,7 +716,7 @@ Model is open for further operation
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
@@ -729,7 +725,7 @@ Model is open for further operation
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter out nodes with x &lt; 700000 and y &lt; 5000000</span>
@@ -740,7 +736,7 @@ Model is open for further operation
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
@@ -748,7 +744,7 @@ Model is open for further operation
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add nodes</span>
@@ -758,7 +754,7 @@ Model is open for further operation
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add edges (pipes) between nodes</span>
@@ -773,7 +769,7 @@ Model is open for further operation
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;x&#39;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="s1">&#39;y&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">}</span>
@@ -786,10 +782,60 @@ Model is open for further operation
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Toolkit_Example2_40_0.png" src="_images/Toolkit_Example2_40_0.png" />
+<img alt="_images/Toolkit_Example2_41_0.png" src="_images/Toolkit_Example2_41_0.png" />
 </div>
 </div>
 </section>
+</section>
+<section id="Useful-Scripts-to-copy">
+<h1>Useful Scripts to copy<a class="headerlink" href="#Useful-Scripts-to-copy" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">def wipe_elements(instance):</span>
+<span class="sd">    # Get lists of node and pipe IDs</span>
+<span class="sd">    node_tks = instance.GetTksofElementType(ElementType=Interfaces.Sir3SObjectTypes.Node)</span>
+<span class="sd">    pipe_tks = instance.GetTksofElementType(ElementType=Interfaces.Sir3SObjectTypes.Pipe)</span>
+
+<span class="sd">    # Delete all nodes</span>
+<span class="sd">    for node_tk in node_tks:</span>
+<span class="sd">        instance.DeleteElement(node_tk)</span>
+
+<span class="sd">    # Delete all pipes</span>
+<span class="sd">    for pipe_tk in pipe_tks:</span>
+<span class="sd">        instance.DeleteElement(pipe_tk)</span>
+
+<span class="sd">wipe_elements(instance)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">def print_graph_info(G):</span>
+<span class="sd">    # Print basic information about the graph</span>
+<span class="sd">    print(&quot;Graph Information:&quot;)</span>
+<span class="sd">    print(f&quot;Number of nodes: {G.number_of_nodes()}&quot;)</span>
+<span class="sd">    print(f&quot;Number of edges: {G.number_of_edges()}&quot;)</span>
+
+<span class="sd">    # Print nodes with their attributes</span>
+<span class="sd">    print(&quot;\nNodes and their attributes:&quot;)</span>
+<span class="sd">    for node, attrs in G.nodes(data=True):</span>
+<span class="sd">        print(f&quot;Node {node}: {attrs}&quot;)</span>
+
+<span class="sd">    # Print edges with their attributes</span>
+<span class="sd">    print(&quot;\nEdges and their attributes:&quot;)</span>
+<span class="sd">    for edge in G.edges(data=True):</span>
+<span class="sd">        print(f&quot;Edge {edge[0]} -&gt; {edge[1]}: {edge[2]}&quot;)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
 </section>
 
 

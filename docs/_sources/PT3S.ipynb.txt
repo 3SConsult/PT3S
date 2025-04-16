@@ -2077,7 +2077,7 @@
     }
    ],
    "source": [
-    "!python -m twine upload -u __token__ -p <YOUR TOKEN> dist/* --verbose"
+    "!twine upload -u __token__ -p pypi-AgEIcHlwaS5vcmcCJDgzXZTdkNmUxLTEyNmItNDJhMC05MTJkLTU1ZGJjZWRhYjQ4MgACDFsxLFsicHQzcyJdXQACLFsyLFsiMjA3YTcwMWQtMjZmYS00YWNmLWI3NWEtYjNkZDhkMGIzMDIyIl1dAAAGIGmK2jFxC7M2zmHSJDvcyYGMa2a3tgaHC9Zh5G7o3vmd dist/* --verbose"
    ]
   },
   {

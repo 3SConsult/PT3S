@@ -71,7 +71,7 @@ Examples
 
 The examples currentley still rely on data from PT3S examples therefore PT3S has to be installed.
 
-.. _ex1:
+.. _tex1:
 
 Example 1: Create new model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

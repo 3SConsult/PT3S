@@ -93,60 +93,37 @@
 </section>
 <section id="PT3S-Release">
 <h1>PT3S Release<a class="headerlink" href="#PT3S-Release" title="Permalink to this heading"></a></h1>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install PT3S -U --no-deps</span>
-</pre></div>
-</div>
-</div>
-</section>
+#pip install PT3S -U --no-deps</section>
 <section id="Necessary-packages-for-this-Example">
 <h1>Necessary packages for this Example<a class="headerlink" href="#Necessary-packages-for-this-Example" title="Permalink to this heading"></a></h1>
-When running this example for the first time on your machine, please execute the cell below. Afterward, you may need to restart the kernel (using the ‘fast-forward’ button).<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>pandapipes<span class="w"> </span>numba
-</pre></div>
-</div>
-</div>
-</section>
+<p>When running this example for the first time on your machine, please execute the cell below. Afterward, you may need to restart the kernel (using the ‘fast-forward’ button).</p>
+!pip install -q pandapipes</section>
 <section id="Logging">
 <h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+import logging
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+logger = logging.getLogger()
 
-<span class="n">logFileName</span><span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Example8.log&quot;</span>
+logFileName= r"Example8.log"
 
-<span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">logFileName</span>
-                        <span class="p">,</span><span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span>
-                        <span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">loglevel</span>
-                        <span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> ; </span><span class="si">%(name)-60s</span><span class="s2"> ; </span><span class="si">%(levelname)-7s</span><span class="s2"> ; </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+loglevel = logging.DEBUG
+logging.basicConfig(filename=logFileName
+                        ,filemode='w'
+                        ,level=loglevel
+                        ,format="%(asctime)s ; %(name)-60s ; %(levelname)-7s ; %(message)s")
 
-<span class="n">fileHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">logFileName</span><span class="p">)</span>
+fileHandler = logging.FileHandler(logFileName)
 
-<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">fileHandler</span><span class="p">)</span>
+logger.addHandler(fileHandler)
 
-<span class="n">consoleHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
-<span class="n">consoleHandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(levelname)-7s</span><span class="s2"> ; </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">))</span>
-<span class="n">consoleHandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">consoleHandler</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
+consoleHandler = logging.StreamHandler()
+consoleHandler.setFormatter(logging.Formatter("%(levelname)-7s ; %(message)s"))
+consoleHandler.setLevel(logging.INFO)
+logger.addHandler(consoleHandler)</section>
 <section id="Read-SIR-3S-Model">
 <h1>Read SIR 3S Model<a class="headerlink" href="#Read-SIR-3S-Model" title="Permalink to this heading"></a></h1>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
@@ -156,16 +133,8 @@ When running this example for the first time on your machine, please execute the
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; NumExpr defaulting to 8 threads.
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example8&quot;</span>
@@ -178,34 +147,19 @@ INFO    ; NumExpr defaulting to 8 threads.
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\Examples\Example8.db3 exists readable ...
-INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value(ID=3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined ...
-INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-dx.pkl exists and is overwritten...
-INFO    ; dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used ...
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-mx-_Examples_WDExample8_B1_V0_BZ1_M_1_0_1_1_MX1.pkl exists and is overwritten...
-INFO    ; dxWithMx.__init__: Example8: processing dx and mx ...
-INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and is overwritten...
-</pre></div></div>
-</div>
 </section>
 <section id="Generate-corresponding-pp-model">
 <h1>Generate corresponding pp model<a class="headerlink" href="#Generate-corresponding-pp-model" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandapipes</span> <span class="k">as</span> <span class="nn">pp</span>
@@ -214,7 +168,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span> <span class="c1">#m.V3_KNOT.columns.to_list()</span>
@@ -224,7 +178,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 <section id="junctions">
 <h2>junctions<a class="headerlink" href="#junctions" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create junctions</span>
@@ -241,7 +195,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">junction</span>
@@ -249,7 +203,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -306,7 +260,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 <section id="pipes">
 <h2>pipes<a class="headerlink" href="#pipes" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#m.V3_ROHR.columns.to_list()</span>
@@ -314,7 +268,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create pipes</span>
@@ -333,7 +287,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">pipe</span>
@@ -341,7 +295,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -405,7 +359,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 <section id="sources-(ext.-grids)">
 <h2>sources (ext. grids)<a class="headerlink" href="#sources-(ext.-grids)" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sources (ext. grids)</span>
@@ -424,7 +378,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">ext_grid</span>
@@ -432,7 +386,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -480,7 +434,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 <section id="sinks">
 <h2>sinks<a class="headerlink" href="#sinks" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sinks</span>
@@ -499,7 +453,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">sink</span>
@@ -507,7 +461,7 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -555,8 +509,8 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </section>
 <section id="calculate-pp-model">
 <h1>calculate pp model<a class="headerlink" href="#calculate-pp-model" title="Permalink to this heading"></a></h1>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pp</span><span class="o">.</span><span class="n">pipeflow</span><span class="p">(</span><span class="n">net</span>
@@ -566,21 +520,13 @@ INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and i
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; numba is not installed. Install numba first before you set the &#39;use_numba&#39; flag to True. The pipeflow will be performed without numba speedup.
-</pre></div></div>
-</div>
 </section>
 <section id="examine-pp-result">
 <h1>examine pp result<a class="headerlink" href="#examine-pp-result" title="Permalink to this heading"></a></h1>
 <section id="id1">
 <h2>junctions<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">res_junction</span>
@@ -588,7 +534,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -633,7 +579,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 <section id="id2">
 <h2>pipes<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">res_pipe</span>
@@ -641,7 +587,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -699,7 +645,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 <section id="id3">
 <h2>sources (ext. grids)<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">res_ext_grid</span>
@@ -707,7 +653,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -745,7 +691,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 <section id="id4">
 <h2>sinks<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">res_sink</span>
@@ -753,7 +699,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -794,7 +740,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 <section id="mapping">
 <h2>mapping<a class="headerlink" href="#mapping" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span><span class="p">[</span><span class="s1">&#39;ppID&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">js</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;tk&#39;</span><span class="p">]],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -802,7 +748,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="s1">&#39;ppID&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">ps</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;tk&#39;</span><span class="p">]],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -810,7 +756,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -823,7 +769,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 <section id="comparison">
 <h2>comparison<a class="headerlink" href="#comparison" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfCmpJunctions</span>
@@ -831,7 +777,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1341,7 +1287,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfCmpPipes</span>
@@ -1349,7 +1295,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1654,7 +1600,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
@@ -1702,7 +1648,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfCmpJunctions</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span><span class="s1">&#39;PH&#39;</span><span class="p">,</span><span class="s1">&#39;p_bar&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;t_k&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">stylerJunctions</span><span class="p">)</span>
@@ -1710,49 +1656,49 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style type="text/css">
-#T_dae25_row0_col2, #T_dae25_row0_col4, #T_dae25_row1_col2, #T_dae25_row1_col4 {
+#T_f9c5e_row0_col2, #T_f9c5e_row0_col4, #T_f9c5e_row1_col2, #T_f9c5e_row1_col4 {
   color: green;
 }
 </style>
-<table id="T_dae25">
+<table id="T_f9c5e">
   <caption>SIR 3S vs. pp: Junctions</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_dae25_level0_col0" class="col_heading level0 col0" >NAME</th>
-      <th id="T_dae25_level0_col1" class="col_heading level0 col1" >PH</th>
-      <th id="T_dae25_level0_col2" class="col_heading level0 col2" >p_bar</th>
-      <th id="T_dae25_level0_col3" class="col_heading level0 col3" >T</th>
-      <th id="T_dae25_level0_col4" class="col_heading level0 col4" >t_k</th>
+      <th id="T_f9c5e_level0_col0" class="col_heading level0 col0" >NAME</th>
+      <th id="T_f9c5e_level0_col1" class="col_heading level0 col1" >PH</th>
+      <th id="T_f9c5e_level0_col2" class="col_heading level0 col2" >p_bar</th>
+      <th id="T_f9c5e_level0_col3" class="col_heading level0 col3" >T</th>
+      <th id="T_f9c5e_level0_col4" class="col_heading level0 col4" >t_k</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_dae25_level0_row0" class="row_heading level0 row0" >3</th>
-      <td id="T_dae25_row0_col0" class="data row0 col0" >j1</td>
-      <td id="T_dae25_row0_col1" class="data row0 col1" >10.000</td>
-      <td id="T_dae25_row0_col2" class="data row0 col2" >10.000</td>
-      <td id="T_dae25_row0_col3" class="data row0 col3" >90.00</td>
-      <td id="T_dae25_row0_col4" class="data row0 col4" >363.15</td>
+      <th id="T_f9c5e_level0_row0" class="row_heading level0 row0" >3</th>
+      <td id="T_f9c5e_row0_col0" class="data row0 col0" >j1</td>
+      <td id="T_f9c5e_row0_col1" class="data row0 col1" >10.000</td>
+      <td id="T_f9c5e_row0_col2" class="data row0 col2" >10.000</td>
+      <td id="T_f9c5e_row0_col3" class="data row0 col3" >90.00</td>
+      <td id="T_f9c5e_row0_col4" class="data row0 col4" >363.15</td>
     </tr>
     <tr>
-      <th id="T_dae25_level0_row1" class="row_heading level0 row1" >4</th>
-      <td id="T_dae25_row1_col0" class="data row1 col0" >j2</td>
-      <td id="T_dae25_row1_col1" class="data row1 col1" >9.579</td>
-      <td id="T_dae25_row1_col2" class="data row1 col2" >9.571</td>
-      <td id="T_dae25_row1_col3" class="data row1 col3" >90.00</td>
-      <td id="T_dae25_row1_col4" class="data row1 col4" >363.15</td>
+      <th id="T_f9c5e_level0_row1" class="row_heading level0 row1" >4</th>
+      <td id="T_f9c5e_row1_col0" class="data row1 col0" >j2</td>
+      <td id="T_f9c5e_row1_col1" class="data row1 col1" >9.579</td>
+      <td id="T_f9c5e_row1_col2" class="data row1 col2" >9.571</td>
+      <td id="T_f9c5e_row1_col3" class="data row1 col3" >90.00</td>
+      <td id="T_f9c5e_row1_col4" class="data row1 col4" >363.15</td>
     </tr>
   </tbody>
 </table></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="k">def</span> <span class="nf">stylerPipes</span><span class="p">(</span><span class="n">styler</span><span class="p">):</span>
@@ -1784,7 +1730,7 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfCmpPipes</span><span class="p">[[</span><span class="s1">&#39;NAME_i&#39;</span><span class="p">,</span><span class="s1">&#39;NAME_k&#39;</span><span class="p">,</span><span class="s1">&#39;QMAVAbs&#39;</span><span class="p">,</span><span class="s1">&#39;MAV&#39;</span><span class="p">,</span> <span class="s1">&#39;mdot_from_kg_per_s&#39;</span><span class="p">,</span><span class="s1">&#39;LAMBDA&#39;</span><span class="p">,</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span><span class="s1">&#39;reynolds&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">stylerPipes</span><span class="p">)</span>
@@ -1792,51 +1738,59 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style type="text/css">
-#T_0154b_row0_col4, #T_0154b_row0_col6 {
+#T_6e8cd_row0_col4, #T_6e8cd_row0_col6 {
   color: green;
 }
 </style>
-<table id="T_0154b">
+<table id="T_6e8cd">
   <caption>SIR 3S vs. pp: Pipes</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_0154b_level0_col0" class="col_heading level0 col0" >NAME_i</th>
-      <th id="T_0154b_level0_col1" class="col_heading level0 col1" >NAME_k</th>
-      <th id="T_0154b_level0_col2" class="col_heading level0 col2" >QMAVAbs</th>
-      <th id="T_0154b_level0_col3" class="col_heading level0 col3" >MAV</th>
-      <th id="T_0154b_level0_col4" class="col_heading level0 col4" >mdot_from_kg_per_s</th>
-      <th id="T_0154b_level0_col5" class="col_heading level0 col5" >LAMBDA</th>
-      <th id="T_0154b_level0_col6" class="col_heading level0 col6" >lambda</th>
-      <th id="T_0154b_level0_col7" class="col_heading level0 col7" >reynolds</th>
+      <th id="T_6e8cd_level0_col0" class="col_heading level0 col0" >NAME_i</th>
+      <th id="T_6e8cd_level0_col1" class="col_heading level0 col1" >NAME_k</th>
+      <th id="T_6e8cd_level0_col2" class="col_heading level0 col2" >QMAVAbs</th>
+      <th id="T_6e8cd_level0_col3" class="col_heading level0 col3" >MAV</th>
+      <th id="T_6e8cd_level0_col4" class="col_heading level0 col4" >mdot_from_kg_per_s</th>
+      <th id="T_6e8cd_level0_col5" class="col_heading level0 col5" >LAMBDA</th>
+      <th id="T_6e8cd_level0_col6" class="col_heading level0 col6" >lambda</th>
+      <th id="T_6e8cd_level0_col7" class="col_heading level0 col7" >reynolds</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_0154b_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_0154b_row0_col0" class="data row0 col0" >j1</td>
-      <td id="T_0154b_row0_col1" class="data row0 col1" >j2</td>
-      <td id="T_0154b_row0_col2" class="data row0 col2" >100.00</td>
-      <td id="T_0154b_row0_col3" class="data row0 col3" >27.78</td>
-      <td id="T_0154b_row0_col4" class="data row0 col4" >27.78</td>
-      <td id="T_0154b_row0_col5" class="data row0 col5" >0.02120</td>
-      <td id="T_0154b_row0_col6" class="data row0 col6" >0.02119</td>
-      <td id="T_0154b_row0_col7" class="data row0 col7" >562357</td>
+      <th id="T_6e8cd_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_6e8cd_row0_col0" class="data row0 col0" >j1</td>
+      <td id="T_6e8cd_row0_col1" class="data row0 col1" >j2</td>
+      <td id="T_6e8cd_row0_col2" class="data row0 col2" >100.00</td>
+      <td id="T_6e8cd_row0_col3" class="data row0 col3" >27.78</td>
+      <td id="T_6e8cd_row0_col4" class="data row0 col4" >27.78</td>
+      <td id="T_6e8cd_row0_col5" class="data row0 col5" >0.02120</td>
+      <td id="T_6e8cd_row0_col6" class="data row0 col6" >0.02119</td>
+      <td id="T_6e8cd_row0_col7" class="data row0 col7" >562357</td>
     </tr>
   </tbody>
 </table></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </section>
 </section>
 <section id="example-for-determining-roughness">
 <h1>example for determining roughness<a class="headerlink" href="#example-for-determining-roughness" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fDetRau</span><span class="p">(</span><span class="n">net</span><span class="o">=</span><span class="n">net</span><span class="p">,</span> <span class="n">pSoll</span><span class="o">=</span><span class="mf">9.4</span><span class="p">,</span> <span class="n">dk</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -1877,28 +1831,19 @@ INFO    ; numba is not installed. Install numba first before you set the &#39;us
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fDetRau</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-pIst=9.400 dp=0.000 k=0.9062 (dk=1.0000)
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(9.39972378512933, 0.90625)
+pIst=9.400 dp=0.000 k=0.9062 (dk=0.0078)
 </pre></div></div>
 </div>
 </section>
