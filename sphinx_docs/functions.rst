@@ -27,7 +27,7 @@ Welcome to the Functions page! Here, we will delve into the details of each func
 .. _readDxAndMx-label:
 Read SIR 3S Model and Results
 -----------------------------
-.. autofunction:: PythonWrapperToolkit.StartTransaction
+.. autofunction:: dxAndMxHelperFcts.readDxAndMx
 Returns :ref:`m object`.
 
 Usage Tutorial
