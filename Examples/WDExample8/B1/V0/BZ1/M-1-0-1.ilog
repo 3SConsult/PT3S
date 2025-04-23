@@ -74,3 +74,26 @@ Information	0	2025-04-09 11:04:20.209	-1	IObjectModel::StartTransaction()	Daten 
 Information	0	2025-04-09 13:05:31.306	-1	IObjectModel::StartTransaction()	Datenpunkte bearbeiten  	-1  	
 Information	0	2025-04-09 13:05:36.010	-1	IObjectModel::StartTransaction()	Daten setzen: Datenpunkte  	-1  	
 Information	0	2025-04-09 13:11:56.039	-1	IObjectModel::StartTransaction()	Daten setzen: Datenpunkte  	-1  	
+Information	0	2025-04-21 12:19:58.729	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2025-04-21 12:24:11.501	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-21 12:24:11.691	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-21 12:24:11.698	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
+Information	0	2025-04-21 12:24:18.909	-1	IObjectModel::StartTransaction()	Verschieben: Numerische Anzeige: Rohr j1 j2 -->Mittlere Strömungsgeschwindigkeit  	-1  	
+Information	0	2025-04-21 12:24:27.140	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Rohr j1 j2 -->Mittlere Strömungsgeschwindigkeit: Nachkommastellen --> 4  	-1  	
+Information	0	2025-04-21 12:24:46.580	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-21 12:24:46.605	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-21 12:25:04.683	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-04-21 12:25:04.739	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-04-21 12:25:14.182	-1	IObjectModel::StartTransaction()	Verschieben: Numerische Anzeige: Rohr j1 j2 -->Strömungsgeschwindigkeit Knoten K  	-1  	
+Information	0	2025-04-21 12:25:17.447	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Rohr j1 j2 -->Strömungsgeschwindigkeit Knoten K: Nachkommastellen --> 4  	-1  	
+Information	0	2025-04-21 12:25:24.838	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Rohr j1 j2 -->Strömungsgeschwindigkeit Knoten I: Nachkommastellen --> 4  	-1  	
+Information	0	2025-04-21 12:25:31.499	-1	IObjectModel::StartTransaction()	Verschieben: Numerische Anzeige: Rohr j1 j2 -->Strömungsgeschwindigkeit Knoten I  	-1  	
+Information	0	2025-04-21 12:25:33.219	-1	IObjectModel::StartTransaction()	Verschieben: Numerische Anzeige: Rohr j1 j2 -->Strömungsgeschwindigkeit Knoten K  	-1  	
+Information	0	2025-04-21 12:27:10.996	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2025-04-21 12:27:12.710	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2025-04-21 12:27:18.468	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2025-04-21 12:27:19.111	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2025-04-21 12:29:04.626	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2025-04-21 12:29:47.285	-1	IObjectModel::StartTransaction()	Umgebungstemperaturgruppe bearbeiten  	-1  	
+Information	0	2025-04-21 12:32:14.127	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Knoten j1 -->Temperatur: Nachkommastellen --> 4  	-1  	
+Information	0	2025-04-21 12:32:19.643	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Knoten j2 -->Temperatur: Nachkommastellen --> 4  	-1  	
