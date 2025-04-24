@@ -97,3 +97,8 @@ Information	0	2025-04-21 12:29:04.626	-1	IObjectModel::StartTransaction()	Tabell
 Information	0	2025-04-21 12:29:47.285	-1	IObjectModel::StartTransaction()	Umgebungstemperaturgruppe bearbeiten  	-1  	
 Information	0	2025-04-21 12:32:14.127	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Knoten j1 -->Temperatur: Nachkommastellen --> 4  	-1  	
 Information	0	2025-04-21 12:32:19.643	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Knoten j2 -->Temperatur: Nachkommastellen --> 4  	-1  	
+Information	0	2025-04-23 11:10:10.391	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 1,5  	-1  	
+Information	0	2025-04-23 11:11:19.077	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 0,25  	-1  	
+Information	0	2025-04-24 08:38:24.072	-1	IObjectModel::StartTransaction()	Daten setzen: Datenpunkte  	-1  	
+Information	0	2025-04-24 09:27:40.582	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 1,5  	-1  	
+Information	0	2025-04-24 09:29:40.020	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 0,25  	-1  	

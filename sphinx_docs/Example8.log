@@ -1,21 +1,16 @@
-2025-04-23 10:48:21,471 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: Start.
-2025-04-23 10:48:21,471 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx:  tDb: 2025-04-23 08:56:00 tPkl: 2025-04-23 10:32:58
-2025-04-23 10:48:21,471 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-dx.pkl newer than ..\Examples\Example8.db3 and therefore read ...
-2025-04-23 10:48:21,507 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: detecting MX-Source for dx.dbFile (abspath) c:\users\wolters\3s\pt3s\Examples\Example8.db3 ...
-2025-04-23 10:48:21,514 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: wDir from dbFile: .\WDExample8
-2025-04-23 10:48:21,515 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: abspath of wDir from dbFile: c:\users\wolters\3s\pt3s\Examples\WDExample8
-2025-04-23 10:48:21,516 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used ...
-2025-04-23 10:48:21,518 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: wDirMx from abspath of wDir from dbFile: c:\users\wolters\3s\pt3s\Examples\WDExample8\B1\V0\BZ1
-2025-04-23 10:48:21,518 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: mx1File: ..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MX1
-2025-04-23 10:48:21,518 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: corresponding dbFileMxPkl-File: ..\Examples\Example8-mx-_Examples_WDExample8_B1_V0_BZ1_M_1_0_1_1_MX1.pkl
-2025-04-23 10:48:21,518 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: 
-+..\Examples\Example8.db3 is newer than
-+..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MX1:
-+SIR 3S' dbFile is newer than SIR 3S' mx1File
-+in this case the results are maybe dated or (worse) incompatible to the model
-2025-04-23 10:48:21,521 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx:  tMx: 2025-04-21 12:29:54 tPkl: 2025-04-23 08:33:20
-2025-04-23 10:48:21,521 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-mx-_Examples_WDExample8_B1_V0_BZ1_M_1_0_1_1_MX1.pkl newer than ..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MX1 and therefore read ...
-2025-04-23 10:48:21,521 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: corresp. dbFileDxMxPkl-File: ..\Examples\Example8-m.pkl
-2025-04-23 10:48:21,521 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl newer than ..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MX1 and ..\Examples\Example8.db3 and therefore read ...
-2025-04-23 10:48:21,555 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: _Done.
-2025-04-23 10:48:24,449 ; fiona.session                               
+2025-04-24 10:05:52,968 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: Start.
+2025-04-24 10:05:52,968 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx:  tDb: 2025-04-24 09:29:43 tPkl: 2025-04-24 09:30:11
+2025-04-24 10:05:52,968 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-dx.pkl newer than ..\Examples\Example8.db3 and therefore read ...
+2025-04-24 10:05:53,000 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: detecting MX-Source for dx.dbFile (abspath) c:\users\wolters\3s\pt3s\Examples\Example8.db3 ...
+2025-04-24 10:05:53,000 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: wDir from dbFile: .\WDExample8
+2025-04-24 10:05:53,000 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: abspath of wDir from dbFile: c:\users\wolters\3s\pt3s\Examples\WDExample8
+2025-04-24 10:05:53,000 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used ...
+2025-04-24 10:05:53,000 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: wDirMx from abspath of wDir from dbFile: c:\users\wolters\3s\pt3s\Examples\WDExample8\B1\V0\BZ1
+2025-04-24 10:05:53,000 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: mx1File: ..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MX1
+2025-04-24 10:05:53,000 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: corresponding dbFileMxPkl-File: ..\Examples\Example8-mx-_Examples_WDExample8_B1_V0_BZ1_M_1_0_1_1_MX1.pkl
+2025-04-24 10:05:53,000 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx:  tMx: 2025-04-24 09:29:45 tPkl: 2025-04-24 09:30:11
+2025-04-24 10:05:53,000 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-mx-_Examples_WDExample8_B1_V0_BZ1_M_1_0_1_1_MX1.pkl newer than ..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MX1 and therefore read ...
+2025-04-24 10:05:53,015 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: corresp. dbFileDxMxPkl-File: ..\Examples\Example8-m.pkl
+2025-04-24 10:05:53,015 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl newer than ..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MX1 and ..\Examples\Example8.db3 and therefore read ...
+2025-04-24 10:05:53,034 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: _Done.
+2025-04-24 10:05:55,831 ; fiona.session                               
