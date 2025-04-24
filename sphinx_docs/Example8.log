@@ -13,4 +13,98 @@
 2025-04-24 10:05:53,015 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: corresp. dbFileDxMxPkl-File: ..\Examples\Example8-m.pkl
 2025-04-24 10:05:53,015 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl newer than ..\Examples\WDExample8\B1\V0\BZ1\M-1-0-1.1.MX1 and ..\Examples\Example8.db3 and therefore read ...
 2025-04-24 10:05:53,034 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: _Done.
-2025-04-24 10:05:55,831 ; fiona.session                               
+2025-04-24 10:05:55,831 ; fiona.session                                                ; DEBUG   ; Could not import boto3, continuing with reduced functionality.
+2025-04-24 10:05:55,831 ; fiona.env                                                    ; DEBUG   ; GDAL data found in package: path='c:\\Users\\wolters\\AppData\\Local\\anaconda3\\Lib\\site-packages\\fiona\\gdal_data'.
+2025-04-24 10:05:55,831 ; fiona.env                                                    ; DEBUG   ; PROJ data found in package: path='c:\\Users\\wolters\\AppData\\Local\\anaconda3\\Lib\\site-packages\\fiona\\proj_data'.
+2025-04-24 10:05:55,848 ; fiona._env                                                   ; DEBUG   ; GDAL data found in package: path='c:\\Users\\wolters\\AppData\\Local\\anaconda3\\Lib\\site-packages\\fiona\\gdal_data'.
+2025-04-24 10:05:55,848 ; fiona._env                                                   ; DEBUG   ; PROJ data found in package: path='c:\\Users\\wolters\\AppData\\Local\\anaconda3\\Lib\\site-packages\\fiona\\proj_data'.
+2025-04-24 10:06:30,692 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-04-24 10:06:30,748 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-04-24 10:06:30,748 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-04-24 10:06:30,748 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-04-24 10:06:30,748 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-04-24 10:06:30,798 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-04-24 10:06:30,832 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-04-24 10:06:30,832 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-04-24 10:06:30,832 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-04-24 10:06:30,832 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-04-24 10:06:30,986 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-04-24 10:06:31,041 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-04-24 10:06:31,048 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-04-24 10:06:31,048 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-04-24 10:06:31,048 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-04-24 10:06:31,150 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-04-24 10:06:31,181 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-04-24 10:06:31,181 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-04-24 10:06:31,181 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-04-24 10:06:31,181 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-04-24 10:06:31,276 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: Start.
+2025-04-24 10:06:31,332 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: heat transfer data available
+2025-04-24 10:06:31,332 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: pT-Q (sink)
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start.
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5709
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4291    dpFL:  0.4291 dpDZ:  0.0000
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,348 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0389 dpFL_ER: +0.0010 k: 1.2500 (dkAdd=+1.0000)
+2025-04-24 10:06:31,365 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,365 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,365 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.1002 dpFL_ER: +0.0010 k: 2.2500 (dkAdd=+1.0000)
+2025-04-24 10:06:31,365 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start.
+2025-04-24 10:06:31,374 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,374 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,374 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.1998
+2025-04-24 10:06:31,374 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.8002    dpFL:  0.8002 dpDZ:  0.0000
+2025-04-24 10:06:31,374 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0357 dpFL_ER: +0.0010 k: 1.7500 (dkAdd=-0.5000)
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0389 dpFL_ER: +0.0010 k: 1.2500 (dkAdd=-0.5000)
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start.
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.3389
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6611    dpFL:  0.6611 dpDZ:  0.0000
+2025-04-24 10:06:31,382 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-04-24 10:06:31,398 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,398 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,398 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0001 dpFL_ER: +0.0010 k: 1.5000 (dkAdd=+0.2500)
+2025-04-24 10:06:31,409 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,409 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,409 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0357 dpFL_ER: +0.0010 k: 1.7500 (dkAdd=+0.2500)
+2025-04-24 10:06:31,409 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start.
+2025-04-24 10:06:31,414 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,414 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,414 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.2643
+2025-04-24 10:06:31,414 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.7357    dpFL:  0.7357 dpDZ:  0.0000
+2025-04-24 10:06:31,414 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-04-24 10:06:31,415 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,415 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,415 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0182 dpFL_ER: +0.0010 k: 1.6250 (dkAdd=-0.1250)
+2025-04-24 10:06:31,431 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0001 dpFL_ER: +0.0010 k: 1.5000 (dkAdd=-0.1250)
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start.
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.3001
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6999    dpFL:  0.6999 dpDZ:  0.0000
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Convergence: dpFL_DV: +0.0001 dpFL_ER: +0.0010 k: 1.5000 (dk=0.0625)
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:              dpFL_SP: +0.7000 dpFL_PV: +0.6999
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                pFrom: 10.0000     pTo:  9.3001
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Done.
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: k: 1.5000
+2025-04-24 10:06:31,432 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: End.
+2025-04-24 10:06:31,450 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-04-24 10:06:31,483 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-04-24 10:06:31,497 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-04-24 10:06:31,499 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-04-24 10:06:31,499 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+pp: End.
