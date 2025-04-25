@@ -231,6 +231,37 @@ Follow these steps to manually trigger a workflow via GitHub:
 
 4. Optionally, provide any required inputs and click **Run workflow** again to start the workflow.
                    
+Change Local Reference to New Remote
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To update your local repository to point to the new remote (after transferring a GitHub repo), follow these steps:
+
+1. **Open your terminal** and navigate to your local repository.
+
+   .. code-block:: bash
+
+      cd C:\Users\User\3S\PT3S
+
+2. **Verify the current remote URL**:
+
+   .. code-block:: bash
+
+      git remote -v
+
+3. **Update the remote URL** to the new repository location:
+
+   .. code-block:: bash
+
+      git remote set-url origin <new-repo-URL>
+
+   Replace ``<new-repo-URL>`` with the URL of the new repository.
+
+4. **Verify the change**:
+
+   .. code-block:: bash
+
+      git remote -v
+            
 Working with PyPI
 -----------------     
          

@@ -8,7 +8,8 @@ TBDefined
 
 **Changed**: 
 
-- V3_ROHR col MAV: changed from abs. STAT av. Flow kg/s to STAT av. Flow kg/s
+- V3_ROHR col MAV: changed from abs. STAT av. Flow kg/s to STAT av. Flow kg/
+- Example 8
 
 **New**: 
 

@@ -71,6 +71,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#manually-triggering-workflows">Manually Triggering Workflows</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#change-local-reference-to-new-remote">Change Local Reference to New Remote</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#working-with-pypi">Working with PyPI</a><ul>
@@ -314,6 +315,33 @@
 <li><p>Optionally, provide any required inputs and click <strong>Run workflow</strong> again to start the workflow.</p></li>
 </ol>
 </section>
+</section>
+<section id="change-local-reference-to-new-remote">
+<h3>Change Local Reference to New Remote<a class="headerlink" href="#change-local-reference-to-new-remote" title="Permalink to this heading"></a></h3>
+<p>To update your local repository to point to the new remote (after transferring a GitHub repo), follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Open your terminal</strong> and navigate to your local repository.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\U</span>ser<span class="se">\3</span>S<span class="se">\P</span>T3S
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verify the current remote URL</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>-v
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update the remote URL</strong> to the new repository location:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>&lt;new-repo-URL&gt;
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;new-repo-URL&gt;</span></code> with the URL of the new repository.</p>
+</li>
+<li><p><strong>Verify the change</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>-v
+</pre></div>
+</div>
+</li>
+</ol>
 </section>
 </section>
 <section id="working-with-pypi">
