@@ -1,34 +1,40 @@
 .. image:: ./sphinx_docs/pt3s_logo.png
    :target: https://3sconsult.github.io/PT3S/index.html
-   :width: 20%
+   :width: 40%
    :alt: pt3s_logo
 
 **PT3S** is a Python package developed by 3S Consult to serve as an interface between SIR 3S and Python. It enables the use of the SIR 3S model and calculated results in Python, facilitating pre- and post-processing steps for SIR 3S projects.
 
-.. image:: ./sphinx_docs/pt3s_logo.png
+.. image:: ./sphinx_docs/Sir3S_Splash.jpg
    :target: https://www.3sconsult.de/software/sir-3s/
-   :width: 40%
+   :width: 20%
    :alt: pt3s_logo
 
-## Features
+Features
+--------
 
 - **Use SIR 3S Modeldata and Results** in pure Python.
 - Integration with **pandas**, **geopandas**, **matplotlib**, and other libraries.
 - Suitable for **documentation**, **testing**, **verification**, **analysis**, **reporting**, **prototyping**, and **play**.
 
 
-## Documentation
+Documentation
+-------------
 For detailed documentation, visit `PT3S Documentation <https://3sconsult.github.io/PT3S>`_.
 
-## PyPI
+PyPI
+----
 You can find the PT3S package on `PyPI <https://pypi.org/project/PT3S/>`_.
 
-## Installation
+Installation
+------------
 
 To install PT3S, use pip:
 
-```bash
-pip install pt3s
+   .. code-block:: bash
 
-## Contact
+      pip install pt3s
+
+Contact
+-------
 For any questions or feedback, please contact us at `jablonski@3sconsult.de <mailto:jablonski@3sconsult.de>`_.
