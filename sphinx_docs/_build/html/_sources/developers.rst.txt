@@ -5,7 +5,7 @@ Welcome to the Developers page! This section provides resources and instructions
 
 - **Contact**: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact `jablonski@3sconsult.de <mailto:jablonski@3sconsult.de>`_. If you need feedback on a specific issue with PT3S, please include the PT3S version you are using and, if available, the Jupyter Notebook you are working with.
 
-- **GitHub Repository:** You can find the source code and contribute to the project on our `GitHub page <https://github.com/aw3s/PT3S>`_.
+- **GitHub Repository:** You can find the source code and contribute to the project on our `GitHub page <https://github.com/3SConsult/PT3S>`_.
 
 - **PyPI Project:** The PT3S package is also available on `PyPI <https://pypi.org/project/PT3S>`_.
 
@@ -58,7 +58,7 @@ To clone a GitHub repository to your local folder, follow these steps:
 
    .. code-block:: bash
 
-      git clone https://github.com/aw3s/PT3S
+      git clone https://github.com/3SConsult/PT3S
 
 Now, you are advised to following the steps of :ref:`install-editmode-label`.
 
@@ -231,6 +231,37 @@ Follow these steps to manually trigger a workflow via GitHub:
 
 4. Optionally, provide any required inputs and click **Run workflow** again to start the workflow.
                    
+Change Local Reference to New Remote
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To update your local repository to point to the new remote (after transferring a GitHub repo), follow these steps:
+
+1. **Open your terminal** and navigate to your local repository.
+
+   .. code-block:: bash
+
+      cd C:\Users\User\3S\PT3S
+
+2. **Verify the current remote URL**:
+
+   .. code-block:: bash
+
+      git remote -v
+
+3. **Update the remote URL** to the new repository location:
+
+   .. code-block:: bash
+
+      git remote set-url origin <new-repo-URL>
+
+   Replace ``<new-repo-URL>`` with the URL of the new repository.
+
+4. **Verify the change**:
+
+   .. code-block:: bash
+
+      git remote -v
+            
 Working with PyPI
 -----------------     
          
@@ -367,7 +398,7 @@ To generate documentation, follow these steps:
 
 .. 5. **Get the Latest Version**: You should :ref:`get-latest-version-label` before continuing to edit local.
 
-The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_
+The new documentation can be found at `https://3sconsult.github.io/PT3S/index.html <https://3sconsult.github.io/PT3S/index.html>`_
 
 .. note::
 
