@@ -5,7 +5,7 @@ Welcome to the Developers page! This section provides resources and instructions
 
 - **Contact**: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact `jablonski@3sconsult.de <mailto:jablonski@3sconsult.de>`_. If you need feedback on a specific issue with PT3S, please include the PT3S version you are using and, if available, the Jupyter Notebook you are working with.
 
-- **GitHub Repository:** You can find the source code and contribute to the project on our `GitHub page <https://github.com/aw3s/PT3S>`_.
+- **GitHub Repository:** You can find the source code and contribute to the project on our `GitHub page <https://github.com/3SConsult/PT3S>`_.
 
 - **PyPI Project:** The PT3S package is also available on `PyPI <https://pypi.org/project/PT3S>`_.
 
@@ -58,7 +58,7 @@ To clone a GitHub repository to your local folder, follow these steps:
 
    .. code-block:: bash
 
-      git clone https://github.com/aw3s/PT3S
+      git clone https://github.com/3SConsult/PT3S
 
 Now, you are advised to following the steps of :ref:`install-editmode-label`.
 
@@ -398,7 +398,7 @@ To generate documentation, follow these steps:
 
 .. 5. **Get the Latest Version**: You should :ref:`get-latest-version-label` before continuing to edit local.
 
-The new documentation can be found at `https://aw3s.github.io/PT3S/index.html <https://aw3s.github.io/PT3S/index.html>`_
+The new documentation can be found at `https://3sconsult.github.io/PT3S/index.html <https://3sconsult.github.io/PT3S/index.html>`_
 
 .. note::
 
