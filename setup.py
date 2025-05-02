@@ -29,8 +29,8 @@ setup(
     long_description=long_description,
 
     project_urls={
-        'Documentation': 'https://aw3s.github.io/PT3S/index.html',  # Documentation URL
-        'Source': 'https://github.com/aw3s/PT3S',  # GitHub repository
+        'Documentation': 'https://3sconsult.github.io/PT3S',  # Documentation URL
+        'Source': 'https://github.com/3SConsult/PT3S',  # GitHub repository
     },
     # Author details
     author='PT3S',

@@ -33,7 +33,7 @@ To install PT3S, use pip:
 
    .. code-block:: bash
 
-      pip install pt3s
+      pip install PT3S
 
 Contact
 -------
