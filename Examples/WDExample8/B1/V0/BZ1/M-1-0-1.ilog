@@ -102,3 +102,14 @@ Information	0	2025-04-23 11:11:19.077	-1	IObjectModel::StartTransaction()	Daten 
 Information	0	2025-04-24 08:38:24.072	-1	IObjectModel::StartTransaction()	Daten setzen: Datenpunkte  	-1  	
 Information	0	2025-04-24 09:27:40.582	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 1,5  	-1  	
 Information	0	2025-04-24 09:29:40.020	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 0,25  	-1  	
+Information	0	2025-05-04 15:34:23.225	-1	IObjectModel::StartTransaction()	Einstellungen-Berechnung bearbeiten  	-1  	
+Information	0	2025-05-04 15:34:24.972	-1	IObjectModel::StartTransaction()	Daten setzen: Berechnungsparameter  	-1  	
+Information	0	2025-05-08 11:48:00.406	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 0,001  	-1  	
+Information	0	2025-05-08 11:48:00.764	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 0,001  	-1  	
+Information	0	2025-05-08 11:48:18.587	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Rauigkeit --> 0,25  	-1  	
+Information	0	2025-05-08 13:16:43.228	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
+Information	0	2025-05-08 13:17:12.873	-1	IObjectModel::StartTransaction()	Daten setzen: Rohr j1 j2: Nennweite --> DN   xxx  	-1  	
+Information	0	2025-05-08 15:03:17.368	-1	IObjectModel::StartTransaction()	Hinzufügen: Numerische Anzeige  	-1  	
+Information	0	2025-05-08 15:03:17.810	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
+Information	0	2025-05-08 15:03:17.894	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
+Information	0	2025-05-08 15:03:23.523	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Rohr j1 j2 -->Reibungsdruckverlust/-druckverlusthöhe: Nachkommastellen --> 4  	-1  	
