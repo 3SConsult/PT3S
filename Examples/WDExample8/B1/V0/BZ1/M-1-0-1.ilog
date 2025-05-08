@@ -113,3 +113,4 @@ Information	0	2025-05-08 15:03:17.368	-1	IObjectModel::StartTransaction()	Hinzuf
 Information	0	2025-05-08 15:03:17.810	-1	IObjectModel::StartTransaction()	Verknüpfung: Numerische Anzeige  	-1  	
 Information	0	2025-05-08 15:03:17.894	-1	IObjectModel::StartTransaction()	hinzugefügt: Datenpunkt  	-1  	
 Information	0	2025-05-08 15:03:23.523	-1	IObjectModel::StartTransaction()	Daten setzen: Numerische Anzeige: Rohr j1 j2 -->Reibungsdruckverlust/-druckverlusthöhe: Nachkommastellen --> 4  	-1  	
+Information	0	2025-05-08 16:33:24.162	-1	IObjectModel::StartTransaction()	Tabellen bearbeiten  	-1  	
