@@ -213,10 +213,14 @@ When running this example for the first time on your machine, please execute the
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="c1">#maxRecords=-1</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span>
+                                <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span>
+                                <span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span>
+                                <span class="c1">#,SirCalcExePath=r&quot;C:\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe&quot;</span>
+                                <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -226,17 +230,7 @@ When running this example for the first time on your machine, please execute the
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\Examples\Example5.db3 exists readable ...
-INFO    ; dxAndMxHelperFcts.readDxAndMx:
-+..\Examples\Example5.db3 is newer than
-+..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
-+SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
-+in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; dxAndMxHelperFcts.readDxAndMx:
-+..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.XML is newer than
-+..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
-+SirCalc&#39;s xmlFile is newer than SIR 3S&#39; mx1File
-+in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; dxAndMxHelperFcts.readDxAndMx: running C:\\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe ...
+INFO    ; dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\3S\SIR 3S\SirCalc-90-14-02-10_Potsdam\SirCalc.exe
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div></div>
@@ -692,7 +686,7 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8851d6dafb6349ee82bba9b64b86b3ca", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "170765d9e2d649c9aa8a702856e6de78", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. It is identical to the output plot apart from the possibilty to toggle a total of 20 pie charts individually. To interact with the plot, download and run the script.</section>
 <section id="id3">
@@ -790,7 +784,7 @@ The depiction of the interactive Widget plot does not work in the documentation,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "20ed5d302d4e48cdaf2ea24149d5e250", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "effb358c133748cb819bfc3bd3554520", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 The depiction of the interactive Widget plot does not work in the documentation, because a python kernel must run it. It is identical to the output plot apart from the possibilty to toggle a total of 20 pie charts individually. To interact with the plot, download and run the script.</section>
 <section id="id5">

@@ -15,6 +15,7 @@ TBDefined
 **New**: 
 
 - V3_VBEL has new col: M: STAT Flow kg/s
+- dxAndMxHelperFcts.readDxAndMx() has new param SirCalcExePath to specify SirCalc.exe used for calculations with maxRecords<0
 
 90.14.46.0.dev1
 ---------------
