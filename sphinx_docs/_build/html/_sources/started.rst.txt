@@ -55,6 +55,10 @@ To install Anaconda, follow these steps:
 How to Start JupyterLab
 -----------------------
 
+.. note::
+
+    An excellent alternative to JupyterLab for viewing, running, and creating Jupyter Notebooks is Visual Studio Code (VSCode). You can download it from `Visual Studio Code <https://code.visualstudio.com/>`_.
+
 To start JupyterLab and have certain Notebooks at hand, follow these steps:
 
 1. **Locate Notebook directory:** Find the parent directory of the Notebook or multiple Notebooks, you want to open, and copy the path  (This directory can also contain non-ipynb files).
