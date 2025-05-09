@@ -2288,6 +2288,7 @@ def readDxAndMx(dbFile
                 ,mxsVecsResults2MxDfVecAggs=None
                 ,crs=None
                 ,logPathOutputFct=os.path.relpath
+                ,SirCalcExePath=None
                 ):
 
     """
@@ -2313,6 +2314,8 @@ def readDxAndMx(dbFile
     :type crs: str, optional, default=None
     :param logPathOutputFct: func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput
     :type logPathOutputFct: func, optional, default=os.path.relpath
+    :param SirCalcExePath: SirCalcExePath can be used to specify the path to the SirCalc.exe that is used for calculations if maxRecords<0
+    :type SirCalcExePath: str, optional, default=None
 
     :return: An object containing the SIR 3S model and SIR 3S results - also called m object.
     :rtype: dxWithMx
@@ -2526,25 +2529,47 @@ def readDxAndMx(dbFile
                     installName = "SirCalc.exe"
                     SirCalcOptions="/rstnSpezial /InteraktRgMax100 /InteraktThMax50"
                     
-                    for file,_,_ in os.walk(installDir):
-                        SirCalcFiles.extend(glob.glob(os.path.join(file,installName))) 
-                    
-                    SirCalcFiles = [f  for f in reversed(sorted(SirCalcFiles,key=lambda file: os.path.getmtime(file)) )]
-                    
-                    if len(SirCalcFiles)==0:                    
-                        logger.info("{logStrPrefix:s}SirCalc not found. No (re-)calculation.".format(
-                        logStrPrefix=logStr                    
-                        ))                    
-                    
+                    if SirCalcExePath == None:
+                        for file,_,_ in os.walk(installDir):
+                            SirCalcFiles.extend(glob.glob(os.path.join(file,installName))) 
+                        
+                        SirCalcFiles = [f  for f in reversed(sorted(SirCalcFiles,key=lambda file: os.path.getmtime(file)) )]
+                        
+                        if len(SirCalcFiles)==0:                    
+                            logger.info("{logStrPrefix:s}SirCalc not found. No (re-)calculation.".format(
+                            logStrPrefix=logStr                    
+                            ))                    
+                        
+                        else:
+                            SirCalcExeFile=SirCalcFiles[0]
+
+                            '''
+                            logger.info("{logStrPrefix:s}running {SirCalc:s} ...".format(
+                            logStrPrefix=logStr
+                            ,SirCalc=SirCalcExeFile
+                            ))
+                            '''
+                                                        
+                            with subprocess.Popen([SirCalcExeFile,SirCalcXmlFile,SirCalcOptions]) as process:
+                                process.wait()
+
+                            logger.info("{logStrPrefix:s}Model is being recalculated using {SirCalcExeFile}".format(
+                                logStrPrefix=logStr                    
+                                ,SirCalcExeFile=SirCalcExeFile
+                                )
+                                ) 
                     else:
-                        SirCalcExeFile=SirCalcFiles[0]
-                        logger.info("{logStrPrefix:s}running {SirCalc:s} ...".format(
-                        logStrPrefix=logStr
-                        ,SirCalc=SirCalcExeFile
-                        ))
-                                                    
+                        SirCalcExeFile=SirCalcExePath
+
                         with subprocess.Popen([SirCalcExeFile,SirCalcXmlFile,SirCalcOptions]) as process:
-                            process.wait()
+                                process.wait()
+
+                        logger.info("{logStrPrefix:s}Model is being recalculated using {SirCalcExeFile}".format(
+                                logStrPrefix=logStr                    
+                                ,SirCalcExeFile=SirCalcExeFile
+                                )
+                                ) 
+
 
         else:
              logger.info("{logStrPrefix:s}No MX1-File(s) in wDir. Continue without MX ...".format(
