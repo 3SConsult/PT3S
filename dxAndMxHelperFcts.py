@@ -2562,7 +2562,7 @@ def readDxAndMx(dbFile
                         SirCalcExeFile=SirCalcExePath
 
                         with subprocess.Popen([SirCalcExeFile,SirCalcXmlFile,SirCalcOptions]) as process:
-                                process.wait()
+                            process.wait()
 
                         logger.info("{logStrPrefix:s}Model is being recalculated using {SirCalcExeFile}".format(
                                 logStrPrefix=logStr                    
