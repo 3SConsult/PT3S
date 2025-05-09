@@ -118,7 +118,7 @@ This example demonstrates how to set up a new SIR 3S model. Nodes and pipes are 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S Entwicklung\SirGraf-90-15-00-04x64\Sir3S_Repository.Interfaces.dll&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S Entwicklung\SirGraf-90-15-00-06x64\Sir3S_Repository.Interfaces.dll&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -128,7 +128,7 @@ This example demonstrates how to set up a new SIR 3S model. Nodes and pipes are 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;System.Reflection.RuntimeAssembly object at 0x000001F83449A180&gt;
+&lt;System.Reflection.RuntimeAssembly object at 0x000001E26FD82940&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -148,7 +148,7 @@ This example demonstrates how to set up a new SIR 3S model. Nodes and pipes are 
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span> <span class="o">=</span> <span class="n">PythonWrapperToolkit</span><span class="o">.</span><span class="n">SIR3S_Model</span><span class="p">()</span>
@@ -175,17 +175,17 @@ Initialization complete
 <section id="Create-new-model-file">
 <h1>Create new model file<a class="headerlink" href="#Create-new-model-file" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
-<span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Toolkit_Example2&quot;</span>
+<span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Toolkit_Example1&quot;</span>
 <span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
                     <span class="o">+</span><span class="s1">&#39;/Examples&#39;</span>
-                    <span class="o">+</span><span class="s1">&#39;/Toolkit_Examples/&#39;</span>
+                    <span class="o">+</span><span class="s1">&#39;/Toolkit_Created_Models/&#39;</span>
                     <span class="o">+</span><span class="n">dbFilename</span>
                     <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
 <span class="p">)</span>
@@ -193,7 +193,7 @@ Initialization complete
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span> captured_output
@@ -201,7 +201,7 @@ Initialization complete
                            <span class="n">providerType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">SirDBProviderType</span><span class="o">.</span><span class="n">SQLite</span><span class="p">,</span>
                            <span class="n">namedInstance</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                            <span class="n">netType</span><span class="o">=</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">NetworkType</span><span class="o">.</span><span class="n">DistrictHeating</span><span class="p">,</span>
-                           <span class="n">modelDescription</span><span class="o">=</span><span class="s2">&quot;Toolkit_Example2&quot;</span><span class="p">,</span>
+                           <span class="n">modelDescription</span><span class="o">=</span><span class="s2">&quot;Toolkit_Example1&quot;</span><span class="p">,</span>
                            <span class="n">userID</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                            <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
@@ -240,7 +240,7 @@ Initialization complete
 <section id="Insert-Nodes">
 <h2>Insert Nodes<a class="headerlink" href="#Insert-Nodes" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Insert nodes&quot;</span><span class="p">)</span>
@@ -268,18 +268,18 @@ Initialization complete
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Now you can make changes to the model
-Element inserted successfully into the model with Tk: 5321099033247111201
-Element inserted successfully into the model with Tk: 4693279059508338015
-Element inserted successfully into the model with Tk: 5449145764669062959
-Element inserted successfully into the model with Tk: 5315913336781347732
-Element inserted successfully into the model with Tk: 5194369748158004646
-Element inserted successfully into the model with Tk: 5210570430448112064
+Element inserted successfully into the model with Tk: 5706228287953092629
+Element inserted successfully into the model with Tk: 5075281919684818458
+Element inserted successfully into the model with Tk: 5015744255560101205
+Element inserted successfully into the model with Tk: 5525701563431671218
+Element inserted successfully into the model with Tk: 5062265738706331343
+Element inserted successfully into the model with Tk: 4933704492438975795
 Edit Session has ended. Please open up a new session if you want to make further changes
 Changes saved successfully
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_tks</span><span class="o">=</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
@@ -290,7 +290,7 @@ Changes saved successfully
 <section id="Set-Coordinates">
 <h2>Set Coordinates<a class="headerlink" href="#Set-Coordinates" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Set coords (x,y)&quot;</span><span class="p">)</span>
@@ -341,7 +341,7 @@ Changes saved successfully
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Set coords (z)&quot;</span><span class="p">)</span>
@@ -377,7 +377,7 @@ Changes saved successfully
 <section id="Insert-Pipes">
 <h2>Insert Pipes<a class="headerlink" href="#Insert-Pipes" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Insert Pipes&quot;</span><span class="p">)</span>
@@ -414,19 +414,19 @@ Changes saved successfully
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Now you can make changes to the model
-Element inserted successfully into the model with Tk: 5293401913306684493
+Element inserted successfully into the model with Tk: 4859218894585607216
 Objects connected successfully
-Element inserted successfully into the model with Tk: 5088758886343064810
+Element inserted successfully into the model with Tk: 5416239842758093296
 Objects connected successfully
-Element inserted successfully into the model with Tk: 5586333943805392557
+Element inserted successfully into the model with Tk: 5541436285944559802
 Objects connected successfully
-Element inserted successfully into the model with Tk: 4642718115365895174
+Element inserted successfully into the model with Tk: 5678160746738353527
 Objects connected successfully
-Element inserted successfully into the model with Tk: 5609337679797668537
+Element inserted successfully into the model with Tk: 5075685522984383508
 Objects connected successfully
-Element inserted successfully into the model with Tk: 4681734429769829334
+Element inserted successfully into the model with Tk: 4951119240174043569
 Objects connected successfully
-Element inserted successfully into the model with Tk: 4706393255563735279
+Element inserted successfully into the model with Tk: 5651058234432420509
 Objects connected successfully
 Edit Session has ended. Please open up a new session if you want to make further changes
 Changes saved successfully
@@ -436,7 +436,7 @@ Changes saved successfully
 <section id="Set-Length">
 <h2>Set Length<a class="headerlink" href="#Set-Length" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">StartEditSession</span><span class="p">(</span><span class="n">SessionName</span><span class="o">=</span><span class="s2">&quot;Set pipe lengths&quot;</span><span class="p">)</span>
@@ -478,7 +478,7 @@ Changes saved successfully
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipe_tks</span><span class="o">=</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetTksofElementType</span><span class="p">(</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">Sir3SObjectTypes</span><span class="o">.</span><span class="n">Pipe</span><span class="p">)</span>
@@ -492,7 +492,7 @@ Changes saved successfully
 <section id="Trigger-First-Calculation">
 <h3>Trigger First Calculation<a class="headerlink" href="#Trigger-First-Calculation" title="Permalink to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s3s</span><span class="o">.</span><span class="n">ExecCalculation</span><span class="p">(</span><span class="n">waitForSirCalcToExit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># this calculation will not be properly executed it serves to ensure a xml calculation file exists</span>
@@ -511,7 +511,7 @@ Model Calculation is complete
 <section id="Read-Calculation-XML-file">
 <h3>Read Calculation XML file<a class="headerlink" href="#Read-Calculation-XML-file" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xml_file_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
@@ -541,10 +541,10 @@ Model Calculation is complete
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;c:\\users\\jablonski\\3s\\pt3s/Examples/Toolkit_Created_Models/WDNew_Toolkit_Example1/B3\\V0\\BZ1\\M-3-0-1.XML&#39;
+&#39;c:\\users\\jablonski\\3s\\pt3s/Examples/Toolkit_Examples/WDToolkit_Example1/B1\\V0\\BZ1\\M-1-0-1.XML&#39;
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
@@ -585,8 +585,16 @@ Model Calculation is complete
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The specified file was not found.
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">pipe_tk</span> <span class="ow">in</span> <span class="n">pipe_tks</span><span class="p">:</span>
@@ -600,20 +608,14 @@ Model Calculation is complete
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Value is set
-(&#39;5724951366993448773&#39;, &#39;string&#39;)
-Value is set
-(&#39;5724951366993448773&#39;, &#39;string&#39;)
-Value is set
-(&#39;5724951366993448773&#39;, &#39;string&#39;)
-Value is set
-(&#39;5724951366993448773&#39;, &#39;string&#39;)
-Value is set
-(&#39;5724951366993448773&#39;, &#39;string&#39;)
-Value is set
-(&#39;5724951366993448773&#39;, &#39;string&#39;)
-Value is set
-(&#39;5724951366993448773&#39;, &#39;string&#39;)
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[24], line 2</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> pipe_tk <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> pipe_tks:
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span>     s3s<span style="color: rgb(98,98,98)">.</span>SetValue(pipe_tk, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">FkdtroRowd</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(0,135,0)">str</span>(dtro_rowd_df<span style="color: rgb(98,98,98)">.</span>iloc[<span style="color: rgb(98,98,98)">15</span>][<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">pk</span><span style="color: rgb(175,0,0)">&#39;</span>])) <span style="color: rgb(95,135,135)">#DN 150</span>
+<span class="ansi-green-fg">      3</span>     <span style="color: rgb(0,135,0)">print</span>(s3s<span style="color: rgb(98,98,98)">.</span>GetValue(pipe_tk, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">FkdtroRowd</span><span style="color: rgb(175,0,0)">&#34;</span>))
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;dtro_rowd_df&#39; is not defined
 </pre></div></div>
 </div>
 </section>
@@ -621,7 +623,7 @@ Value is set
 </section>
 <section id="Boundary-Conditions">
 <h1>Boundary Conditions<a class="headerlink" href="#Boundary-Conditions" title="Permalink to this heading"></a></h1>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -650,32 +652,10 @@ Value is set
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Now you can make changes to the model
-Value is set
-Value is set
-Value is set
-Value is set
-Value is set
-Value is set
-Value is set
-Value is set
-Value is set
-Value is set
-Value is set
-Value is set
-Edit Session has ended. Please open up a new session if you want to make further changes
-Changes saved successfully
-</pre></div></div>
-</div>
 </section>
 <section id="Calculation">
 <h1>Calculation<a class="headerlink" href="#Calculation" title="Permalink to this heading"></a></h1>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -683,15 +663,7 @@ Changes saved successfully
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Model Calculation is complete
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -699,19 +671,6 @@ Model Calculation is complete
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">node_tk</span><span class="si">}</span><span class="s2">: x: </span><span class="si">{</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Xkor&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, y: </span><span class="si">{</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Ykor&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, PH: </span><span class="si">{</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Result.PH.Value&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, QM: </span><span class="si">{</span><span class="n">s3s</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">node_tk</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Result.QM.Value&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Node 5321099033247111201: x: 0, y: 25, PH: 4, QM: 115.7509
-Node 4693279059508338015: x: 100, y: 25, PH: 3.74013, QM: 0
-Node 5449145764669062959: x: 125, y: 50, PH: 3.5, QM: 0
-Node 5315913336781347732: x: 125, y: 0, PH: 3.5, QM: 0
-Node 5194369748158004646: x: 150, y: 25, PH: 3.25987, QM: 0
-Node 5210570430448112064: x: 250, y: 25, PH: 3, QM: -115.7509
-</pre></div></div>
 </div>
 </section>
 <section id="Reset">
