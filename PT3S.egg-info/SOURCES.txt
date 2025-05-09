@@ -4,8 +4,6 @@ Dx.py
 Lx.py
 Mx.py
 NFD.py
-PT3S.html
-PT3S.ipynb
 README.rst
 Rm.py
 Xm.py
