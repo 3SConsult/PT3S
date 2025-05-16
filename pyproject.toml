@@ -37,10 +37,6 @@ Source = "https://github.com/3SConsult/PT3S"
 [tool.setuptools]
 packages = ["find:"]
 
-[tool.setuptools.packages.find]
-exclude = ["nb", "testdata", "testresults"]
-
-
 [tool.setuptools.package-data]
 "PT3S" = [
   "Examples/Example1.db3",
