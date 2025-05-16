@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Developers &mdash; PT3S 90.14.47.0.dev1 documentation</title>
+  <title>For Developers &mdash; PT3S 90.14.51.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -394,7 +394,7 @@ git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> <
 </ol>
 <p>On the <a class="reference internal" href="releases.html"><span class="doc">Releases</span></a> page you can view how this rst code is transformed into html.</p>
 <ol class="arabic simple" start="2">
-<li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py, PT3S/pyproject.toml (setup.py is not used anymore but kept as a backup for now)</p></li>
+<li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/PT3S/conf.py, (PT3S/setup.py), PT3S/sphinx_docs/conf.py, PT3S/pyproject.toml (setup.py is not used anymore but kept as a backup for now)</p></li>
 <li><p><strong>Run Doctests:</strong> Follow the steps of <a class="reference internal" href="#running-doctests-label"><span class="std std-ref">Running Doctests</span></a>. And make sure they are executed successfully.</p></li>
 <li><p><strong>Generate the Documentation:</strong> Follow the steps in <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p></li>
 </ol>
@@ -437,16 +437,22 @@ git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> <
 <p>The PT3S Repository includes a GitHub Actions workflow for publishing to PyPI. To use it, follow these steps:</p>
 <ol class="arabic">
 <li><p><strong>Update the Version Number:</strong> Make sure you have documented your changes and changed the release number in all necessary files according to <a class="reference internal" href="#version-control-label"><span class="std std-ref">Release a New Version</span></a>.</p></li>
-<li><p><strong>Commit and Push Your Changes:</strong></p>
+<li><p><strong>Commit and Push Your Changes:</strong> <a class="reference internal" href="#commit-changes-label"><span class="std std-ref">Commit Your Changes to the GitHub Repository</span></a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;v90.14.XX.0.dev1&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;v90.14.XX.0.dev1&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
 </pre></div>
 </div>
 </li>
 <li><p><strong>Tag the Release:</strong> Create a Git tag that matches the pattern expected by the GitHub Actions workflow (e.g. <code class="docutils literal notranslate"><span class="pre">v90.14.47.0.dev1</span></code>). The last authored commit will be tagged:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>v90.14.XX.0.dev1
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v90.14.XX.0.dev1
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v90.14.XX.0.dev1
 </pre></div>
 </div>
 <p>This will automatically trigger the GitHub Actions workflow to build and upload your package to PyPI.</p>

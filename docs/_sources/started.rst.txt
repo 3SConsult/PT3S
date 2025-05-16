@@ -30,7 +30,7 @@ To install Anaconda, follow these steps:
 
 1. **Download Anaconda:** Visit the `official Anaconda download website <https://www.anaconda.com/download>`_ and skip the registration process. Download the version that is compatible with your operating system.
 
-.. image:: 1_anaconda_skip_registration.png
+.. image:: _static/1_anaconda_skip_registration.png
    :alt: anaconda_skip_registration
    :width: 100%
    :align: center 
@@ -44,7 +44,7 @@ To install Anaconda, follow these steps:
     
 .. _anaconda_folder:
 
-.. image:: 2_anaconda_folder.png
+.. image:: _static/2_anaconda_folder.png
    :alt: anaconda_folder
    :width: 100%
    :align: center 
@@ -83,7 +83,7 @@ A JupyterLab browser tab should now open.
 
 5. **Open Notebooks:** Each Notebook in the Notebook directory can now be opened individually on the far left side of the tab.
 
-    .. image:: 6_jupyterlab_open_notebook.png
+    .. image:: _static/6_jupyterlab_open_notebook.png
        :alt: jupyterlab_open_notebook
        :width: 100%
        :align: center 
@@ -108,7 +108,7 @@ To install PT3S using this documentation, follow these steps:
     pip install PT3S
 
 
-.. image:: 3_pt3s_install_example0.png
+.. image:: _static/3_pt3s_install_example0.png
    :alt: pt3s_install_example0
    :width: 100%
    :align: center 
@@ -129,7 +129,7 @@ To update PT3S to the newest version using this documentation, follow these step
     
     pip install PT3S -U --no-deps
    
-.. image:: 4_pt3s_update_example0.png
+.. image:: _static/4_pt3s_update_example0.png
    :alt: pt3s_update_example0
    :width: 100%
    :align: center     
@@ -156,7 +156,7 @@ To try this inside an Example Notebook, follow these steps:
     
     3. **Run 6th cell:** 
     
-    .. image:: 5_pt3s_import_example0.png
+    .. image:: _static/5_pt3s_import_example0.png
        :alt: pt3s_update_example0
        :width: 100%
        :align: center 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example 6: yFiles &mdash; PT3S 90.14.47.0.dev1 documentation</title>
+  <title>Example 6: yFiles &mdash; PT3S 90.14.51.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -168,10 +168,11 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">resources</span>
 </pre></div>
 </div>
 </div>
@@ -179,43 +180,41 @@ Note: you may need to restart the kernel to use updated packages.
 <section id="Logging">
 <h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
 
-<span class="n">logFileName</span><span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Example6.log&quot;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+    <span class="n">logFileName</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Example6.log&quot;</span>
+    <span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
 
-<span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">logFileName</span>
-                        <span class="p">,</span><span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span>
-                        <span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">loglevel</span>
-                        <span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> ; </span><span class="si">%(name)-60s</span><span class="s2"> ; </span><span class="si">%(levelname)-7s</span><span class="s2"> ; </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+        <span class="n">filename</span><span class="o">=</span><span class="n">logFileName</span><span class="p">,</span>
+        <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span>
+        <span class="n">level</span><span class="o">=</span><span class="n">loglevel</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> ; </span><span class="si">%(name)-60s</span><span class="s2"> ; </span><span class="si">%(levelname)-7s</span><span class="s2"> ; </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
 
-<span class="n">fileHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">logFileName</span><span class="p">)</span>
+    <span class="n">fileHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">logFileName</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">fileHandler</span><span class="p">)</span>
 
-<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">fileHandler</span><span class="p">)</span>
-
-<span class="n">consoleHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
-<span class="n">consoleHandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(levelname)-7s</span><span class="s2"> ; </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">))</span>
-<span class="n">consoleHandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">consoleHandler</span><span class="p">)</span>
-</pre></div>
+    <span class="n">consoleHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+    <span class="n">consoleHandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(levelname)-7s</span><span class="s2"> ; </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">consoleHandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">consoleHandler</span><span class="p">)</span>
+<br/></pre></div>
 </div>
 </div>
 </section>
 <section id="Read-Model-and-Results">
 <h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example6&quot;</span>
-<span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
-                    <span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span>
-                    <span class="o">+</span><span class="n">dbFilename</span>
-                    <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
-<span class="p">)</span>
+<span class="n">dbFile</span> <span class="o">=</span> <span class="n">resources</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="s2">&quot;PT3S&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">&quot;Examples&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dbFilename</span><span class="si">}</span><span class="s2">.db3&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
