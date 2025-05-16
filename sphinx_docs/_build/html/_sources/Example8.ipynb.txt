@@ -35,7 +35,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -63,15 +63,6 @@
     "logging.getLogger('numba').setLevel(logging.ERROR)\n",
     "logging.getLogger('pandapipes').setLevel(logging.ERROR)\n",
     "logging.getLogger('matplotlib').setLevel(logging.ERROR)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import os"
    ]
   },
   {
