@@ -3,6 +3,13 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+90.14.48.0.dev1
+---------------
+
+**New**: 
+
+- Example Notebooks included in released package
+
 90.14.47.0.dev1
 ---------------
 
