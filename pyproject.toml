@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "PT3S"
-version = "90.14.49.0.dev1"
+version = "90.14.50.0.dev1"
 description = "Python Tools 3S"
 readme = "README.rst"
 license = "MIT"
@@ -42,23 +42,9 @@ where = ["."]
 
 [tool.setuptools.package-data]
 "PT3S" = [
-  "Examples/Example1.db3",
-  "Examples/WDExample1/B1/V0/BZ1/M-1-0-1.1.MX1",
-  "Examples/WDExample1/B1/V0/BZ1/M-1-0-1.XML",
-  "Examples/Example2.db3",
-  "Examples/WDExample2/B1/V0/BZ1/M-1-0-1.5.MX1",
-  "Examples/WDExample2/B1/V0/BZ1/M-1-0-1.XML",
-  "Examples/Example3.db3",
-  "Examples/WDExample3/B1/V0/BZ1/M-1-0-1.1.MX1",
-  "Examples/WDExample3/B1/V0/BZ1/M-1-0-1.XML",
-  "Examples/Example5.db3",
-  "Examples/WDExample5/B1/V0/BZ1/M-1-0-1.1.MX1",
-  "Examples/WDExample5/B1/V0/BZ1/M-1-0-1.XML",
-  "Examples/Example6.db3",
-  "Examples/WDExample6/B1/V0/BZ1/M-1-0-1.1.MX1",
-  "Examples/WDExample6/B1/V0/BZ1/M-1-0-1.XML",
-  "Examples/Example8.db3",
-  "Examples/WDExample8/B1/V0/BZ1/M-1-0-1.1.MX1",
-  "Examples/WDExample8/B1/V0/BZ1/M-1-0-1.XML",
-  "sphinx_docs/*.ipynb",
+  "Examples/*.db3",
+  "Examples/**/*.MX1",
+  "Examples/**/*.XML",
+  "Examples/*.ipynb"
 ]
+

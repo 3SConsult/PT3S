@@ -6,7 +6,7 @@
 Welcome to PT3S's documentation!
 ================================
 
-.. image:: Sir3S_Splash.jpg
+.. image:: _static/Sir3S_Splash.jpg
    :alt: SIR 3S Splash
    :width: 100%
    :align: center

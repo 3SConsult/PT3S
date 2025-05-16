@@ -311,7 +311,7 @@ Before uploading a new release to PyPI, follow these steps:
           
 On the :doc:`releases` page you can view how this rst code is transformed into html.
 
-2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py, PT3S/pyproject.toml (setup.py is not used anymore but kept as a backup for now)
+2. **Change Release Number:** Change the release numbers in the files: PT3S/PT3S/conf.py, (PT3S/setup.py), PT3S/sphinx_docs/conf.py, PT3S/pyproject.toml (setup.py is not used anymore but kept as a backup for now)
 
 3. **Run Doctests:** Follow the steps of :ref:`running-doctests-label`. And make sure they are executed successfully.
 

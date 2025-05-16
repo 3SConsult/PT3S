@@ -12,12 +12,11 @@ import subprocess
 from datetime import datetime
 sys.path.insert(0, os.path.abspath(r'C:\Users\jablonski\3S\PT3S'))
 
-
 project = 'PT3S'
 current_year = datetime.now().year
 copyright = f'1986-{current_year}, 3S Consult GmbH'
 author = '3S Consult GmbH'
-release = '90.14.49.0.dev1'
+release = '90.14.50.0.dev1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -38,7 +37,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints', 
 html_theme = 'sphinx_rtd_theme' #'alabaster'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
-html_logo = 'pt3s_logo.png'  # oder 'logo.svg', je nachdem, welche Datei Sie verwenden
+html_logo = '_static/pt3s_logo.png'  # oder 'logo.svg', je nachdem, welche Datei Sie verwenden
 html_favicon = '_static/favicon.ico'
 html_theme_options = {
     'logo_only': True,  # Nur das Logo wird oben in der Seitenleiste angezeigt
