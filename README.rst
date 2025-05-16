@@ -7,17 +7,17 @@
 
 |
 
-.. image:: ./sphinx_docs/pt3s_logo.png
+.. image:: https://raw.githubusercontent.com/3SConsult/PT3S/master/sphinx_docs/pt3s_logo.png
    :target: https://3sconsult.github.io/PT3S/index.html
    :width: 40%
    :alt: pt3s_logo
 
 **PT3S** is a Python package developed by 3S Consult to serve as an interface between SIR 3S and Python. It enables the use of the SIR 3S model and calculated results in Python, facilitating pre- and post-processing steps for SIR 3S projects.
 
-.. image:: ./sphinx_docs/Sir3S_Splash.jpg
+.. image:: https://raw.githubusercontent.com/3SConsult/PT3S/master/sphinx_docs/Sir3S_Splash.jpg
    :target: https://www.3sconsult.de/software/sir-3s/
    :width: 20%
-   :alt: pt3s_logo
+   :alt: Sir3S Splash
 
 Features
 --------
@@ -49,4 +49,5 @@ For any questions or feedback, please contact us at `jablonski@3sconsult.de <mai
 
 License
 -------
-MIT License. See `LICENSE <./LICENSE>`_ for details.
+MIT License. See `LICENSE <https://github.com/3SConsult/PT3S/blob/master/LICENSE>`_ for details.
+

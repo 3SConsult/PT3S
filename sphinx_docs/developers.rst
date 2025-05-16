@@ -219,6 +219,9 @@ We currently use the following workflows:
    * - **Name**
      - **Triggers (Apart from manually triggering)**
      - **Tasks**
+   * - Publish to PyPI
+     - Commit tagged with 'v*'
+     - Builds and uploads package to PyPI
    * - Automatic Copying of HTML-Files
      - Push to `PT3S/sphinx_docs/_build/html/`
      - Copies HTML files from master `PT3S/sphinx_docs/_build/html` to gh-pages `PT3S/docs`
@@ -308,47 +311,76 @@ Before uploading a new release to PyPI, follow these steps:
           
 On the :doc:`releases` page you can view how this rst code is transformed into html.
 
-2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py
+2. **Change Release Number:** Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py, PT3S/pyproject.toml (setup.py is not used anymore but kept as a backup for now)
 
 3. **Run Doctests:** Follow the steps of :ref:`running-doctests-label`. And make sure they are executed successfully.
 
 4. **Generate the Documentation:** Follow the steps in :ref:`generating-documentation-label`.
-  
-        
+      
+
 Upload a New Version to PyPI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Follow these steps to upload a new version of your project to PyPI:
+Follow one of the two methods below to upload a new version of your project to PyPI.
 
-1. **Version Control:** Make sure you have documented your changes and changed the release number in all necessary files according to :ref:`version-control-label`.
+Manual Upload via Command Line
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2. **Navigate to project directory:** Use the ``cd`` command followed by the path to the directory of your project.
+1. **Update the Version Number:** Make sure you have documented your changes and changed the release number in all necessary files according to :ref:`version-control-label`.
+
+2. **Navigate to Your Project Directory:** Use the ``cd`` command to move into your project folder.
 
    .. code-block:: bash
 
       cd "C:\Users\User\3S\PT3S"
 
-3. **Delete Old Distributions:** Remove all old distributions in your ``dist`` directory.
-
-4. **Create a New Source Distribution:** Use the ``python setup.py sdist`` command to create a new source distribution of your package.
+3. **Clean Old Distributions:** Remove any existing files in the ``dist`` directory to avoid uploading outdated builds.
 
    .. code-block:: bash
 
-      python setup.py sdist
+      rm -rf dist/
 
-5. **Generate an API Token on PyPI:** Log into your PyPI account and navigate to your Account Settings. Find "API Tokens" and then "Add API Token". Provide a token name and select the scopes this token should have access to (include PT3S). Click "Create Token" and make sure to copy your new token. This token can be used for all your future PT3S Uploads.
+4. **Build the Package:** Use the ``build`` module to generate both source and wheel distributions.
 
-6. **Upload the Distribution with Twine:** Use the ``python -m twine upload dist/*`` command to upload the distribution.
+   .. code-block:: bash
+
+      python -m build
+
+5. **Upload the Distribution:** Generate an API token on PyPI (under *Account Settings > API Tokens*), then upload your package using ``twine``:
 
    .. code-block:: bash
 
       python -m twine upload -u __token__ -p <YOUR TOKEN> dist/* --verbose
- 
-.. note::
 
-   Make sure to keep your API token secure and do not hard-code it in your scripts or code. It's best to set it as an environment variable or store it in a secret configuration file.
+   .. note::
 
-7. **Test the Deployment:** Follow the steps in :ref:`test-the-deployment-label`
+      For security, avoid hard-coding your token. Instead, store it in an environment variable or use a secret manager.
+
+Automated Upload via GitHub Actions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The PT3S Repository includes a GitHub Actions workflow for publishing to PyPI. To use it, follow these steps:
+
+1. **Update the Version Number:** Make sure you have documented your changes and changed the release number in all necessary files according to :ref:`version-control-label`.
+
+2. **Commit and Push Your Changes:**
+
+   .. code-block:: bash
+
+      git add .
+      git commit -m "v90.14.XX.0.dev1"
+      git push origin master
+
+3. **Tag the Release:** Create a Git tag that matches the pattern expected by the GitHub Actions workflow (e.g. ``v90.14.47.0.dev1``). The last authored commit will be tagged:
+
+   .. code-block:: bash
+
+      git tag v90.14.XX.0.dev1
+      git push origin v90.14.XX.0.dev1
+
+   This will automatically trigger the GitHub Actions workflow to build and upload your package to PyPI.
+
+4. **Test the Deployment:** Follow the steps in :ref:`test-the-deployment-label`
 
 .. _install-editmode-label:
 
