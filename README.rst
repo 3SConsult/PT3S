@@ -1,3 +1,12 @@
+.. image:: https://img.shields.io/badge/License-MIT-yellow.svg
+   :target: LICENSE
+   :alt: License: MIT
+.. image:: https://img.shields.io/pypi/v/PT3S.svg
+   :target: https://pypi.org/project/PT3S/
+   :alt: PyPI version
+.. image:: .sphinx_docs/_static/favicon.ico
+   :target: https://3sconsult.github.io/PT3S
+   :alt: Documentation Status
 .. image:: ./sphinx_docs/pt3s_logo.png
    :target: https://3sconsult.github.io/PT3S/index.html
    :width: 40%
@@ -16,7 +25,6 @@ Features
 - **Use SIR 3S Modeldata and Results** in pure Python.
 - Integration with **pandas**, **geopandas**, **matplotlib**, and other libraries.
 - Suitable for **documentation**, **testing**, **verification**, **analysis**, **reporting**, **prototyping**, and **play**.
-
 
 Documentation
 -------------
@@ -38,3 +46,7 @@ To install PT3S, use pip:
 Contact
 -------
 For any questions or feedback, please contact us at `jablonski@3sconsult.de <mailto:jablonski@3sconsult.de>`_.
+
+License
+-------
+MIT License. See `LICENSE <./LICENSE>`_ for details.
