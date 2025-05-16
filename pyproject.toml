@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "PT3S"
-version = "90.14.50.0.dev1"
+version = "90.14.51.0.dev1"
 description = "Python Tools 3S"
 readme = "README.rst"
 license = "MIT"
@@ -44,6 +44,7 @@ where = ["."]
 "PT3S" = [
   "Examples/*.db3",
   "Examples/**/*.MX1",
+  "Examples/**/*.MX2",
   "Examples/**/*.XML",
   "Examples/*.ipynb"
 ]
