@@ -4,13 +4,14 @@
 .. image:: https://img.shields.io/pypi/v/PT3S.svg
    :target: https://pypi.org/project/PT3S/
    :alt: PyPI version
-.. image:: .sphinx_docs/_static/favicon.ico
+.. image:: ./sphinx_docs/_static/favicon.ico
    :target: https://3sconsult.github.io/PT3S
    :alt: Documentation Status
 .. image:: ./sphinx_docs/pt3s_logo.png
    :target: https://3sconsult.github.io/PT3S/index.html
    :width: 40%
    :alt: pt3s_logo
+|
 
 **PT3S** is a Python package developed by 3S Consult to serve as an interface between SIR 3S and Python. It enables the use of the SIR 3S model and calculated results in Python, facilitating pre- and post-processing steps for SIR 3S projects.
 
