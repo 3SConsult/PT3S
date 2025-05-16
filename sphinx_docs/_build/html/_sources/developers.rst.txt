@@ -99,15 +99,15 @@ To fetch the latest changes from the origin and merge them into your current bra
 
       git fetch origin    
 
-3a. **Pull the latest changes from the origin**: Use the ``git pull`` command. 
+3. **A: Pull the latest changes from the origin**: Use the ``git pull`` command. 
 
    .. code-block:: bash
 
       git pull origin master
         
-   For a more detailed updating process, follow steps 3b instead.
+   For a more detailed updating process, follow steps 3B instead.
         
-3b. **Merge the fetched changes into your current branch:** Use the ``git merge origin/master`` command.
+3. **B: Merge the fetched changes into your current branch:** Use the ``git merge origin/master`` command.
 
    .. code-block:: bash
 

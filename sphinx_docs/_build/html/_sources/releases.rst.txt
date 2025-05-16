@@ -3,11 +3,12 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
-TBDefined
+90.14.47.0.dev1
 ---------------
 
 **Changed**: 
 
+- Publication is done via pyproject.toml instead of setup.py from this version on
 - setup.py Repo/Documentation Link changed to GitHub-Team Account
 - V3_ROHR col MAV: changed from abs. STAT av. Flow kg/s to STAT av. Flow kg/
 - Example 8
