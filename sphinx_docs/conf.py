@@ -11,6 +11,7 @@ import sys
 import subprocess
 from datetime import datetime
 sys.path.insert(0, os.path.abspath(r'C:\Users\jablonski\3S\PT3S'))
+sys.path.insert(0, os.path.abspath('../PT3S'))
 
 project = 'PT3S'
 current_year = datetime.now().year

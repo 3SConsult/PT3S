@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Functions &mdash; PT3S 90.14.49.0.dev1 documentation</title>
+  <title>Functions &mdash; PT3S 90.14.51.0.dev1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -121,6 +121,36 @@
 </div>
 <section id="read-sir-3s-model-and-results">
 <span id="readdxandmx-label"></span><h2>Read SIR 3S Model and Results<a class="headerlink" href="#read-sir-3s-model-and-results" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.readDxAndMx">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SirCalcExePath=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Permalink to this definition"></a></dt>
+<dd><p>Reads SIR 3S model and SIR 3S results and returns a dxWithMx object - also called m object.</p>
+<p>Use maxRecords=0  to read only the model.
+Use maxRecords=1  to read only STAT (the steady state result).
+Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dbFile</strong> (<em>str</em>) – Path to SIR 3S’ database file (‘modell.db3’ or ‘modell.mdb’). The database is read into a Dx object. The corresponding results are read into an Mx object if available.</p></li>
+<li><p><strong>preventPklDump</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Determines whether to prevent dumping objects read to pickle. If True, existing pickles are deleted, SIR 3S’ sources are read and no pickles are written. If False 3 pickles are written or overwritten if older than SIR 3S’ sources.</p></li>
+<li><p><strong>forceSir3sRead</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Determines whether to force reading from SIR 3S’ sources even if newer pickles exists. By default pickles are read if newer than SIR 3S’ sources.</p></li>
+<li><p><strong>maxRecords</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Use maxRecords=0 to read only the model. Use maxRecords=1 to read only STAT (the steady state result). Maximum number of MX-Results to read. If None, all results are read. Use maxRecords=-1 to (re-)calculate the model by SirCalc (by the newest SirCalc available below <code class="docutils literal notranslate"><span class="pre">C:\3S</span></code>).</p></li>
+<li><p><strong>mxsVecsResults2MxDf</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of regular expressions for SIR 3S’ Vector-Results to be included in mx.df. Note that integrating Vector-Results in mx.df can significantly increase memory usage. Example 1: <code class="docutils literal notranslate"><span class="pre">['ROHR~\*~\*~\*~PHR',</span> <span class="pre">'ROHR~\*~\*~\*~FS',</span> <span class="pre">'ROHR~\*~\*~\*~DSI',</span> <span class="pre">'ROHR~\*~\*~\*~DSK']</span></code>  Example 2: <code class="docutils literal notranslate"><span class="pre">['KNOT~\*~\*~\*~VOLD','ROHR~\*~\*~\*~VOLDA']</span></code></p></li>
+<li><p><strong>mxsVecsResults2MxDfVecAggs</strong> (<em>list</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – List of timesteps indices for SIR 3S’ Vector-Results to be included in mx.dfVecAggs. Note that integrating all timesteps in mx.dfVecAggs will increase memory usage up to MXS-Size. Example: [3, 42, 666, -1] (-1: last timestep). 3: 3rd timestep. 42: 42th timestep. 666: 666th timestep.</p></li>
+<li><p><strong>crs</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – (=coordinate reference system) Determines crs used in geopandas-Dfs (Possible value:’EPSG:25832’). If None, crs will be read from SIR 3S’ database file.</p></li>
+<li><p><strong>logPathOutputFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=os.path.relpath</em>) – func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput</p></li>
+<li><p><strong>SirCalcExePath</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – SirCalcExePath can be used to specify the path to the SirCalc.exe that is used for calculations if maxRecords&lt;0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An object containing the SIR 3S model and SIR 3S results - also called m object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dxWithMx</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p>Returns <a class="reference internal" href="objects.html#m-object"><span class="std std-ref">m Object</span></a>.</p>
 <section id="usage-tutorial">
 <h3>Usage Tutorial<a class="headerlink" href="#usage-tutorial" title="Permalink to this heading"></a></h3>
@@ -150,6 +180,28 @@
 </section>
 <section id="read-sir-3s-results-only">
 <h2>Read SIR 3S Results only<a class="headerlink" href="#read-sir-3s-results-only" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.readMx">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wDirMx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readMx" title="Permalink to this definition"></a></dt>
+<dd><p>Reads SIR 3S results and returns a Mx object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wDirMx</strong> (<em>str</em>) – Path to Mx-Directory. The results are read into a Mx object via the Mx files.</p></li>
+<li><p><strong>logPathOutputFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=os.path.relpath</em>) – func logPathOutputFct(fileName) is used for logoutput of filenames unless explicitly stated otherwise in the logoutput. Defaults to os.path.relpath.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mx object with two attributes: 
+- mx.df: pandas-Df (‘time curve data’) from from SIR 3S’ MXS file(s)
+- mx.dfVecAggs: pandas-Df (‘vector data’) from SIR 3S’ MXS file(s)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mx object</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p>Returns <a class="reference internal" href="objects.html#mx-object"><span class="std std-ref">Mx object</span></a>.</p>
 <p>Refer to <a class="reference internal" href="examples.html#ex2"><span class="std std-ref">Example 2: Time Curves</span></a>. It uses this function.</p>
 </section>
@@ -159,29 +211,264 @@
 <h3>Methods regarding <a class="reference internal" href="objects.html#m-object"><span class="std std-ref">m Object</span></a><a class="headerlink" href="#methods-regarding-m-object" title="Permalink to this heading"></a></h3>
 <section id="switchv3dfcolstomultiindex">
 <h4>switchV3DfColsToMultiindex<a class="headerlink" href="#switchv3dfcolstomultiindex" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx.switchV3DfColsToMultiindex">
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">switchV3DfColsToMultiindex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx.switchV3DfColsToMultiindex" title="Permalink to this definition"></a></dt>
+<dd><p>Switches V3-Df cols to Multiindex-Cols.    
+switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex</p>
+</dd></dl>
+
 </section>
 </section>
 <section id="methods-regarding-dx-object">
 <h3>Methods regarding <a class="reference internal" href="objects.html#dx-object"><span class="std std-ref">Dx object</span></a><a class="headerlink" href="#methods-regarding-dx-object" title="Permalink to this heading"></a></h3>
 <section id="update">
 <h4>update<a class="headerlink" href="#update" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.update">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfUpd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updInverseValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.update" title="Permalink to this definition"></a></dt>
+<dd><p>Updates dbFile (SQLite only)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dfUpd</strong> (<em>df</em>) – df with update data</p></li>
+<li><p><strong>updInverseValue</strong> (<em>?</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – value to use for attribValue for inverse objects</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffectedTotal</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Comprehensive changes to model data should be made via the SIR 3S user interface. Or via the SIR 3S import interfaces which - depending on type/operation/parameterization - can also overwrite (update) existing model data. Nonetheless, scripted model changes can be helpful.</p>
+</div>
+<dl class="simple">
+<dt>dfUpd’s cols used:            </dt><dd><ul class="simple">
+<li><p>table i.e. ‘FWVB’</p></li>
+<li><p>attrib i.e. ‘W0’</p></li>
+</ul>
+</dd>
+<dt>dfUpd’s cols optional:         </dt><dd><ul class="simple">
+<li><p>attribValue, default=dfUpd[attrib]</p></li>
+<li><p>xk, default=’tk’</p></li>
+<li><p>xkValue, default=dfUpd[xk]</p></li>
+</ul>
+</dd>
+<dt>row-wise:</dt><dd><ul class="simple">
+<li><p>set attrib to attribValue in table where xk is xkValue</p></li>
+<li><p>update an attribute of an object</p></li>
+</ul>
+</dd>
+<dt>updInverseValue:</dt><dd><ul class="simple">
+<li><p>set attrib to updInverseValue for all objects of type table not mentioned in dfUpd</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="insert">
 <h4>insert<a class="headerlink" href="#insert" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.insert">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfIns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xkFct=&lt;function</span> <span class="pre">fXk&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.insert" title="Permalink to this definition"></a></dt>
+<dd><p>Inserts into a dbFile’s table (SQLite only)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<em>str</em>) – table to insert to</p></li>
+<li><p><strong>dfIns</strong> (<em>df</em>) – df with insert data</p></li>
+<li><p><strong>xkFct</strong> (<em>func</em><em>, </em><em>optional</em><em>, </em><em>default=Dx.fXk</em>) – func to call row-wise to obtain (pk, rk, tk) for an record to insert</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffected, dfIns (a copy of dfIns; cols pk, rk, tk: inserted values; cols pkOrig, rkOrig, tkOrig: original values)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>New model mass data should be created via the SIR 3S import interfaces. Nevertheless, generating model mass data via script can be helpful.</p>
+</div>
+<dl class="simple">
+<dt>dfIns’ cols used:            </dt><dd><ul class="simple">
+<li><p>all cols which are also cols of table</p></li>
+</ul>
+</dd>
+<dt>row-wise:</dt><dd><ul class="simple">
+<li><p>insert into table</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="importfromsir3s">
 <h4>importFromSIR3S<a class="headerlink" href="#importfromsir3s" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.importFromSIR3S">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">importFromSIR3S</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self,</span> <span class="pre">dbSrc,</span> <span class="pre">tablesToImport=['STRASSE',</span> <span class="pre">'LTGR',</span> <span class="pre">'DTRO',</span> <span class="pre">'DTRO_ROWD',</span> <span class="pre">'KNOT',</span> <span class="pre">'KNOT_BZ',</span> <span class="pre">'ROHR',</span> <span class="pre">'ROHR_BZ',</span> <span class="pre">'FWVB',</span> <span class="pre">'FWVB_BZ',</span> <span class="pre">'LAYR'],</span> <span class="pre">fksNotToFillWithDstTemplateValues=['fkKI',</span> <span class="pre">'fkKK',</span> <span class="pre">'fkDTRO_ROWD',</span> <span class="pre">'fkLTGR',</span> <span class="pre">'fkSTRASSE'],</span> <span class="pre">fctsToCall={'*':</span> <span class="pre">&lt;function</span> <span class="pre">fimportFromSIR3S&gt;},</span> <span class="pre">fctsToCallLogging=True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.importFromSIR3S" title="Permalink to this definition"></a></dt>
+<dd><p>Import data from an other SIR 3S Model (SQLite only)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dbSrc</strong> (<em>str</em>) – SIR 3S dbFile to import from</p></li>
+<li><p><strong>tablesToImport</strong> (<em>list of tabNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'STRASSE'</em><em>,</em><em>'LTGR'</em><em>,</em><em>'DTRO'</em><em>,</em><em>'DTRO_ROWD'</em><em>
+,</em><em>'KNOT'</em><em>,</em><em>'KNOT_BZ'</em><em>,</em><em>'ROHR'</em><em>,</em><em>'ROHR_BZ'</em><em>,</em><em>'FWVB'</em><em>,</em><em>'FWVB_BZ'</em><em>
+,</em><em>'LAYR'</em><em>]</em>) – tabNames to import from</p></li>
+<li><p><strong>fksNotToFillWithDstTemplateValues</strong> (<em>list of fk starting colNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'fkKI'</em><em>,</em><em>'fkKK'</em><em>,</em><em>'fkDTRO_ROWD'</em><em>,</em><em>'fkLTGR'</em><em>,</em><em>'fkSTRASSE'</em><em>]</em>) – colNames starting with fk not to set to the corresponding Dst-Template-Value</p></li>
+<li><p><strong>fctsToCall</strong> (<em>dct of functions</em><em>, </em><em>optional</em><em>, </em><em>default={'*':fimportFromSIR3S}; f</em><em>(</em><em>'*'</em><em>) </em><em>is called if defined and then the object-specific f</em><em>(</em><em>OBJ</em><em>) </em><em>is called if defined</em>) – dct of functions to call before import</p></li>
+<li><p><strong>fctsToCallLogging</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – decide if fctsToCall shall generate Log-Output</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Model data from annother SIR 3S Model should be imported via the SIR 3S export/import interfaces. 
+I.e. export in Src Sdf/Csv, import in Dst the exported Sdf/Csv. Or copy in Src and paste in Dst. Or export/import SIR 3S Blocks. 
+Nevertheless, importing from another Model via script can be helpful.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Template-Objects are Objects with col ‘KENNUNG’ &lt; 0.
+Template-Objects are not copied from Src to Dst.
+For objects with Templates defined all Non-Null fk-Starting Template-Attributes from Dst are set except for: fksNotToFillWithDstTemplateValues.
+It follows that i.e. for KNOT(_BZ), ROHR(_BZ), FWVB(_BZ) fkDE is set to the corresponding fkDE Dst-Template-Attribute if defined.
+For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Model if SYSTEMKONFIG(3) is defined.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dst and Src: SIR 3S Version and CRS (coordinate reference system) should be identical, QGIS-Export should be done (to ensure correct and matching GEOMWKBs in Dst and Src).</p>
+</div>
+</dd></dl>
+
 </section>
 <section id="setlayercontentto">
 <h4>setLayerContentTo<a class="headerlink" href="#setlayercontentto" title="Permalink to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="Dx.Dx.setLayerContentTo">
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">setLayerContentTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layerName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.setLayerContentTo" title="Permalink to this definition"></a></dt>
+<dd><p>Updates content of layerName to df’s-content</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>layerName</strong> (<em>str</em>) – name of an existing layer</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rowsAffected</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Groups or layers are used in SIR 3S as a feature for data access, data filtering and grouping. The assignment of objects to groups should be done (explicit) via the SIR 3S user interface or (implicit) via the SIR 3S import interfaces. Nonetheless, scripted assignment can be useful.</p>
+</div>
+<dl class="simple">
+<dt>df’s cols used:            </dt><dd><ul class="simple">
+<li><p>TYPE</p></li>
+<li><p>ID</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 </section>
 <section id="sdfcsv">
 <h2>SdfCsv<a class="headerlink" href="#sdfcsv" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sdfCsv.SdfCsv.__init__">
+<span class="sig-prename descclassname"><span class="pre">sdfCsv.SdfCsv.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csvFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'aSdfCsvFile.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp1252'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sdfCsv.SdfCsv.__init__" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csvFile</strong> (<em>str</em>) – a SDF-CSV-File</p></li>
+<li><p><strong>encoding</strong> (<em>str</em>) – encoding</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SIR 3S imports SDF-CSV-Files. However sometimes it is convenient to have a look at the original SDF-CSV-File content with Python. I.e. to explore the original hierarchical layer structure in comparison to the flat layer structure in the SIR 3S model. Or i.e. to check against the SIR 3S SDF-CSV-File import- and export-function result. In general, one can say that the SDF-CSV format for pipe network data (for pipe network models) is so widespread in Germany that it makes sense to have an SIR 3S affine function which maps the SDF-CSV-File to pandas dfs.</p>
+<p>The returned object has the following structure:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>dataFrames: dct with dfs</p></li>
+<li><p>dataFrames[‘FEL’]: a df with the definition of the columns of all types; i.e. ‘KNO’ is a type</p></li>
+<li><p>dataFrames[‘KNO’]: a df with data for objects of type ‘KNO’</p></li>
+<li><p>dataFramesDesc: dct with descs; i.e. dataFramesDesc[‘KNO’]: ‘Knotendaten’</p></li>
+</ul>
+</div></blockquote>
+<p>The returned object has the following functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>getHierarchicalLayernames: returns: {originalLayername:hierarchicalLayername, …}</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
 </section>
 <section id="plot-network-color-diagram">
 <h2>Plot Network Color Diagram<a class="headerlink" href="#plot-network-color-diagram" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ncd.pNcd_pipes">
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_pipes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['darkgreen',</span> <span class="pre">'magenta']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_pipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_pipes" title="Permalink to this definition"></a></dt>
+<dd><p>pNcd_pipes: Plots pipes on axis with customization options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em>) – Matplotlib axis object. If None, a new axis is created.</p></li>
+<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – Geospatial DataFrame containing the data to plot.</p></li>
+<li><p><strong>attribute</strong> (<em>str</em>) – Column name in gdf of the data that should be plotted.</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em>, </em><em>optional</em>) – List of colors to use for the colormap. Default is [‘darkgreen’, ‘magenta’].</p></li>
+<li><p><strong>legend_fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Legend text for attribute. Default is attribute + ‘{:.4f}’.</p></li>
+<li><p><strong>legend_values</strong> (<em>list</em><em>, </em><em>optional</em>) – Specific values to use for value steps in legend. Default is None.</p></li>
+<li><p><strong>norm_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum value for normalization. Default is None.</p></li>
+<li><p><strong>norm_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum value for normalization. Default is None.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em>, </em><em>optional</em>) – Query string to filter the data. Default is None.</p></li>
+<li><p><strong>line_width_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – Factor to influence width of the lines in the plot. Default is 10.</p></li>
+<li><p><strong>zorder</strong> (<em>float</em><em>, </em><em>optional</em>) – Determines order of plotting when calling the function multilpe times. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>patches.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>matplotlib.patches.Patch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ncd.pNcd_nodes">
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['darkgreen',</span> <span class="pre">'magenta']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_size_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>pNcd_nodes: Plots nodes on axis with customization options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em>) – Matplotlib axis object. If None, a new axis is created.</p></li>
+<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – Geospatial DataFrame containing the data to plot.</p></li>
+<li><p><strong>attribute</strong> (<em>str</em>) – Column name in gdf of the data that should be plotted.</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em>, </em><em>optional</em>) – List of colors to use for the colormap. Default is [‘darkgreen’, ‘magenta’].</p></li>
+<li><p><strong>legend_fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Legend text for attribute. Default is attribute + ‘{:.4f}’.</p></li>
+<li><p><strong>legend_values</strong> (<em>list</em><em>, </em><em>optional</em>) – Specific values to use for value steps in legend. Default is None.</p></li>
+<li><p><strong>norm_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum value for normalization. Default is None.</p></li>
+<li><p><strong>norm_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum value for normalization. Default is None.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em>, </em><em>optional</em>) – Query string to filter the data. Default is None.</p></li>
+<li><p><strong>marker_style</strong> (<em>str</em><em>, </em><em>optional</em>) – Style of the markers in the plot. Default is ‘o’.</p></li>
+<li><p><strong>marker_size_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – Factor to influence size of the markers in the plot. Default is 1000.0.</p></li>
+<li><p><strong>zorder</strong> (<em>float</em><em>, </em><em>optional</em>) – Determines order of plotting when calling the function multilpe times. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>patches.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>matplotlib.patches.Patch</p>
+</dd>
+</dl>
+</dd></dl>
+
 <section id="id1">
 <h3>Usage Tutorial<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <p>Plot on an axes. Use pNcd_pipes for pipes and pNcd_nodes for nodes.</p>
@@ -200,6 +487,23 @@
 </section>
 <section id="plot-source-spectrum">
 <h2>Plot Source Spectrum<a class="headerlink" href="#plot-source-spectrum" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ncd.plot_src_spectrum">
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">plot_src_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#plot_src_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.plot_src_spectrum" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the source spectrum based on the provided GeoDataFrame and attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em>) – The axis to plot on. If None, a new axis is created.</p></li>
+<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – The GeoDataFrame containing the data to plot.</p></li>
+<li><p><strong>attribute</strong> (<em>str</em>) – The attribute column in the GeoDataFrame to use for color mixing.</p></li>
+<li><p><strong>colors</strong> (<em>list of np.ndarray</em>) – The colors to use for mixing.</p></li>
+<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=2</em>) – The width of the lines in the plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <p>Refer to <a class="reference internal" href="examples.html#ex7"><span class="std std-ref">Example 7: Source Spectrum</span></a>. It uses this function.</p>
 </section>
 </section>
