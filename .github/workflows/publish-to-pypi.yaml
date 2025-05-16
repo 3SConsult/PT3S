@@ -24,13 +24,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install build twine
 
+      - name: Clean dist folder
+        run: rm -rf dist
+
       - name: Build package
-        run: python -m build
+        run: python -m build --sdist --wheel --outdir dist
+
+      - name: List dist contents
+        run: ls -lh dist
 
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-        run: |
-          twine upload dist/*
+        run: twine upload dist/*
+
 
