@@ -331,4 +331,669 @@
 2025-05-16 08:20:40,493 ; PT3S                                                         ; DEBUG   ; dxWithMx.__init__: _Done.
 2025-05-16 08:20:40,493 ; PT3S                                                         ; INFO    ; dxAndMxHelperFcts.readDxAndMx: ..\Examples\Example8-m.pkl exists and is overwritten...
 2025-05-16 08:20:40,547 ; PT3S                                                         ; DEBUG   ; dxAndMxHelperFcts.readDxAndMx: _Done.
-2025-05-16 08:20:43,397 ; fiona.session
+2025-05-16 08:20:43,397 ; fiona.session                                                ; DEBUG   ; Could not import boto3, continuing with reduced functionality.
+2025-05-16 08:20:43,397 ; fiona.env                                                    ; DEBUG   ; GDAL data found in package: path='c:\\Users\\wolters\\AppData\\Local\\anaconda3\\Lib\\site-packages\\fiona\\gdal_data'.
+2025-05-16 08:20:43,397 ; fiona.env                                                    ; DEBUG   ; PROJ data found in package: path='c:\\Users\\wolters\\AppData\\Local\\anaconda3\\Lib\\site-packages\\fiona\\proj_data'.
+2025-05-16 08:20:43,414 ; fiona._env                                                   ; DEBUG   ; GDAL data found in package: path='c:\\Users\\wolters\\AppData\\Local\\anaconda3\\Lib\\site-packages\\fiona\\gdal_data'.
+2025-05-16 08:20:43,414 ; fiona._env                                                   ; DEBUG   ; PROJ data found in package: path='c:\\Users\\wolters\\AppData\\Local\\anaconda3\\Lib\\site-packages\\fiona\\proj_data'.
+2025-05-16 08:21:04,993 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:21:05,052 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-05-16 08:21:05,056 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-05-16 08:21:05,060 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-05-16 08:21:05,066 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:21:05,130 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:21:05,179 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-05-16 08:21:05,179 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-05-16 08:21:05,179 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-05-16 08:21:05,193 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:21:05,427 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:21:05,462 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-05-16 08:21:05,464 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-05-16 08:21:05,466 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-05-16 08:21:05,468 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:21:05,583 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:21:05,630 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-05-16 08:21:05,630 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-05-16 08:21:05,630 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-05-16 08:21:05,630 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:21:05,754 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: Start.
+2025-05-16 08:21:05,810 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: heat transfer data available
+2025-05-16 08:21:05,813 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: pT-Q (sink)
+2025-05-16 08:21:05,822 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 0
+2025-05-16 08:21:05,822 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,822 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,822 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5709
+2025-05-16 08:21:05,822 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4291    dpFL:  0.4291 dpDZ:  0.0000
+2025-05-16 08:21:05,822 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:05,830 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,830 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,830 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0389 dpFL_ER: +0.0010 k: 1.2500 (dkAdd=+1.0000)
+2025-05-16 08:21:05,843 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,845 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,846 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.1002 dpFL_ER: +0.0010 k: 2.2500 (dkAdd=+1.0000)
+2025-05-16 08:21:05,846 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 1
+2025-05-16 08:21:05,847 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,847 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,847 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.1998
+2025-05-16 08:21:05,847 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.8002    dpFL:  0.8002 dpDZ:  0.0000
+2025-05-16 08:21:05,847 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:05,847 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,847 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,847 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0357 dpFL_ER: +0.0010 k: 1.7500 (dkAdd=-0.5000)
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0389 dpFL_ER: +0.0010 k: 1.2500 (dkAdd=-0.5000)
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 2
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.3389
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6611    dpFL:  0.6611 dpDZ:  0.0000
+2025-05-16 08:21:05,864 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0001 dpFL_ER: +0.0010 k: 1.5000 (dkAdd=+0.2500)
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0357 dpFL_ER: +0.0010 k: 1.7500 (dkAdd=+0.2500)
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 3
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.2643
+2025-05-16 08:21:05,880 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.7357    dpFL:  0.7357 dpDZ:  0.0000
+2025-05-16 08:21:05,893 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:05,897 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,897 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,897 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0182 dpFL_ER: +0.0010 k: 1.6250 (dkAdd=-0.1250)
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0001 dpFL_ER: +0.0010 k: 1.5000 (dkAdd=-0.1250)
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 4
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.3001
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6999    dpFL:  0.6999 dpDZ:  0.0000
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Convergence: dpFL_DV: +0.0001 dpFL_ER: +0.0010 k: 1.5000 (dk=0.0625)
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:              dpFL_SP: +0.7000 dpFL_PV: +0.6999
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                pFrom: 10.0000     pTo:  9.3001
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Done.
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: k: 1.5000
+2025-05-16 08:21:05,914 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: End.
+2025-05-16 08:21:05,932 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:21:05,980 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-05-16 08:21:05,980 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-05-16 08:21:05,980 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-05-16 08:21:05,980 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:21:06,043 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: Start.
+2025-05-16 08:21:06,072 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: heat transfer data available
+2025-05-16 08:21:06,077 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: pT-Q (sink)
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 0
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.3001
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6999    dpFL:  0.6999 dpDZ:  0.0000
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0090 dpFL_ER: +0.0010 k: 0.5000 (dkAdd=-1.0000)
+2025-05-16 08:21:06,080 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: k_new: -0.5 < k_min: 0.001: k_new==k_min ...
+2025-05-16 08:21:06,104 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,104 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,104 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.2375 dpFL_ER: +0.0010 k: 0.0010 (dkAdd=-0.4990)
+2025-05-16 08:21:06,104 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 1
+2025-05-16 08:21:06,107 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,107 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,107 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.7375
+2025-05-16 08:21:06,107 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.2625    dpFL:  0.2625 dpDZ:  0.0000
+2025-05-16 08:21:06,107 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,114 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,114 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,114 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0707 dpFL_ER: +0.0010 k: 0.2505 (dkAdd=+0.2495)
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0090 dpFL_ER: +0.0010 k: 0.5000 (dkAdd=+0.2495)
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 2
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4910
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5090    dpFL:  0.5090 dpDZ:  0.0000
+2025-05-16 08:21:06,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0271 dpFL_ER: +0.0010 k: 0.3752 (dkAdd=-0.1247)
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 3
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5271
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4729    dpFL:  0.4729 dpDZ:  0.0000
+2025-05-16 08:21:06,136 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,149 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,149 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,149 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0084 dpFL_ER: +0.0010 k: 0.4376 (dkAdd=+0.0624)
+2025-05-16 08:21:06,160 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,160 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,160 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0090 dpFL_ER: +0.0010 k: 0.5000 (dkAdd=+0.0624)
+2025-05-16 08:21:06,160 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 4
+2025-05-16 08:21:06,166 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,166 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,166 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4910
+2025-05-16 08:21:06,166 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5090    dpFL:  0.5090 dpDZ:  0.0000
+2025-05-16 08:21:06,166 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,166 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,175 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,175 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0005 dpFL_ER: +0.0010 k: 0.4688 (dkAdd=-0.0312)
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0084 dpFL_ER: +0.0010 k: 0.4376 (dkAdd=-0.0312)
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 5
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5084
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4916    dpFL:  0.4916 dpDZ:  0.0000
+2025-05-16 08:21:06,180 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,193 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,193 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,196 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0039 dpFL_ER: +0.0010 k: 0.4532 (dkAdd=+0.0156)
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0005 dpFL_ER: +0.0010 k: 0.4688 (dkAdd=+0.0156)
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 6
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4995
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5005    dpFL:  0.5005 dpDZ:  0.0000
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Convergence: dpFL_DV: -0.0005 dpFL_ER: +0.0010 k: 0.4688 (dk=0.0078)
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:              dpFL_SP: +0.5000 dpFL_PV: +0.5005
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                pFrom: 10.0000     pTo:  9.4995
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Done.
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: k: 0.4688
+2025-05-16 08:21:06,197 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: End.
+2025-05-16 08:21:06,222 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: Start.
+2025-05-16 08:21:06,276 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: heat transfer data available
+2025-05-16 08:21:06,281 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: pT-Q (sink)
+2025-05-16 08:21:06,281 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 0
+2025-05-16 08:21:06,293 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,293 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,293 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.3001
+2025-05-16 08:21:06,293 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6999    dpFL:  0.6999 dpDZ:  0.0000
+2025-05-16 08:21:06,293 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,297 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,297 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,297 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.4090 dpFL_ER: +0.0010 k: 0.5000 (dkAdd=-1.0000)
+2025-05-16 08:21:06,297 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: k_new: -0.5 < k_min: 0.001: k_new==k_min ...
+2025-05-16 08:21:06,310 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,310 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,310 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.1625 dpFL_ER: +0.0010 k: 0.0010 (dkAdd=-0.4990)
+2025-05-16 08:21:06,310 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: k_new: -0.498 < k_min: 0.001: k_new==k_min ...
+2025-05-16 08:21:06,314 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,314 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,314 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.1625 dpFL_ER: +0.0010 k: 0.0010 (dkAdd=-0.0000)
+2025-05-16 08:21:06,314 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: the sign of the deviation changed not; k<=k_min; stay with k_min ...
+2025-05-16 08:21:06,314 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: k: 0.0010
+2025-05-16 08:21:06,314 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: End.
+2025-05-16 08:21:06,330 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: Start.
+2025-05-16 08:21:06,369 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: heat transfer data available
+2025-05-16 08:21:06,374 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: pT-Q (sink)
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 0
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.3001
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6999    dpFL:  0.6999 dpDZ:  0.0000
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.4090 dpFL_ER: +0.0010 k: 0.5000 (dkAdd=-1.0000)
+2025-05-16 08:21:06,380 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: k_new: -0.5 < k_min: 0.002: k_new==k_min ...
+2025-05-16 08:21:06,400 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,401 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,401 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.1641 dpFL_ER: +0.0010 k: 0.0020 (dkAdd=-0.4980)
+2025-05-16 08:21:06,401 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: k_new: -0.496 < k_min: 0.002: k_new==k_min ...
+2025-05-16 08:21:06,408 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:06,408 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:06,408 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.1641 dpFL_ER: +0.0010 k: 0.0020 (dkAdd=-0.0000)
+2025-05-16 08:21:06,408 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: the sign of the deviation changed not; k<=k_min; stay with k_min ...
+2025-05-16 08:21:06,408 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: k: 0.0020
+2025-05-16 08:21:06,408 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: End.
+2025-05-16 08:21:06,429 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:21:06,481 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: j1: j: 0: ID (j): 0 created.
+2025-05-16 08:21:06,481 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: j2: j: 1: ID (j): 1 created.
+2025-05-16 08:21:06,481 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: j1-j2: ID (idx): 0 created.
+2025-05-16 08:21:06,493 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:21:12,113 ; pyproj                                                       ; DEBUG   ; PROJ_ERROR: proj_create: crs not found
+2025-05-16 08:21:12,148 ; root                                                         ; DEBUG   ; set L to 1000.0
+2025-05-16 08:21:12,148 ; root                                                         ; DEBUG   ; set DI to 200.0
+2025-05-16 08:21:12,148 ; root                                                         ; DEBUG   ; set TE to 90.0
+2025-05-16 08:21:15,986 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:16,035 ; root                                                         ; DEBUG   ; set alpha to:0.494
+2025-05-16 08:21:16,035 ; root                                                         ; DEBUG   ; set Ta to 10.0
+2025-05-16 08:21:16,035 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:21:16,064 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: 1: j: 0: ID (j): 0 created.
+2025-05-16 08:21:16,073 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: 2: j: 1: ID (j): 1 created.
+2025-05-16 08:21:16,073 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: 1-2: ID (idx): 0 created.
+2025-05-16 08:21:16,076 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:21:16,086 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: Start.
+2025-05-16 08:21:16,098 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: heat transfer data available
+2025-05-16 08:21:16,114 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: pT-Q (sink)
+2025-05-16 08:21:16,114 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 0
+2025-05-16 08:21:16,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5709
+2025-05-16 08:21:16,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4291    dpFL:  0.4291 dpDZ:  0.0000
+2025-05-16 08:21:16,123 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.1611 dpFL_ER: +0.0010 k: 1.2500 (dkAdd=+1.0000)
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 1
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.3389
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6611    dpFL:  0.6611 dpDZ:  0.0000
+2025-05-16 08:21:16,131 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0685 dpFL_ER: +0.0010 k: 0.7500 (dkAdd=-0.5000)
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0709 dpFL_ER: +0.0010 k: 0.2500 (dkAdd=-0.5000)
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 2
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5709
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4291    dpFL:  0.4291 dpDZ:  0.0000
+2025-05-16 08:21:16,147 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0090 dpFL_ER: +0.0010 k: 0.5000 (dkAdd=+0.2500)
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 3
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4910
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5090    dpFL:  0.5090 dpDZ:  0.0000
+2025-05-16 08:21:16,164 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,184 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,184 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,184 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0272 dpFL_ER: +0.0010 k: 0.3750 (dkAdd=-0.1250)
+2025-05-16 08:21:16,184 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 4
+2025-05-16 08:21:16,186 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,186 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,186 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5272
+2025-05-16 08:21:16,186 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4728    dpFL:  0.4728 dpDZ:  0.0000
+2025-05-16 08:21:16,186 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,198 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,198 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,198 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0084 dpFL_ER: +0.0010 k: 0.4375 (dkAdd=+0.0625)
+2025-05-16 08:21:16,198 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,198 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,198 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0090 dpFL_ER: +0.0010 k: 0.5000 (dkAdd=+0.0625)
+2025-05-16 08:21:16,198 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 5
+2025-05-16 08:21:16,210 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,210 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,210 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4910
+2025-05-16 08:21:16,210 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5090    dpFL:  0.5090 dpDZ:  0.0000
+2025-05-16 08:21:16,210 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,214 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,214 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,214 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0004 dpFL_ER: +0.0010 k: 0.4688 (dkAdd=-0.0312)
+2025-05-16 08:21:16,227 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,227 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,227 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0084 dpFL_ER: +0.0010 k: 0.4375 (dkAdd=-0.0312)
+2025-05-16 08:21:16,227 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 6
+2025-05-16 08:21:16,231 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,231 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,231 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5084
+2025-05-16 08:21:16,231 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4916    dpFL:  0.4916 dpDZ:  0.0000
+2025-05-16 08:21:16,231 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,231 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,231 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,231 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0039 dpFL_ER: +0.0010 k: 0.4531 (dkAdd=+0.0156)
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0004 dpFL_ER: +0.0010 k: 0.4688 (dkAdd=+0.0156)
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 7
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4996
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5004    dpFL:  0.5004 dpDZ:  0.0000
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Convergence: dpFL_DV: -0.0004 dpFL_ER: +0.0010 k: 0.4688 (dk=0.0078)
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:              dpFL_SP: +0.5000 dpFL_PV: +0.5004
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                pFrom: 10.0000     pTo:  9.4996
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Done.
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: k: 0.4688
+2025-05-16 08:21:16,248 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: End.
+2025-05-16 08:21:16,248 ; root                                                         ; DEBUG   ; sir3sk: k_pp: 0.46875
+2025-05-16 08:21:20,080 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:20,080 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 0
+2025-05-16 08:21:20,126 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start:       dpFL_DV: +0.0085 dp_ER: +0.0010 k: 0.4688 (dk=0.0100)
+2025-05-16 08:21:20,126 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                dp_SP: +0.5000 dp_PV: +0.4915
+2025-05-16 08:21:20,126 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                pFrom: 10.0000     pTo:  9.5085
+2025-05-16 08:21:20,126 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                 flow: -100.0000
+2025-05-16 08:21:23,974 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:24,030 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0058 dp_ER: +0.0010 k: 0.4788 (dkAdd=+0.0100)
+2025-05-16 08:21:27,874 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:27,931 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0031 dp_ER: +0.0010 k: 0.4888 (dkAdd=+0.0100)
+2025-05-16 08:21:31,801 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:31,852 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0005 dp_ER: +0.0010 k: 0.4988 (dkAdd=+0.0100)
+2025-05-16 08:21:35,682 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:35,731 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0021 dp_ER: +0.0010 k: 0.5088 (dkAdd=+0.0100)
+2025-05-16 08:21:35,731 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 1
+2025-05-16 08:21:39,603 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:39,664 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0008 dp_ER: +0.0010 k: 0.5038 (dkAdd=-0.0050)
+2025-05-16 08:21:43,514 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:43,568 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0005 dp_ER: +0.0010 k: 0.4988 (dkAdd=-0.0050)
+2025-05-16 08:21:43,568 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 2
+2025-05-16 08:21:43,598 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Convergence: dpFL_DV: +0.0005 dp_ER: +0.0010 k: 0.4988 (dk=0.0025)
+2025-05-16 08:21:43,598 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                dp_SP: +0.5000 dp_PV: +0.4995
+2025-05-16 08:21:43,598 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                pFrom: 10.0000     pTo:  9.5005
+2025-05-16 08:21:43,598 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                 flow: -100.0000
+2025-05-16 08:21:43,598 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Done.
+2025-05-16 08:21:48,725 ; pyproj                                                       ; DEBUG   ; PROJ_ERROR: proj_create: crs not found
+2025-05-16 08:21:48,764 ; root                                                         ; DEBUG   ; set L to 1000.0
+2025-05-16 08:21:48,764 ; root                                                         ; DEBUG   ; set DI to 200.0
+2025-05-16 08:21:48,764 ; root                                                         ; DEBUG   ; set TE to 90.0
+2025-05-16 08:21:52,581 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:52,797 ; root                                                         ; DEBUG   ; set alpha to:0.494
+2025-05-16 08:21:52,797 ; root                                                         ; DEBUG   ; set Ta to 10.0
+2025-05-16 08:21:52,797 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:21:52,831 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: 1: j: 0: ID (j): 0 created.
+2025-05-16 08:21:52,831 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: 2: j: 1: ID (j): 1 created.
+2025-05-16 08:21:52,831 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: 1-2: ID (idx): 0 created.
+2025-05-16 08:21:52,831 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:21:52,848 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: Start.
+2025-05-16 08:21:52,874 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: heat transfer data available
+2025-05-16 08:21:52,882 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: pT-Q (sink)
+2025-05-16 08:21:52,890 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 0
+2025-05-16 08:21:52,893 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,893 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,893 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4914
+2025-05-16 08:21:52,893 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5086    dpFL:  0.5086 dpDZ:  0.0000
+2025-05-16 08:21:52,893 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:52,893 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: k_new: -0.50125 < k_min: 0.001: k_new==k_min ...
+2025-05-16 08:21:52,905 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,905 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,905 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.2375 dpFL_ER: +0.0010 k: 0.0010 (dkAdd=-0.4978)
+2025-05-16 08:21:52,905 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 1
+2025-05-16 08:21:52,910 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,910 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,910 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.7375
+2025-05-16 08:21:52,910 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.2625    dpFL:  0.2625 dpDZ:  0.0000
+2025-05-16 08:21:52,910 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:52,919 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,919 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,919 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0709 dpFL_ER: +0.0010 k: 0.2499 (dkAdd=+0.2489)
+2025-05-16 08:21:52,932 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,932 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,932 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0086 dpFL_ER: +0.0010 k: 0.4988 (dkAdd=+0.2489)
+2025-05-16 08:21:52,932 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 2
+2025-05-16 08:21:52,934 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,934 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,934 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4914
+2025-05-16 08:21:52,934 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5086    dpFL:  0.5086 dpDZ:  0.0000
+2025-05-16 08:21:52,934 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:52,943 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,943 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,943 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0274 dpFL_ER: +0.0010 k: 0.3743 (dkAdd=-0.1244)
+2025-05-16 08:21:52,943 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 3
+2025-05-16 08:21:52,948 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,950 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,950 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5274
+2025-05-16 08:21:52,950 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4726    dpFL:  0.4726 dpDZ:  0.0000
+2025-05-16 08:21:52,950 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:52,959 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,959 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,959 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0087 dpFL_ER: +0.0010 k: 0.4365 (dkAdd=+0.0622)
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0086 dpFL_ER: +0.0010 k: 0.4988 (dkAdd=+0.0622)
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 4
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4914
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5086    dpFL:  0.5086 dpDZ:  0.0000
+2025-05-16 08:21:52,968 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:52,985 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,985 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,985 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0001 dpFL_ER: +0.0010 k: 0.4676 (dkAdd=-0.0311)
+2025-05-16 08:21:52,993 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:52,996 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:52,996 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0087 dpFL_ER: +0.0010 k: 0.4365 (dkAdd=-0.0311)
+2025-05-16 08:21:52,996 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 5
+2025-05-16 08:21:53,000 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:53,000 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:53,001 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.5087
+2025-05-16 08:21:53,001 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.4913    dpFL:  0.4913 dpDZ:  0.0000
+2025-05-16 08:21:53,001 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:53,010 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:53,010 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:53,010 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0042 dpFL_ER: +0.0010 k: 0.4521 (dkAdd=+0.0156)
+2025-05-16 08:21:53,014 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:53,014 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:53,014 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0001 dpFL_ER: +0.0010 k: 0.4676 (dkAdd=+0.0156)
+2025-05-16 08:21:53,014 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 6
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 10.0000     pTo:  9.4999
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5001    dpFL:  0.5001 dpDZ:  0.0000
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Convergence: dpFL_DV: -0.0001 dpFL_ER: +0.0010 k: 0.4676 (dk=0.0078)
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:              dpFL_SP: +0.5000 dpFL_PV: +0.5001
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                pFrom: 10.0000     pTo:  9.4999
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   90.00     TTo:   89.66
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Done.
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: k: 0.4676
+2025-05-16 08:21:53,023 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: End.
+2025-05-16 08:21:53,023 ; root                                                         ; DEBUG   ; sir3sk: k_pp: 0.46764062500000003
+2025-05-16 08:21:56,848 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:21:56,848 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 0
+2025-05-16 08:21:56,914 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start:       dpFL_DV: +0.0088 dp_ER: +0.0010 k: 0.4676 (dk=0.0100)
+2025-05-16 08:21:56,914 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                dp_SP: +0.5000 dp_PV: +0.4912
+2025-05-16 08:21:56,914 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                pFrom: 10.0000     pTo:  9.5088
+2025-05-16 08:21:56,914 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                 flow: -100.0000
+2025-05-16 08:22:00,757 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:00,810 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0061 dp_ER: +0.0010 k: 0.4776 (dkAdd=+0.0100)
+2025-05-16 08:22:04,677 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:04,752 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0034 dp_ER: +0.0010 k: 0.4876 (dkAdd=+0.0100)
+2025-05-16 08:22:08,621 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:08,675 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0008 dp_ER: +0.0010 k: 0.4976 (dkAdd=+0.0100)
+2025-05-16 08:22:12,511 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:12,560 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0019 dp_ER: +0.0010 k: 0.5076 (dkAdd=+0.0100)
+2025-05-16 08:22:12,560 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 1
+2025-05-16 08:22:16,424 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:16,481 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0006 dp_ER: +0.0010 k: 0.5026 (dkAdd=-0.0050)
+2025-05-16 08:22:20,320 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:20,364 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0008 dp_ER: +0.0010 k: 0.4976 (dkAdd=-0.0050)
+2025-05-16 08:22:20,364 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 2
+2025-05-16 08:22:20,419 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Convergence: dpFL_DV: +0.0008 dp_ER: +0.0010 k: 0.4976 (dk=0.0025)
+2025-05-16 08:22:20,419 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                dp_SP: +0.5000 dp_PV: +0.4992
+2025-05-16 08:22:20,419 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                pFrom: 10.0000     pTo:  9.5008
+2025-05-16 08:22:20,419 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                 flow: -100.0000
+2025-05-16 08:22:20,419 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Done.
+2025-05-16 08:22:25,514 ; pyproj                                                       ; DEBUG   ; PROJ_ERROR: proj_create: crs not found
+2025-05-16 08:22:25,550 ; root                                                         ; DEBUG   ; set L to 1100
+2025-05-16 08:22:25,550 ; root                                                         ; DEBUG   ; set DI to 185
+2025-05-16 08:22:25,550 ; root                                                         ; DEBUG   ; set pi to 11
+2025-05-16 08:22:25,550 ; root                                                         ; DEBUG   ; set TE to 91
+2025-05-16 08:22:25,550 ; root                                                         ; DEBUG   ; set mk to -110
+2025-05-16 08:22:31,423 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:31,464 ; root                                                         ; DEBUG   ; set alpha to:0.494
+2025-05-16 08:22:31,470 ; root                                                         ; DEBUG   ; set Ta to 10.0
+2025-05-16 08:22:31,470 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: Start.
+2025-05-16 08:22:31,510 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 0: nameStr: 1: j: 0: ID (j): 0 created.
+2025-05-16 08:22:31,510 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: junction: Nr. 1: nameStr: 2: j: 1: ID (j): 1 created.
+2025-05-16 08:22:31,515 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: pipe: Nr. 0: nameStr: 1-2: ID (idx): 0 created.
+2025-05-16 08:22:31,517 ; pnh.utils.gen_model_from_nx                                  ; DEBUG   ; pp: End.
+2025-05-16 08:22:31,526 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: Start.
+2025-05-16 08:22:31,560 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: heat transfer data available
+2025-05-16 08:22:31,566 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: pT-Q (sink)
+2025-05-16 08:22:31,577 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 0
+2025-05-16 08:22:31,580 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,581 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,581 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo:  9.9811
+2025-05-16 08:22:31,581 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  1.0189    dpFL:  1.0189 dpDZ:  0.0000
+2025-05-16 08:22:31,581 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,581 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: k_new: -0.5023593749999999 < k_min: 0.001: k_new==k_min ...
+2025-05-16 08:22:31,592 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,593 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,593 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0996 dpFL_ER: +0.0010 k: 0.0010 (dkAdd=-0.4966)
+2025-05-16 08:22:31,593 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 1
+2025-05-16 08:22:31,595 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,596 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,596 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.4996
+2025-05-16 08:22:31,596 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5004    dpFL:  0.5004 dpDZ:  0.0000
+2025-05-16 08:22:31,596 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,606 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,606 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,606 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.2559 dpFL_ER: +0.0010 k: 0.2493 (dkAdd=+0.2483)
+2025-05-16 08:22:31,606 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 2
+2025-05-16 08:22:31,608 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,608 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,608 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.1441
+2025-05-16 08:22:31,608 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.8559    dpFL:  0.8559 dpDZ:  0.0000
+2025-05-16 08:22:31,608 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,619 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,620 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,620 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.1358 dpFL_ER: +0.0010 k: 0.1252 (dkAdd=-0.1242)
+2025-05-16 08:22:31,627 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,627 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,627 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0996 dpFL_ER: +0.0010 k: 0.0010 (dkAdd=-0.1242)
+2025-05-16 08:22:31,627 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 3
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.4996
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5004    dpFL:  0.5004 dpDZ:  0.0000
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0489 dpFL_ER: +0.0010 k: 0.0631 (dkAdd=+0.0621)
+2025-05-16 08:22:31,630 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 4
+2025-05-16 08:22:31,643 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,643 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,643 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.3511
+2025-05-16 08:22:31,643 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6489    dpFL:  0.6489 dpDZ:  0.0000
+2025-05-16 08:22:31,643 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0112 dpFL_ER: +0.0010 k: 0.0320 (dkAdd=-0.0310)
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 5
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.4112
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5888    dpFL:  0.5888 dpDZ:  0.0000
+2025-05-16 08:22:31,647 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0210 dpFL_ER: +0.0010 k: 0.0476 (dkAdd=+0.0155)
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 6
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.3790
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6210    dpFL:  0.6210 dpDZ:  0.0000
+2025-05-16 08:22:31,664 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,677 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,677 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,677 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0055 dpFL_ER: +0.0010 k: 0.0398 (dkAdd=-0.0078)
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0112 dpFL_ER: +0.0010 k: 0.0320 (dkAdd=-0.0078)
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 7
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.4112
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5888    dpFL:  0.5888 dpDZ:  0.0000
+2025-05-16 08:22:31,681 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,697 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,697 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,697 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0027 dpFL_ER: +0.0010 k: 0.0359 (dkAdd=+0.0039)
+2025-05-16 08:22:31,709 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,709 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,709 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0055 dpFL_ER: +0.0010 k: 0.0398 (dkAdd=+0.0039)
+2025-05-16 08:22:31,709 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 8
+2025-05-16 08:22:31,714 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,714 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,714 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.3945
+2025-05-16 08:22:31,714 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6055    dpFL:  0.6055 dpDZ:  0.0000
+2025-05-16 08:22:31,714 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,723 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,723 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,723 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0015 dpFL_ER: +0.0010 k: 0.0379 (dkAdd=-0.0019)
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0027 dpFL_ER: +0.0010 k: 0.0359 (dkAdd=-0.0019)
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 9
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.4027
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5973    dpFL:  0.5973 dpDZ:  0.0000
+2025-05-16 08:22:31,734 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,747 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,747 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,747 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0006 dpFL_ER: +0.0010 k: 0.0369 (dkAdd=+0.0010)
+2025-05-16 08:22:31,747 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,747 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,747 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0015 dpFL_ER: +0.0010 k: 0.0379 (dkAdd=+0.0010)
+2025-05-16 08:22:31,747 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 10
+2025-05-16 08:22:31,760 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,760 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,760 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.3985
+2025-05-16 08:22:31,760 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.6015    dpFL:  0.6015 dpDZ:  0.0000
+2025-05-16 08:22:31,760 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,772 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,772 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,772 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: -0.0004 dpFL_ER: +0.0010 k: 0.0374 (dkAdd=-0.0005)
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Iteration:   dpFL_DV: +0.0006 dpFL_ER: +0.0010 k: 0.0369 (dkAdd=-0.0005)
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Start. depth: 11
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: Start.
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_dp: End.
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                 pFrom: 11.0000     pTo: 10.4006
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: in flow direction: dp:  0.5994    dpFL:  0.5994 dpDZ:  0.0000
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Convergence: dpFL_DV: +0.0006 dpFL_ER: +0.0010 k: 0.0369 (dk=0.0002)
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:              dpFL_SP: +0.6000 dpFL_PV: +0.5994
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                pFrom: 11.0000     pTo: 10.4006
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness:                TFrom:   91.00     TTo:   90.66
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp_calc_roughness: Done.
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: k: 0.0369
+2025-05-16 08:22:31,780 ; pnh.utils.calc_k_from_dp                                     ; DEBUG   ; pp: End.
+2025-05-16 08:22:31,780 ; root                                                         ; DEBUG   ; sir3sk: k_pp: 0.036890045166015656
+2025-05-16 08:22:37,623 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:37,623 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 0
+2025-05-16 08:22:37,679 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start:       dpFL_DV: +0.0116 dp_ER: +0.0010 k: 0.0369 (dk=0.0100)
+2025-05-16 08:22:37,679 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                dp_SP: +0.6000 dp_PV: +0.5884
+2025-05-16 08:22:37,679 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                pFrom: 11.0000     pTo: 10.4116
+2025-05-16 08:22:37,679 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                 flow: -110.0000
+2025-05-16 08:22:43,504 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:43,547 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0083 dp_ER: +0.0010 k: 0.0469 (dkAdd=+0.0100)
+2025-05-16 08:22:43,547 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 1
+2025-05-16 08:22:49,449 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:49,497 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0014 dp_ER: +0.0010 k: 0.0419 (dkAdd=-0.0050)
+2025-05-16 08:22:49,497 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 2
+2025-05-16 08:22:55,393 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:22:55,431 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0035 dp_ER: +0.0010 k: 0.0444 (dkAdd=+0.0025)
+2025-05-16 08:22:55,431 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 3
+2025-05-16 08:23:01,333 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:23:01,396 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0011 dp_ER: +0.0010 k: 0.0431 (dkAdd=-0.0013)
+2025-05-16 08:23:07,274 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:23:07,330 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0014 dp_ER: +0.0010 k: 0.0419 (dkAdd=-0.0013)
+2025-05-16 08:23:07,331 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 4
+2025-05-16 08:23:13,226 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:23:13,281 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0001 dp_ER: +0.0010 k: 0.0425 (dkAdd=+0.0006)
+2025-05-16 08:23:19,124 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:23:19,181 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0011 dp_ER: +0.0010 k: 0.0431 (dkAdd=+0.0006)
+2025-05-16 08:23:19,181 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 5
+2025-05-16 08:23:25,069 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:23:25,131 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: -0.0005 dp_ER: +0.0010 k: 0.0428 (dkAdd=-0.0003)
+2025-05-16 08:23:30,985 ; root                                                         ; DEBUG   ; Command ['C:\\3S\\Sir3s\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe', '/rstnSpezial', '/InteraktRgMax1000', '/InteraktThMax1000', 'c:\\users\\wolters\\3s\\pt3s\\Examples\\WDExample8\\B1\\V0\\BZ1\\M-1-0-1.XML'] exited with 0.
+2025-05-16 08:23:31,030 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Iteration:   dp_DV: +0.0001 dp_ER: +0.0010 k: 0.0425 (dkAdd=-0.0003)
+2025-05-16 08:23:31,030 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Start. depth: 6
+2025-05-16 08:23:31,073 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Convergence: dpFL_DV: +0.0001 dp_ER: +0.0010 k: 0.0425 (dk=0.0002)
+2025-05-16 08:23:31,073 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                dp_SP: +0.6000 dp_PV: +0.5999
+2025-05-16 08:23:31,073 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                pFrom: 11.0000     pTo: 10.4001
+2025-05-16 08:23:31,073 ; root                                                         ; DEBUG   ; sir3s_calc_roughness:                 flow: -110.0000
+2025-05-16 08:23:31,073 ; root                                                         ; DEBUG   ; sir3s_calc_roughness: Done.
+sir3s_calc_roughness: Done.
