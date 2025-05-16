@@ -41,6 +41,8 @@ Follow these steps to install and configure Git:
 Working with GitHub
 -------------------
 
+.. note:: In general before running any command that includes origin,  use the ``git fetch origin`` command. To ensure the latest version of the origin is used in the following command.
+
 .. _cloning-github-label: 
 
 Cloning the GitHub Repository
@@ -90,22 +92,22 @@ To fetch the latest changes from the origin and merge them into your current bra
    .. code-block:: bash
 
       cd "C:\Users\User\3S\PT3S"
-      
-2. **Pull the latest changes from the origin**: Use the ``git pull`` command. 
+
+2. **Fetch the latest changes from the origin:** Use the ``git fetch origin`` command.
+
+   .. code-block:: bash
+
+      git fetch origin    
+
+3a. **Pull the latest changes from the origin**: Use the ``git pull`` command. 
 
    .. code-block:: bash
 
       git pull origin master
         
-   For a more detailed updating process, follow steps 2 and 3 instead.
+   For a more detailed updating process, follow steps 3b instead.
         
-2. **Fetch the latest changes from the origin:** Use the ``git fetch origin`` command.
-
-   .. code-block:: bash
-
-      git fetch origin
-
-3. **Merge the fetched changes into your current branch:** Use the ``git merge origin/master`` command.
+3b. **Merge the fetched changes into your current branch:** Use the ``git merge origin/master`` command.
 
    .. code-block:: bash
 
@@ -116,6 +118,7 @@ To fetch the latest changes from the origin and merge them into your current bra
 
 .. code-block:: bash
 
+   git fetch origin
    git reset --hard origin/master  
 
 .. _commit-changes-label:
@@ -131,19 +134,25 @@ To commit your changes to the GitHub repository, follow these steps:
 
       cd "C:\Users\User\3S\PT3S"
 
-2. **Add files to the staging area:** Use the ``git add`` command followed by the name of the file. Use ``git add .`` to add all files.
+2. **Fetch the the origin:** Use the ``git fetch origin`` command.
+
+   .. code-block:: bash
+
+      git fetch origin   
+
+4. **Add files to the staging area:** Use the ``git add`` command followed by the name of the file. Use ``git add .`` to add all files.
 
    .. code-block:: bash
 
       git add .
 
-3. **Create a new commit with a descriptive message:** Use the ``git commit -m "commit_message"`` command.
+5. **Create a new commit with a descriptive message:** Use the ``git commit -m "commit_message"`` command.
 
    .. code-block:: bash
 
       git commit -m "commit_message"
 
-4. **Push your commit to the GitHub Repository:** Use the ``git push origin master`` command.
+6. **Push your commit to the GitHub Repository:** Use the ``git push origin master`` command.
 
    .. code-block:: bash
 
@@ -161,6 +170,7 @@ To discard all local changes and set your local HEAD to the master, use:
 
    .. code-block:: bash
 
+      git fetch origin
       git reset --hard origin/master
 
 To discard all remote changes and force push local HEAD to the master, use:
@@ -261,6 +271,12 @@ To update your local repository to point to the new remote (after transferring a
    .. code-block:: bash
 
       git remote -v
+      
+5. **Fetch Remote**: Fetch the repository
+
+   .. code-block:: bash
+
+      git fetch origin
             
 Working with PyPI
 -----------------     

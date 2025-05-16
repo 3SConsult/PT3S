@@ -151,6 +151,10 @@
 </section>
 <section id="working-with-github">
 <h2>Working with GitHub<a class="headerlink" href="#working-with-github" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In general before running any command that includes origin,  use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">origin</span></code> command. To ensure the latest version of the origin is used in the following command.</p>
+</div>
 <section id="cloning-the-github-repository">
 <span id="cloning-github-label"></span><h3>Cloning the GitHub Repository<a class="headerlink" href="#cloning-the-github-repository" title="Permalink to this heading"></a></h3>
 <p>To clone a GitHub repository to your local folder, follow these steps:</p>
@@ -191,30 +195,31 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Pull the latest changes from the origin</strong>: Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master
-</pre></div>
-</div>
-<p>For a more detailed updating process, follow steps 2 and 3 instead.</p>
-</li>
-</ol>
-<ol class="arabic" start="2">
 <li><p><strong>Fetch the latest changes from the origin:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">origin</span></code> command.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
 </pre></div>
 </div>
 </li>
-<li><p><strong>Merge the fetched changes into your current branch:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">origin/master</span></code> command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>merge<span class="w"> </span>origin/master
+</ol>
+<p>3a. <strong>Pull the latest changes from the origin</strong>: Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> command.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master
 </pre></div>
 </div>
-</li>
-</ol>
+<p>For a more detailed updating process, follow steps 3b instead.</p>
+</div></blockquote>
+<p>3b. <strong>Merge the fetched changes into your current branch:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">origin/master</span></code> command.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>merge<span class="w"> </span>origin/master
+</pre></div>
+</div>
+</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you made local changes to files that were also edited by a remote commit, make a local copy of your project directory and use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">reset</span> <span class="pre">--hard</span> <span class="pre">origin/master</span></code>. Afterwards you can paste you local changes back in. Just make sure that the remote changes to these files were not important or manually include them in your files.</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>origin/master
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
+git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>origin/master
 </pre></div>
 </div>
 </section>
@@ -227,6 +232,13 @@
 </pre></div>
 </div>
 </li>
+<li><p><strong>Fetch the the origin:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">origin</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
+</pre></div>
+</div>
+</li>
+</ol>
+<ol class="arabic" start="4">
 <li><p><strong>Add files to the staging area:</strong> Use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> command followed by the name of the file. Use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span></code> to add all files.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.
 </pre></div>
@@ -248,7 +260,8 @@
 <span id="command-collection-label"></span><h3>Collection of Useful Git Commands<a class="headerlink" href="#collection-of-useful-git-commands" title="Permalink to this heading"></a></h3>
 <p>To discard all local changes and set your local HEAD to the master, use:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>origin/master
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
+git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>origin/master
 </pre></div>
 </div>
 </div></blockquote>
@@ -336,6 +349,11 @@
 </li>
 <li><p><strong>Verify the change</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>-v
+</pre></div>
+</div>
+</li>
+<li><p><strong>Fetch Remote</strong>: Fetch the repository</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
 </pre></div>
 </div>
 </li>
