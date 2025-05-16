@@ -75,7 +75,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#working-with-pypi">Working with PyPI</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#release-a-new-version">Release a New Version</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#upload-a-new-version-to-pypi">Upload a New Version to PyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upload-a-new-version-to-pypi">Upload a New Version to PyPI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#manual-upload-via-command-line">Manual Upload via Command Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#automated-upload-via-github-actions">Automated Upload via GitHub Actions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-pt3s-in-editable-mode">Installing PT3S in Editable Mode</a></li>
@@ -305,11 +309,15 @@ git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> <
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Automatic Copying of HTML-Files</p></td>
+<tr class="row-even"><td><p>Publish to PyPI</p></td>
+<td><p>Commit tagged with ‘v*’</p></td>
+<td><p>Builds and uploads package to PyPI</p></td>
+</tr>
+<tr class="row-odd"><td><p>Automatic Copying of HTML-Files</p></td>
 <td><p>Push to <cite>PT3S/sphinx_docs/_build/html/</cite></p></td>
 <td><p>Copies HTML files from master <cite>PT3S/sphinx_docs/_build/html</cite> to gh-pages <cite>PT3S/docs</cite></p></td>
 </tr>
-<tr class="row-odd"><td><p>Automatic Deletion of Example Data</p></td>
+<tr class="row-even"><td><p>Automatic Deletion of Example Data</p></td>
 <td></td>
 <td><p>Deletes example data in all <cite>PT3S/Examples/WDExampleX/B1/V0/BZ1</cite> except <cite>.xml</cite> and <cite>.mx1</cite></p></td>
 </tr>
@@ -386,41 +394,66 @@ git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> <
 </ol>
 <p>On the <a class="reference internal" href="releases.html"><span class="doc">Releases</span></a> page you can view how this rst code is transformed into html.</p>
 <ol class="arabic simple" start="2">
-<li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py</p></li>
+<li><p><strong>Change Release Number:</strong> Change the release numbers in the files: PT3S/conf.py, PT3S/setup.py, PT3S/sphinx_docs/conf.py, PT3S/pyproject.toml (setup.py is not used anymore but kept as a backup for now)</p></li>
 <li><p><strong>Run Doctests:</strong> Follow the steps of <a class="reference internal" href="#running-doctests-label"><span class="std std-ref">Running Doctests</span></a>. And make sure they are executed successfully.</p></li>
 <li><p><strong>Generate the Documentation:</strong> Follow the steps in <a class="reference internal" href="#generating-documentation-label"><span class="std std-ref">Generating the Documentation</span></a>.</p></li>
 </ol>
 </section>
 <section id="upload-a-new-version-to-pypi">
 <h3>Upload a New Version to PyPI<a class="headerlink" href="#upload-a-new-version-to-pypi" title="Permalink to this heading"></a></h3>
-<p>Follow these steps to upload a new version of your project to PyPI:</p>
+<p>Follow one of the two methods below to upload a new version of your project to PyPI.</p>
+<section id="manual-upload-via-command-line">
+<h4>Manual Upload via Command Line<a class="headerlink" href="#manual-upload-via-command-line" title="Permalink to this heading"></a></h4>
 <ol class="arabic">
-<li><p><strong>Version Control:</strong> Make sure you have documented your changes and changed the release number in all necessary files according to <a class="reference internal" href="#version-control-label"><span class="std std-ref">Release a New Version</span></a>.</p></li>
-<li><p><strong>Navigate to project directory:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command followed by the path to the directory of your project.</p>
+<li><p><strong>Update the Version Number:</strong> Make sure you have documented your changes and changed the release number in all necessary files according to <a class="reference internal" href="#version-control-label"><span class="std std-ref">Release a New Version</span></a>.</p></li>
+<li><p><strong>Navigate to Your Project Directory:</strong> Use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command to move into your project folder.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;C:\Users\User\3S\PT3S&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Delete Old Distributions:</strong> Remove all old distributions in your <code class="docutils literal notranslate"><span class="pre">dist</span></code> directory.</p></li>
-<li><p><strong>Create a New Source Distribution:</strong> Use the <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span></code> command to create a new source distribution of your package.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>setup.py<span class="w"> </span>sdist
+<li><p><strong>Clean Old Distributions:</strong> Remove any existing files in the <code class="docutils literal notranslate"><span class="pre">dist</span></code> directory to avoid uploading outdated builds.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-rf<span class="w"> </span>dist/
 </pre></div>
 </div>
 </li>
-<li><p><strong>Generate an API Token on PyPI:</strong> Log into your PyPI account and navigate to your Account Settings. Find “API Tokens” and then “Add API Token”. Provide a token name and select the scopes this token should have access to (include PT3S). Click “Create Token” and make sure to copy your new token. This token can be used for all your future PT3S Uploads.</p></li>
-<li><p><strong>Upload the Distribution with Twine:</strong> Use the <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">dist/*</span></code> command to upload the distribution.</p>
+<li><p><strong>Build the Package:</strong> Use the <code class="docutils literal notranslate"><span class="pre">build</span></code> module to generate both source and wheel distributions.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>build
+</pre></div>
+</div>
+</li>
+<li><p><strong>Upload the Distribution:</strong> Generate an API token on PyPI (under <em>Account Settings &gt; API Tokens</em>), then upload your package using <code class="docutils literal notranslate"><span class="pre">twine</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>upload<span class="w"> </span>-u<span class="w"> </span>__token__<span class="w"> </span>-p<span class="w"> </span>&lt;YOUR<span class="w"> </span>TOKEN&gt;<span class="w"> </span>dist/*<span class="w"> </span>--verbose
 </pre></div>
 </div>
-</li>
-</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Make sure to keep your API token secure and do not hard-code it in your scripts or code. It’s best to set it as an environment variable or store it in a secret configuration file.</p>
+<p>For security, avoid hard-coding your token. Instead, store it in an environment variable or use a secret manager.</p>
 </div>
-<ol class="arabic simple" start="7">
+</li>
+</ol>
+</section>
+<section id="automated-upload-via-github-actions">
+<h4>Automated Upload via GitHub Actions<a class="headerlink" href="#automated-upload-via-github-actions" title="Permalink to this heading"></a></h4>
+<p>The PT3S Repository includes a GitHub Actions workflow for publishing to PyPI. To use it, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Update the Version Number:</strong> Make sure you have documented your changes and changed the release number in all necessary files according to <a class="reference internal" href="#version-control-label"><span class="std std-ref">Release a New Version</span></a>.</p></li>
+<li><p><strong>Commit and Push Your Changes:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;v90.14.XX.0.dev1&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+</pre></div>
+</div>
+</li>
+<li><p><strong>Tag the Release:</strong> Create a Git tag that matches the pattern expected by the GitHub Actions workflow (e.g. <code class="docutils literal notranslate"><span class="pre">v90.14.47.0.dev1</span></code>). The last authored commit will be tagged:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>v90.14.XX.0.dev1
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v90.14.XX.0.dev1
+</pre></div>
+</div>
+<p>This will automatically trigger the GitHub Actions workflow to build and upload your package to PyPI.</p>
+</li>
 <li><p><strong>Test the Deployment:</strong> Follow the steps in <a class="reference internal" href="#test-the-deployment-label"><span class="std std-ref">Running Tests</span></a></p></li>
 </ol>
+</section>
 </section>
 </section>
 <section id="installing-pt3s-in-editable-mode">
