@@ -6,7 +6,6 @@
    :alt: PyPI version
 
 |
-|
 
 .. image:: ./sphinx_docs/pt3s_logo.png
    :target: https://3sconsult.github.io/PT3S/index.html
