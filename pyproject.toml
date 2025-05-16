@@ -34,8 +34,12 @@ dependencies = [
 Documentation = "https://3sconsult.github.io/PT3S"
 Source = "https://github.com/3SConsult/PT3S"
 
+[tool.setuptools]
+packages = ["find:"]
+
 [tool.setuptools.packages.find]
 exclude = ["nb", "testdata", "testresults"]
+
 
 [tool.setuptools.package-data]
 "PT3S" = [
