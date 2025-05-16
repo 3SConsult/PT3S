@@ -3,17 +3,12 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
-90.14.49.0.dev1
+90.14.51.0.dev1
 ---------------
 
-**Fix**
-
-90.14.48.0.dev1
----------------
-
-**New**: 
-
-- Example Notebooks included in released package
+- **Fix**: Publication is done via pyproject.toml
+- Releases 90.14.47.0.dev1 to 90.14.50.0.dev1 are not useable due to issues that arose concerning the change of the deployment process.
+- Latest functional changes from 90.14.47.0.dev1 are now working
 
 90.14.47.0.dev1
 ---------------

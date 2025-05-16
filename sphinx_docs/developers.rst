@@ -363,12 +363,18 @@ The PT3S Repository includes a GitHub Actions workflow for publishing to PyPI. T
 
 1. **Update the Version Number:** Make sure you have documented your changes and changed the release number in all necessary files according to :ref:`version-control-label`.
 
-2. **Commit and Push Your Changes:**
+2. **Commit and Push Your Changes:** :ref:`commit-changes-label`
 
    .. code-block:: bash
 
       git add .
+
+   .. code-block:: bash
+
       git commit -m "v90.14.XX.0.dev1"
+
+   .. code-block:: bash
+
       git push origin master
 
 3. **Tag the Release:** Create a Git tag that matches the pattern expected by the GitHub Actions workflow (e.g. ``v90.14.47.0.dev1``). The last authored commit will be tagged:
@@ -376,8 +382,11 @@ The PT3S Repository includes a GitHub Actions workflow for publishing to PyPI. T
    .. code-block:: bash
 
       git tag v90.14.XX.0.dev1
-      git push origin v90.14.XX.0.dev1
 
+   .. code-block:: bash
+
+      git push origin v90.14.XX.0.dev1
+      
    This will automatically trigger the GitHub Actions workflow to build and upload your package to PyPI.
 
 4. **Test the Deployment:** Follow the steps in :ref:`test-the-deployment-label`
