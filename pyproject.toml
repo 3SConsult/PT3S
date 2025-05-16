@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "PT3S"
-version = "90.14.48.0.dev1"
+version = "90.14.49.0.dev1"
 description = "Python Tools 3S"
 readme = "README.rst"
 license = "MIT"
@@ -35,7 +35,10 @@ Documentation = "https://3sconsult.github.io/PT3S"
 Source = "https://github.com/3SConsult/PT3S"
 
 [tool.setuptools]
-packages = ["find:"]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
 
 [tool.setuptools.package-data]
 "PT3S" = [
@@ -57,13 +60,5 @@ packages = ["find:"]
   "Examples/Example8.db3",
   "Examples/WDExample8/B1/V0/BZ1/M-1-0-1.1.MX1",
   "Examples/WDExample8/B1/V0/BZ1/M-1-0-1.XML",
-  "sphinx_docs/Example0.ipynb",
-  "sphinx_docs/Example1.ipynb",
-  "sphinx_docs/Example2.ipynb",
-  "sphinx_docs/Example3.ipynb",
-  "sphinx_docs/Example4.ipynb",
-  "sphinx_docs/Example5.ipynb",
-  "sphinx_docs/Example6.ipynb",
-  "sphinx_docs/Example7.ipynb",
-  "sphinx_docs/Example8.ipynb"
+  "sphinx_docs/*.ipynb",
 ]
