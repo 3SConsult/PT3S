@@ -36,13 +36,16 @@ def SIR3S_model_insert_dfPipes(s3s, dfPipes):
     s3s.StartEditSession(SessionName="AddNodesAndPipes")
 
     def AddNodesAndPipes(dfXL, node_counter):
+        '''
+        '''
+        #fix: ensure no duplicate node names
         supplementary_nodes = pd.DataFrame(columns=['id', 'tk'])
         for i in range(len(dfXL)):
             # --- nodeKI logic ---
             nodeKI_id = dfXL.loc[i, 'nodeKI_id']
             if nodeKI_id not in supplementary_nodes['id'].values:
                 x_ki, y_ki = dfXL.loc[i, 'geometry'].coords[0]
-                tk_ki = s3s.AddNewNode("-1", f"Node{i}KI", f"Node{i}", x_ki, y_ki, 1.0, 0.1, 2.0, f"Node{i}KI", f'ID{node_counter}', int(dfXL.loc[i, 'KVR']))
+                tk_ki = s3s.AddNewNode("-1", f"Node{i}KI {VL_or_RL(int(dfXL.loc[i, 'KVR']))}", f"Node{i}", x_ki, y_ki, 1.0, 0.1, 2.0, f"Node{i}KI", f'ID{node_counter}', int(dfXL.loc[i, 'KVR']))
                 supplementary_nodes.loc[len(supplementary_nodes)] = [nodeKI_id, tk_ki]
                 dfXL.loc[i, 'nodeKI'] = tk_ki
                 node_counter += 1
@@ -54,7 +57,7 @@ def SIR3S_model_insert_dfPipes(s3s, dfPipes):
             nodeKK_id = dfXL.loc[i, 'nodeKK_id']
             if nodeKK_id not in supplementary_nodes['id'].values:
                 x_kk, y_kk = dfXL.loc[i, 'geometry'].coords[-1]
-                tk_kk = s3s.AddNewNode("-1", f"Node{i}KK", f"Node{i}", x_kk, y_kk, 1.0, 0.1, 2.0, f"Node{i}KK", f'ID{node_counter}', int(dfXL.loc[i, 'KVR']))
+                tk_kk = s3s.AddNewNode("-1", f"Node{i}KK {VL_or_RL(int(dfXL.loc[i, 'KVR']))}", f"Node{i}", x_kk, y_kk, 1.0, 0.1, 2.0, f"Node{i}KK", f'ID{node_counter}', int(dfXL.loc[i, 'KVR']))
                 supplementary_nodes.loc[len(supplementary_nodes)] = [nodeKK_id, tk_kk]
                 dfXL.loc[i, 'nodeKK'] = tk_kk
                 node_counter += 1
@@ -119,6 +122,62 @@ def SIR3S_model_insert_dfPipes(s3s, dfPipes):
     return dfPipes, dfNodes, node_counter
 
 
-def Node_on_Node(dfPipes):
+def Node_on_Node(s3s):
     '''
     '''
+
+def Merge_Nodes(s3s, tk1, tk2):
+    '''
+    
+    '''
+        
+
+def Get_Node_Tks_From_Pipe(s3s, pipe_tk):
+    '''
+    Returns the tk to the From- and To-Node based on the pipe with the given tk.
+    '''
+    from_node_name = s3s.GetValue(pipe_tk, 'FromNode.Name')[0]
+    to_node_name = s3s.GetValue(pipe_tk, 'ToNode.Name')[0]
+
+    from_node_tk = None
+    to_node_tk = None
+
+    for node_tk in s3s.GetTksofElementType(ElementType=Interfaces.Sir3SObjectTypes.Node):
+        node_name = s3s.GetValue(node_tk, 'Name')[0]
+        if node_name == from_node_name:
+            from_node_tk = node_tk
+        if node_name == to_node_name:
+            to_node_tk = node_tk
+
+    return from_node_tk, to_node_tk
+
+
+def Get_Pipe_Tk_From_Nodes(s3s, fkKI, fkKK, Order):
+    '''
+    Returns pipe tk correspond to tks of From-Node fkKI and To-Node fkKK. If Order=False, fkKI and fkKK can be interchanged and the pipe is still found.
+    '''
+    #fix: order param: seems to find pipe both ways even with Order=True
+    from_node_name = s3s.GetValue(fkKI, 'Name')[0]
+    to_node_name = s3s.GetValue(fkKK, 'Name')[0]
+    Order = True
+
+    if Order:
+        for pipe_tk in s3s.GetTksofElementType(ElementType=Interfaces.Sir3SObjectTypes.Pipe):
+            if (s3s.GetValue(pipe_tk, 'FromNode.Name')[0] == from_node_name and 
+                s3s.GetValue(pipe_tk, 'ToNode.Name')[0] == to_node_name):
+                pipe_tk_ret = pipe_tk
+    else:
+        for pipe_tk in s3s.GetTksofElementType(ElementType=Interfaces.Sir3SObjectTypes.Pipe):
+            from_name = s3s.GetValue(pipe_tk, 'FromNode.Name')[0]
+            to_name = s3s.GetValue(pipe_tk, 'ToNode.Name')[0]
+            if ((from_name == from_node_name and to_name == to_node_name) or 
+                (from_name == to_node_name and to_name == from_node_name)):
+                pipe_tk_ret = pipe_tk
+
+def VL_or_RL(KVR):
+    if KVR == 1:
+        return 'VL'
+    elif KVR == 2:
+        return 'RL'
+    else:
+        return 'Unknown'
