@@ -7,18 +7,44 @@ Created on Fri May 23 10:25:04 2025
 This is a collection of Functions that utilize the SIR 3S Toolkit to perform certain tasks regarding the import of data into SIR 3S and the editing of models in SIR 3S.
 """
 
+#fix interfaces import
+
 import logging
-logger = logging.getLogger('PT3S') 
+import sys
 import pandas as pd
+
+# Setup logger
+logger = logging.getLogger('PT3S')
+logger.setLevel(logging.DEBUG)
+
+if not logger.hasHandlers():
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+# Log execution context
+if __name__ == "__main__":
+    logger.debug("in MODULEFILE: __main__ Context: .")
+else:
+    logger.debug(f"in MODULEFILE: Not __main__ Context: __name__: {__name__} .")
 
 def SIR3S_model_insert_dfPipes(s3s, dfPipes):
     '''
-    Takes a dataframe with each row representing one pipe and creates a new SIR 3S District Heating Model with it. The dataframe needs minimum of cols: geometry(LINESTRING), MATERIAL(String), DN(int), KVR(int)
+    Takes a dataframe with each row representing one pipe and creates a new SIR 3S District Heating Model with it.
+    The dataframe needs minimum of cols: geometry(LINESTRING), MATERIAL(String), DN(int), KVR(int)
+    
     param: s3s: instance of SIR3S_Model() with opened model
     type: PythonWrapperToolkit.SIR3S_Model()
+    
     param: dfPipes
-    type: pd.dataframe
+    type: pd.DataFrame
     '''
+    func_name = sys._getframe().f_code.co_name
+    logger.debug(f"{func_name}: Start.")
+    
+    #logger.info(f"{func_name}: Received {len(dfPipes)} pipe entries.")
+
     #Prep dfPipes
     #dfPipes.loc[:, 'nodeKI_id'] = ''
     #dfPipes.loc[:, 'nodeKK_id'] = ''
@@ -125,17 +151,38 @@ def SIR3S_model_insert_dfPipes(s3s, dfPipes):
 def Node_on_Node(s3s):
     '''
     '''
+    func_name = sys._getframe().f_code.co_name
+    logger.debug(f"{func_name}: Start.")
+    
+    #logger.info(f"{func_name}: Received {len(dfPipes)} pipe entries.")
 
 def Merge_Nodes(s3s, tk1, tk2):
     '''
     
     '''
+    func_name = sys._getframe().f_code.co_name
+    logger.debug(f"{func_name}: Start.")
+    
+    #logger.info(f"{func_name}: Received {len(dfPipes)} pipe entries.")
         
 
 def Get_Node_Tks_From_Pipe(s3s, pipe_tk):
     '''
-    Returns the tk to the From- and To-Node based on the pipe with the given tk.
+    Obtain Node_Tks of the From- and To-Node of a pipe with pipe_tk.
+
+    param: s3s: instance of SIR3S_Model() with opened model
+    type: PythonWrapperToolkit.SIR3S_Model()
+    param: pipe_tk: tk of the pipe of interest
+    type: int
+    
+    return:  The tk of the From- and To-Node based on the pipe with the given tk.
+    rtype: int, int
     '''
+    func_name = sys._getframe().f_code.co_name
+    logger.debug(f"{func_name}: Start.")
+    
+    #logger.info(f"{func_name}: Received {len(dfPipes)} pipe entries.")
+
     from_node_name = s3s.GetValue(pipe_tk, 'FromNode.Name')[0]
     to_node_name = s3s.GetValue(pipe_tk, 'ToNode.Name')[0]
 
@@ -154,12 +201,32 @@ def Get_Node_Tks_From_Pipe(s3s, pipe_tk):
 
 def Get_Pipe_Tk_From_Nodes(s3s, fkKI, fkKK, Order):
     '''
-    Returns pipe tk correspond to tks of From-Node fkKI and To-Node fkKK. If Order=False, fkKI and fkKK can be interchanged and the pipe is still found.
+    Obtain tk of pipe based on its From-Node and To-Node
+    
+    param: s3s: instance of SIR3S_Model() with opened model
+    type: PythonWrapperToolkit.SIR3S_Model()
+    param: fkKI: tk of From-Node
+    type: int
+    param: fkKK: tk of To-Node
+    type: int
+    param: Order: Order=False, fkKI and fkKK can be interchanged and the pipe is still found.
+    type: bool
+
+    return: Tk of pipe with corresponding From-Node and To-Node
+
+
     '''
+    func_name = sys._getframe().f_code.co_name
+    logger.debug(f"{func_name}: Start.")
+    
+    #logger.info(f"{func_name}: Received {len(dfPipes)} pipe entries.")
+
     #fix: order param: seems to find pipe both ways even with Order=True
     from_node_name = s3s.GetValue(fkKI, 'Name')[0]
     to_node_name = s3s.GetValue(fkKK, 'Name')[0]
     Order = True
+
+    
 
     if Order:
         for pipe_tk in s3s.GetTksofElementType(ElementType=Interfaces.Sir3SObjectTypes.Pipe):
@@ -175,9 +242,58 @@ def Get_Pipe_Tk_From_Nodes(s3s, fkKI, fkKK, Order):
                 pipe_tk_ret = pipe_tk
 
 def VL_or_RL(KVR):
+    '''
+    '''
+    func_name = sys._getframe().f_code.co_name
+    logger.debug(f"{func_name}: Start.")
+    
+    #logger.info(f"{func_name}: Received {len(dfPipes)} pipe entries.")
     if KVR == 1:
         return 'VL'
     elif KVR == 2:
         return 'RL'
     else:
         return 'Unknown'
+
+def Check_Node_Name_Duplicates(s3s, name):
+    '''
+    Checks for a given name what node tks correspond to it.
+
+    param: s3s: instance of SIR3S_Model() with opened model
+    type: PythonWrapperToolkit.SIR3S_Model()
+    param: name
+    type: String
+
+    return: tks[]: list of node tk with duplicate names
+    rtype: list
+    '''
+    func_name = sys._getframe().f_code.co_name
+    logger.debug(f"{func_name}: Start.")
+    
+    #logger.info(f"{func_name}: Received {len(dfPipes)} pipe entries.")
+    
+    tks = [] #list of tks with duplicate name
+
+    for node_tk in s3s.GetTksofElementType(ElementType=Interfaces.Sir3SObjectTypes.Node):
+        current_name=s3s.GetValue(node_tk, 'Name')[0]
+        if current_name == name:
+            tks.append(node_tk)
+    if len(tks) == 1:
+        print(f'Only the node with tk {tks[0]} has the name {name}')
+    else:       
+        print(f'The nodes of the following tks have the same name({name}):\n')
+        for i in range(len(tks)):
+            print(f'{tks[i]}\n')
+
+def Resolve_Node_Name_Duplicates(s3s):
+    '''
+    
+    '''
+    func_name = sys._getframe().f_code.co_name
+    logger.debug(f"{func_name}: Start.")
+    pass
+    logger.info(f"{func_name}: Not implemented")
+    #for i
+    #names=e
+
+
