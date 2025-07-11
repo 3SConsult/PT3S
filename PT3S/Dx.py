@@ -3,6 +3,7 @@
 """
 
 import shapely
+from shapely import wkb
 import geopandas
 #import doctest
 #import unittest
@@ -665,6 +666,7 @@ class Dx():
                 
             # Knotennamen
             vKNOT=self.dataFrames['V_BVZ_KNOT']
+            #logger.debug(f"vKNOT: {vKNOT}")          
             extV=pd.merge(extV,vKNOT.add_suffix('_i')[['tk_i','NAME_i']], left_on='fkKI', right_on='tk_i')
             extV=pd.merge(extV,vKNOT.add_suffix('_k')[['tk_k','NAME_k']], left_on='fkKK', right_on='tk_k')
             
@@ -778,10 +780,38 @@ class Dx():
             # diese Aggregate verfuegbar machen
             self.dataFrames['V3_RSLW_SWVT'] = pd.merge(
                 vRSLW_SWVT, df, left_on='NAME_SWVT', right_on='NAME')
-
+            
             # V3_KNOT
             # #############################################################
-            logger.debug("{0:s}{1:s}: expanding V_BVZ_KNOT with NAME_LFKT, NAME_PVAR, NAME_PZON,NAME_QVAR,NAME_UTMP,NAME_FSTF,NAME_FQPS ...".format(logStr, 'V3_KNOT'))
+            logger.debug("{0:s}{1:s}: expanding V_BVZ_KNOT with XKOR, YKOR, NAME_LFKT, NAME_PVAR, NAME_PZON,NAME_QVAR,NAME_UTMP,NAME_FSTF,NAME_FQPS ...".format(logStr, 'V3_KNOT'))
+            
+            # Helper function
+            def convert_wkb_to_geometry(wkb_bytes):
+                try:
+                    return wkb.loads(wkb_bytes)
+                except Exception as e:
+                    return None
+                
+            def get_coords(point, coord):
+                try:
+                    if(coord=='x'):
+                        return point.x
+                    elif(coord=='y'):
+                        return point.y
+                except Exception as e:
+                    return None
+                
+            try:
+                # Convert WKB to Shapely geometries
+                vKNOT['GEOMWKB_converted'] = vKNOT['GEOMWKB'].apply(convert_wkb_to_geometry)
+
+                # Extract X and Y coordinates
+                vKNOT['XKOR'] = vKNOT['GEOMWKB_converted'].apply(lambda point: get_coords(point, 'x'))
+                vKNOT['YKOR'] = vKNOT['GEOMWKB_converted'].apply(lambda point: get_coords(point, 'y'))
+
+                logger.debug("{0:s} Converting and creating geometry with x, y coordinates for nodes successful".format(logStr))
+            except Exception as e:
+                logger.debug("{0:s} Converting and creating geometry with x, y coordinates for nodes NOT successful".format(logStr))
 
             vKNOT = pd.merge(self.dataFrames['V_BVZ_KNOT'], self.dataFrames['V_VKNO'].add_suffix(
                 '_VKNO'), left_on='tk', right_on='fkKNOT_VKNO', how='left')

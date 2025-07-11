@@ -65,14 +65,14 @@ def SIR3S_model_insert_dfPipes(s3s, dfPipes):
         '''
         '''
         #fix: ensure no duplicate node names
-        supplementary_nodes = pd.DataFrame(columns=['id', 'tk'])
+        supplementary_nodes = pd.DataFrame(columns=['id', 'tk', 'x', 'y'])
         for i in range(len(dfXL)):
             # --- nodeKI logic ---
             nodeKI_id = dfXL.loc[i, 'nodeKI_id']
             if nodeKI_id not in supplementary_nodes['id'].values:
                 x_ki, y_ki = dfXL.loc[i, 'geometry'].coords[0]
                 tk_ki = s3s.AddNewNode("-1", f"Node{i}KI {VL_or_RL(int(dfXL.loc[i, 'KVR']))}", f"Node{i}", x_ki, y_ki, 1.0, 0.1, 2.0, f"Node{i}KI", f'ID{node_counter}', int(dfXL.loc[i, 'KVR']))
-                supplementary_nodes.loc[len(supplementary_nodes)] = [nodeKI_id, tk_ki]
+                supplementary_nodes.loc[len(supplementary_nodes)] = [nodeKI_id, tk_ki, x_ki, y_ki]
                 dfXL.loc[i, 'nodeKI'] = tk_ki
                 node_counter += 1
             else:
@@ -84,7 +84,7 @@ def SIR3S_model_insert_dfPipes(s3s, dfPipes):
             if nodeKK_id not in supplementary_nodes['id'].values:
                 x_kk, y_kk = dfXL.loc[i, 'geometry'].coords[-1]
                 tk_kk = s3s.AddNewNode("-1", f"Node{i}KK {VL_or_RL(int(dfXL.loc[i, 'KVR']))}", f"Node{i}", x_kk, y_kk, 1.0, 0.1, 2.0, f"Node{i}KK", f'ID{node_counter}', int(dfXL.loc[i, 'KVR']))
-                supplementary_nodes.loc[len(supplementary_nodes)] = [nodeKK_id, tk_kk]
+                supplementary_nodes.loc[len(supplementary_nodes)] = [nodeKK_id, tk_kk, x_kk, y_kk]
                 dfXL.loc[i, 'nodeKK'] = tk_kk
                 node_counter += 1
             else:
@@ -92,7 +92,7 @@ def SIR3S_model_insert_dfPipes(s3s, dfPipes):
                 dfXL.loc[i, 'nodeKK'] = tk_kk
 
             # Add the pipe
-            tk_pipe=s3s.AddNewPipe("-1", tk_ki, tk_kk, dfXL.loc[i, 'geometry'].length, 'LINESTRING (120 76, 500 300, 620 480)', str(dfXL.loc[i, 'MATERIAL']), str(dfXL.loc[i, 'DN']), 1.5, f'ID{i}', f'Pipe {i}', int(dfXL.loc[i, 'KVR'])) # Change to proper linstring with crs
+            tk_pipe=s3s.AddNewPipe("-1", tk_ki, tk_kk, dfXL.loc[i, 'geometry'].length, str(dfXL.loc[i, 'geometry']), str(dfXL.loc[i, 'MATERIAL']), str(dfXL.loc[i, 'DN']), 1.5, f'ID{i}', f'Pipe {i}', int(dfXL.loc[i, 'KVR'])) # Change to proper linstring with crs
             dfXL.loc[i, 'tk']=tk_pipe
 
         return dfXL, supplementary_nodes, node_counter
@@ -295,5 +295,4 @@ def Resolve_Node_Name_Duplicates(s3s):
     logger.info(f"{func_name}: Not implemented")
     #for i
     #names=e
-
 

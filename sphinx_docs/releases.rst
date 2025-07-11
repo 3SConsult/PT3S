@@ -3,15 +3,35 @@ Releases
 
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
+SIR 3S Version 90.15
+----------------------
+
+Below all versions are listed that work with SIR 3S Version 90.15. From 90.15 on, we follow PEP 440 standard.
+
+Beware the 90.15 versions do not work with 90.14 models.
+
+90.15.X
+~~~~~~~
+
+**90.15 compatibility changes**
+- vKNOT: XKOR, YKOR have to be generated from GEOMWKB, as they are not anymore included in the .db3 file directly
+
+
+
+SIR 3S Version 90.14 
+--------------------
+
+Below all versions are listed that work with SIR 3S Version 90.14.
+
 90.14.51.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 - **Fix**: Publication is done via pyproject.toml
 - Releases 90.14.47.0.dev1 to 90.14.50.0.dev1 are not useable due to issues that arose concerning the change of the deployment process.
 - Latest functional changes from 90.14.47.0.dev1 are now working
 
 90.14.47.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Changed**: 
 
@@ -26,7 +46,7 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 - dxAndMxHelperFcts.readDxAndMx() has new param SirCalcExePath to specify SirCalc.exe used for calculations with maxRecords<0
 
 90.14.46.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New**: 
 
@@ -43,14 +63,14 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 - _gdfs: empty gdf_ROHR was not checked
 
 90.14.45.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix**:
 
 - Importing issue of ncd.py fixed
 
 90.14.44.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New**: 
 
@@ -65,7 +85,7 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 - Mx.reSir3sID: blank in node name (in dst node name of edges) is now handled correct
 
 90.14.43.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix**:
 
@@ -74,14 +94,14 @@ Welcome to the Releases page! Here, you can keep up with the additions and fixes
 - self.dfAGSN = dxDecodeObjsData.Agsn(self.dx) in dxAndMxHelperFcts put in try/except to prevent reading stop in case of an issue with the called function. Proper fix of this function still to be done.
 
 90.14.42.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New**: 
 
 - V3_AGSNVEC: additional cols _n_1,2,3,... derived from mxsVecsResults2MxDfVecAggs=[idxt1,idxt2,idxt3,...,-1]; _1,_2,_3,... corresponds to sorted([idxt1,idxt2,idxt3,...])
 
 90.14.41.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix**:
 
@@ -93,12 +113,12 @@ dxAndMxHelperFcts.dxWithMx._G: refactoring as function; documentation
 
 
 90.14.40.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibility with PEP 625)
 
 90.14.39.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Changed:**
 
@@ -129,21 +149,21 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
     - 'sphinx-rtd-theme'
 
 90.14.38.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Changend:**
 
 - pyrosm, cykhash, pyrobuf deleted as install_requires (pyrosm issue)
 
 90.14.37.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New:**
 
 - cykhash, pyrobuf as install_requires
 
 90.14.36.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New:**
 
@@ -156,7 +176,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
 - Docstrings of readDxAndMx and others
 
 90.14.35.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New:**
 
@@ -164,7 +184,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
     - This example demonstrates how the NetworkX-Graph created by PT3S can be used with yFiles.
 
 90.14.34.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix:**
 
@@ -172,7 +192,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
     - Remove pyrosm 
 
 90.14.33.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New:**
 
@@ -184,7 +204,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
     - pNcd_pipes(), pNcd_nodes(): functions to create ncd with customized pipes and nodes
 
 90.14.32.0.dev1
----------------
+~~~~~~~~~~~~~~~
     
 **New:**
     
@@ -197,7 +217,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
 - Example5 data
 
 90.14.31.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Changed:**
   
@@ -210,7 +230,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
     - importFromSIR3S: import data from an other SIR 3S Model
 
 90.14.30.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix:**
 
@@ -235,7 +255,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
     - insert
 
 90.14.29.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix:**
 
@@ -246,21 +266,21 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
 - SdfCsv: from PT3S import sdfCsv: mSdfCsv=sdfCsv.SdfCsv(csvFile): mSdfCsv: Wrapper for a model defined by a SDF-CSV-File
 
 90.14.28.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix:**
 
 - V3_AGSNVEC: Sections with starting pipe with interior points: incorrect x-values ​​in starting pipe
 
 90.14.27.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix:**
 
 - ROT 240801
 
 90.14.26.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **Fix:**
 
@@ -270,7 +290,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
 - Doc-Process reviewed
 
 90.14.25.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New:**
 
@@ -292,14 +312,14 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
     
 
 90.14.24.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 **New:**
 
 - DistrictHeating db3+Mx included in package for Example3
 
 90.14.23.0.dev1
----------------
+~~~~~~~~~~~~~~~
 **Fix:**
 
 - readMx:
@@ -311,10 +331,10 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
 
 
 90.14.22.0.dev1
----------------
+~~~~~~~~~~~~~~~
 
 90.14.21.0.dev1
----------------
+~~~~~~~~~~~~~~~
 **New:**
 
 - readMx:
@@ -329,7 +349,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
             - mx.dfVecAggs: pandas-Df ('vector data') from SIR 3S' MXS file(s)
 
 90.14.20.0.dev1
----------------
+~~~~~~~~~~~~~~~
 - readDxAndMx:
     **Fix:**
         - m is constructed (instead of reading m-pickle) if SIR 3S' dbFile is newer than m-pickle; in previous releases m-pickle was read even if dbFile is newer
@@ -337,13 +357,13 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
         - INFO: if SIR 3S' dbFile is newer than SIR 3S' mxFile; in this case the results are maybe dated or (worse) incompatible to the model 
 
 90.14.19.0.dev1
----------------
+~~~~~~~~~~~~~~~
 **New:**
 
 - SIR 3S db3 and mx files used in Examples are now included in the package.
 
 90.14.18.0.dev1
----------------
+~~~~~~~~~~~~~~~
 - readDxAndMx:
     **New:**
         - mxsVecsResults2MxDfVecAggs: (list, optional, default=None): List of timesteps for SIR 3S' Vector-Results to be included in mx.dfVecAggs.
@@ -354,7 +374,7 @@ Reupload of 90.14.39.0.dev1 due to higher required setuptools version (compatibi
         - setLayerContentTo
 
 90.14.17.0.dev1
----------------
+~~~~~~~~~~~~~~~
 - readDxAndMx:
     **New:**
         - preventPklDump: True now forces SIR 3S sources to be read because pickles are deleted if existing before timecheck pickles vs. SIR 3S sources is performed.
