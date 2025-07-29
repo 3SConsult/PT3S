@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "PT3S"
-version = "90.14.51.0.dev1"
+version = "90.15.1"
 description = "Python Tools 3S"
 readme = "README.rst"
 license = "MIT"

@@ -1,30 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Functions &mdash; PT3S 90.14.51.0.dev1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
 
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=bbec6902"></script>
+      <script src="_static/documentation_options.js?v=c9f58c65"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -57,10 +55,14 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-model-and-results">Read SIR 3S Model and Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dxAndMxHelperFcts.readDxAndMx"><code class="docutils literal notranslate"><span class="pre">readDxAndMx()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage-tutorial">Usage Tutorial</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-results-only">Read SIR 3S Results only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-sir-3s-results-only">Read SIR 3S Results only</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dxAndMxHelperFcts.readMx"><code class="docutils literal notranslate"><span class="pre">readMx()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#methods-regarding-m-object">Methods regarding <span class="xref std std-ref">m object</span></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#switchv3dfcolstomultiindex">switchV3DfColsToMultiindex</a></li>
@@ -75,12 +77,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sdfcsv">SdfCsv</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sdfCsv.SdfCsv.__init__"><code class="docutils literal notranslate"><span class="pre">__init__()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#plot-network-color-diagram">Plot Network Color Diagram</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ncd.pNcd_pipes"><code class="docutils literal notranslate"><span class="pre">pNcd_pipes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ncd.pNcd_nodes"><code class="docutils literal notranslate"><span class="pre">pNcd_nodes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Usage Tutorial</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-source-spectrum">Plot Source Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-source-spectrum">Plot Source Spectrum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ncd.plot_src_spectrum"><code class="docutils literal notranslate"><span class="pre">plot_src_spectrum()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="objects.html">Classes and Objects</a></li>
@@ -113,17 +123,17 @@
            <div itemprop="articleBody">
              
   <section id="functions">
-<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h1>
+<h1>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h1>
 <p>Welcome to the Functions page! Here, we will delve into the details of each function, its purpose, parameters and returns. Links to the description of returned objects on the <a class="reference internal" href="objects.html"><span class="doc">Classes and Objects</span></a> page will be provided.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Currently, not all functions that are included in PT3S are documented. These will be added in the future.</p>
 </div>
 <section id="read-sir-3s-model-and-results">
-<span id="readdxandmx-label"></span><h2>Read SIR 3S Model and Results<a class="headerlink" href="#read-sir-3s-model-and-results" title="Permalink to this heading"></a></h2>
+<span id="readdxandmx-label"></span><h2>Read SIR 3S Model and Results<a class="headerlink" href="#read-sir-3s-model-and-results" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.readDxAndMx">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SirCalcExePath=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readDxAndMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preventPklDump=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceSir3sRead=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxRecords=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDf=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mxsVecsResults2MxDfVecAggs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SirCalcExePath=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readDxAndMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readDxAndMx" title="Link to this definition"></a></dt>
 <dd><p>Reads SIR 3S model and SIR 3S results and returns a dxWithMx object - also called m object.</p>
 <p>Use maxRecords=0  to read only the model.
 Use maxRecords=1  to read only STAT (the steady state result).
@@ -153,36 +163,36 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 
 <p>Returns <a class="reference internal" href="objects.html#m-object"><span class="std std-ref">m Object</span></a>.</p>
 <section id="usage-tutorial">
-<h3>Usage Tutorial<a class="headerlink" href="#usage-tutorial" title="Permalink to this heading"></a></h3>
+<h3>Usage Tutorial<a class="headerlink" href="#usage-tutorial" title="Link to this heading"></a></h3>
 <p>Enter the name of the .db3 file you want to read</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example1&quot;</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example1&quot;</span>
 </pre></div>
 </div>
 <p>Enter the path to the dir, where this .db3 file is located. In this case the Example data included in PT3S is used.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rootdir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s1">&#39;Examples&#39;</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rootdir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s1">&#39;Examples&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Concatenate the rootdir with the dbFilename</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rootdir</span><span class="p">,</span> <span class="n">dbFilename</span> <span class="o">+</span> <span class="s1">&#39;.db3&#39;</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rootdir</span><span class="p">,</span> <span class="n">dbFilename</span> <span class="o">+</span> <span class="s1">&#39;.db3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>dbFile can now be used as a parameter for readDxAndMx()</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFile</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dbFile</span>
 <span class="go">&#39;C:\\Users\\jablonski\\3S\\PT3S\\Examples\\Example1.db3&#39;</span>
 </pre></div>
 </div>
 <p>Create a dxWithMx object using readDxAndMx().</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Refer to the <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a> page. The Examples 1-X use this function.</p>
 </section>
 </section>
 <section id="read-sir-3s-results-only">
-<h2>Read SIR 3S Results only<a class="headerlink" href="#read-sir-3s-results-only" title="Permalink to this heading"></a></h2>
+<h2>Read SIR 3S Results only<a class="headerlink" href="#read-sir-3s-results-only" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.readMx">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wDirMx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readMx" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.</span></span><span class="sig-name descname"><span class="pre">readMx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wDirMx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logPathOutputFct=&lt;function</span> <span class="pre">relpath&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dxAndMxHelperFcts.html#readMx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dxAndMxHelperFcts.readMx" title="Link to this definition"></a></dt>
 <dd><p>Reads SIR 3S results and returns a Mx object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -206,14 +216,14 @@ Use maxRecords=-1 to (re-)calculate the model by SirCalc.</p>
 <p>Refer to <a class="reference internal" href="examples.html#ex2"><span class="std std-ref">Example 2: Time Curves</span></a>. It uses this function.</p>
 </section>
 <section id="methods">
-<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h2>
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading"></a></h2>
 <section id="methods-regarding-m-object">
-<h3>Methods regarding <a class="reference internal" href="objects.html#m-object"><span class="std std-ref">m Object</span></a><a class="headerlink" href="#methods-regarding-m-object" title="Permalink to this heading"></a></h3>
+<h3>Methods regarding <a class="reference internal" href="objects.html#m-object"><span class="std std-ref">m Object</span></a><a class="headerlink" href="#methods-regarding-m-object" title="Link to this heading"></a></h3>
 <section id="switchv3dfcolstomultiindex">
-<h4>switchV3DfColsToMultiindex<a class="headerlink" href="#switchv3dfcolstomultiindex" title="Permalink to this heading"></a></h4>
+<h4>switchV3DfColsToMultiindex<a class="headerlink" href="#switchv3dfcolstomultiindex" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx.switchV3DfColsToMultiindex">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">switchV3DfColsToMultiindex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx.switchV3DfColsToMultiindex" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">switchV3DfColsToMultiindex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx.switchV3DfColsToMultiindex" title="Link to this definition"></a></dt>
 <dd><p>Switches V3-Df cols to Multiindex-Cols.    
 switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex</p>
 </dd></dl>
@@ -221,12 +231,12 @@ switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL 
 </section>
 </section>
 <section id="methods-regarding-dx-object">
-<h3>Methods regarding <a class="reference internal" href="objects.html#dx-object"><span class="std std-ref">Dx object</span></a><a class="headerlink" href="#methods-regarding-dx-object" title="Permalink to this heading"></a></h3>
+<h3>Methods regarding <a class="reference internal" href="objects.html#dx-object"><span class="std std-ref">Dx object</span></a><a class="headerlink" href="#methods-regarding-dx-object" title="Link to this heading"></a></h3>
 <section id="update">
-<h4>update<a class="headerlink" href="#update" title="Permalink to this heading"></a></h4>
+<h4>update<a class="headerlink" href="#update" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.update">
-<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfUpd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updInverseValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.update" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfUpd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updInverseValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.update" title="Link to this definition"></a></dt>
 <dd><p>Updates dbFile (SQLite only)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -269,10 +279,10 @@ switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL 
 
 </section>
 <section id="insert">
-<h4>insert<a class="headerlink" href="#insert" title="Permalink to this heading"></a></h4>
+<h4>insert<a class="headerlink" href="#insert" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.insert">
-<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfIns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xkFct=&lt;function</span> <span class="pre">fXk&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.insert" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfIns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xkFct=&lt;function</span> <span class="pre">fXk&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.insert" title="Link to this definition"></a></dt>
 <dd><p>Inserts into a dbFile’s table (SQLite only)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -304,20 +314,20 @@ switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL 
 
 </section>
 <section id="importfromsir3s">
-<h4>importFromSIR3S<a class="headerlink" href="#importfromsir3s" title="Permalink to this heading"></a></h4>
+<h4>importFromSIR3S<a class="headerlink" href="#importfromsir3s" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.importFromSIR3S">
-<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">importFromSIR3S</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self,</span> <span class="pre">dbSrc,</span> <span class="pre">tablesToImport=['STRASSE',</span> <span class="pre">'LTGR',</span> <span class="pre">'DTRO',</span> <span class="pre">'DTRO_ROWD',</span> <span class="pre">'KNOT',</span> <span class="pre">'KNOT_BZ',</span> <span class="pre">'ROHR',</span> <span class="pre">'ROHR_BZ',</span> <span class="pre">'FWVB',</span> <span class="pre">'FWVB_BZ',</span> <span class="pre">'LAYR'],</span> <span class="pre">fksNotToFillWithDstTemplateValues=['fkKI',</span> <span class="pre">'fkKK',</span> <span class="pre">'fkDTRO_ROWD',</span> <span class="pre">'fkLTGR',</span> <span class="pre">'fkSTRASSE'],</span> <span class="pre">fctsToCall={'*':</span> <span class="pre">&lt;function</span> <span class="pre">fimportFromSIR3S&gt;},</span> <span class="pre">fctsToCallLogging=True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.importFromSIR3S" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">importFromSIR3S</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self,</span> <span class="pre">dbSrc,</span> <span class="pre">tablesToImport=['STRASSE',</span> <span class="pre">'LTGR',</span> <span class="pre">'DTRO',</span> <span class="pre">'DTRO_ROWD',</span> <span class="pre">'KNOT',</span> <span class="pre">'KNOT_BZ',</span> <span class="pre">'ROHR',</span> <span class="pre">'ROHR_BZ',</span> <span class="pre">'FWVB',</span> <span class="pre">'FWVB_BZ',</span> <span class="pre">'LAYR'],</span> <span class="pre">fksNotToFillWithDstTemplateValues=['fkKI',</span> <span class="pre">'fkKK',</span> <span class="pre">'fkDTRO_ROWD',</span> <span class="pre">'fkLTGR',</span> <span class="pre">'fkSTRASSE'],</span> <span class="pre">fctsToCall={'*':</span> <span class="pre">&lt;function</span> <span class="pre">fimportFromSIR3S&gt;},</span> <span class="pre">fctsToCallLogging=True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.importFromSIR3S" title="Link to this definition"></a></dt>
 <dd><p>Import data from an other SIR 3S Model (SQLite only)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dbSrc</strong> (<em>str</em>) – SIR 3S dbFile to import from</p></li>
-<li><p><strong>tablesToImport</strong> (<em>list of tabNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'STRASSE'</em><em>,</em><em>'LTGR'</em><em>,</em><em>'DTRO'</em><em>,</em><em>'DTRO_ROWD'</em><em>
+<li><p><strong>tablesToImport</strong> (<em>list</em><em> of </em><em>tabNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'STRASSE'</em><em>,</em><em>'LTGR'</em><em>,</em><em>'DTRO'</em><em>,</em><em>'DTRO_ROWD'</em><em>
 ,</em><em>'KNOT'</em><em>,</em><em>'KNOT_BZ'</em><em>,</em><em>'ROHR'</em><em>,</em><em>'ROHR_BZ'</em><em>,</em><em>'FWVB'</em><em>,</em><em>'FWVB_BZ'</em><em>
 ,</em><em>'LAYR'</em><em>]</em>) – tabNames to import from</p></li>
-<li><p><strong>fksNotToFillWithDstTemplateValues</strong> (<em>list of fk starting colNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'fkKI'</em><em>,</em><em>'fkKK'</em><em>,</em><em>'fkDTRO_ROWD'</em><em>,</em><em>'fkLTGR'</em><em>,</em><em>'fkSTRASSE'</em><em>]</em>) – colNames starting with fk not to set to the corresponding Dst-Template-Value</p></li>
-<li><p><strong>fctsToCall</strong> (<em>dct of functions</em><em>, </em><em>optional</em><em>, </em><em>default={'*':fimportFromSIR3S}; f</em><em>(</em><em>'*'</em><em>) </em><em>is called if defined and then the object-specific f</em><em>(</em><em>OBJ</em><em>) </em><em>is called if defined</em>) – dct of functions to call before import</p></li>
+<li><p><strong>fksNotToFillWithDstTemplateValues</strong> (<em>list</em><em> of </em><em>fk starting colNames</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>'fkKI'</em><em>,</em><em>'fkKK'</em><em>,</em><em>'fkDTRO_ROWD'</em><em>,</em><em>'fkLTGR'</em><em>,</em><em>'fkSTRASSE'</em><em>]</em>) – colNames starting with fk not to set to the corresponding Dst-Template-Value</p></li>
+<li><p><strong>fctsToCall</strong> (<em>dct</em><em> of </em><em>functions</em><em>, </em><em>optional</em><em>, </em><em>default={'*':fimportFromSIR3S}; f</em><em>(</em><em>'*'</em><em>) </em><em>is called if defined and then the object-specific f</em><em>(</em><em>OBJ</em><em>) </em><em>is called if defined</em>) – dct of functions to call before import</p></li>
 <li><p><strong>fctsToCallLogging</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – decide if fctsToCall shall generate Log-Output</p></li>
 </ul>
 </dd>
@@ -344,10 +354,10 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 
 </section>
 <section id="setlayercontentto">
-<h4>setLayerContentTo<a class="headerlink" href="#setlayercontentto" title="Permalink to this heading"></a></h4>
+<h4>setLayerContentTo<a class="headerlink" href="#setlayercontentto" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx.setLayerContentTo">
-<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">setLayerContentTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layerName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.setLayerContentTo" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">setLayerContentTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layerName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx.setLayerContentTo" title="Link to this definition"></a></dt>
 <dd><p>Updates content of layerName to df’s-content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -374,10 +384,10 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </section>
 </section>
 <section id="sdfcsv">
-<h2>SdfCsv<a class="headerlink" href="#sdfcsv" title="Permalink to this heading"></a></h2>
+<h2>SdfCsv<a class="headerlink" href="#sdfcsv" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sdfCsv.SdfCsv.__init__">
-<span class="sig-prename descclassname"><span class="pre">sdfCsv.SdfCsv.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csvFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'aSdfCsvFile.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp1252'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sdfCsv.SdfCsv.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sdfCsv.SdfCsv.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csvFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'aSdfCsvFile.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp1252'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sdfCsv.SdfCsv.__init__" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -409,10 +419,10 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 
 </section>
 <section id="plot-network-color-diagram">
-<h2>Plot Network Color Diagram<a class="headerlink" href="#plot-network-color-diagram" title="Permalink to this heading"></a></h2>
+<h2>Plot Network Color Diagram<a class="headerlink" href="#plot-network-color-diagram" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="ncd.pNcd_pipes">
-<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_pipes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['darkgreen',</span> <span class="pre">'magenta']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_pipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_pipes" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_pipes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['darkgreen',</span> <span class="pre">'magenta']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_pipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_pipes" title="Link to this definition"></a></dt>
 <dd><p>pNcd_pipes: Plots pipes on axis with customization options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -441,7 +451,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncd.pNcd_nodes">
-<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['darkgreen',</span> <span class="pre">'magenta']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_size_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_nodes" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">pNcd_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['darkgreen',</span> <span class="pre">'magenta']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_size_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#pNcd_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.pNcd_nodes" title="Link to this definition"></a></dt>
 <dd><p>pNcd_nodes: Plots nodes on axis with customization options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -470,11 +480,11 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </dd></dl>
 
 <section id="id1">
-<h3>Usage Tutorial<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<h3>Usage Tutorial<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>Plot on an axes. Use pNcd_pipes for pipes and pNcd_nodes for nodes.</p>
 <p>If you plot multiple times on the same axes, use zorder to determine plotting order.</p>
 <p>Refer to <a class="reference internal" href="examples.html#ex1"><span class="std std-ref">Example 1: Interactive Map and Network Color Diagram</span></a>. It uses this function.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pipes_patches</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_pipes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="n">gdf_ROHR</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;DI&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nodes_patches</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">pNcd_nodes</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="n">gdf_FWVB</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;QM&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_patches</span> <span class="o">=</span> <span class="n">pipes_patches</span> <span class="o">+</span> <span class="n">nodes_patches</span>
@@ -486,10 +496,10 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 </section>
 </section>
 <section id="plot-source-spectrum">
-<h2>Plot Source Spectrum<a class="headerlink" href="#plot-source-spectrum" title="Permalink to this heading"></a></h2>
+<h2>Plot Source Spectrum<a class="headerlink" href="#plot-source-spectrum" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="ncd.plot_src_spectrum">
-<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">plot_src_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#plot_src_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.plot_src_spectrum" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">plot_src_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#plot_src_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.plot_src_spectrum" title="Link to this definition"></a></dt>
 <dd><p>Plots the source spectrum based on the provided GeoDataFrame and attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -497,7 +507,7 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 <li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em>) – The axis to plot on. If None, a new axis is created.</p></li>
 <li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – The GeoDataFrame containing the data to plot.</p></li>
 <li><p><strong>attribute</strong> (<em>str</em>) – The attribute column in the GeoDataFrame to use for color mixing.</p></li>
-<li><p><strong>colors</strong> (<em>list of np.ndarray</em>) – The colors to use for mixing.</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em> of </em><em>np.ndarray</em>) – The colors to use for mixing.</p></li>
 <li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=2</em>) – The width of the lines in the plot.</p></li>
 </ul>
 </dd>

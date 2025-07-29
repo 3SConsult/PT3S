@@ -4,7 +4,7 @@ Releases
 Welcome to the Releases page! Here, you can keep up with the additions and fixes that come with new releases.
 
 SIR 3S Version 90.15
-----------------------
+--------------------
 
 Below all versions are listed that work with SIR 3S Version 90.15. From 90.15 on, we follow PEP 440 standard.
 
@@ -15,8 +15,6 @@ Beware the 90.15 versions do not work with 90.14 models.
 
 **90.15 compatibility changes**
 - vKNOT: XKOR, YKOR have to be generated from GEOMWKB, as they are not anymore included in the .db3 file directly
-
-
 
 SIR 3S Version 90.14 
 --------------------
