@@ -15,6 +15,8 @@ Beware the 90.15 versions do not work with 90.14 models.
 
 **90.15 compatibility changes**
 - vKNOT: XKOR, YKOR have to be generated from GEOMWKB, as they are not anymore included in the .db3 file directly
+**changes**
+- V3_ROHR: MANE_LTGR and NAME_STRASSE: LTGR and STRASSE are referenced now with tk instead of pk
 
 SIR 3S Version 90.14 
 --------------------
