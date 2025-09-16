@@ -17,6 +17,7 @@ Beware the 90.15 versions do not work with 90.14 models.
 - vKNOT: XKOR, YKOR have to be generated from GEOMWKB, as they are not anymore included in the .db3 file directly
 **changes**
 - V3_ROHR: MANE_LTGR and NAME_STRASSE: LTGR and STRASSE are referenced now with tk instead of pk
+- V3_KNOT: dPH is now calculated faster
 
 SIR 3S Version 90.14 
 --------------------
