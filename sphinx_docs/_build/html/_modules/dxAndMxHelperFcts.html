@@ -1,29 +1,27 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>dxAndMxHelperFcts &mdash; PT3S 90.14.51.0.dev1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b3523f8e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=838fa8ed" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=838fa8ed" />
 
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=bbec6902"></script>
+      <script src="../_static/documentation_options.js?v=c9f58c65"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -90,34 +88,34 @@
 <span class="sd">@author: wolters</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">access</span><span class="p">,</span> <span class="n">R_OK</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">access</span><span class="p">,</span> <span class="n">R_OK</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">isfile</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>    
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>    
 
 <span class="c1">#import importlib</span>
-<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
 
-<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 
-<span class="kn">import</span> <span class="nn">geopandas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span>
 
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 
 
 
@@ -132,33 +130,33 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}{2:s}{3:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;in MODULEFILE: Not __main__ Context: &#39;</span><span class="p">,</span><span class="s1">&#39;__name__: &#39;</span><span class="p">,</span><span class="vm">__name__</span><span class="p">,</span><span class="s2">&quot; .&quot;</span><span class="p">))</span> 
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Dx</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PT3S</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dx</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;ImportError: &#39;</span><span class="p">,</span><span class="s1">&#39;from PT3S import Dx - trying import Dx instead ... maybe pip install -e . is active ...&#39;</span><span class="p">))</span> 
-    <span class="kn">import</span> <span class="nn">Dx</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">Dx</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Mx</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PT3S</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mx</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;ImportError: &#39;</span><span class="p">,</span><span class="s1">&#39;from PT3S import Mx - trying import Mx instead ... maybe pip install -e . is active ...&#39;</span><span class="p">))</span> 
-    <span class="kn">import</span> <span class="nn">Mx</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">Mx</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxDecodeObjsData</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PT3S</span><span class="w"> </span><span class="kn">import</span> <span class="n">dxDecodeObjsData</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">dxDecodeObjsData</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">dxDecodeObjsData</span>
 
 
-<span class="k">class</span> <span class="nc">dxWithMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">dxWithMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
     
-<span class="k">class</span> <span class="nc">dxWithMx</span><span class="p">():</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">dxWithMx</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for dx with attached mx.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">mx</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param dx: a Dx object</span>
 <span class="sd">        :type dx: Dx.Dx()</span>
@@ -321,7 +319,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;_Done.&#39;</span><span class="p">))</span>            
 
 
-    <span class="k">def</span> <span class="nf">_V3_ROHR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df_V3_ROHR</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_ROHR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df_V3_ROHR</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_ROHR is a m object Attribute.</span>
 <span class="sd">        </span>
@@ -447,7 +445,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span>    
                               
-    <span class="k">def</span> <span class="nf">_V3_ROHRVEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">V3_ROHR</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_ROHRVEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">V3_ROHR</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.</span>
 <span class="sd">        </span>
@@ -709,7 +707,7 @@
     <span class="c1">#         logger.debug(f&quot;{logStr}_Done.&quot;) </span>
 
 
-    <span class="k">def</span> <span class="nf">_gdfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_gdfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            gdf_FWVB, gdf_FWVB and gdf_KNOT are m object attributes.</span>
 <span class="sd">            </span>
@@ -779,7 +777,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
-    <span class="k">def</span> <span class="nf">_V3_KNOT</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df_V3_KNOT</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_KNOT</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df_V3_KNOT</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_KNOT is a m object Attribute.</span>
 <span class="sd">        </span>
@@ -846,22 +844,48 @@
                
             <span class="k">try</span><span class="p">:</span>                                                         
                  <span class="n">dPH</span><span class="o">=</span><span class="s1">&#39;dPH&#39;</span>
-                 <span class="k">def</span> <span class="nf">getdPH</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">df_V3_KNOT</span><span class="p">):</span>
-                     
-                     <span class="n">df</span><span class="o">=</span><span class="n">df_V3_KNOT</span><span class="p">[</span><span class="n">df_V3_KNOT</span><span class="p">[</span><span class="s1">&#39;tk&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;fk2LKNOT&#39;</span><span class="p">]]</span>
-                     <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+
+                 <span class="n">dfTk</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_V3_KNOT</span><span class="p">,</span><span class="n">df_V3_KNOT</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;fk2LKNOT&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;_RL&#39;</span><span class="p">),</span><span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">df_V3_KNOT</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;PH_RL&#39;</span><span class="p">,</span><span class="s1">&#39;_merge&#39;</span><span class="p">])</span>
+                 <span class="n">dfPk</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_V3_KNOT</span><span class="p">,</span><span class="n">df_V3_KNOT</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;fk2LKNOT&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;_RL&#39;</span><span class="p">),</span><span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">df_V3_KNOT</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;PH_RL&#39;</span><span class="p">,</span><span class="s1">&#39;_merge&#39;</span><span class="p">])</span>
+                 <span class="k">if</span> <span class="n">dfTk</span><span class="p">[</span><span class="s1">&#39;_merge&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">both</span> <span class="o">&gt;=</span> <span class="n">dfPk</span><span class="p">[</span><span class="s1">&#39;_merge&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">both</span><span class="p">:</span>
+                     <span class="n">df</span><span class="o">=</span><span class="n">dfTk</span>
+                 <span class="k">else</span><span class="p">:</span>
+                     <span class="n">df</span><span class="o">=</span><span class="n">dfPk</span>
+                 <span class="k">def</span><span class="w"> </span><span class="nf">getdPH</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+                     <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;PH_RL&#39;</span><span class="p">]):</span>
                          <span class="k">return</span> <span class="kc">None</span>
-                     <span class="n">s</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                                    
+                     <span class="n">dPH</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;PH&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;PH_RL&#39;</span><span class="p">]</span>
                      <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;KVR&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1.&#39;</span><span class="p">]:</span>
-                         <span class="k">return</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;PH&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">s</span><span class="o">.</span><span class="n">PH</span>
+                         <span class="k">return</span> <span class="n">dPH</span>
                      <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;KVR&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;2.&#39;</span><span class="p">]:</span>
-                         <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;PH&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">s</span><span class="o">.</span><span class="n">PH</span><span class="p">)</span>
+                         <span class="k">return</span> <span class="o">-</span><span class="n">dPH</span>
                      <span class="k">else</span><span class="p">:</span>
                          <span class="k">return</span> <span class="kc">None</span>
+
+
+                 <span class="n">df</span><span class="p">[</span><span class="n">dPH</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">getdPH</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                 <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;PH_RL&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                 <span class="n">df_V3_KNOT</span><span class="o">=</span><span class="n">df</span>
+                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Constructing of V3_KNOT[dPH] ok so far.&quot;</span><span class="p">)</span>     
+
+                <span class="c1">#  def getdPH(row,df_V3_KNOT):</span>
+                     
+                <span class="c1">#      df=df_V3_KNOT[df_V3_KNOT[&#39;tk&#39;]==row[&#39;fk2LKNOT&#39;]]</span>
+                <span class="c1">#      if df.empty:</span>
+                <span class="c1">#          return None</span>
+                <span class="c1">#      s=df.iloc[0]</span>
+                <span class="c1">#      if row[&#39;KVR&#39;] in [1,1.,&#39;1&#39;,&#39;1.&#39;]:</span>
+                <span class="c1">#          return row[&#39;PH&#39;]-s.PH</span>
+                <span class="c1">#      elif row[&#39;KVR&#39;] in [2,2.,&#39;2&#39;,&#39;2.&#39;]:</span>
+                <span class="c1">#          return -(row[&#39;PH&#39;]-s.PH)</span>
+                <span class="c1">#      else:</span>
+                <span class="c1">#          return None</span>
                          
-                 <span class="n">df_V3_KNOT</span><span class="p">[</span><span class="n">dPH</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span>   
-                 <span class="n">df_V3_KNOT</span><span class="p">[</span><span class="n">dPH</span><span class="p">]</span><span class="o">=</span><span class="n">df_V3_KNOT</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">getdPH</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">df_V3_KNOT</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Constructing of V3_KNOT[dPH] ok so far.&quot;</span><span class="p">)</span>                                                      
+                <span class="c1">#  df_V3_KNOT[dPH]=None   </span>
+                <span class="c1">#  df_V3_KNOT[dPH]=df_V3_KNOT.apply(lambda row: getdPH(row,df_V3_KNOT),axis=1)</span>
+                <span class="c1">#  logger.debug(f&quot;{logStr}Constructing of V3_KNOT[dPH] ok so far.&quot;)                                                      </span>
+
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                  <span class="n">logStrTmp</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">Exception: Line: </span><span class="si">{:d}</span><span class="s2">: </span><span class="si">{!s:s}</span><span class="s2">: </span><span class="si">{:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tb_lineno</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
                  <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">logStrTmp</span><span class="p">)</span> 
@@ -921,7 +945,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
             
-    <span class="k">def</span> <span class="nf">_V3_VBEL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df_V3_VBEL</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_VBEL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df_V3_VBEL</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_VBEL is a m object Attribute.</span>
 <span class="sd">        </span>
@@ -1127,7 +1151,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
-    <span class="k">def</span> <span class="nf">_G</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V3_VBEL</span><span class="p">,</span> <span class="n">V3_KNOT</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_G</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V3_VBEL</span><span class="p">,</span> <span class="n">V3_KNOT</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            G is a m object Attribute: The NetworkX Graph of the Hydraulic Model.</span>
 <span class="sd">            </span>
@@ -1224,7 +1248,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
-    <span class="k">def</span> <span class="nf">_GSig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V3_RVBEL</span><span class="p">,</span> <span class="n">V3_RKNOT</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_GSig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V3_RVBEL</span><span class="p">,</span> <span class="n">V3_RKNOT</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            GSig is a m object Attribute: The NetworkX Graph of the Signal Model.</span>
 <span class="sd">            </span>
@@ -1276,7 +1300,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
-    <span class="k">def</span> <span class="nf">_V3_FWVB</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df_V3_FWVB</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_FWVB</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df_V3_FWVB</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_FWVB is a m object Attribute.</span>
 <span class="sd">        </span>
@@ -1405,7 +1429,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
 
-    <span class="k">def</span> <span class="nf">_V3_AGSN</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSN</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_AGSN</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSN</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_AGSN is a m object Attribute.</span>
 <span class="sd">        </span>
@@ -1732,7 +1756,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
-    <span class="k">def</span> <span class="nf">_V3_AGSNVEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">V3_AGSN</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_AGSNVEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">V3_AGSN</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        V3_AGSNVEC is a m object Attribute.</span>
 <span class="sd">        </span>
@@ -1982,7 +2006,7 @@
             
             <span class="c1"># in Zeilen mit IptIdx &lt;&gt; S,E LSum durch LSum(Pos-1)+SVEC ersetzen    </span>
             <span class="n">dfAGSNVecMaxLSum</span><span class="o">=</span><span class="n">dfAGSNVec</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LFDNR&#39;</span><span class="p">,</span><span class="s1">&#39;XL&#39;</span><span class="p">,</span><span class="s1">&#39;Pos&#39;</span><span class="p">])[</span><span class="s1">&#39;LSum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>            
-            <span class="k">def</span> <span class="nf">fLSum</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>   
+            <span class="k">def</span><span class="w"> </span><span class="nf">fLSum</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>   
                 <span class="k">try</span><span class="p">:</span>                    
                     <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IptIdx&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">]:</span>
                         <span class="k">return</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;LSum&#39;</span><span class="p">]</span>
@@ -2137,7 +2161,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span> 
 
-    <span class="k">def</span> <span class="nf">_V3_AGSNVEC_mapExistingColWithVecResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSNVec</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">sir3sType</span><span class="p">,</span><span class="n">sir3sChannel</span><span class="p">,</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_AGSNVEC_mapExistingColWithVecResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSNVec</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">sir3sType</span><span class="p">,</span><span class="n">sir3sChannel</span><span class="p">,</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd"> </span>
 <span class="sd">        &quot;&quot;&quot;</span>   
@@ -2159,7 +2183,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span>   
             
 
-    <span class="k">def</span> <span class="nf">_V3_AGSNVEC_addNewCols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSNVec</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_V3_AGSNVEC_addNewCols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dfAGSNVec</span><span class="p">,</span>
             <span class="n">colNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;T_n&#39;</span><span class="p">,</span><span class="s1">&#39;PH_n&#39;</span><span class="p">,</span><span class="s1">&#39;mlc_n&#39;</span><span class="p">,</span><span class="s1">&#39;H_n&#39;</span><span class="p">,</span><span class="s1">&#39;QM&#39;</span><span class="p">],</span>
             <span class="n">colNamesPrefixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;KNOT~*~*~*~&#39;</span><span class="p">,</span><span class="s1">&#39;KNOT~*~*~*~&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
             <span class="n">vecNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ROHR~*~*~*~TVEC&#39;</span><span class="p">,</span><span class="s1">&#39;manPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;mlcPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;barBzgPVEC&#39;</span><span class="p">,</span><span class="s1">&#39;QMVEC&#39;</span><span class="p">],</span>
@@ -2317,7 +2341,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_Done.&quot;</span><span class="p">)</span>   
 
             
-    <span class="k">def</span> <span class="nf">switchV3DfColsToMultiindex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">switchV3DfColsToMultiindex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Switches V3-Df cols to Multiindex-Cols.    </span>
 <span class="sd">        switchV3DfColsToMultiindex(): switch cols in V3_ROHR, V3_FWVB, V3_KNOT, V3_VBEL to Multiindex           </span>
@@ -2353,19 +2377,21 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;_Done.&#39;</span><span class="p">))</span>                  
         
-<span class="k">class</span> <span class="nc">readDxAndMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">readDxAndMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
     
-<span class="k">class</span> <span class="nc">readDxAndMxGoto</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">readDxAndMxGoto</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="readDxAndMx"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMx">[docs]</a><span class="k">def</span> <span class="nf">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span>            
+<div class="viewcode-block" id="readDxAndMx">
+<a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readDxAndMx">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span>            
                 <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">forceSir3sRead</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">,</span><span class="n">maxRecords</span><span class="o">=</span><span class="kc">None</span>
@@ -2406,9 +2432,9 @@
 <span class="sd">    :rtype: dxWithMx</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
     <span class="c1">#import importlib</span>
-    <span class="kn">import</span> <span class="nn">glob</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
     
     <span class="n">dx</span><span class="o">=</span><span class="kc">None</span>
     <span class="n">mx</span><span class="o">=</span><span class="kc">None</span>
@@ -2840,7 +2866,8 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;_Done.&#39;</span><span class="p">))</span>  
         <span class="k">return</span> <span class="n">m</span></div>
 
-<span class="k">def</span> <span class="nf">processMxVectorResults</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span><span class="n">dx</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">processMxVectorResults</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span><span class="n">dx</span>
                 <span class="p">,</span><span class="n">mxsVecsResults2MxDf</span><span class="o">=</span><span class="kc">None</span>
                 <span class="p">,</span><span class="n">mxsVecsResults2MxDfVecAggs</span><span class="o">=</span><span class="kc">None</span>              
                 <span class="p">):</span>
@@ -2967,13 +2994,15 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span><span class="s1">&#39;_Done.&#39;</span><span class="p">))</span>  
         <span class="c1">#return m</span>
 
-<span class="k">class</span> <span class="nc">readMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">readMxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="readMx"><a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readMx">[docs]</a><span class="k">def</span> <span class="nf">readMx</span><span class="p">(</span><span class="n">wDirMx</span><span class="p">,</span> <span class="n">logPathOutputFct</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">):</span>
+<div class="viewcode-block" id="readMx">
+<a class="viewcode-back" href="../functions.html#dxAndMxHelperFcts.readMx">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">readMx</span><span class="p">(</span><span class="n">wDirMx</span><span class="p">,</span> <span class="n">logPathOutputFct</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads SIR 3S results and returns a Mx object.</span>
 
@@ -3039,7 +3068,8 @@
     
     <span class="k">return</span> <span class="n">mx</span></div>
 
-<span class="k">def</span> <span class="nf">constructNewMultiindexFromCols</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span><span class="n">mColNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OBJTYPE&#39;</span><span class="p">,</span><span class="s1">&#39;OBJID&#39;</span><span class="p">],</span><span class="n">mIdxNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OBJTYPE&#39;</span><span class="p">,</span><span class="s1">&#39;OBJID&#39;</span><span class="p">]):</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">constructNewMultiindexFromCols</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span><span class="n">mColNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OBJTYPE&#39;</span><span class="p">,</span><span class="s1">&#39;OBJID&#39;</span><span class="p">],</span><span class="n">mIdxNames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OBJTYPE&#39;</span><span class="p">,</span><span class="s1">&#39;OBJID&#39;</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructs a new Multiindex from existing cols and returns the constructed df.</span>
 
 <span class="sd">        Args:</span>
@@ -3088,7 +3118,7 @@
             <span class="c1">#logger.debug(&quot;{0:s}{1:s}&quot;.format(logStr,&#39;_Done.&#39;))</span>
             <span class="c1">#return df  </span>
 
-<span class="k">def</span> <span class="nf">fStripV3Colik2Tuple</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;(&#39;STAT&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2024-09-01 08:00:00&#39;), Timestamp(&#39;2024-09-01 08:00:00&#39;))_i&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fStripV3Colik2Tuple</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;(&#39;STAT&#39;, &#39;KNOT~*~*~*~PH&#39;, Timestamp(&#39;2024-09-01 08:00:00&#39;), Timestamp(&#39;2024-09-01 08:00:00&#39;))_i&quot;</span>
                         <span class="p">,</span><span class="n">colPost</span><span class="o">=</span><span class="s1">&#39;_i&#39;</span><span class="p">):</span>
     
     <span class="n">colRstrip</span><span class="o">=</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">colPost</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -3103,7 +3133,7 @@
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">colTuple</span>
 
-<span class="k">def</span> <span class="nf">fGetMultiindexTupleFromV3Col</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fGetMultiindexTupleFromV3Col</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Splittet einen String-Spaltennamen in seine Bestandteile. Liefert ein Tuple aus 4 Bestandteilen.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
