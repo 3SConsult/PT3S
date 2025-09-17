@@ -762,17 +762,17 @@ class dxWithMx():
             try:                                                         
                  dPH='dPH'
 
-                 dfTk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='tk',how='left',suffixes=('','_RL'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_RL','_merge'])
-                 dfPk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='tk',how='left',suffixes=('','_RL'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_RL','_merge'])
+                 dfTk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='tk',how='left',suffixes=('','_2L'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_2L','_merge'])
+                 dfPk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='pk',how='left',suffixes=('','_2L'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_2L','_merge'])
                  if dfTk['_merge'].value_counts(dropna=False).both >= dfPk['_merge'].value_counts(dropna=False).both:
                      df=dfTk
                  else:
                      df=dfPk
                  def getdPH(row):
-                     if pd.isnull(row['PH_RL']):
+                     if pd.isnull(row['PH_2L']):
                          return None
                                     
-                     dPH=row['PH']-row['PH_RL']
+                     dPH=row['PH']-row['PH_2L']
                      if row['KVR'] in [1,1.,'1','1.']:
                          return dPH
                      elif row['KVR'] in [2,2.,'2','2.']:
@@ -782,7 +782,7 @@ class dxWithMx():
 
 
                  df[dPH]=df.apply(lambda row: getdPH(row) ,axis=1)
-                 df=df.drop('PH_RL',axis=1)
+                 df=df.drop('PH_2L',axis=1)
                  df_V3_KNOT=df
                  logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far.")     
 
