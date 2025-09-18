@@ -784,7 +784,7 @@ class dxWithMx():
                  df[dPH]=df.apply(lambda row: getdPH(row) ,axis=1)
                  df=df.drop('PH_2L',axis=1)
                  df_V3_KNOT=df
-                 logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far.")     
+                 logger.debug(f"{logStr}Constructing of V3_KNOT[{dPH}] ok so far.")     
 
                 #  def getdPH(row,df_V3_KNOT):
                      
