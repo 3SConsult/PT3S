@@ -1,31 +1,33 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Example 1: Interactive Map and Network Color Diagram &mdash; PT3S 90.14.51.0.dev1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
-      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
 
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=bbec6902"></script>
-      <script src="_static/documentation_options.js?v=c9f58c65"></script>
-      <script src="_static/doctools.js?v=888ff710"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-      <script src="_static/copybutton.js?v=f281be69"></script>
-      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -85,10 +87,10 @@
            <div itemprop="articleBody">
              
   <section id="Example-1:-Interactive-Map-and-Network-Color-Diagram">
-<h1>Example 1: Interactive Map and Network Color Diagram<a class="headerlink" href="#Example-1:-Interactive-Map-and-Network-Color-Diagram" title="Link to this heading"></a></h1>
+<h1>Example 1: Interactive Map and Network Color Diagram<a class="headerlink" href="#Example-1:-Interactive-Map-and-Network-Color-Diagram" title="Permalink to this heading"></a></h1>
 This example demonstrates how GeoDataFrames (gdfs) created by PT3S can be used with geopandas' explore for interactive maps with folium/leaflet.js and with geopandas' plot with matplotlib.</section>
 <section id="PT3S-Release">
-<h1>PT3S Release<a class="headerlink" href="#PT3S-Release" title="Link to this heading"></a></h1>
+<h1>PT3S Release<a class="headerlink" href="#PT3S-Release" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -99,7 +101,7 @@ This example demonstrates how GeoDataFrames (gdfs) created by PT3S can be used w
 </div>
 </section>
 <section id="Necessary-packages-for-this-Example">
-<h1>Necessary packages for this Example<a class="headerlink" href="#Necessary-packages-for-this-Example" title="Link to this heading"></a></h1>
+<h1>Necessary packages for this Example<a class="headerlink" href="#Necessary-packages-for-this-Example" title="Permalink to this heading"></a></h1>
 When running this example for the first time on your machine, please execute the cell below. Afterward, you may need to restart the kernel (using the ‘fast-forward’ button).<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -118,39 +120,39 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </section>
 <section id="Imports">
-<h1>Imports<a class="headerlink" href="#Imports" title="Link to this heading"></a></h1>
+<h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cx</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">geopandas</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">contextily</span> <span class="k">as</span> <span class="nn">cx</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">folium</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">folium.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeatMap</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">PT3S</span><span class="w"> </span><span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">dxAndMxHelperFcts</span>
+<span class="kn">import</span> <span class="nn">folium</span>
+<span class="kn">from</span> <span class="nn">folium.plugins</span> <span class="kn">import</span> <span class="n">HeatMap</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">PT3S</span><span class="w"> </span><span class="kn">import</span> <span class="n">ncd</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">ncd</span>
+    <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">PT3S</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rm</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">ncd</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">Rm</span>
+    <span class="kn">import</span> <span class="nn">ncd</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Rm</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">Rm</span>
 </pre></div>
 </div>
 </div>
@@ -158,8 +160,8 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">importlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">resources</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">resources</span>
 </pre></div>
 </div>
 </div>
@@ -182,7 +184,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </section>
 <section id="Logging">
-<h1>Logging<a class="headerlink" href="#Logging" title="Link to this heading"></a></h1>
+<h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -212,7 +214,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </section>
 <section id="Read-Model-and-Results">
-<h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Link to this heading"></a></h1>
+<h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -247,9 +249,9 @@ INFO    ; dxWithMx.__init__: Example1: processing dx and mx ...
 </div>
 </section>
 <section id="Interactive-Map-with-folium/leaflet.js">
-<h1>Interactive Map with folium/leaflet.js<a class="headerlink" href="#Interactive-Map-with-folium/leaflet.js" title="Link to this heading"></a></h1>
+<h1>Interactive Map with folium/leaflet.js<a class="headerlink" href="#Interactive-Map-with-folium/leaflet.js" title="Permalink to this heading"></a></h1>
 <section id="gdfs">
-<h2>gdfs<a class="headerlink" href="#gdfs" title="Link to this heading"></a></h2>
+<h2>gdfs<a class="headerlink" href="#gdfs" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -261,7 +263,7 @@ INFO    ; dxWithMx.__init__: Example1: processing dx and mx ...
 </div>
 </section>
 <section id="filter-layer">
-<h2>filter layer<a class="headerlink" href="#filter-layer" title="Link to this heading"></a></h2>
+<h2>filter layer<a class="headerlink" href="#filter-layer" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -292,7 +294,7 @@ INFO    ; dxWithMx.__init__: Example1: processing dx and mx ...
 </div>
 </section>
 <section id="heatmap">
-<h2>heatmap<a class="headerlink" href="#heatmap" title="Link to this heading"></a></h2>
+<h2>heatmap<a class="headerlink" href="#heatmap" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -347,7 +349,7 @@ INFO    ; dxWithMx.__init__: Example1: processing dx and mx ...
 </div>
 </section>
 <section id="parameter">
-<h2>parameter<a class="headerlink" href="#parameter" title="Link to this heading"></a></h2>
+<h2>parameter<a class="headerlink" href="#parameter" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -364,7 +366,7 @@ INFO    ; dxWithMx.__init__: Example1: processing dx and mx ...
 </div>
 </section>
 <section id="build-the-map">
-<h2>build the map<a class="headerlink" href="#build-the-map" title="Link to this heading"></a></h2>
+<h2>build the map<a class="headerlink" href="#build-the-map" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
@@ -428,7 +430,7 @@ INFO    ; dxWithMx.__init__: Example1: processing dx and mx ...
 </div>
 </section>
 <section id="display-the-map">
-<h2>display the map<a class="headerlink" href="#display-the-map" title="Link to this heading"></a></h2>
+<h2>display the map<a class="headerlink" href="#display-the-map" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
@@ -1548,7 +1550,7 @@ INFO    ; dxWithMx.__init__: Example1: processing dx and mx ...
 </div>
 </section>
 <section id="print-the-map">
-<h2>print the map<a class="headerlink" href="#print-the-map" title="Link to this heading"></a></h2>
+<h2>print the map<a class="headerlink" href="#print-the-map" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
@@ -1577,7 +1579,7 @@ INFO    ; dxWithMx.__init__: Example1: processing dx and mx ...
 </section>
 </section>
 <section id="Network-Color-Diagram-with-matplotlib">
-<h1>Network Color Diagram with matplotlib<a class="headerlink" href="#Network-Color-Diagram-with-matplotlib" title="Link to this heading"></a></h1>
+<h1>Network Color Diagram with matplotlib<a class="headerlink" href="#Network-Color-Diagram-with-matplotlib" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>

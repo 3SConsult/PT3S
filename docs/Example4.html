@@ -1,31 +1,33 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Example 4: OSM PBF to SIR 3S SHP Import &mdash; PT3S 90.14.51.0.dev1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
-      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
 
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=bbec6902"></script>
-      <script src="_static/documentation_options.js?v=c9f58c65"></script>
-      <script src="_static/doctools.js?v=888ff710"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-      <script src="_static/copybutton.js?v=f281be69"></script>
-      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -85,7 +87,7 @@
            <div itemprop="articleBody">
              
   <section id="Example-4:-OSM-PBF-to-SIR-3S-SHP-Import">
-<h1>Example 4: OSM PBF to SIR 3S SHP Import<a class="headerlink" href="#Example-4:-OSM-PBF-to-SIR-3S-SHP-Import" title="Link to this heading"></a></h1>
+<h1>Example 4: OSM PBF to SIR 3S SHP Import<a class="headerlink" href="#Example-4:-OSM-PBF-to-SIR-3S-SHP-Import" title="Permalink to this heading"></a></h1>
 <p>This example demonstrates how to convert OSM data into shape files for import into SIR 3S. The OSM data does not have to be obtained separately, but is created by the script.</p>
 <p>For this to work, however, you must download ‘osmconvert.exe’ from the OSM Wiki (<a class="reference external" href="https://wiki.openstreetmap.org/wiki/Osmconvert#Download">https://wiki.openstreetmap.org/wiki/Osmconvert#Download</a>).</p>
 <div class="nbinput nblast docutils container">
@@ -98,7 +100,7 @@
 </div>
 </section>
 <section id="PT3S-Release">
-<h1>PT3S Release<a class="headerlink" href="#PT3S-Release" title="Link to this heading"></a></h1>
+<h1>PT3S Release<a class="headerlink" href="#PT3S-Release" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -109,7 +111,7 @@
 </div>
 </section>
 <section id="Necessary-packages-for-this-Example">
-<h1>Necessary packages for this Example<a class="headerlink" href="#Necessary-packages-for-this-Example" title="Link to this heading"></a></h1>
+<h1>Necessary packages for this Example<a class="headerlink" href="#Necessary-packages-for-this-Example" title="Permalink to this heading"></a></h1>
 When running this example for the first time on your machine, please execute the cell below. Afterward, you may need to restart the kernel (using the ‘fast-forward’ button).<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -136,7 +138,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </section>
 <section id="Input-Data">
-<h1>Input Data<a class="headerlink" href="#Input-Data" title="Link to this heading"></a></h1>
+<h1>Input Data<a class="headerlink" href="#Input-Data" title="Permalink to this heading"></a></h1>
 <p>Enter your coordinates here</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -150,57 +152,57 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </section>
 <section id="Imports">
-<h1>Imports<a class="headerlink" href="#Imports" title="Link to this heading"></a></h1>
+<h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">folium</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span>
+<span class="kn">import</span> <span class="nn">folium</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">pyrosm</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyrosm.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">sources</span>
+<span class="kn">import</span> <span class="nn">pyrosm</span>
+<span class="kn">from</span> <span class="nn">pyrosm.data</span> <span class="kn">import</span> <span class="n">sources</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">ops</span>
+<span class="kn">from</span> <span class="nn">shapely</span> <span class="kn">import</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">ops</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ListedColormap</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.font_manager</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">font_manager</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
+<span class="kn">import</span> <span class="nn">matplotlib.font_manager</span> <span class="k">as</span> <span class="nn">font_manager</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cx</span>
+<span class="kn">import</span> <span class="nn">contextily</span> <span class="k">as</span> <span class="nn">cx</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">shapely</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">shapely</span>
+<span class="kn">import</span> <span class="nn">osmnx</span> <span class="k">as</span> <span class="nn">ox</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">re</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="kn">import</span> <span class="n">ElementTree</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="kn">import</span> <span class="n">SubElement</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ET</span>
+<span class="kn">from</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">import</span> <span class="n">ElementTree</span>
+<span class="kn">from</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">import</span> <span class="n">Element</span>
+<span class="kn">from</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">import</span> <span class="n">SubElement</span>
+<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="Logging">
-<h1>Logging<a class="headerlink" href="#Logging" title="Link to this heading"></a></h1>
+<h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -230,14 +232,14 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </section>
 <section id="Fetching-OSM-Data">
-<h1>Fetching OSM Data<a class="headerlink" href="#Fetching-OSM-Data" title="Link to this heading"></a></h1>
+<h1>Fetching OSM Data<a class="headerlink" href="#Fetching-OSM-Data" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">fetch_osm_data</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">output_osm</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">fetch_osm_data</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">output_osm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieves OSM data for the specified area and saves it in an .osm file.</span>
 
@@ -293,9 +295,9 @@ Data successfully retrieved and saved in Example_region.osm.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">subprocess</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">convert_osm_to_pbf</span><span class="p">(</span><span class="n">input_osm</span><span class="p">,</span> <span class="n">output_pbf</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">convert_osm_to_pbf</span><span class="p">(</span><span class="n">input_osm</span><span class="p">,</span> <span class="n">output_pbf</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts an OSM file into a PBF file with osmconvert.exe.</span>
 
@@ -337,7 +339,7 @@ Datei erfolgreich konvertiert: Example_region.pbf
 </div>
 </section>
 <section id="View-.pbf-file">
-<h1>View .pbf file<a class="headerlink" href="#View-.pbf-file" title="Link to this heading"></a></h1>
+<h1>View .pbf file<a class="headerlink" href="#View-.pbf-file" title="Permalink to this heading"></a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -415,7 +417,7 @@ Datei erfolgreich konvertiert: Example_region.pbf
 </div>
 </section>
 <section id="Determine-and-view-topology">
-<h1>Determine and view topology<a class="headerlink" href="#Determine-and-view-topology" title="Link to this heading"></a></h1>
+<h1>Determine and view topology<a class="headerlink" href="#Determine-and-view-topology" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -3770,9 +3772,9 @@ C:\Users\wolters\AppData\Local\Temp\ipykernel_39924\950166968.py:1: FutureWarnin
 </div>
 </section>
 <section id="Exports">
-<h1>Exports<a class="headerlink" href="#Exports" title="Link to this heading"></a></h1>
+<h1>Exports<a class="headerlink" href="#Exports" title="Permalink to this heading"></a></h1>
 <section id="Change-CRS">
-<h2>Change CRS<a class="headerlink" href="#Change-CRS" title="Link to this heading"></a></h2>
+<h2>Change CRS<a class="headerlink" href="#Change-CRS" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
@@ -3785,7 +3787,7 @@ C:\Users\wolters\AppData\Local\Temp\ipykernel_39924\950166968.py:1: FutureWarnin
 </div>
 </section>
 <section id="Column-calculation">
-<h2>Column calculation<a class="headerlink" href="#Column-calculation" title="Link to this heading"></a></h2>
+<h2>Column calculation<a class="headerlink" href="#Column-calculation" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -3875,9 +3877,9 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </section>
 <section id="Shape">
-<h2>Shape<a class="headerlink" href="#Shape" title="Link to this heading"></a></h2>
+<h2>Shape<a class="headerlink" href="#Shape" title="Permalink to this heading"></a></h2>
 <section id="Choose-columns-and-write-Shape">
-<h3>Choose columns and write Shape<a class="headerlink" href="#Choose-columns-and-write-Shape" title="Link to this heading"></a></h3>
+<h3>Choose columns and write Shape<a class="headerlink" href="#Choose-columns-and-write-Shape" title="Permalink to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
@@ -3934,9 +3936,9 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </section>
 <section id="ImportDef">
-<h3>ImportDef<a class="headerlink" href="#ImportDef" title="Link to this heading"></a></h3>
+<h3>ImportDef<a class="headerlink" href="#ImportDef" title="Permalink to this heading"></a></h3>
 <section id="Object-types">
-<h4>Object types<a class="headerlink" href="#Object-types" title="Link to this heading"></a></h4>
+<h4>Object types<a class="headerlink" href="#Object-types" title="Permalink to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
@@ -3946,7 +3948,7 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </div>
 <section id="Knots">
-<h5>Knots<a class="headerlink" href="#Knots" title="Link to this heading"></a></h5>
+<h5>Knots<a class="headerlink" href="#Knots" title="Permalink to this heading"></a></h5>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
@@ -4029,7 +4031,7 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </section>
 <section id="Edges">
-<h5>Edges<a class="headerlink" href="#Edges" title="Link to this heading"></a></h5>
+<h5>Edges<a class="headerlink" href="#Edges" title="Permalink to this heading"></a></h5>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
@@ -4112,7 +4114,7 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </section>
 <section id="Buildings">
-<h5>Buildings<a class="headerlink" href="#Buildings" title="Link to this heading"></a></h5>
+<h5>Buildings<a class="headerlink" href="#Buildings" title="Permalink to this heading"></a></h5>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
@@ -4155,7 +4157,7 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </section>
 <section id="FWVB">
-<h5>FWVB<a class="headerlink" href="#FWVB" title="Link to this heading"></a></h5>
+<h5>FWVB<a class="headerlink" href="#FWVB" title="Permalink to this heading"></a></h5>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
@@ -4199,9 +4201,9 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </section>
 </section>
 <section id="Attributes">
-<h4>Attributes<a class="headerlink" href="#Attributes" title="Link to this heading"></a></h4>
+<h4>Attributes<a class="headerlink" href="#Attributes" title="Permalink to this heading"></a></h4>
 <section id="id1">
-<h5>Knots<a class="headerlink" href="#id1" title="Link to this heading"></a></h5>
+<h5>Knots<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h5>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
@@ -4268,7 +4270,7 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </section>
 <section id="id2">
-<h5>Edges<a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
+<h5>Edges<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h5>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
@@ -4339,7 +4341,7 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </section>
 <section id="id3">
-<h5>Buildings<a class="headerlink" href="#id3" title="Link to this heading"></a></h5>
+<h5>Buildings<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h5>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
@@ -4379,7 +4381,7 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </div>
 </section>
 <section id="id4">
-<h5>FWVB<a class="headerlink" href="#id4" title="Link to this heading"></a></h5>
+<h5>FWVB<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h5>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
@@ -4423,7 +4425,7 @@ ERROR   ; Laenge von Roh-Knotennamen &gt;10!
 </section>
 </section>
 <section id="Write-ImportDef">
-<h4>Write ImportDef<a class="headerlink" href="#Write-ImportDef" title="Link to this heading"></a></h4>
+<h4>Write ImportDef<a class="headerlink" href="#Write-ImportDef" title="Permalink to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>

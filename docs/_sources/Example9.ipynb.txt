@@ -1041,8 +1041,15 @@
    "id": "bbe93645",
    "metadata": {},
    "source": [
-    "This method can calculate shortest travel time between two nodes. It shows us from a choosen source node how long water takes to reach all other nodes in the network based on the the length of pipes and the calculated velocity of water inside them, we get the flow time per pipe (dt = L / v). We do not consider the amount of flow (QM = pi/4 * DN^2 *v) going through the pipes nor the source spectrum. \n",
-    "If we want to determine how the water flows through differnt paths from one source to another destination node we encounter issues, as all paths that are not the shortest are negletected, even if their flow is higher then the shortest path (eg. due to DN difference). We also dont differentiate between water originating from different hot water sources (Fernwaermeeinspeiser)."
+    "This method can calculate shortest travel time between two nodes. It shows us from a choosen source node how long water takes to reach all other nodes in the network based on the the length of pipes and the calculated velocity of water inside them, we get the flow time per pipe (dt = L / v). We do not consider the amount of flow (QM = pi/4 * DN^2 *v) going through the pipes nor the source spectrum. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "98e0687d",
+   "metadata": {},
+   "source": [
+    "If we want to determine how the water flows through differnt paths from one source to another destination node we encounter issues, as all paths that are not the shortest are negletected, even if their flow is higher then the shortest path (eg. due to DN difference). We also dont differentiate between water originating from different hot water sources (Fernwaermeeinspeiser). For this application I do not see the travel time matrix of use."
    ]
   },
   {

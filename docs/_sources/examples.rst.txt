@@ -113,6 +113,18 @@ You can view the Notebook `here <Example8.html>`_.
 
 You can download the Notebook file :download:`here <Example8.ipynb>`.
 
+.. _ex9:
+
+Example 9: Flow Time Matrix
+---------------------------
+
+This Example demonstrates how create a matrix that calculates the flow times between all nodes in a network using dataframes provided by PT3S.
+
+You can view the Notebook `here <Example9.html>`_.
+
+
+You can download the Notebook file :download:`here <Example9.ipynb>`.
+
 .. _exX:
 
 Example X: Example Template

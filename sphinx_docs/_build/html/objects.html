@@ -1,28 +1,30 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Classes and Objects &mdash; PT3S 90.14.51.0.dev1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=838fa8ed" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
 
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=bbec6902"></script>
-      <script src="_static/documentation_options.js?v=c9f58c65"></script>
-      <script src="_static/doctools.js?v=888ff710"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-      <script src="_static/copybutton.js?v=f281be69"></script>
-      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -56,7 +58,6 @@
 <li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Classes and Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#m-object">m Object</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dxAndMxHelperFcts.dxWithMx.__init__"><code class="docutils literal notranslate"><span class="pre">__init__()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dataframes">Dataframes</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#v3-rohr">V3_ROHR</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#v3-knot">V3_KNOT</a></li>
@@ -118,18 +119,18 @@
            <div itemprop="articleBody">
              
   <section id="classes-and-objects">
-<h1>Classes and Objects<a class="headerlink" href="#classes-and-objects" title="Link to this heading"></a></h1>
+<h1>Classes and Objects<a class="headerlink" href="#classes-and-objects" title="Permalink to this heading"></a></h1>
 <p>Welcome to the Classes and Objects page! Here, we will delve into the different classes and objects and their relationship. Refer to the <a class="reference internal" href="functions.html"><span class="doc">Functions</span></a> page to learn more about the functions that create these objects.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Currently, not all Objects that exist in PT3S are documented. These will be added in the future.</p>
 </div>
 <section id="m-object">
-<span id="id1"></span><h2>m Object<a class="headerlink" href="#m-object" title="Link to this heading"></a></h2>
+<span id="id1"></span><h2>m Object<a class="headerlink" href="#m-object" title="Permalink to this heading"></a></h2>
 <p>The m object or dxWithMx object is a wrapper for Dx with attached Mx and the center piece in working with PT3S. It is created by <a class="reference internal" href="functions.html#readdxandmx-label"><span class="std std-ref">Read SIR 3S Model and Results</span></a></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx.__init__">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx.__init__" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx.__init__" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -202,24 +203,23 @@
 </div></blockquote>
 </dd></dl>
 
-<a class="reference internal image-reference" href="_images/combined_image.png"><img alt="classes_dxAndMxHelperFcts" class="align-center" src="_images/combined_image.png" style="width: 100%;" />
-</a>
+<a class="reference internal image-reference" href="_images/combined_image.png"><img alt="classes_dxAndMxHelperFcts" class="align-center" src="_images/combined_image.png" style="width: 100%;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <section id="dataframes">
-<h3>Dataframes<a class="headerlink" href="#dataframes" title="Link to this heading"></a></h3>
+<h3>Dataframes<a class="headerlink" href="#dataframes" title="Permalink to this heading"></a></h3>
 <p>From this object m, you can now access a variety of dataframes created by PT3S based on the model and results</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)])</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)])</span>
 <span class="go">[&#39;V3_AGSN&#39;, &#39;V3_AGSNVEC&#39;, &#39;V3_FWVB&#39;, &#39;V3_KNOT&#39;, &#39;V3_ROHR&#39;, &#39;V3_ROHRVEC&#39;, &#39;V3_VBEL&#39;, &#39;V3_WBLZ&#39;, &#39;dfAGSN&#39;, &#39;dfWBLZ&#39;, &#39;gdf_FWVB&#39;, &#39;gdf_KNOT&#39;, &#39;gdf_ROHR&#39;]</span>
 </pre></div>
 </div>
 <p>The following section presents these dataframes by documenting the functions that create them.</p>
 <section id="v3-rohr">
-<h4>V3_ROHR<a class="headerlink" href="#v3-rohr" title="Link to this heading"></a></h4>
+<h4>V3_ROHR<a class="headerlink" href="#v3-rohr" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_ROHR">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHR" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHR" title="Permalink to this definition"></a></dt>
 <dd><p>V3_ROHR is a m object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -259,7 +259,7 @@
 </table>
 </dd></dl>
 
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">)</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">)</span>
 <span class="go">                      pk                 fkDE  ...        PHRAbs         JVAbs</span>
 <span class="go">0    5442010239090746007  5306805303452857793  ...  1.041356e-02  2.858564e-01</span>
 <span class="go">1    4917786378639043296  5306805303452857793  ...  1.464281e-02  2.559136e-01</span>
@@ -278,10 +278,10 @@
 </div>
 </section>
 <section id="v3-knot">
-<h4>V3_KNOT<a class="headerlink" href="#v3-knot" title="Link to this heading"></a></h4>
+<h4>V3_KNOT<a class="headerlink" href="#v3-knot" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_KNOT">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_KNOT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_V3_KNOT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_KNOT" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_KNOT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_V3_KNOT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_KNOT" title="Permalink to this definition"></a></dt>
 <dd><p>V3_KNOT is a m object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -322,7 +322,7 @@
 </table>
 </dd></dl>
 
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span><span class="p">)</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span><span class="p">)</span>
 <span class="go">                      pk                 fkDE  ...   QM       dPH</span>
 <span class="go">3    5669301360686511351  5306805303452857793  ...  0.0  1.488921</span>
 <span class="go">4    5397948523091900401  5306805303452857793  ...  0.0  1.467910</span>
@@ -341,10 +341,10 @@
 </div>
 </section>
 <section id="v3-vbel">
-<h4>V3_VBEL<a class="headerlink" href="#v3-vbel" title="Link to this heading"></a></h4>
+<h4>V3_VBEL<a class="headerlink" href="#v3-vbel" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_VBEL">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_VBEL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_V3_VBEL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_VBEL" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_VBEL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_V3_VBEL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_VBEL" title="Permalink to this definition"></a></dt>
 <dd><p>V3_VBEL is a m object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -387,7 +387,7 @@
 </table>
 </dd></dl>
 
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_VBEL</span><span class="p">)</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_VBEL</span><span class="p">)</span>
 <span class="go">                                              pk  ...       mlc_k</span>
 <span class="go">OBJTYPE OBJID                                     ...</span>
 <span class="go">FWES    5194722485643852853  5194722485643852853  ...  577.049723</span>
@@ -407,10 +407,10 @@
 </div>
 </section>
 <section id="v3-agsn">
-<h4>V3_AGSN<a class="headerlink" href="#v3-agsn" title="Link to this heading"></a></h4>
+<h4>V3_AGSN<a class="headerlink" href="#v3-agsn" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSN">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfAGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSN" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfAGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSN" title="Permalink to this definition"></a></dt>
 <dd><p>V3_AGSN is a m object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -537,7 +537,7 @@ Timestamp)”_n</p></td>
 </table>
 </dd></dl>
 
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">)</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSN</span><span class="p">)</span>
 <span class="go">    Pos  ... (&#39;TMAX&#39;, &#39;mlc&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;))_n</span>
 <span class="go">0    -1  ...                                          602.48758</span>
 <span class="go">0     0  ...                                          602.48758</span>
@@ -556,10 +556,10 @@ Timestamp)”_n</p></td>
 </div>
 </section>
 <section id="v3-rohrvec">
-<h4>V3_ROHRVEC<a class="headerlink" href="#v3-rohrvec" title="Link to this heading"></a></h4>
+<h4>V3_ROHRVEC<a class="headerlink" href="#v3-rohrvec" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHRVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_ROHRVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_ROHR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_ROHRVEC" title="Permalink to this definition"></a></dt>
 <dd><p>V3_ROHRVEC: Expanding V3_ROHR to V3_ROHRVEC (includes interior points). V3_ROHRVEC is a dxWithMx object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -682,7 +682,7 @@ QMVEC|tMVEC|…’, a Timestamp, a Timestamp)</p></td>
 </table>
 </dd></dl>
 
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="p">)</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHRVEC</span><span class="p">)</span>
 <span class="go">                       pk  ... (TMAX, tMVEC, 2023-02-12 23:00:00, 2023-02-13 23:00:00)</span>
 <span class="go">0     5442010239090746007  ...                                          98.646645</span>
 <span class="go">1     5442010239090746007  ...                                          98.646645</span>
@@ -701,10 +701,10 @@ QMVEC|tMVEC|…’, a Timestamp, a Timestamp)</p></td>
 </div>
 </section>
 <section id="v3-agsnvec">
-<h4>V3_AGSNVEC<a class="headerlink" href="#v3-agsnvec" title="Link to this heading"></a></h4>
+<h4>V3_AGSNVEC<a class="headerlink" href="#v3-agsnvec" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSNVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_AGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_V3_AGSNVEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_AGSN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._V3_AGSNVEC" title="Permalink to this definition"></a></dt>
 <dd><p>V3_AGSNVEC is a m object Attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -873,7 +873,7 @@ sorted([idxt1,idxt2,idxt3,…]):</p></td>
 </table>
 </dd></dl>
 
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="p">)</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_AGSNVEC</span><span class="p">)</span>
 <span class="go">    Pos                   pk  ...      QM_min      QM_max</span>
 <span class="go">0     0  5755933101669454049  ...  287.090085  538.206592</span>
 <span class="go">1     0  5755933101669454049  ...  287.090085  538.206592</span>
@@ -892,10 +892,10 @@ sorted([idxt1,idxt2,idxt3,…]):</p></td>
 </div>
 </section>
 <section id="geodataframes">
-<h4>GeoDataframes<a class="headerlink" href="#geodataframes" title="Link to this heading"></a></h4>
+<h4>GeoDataframes<a class="headerlink" href="#geodataframes" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._gdfs">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_gdfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._gdfs" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_gdfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._gdfs" title="Permalink to this definition"></a></dt>
 <dd><p>gdf_FWVB, gdf_FWVB and gdf_KNOT are m object attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -914,7 +914,7 @@ sorted([idxt1,idxt2,idxt3,…]):</p></td>
 </ul>
 </dd></dl>
 
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span><span class="p">)</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span><span class="p">)</span>
 <span class="go">                      pk  ...                        geometry</span>
 <span class="go">3    5669301360686511351  ...  POINT (713620.268 5578828.419)</span>
 <span class="go">4    5397948523091900401  ...  POINT (713602.295 5578860.106)</span>
@@ -966,17 +966,17 @@ sorted([idxt1,idxt2,idxt3,…]):</p></td>
 </section>
 </section>
 <section id="graphs">
-<h3>Graphs<a class="headerlink" href="#graphs" title="Link to this heading"></a></h3>
+<h3>Graphs<a class="headerlink" href="#graphs" title="Permalink to this heading"></a></h3>
 <p>Also accesible are NetworkX-Graphs and a corresponding dictionnary with node positions.</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))])</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))])</span>
 <span class="go">[&#39;G&#39;, &#39;GSig&#39;, &#39;nodeposDctNx&#39;]</span>
 </pre></div>
 </div>
 <section id="g">
-<h4>G<a class="headerlink" href="#g" title="Link to this heading"></a></h4>
+<h4>G<a class="headerlink" href="#g" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._G">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_G</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_VBEL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_KNOT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._G" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_G</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_VBEL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_KNOT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._G" title="Permalink to this definition"></a></dt>
 <dd><p>G is a m object Attribute: The NetworkX Graph of the Hydraulic Model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1009,10 +1009,10 @@ nodeposDctNx: coordinates of nodes relative to the lower left network corner.</p
 
 </section>
 <section id="gsig">
-<h4>GSig<a class="headerlink" href="#gsig" title="Link to this heading"></a></h4>
+<h4>GSig<a class="headerlink" href="#gsig" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="dxAndMxHelperFcts.dxWithMx._GSig">
-<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_GSig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_RVBEL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_RKNOT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._GSig" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dxAndMxHelperFcts.dxWithMx.</span></span><span class="sig-name descname"><span class="pre">_GSig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_RVBEL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V3_RKNOT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dxAndMxHelperFcts.dxWithMx._GSig" title="Permalink to this definition"></a></dt>
 <dd><p>GSig is a m object Attribute: The NetworkX Graph of the Signal Model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1042,9 +1042,9 @@ node ID: KA (Element’s attribute KA is the ID of the Element’s output signal
 </section>
 </section>
 <section id="miscellaneous">
-<h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading"></a></h3>
+<h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this heading"></a></h3>
 <p>Also accesible SirCalcExecution- and -Xml-File and the dir to mx files</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="nb">str</span><span class="p">)])</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="nb">str</span><span class="p">)])</span>
 <span class="go">[&#39;SirCalcExeFile&#39;,&#39;SirCalcXmlFile&#39;, &#39;flowMVEC&#39;, &#39;wDirMx&#39;]</span>
 </pre></div>
 </div>
@@ -1052,18 +1052,18 @@ node ID: KA (Element’s attribute KA is the ID of the Element’s output signal
 </section>
 </section>
 <section id="dx-object">
-<span id="id2"></span><h2>Dx object<a class="headerlink" href="#dx-object" title="Link to this heading"></a></h2>
+<span id="id2"></span><h2>Dx object<a class="headerlink" href="#dx-object" title="Permalink to this heading"></a></h2>
 <p>You can find data regarding the model at the m.dx object</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">dx</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">dx</span>
 </pre></div>
 </div>
 <p>From this object, you can access the model’s database and its tables.</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> 
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dfALLG</span><span class="o">=</span><span class="n">dx</span><span class="o">.</span><span class="n">dataFrames</span><span class="p">[</span><span class="s1">&#39;ALLG&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <section id="id3">
-<h3>Dataframes<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<h3>Dataframes<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Currently, by far not all dfs that are attributes of a Dx object are documented. Maybe this will be added in the future.
@@ -1071,10 +1071,10 @@ V3-VBEL, _KNOT, _ROHR and _FWVB are dx attributes.
 The corresponding m attributes (V3-VBEL, _KNOT, _ROHR and _FWVB) extend the dx dfs with result columns.</p>
 </div>
 <section id="dflayr">
-<h4>dfLAYR<a class="headerlink" href="#dflayr" title="Link to this heading"></a></h4>
+<h4>dfLAYR<a class="headerlink" href="#dflayr" title="Permalink to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py" id="Dx.Dx._dfLAYR">
-<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx._dfLAYR" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Dx.Dx.</span></span><span class="sig-name descname"><span class="pre">_dfLAYR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Dx.Dx._dfLAYR" title="Permalink to this definition"></a></dt>
 <dd><p>dfLAYR is a dx object Attribute.</p>
 <p>Groups (also called Layers) are used in SIR 3S as a feature for data access, data filtering, and grouping.</p>
 <p>The returned dfLAYR (one row per LAYR and OBJ) has the following columns:</p>
@@ -1141,35 +1141,35 @@ The corresponding m attributes (V3-VBEL, _KNOT, _ROHR and _FWVB) extend the dx d
 </section>
 </section>
 <section id="mx-object">
-<span id="id4"></span><h2>Mx object<a class="headerlink" href="#mx-object" title="Link to this heading"></a></h2>
+<span id="id4"></span><h2>Mx object<a class="headerlink" href="#mx-object" title="Permalink to this heading"></a></h2>
 <p>You can find additional regarding the results at the m.mx object</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">mx</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">mx</span>
 </pre></div>
 </div>
 <p>From this object you can acces the raw time curve and the vector data</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mx</span><span class="o">.</span><span class="n">dfVecAggs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
 </pre></div>
 </div>
 </section>
 <section id="known-issues">
-<h2>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading"></a></h2>
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h2>
 <section id="column-tuple-names">
-<h3>Column tuple names<a class="headerlink" href="#column-tuple-names" title="Link to this heading"></a></h3>
+<h3>Column tuple names<a class="headerlink" href="#column-tuple-names" title="Permalink to this heading"></a></h3>
 <p>Columns containing values that are not generated by PT3S but directly read from SIR 3S are tuples like <cite>(‘STAT’, ‘ROHR~*~*~*~A’, Timestamp(‘2023-02-12 23:00:00’))</cite>.</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)][:</span><span class="mi">10</span><span class="p">])</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)][:</span><span class="mi">10</span><span class="p">])</span>
 <span class="go">[(&#39;STAT&#39;, &#39;ROHR~*~*~*~A&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TIME&#39;, &#39;ROHR~*~*~*~A&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TMIN&#39;, &#39;ROHR~*~*~*~A&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)), (&#39;TMAX&#39;, &#39;ROHR~*~*~*~A&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)), (&#39;STAT&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TMIN&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)), (&#39;TMAX&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-13 23:00:00&#39;)), (&#39;STAT&#39;, &#39;ROHR~*~*~*~DWVERL&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;)), (&#39;TIME&#39;, &#39;ROHR~*~*~*~DWVERL&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))]</span>
 </pre></div>
 </div>
 <p>Often times when using these names with other libraries like pandas, several issues can arise.</p>
 <p>You are not able to access a pandas DataFrame column with such a name. You might have tried like this.</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="s2">&quot;(&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))&quot;</span><span class="p">]</span> 
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="s2">&quot;(&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))&quot;</span><span class="p">]</span> 
 <span class="go">KeyError: &quot;(&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))&quot;</span>
 </pre></div>
 </div>
 <p>Try this instead:</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timestamp</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Timestamp</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">column_name</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;TIME&#39;</span><span class="p">,</span> <span class="s1">&#39;ROHR~*~*~*~DTTR&#39;</span><span class="p">,</span> <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2023-02-12 23:00:00&#39;</span><span class="p">),</span> <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2023-02-12 23:00:00&#39;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">column_data</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">column_data</span><span class="p">)</span>
@@ -1188,7 +1188,7 @@ The corresponding m attributes (V3-VBEL, _KNOT, _ROHR and _FWVB) extend the dx d
 </pre></div>
 </div>
 <p>You could also transform all indices from tuple to string:</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">V3_ROHR</span><span class="p">[</span><span class="s2">&quot;(&#39;TIME&#39;, &#39;ROHR~*~*~*~DTTR&#39;, Timestamp(&#39;2023-02-12 23:00:00&#39;), Timestamp(&#39;2023-02-12 23:00:00&#39;))&quot;</span><span class="p">])</span>
 <span class="go">1       0.025363</span>
 <span class="go">2       0.017844</span>
