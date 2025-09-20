@@ -883,8 +883,8 @@ INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
 </pre></div>
 </div>
 </div>
-<p>This method can calculate shortest travel time between two nodes. It shows us from a choosen source node how long water takes to reach all other nodes in the network based on the the length of pipes and the calculated velocity of water inside them, we get the flow time per pipe (dt = L / v). We do not consider the amount of flow (QM = pi/4 * DN^2 *v) going through the pipes nor the source spectrum. If we want to determine how the water flows through differnt paths from one source to another
-destination node we encounter issues, as all paths that are not the shortest are negletected, even if their flow is higher then the shortest path (eg. due to DN difference). We also dont differentiate between water originating from different hot water sources (Fernwaermeeinspeiser).</p>
+<p>This method can calculate shortest travel time between two nodes. It shows us from a choosen source node how long water takes to reach all other nodes in the network based on the the length of pipes and the calculated velocity of water inside them, we get the flow time per pipe (dt = L / v). We do not consider the amount of flow (QM = pi/4 * DN^2 *v) going through the pipes nor the source spectrum.</p>
+<p>If we want to determine how the water flows through differnt paths from one source to another destination node we encounter issues, as all paths that are not the shortest are negletected, even if their flow is higher then the shortest path (eg. due to DN difference). We also dont differentiate between water originating from different hot water sources (Fernwaermeeinspeiser). For this application I do not see the travel time matrix of use.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
@@ -1165,7 +1165,7 @@ array([[    0. , 14778.2, 16027.8, ..., 22093.4,  1465.5,  5964.8],
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example9_52_0.png" src="_images/Example9_52_0.png" />
+<img alt="_images/Example9_53_0.png" src="_images/Example9_53_0.png" />
 </div>
 </div>
 <section id="Plot-from-actual-sources-(Ferwaermeeinspeiser)">
@@ -1183,7 +1183,7 @@ array([[    0. , 14778.2, 16027.8, ..., 22093.4,  1465.5,  5964.8],
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example9_55_0.png" src="_images/Example9_55_0.png" />
+<img alt="_images/Example9_56_0.png" src="_images/Example9_56_0.png" />
 </div>
 </div>
 </section>
