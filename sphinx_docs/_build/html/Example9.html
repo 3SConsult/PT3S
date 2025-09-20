@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exmaple 9: Flow time matrix &mdash; PT3S 90.14.51.0.dev1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/pt3s_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">Classes and Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">For Developers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PT3S</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Exmaple 9: Flow time matrix</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Example9.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Exmaple-9:-Flow-time-matrix">
+<h1>Exmaple 9: Flow time matrix<a class="headerlink" href="#Exmaple-9:-Flow-time-matrix" title="Permalink to this heading"></a></h1>
+<p>This Example demonstrates how create a matrix that calculates the flow times between all nodes in a network using dataframes provided by PT3S.</p>
+</section>
+<section id="PT3S-Release">
+<h1>PT3S Release<a class="headerlink" href="#PT3S-Release" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install PT3S -U --no-deps</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Necessary-packages-for-this-Example">
+<h1>Necessary packages for this Example<a class="headerlink" href="#Necessary-packages-for-this-Example" title="Permalink to this heading"></a></h1>
+When running this example for the first time on your machine, please execute the cell below. Afterward, you may need to restart the kernel (using the ‘fast-forward’ button).<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install - q ...</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Imports">
+<h1>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">LineString</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">import</span> <span class="nn">networkx</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csc_matrix</span>
+<span class="c1">#...</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">dxAndMxHelperFcts</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">dxAndMxHelperFcts</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Rm</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">Rm</span>
+<span class="c1">#...</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#importlib.reload(dxAndMxHelperFcts)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Logging">
+<h1>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+
+<span class="n">logFileName</span><span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Example9.log&quot;</span>
+
+<span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">logFileName</span>
+                        <span class="p">,</span><span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span>
+                        <span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">loglevel</span>
+                        <span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> ; </span><span class="si">%(name)-60s</span><span class="s2"> ; </span><span class="si">%(levelname)-7s</span><span class="s2"> ; </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">fileHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">logFileName</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">fileHandler</span><span class="p">)</span>
+
+<span class="n">consoleHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+<span class="n">consoleHandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(levelname)-7s</span><span class="s2"> ; </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">))</span>
+<span class="n">consoleHandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">consoleHandler</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Read-Model-and-Results">
+<h1>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example5&quot;</span>
+<span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+                    <span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span>
+                    <span class="o">+</span><span class="n">dbFilename</span>
+                    <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span>
+                                <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span>
+                                <span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span>
+                                <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\PT3S\Examples\Example5.db3 exists readable ...
+INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\PT3S\Examples\Example5.db3 exists readable ...
+INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:
++..\PT3S\Examples\Example5.db3 is newer than
++..\PT3S\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
++SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
++in this case the results are maybe dated or (worse) incompatible to the model
+INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:
++..\PT3S\Examples\Example5.db3 is newer than
++..\PT3S\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
++SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
++in this case the results are maybe dated or (worse) incompatible to the model
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\PT3S\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; Mx.setResultsToMxsFile: Mxs: ..\PT3S\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#...</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Prepare-data">
+<h1>Prepare data<a class="headerlink" href="#Prepare-data" title="Permalink to this heading"></a></h1>
+<section id="Get-all-edges">
+<h2>Get all edges<a class="headerlink" href="#Get-all-edges" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_edges</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_VBEL</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_edges</span><span class="o">=</span><span class="n">df_edges</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_edges</span><span class="o">=</span><span class="n">df_edges</span><span class="p">[[</span><span class="s1">&#39;OBJID&#39;</span><span class="p">,</span> <span class="s1">&#39;OBJTYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;tk_i&#39;</span><span class="p">,</span> <span class="s1">&#39;tk_k&#39;</span><span class="p">,</span> <span class="s1">&#39;NAME_i&#39;</span><span class="p">,</span> <span class="s1">&#39;NAME_k&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_edges</span><span class="o">=</span><span class="n">df_edges</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;OBJID&#39;</span><span class="p">:</span> <span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="s1">&#39;tk_i&#39;</span><span class="p">:</span> <span class="s1">&#39;tki&#39;</span><span class="p">,</span> <span class="s1">&#39;tk_k&#39;</span><span class="p">:</span> <span class="s1">&#39;tkk&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_edges</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tk</th>
+      <th>OBJTYPE</th>
+      <th>tki</th>
+      <th>tkk</th>
+      <th>NAME_i</th>
+      <th>NAME_k</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5175187672733343279</td>
+      <td>FWES</td>
+      <td>5203537039580738995</td>
+      <td>5416018875301313090</td>
+      <td>R-B1</td>
+      <td>V-B1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5237816858835684263</td>
+      <td>FWES</td>
+      <td>5386207966798159734</td>
+      <td>4904045401911412301</td>
+      <td>R-A1x</td>
+      <td>V-A1x</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4615167946623235098</td>
+      <td>FWVB</td>
+      <td>5748663417295233893</td>
+      <td>5076580037121965427</td>
+      <td>V-1172</td>
+      <td>R-1172</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_edges</span><span class="p">[</span><span class="s1">&#39;OBJTYPE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;FWES&#39; &#39;FWVB&#39; &#39;KLAP&#39; &#39;OBEH&#39; &#39;PGRP&#39; &#39;PUMP&#39; &#39;REGV&#39; &#39;ROHR&#39; &#39;VENT&#39;]
+</pre></div></div>
+</div>
+</section>
+<section id="Get-all-nodes">
+<h2>Get all nodes<a class="headerlink" href="#Get-all-nodes" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_nodes</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_nodes</span><span class="o">=</span><span class="n">df_nodes</span><span class="p">[</span><span class="n">df_nodes</span><span class="p">[</span><span class="s1">&#39;KVR&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">1.0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_nodes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pk</th>
+      <th>fkDE</th>
+      <th>rk</th>
+      <th>tk</th>
+      <th>NAME</th>
+      <th>KTYP</th>
+      <th>XKOR</th>
+      <th>YKOR</th>
+      <th>ZKOR</th>
+      <th>QM_EIN</th>
+      <th>...</th>
+      <th>(STAT, KNOT~*~*~*~PMIN_INST, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~QM, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~RHO, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~T, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~VOLD, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>PH</th>
+      <th>QM</th>
+      <th>dPH</th>
+      <th>srcvector</th>
+      <th>T</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4678355169005004036</td>
+      <td>5613149064237404433</td>
+      <td>4678355169005004036</td>
+      <td>4680103632661687203</td>
+      <td>V-3354</td>
+      <td>QKON</td>
+      <td>55176.323661</td>
+      <td>98780.494875</td>
+      <td>29.299999</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>9.574781</td>
+      <td>0.0</td>
+      <td>939.375854</td>
+      <td>125.030182</td>
+      <td>0.0</td>
+      <td>8.574781</td>
+      <td>0.0</td>
+      <td>3.116916</td>
+      <td>[0, 100]</td>
+      <td>125.030182</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5759822415014073091</td>
+      <td>5613149064237404433</td>
+      <td>5759822415014073091</td>
+      <td>5540855804579832866</td>
+      <td>V-1503</td>
+      <td>QKON</td>
+      <td>48826.419913</td>
+      <td>98285.548412</td>
+      <td>30.500000</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>9.352022</td>
+      <td>0.0</td>
+      <td>935.382263</td>
+      <td>129.797485</td>
+      <td>0.0</td>
+      <td>8.352022</td>
+      <td>0.0</td>
+      <td>2.917446</td>
+      <td>[100, 0]</td>
+      <td>129.797485</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5468959419408453250</td>
+      <td>5613149064237404433</td>
+      <td>5468959419408453250</td>
+      <td>5025567272877293202</td>
+      <td>V-3604</td>
+      <td>QKON</td>
+      <td>53007.627163</td>
+      <td>98806.657826</td>
+      <td>26.600000</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>9.856769</td>
+      <td>0.0</td>
+      <td>936.526306</td>
+      <td>128.467102</td>
+      <td>0.0</td>
+      <td>8.856769</td>
+      <td>0.0</td>
+      <td>3.175158</td>
+      <td>[96, 4]</td>
+      <td>128.467102</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 152 columns</p>
+</div></div>
+</div>
+</section>
+<section id="Determine-length,-velocity,-flow-time,-geometry-per-edge">
+<h2>Determine length, velocity, flow time, geometry per edge<a class="headerlink" href="#Determine-length,-velocity,-flow-time,-geometry-per-edge" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pipes</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vav_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_pipes</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;VAV&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">))]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">vav_cols</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[(&#39;STAT&#39;, &#39;ROHR~*~*~*~VAV&#39;, Timestamp(&#39;2024-01-09 23:00:00&#39;), Timestamp(&#39;2024-01-09 23:00:00&#39;)), &#39;VAVAbs&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="o">=</span><span class="n">vav_cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># we use the signed value</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_edges</span> <span class="o">=</span> <span class="n">df_edges</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">df_pipes</span><span class="p">[[</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">]],</span>
+    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tk&#39;</span><span class="p">,</span>
+    <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_edges</span> <span class="o">=</span> <span class="n">df_edges</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="s2">&quot;v&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<p>we assume dt=0.001 for non-pipe edges</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DEFAULT_DT</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+<span class="n">df_edges</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_edges</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">DEFAULT_DT</span><span class="p">,</span>
+    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_edges</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tk</th>
+      <th>OBJTYPE</th>
+      <th>tki</th>
+      <th>tkk</th>
+      <th>NAME_i</th>
+      <th>NAME_k</th>
+      <th>v</th>
+      <th>L</th>
+      <th>geometry</th>
+      <th>dt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5175187672733343279</td>
+      <td>FWES</td>
+      <td>5203537039580738995</td>
+      <td>5416018875301313090</td>
+      <td>R-B1</td>
+      <td>V-B1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>0.001</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5237816858835684263</td>
+      <td>FWES</td>
+      <td>5386207966798159734</td>
+      <td>4904045401911412301</td>
+      <td>R-A1x</td>
+      <td>V-A1x</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>0.001</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4615167946623235098</td>
+      <td>FWVB</td>
+      <td>5748663417295233893</td>
+      <td>5076580037121965427</td>
+      <td>V-1172</td>
+      <td>R-1172</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>0.001</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+</section>
+<section id="Travel-Time-Matrix">
+<h1>Travel Time Matrix<a class="headerlink" href="#Travel-Time-Matrix" title="Permalink to this heading"></a></h1>
+<section id="Implementation">
+<h2>Implementation<a class="headerlink" href="#Implementation" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMAX_DETECT</span> <span class="o">=</span> <span class="mf">1.0e12</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">setup_graph</span><span class="p">(</span><span class="n">df_data_results_edges</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Setup graph from edges data and results.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df_data_results_edges: pandas.DataFrame</span>
+<span class="sd">        Edges data and results.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    G : networkx.Graph</span>
+<span class="sd">        Graph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Nodes: index mapping (here via tk of nodes, alternatively via names of nodes)</span>
+    <span class="n">list_nodes_tk</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;tki&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;tkk&quot;</span><span class="p">]))))</span>
+    <span class="n">map_nodes_tk_ind</span> <span class="o">=</span> <span class="p">{</span><span class="n">list_nodes_tk</span><span class="p">[</span><span class="n">ii</span><span class="p">]:</span> <span class="n">ii</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_nodes_tk</span><span class="p">))}</span>
+
+    <span class="c1"># Adapt DataFrame</span>
+    <span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;indi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;tki&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">map_nodes_tk_ind</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+    <span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;indk&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;tkk&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">map_nodes_tk_ind</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+
+    <span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;indi_new&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data_results_edges</span><span class="p">[[</span><span class="s2">&quot;indi&quot;</span><span class="p">,</span> <span class="s2">&quot;indk&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;indk_new&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data_results_edges</span><span class="p">[[</span><span class="s2">&quot;indi&quot;</span><span class="p">,</span> <span class="s2">&quot;indk&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;dt_new&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;indk&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;indi&quot;</span><span class="p">])</span><span class="o">*</span><span class="n">df_data_results_edges</span><span class="p">[</span><span class="s2">&quot;dt&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Setup graph</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">networkx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df_data_results_edges</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;indi_new&#39;</span><span class="p">],</span>  <span class="c1"># Start node</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;indk_new&#39;</span><span class="p">],</span>  <span class="c1"># End node</span>
+            <span class="c1"># Additional edge attributes</span>
+            <span class="n">dt</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;dt_new&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Out</span>
+    <span class="k">return</span> <span class="n">G</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bfs_observedNodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">tmax</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Breadth-first-search starting at source.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    G : networkx.Graph</span>
+<span class="sd">        Graph.</span>
+<span class="sd">    source : int</span>
+<span class="sd">        Source node.</span>
+<span class="sd">    tmax : float</span>
+<span class="sd">        Maximum travel time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">source</span><span class="p">])</span>
+    <span class="n">neighbors</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">neighbors</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([(</span><span class="n">source</span><span class="p">,</span> <span class="n">neighbors</span><span class="p">(</span><span class="n">source</span><span class="p">))])</span>
+
+    <span class="n">dt_travel_sum</span> <span class="o">=</span> <span class="p">{</span><span class="n">source</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">parent</span><span class="p">,</span> <span class="n">children</span> <span class="o">=</span> <span class="n">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">child</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
+
+            <span class="n">edge</span> <span class="o">=</span> <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">child</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">child</span><span class="p">))</span>
+            <span class="n">sign_dt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">child</span> <span class="o">-</span> <span class="n">parent</span><span class="p">)</span>
+
+            <span class="n">dt_travel</span> <span class="o">=</span> <span class="n">sign_dt</span><span class="o">*</span><span class="n">G</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
+            <span class="n">dt_travel_sum</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt_travel_sum</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dt_travel</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">((</span><span class="n">child</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">dt_travel_sum</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tmax</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dt_travel</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">parent</span><span class="p">,</span> <span class="n">child</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">child</span><span class="p">,</span> <span class="n">neighbors</span><span class="p">(</span><span class="n">child</span><span class="p">)))</span>
+
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">setup_travelTimeMatrix</span><span class="p">(</span><span class="n">df_data_results_edges</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Setup travel time matrix from edges data and results.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df_data_results_edges: pandas.DataFrame</span>
+<span class="sd">        Edges data and results.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    TMat : numpy.ndarray</span>
+<span class="sd">        Travel time matrix.</span>
+<span class="sd">    map_nodes_tk_ind : dict</span>
+<span class="sd">        Mapping nodes tk to index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Setup graph</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span> <span class="o">=</span> <span class="n">setup_graph</span><span class="p">(</span><span class="n">df_data_results_edges</span><span class="p">)</span>
+
+    <span class="c1"># Find sets of observed nodes by bfs search and setup matrix V</span>
+    <span class="n">obsNodes</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">obsNodesL</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">travelTimesAccObsNodesDict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">iSens</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+
+        <span class="n">bfs_edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">bfs_observedNodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">iSens</span><span class="p">,</span> <span class="n">TMAX_DETECT</span><span class="p">))</span>
+
+        <span class="n">nodesSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">endNodeLDict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">lli</span><span class="p">,</span> <span class="n">llk</span><span class="p">)</span> <span class="ow">in</span> <span class="n">bfs_edges</span><span class="p">:</span>
+            <span class="n">nodesSet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lli</span><span class="p">)</span>
+            <span class="n">nodesSet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">llk</span><span class="p">)</span>
+            <span class="n">edgex</span> <span class="o">=</span> <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">lli</span><span class="p">,</span> <span class="n">llk</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">lli</span><span class="p">,</span> <span class="n">llk</span><span class="p">))</span>
+            <span class="n">endNodeLDict</span><span class="p">[</span><span class="n">llk</span><span class="p">]</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">edgex</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">edgex</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodesSet</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">obsNodes</span><span class="p">[</span><span class="n">iSens</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodesSet</span> <span class="o">-</span> <span class="p">{</span><span class="n">iSens</span><span class="p">}</span>
+            <span class="n">obsNodesL</span><span class="p">[</span><span class="n">iSens</span><span class="p">]</span> <span class="o">=</span> <span class="n">endNodeLDict</span>
+
+        <span class="c1"># Calculate travel time matrix data</span>
+        <span class="n">edgesListUse</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">edgex</span> <span class="ow">in</span> <span class="n">bfs_edges</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">kx</span><span class="p">)</span> <span class="o">=</span> <span class="n">edgex</span>
+            <span class="n">ix_new</span><span class="p">,</span> <span class="n">kx_new</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">kx</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">kx</span><span class="p">)</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">ix_new</span><span class="p">][</span><span class="n">kx_new</span><span class="p">][</span><span class="s1">&#39;dt&#39;</span><span class="p">])</span>
+            <span class="n">edgesListUse</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ix_new</span><span class="p">,</span> <span class="n">kx_new</span><span class="p">,</span> <span class="n">weight</span><span class="p">))</span>
+
+        <span class="n">Gtrav</span> <span class="o">=</span> <span class="n">networkx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edgesListUse</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">Gtrav</span><span class="o">.</span><span class="n">add_weighted_edges_from</span><span class="p">(</span><span class="n">edgesListUse</span><span class="p">)</span>
+            <span class="n">travelTimesAccObsNodesDict</span><span class="p">[</span><span class="n">iSens</span><span class="p">]</span> <span class="o">=</span> <span class="n">networkx</span><span class="o">.</span><span class="n">single_source_dijkstra_path_length</span><span class="p">(</span>
+                <span class="n">Gtrav</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">iSens</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Setup travel time matrix</span>
+    <span class="n">rowsTTrav</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">columnsTTrav</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dataTTrav</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">iSens</span> <span class="ow">in</span> <span class="n">obsNodes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="c1"># travel time from node to sensor</span>
+        <span class="n">ttravs</span> <span class="o">=</span> <span class="n">travelTimesAccObsNodesDict</span><span class="p">[</span><span class="n">iSens</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">iObserved</span> <span class="ow">in</span> <span class="n">ttravs</span><span class="p">:</span>
+            <span class="n">rowsTTrav</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iSens</span><span class="p">)</span>
+            <span class="n">columnsTTrav</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iObserved</span><span class="p">)</span>
+            <span class="n">dataTTrav</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ttravs</span><span class="p">[</span><span class="n">iObserved</span><span class="p">])</span>
+
+    <span class="n">TMatSparse</span> <span class="o">=</span> <span class="n">csc_matrix</span><span class="p">((</span><span class="n">dataTTrav</span><span class="p">,</span> <span class="p">(</span><span class="n">rowsTTrav</span><span class="p">,</span> <span class="n">columnsTTrav</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">)))</span>
+
+    <span class="c1"># Trafo to dense matrices</span>
+    <span class="n">TMat</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">*</span><span class="n">TMatSparse</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+    <span class="c1"># Out</span>
+    <span class="k">return</span> <span class="n">TMat</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Use">
+<h2>Use<a class="headerlink" href="#Use" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span> <span class="o">=</span> <span class="n">setup_travelTimeMatrix</span><span class="p">(</span><span class="n">df_edges</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>This method can calculate shortest travel time between two nodes. It shows us from a choosen source node how long water takes to reach all other nodes in the network based on the the length of pipes and the calculated velocity of water inside them, we get the flow time per pipe (dt = L / v). We do not consider the amount of flow (QM = pi/4 * DN^2 *v) going through the pipes nor the source spectrum. If we want to determine how the water flows through differnt paths from one source to another
+destination node we encounter issues, as all paths that are not the shortest are negletected, even if their flow is higher then the shortest path (eg. due to DN difference). We also dont differentiate between water originating from different hot water sources (Fernwaermeeinspeiser).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numpy</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">TMat</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[    0. , 14778.2, 16027.8, ..., 22093.4,  1465.5,  5964.8],
+       [15975.7,     0. , 11128.1, ..., 13145.8, 17441.2, 14289.8],
+       [16297.5, 10200.3,     0. , ..., 17515.5, 17763. , 14611.6],
+       ...,
+       [    0. ,     0. ,     0. , ...,     0. ,     0. ,     0. ],
+       [10794.8, 16212.1, 17461.7, ..., 23527.3,     0. ,  6438.7],
+       [55182.7, 62482.6, 63732.2, ..., 69797.8, 55407.1,     0. ]])
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Plot">
+<h1>Plot<a class="headerlink" href="#Plot" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_flow_time_from_source</span><span class="p">(</span><span class="n">source_tk</span><span class="p">,</span> <span class="n">travel_time_matrix</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span><span class="p">,</span> <span class="n">df_nodes</span><span class="p">):</span>
+    <span class="c1"># Reverse the mapping to get index -&gt; tk</span>
+    <span class="n">map_ind_tk</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">map_nodes_tk_ind</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="c1"># Filter df_nodes based on XKOR &gt; 40000 and YKOR &gt; 80000</span>
+    <span class="n">df_nodes_filtered</span> <span class="o">=</span> <span class="n">df_nodes</span><span class="p">[(</span><span class="n">df_nodes</span><span class="p">[</span><span class="s1">&#39;XKOR&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">40000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_nodes</span><span class="p">[</span><span class="s1">&#39;YKOR&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">80000</span><span class="p">)]</span>
+
+    <span class="c1"># Create a mapping from tk to coordinates</span>
+    <span class="n">tk_to_coords</span> <span class="o">=</span> <span class="n">df_nodes_filtered</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[[</span><span class="s1">&#39;XKOR&#39;</span><span class="p">,</span> <span class="s1">&#39;YKOR&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Get source index</span>
+    <span class="k">if</span> <span class="n">source_tk</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">map_nodes_tk_ind</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Source tk </span><span class="si">{</span><span class="n">source_tk</span><span class="si">}</span><span class="s2"> not found in mapping.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">source_index</span> <span class="o">=</span> <span class="n">map_nodes_tk_ind</span><span class="p">[</span><span class="n">source_tk</span><span class="p">]</span>
+    <span class="n">travel_times</span> <span class="o">=</span> <span class="n">travel_time_matrix</span><span class="p">[</span><span class="n">source_index</span><span class="p">]</span>
+
+    <span class="c1"># Prepare lists for plotting</span>
+    <span class="n">x_nonzero</span><span class="p">,</span> <span class="n">y_nonzero</span><span class="p">,</span> <span class="n">c_nonzero</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">x_zero</span><span class="p">,</span> <span class="n">y_zero</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">time</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">travel_times</span><span class="p">):</span>
+        <span class="n">tk</span> <span class="o">=</span> <span class="n">map_ind_tk</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tk</span> <span class="ow">in</span> <span class="n">tk_to_coords</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">tk_to_coords</span><span class="p">[</span><span class="n">tk</span><span class="p">][</span><span class="s1">&#39;XKOR&#39;</span><span class="p">],</span> <span class="n">tk_to_coords</span><span class="p">[</span><span class="n">tk</span><span class="p">][</span><span class="s1">&#39;YKOR&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">source_index</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># skip source node</span>
+            <span class="k">if</span> <span class="n">time</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="n">x_zero</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="n">y_zero</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">x_nonzero</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="n">y_nonzero</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">c_nonzero</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
+    <span class="n">scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_nonzero</span><span class="p">,</span> <span class="n">y_nonzero</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c_nonzero</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Travel Time &gt; 0&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_zero</span><span class="p">,</span> <span class="n">y_zero</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Travel Time = 0&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Mark the source node</span>
+    <span class="k">if</span> <span class="n">source_tk</span> <span class="ow">in</span> <span class="n">tk_to_coords</span><span class="p">:</span>
+        <span class="n">x_src</span><span class="p">,</span> <span class="n">y_src</span> <span class="o">=</span> <span class="n">tk_to_coords</span><span class="p">[</span><span class="n">source_tk</span><span class="p">][</span><span class="s1">&#39;XKOR&#39;</span><span class="p">],</span> <span class="n">tk_to_coords</span><span class="p">[</span><span class="n">source_tk</span><span class="p">][</span><span class="s1">&#39;YKOR&#39;</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_src</span><span class="p">,</span> <span class="n">y_src</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Source Node&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scatter</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Travel Time&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;XKOR&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;YKOR&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Travel Time from Source Node </span><span class="si">{</span><span class="n">source_tk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_nodes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pk</th>
+      <th>fkDE</th>
+      <th>rk</th>
+      <th>tk</th>
+      <th>NAME</th>
+      <th>KTYP</th>
+      <th>XKOR</th>
+      <th>YKOR</th>
+      <th>ZKOR</th>
+      <th>QM_EIN</th>
+      <th>...</th>
+      <th>(STAT, KNOT~*~*~*~PMIN_INST, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~QM, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~RHO, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~T, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>(STAT, KNOT~*~*~*~VOLD, 2024-01-09 23:00:00, 2024-01-09 23:00:00)</th>
+      <th>PH</th>
+      <th>QM</th>
+      <th>dPH</th>
+      <th>srcvector</th>
+      <th>T</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4678355169005004036</td>
+      <td>5613149064237404433</td>
+      <td>4678355169005004036</td>
+      <td>4680103632661687203</td>
+      <td>V-3354</td>
+      <td>QKON</td>
+      <td>55176.323661</td>
+      <td>98780.494875</td>
+      <td>29.299999</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>9.574781</td>
+      <td>0.0</td>
+      <td>939.375854</td>
+      <td>125.030182</td>
+      <td>0.0</td>
+      <td>8.574781</td>
+      <td>0.0</td>
+      <td>3.116916</td>
+      <td>[0, 100]</td>
+      <td>125.030182</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5759822415014073091</td>
+      <td>5613149064237404433</td>
+      <td>5759822415014073091</td>
+      <td>5540855804579832866</td>
+      <td>V-1503</td>
+      <td>QKON</td>
+      <td>48826.419913</td>
+      <td>98285.548412</td>
+      <td>30.500000</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>9.352022</td>
+      <td>0.0</td>
+      <td>935.382263</td>
+      <td>129.797485</td>
+      <td>0.0</td>
+      <td>8.352022</td>
+      <td>0.0</td>
+      <td>2.917446</td>
+      <td>[100, 0]</td>
+      <td>129.797485</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5468959419408453250</td>
+      <td>5613149064237404433</td>
+      <td>5468959419408453250</td>
+      <td>5025567272877293202</td>
+      <td>V-3604</td>
+      <td>QKON</td>
+      <td>53007.627163</td>
+      <td>98806.657826</td>
+      <td>26.600000</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>9.856769</td>
+      <td>0.0</td>
+      <td>936.526306</td>
+      <td>128.467102</td>
+      <td>0.0</td>
+      <td>8.856769</td>
+      <td>0.0</td>
+      <td>3.175158</td>
+      <td>[96, 4]</td>
+      <td>128.467102</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5526072131156860534</td>
+      <td>5613149064237404433</td>
+      <td>5526072131156860534</td>
+      <td>4660263951317730783</td>
+      <td>V-IHAF1</td>
+      <td>QKON</td>
+      <td>47711.710479</td>
+      <td>98384.669793</td>
+      <td>27.600000</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>8.944877</td>
+      <td>0.0</td>
+      <td>938.919312</td>
+      <td>125.600891</td>
+      <td>0.0</td>
+      <td>7.944877</td>
+      <td>0.0</td>
+      <td>1.545254</td>
+      <td>[100, 0]</td>
+      <td>125.600891</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>4775668378312608776</td>
+      <td>5613149064237404433</td>
+      <td>4775668378312608776</td>
+      <td>5294552132139044612</td>
+      <td>V-1723</td>
+      <td>QKON</td>
+      <td>48064.236585</td>
+      <td>97197.304005</td>
+      <td>33.200001</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>8.403908</td>
+      <td>0.0</td>
+      <td>936.008301</td>
+      <td>129.101837</td>
+      <td>0.0</td>
+      <td>7.403908</td>
+      <td>0.0</td>
+      <td>1.526738</td>
+      <td>[98, 2]</td>
+      <td>129.101837</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 152 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_flow_time_from_source</span><span class="p">(</span><span class="s2">&quot;5540855804579832866&quot;</span><span class="p">,</span> <span class="n">TMat</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span><span class="p">,</span> <span class="n">df_nodes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example9_52_0.png" src="_images/Example9_52_0.png" />
+</div>
+</div>
+<section id="Plot-from-actual-sources-(Ferwaermeeinspeiser)">
+<h2>Plot from actual sources (Ferwaermeeinspeiser)<a class="headerlink" href="#Plot-from-actual-sources-(Ferwaermeeinspeiser)" title="Permalink to this heading"></a></h2>
+<p>A: 5011622445515665493 B: 5152316559510921719</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_flow_time_from_source</span><span class="p">(</span><span class="s2">&quot;5011622445515665493&quot;</span><span class="p">,</span> <span class="n">TMat</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span><span class="p">,</span> <span class="n">df_nodes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example9_55_0.png" src="_images/Example9_55_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1986-2025, 3S Consult GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
