@@ -761,22 +761,48 @@ class dxWithMx():
                
             try:                                                         
                  dPH='dPH'
-                 def getdPH(row,df_V3_KNOT):
-                     
-                     df=df_V3_KNOT[df_V3_KNOT['tk']==row['fk2LKNOT']]
-                     if df.empty:
+
+                 dfTk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='tk',how='left',suffixes=('','_2L'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_2L','_merge'])
+                 dfPk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='pk',how='left',suffixes=('','_2L'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_2L','_merge'])
+                 if dfTk['_merge'].value_counts(dropna=False).both >= dfPk['_merge'].value_counts(dropna=False).both:
+                     df=dfTk
+                 else:
+                     df=dfPk
+                 def getdPH(row):
+                     if pd.isnull(row['PH_2L']):
                          return None
-                     s=df.iloc[0]
+                                    
+                     dPH=row['PH']-row['PH_2L']
                      if row['KVR'] in [1,1.,'1','1.']:
-                         return row['PH']-s.PH
+                         return dPH
                      elif row['KVR'] in [2,2.,'2','2.']:
-                         return -(row['PH']-s.PH)
+                         return -dPH
                      else:
                          return None
+
+
+                 df[dPH]=df.apply(lambda row: getdPH(row) ,axis=1)
+                 df=df.drop('PH_2L',axis=1)
+                 df_V3_KNOT=df
+                 logger.debug(f"{logStr}Constructing of V3_KNOT[{dPH}] ok so far.")     
+
+                #  def getdPH(row,df_V3_KNOT):
+                     
+                #      df=df_V3_KNOT[df_V3_KNOT['tk']==row['fk2LKNOT']]
+                #      if df.empty:
+                #          return None
+                #      s=df.iloc[0]
+                #      if row['KVR'] in [1,1.,'1','1.']:
+                #          return row['PH']-s.PH
+                #      elif row['KVR'] in [2,2.,'2','2.']:
+                #          return -(row['PH']-s.PH)
+                #      else:
+                #          return None
                          
-                 df_V3_KNOT[dPH]=None   
-                 df_V3_KNOT[dPH]=df_V3_KNOT.apply(lambda row: getdPH(row,df_V3_KNOT),axis=1)
-                 logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far.")                                                      
+                #  df_V3_KNOT[dPH]=None   
+                #  df_V3_KNOT[dPH]=df_V3_KNOT.apply(lambda row: getdPH(row,df_V3_KNOT),axis=1)
+                #  logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far.")                                                      
+
             except Exception as e:
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                  logger.debug(logStrTmp) 

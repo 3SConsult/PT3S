@@ -660,7 +660,7 @@ class Dx():
             for dfRefStr, fkRefStr, refName in zip(['LTGR', 'STRASSE'], ['fkLTGR', 'fkSTRASSE'], ['LTGR', 'STRASSE']):
                 dfRef = self.dataFrames[dfRefStr]
 
-                extV = extV.merge(dfRef.add_suffix('_'+refName), left_on=fkRefStr, right_on='pk' +
+                extV = extV.merge(dfRef.add_suffix('_'+refName), left_on=fkRefStr, right_on='tk' +
                                   '_'+refName, how='left').filter(items=extV.columns.to_list()+['NAME'+'_'+refName])
             
                 
