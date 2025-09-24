@@ -20,7 +20,7 @@ Beware the 90.15 versions do not work with 90.14 models.
 **Changes**:
 
 - V3_ROHR: NAME_LTGR and NAME_STRASSE: LTGR and STRASSE are referenced now with tk instead of pk
-- V3_KNOT: dPH is now calculated faster
+- V3_KNOT: dPH is now calculated faster, TTR (fluid age) new column
 
 SIR 3S Version 90.14 
 --------------------
