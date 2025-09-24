@@ -722,17 +722,18 @@ class dxWithMx():
         +-----------------------------+------------------------------------------------------+
         | M                           | STAT M-result (kg/s)                                 |
         +-----------------------------+------------------------------------------------------+
-                
+        | TTR                         + STAT Fluid age (h)                                   |
+        +------------------------------------------------------------------------------------+   
     
         """   
                 
         logStr = "{0:s}.{1:s}: ".format(self.__class__.__name__, sys._getframe().f_code.co_name)
         logger.debug(f"{logStr}Start.") 
-        
+        logger.debug(f"All cols of df_V3_KNOT{df_V3_KNOT.columns.to_list()}")
         try: 
                     
             t0=pd.Timestamp(self.mx.df.index[0].strftime('%Y-%m-%d %X.%f'))
-            
+                             
             try:                                                         
                  PH=('STAT'
                              ,'KNOT~*~*~*~PH'
@@ -758,56 +759,6 @@ class dxWithMx():
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                  logger.debug(logStrTmp) 
                  logger.debug("{0:s}{1:s}".format(logStr,'Constructing col QM in V3_KNOT failed.'))
-               
-            try:                                                         
-                 dPH='dPH'
-
-                 dfTk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='tk',how='left',suffixes=('','_2L'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_2L','_merge'])
-                 dfPk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='pk',how='left',suffixes=('','_2L'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_2L','_merge'])
-                 if dfTk['_merge'].value_counts(dropna=False).both >= dfPk['_merge'].value_counts(dropna=False).both:
-                     df=dfTk
-                 else:
-                     df=dfPk
-                 def getdPH(row):
-                     if pd.isnull(row['PH_2L']):
-                         return None
-                                    
-                     dPH=row['PH']-row['PH_2L']
-                     if row['KVR'] in [1,1.,'1','1.']:
-                         return dPH
-                     elif row['KVR'] in [2,2.,'2','2.']:
-                         return -dPH
-                     else:
-                         return None
-
-
-                 df[dPH]=df.apply(lambda row: getdPH(row) ,axis=1)
-                 df=df.drop('PH_2L',axis=1)
-                 df_V3_KNOT=df
-                 logger.debug(f"{logStr}Constructing of V3_KNOT[{dPH}] ok so far.")     
-
-                #  def getdPH(row,df_V3_KNOT):
-                     
-                #      df=df_V3_KNOT[df_V3_KNOT['tk']==row['fk2LKNOT']]
-                #      if df.empty:
-                #          return None
-                #      s=df.iloc[0]
-                #      if row['KVR'] in [1,1.,'1','1.']:
-                #          return row['PH']-s.PH
-                #      elif row['KVR'] in [2,2.,'2','2.']:
-                #          return -(row['PH']-s.PH)
-                #      else:
-                #          return None
-                         
-                #  df_V3_KNOT[dPH]=None   
-                #  df_V3_KNOT[dPH]=df_V3_KNOT.apply(lambda row: getdPH(row,df_V3_KNOT),axis=1)
-                #  logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far.")                                                      
-
-            except Exception as e:
-                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
-                 logger.debug(logStrTmp) 
-                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col dPH in V3_KNOT failed.'))      
-
             try:                                                         
                 qs=('STAT'
                             ,'KNOT~*~*~*~ESQUELLSP'
@@ -815,6 +766,7 @@ class dxWithMx():
                             ,t0
                             )
                 #logger.debug("df before: {}".format(df_V3_KNOT))
+                logger.debug(f"qs: {(qs in df_V3_KNOT.columns)}")
                 df_V3_KNOT['qsStr'] = df_V3_KNOT[qs].str.decode('utf-8')
                 df_V3_KNOT['qsStr'] = df_V3_KNOT['qsStr'].str.rstrip()    
                 df_V3_KNOT['srcvector'] = df_V3_KNOT['qsStr'].apply(lambda x: [x.split('\t')[0].strip()] + [elem.strip() for elem in x.split('\t')[1:]])  
@@ -850,8 +802,69 @@ class dxWithMx():
             except Exception as e:
                  logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
                  logger.debug(logStrTmp) 
-                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col M in V3_KNOT failed.'))                       
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col M in V3_KNOT failed.'))     
+            try:                                                         
+                 TTR=('STAT'
+                             ,'KNOT~*~*~*~TTR'
+                             ,t0
+                             ,t0
+                             )
+                 df_V3_KNOT['TTR']=df_V3_KNOT[TTR]      
+                 logger.debug("{0:s}{1:s}".format(logStr,"Constructing of V3_KNOT['TTR'] ok so far."))                                                      
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col TTR in V3_KNOT failed.'))        
+            try:                                                         
+                 dPH='dPH'
 
+                 dfTk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='tk',how='left',suffixes=('','_2L'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_2L','_merge'])
+                 dfPk=pd.merge(df_V3_KNOT,df_V3_KNOT,left_on='fk2LKNOT',right_on='pk',how='left',suffixes=('','_2L'),indicator=True).filter(items=df_V3_KNOT.columns.to_list()+['PH_2L','_merge'])
+                 if dfTk['_merge'].value_counts(dropna=False).both >= dfPk['_merge'].value_counts(dropna=False).both:
+                     df=dfTk
+                 else:
+                     df=dfPk
+                 def getdPH(row):
+                     if pd.isnull(row['PH_2L']):
+                         return None
+                                    
+                     dPH=row['PH']-row['PH_2L']
+                     if row['KVR'] in [1,1.,'1','1.']:
+                         return dPH
+                     elif row['KVR'] in [2,2.,'2','2.']:
+                         return -dPH
+                     else:
+                         return None
+
+
+                 df[dPH]=df.apply(lambda row: getdPH(row) ,axis=1)
+                 df=df.drop('PH_2L',axis=1)
+                 df_V3_KNOT=df
+                 logger.debug(f"Cols of df_V3_KNOT: {df_V3_KNOT.columns.to_list()}")     
+                 logger.debug(f"{logStr}Constructing of V3_KNOT[{dPH}] ok so far.")     
+
+                #  def getdPH(row,df_V3_KNOT):
+                     
+                #      df=df_V3_KNOT[df_V3_KNOT['tk']==row['fk2LKNOT']]
+                #      if df.empty:
+                #          return None
+                #      s=df.iloc[0]
+                #      if row['KVR'] in [1,1.,'1','1.']:
+                #          return row['PH']-s.PH
+                #      elif row['KVR'] in [2,2.,'2','2.']:
+                #          return -(row['PH']-s.PH)
+                #      else:
+                #          return None
+                         
+                #  df_V3_KNOT[dPH]=None   
+                #  df_V3_KNOT[dPH]=df_V3_KNOT.apply(lambda row: getdPH(row,df_V3_KNOT),axis=1)
+                #  logger.debug(f"{logStr}Constructing of V3_KNOT[dPH] ok so far.")                                                      
+
+            except Exception as e:
+                 logStrTmp="{:s}Exception: Line: {:d}: {!s:s}: {:s}".format(logStr,sys.exc_info()[-1].tb_lineno,type(e),str(e))
+                 logger.debug(logStrTmp) 
+                 logger.debug("{0:s}{1:s}".format(logStr,'Constructing col dPH in V3_KNOT failed.'))      
+            #logger.debug(f"cols of df_V3_KNOT: {df_V3_KNOT.columns}")
             return df_V3_KNOT   
         except dxWithMxError:
             raise            
