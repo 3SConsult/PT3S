@@ -167,4 +167,11 @@ Plot Fluid Age
 
 .. autofunction:: ncd.plot_ttr_network
 
-Refer to :ref:`ex7`. It uses this function.  
+Refer to :ref:`ex7` or :ref:`ex9`. They use this function.  
+
+Plot Travel Time
+--------------
+
+.. autofunction:: ncd.plot_travel_time_from_source
+
+Refer to :ref:`ex9`. It uses this function.  
