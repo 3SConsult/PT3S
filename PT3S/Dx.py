@@ -800,7 +800,8 @@ class Dx():
                         return point.y
                 except Exception as e:
                     return None
-                
+            
+            # The following try/except block is needed for SIR Quebec, but causes issues with SIR 3S Potsdam
             try:
                 # Convert WKB to Shapely geometries
                 vKNOT['GEOMWKB_converted'] = vKNOT['GEOMWKB'].apply(convert_wkb_to_geometry)
@@ -812,10 +813,10 @@ class Dx():
                 logger.debug("{0:s} Converting and creating geometry with x, y coordinates for nodes successful".format(logStr))
             except Exception as e:
                 logger.debug("{0:s} Converting and creating geometry with x, y coordinates for nodes NOT successful".format(logStr))
-
+            
             vKNOT = pd.merge(self.dataFrames['V_BVZ_KNOT'], self.dataFrames['V_VKNO'].add_suffix(
                 '_VKNO'), left_on='tk', right_on='fkKNOT_VKNO', how='left')
-
+             
             extV = vKNOT
             for dfRefStr, fkRefStr, refName in zip(['LFKT', 'PVAR', 'PZON', 'QVAR', 'UTMP', 'FSTF', 'FQPS'], ['fkLFKT', 'fkPVAR', 'fkPZON', 'fkQVAR', 'fkUTMP', 'fkFSTF', 'fkFQPS'], ['LFKT', 'PVAR', 'PZON', 'QVAR', 'UTMP', 'FSTF', 'FQPS']):
                 dfRef = self.dataFrames[dfRefStr]
