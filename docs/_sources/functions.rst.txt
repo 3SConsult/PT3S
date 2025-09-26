@@ -161,3 +161,10 @@ Plot Source Spectrum
 .. autofunction:: ncd.plot_src_spectrum
 
 Refer to :ref:`ex7`. It uses this function.      
+
+Plot Fluid Age
+--------------
+
+.. autofunction:: ncd.plot_ttr_network
+
+Refer to :ref:`ex7`. It uses this function.  

@@ -91,8 +91,8 @@ You can download the Notebook file :download:`here <Example6.ipynb>`.
 
 .. _ex7:
 
-Example 7: Source Spectrum
---------------------------
+Example 7: Source Spectrum and Fluid Age
+----------------------------------------
 
 This example demonstrates how GeoDataFrames (gdfs) and V3_dataframe created by PT3S can be used with matplotlib to create an interactive depiction of a source spectrum.
 
@@ -115,10 +115,10 @@ You can download the Notebook file :download:`here <Example8.ipynb>`.
 
 .. _ex9:
 
-Example 9: Travel Time Matrix
----------------------------
+Example 9: Travel Time compared to Fluid Age
+--------------------------------------------
 
-This Example demonstrates how create a matrix that calculates the travel times between all nodes in a network using dataframes provided by PT3S.
+This Example demonstrates how to create a matrix that holds the travel times between all nodes in a network via a Python algorithm using dataframes provided by PT3S and compares theses results to the fluid age result that is calculated by SIR 3S.
 
 You can view the Notebook `here <Example9.html>`_.
 
