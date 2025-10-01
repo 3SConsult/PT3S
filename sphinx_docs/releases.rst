@@ -10,6 +10,11 @@ Below all versions are listed that work with SIR 3S Version 90.15. From 90.15 on
 
 Beware the 90.15 versions do not work with 90.14 models.
 
+90.15.X
+~~~~~~~
+
+- ncd.py: pie charts with src spectrum
+
 90.15.1
 ~~~~~~~
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ncd &mdash; PT3S 90.14.51.0.dev1 documentation</title>
+  <title>ncd &mdash; PT3S 90.15.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -101,6 +101,7 @@
 <span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">inset_axes</span>
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
 <span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">LineCollection</span>
+<span class="kn">from</span> <span class="nn">difflib</span> <span class="kn">import</span> <span class="n">get_close_matches</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">PT3S</span> <span class="kn">import</span> <span class="n">Rm</span>
@@ -409,56 +410,853 @@
         <span class="n">axins</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
         <span class="n">axins</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Sample mixtures&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<div class="viewcode-block" id="plot_src_spectrum"><a class="viewcode-back" href="../functions.html#ncd.plot_src_spectrum">[docs]</a><span class="k">def</span> <span class="nf">plot_src_spectrum</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gdf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plots the source spectrum based on the provided GeoDataFrame and attributes.</span>
+<div class="viewcode-block" id="plot_src_spectrum"><a class="viewcode-back" href="../functions.html#ncd.plot_src_spectrum">[docs]</a><span class="k">def</span> <span class="nf">plot_src_spectrum</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">gdf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>            <span class="c1"># str (column with vectors) OR list[str] (columns to combine)</span>
+    <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">dn_col</span><span class="o">=</span><span class="s1">&#39;DN&#39;</span><span class="p">,</span>
+    <span class="n">lw_min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">lw_max</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+    <span class="c1"># --- Pie-chart controls ---</span>
+    <span class="n">plot_pies</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">n_pies</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">ratio_decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">pie_radius_rel</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>         <span class="c1"># radius as fraction of max(network width/height)</span>
+    <span class="n">connector_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>        <span class="c1"># e.g., dict(color=&#39;grey&#39;, lw=1.5, ls=&#39;--&#39;, alpha=0.8)</span>
+    <span class="n">pie_zorder</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="c1"># --- Visibility &amp; layout ---</span>
+    <span class="n">expand_limits_for_pies</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">force_equal_aspect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">debug_pie_centers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># --- New: placement &amp; labeling enhancements ---</span>
+    <span class="n">n_angle_samples</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>           <span class="c1"># number of candidate angles for connector (e.g., 16–36)</span>
+    <span class="n">pie_gap_rel</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>             <span class="c1"># min gap between pies (relative to bbox max dimension)</span>
+    <span class="n">avoid_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>            <span class="c1"># avoid placing pies where they overlap legend</span>
+    <span class="n">show_pie_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># show ratio labels next to pies</span>
+    <span class="n">label_decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>             <span class="c1"># decimals in percentage labels</span>
+    <span class="n">label_color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+    <span class="n">label_fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">draw_mixture_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">pie_label_inside</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">pie_label_r_rel</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>        <span class="c1"># radial position of labels inside wedge (0..1 of radius)</span>
+    <span class="n">auto_contrast_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># choose white/black text based on wedge color luminance</span>
+    <span class="n">min_label_pct</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>          <span class="c1"># hide labels below this % if desired (0 = show all)</span>
 
-<span class="sd">    :param ax: The axis to plot on. If None, a new axis is created.</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots the source spectrum for a district heating network with optional pie annotations.</span>
+
+<span class="sd">    :param ax: Matplotlib axis object. If None, a new axis is created.</span>
 <span class="sd">    :type ax: matplotlib.axes.Axes, optional</span>
-<span class="sd">    :param gdf: The GeoDataFrame containing the data to plot.</span>
+
+<span class="sd">    :param gdf: Geospatial DataFrame containing the network geometries to plot. Must include a &#39;geometry&#39;</span>
+<span class="sd">                column with LineString or MultiLineString objects.</span>
 <span class="sd">    :type gdf: geopandas.GeoDataFrame</span>
-<span class="sd">    :param attribute: The attribute column in the GeoDataFrame to use for color mixing.</span>
-<span class="sd">    :type attribute: str</span>
-<span class="sd">    :param colors: The colors to use for mixing.</span>
-<span class="sd">    :type colors: list of np.ndarray</span>
-<span class="sd">    :param line_width: The width of the lines in the plot.</span>
-<span class="sd">    :type line_width: int, optional, default=2</span>
+
+<span class="sd">    :param attribute: Mixture information per row. If a string, it is the name of a column whose entries are</span>
+<span class="sd">                    vector-like mixtures (e.g., [96, 4] or [0.96, 0.04]). If a list of strings, these columns</span>
+<span class="sd">                    are combined row-wise (in the given order) into a mixture vector. Values may be absolute</span>
+<span class="sd">                    contributions or percentages; they are normalized internally to sum to 1. If the sum is</span>
+<span class="sd">                    ~100, values are treated as percentages.</span>
+<span class="sd">    :type attribute: str or list[str]</span>
+
+<span class="sd">    :param colors: Base RGB colors used for color mixing and pie wedges. Each color is a 3-component RGB</span>
+<span class="sd">                sequence in the 0–255 range (alpha optional, ignored for mixing).</span>
+<span class="sd">    :type colors: list[numpy.ndarray] or list[Sequence[float]], length == number of sources</span>
+
+<span class="sd">    :param line_width: Fallback line width applied when DN-based scaling is unavailable or invalid.</span>
+<span class="sd">    :type line_width: float, optional</span>
+
+<span class="sd">    :param dn_col: Name of the diameter (or similar) column used to scale line widths and to select</span>
+<span class="sd">                representative pipes for pie placement.</span>
+<span class="sd">    :type dn_col: str, optional</span>
+
+<span class="sd">    :param lw_min: Minimum line width used when scaling by ``dn_col``.</span>
+<span class="sd">    :type lw_min: float, optional</span>
+
+<span class="sd">    :param lw_max: Maximum line width used when scaling by ``dn_col``.</span>
+<span class="sd">    :type lw_max: float, optional</span>
+
+<span class="sd">    :param plot_pies: If True, annotate selected unique mixture ratios with pie charts positioned outside the</span>
+<span class="sd">                    network bounding box and connected via a line from a representative pipe.</span>
+<span class="sd">    :type plot_pies: bool, optional</span>
+
+<span class="sd">    :param n_pies: Number of pie annotations to place. For two sources: choose extremes (max per source),</span>
+<span class="sd">                then the most balanced (closest to 50/50), then additional values spread across the spectrum.</span>
+<span class="sd">                For more than two sources: one extreme per source, then most balanced (closest to uniform),</span>
+<span class="sd">                then farthest-point sampling for diversity.</span>
+<span class="sd">    :type n_pies: int, optional</span>
+
+<span class="sd">    :param ratio_decimals: Rounding applied to normalized ratios for de-duplication of unique mixtures.</span>
+<span class="sd">    :type ratio_decimals: int, optional</span>
+
+<span class="sd">    :param pie_radius_rel: Pie radius as a fraction of the larger side of the network bounding box. Adjust to</span>
+<span class="sd">                        tune visual size across differently scaled coordinate systems.</span>
+<span class="sd">    :type pie_radius_rel: float, optional</span>
+
+<span class="sd">    :param connector_kwargs: Keyword arguments passed to ``matplotlib.pyplot.plot`` for connector styling</span>
+<span class="sd">                            (e.g., ``dict(color=&#39;grey&#39;, lw=1.2, ls=&#39;--&#39;, alpha=0.9)``).</span>
+<span class="sd">    :type connector_kwargs: dict, optional</span>
+
+<span class="sd">    :param pie_zorder: Z-order for pie wedges and their connectors.</span>
+<span class="sd">    :type pie_zorder: int, optional</span>
+
+<span class="sd">    :param expand_limits_for_pies: If True, expands the axis limits to fully include all pies (and a small</span>
+<span class="sd">                                margin), ensuring they remain visible even when placed outside the original</span>
+<span class="sd">                                data extent.</span>
+<span class="sd">    :type expand_limits_for_pies: bool, optional</span>
+
+<span class="sd">    :param force_equal_aspect: If True, forces equal aspect ratio so circular pies are rendered as circles.</span>
+<span class="sd">    :type force_equal_aspect: bool, optional</span>
+
+<span class="sd">    :param debug_pie_centers: If True, draws small markers at pie centers to aid debugging of placement.</span>
+<span class="sd">    :type debug_pie_centers: bool, optional</span>
+
+<span class="sd">    :param n_angle_samples: Number of candidate connector angles to test per pie. The chosen angle minimizes</span>
+<span class="sd">                            the interior crossing distance and penalizes overlap with other pies and with the</span>
+<span class="sd">                            legend/mix-scale area (when avoidance is enabled).</span>
+<span class="sd">    :type n_angle_samples: int, optional</span>
+
+<span class="sd">    :param pie_gap_rel: Minimum gap between pie outer circles, expressed as a fraction of the larger side of</span>
+<span class="sd">                        the network bounding box. Helps avoid pie‑pie overlap.</span>
+<span class="sd">    :type pie_gap_rel: float, optional</span>
+
+<span class="sd">    :param avoid_legend: If True, pie placement avoids overlapping the existing legend and/or mixture scale</span>
+<span class="sd">                        axes when possible (requires a canvas draw to measure extents).</span>
+<span class="sd">    :type avoid_legend: bool, optional</span>
+
+<span class="sd">    :param show_pie_labels: If True, draw ratio labels next to each pie. For two sources, two labels are</span>
+<span class="sd">                            shown on opposite sides; for three or more sources, a single combined label</span>
+<span class="sd">                            (e.g., &quot;30/50/20%&quot;) is placed.</span>
+<span class="sd">    :type show_pie_labels: bool, optional</span>
+
+<span class="sd">    :param label_decimals: Number of decimal places to show in percentage labels.</span>
+<span class="sd">    :type label_decimals: int, optional</span>
+
+<span class="sd">    :param label_color: Text color for pie labels.</span>
+<span class="sd">    :type label_color: str, optional</span>
+
+<span class="sd">    :param label_fontsize: Font size for pie labels.</span>
+<span class="sd">    :type label_fontsize: float, optional</span>
+
+<span class="sd">    :param draw_mixture_scale: If True, draw the mixture scale (e.g., gradient/ternary inset) for the color</span>
+<span class="sd">                            scheme. If False, suppresses this inset.</span>
+<span class="sd">    :type draw_mixture_scale: bool, optional</span>
+
+<span class="sd">    :returns: The axis used for plotting (useful for further chaining/customization).</span>
+<span class="sd">    :rtype: matplotlib.axes.Axes</span>
+
+<span class="sd">    :raises ValueError: If required parameters are missing, if the number of attribute columns does not match</span>
+<span class="sd">                        the number of colors/sources, or if color specifications are malformed.</span>
+<span class="sd">    :raises KeyError: If the specified ``attribute`` column(s) or ``dn_col`` are not present in ``gdf``.</span>
+<span class="sd">    :raises TypeError: If ``attribute`` is neither a string nor a list of strings.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">    - Mixtures are normalized to sum to 1. If the raw sum is approximately 100, values are interpreted</span>
+<span class="sd">        as percentages. Rows with invalid/empty mixtures fallback to a neutral light-gray color.</span>
+<span class="sd">    - DN-based width scaling maps the observed ``dn_col`` range linearly into ``[lw_min, lw_max]``. If</span>
+<span class="sd">        ``dn_col`` has no numeric variation, a midpoint width is used.</span>
+<span class="sd">    - Pie placement samples multiple angles and chooses the one minimizing interior travel distance while</span>
+<span class="sd">        avoiding overlap with other pies and the legend/mixture scale (when enabled). Axes limits are expanded</span>
+<span class="sd">        to include pies when requested.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">import</span> <span class="nn">logging</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+    <span class="kn">from</span> <span class="nn">difflib</span> <span class="kn">import</span> <span class="n">get_close_matches</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">isfinite</span>
+
+    <span class="c1"># --------- Logging &amp; fallbacks ----------</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">_logger</span> <span class="o">=</span> <span class="n">logger</span>  <span class="c1"># use module/global logger if present</span>
+    <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+        <span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_figsize</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Rm</span><span class="p">,</span> <span class="s1">&#39;DINA3q&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
     <span class="n">logStr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:s}</span><span class="s2">.</span><span class="si">{1:s}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Start.&#39;</span><span class="p">))</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Start.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --------- Color utilities (with fallbacks) ----------</span>
+    <span class="k">def</span> <span class="nf">_to_rgb01</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Color must have 3 or 4 components.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_convert_to_hex_local</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;#</span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">02X</span><span class="si">}{</span><span class="n">g</span><span class="si">:</span><span class="s2">02X</span><span class="si">}{</span><span class="n">b</span><span class="si">:</span><span class="s2">02X</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_convert_to_hex</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;convert_to_hex&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rgb</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">_convert_to_hex_local</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_mix_colors_local</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">):</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">base_colors</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">C</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">!=</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid weights/colors shapes.&quot;</span><span class="p">)</span>
+        <span class="n">sw</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">sw</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sw</span><span class="p">):</span>
+            <span class="n">sw</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">sw</span>
+        <span class="n">rgb</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">C</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_mix_colors</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">):</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mix_colors&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">_mix_colors_local</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">)</span>
+
+    <span class="c1"># --------- Ratio utilities ----------</span>
+    <span class="k">def</span> <span class="nf">_normalize_ratio</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">or</span> <span class="n">s</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-3</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">/</span> <span class="mf">100.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">/</span> <span class="n">s</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span> <span class="nf">_round_tuple</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dec</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">dec</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">_extract_mix_series</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">n_sources</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">attribute</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">suggestions</span> <span class="o">=</span> <span class="n">get_close_matches</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">)),</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">hint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot; Did you mean one of: </span><span class="si">{</span><span class="n">suggestions</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">suggestions</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column &#39;</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s2">&#39; not found in gdf.</span><span class="si">{</span><span class="n">hint</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">ser_raw</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ser_raw</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="n">n_sources</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Row </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">: vector length </span><span class="si">{</span><span class="n">arr</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2"> != number of sources </span><span class="si">{</span><span class="n">n_sources</span><span class="si">}</span><span class="s2">.&quot;</span>
+                        <span class="p">)</span>
+                    <span class="n">arrn</span> <span class="o">=</span> <span class="n">_normalize_ratio</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">arrn</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arrn</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">gdf</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">attribute</span><span class="p">):</span>
+            <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">attribute</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Columns not found for &#39;attribute&#39;: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_sources</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Number of attribute columns (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span><span class="si">}</span><span class="s2">) must equal number of sources (</span><span class="si">{</span><span class="n">n_sources</span><span class="si">}</span><span class="s2">).&quot;</span>
+                <span class="p">)</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># (N, M)</span>
+            <span class="n">sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">sums</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sums</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">sums</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">normed</span> <span class="o">=</span> <span class="n">vals</span> <span class="o">/</span> <span class="n">sums</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">else</span> <span class="n">normed</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sums</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">gdf</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;`attribute` must be a column name (str) holding vectors, or a list of column names.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_unique_ratios</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">dec</span><span class="p">):</span>
+        <span class="n">uniq</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">series</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">_round_tuple</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">uniq</span><span class="p">:</span>
+                <span class="n">uniq</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">uniq</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">uniq</span>  <span class="c1"># dict: ratio_tuple -&gt; [row indices]</span>
+    <span class="k">def</span> <span class="nf">_relative_luminance</span><span class="p">(</span><span class="n">rgb255</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;WCAG relative luminance for contrast decisions (sRGB).&quot;&quot;&quot;</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rgb255</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">u</span><span class="p">):</span> <span class="k">return</span> <span class="n">u</span><span class="o">/</span><span class="mf">12.92</span> <span class="k">if</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="mf">0.03928</span> <span class="k">else</span> <span class="p">((</span><span class="n">u</span> <span class="o">+</span> <span class="mf">0.055</span><span class="p">)</span><span class="o">/</span><span class="mf">1.055</span><span class="p">)</span> <span class="o">**</span> <span class="mf">2.4</span>
+        <span class="n">R</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">0.2126</span><span class="o">*</span><span class="n">R</span> <span class="o">+</span> <span class="mf">0.7152</span><span class="o">*</span><span class="n">G</span> <span class="o">+</span> <span class="mf">0.0722</span><span class="o">*</span><span class="n">B</span>
+
+    <span class="k">def</span> <span class="nf">_auto_text_color</span><span class="p">(</span><span class="n">rgb255</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Choose black or white text for best contrast with a background color.</span>
+<span class="sd">        Uses WCAG contrast ratio heuristic.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">_relative_luminance</span><span class="p">(</span><span class="n">rgb255</span><span class="p">)</span>
+        <span class="n">contrast_black</span> <span class="o">=</span> <span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.05</span>           <span class="c1"># vs black (L=0)</span>
+        <span class="n">contrast_white</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">)</span>   <span class="c1"># vs white (L=1)</span>
+        <span class="k">return</span> <span class="s1">&#39;black&#39;</span> <span class="k">if</span> <span class="n">contrast_black</span> <span class="o">&gt;=</span> <span class="n">contrast_white</span> <span class="k">else</span> <span class="s1">&#39;white&#39;</span>
+
+    <span class="k">def</span> <span class="nf">_label_inside_pie</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">center_xy</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span>
+                        <span class="n">pie_label_r_rel</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label_decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label_fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+                        <span class="n">label_color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">auto_contrast</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_label_pct</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                        <span class="n">start_angle_deg</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Place one label per wedge INSIDE the pie area at the wedge&#39;s mid-angle.</span>
+<span class="sd">        - proportions: iterable summing to 1 (shares)</span>
+<span class="sd">        - base_colors: same length as proportions, RGB 0-255</span>
+<span class="sd">        - radius: pie radius in data units</span>
+<span class="sd">        - start_angle_deg: first wedge starts at 12 o&#39;clock by default</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">center_xy</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">start_angle_deg</span>
+        <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">proportions</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">pct</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="mf">100.0</span>
+            <span class="k">if</span> <span class="n">pct</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">min_label_pct</span><span class="p">):</span>
+                <span class="n">angle</span> <span class="o">+=</span> <span class="mf">360.0</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="n">theta_deg</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">theta_mid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">angle</span> <span class="o">+</span> <span class="n">theta_deg</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+
+            <span class="c1"># label position inside the wedge</span>
+            <span class="n">rlab</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pie_label_r_rel</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">rlab</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta_mid</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">rlab</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta_mid</span><span class="p">)</span>
+
+            <span class="c1"># choose text color</span>
+            <span class="n">txt_color</span> <span class="o">=</span> <span class="n">_auto_text_color</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">if</span> <span class="n">auto_contrast</span> <span class="k">else</span> <span class="n">label_color</span>
+
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pct</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">label_decimals</span><span class="si">}</span><span class="s2">f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">txt_color</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="n">label_fontsize</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">,</span>
+                <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">angle</span> <span class="o">+=</span> <span class="n">theta_deg</span>
+    <span class="c1"># --------- Ratio selection ----------</span>
+    <span class="k">def</span> <span class="nf">_select_ratios_two_sources</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">)</span>  <span class="c1"># (U, 2)</span>
+        <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">arr</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">unique_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="n">chosen</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">chosen_idxs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="n">i_max0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p0</span><span class="p">))</span>  <span class="c1"># extreme towards source 1</span>
+        <span class="n">i_max1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p1</span><span class="p">))</span>  <span class="c1"># extreme towards source 2</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i_max0</span><span class="p">,</span> <span class="n">i_max1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">chosen_idxs</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+                <span class="n">chosen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">chosen_idxs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">chosen</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+        <span class="c1"># Most balanced (closest to 0.5/0.5)</span>
+        <span class="n">bal_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p0</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">bal_idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">chosen_idxs</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">chosen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">[</span><span class="n">bal_idx</span><span class="p">])</span>
+            <span class="n">chosen_idxs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bal_idx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">chosen</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+        <span class="c1"># Fill remaining by spreading across spectrum (quantiles)</span>
+        <span class="n">remaining</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">chosen_idxs</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">remaining</span><span class="p">:</span>
+            <span class="n">k_need</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span>
+            <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k_need</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># internal quantiles</span>
+            <span class="n">order_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="n">remaining</span><span class="p">])</span>
+            <span class="n">cand</span> <span class="o">=</span> <span class="p">[</span><span class="n">remaining</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">order_all</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">qs</span><span class="p">:</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+                <span class="n">best</span><span class="p">,</span> <span class="n">best_d</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cand</span><span class="p">:</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">target</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="n">best_d</span><span class="p">:</span>
+                        <span class="n">best_d</span><span class="p">,</span> <span class="n">best</span> <span class="o">=</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span>
+                <span class="k">if</span> <span class="n">best</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">chosen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">[</span><span class="n">best</span><span class="p">])</span>
+                    <span class="n">cand</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">best</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="k">break</span>
+        <span class="k">return</span> <span class="n">chosen</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_select_ratios_generic</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">)</span>  <span class="c1"># (U, M)</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">chosen_idxs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Extremes: for each source, argmax of that component</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span> <span class="n">m</span><span class="p">]))</span>
+            <span class="n">chosen_idxs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen_idxs</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">unique_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">chosen_idxs</span><span class="p">)[:</span><span class="n">n</span><span class="p">]]</span>
+
+        <span class="c1"># Most balanced: closest to uniform</span>
+        <span class="n">uniform</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">/</span> <span class="n">M</span>
+        <span class="n">bal_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">U</span> <span class="o">-</span> <span class="n">uniform</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
+        <span class="n">chosen_idxs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bal_idx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen_idxs</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">unique_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">chosen_idxs</span><span class="p">)[:</span><span class="n">n</span><span class="p">]]</span>
+
+        <span class="c1"># Farthest-point sampling for remaining</span>
+        <span class="n">chosen</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chosen_idxs</span><span class="p">)</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">)):</span>
+            <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">U</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">chosen</span><span class="p">])</span>
+                <span class="n">dists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+            <span class="n">next_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dists</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">next_idx</span> <span class="ow">in</span> <span class="n">chosen</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">chosen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_idx</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">unique_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chosen</span><span class="p">[:</span><span class="n">n</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">_find_idx_for_ratio</span><span class="p">(</span><span class="n">lookup</span><span class="p">,</span> <span class="n">ratio_key</span><span class="p">,</span> <span class="n">dn_series</span><span class="p">):</span>
+        <span class="n">idxs</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ratio_key</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">idxs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">dn_series</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">dn_series</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dns</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">dns</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># --------- Geometry helpers for placement ----------</span>
+    <span class="k">def</span> <span class="nf">_ray_rect_intersection</span><span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">rect</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Intersect a ray from (cx,cy) in direction (dx,dy) with axis-aligned rectangle.</span>
+<span class="sd">        Returns (x, y, t) where t&gt;0 and (cx+ t*dx, cy+ t*dy) lies on the rectangle boundary.</span>
+<span class="sd">        Returns (None, None, None) if no valid intersection (shouldn&#39;t happen for finite dx,dy).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">=</span> <span class="n">rect</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># vertical sides</span>
+        <span class="k">if</span> <span class="n">dx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxx</span> <span class="o">-</span> <span class="n">cx</span><span class="p">)</span> <span class="o">/</span> <span class="n">dx</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">dy</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">miny</span> <span class="o">-</span> <span class="mf">1e-9</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">maxy</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">:</span>
+                <span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">dx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">minx</span> <span class="o">-</span> <span class="n">cx</span><span class="p">)</span> <span class="o">/</span> <span class="n">dx</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">dy</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">miny</span> <span class="o">-</span> <span class="mf">1e-9</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">maxy</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">:</span>
+                <span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">minx</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="c1"># horizontal sides</span>
+        <span class="k">if</span> <span class="n">dy</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxy</span> <span class="o">-</span> <span class="n">cy</span><span class="p">)</span> <span class="o">/</span> <span class="n">dy</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">dx</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">minx</span> <span class="o">-</span> <span class="mf">1e-9</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">maxx</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">:</span>
+                <span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">maxy</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">dy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">miny</span> <span class="o">-</span> <span class="n">cy</span><span class="p">)</span> <span class="o">/</span> <span class="n">dy</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">dx</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">minx</span> <span class="o">-</span> <span class="mf">1e-9</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">maxx</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">:</span>
+                <span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">miny</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ts</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">tmin</span><span class="p">,</span> <span class="n">xhit</span><span class="p">,</span> <span class="n">yhit</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">xhit</span><span class="p">,</span> <span class="n">yhit</span><span class="p">,</span> <span class="n">tmin</span>
+
+    <span class="k">def</span> <span class="nf">_expand_rect</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">pad</span><span class="p">):</span>
+        <span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">=</span> <span class="n">rect</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">minx</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">miny</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">maxx</span> <span class="o">+</span> <span class="n">pad</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_rect_overlap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="n">ax0</span><span class="p">,</span> <span class="n">ay0</span><span class="p">,</span> <span class="n">ax1</span><span class="p">,</span> <span class="n">ay1</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">,</span> <span class="n">bx1</span><span class="p">,</span> <span class="n">by1</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">ax1</span> <span class="o">&lt;</span> <span class="n">bx0</span> <span class="ow">or</span> <span class="n">bx1</span> <span class="o">&lt;</span> <span class="n">ax0</span> <span class="ow">or</span> <span class="n">ay1</span> <span class="o">&lt;</span> <span class="n">by0</span> <span class="ow">or</span> <span class="n">by1</span> <span class="o">&lt;</span> <span class="n">ay0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_draw_pie</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">center_xy</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span>
+                  <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                  <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Draw a pie at data coordinates using Wedge patches.&quot;&quot;&quot;</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">center_xy</span>
+        <span class="n">start_angle</span> <span class="o">=</span> <span class="mf">90.0</span>  <span class="c1"># 12 o&#39;clock</span>
+        <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">proportions</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">theta</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">wedge</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Wedge</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">),</span>
+                                   <span class="n">r</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span>
+                                   <span class="n">theta1</span><span class="o">=</span><span class="n">start_angle</span><span class="p">,</span>
+                                   <span class="n">theta2</span><span class="o">=</span><span class="n">start_angle</span> <span class="o">+</span> <span class="n">theta</span><span class="p">,</span>
+                                   <span class="n">facecolor</span><span class="o">=</span><span class="n">_to_rgb01</span><span class="p">(</span><span class="n">col</span><span class="p">),</span>
+                                   <span class="n">edgecolor</span><span class="o">=</span><span class="n">edgecolor</span><span class="p">,</span>
+                                   <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">,</span>
+                                   <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">,</span>
+                                   <span class="n">clip_on</span><span class="o">=</span><span class="n">clip_on</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wedge</span><span class="p">)</span>
+            <span class="n">start_angle</span> <span class="o">+=</span> <span class="n">theta</span>
+
+    <span class="k">def</span> <span class="nf">_label_two_sources</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pcts</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Place two labels on opposite sides of the pie, perpendicular to connector direction.</span>
+<span class="sd">        pcts: (p0, p1) in percent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>  <span class="c1"># normal vector (unit)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">r</span>
+        <span class="n">posA</span> <span class="o">=</span> <span class="p">(</span><span class="n">ex</span> <span class="o">-</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ey</span> <span class="o">-</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">ny</span><span class="p">)</span>
+        <span class="n">posB</span> <span class="o">=</span> <span class="p">(</span><span class="n">ex</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ey</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">ny</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_ha_va</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+            <span class="c1"># choose alignment based on vector direction for better anchoring</span>
+            <span class="n">ha</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span> <span class="k">if</span> <span class="n">dx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;right&#39;</span> <span class="k">if</span> <span class="n">dx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;center&#39;</span>
+            <span class="n">va</span> <span class="o">=</span> <span class="s1">&#39;bottom&#39;</span> <span class="k">if</span> <span class="n">dy</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;top&#39;</span> <span class="k">if</span> <span class="n">dy</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;center&#39;</span>
+            <span class="c1"># if mostly horizontal, center vertically</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dy</span><span class="p">):</span>
+                <span class="n">va</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ha</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
+            <span class="k">return</span> <span class="n">ha</span><span class="p">,</span> <span class="n">va</span>
+
+        <span class="n">haA</span><span class="p">,</span> <span class="n">vaA</span> <span class="o">=</span> <span class="n">_ha_va</span><span class="p">(</span><span class="o">-</span><span class="n">nx</span><span class="p">,</span> <span class="o">-</span><span class="n">ny</span><span class="p">)</span>
+        <span class="n">haB</span><span class="p">,</span> <span class="n">vaB</span> <span class="o">=</span> <span class="n">_ha_va</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">posA</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pcts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">label_decimals</span><span class="si">}</span><span class="s2">f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="n">haA</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="n">vaA</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">posB</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pcts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">label_decimals</span><span class="si">}</span><span class="s2">f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="n">haB</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="n">vaB</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_label_multi_sources</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pcts</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Place one combined label offset perpendicular to the connector.</span>
+<span class="sd">        pcts: sequence of percents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">r</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">ex</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ey</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">ny</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">label_decimals</span><span class="si">}</span><span class="s2">f</span><span class="si">}</span><span class="s2">%&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pcts</span><span class="p">])</span>
+        <span class="n">ha</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
+        <span class="n">va</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">pos</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="n">ha</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="n">va</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># --- Axis ---</span>
         <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>  <span class="c1"># Adjusted to A3 size</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Created new axis.&#39;</span><span class="p">))</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">_get_figsize</span><span class="p">())</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Created new axis.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">gdf</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">gdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;No plot data provided.&#39;</span><span class="p">))</span>
-            <span class="k">return</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">No plot data provided.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">ax</span>
 
-        <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;mixed_color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mix_colors</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">colors</span><span class="p">))</span>
-        <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;mixed_color_hex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;mixed_color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">convert_to_hex</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Both &#39;attribute&#39; and &#39;colors&#39; must be provided.&quot;</span><span class="p">)</span>
+        <span class="n">n_sources</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span>
+        <span class="c1"># --- Build normalized mixture series (vector per row) ---</span>
+        <span class="n">mix_ser</span> <span class="o">=</span> <span class="n">_extract_mix_series</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">n_sources</span><span class="p">)</span>  <span class="c1"># Series of arrays or None</span>
+
+        <span class="c1"># For color mixing, use a safe fallback color if a row has no valid vector</span>
+        <span class="k">def</span> <span class="nf">_safe_mix</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+            <span class="n">vn</span> <span class="o">=</span> <span class="n">_normalize_ratio</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">vn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vn</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_sources</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">])</span>  <span class="c1"># light gray fallback</span>
+            <span class="k">return</span> <span class="n">_mix_colors</span><span class="p">(</span><span class="n">vn</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># avoid mutating original</span>
+        <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;mixed_color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mix_ser</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_safe_mix</span><span class="p">)</span>
+        <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;mixed_color_hex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;mixed_color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_convert_to_hex</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="c1"># --- Validate linewidth bounds ---</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lw_min_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lw_min</span><span class="p">)</span>
+            <span class="n">lw_max_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lw_max</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Invalid lw_min/lw_max; falling back to defaults.&quot;</span><span class="p">)</span>
+            <span class="n">lw_min_val</span><span class="p">,</span> <span class="n">lw_max_val</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">6.0</span>
+
+        <span class="k">if</span> <span class="n">lw_min_val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">lw_min &lt;= 0; clamping to 0.1.&quot;</span><span class="p">)</span>
+            <span class="n">lw_min_val</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="k">if</span> <span class="n">lw_max_val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">lw_max &lt;= 0; clamping to 0.2.&quot;</span><span class="p">)</span>
+            <span class="n">lw_max_val</span> <span class="o">=</span> <span class="mf">0.2</span>
+        <span class="k">if</span> <span class="n">lw_min_val</span> <span class="o">&gt;</span> <span class="n">lw_max_val</span><span class="p">:</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">lw_min &gt; lw_max; swapping values.&quot;</span><span class="p">)</span>
+            <span class="n">lw_min_val</span><span class="p">,</span> <span class="n">lw_max_val</span> <span class="o">=</span> <span class="n">lw_max_val</span><span class="p">,</span> <span class="n">lw_min_val</span>
+
+        <span class="c1"># --- DN-based linewidths (fallback to constant) ---</span>
+        <span class="n">widths</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">dn_col</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">dn_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="n">dn_col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="n">dn_series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="n">dn_min</span><span class="p">,</span> <span class="n">dn_max</span> <span class="o">=</span> <span class="n">valid</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">valid</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">dn_max</span> <span class="o">&gt;</span> <span class="n">dn_min</span><span class="p">:</span>
+                    <span class="n">widths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">dn_series</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">dn_min</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="n">dn_min</span><span class="p">,</span> <span class="n">dn_max</span><span class="p">),</span> <span class="p">(</span><span class="n">lw_min_val</span><span class="p">,</span> <span class="n">lw_max_val</span><span class="p">))</span>
+                    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Line widths scaled by &#39;</span><span class="si">{</span><span class="n">dn_col</span><span class="si">}</span><span class="s2">&#39; in range &quot;</span>
+                                  <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">lw_min_val</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">lw_max_val</span><span class="si">}</span><span class="s2">]. DN range: [</span><span class="si">{</span><span class="n">dn_min</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">dn_max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mid</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">lw_min_val</span> <span class="o">+</span> <span class="n">lw_max_val</span><span class="p">)</span>
+                    <span class="n">widths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">),</span> <span class="n">mid</span><span class="p">)</span>
+                    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">&#39;</span><span class="si">{</span><span class="n">dn_col</span><span class="si">}</span><span class="s2">&#39; has no variation; using mid width </span><span class="si">{</span><span class="n">mid</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">&#39;</span><span class="si">{</span><span class="n">dn_col</span><span class="si">}</span><span class="s2">&#39; exists but contains no numeric values; using fixed line_width.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">&#39;</span><span class="si">{</span><span class="n">dn_col</span><span class="si">}</span><span class="s2">&#39; not found; using fixed line_width.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">widths</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">widths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_width</span><span class="p">))</span>
+
+        <span class="c1"># --- Plot the network (lines) ---</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">row</span><span class="p">),</span> <span class="n">lw</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span> <span class="n">widths</span><span class="p">):</span>
+            <span class="n">geom</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
             <span class="n">color</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;mixed_color_hex&#39;</span><span class="p">]</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">line_width</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">geom</span><span class="o">.</span><span class="n">geom_type</span> <span class="o">==</span> <span class="s1">&#39;LineString&#39;</span><span class="p">:</span>
+                    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">xy</span>
+                    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">geom</span><span class="o">.</span><span class="n">geom_type</span> <span class="o">==</span> <span class="s1">&#39;MultiLineString&#39;</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">geom</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
+                        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">xy</span>
+                        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Unsupported geometry &#39;</span><span class="si">{</span><span class="n">geom</span><span class="o">.</span><span class="n">geom_type</span><span class="si">}</span><span class="s2">&#39; at index </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">; skipped.&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Failed plotting index </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Create a legend for the colors</span>
+        <span class="c1"># --- Legend for source colors ---</span>
         <span class="n">legend_handles</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
-            <span class="n">color_hex</span> <span class="o">=</span> <span class="n">convert_to_hex</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
-            <span class="n">legend_handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color_hex</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">line_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Source </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
-
+            <span class="n">color_hex</span> <span class="o">=</span> <span class="n">_convert_to_hex</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">color</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+            <span class="n">legend_handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color_hex</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">lw_min_val</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Source </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_handles</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-        
-        <span class="c1"># Add mixture scale inset (2-source gradient, 3-source ternary, or samples)</span>
-        <span class="n">_add_mixture_scale</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span> 
+        <span class="c1"># --- Mixture scale inset (if available) ---</span>
+        <span class="k">if</span> <span class="n">draw_mixture_scale</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_add_mixture_scale</span>  <span class="c1"># noqa</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">_add_mixture_scale</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">_add_mixture_scale failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+                <span class="k">pass</span>  <span class="c1"># silently skip if not available</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+        <span class="c1"># --- Pie chart annotations (optional) ---</span>
+        <span class="k">if</span> <span class="n">plot_pies</span> <span class="ow">and</span> <span class="n">n_pies</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Pie annotations requested: n_pies=</span><span class="si">{</span><span class="n">n_pies</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Unique normalized ratios (rounded) with index lists</span>
+            <span class="n">ratio_map</span> <span class="o">=</span> <span class="n">_get_unique_ratios</span><span class="p">(</span><span class="n">mix_ser</span><span class="p">,</span> <span class="n">ratio_decimals</span><span class="p">)</span>
+            <span class="n">unique_ratio_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ratio_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_ratio_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">No valid ratios found for pie selection.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">ax</span>
+
+            <span class="c1"># Select which ratios to annotate</span>
+            <span class="k">if</span> <span class="n">n_sources</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">chosen_ratios</span> <span class="o">=</span> <span class="n">_select_ratios_two_sources</span><span class="p">(</span><span class="n">unique_ratio_keys</span><span class="p">,</span> <span class="n">n_pies</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">chosen_ratios</span> <span class="o">=</span> <span class="n">_select_ratios_generic</span><span class="p">(</span><span class="n">unique_ratio_keys</span><span class="p">,</span> <span class="n">n_pies</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">chosen_ratios</span><span class="p">:</span>
+                <span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">No ratios selected for pies.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">ax</span>
+
+            <span class="c1"># Layout: pies outside bbox</span>
+            <span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">total_bounds</span>
+            <span class="n">max_dim</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxx</span> <span class="o">-</span> <span class="n">minx</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">-</span> <span class="n">miny</span><span class="p">)</span>
+            <span class="n">margin</span> <span class="o">=</span> <span class="mf">0.04</span> <span class="o">*</span> <span class="n">max_dim</span>
+            <span class="n">pie_radius</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pie_radius_rel</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_dim</span>
+            <span class="n">pie_gap</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pie_gap_rel</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_dim</span>
+
+            <span class="n">dn_series_for_rep</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">dn_col</span><span class="p">]</span> <span class="k">if</span> <span class="n">dn_col</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">connector_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">_ckw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_ckw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+                <span class="n">_ckw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">connector_kwargs</span><span class="p">))</span>
+
+            <span class="n">base_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">colors</span><span class="p">]</span>
+            <span class="n">placed_pies</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># list of dicts: {&#39;center&#39;:(ex,ey), &#39;bbox&#39;:(x0,y0,x1,y1), &#39;theta&#39;:theta}</span>
+            <span class="n">pie_boxes</span> <span class="o">=</span> <span class="p">[]</span>     <span class="c1"># for axis expansion</span>
+
+            <span class="c1"># Legend bbox in data coords (optional avoidance)</span>
+            <span class="n">legend_rect_data</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">avoid_legend</span><span class="p">:</span>
+                <span class="c1"># force a draw so legend has a window extent</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+                    <span class="n">leg</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">leg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">renderer</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">get_renderer</span><span class="p">()</span>
+                        <span class="n">wb</span> <span class="o">=</span> <span class="n">leg</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">(</span><span class="n">renderer</span><span class="o">=</span><span class="n">renderer</span><span class="p">)</span>
+                        <span class="c1"># transform display -&gt; data coords</span>
+                        <span class="n">inv</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span>
+                        <span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">)</span> <span class="o">=</span> <span class="n">inv</span><span class="o">.</span><span class="n">transform</span><span class="p">((</span><span class="n">wb</span><span class="o">.</span><span class="n">x0</span><span class="p">,</span> <span class="n">wb</span><span class="o">.</span><span class="n">y0</span><span class="p">))</span>
+                        <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span> <span class="o">=</span> <span class="n">inv</span><span class="o">.</span><span class="n">transform</span><span class="p">((</span><span class="n">wb</span><span class="o">.</span><span class="n">x1</span><span class="p">,</span> <span class="n">wb</span><span class="o">.</span><span class="n">y1</span><span class="p">))</span>
+                        <span class="n">legend_rect_data</span> <span class="o">=</span> <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">legend_rect_data</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">inner_rect</span> <span class="o">=</span> <span class="p">(</span><span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span><span class="p">)</span>
+            <span class="n">outer_rect</span> <span class="o">=</span> <span class="n">_expand_rect</span><span class="p">(</span><span class="n">inner_rect</span><span class="p">,</span> <span class="n">margin</span> <span class="o">+</span> <span class="n">pie_radius</span> <span class="o">+</span> <span class="n">pie_gap</span><span class="p">)</span>
+
+            <span class="c1"># Precompute candidate angles</span>
+            <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_angle_samples</span><span class="p">)),</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">rkey</span> <span class="ow">in</span> <span class="n">chosen_ratios</span><span class="p">:</span>
+                <span class="n">rep_idx</span> <span class="o">=</span> <span class="n">_find_idx_for_ratio</span><span class="p">(</span><span class="n">ratio_map</span><span class="p">,</span> <span class="n">rkey</span><span class="p">,</span> <span class="n">dn_series_for_rep</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">rep_idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">geom</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">rep_idx</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cpt</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">centroid</span>
+                    <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cpt</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">cpt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Choose best angle by minimizing a cost function:</span>
+                <span class="c1"># cost = inside_exit_distance + penalties (pie overlap, legend overlap)</span>
+                <span class="n">best</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># (cost, ex, ey, theta)</span>
+                <span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">:</span>
+                    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+
+                    <span class="c1"># where ray exits inner rect (distance inside network)</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">t_exit_inner</span> <span class="o">=</span> <span class="n">_ray_rect_intersection</span><span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">inner_rect</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">t_exit_inner</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="c1"># where ray hits outer rect (pie center location)</span>
+                    <span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">,</span> <span class="n">t_outer</span> <span class="o">=</span> <span class="n">_ray_rect_intersection</span><span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">outer_rect</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">t_outer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                    <span class="c1"># candidate pie bbox</span>
+                    <span class="n">pb</span> <span class="o">=</span> <span class="p">(</span><span class="n">ex</span> <span class="o">-</span> <span class="n">pie_radius</span><span class="p">,</span> <span class="n">ey</span> <span class="o">-</span> <span class="n">pie_radius</span><span class="p">,</span> <span class="n">ex</span> <span class="o">+</span> <span class="n">pie_radius</span><span class="p">,</span> <span class="n">ey</span> <span class="o">+</span> <span class="n">pie_radius</span><span class="p">)</span>
+
+                    <span class="c1"># overlap penalty with already placed pies</span>
+                    <span class="n">penalty</span> <span class="o">=</span> <span class="mf">0.0</span>
+                    <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">placed_pies</span><span class="p">:</span>
+                        <span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">)</span> <span class="o">=</span> <span class="n">pp</span><span class="p">[</span><span class="s1">&#39;center&#39;</span><span class="p">]</span>
+                        <span class="n">d2</span> <span class="o">=</span> <span class="p">(</span><span class="n">ex</span> <span class="o">-</span> <span class="n">px</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">ey</span> <span class="o">-</span> <span class="n">py</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+                        <span class="n">min_sep</span> <span class="o">=</span> <span class="p">(</span><span class="n">pie_radius</span> <span class="o">+</span> <span class="n">pie_radius</span> <span class="o">+</span> <span class="n">pie_gap</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">d2</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">min_sep</span> <span class="o">**</span> <span class="mi">2</span><span class="p">):</span>
+                            <span class="c1"># quadratic penalty as overlap severity grows</span>
+                            <span class="n">penalty</span> <span class="o">+=</span> <span class="mf">1e6</span> <span class="o">*</span> <span class="p">(</span><span class="n">min_sep</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">d2</span><span class="p">)</span>
+
+                    <span class="c1"># penalty for overlapping legend</span>
+                    <span class="k">if</span> <span class="n">legend_rect_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">_rect_overlap</span><span class="p">(</span><span class="n">pb</span><span class="p">,</span> <span class="n">legend_rect_data</span><span class="p">):</span>
+                        <span class="n">penalty</span> <span class="o">+=</span> <span class="mf">1e8</span>
+
+                    <span class="n">cost</span> <span class="o">=</span> <span class="n">t_exit_inner</span> <span class="o">+</span> <span class="n">penalty</span>  <span class="c1"># prefer short exit; avoid overlaps</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">cost</span> <span class="o">&lt;</span> <span class="n">best</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                        <span class="n">best</span> <span class="o">=</span> <span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># fallback to nearest side (original)</span>
+                    <span class="c1"># choose nearest side endpoint axis-aligned</span>
+                    <span class="n">d_left</span><span class="p">,</span> <span class="n">d_right</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">-</span> <span class="n">minx</span><span class="p">,</span> <span class="n">maxx</span> <span class="o">-</span> <span class="n">cx</span>
+                    <span class="n">d_bottom</span><span class="p">,</span> <span class="n">d_top</span> <span class="o">=</span> <span class="n">cy</span> <span class="o">-</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">-</span> <span class="n">cy</span>
+                    <span class="n">side</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">([</span><span class="n">d_left</span><span class="p">,</span> <span class="n">d_right</span><span class="p">,</span> <span class="n">d_bottom</span><span class="p">,</span> <span class="n">d_top</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span>  <span class="c1"># left</span>
+                    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">theta</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># right</span>
+                    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">theta</span> <span class="o">=</span> <span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># down</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mi">2</span>   <span class="c1"># up</span>
+                    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+                    <span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_ray_rect_intersection</span><span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">outer_rect</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">best</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">best</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">best</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+                <span class="c1"># record and draw</span>
+                <span class="n">pb</span> <span class="o">=</span> <span class="p">(</span><span class="n">ex</span> <span class="o">-</span> <span class="n">pie_radius</span><span class="p">,</span> <span class="n">ey</span> <span class="o">-</span> <span class="n">pie_radius</span><span class="p">,</span> <span class="n">ex</span> <span class="o">+</span> <span class="n">pie_radius</span><span class="p">,</span> <span class="n">ey</span> <span class="o">+</span> <span class="n">pie_radius</span><span class="p">)</span>
+                <span class="n">placed_pies</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">),</span> <span class="s1">&#39;bbox&#39;</span><span class="p">:</span> <span class="n">pb</span><span class="p">,</span> <span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="n">theta</span><span class="p">})</span>
+                <span class="n">pie_boxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pb</span><span class="p">)</span>
+
+                <span class="c1"># connector (no clipping)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">cx</span><span class="p">,</span> <span class="n">ex</span><span class="p">],</span> <span class="p">[</span><span class="n">cy</span><span class="p">,</span> <span class="n">ey</span><span class="p">],</span> <span class="n">zorder</span><span class="o">=</span><span class="n">pie_zorder</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">_ckw</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">debug_pie_centers</span><span class="p">:</span>
+                    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">ex</span><span class="p">],</span> <span class="p">[</span><span class="n">ey</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">pie_zorder</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="c1"># pie (no clipping)</span>
+                <span class="n">_draw_pie</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">),</span> <span class="n">rkey</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">,</span> <span class="n">pie_radius</span><span class="p">,</span>
+                          <span class="n">zorder</span><span class="o">=</span><span class="n">pie_zorder</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="c1"># labels</span>
+                <span class="k">if</span> <span class="n">show_pie_labels</span> <span class="ow">and</span> <span class="n">pie_label_inside</span><span class="p">:</span>
+                    <span class="n">_label_inside_pie</span><span class="p">(</span>
+                        <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">),</span> <span class="n">rkey</span><span class="p">,</span> <span class="n">base_colors</span><span class="p">,</span> <span class="n">pie_radius</span><span class="p">,</span>
+                        <span class="n">pie_label_r_rel</span><span class="o">=</span><span class="n">pie_label_r_rel</span><span class="p">,</span>
+                        <span class="n">label_decimals</span><span class="o">=</span><span class="n">label_decimals</span><span class="p">,</span>
+                        <span class="n">label_fontsize</span><span class="o">=</span><span class="n">label_fontsize</span><span class="p">,</span>
+                        <span class="n">label_color</span><span class="o">=</span><span class="n">label_color</span><span class="p">,</span>
+                        <span class="n">auto_contrast</span><span class="o">=</span><span class="n">auto_contrast_labels</span><span class="p">,</span>
+                        <span class="n">min_label_pct</span><span class="o">=</span><span class="n">min_label_pct</span><span class="p">,</span>
+                        <span class="n">start_angle_deg</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span>
+                        <span class="n">zorder</span><span class="o">=</span><span class="n">pie_zorder</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+
+            <span class="c1"># Expand axis limits so pies are visible</span>
+            <span class="k">if</span> <span class="n">expand_limits_for_pies</span> <span class="ow">and</span> <span class="n">pie_boxes</span><span class="p">:</span>
+                <span class="n">pxmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">pie_boxes</span><span class="p">)</span>
+                <span class="n">pymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">pie_boxes</span><span class="p">)</span>
+                <span class="n">pxmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">pie_boxes</span><span class="p">)</span>
+                <span class="n">pymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">pie_boxes</span><span class="p">)</span>
+                <span class="n">gap</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">max_dim</span>  <span class="c1"># small extra gap</span>
+
+                <span class="n">new_xmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">minx</span><span class="p">,</span> <span class="n">pxmin</span><span class="p">)</span> <span class="o">-</span> <span class="n">gap</span>
+                <span class="n">new_xmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxx</span><span class="p">,</span> <span class="n">pxmax</span><span class="p">)</span> <span class="o">+</span> <span class="n">gap</span>
+                <span class="n">new_ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">miny</span><span class="p">,</span> <span class="n">pymin</span><span class="p">)</span> <span class="o">-</span> <span class="n">gap</span>
+                <span class="n">new_ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxy</span><span class="p">,</span> <span class="n">pymax</span><span class="p">)</span> <span class="o">+</span> <span class="n">gap</span>
+
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">new_xmin</span><span class="p">,</span> <span class="n">new_xmax</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">new_ymin</span><span class="p">,</span> <span class="n">new_ymax</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">force_equal_aspect</span><span class="p">:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="n">adjustable</span><span class="o">=</span><span class="s1">&#39;datalim&#39;</span><span class="p">)</span>
+
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Pie annotations complete.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ax</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:s}{1:s}</span><span class="s2"> - </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logStr</span><span class="p">,</span> <span class="s1">&#39;Error.&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span></div>
+        <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">logStr</span><span class="si">}</span><span class="s2">Error. - </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="plot_ttr_network"><a class="viewcode-back" href="../functions.html#ncd.plot_ttr_network">[docs]</a><span class="k">def</span> <span class="nf">plot_ttr_network</span><span class="p">(</span>
     <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
@@ -918,7 +1716,7 @@
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
 
 
-<span class="k">def</span> <span class="nf">plot_travel_time_from_source</span><span class="p">(</span>
+<div class="viewcode-block" id="plot_travel_time_from_source"><a class="viewcode-back" href="../functions.html#ncd.plot_travel_time_from_source">[docs]</a><span class="k">def</span> <span class="nf">plot_travel_time_from_source</span><span class="p">(</span>
     <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
     <span class="n">TMat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">map_nodes_tk_ind</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
@@ -1441,7 +2239,7 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Travel Time [h]&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">ax</span><span class="p">,</span> <span class="n">nodes_df</span>
+    <span class="k">return</span> <span class="n">ax</span><span class="p">,</span> <span class="n">nodes_df</span></div>
 </pre></div>
 
            </div>

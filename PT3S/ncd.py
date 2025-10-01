@@ -16,6 +16,7 @@ import matplotlib.patches as mpatches
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from matplotlib.colors import Normalize
 from matplotlib.collections import LineCollection
+from difflib import get_close_matches
 
 try:
     from PT3S import Rm
@@ -324,56 +325,853 @@ def _add_mixture_scale(ax, colors, source_labels=None, language='en'):
         axins.set_xticks([])
         axins.set_title("Sample mixtures", fontsize=9, pad=2)
 
-def plot_src_spectrum(ax=None, gdf=None, attribute=None, colors=None, line_width=2):
-    """
-    Plots the source spectrum based on the provided GeoDataFrame and attributes.
+def plot_src_spectrum(
+    ax=None,
+    gdf=None,
+    attribute=None,            # str (column with vectors) OR list[str] (columns to combine)
+    colors=None,
+    line_width=2,
+    dn_col='DN',
+    lw_min=0.5,
+    lw_max=6.0,
+    # --- Pie-chart controls ---
+    plot_pies=False,
+    n_pies=0,
+    ratio_decimals=2,
+    pie_radius_rel=0.02,         # radius as fraction of max(network width/height)
+    connector_kwargs=None,        # e.g., dict(color='grey', lw=1.5, ls='--', alpha=0.8)
+    pie_zorder=30,
+    # --- Visibility & layout ---
+    expand_limits_for_pies=True,
+    force_equal_aspect=True,
+    debug_pie_centers=False,
+    # --- New: placement & labeling enhancements ---
+    n_angle_samples=24,           # number of candidate angles for connector (e.g., 16–36)
+    pie_gap_rel=0.01,             # min gap between pies (relative to bbox max dimension)
+    avoid_legend=True,            # avoid placing pies where they overlap legend
+    show_pie_labels=True,         # show ratio labels next to pies
+    label_decimals=0,             # decimals in percentage labels
+    label_color='k',
+    label_fontsize=9,
+    draw_mixture_scale=True,
+    pie_label_inside=True,
+    pie_label_r_rel=0.6,        # radial position of labels inside wedge (0..1 of radius)
+    auto_contrast_labels=True,  # choose white/black text based on wedge color luminance
+    min_label_pct=0.0,          # hide labels below this % if desired (0 = show all)
 
-    :param ax: The axis to plot on. If None, a new axis is created.
-    :type ax: matplotlib.axes.Axes, optional
-    :param gdf: The GeoDataFrame containing the data to plot.
-    :type gdf: geopandas.GeoDataFrame
-    :param attribute: The attribute column in the GeoDataFrame to use for color mixing.
-    :type attribute: str
-    :param colors: The colors to use for mixing.
-    :type colors: list of np.ndarray
-    :param line_width: The width of the lines in the plot.
-    :type line_width: int, optional, default=2
+):
     """
+    Plots the source spectrum for a district heating network with optional pie annotations.
+
+    :param ax: Matplotlib axis object. If None, a new axis is created.
+    :type ax: matplotlib.axes.Axes, optional
+
+    :param gdf: Geospatial DataFrame containing the network geometries to plot. Must include a 'geometry'
+                column with LineString or MultiLineString objects.
+    :type gdf: geopandas.GeoDataFrame
+
+    :param attribute: Mixture information per row. If a string, it is the name of a column whose entries are
+                    vector-like mixtures (e.g., [96, 4] or [0.96, 0.04]). If a list of strings, these columns
+                    are combined row-wise (in the given order) into a mixture vector. Values may be absolute
+                    contributions or percentages; they are normalized internally to sum to 1. If the sum is
+                    ~100, values are treated as percentages.
+    :type attribute: str or list[str]
+
+    :param colors: Base RGB colors used for color mixing and pie wedges. Each color is a 3-component RGB
+                sequence in the 0–255 range (alpha optional, ignored for mixing).
+    :type colors: list[numpy.ndarray] or list[Sequence[float]], length == number of sources
+
+    :param line_width: Fallback line width applied when DN-based scaling is unavailable or invalid.
+    :type line_width: float, optional
+
+    :param dn_col: Name of the diameter (or similar) column used to scale line widths and to select
+                representative pipes for pie placement.
+    :type dn_col: str, optional
+
+    :param lw_min: Minimum line width used when scaling by ``dn_col``.
+    :type lw_min: float, optional
+
+    :param lw_max: Maximum line width used when scaling by ``dn_col``.
+    :type lw_max: float, optional
+
+    :param plot_pies: If True, annotate selected unique mixture ratios with pie charts positioned outside the
+                    network bounding box and connected via a line from a representative pipe.
+    :type plot_pies: bool, optional
+
+    :param n_pies: Number of pie annotations to place. For two sources: choose extremes (max per source),
+                then the most balanced (closest to 50/50), then additional values spread across the spectrum.
+                For more than two sources: one extreme per source, then most balanced (closest to uniform),
+                then farthest-point sampling for diversity.
+    :type n_pies: int, optional
+
+    :param ratio_decimals: Rounding applied to normalized ratios for de-duplication of unique mixtures.
+    :type ratio_decimals: int, optional
+
+    :param pie_radius_rel: Pie radius as a fraction of the larger side of the network bounding box. Adjust to
+                        tune visual size across differently scaled coordinate systems.
+    :type pie_radius_rel: float, optional
+
+    :param connector_kwargs: Keyword arguments passed to ``matplotlib.pyplot.plot`` for connector styling
+                            (e.g., ``dict(color='grey', lw=1.2, ls='--', alpha=0.9)``).
+    :type connector_kwargs: dict, optional
+
+    :param pie_zorder: Z-order for pie wedges and their connectors.
+    :type pie_zorder: int, optional
+
+    :param expand_limits_for_pies: If True, expands the axis limits to fully include all pies (and a small
+                                margin), ensuring they remain visible even when placed outside the original
+                                data extent.
+    :type expand_limits_for_pies: bool, optional
+
+    :param force_equal_aspect: If True, forces equal aspect ratio so circular pies are rendered as circles.
+    :type force_equal_aspect: bool, optional
+
+    :param debug_pie_centers: If True, draws small markers at pie centers to aid debugging of placement.
+    :type debug_pie_centers: bool, optional
+
+    :param n_angle_samples: Number of candidate connector angles to test per pie. The chosen angle minimizes
+                            the interior crossing distance and penalizes overlap with other pies and with the
+                            legend/mix-scale area (when avoidance is enabled).
+    :type n_angle_samples: int, optional
+
+    :param pie_gap_rel: Minimum gap between pie outer circles, expressed as a fraction of the larger side of
+                        the network bounding box. Helps avoid pie‑pie overlap.
+    :type pie_gap_rel: float, optional
+
+    :param avoid_legend: If True, pie placement avoids overlapping the existing legend and/or mixture scale
+                        axes when possible (requires a canvas draw to measure extents).
+    :type avoid_legend: bool, optional
+
+    :param show_pie_labels: If True, draw ratio labels next to each pie. For two sources, two labels are
+                            shown on opposite sides; for three or more sources, a single combined label
+                            (e.g., "30/50/20%") is placed.
+    :type show_pie_labels: bool, optional
+
+    :param label_decimals: Number of decimal places to show in percentage labels.
+    :type label_decimals: int, optional
+
+    :param label_color: Text color for pie labels.
+    :type label_color: str, optional
+
+    :param label_fontsize: Font size for pie labels.
+    :type label_fontsize: float, optional
+
+    :param draw_mixture_scale: If True, draw the mixture scale (e.g., gradient/ternary inset) for the color
+                            scheme. If False, suppresses this inset.
+    :type draw_mixture_scale: bool, optional
+
+    :returns: The axis used for plotting (useful for further chaining/customization).
+    :rtype: matplotlib.axes.Axes
+
+    :raises ValueError: If required parameters are missing, if the number of attribute columns does not match
+                        the number of colors/sources, or if color specifications are malformed.
+    :raises KeyError: If the specified ``attribute`` column(s) or ``dn_col`` are not present in ``gdf``.
+    :raises TypeError: If ``attribute`` is neither a string nor a list of strings.
+
+    .. note::
+    - Mixtures are normalized to sum to 1. If the raw sum is approximately 100, values are interpreted
+        as percentages. Rows with invalid/empty mixtures fallback to a neutral light-gray color.
+    - DN-based width scaling maps the observed ``dn_col`` range linearly into ``[lw_min, lw_max]``. If
+        ``dn_col`` has no numeric variation, a midpoint width is used.
+    - Pie placement samples multiple angles and chooses the one minimizing interior travel distance while
+        avoiding overlap with other pies and the legend/mixture scale (when enabled). Axes limits are expanded
+        to include pies when requested.
+
+    """
+    import sys
+    import logging
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import matplotlib.patches as mpatches
+    from difflib import get_close_matches
+    from math import cos, sin, pi, isfinite
+
+    # --------- Logging & fallbacks ----------
+    try:
+        _logger = logger  # use module/global logger if present
+    except NameError:
+        _logger = logging.getLogger(__name__)
+
+    def _get_figsize():
+        try:
+            return getattr(Rm, 'DINA3q', (12, 8))
+        except NameError:
+            return (12, 8)
+
     logStr = "{0:s}.{1:s}: ".format(__name__, sys._getframe().f_code.co_name)
-    logger.debug("{0:s}{1:s}".format(logStr, 'Start.'))
+    _logger.debug(f"{logStr}Start.")
+
+    # --------- Color utilities (with fallbacks) ----------
+    def _to_rgb01(c):
+        c = np.array(c, dtype=float).clip(0, 255) / 255.0
+        if c.size == 3:
+            return (c[0], c[1], c[2], 1.0)
+        if c.size == 4:
+            return tuple(c)
+        raise ValueError("Color must have 3 or 4 components.")
+
+    def _convert_to_hex_local(rgb):
+        r, g, b = np.array(rgb, dtype=float).clip(0, 255).astype(int).tolist()
+        return f"#{r:02X}{g:02X}{b:02X}"
+
+    def _convert_to_hex(rgb):
+        func = globals().get('convert_to_hex')
+        if callable(func):
+            try:
+                return func(np.array(rgb))
+            except Exception:
+                pass
+        return _convert_to_hex_local(rgb)
+
+    def _mix_colors_local(weights, base_colors):
+        w = np.array(weights, dtype=float).ravel()
+        C = np.array(base_colors, dtype=float)
+        if w.ndim != 1 or C.ndim != 2 or C.shape[1] < 3 or len(w) != C.shape[0]:
+            raise ValueError("Invalid weights/colors shapes.")
+        sw = w.sum()
+        if sw == 0 or not np.isfinite(sw):
+            sw = 1.0
+        w = w / sw
+        rgb = (w[:, None] * C[:, :3]).sum(axis=0)
+        return np.clip(rgb, 0, 255)
+
+    def _mix_colors(weights, base_colors):
+        func = globals().get('mix_colors')
+        if callable(func):
+            try:
+                return func(weights, base_colors)
+            except Exception:
+                pass
+        return _mix_colors_local(weights, base_colors)
+
+    # --------- Ratio utilities ----------
+    def _normalize_ratio(r):
+        try:
+            v = np.array(r, dtype=float).ravel()
+        except Exception:
+            return None
+        s = np.nansum(v)
+        if not np.isfinite(s) or s <= 0:
+            return None
+        if abs(s - 100.0) < 1e-3:
+            v = v / 100.0
+        else:
+            v = v / s
+        return v
+
+    def _round_tuple(v, dec):
+        return tuple(np.round(np.asarray(v, dtype=float), dec).tolist())
+
+    def _extract_mix_series(gdf, attribute, n_sources):
+        if isinstance(attribute, str):
+            if attribute not in gdf.columns:
+                suggestions = get_close_matches(attribute, list(map(str, gdf.columns)), n=5, cutoff=0.5)
+                hint = f" Did you mean one of: {suggestions}" if suggestions else ""
+                raise KeyError(f"Column '{attribute}' not found in gdf.{hint}")
+            ser_raw = gdf[attribute]
+            out = []
+            for idx, val in ser_raw.items():
+                try:
+                    arr = np.asarray(val, dtype=float).ravel()
+                    if arr.size != n_sources:
+                        raise ValueError(
+                            f"Row {idx}: vector length {arr.size} != number of sources {n_sources}."
+                        )
+                    arrn = _normalize_ratio(arr)
+                except Exception:
+                    arrn = None
+                out.append(arrn)
+            return pd.Series(out, index=gdf.index)
+        elif isinstance(attribute, (list, tuple)) and all(isinstance(c, str) for c in attribute):
+            missing = [c for c in attribute if c not in gdf.columns]
+            if missing:
+                raise KeyError(f"Columns not found for 'attribute': {missing}")
+            if len(attribute) != n_sources:
+                raise ValueError(
+                    f"Number of attribute columns ({len(attribute)}) must equal number of sources ({n_sources})."
+                )
+            vals = gdf.loc[:, attribute].astype(float).values  # (N, M)
+            sums = np.nansum(vals, axis=1)
+            sums[~np.isfinite(sums) | (sums == 0)] = np.nan
+            normed = vals / sums[:, None]
+            out = [None if not np.isfinite(s) else normed[i, :] for i, s in enumerate(sums)]
+            return pd.Series(out, index=gdf.index)
+        else:
+            raise TypeError("`attribute` must be a column name (str) holding vectors, or a list of column names.")
+
+    def _get_unique_ratios(series, dec):
+        uniq = {}
+        for idx, v in series.items():
+            if v is None:
+                continue
+            key = _round_tuple(v, dec)
+            if key not in uniq:
+                uniq[key] = []
+            uniq[key].append(idx)
+        return uniq  # dict: ratio_tuple -> [row indices]
+    def _relative_luminance(rgb255):
+        """WCAG relative luminance for contrast decisions (sRGB)."""
+        r, g, b = (np.array(rgb255[:3], dtype=float) / 255.0).tolist()
+        def f(u): return u/12.92 if u <= 0.03928 else ((u + 0.055)/1.055) ** 2.4
+        R, G, B = f(r), f(g), f(b)
+        return 0.2126*R + 0.7152*G + 0.0722*B
+
+    def _auto_text_color(rgb255):
+        """
+        Choose black or white text for best contrast with a background color.
+        Uses WCAG contrast ratio heuristic.
+        """
+        L = _relative_luminance(rgb255)
+        contrast_black = (L + 0.05) / 0.05           # vs black (L=0)
+        contrast_white = (1.0 + 0.05) / (L + 0.05)   # vs white (L=1)
+        return 'black' if contrast_black >= contrast_white else 'white'
+
+    def _label_inside_pie(ax, center_xy, proportions, base_colors, radius,
+                        pie_label_r_rel=0.6, label_decimals=0, label_fontsize=9,
+                        label_color='k', auto_contrast=True, min_label_pct=0.0,
+                        start_angle_deg=90.0, zorder=10):
+        """
+        Place one label per wedge INSIDE the pie area at the wedge's mid-angle.
+        - proportions: iterable summing to 1 (shares)
+        - base_colors: same length as proportions, RGB 0-255
+        - radius: pie radius in data units
+        - start_angle_deg: first wedge starts at 12 o'clock by default
+        """
+        cx, cy = center_xy
+        angle = start_angle_deg
+        for p, col in zip(proportions, base_colors):
+            if p <= 0:
+                continue
+            pct = float(p) * 100.0
+            if pct < float(min_label_pct):
+                angle += 360.0 * float(p)
+                continue
+
+            theta_deg = 360.0 * float(p)
+            theta_mid = np.deg2rad(angle + theta_deg * 0.5)
+
+            # label position inside the wedge
+            rlab = float(pie_label_r_rel) * float(radius)
+            x = cx + rlab * np.cos(theta_mid)
+            y = cy + rlab * np.sin(theta_mid)
+
+            # choose text color
+            txt_color = _auto_text_color(col) if auto_contrast else label_color
+
+            ax.text(
+                x, y,
+                f"{pct:.{label_decimals}f}%",
+                ha='center', va='center',
+                color=txt_color,
+                fontsize=label_fontsize,
+                zorder=zorder,
+                clip_on=False,
+            )
+
+            angle += theta_deg
+    # --------- Ratio selection ----------
+    def _select_ratios_two_sources(unique_keys, n):
+        if n <= 0 or len(unique_keys) == 0:
+            return []
+        arr = np.array(unique_keys)  # (U, 2)
+        p0, p1 = arr[:, 0], arr[:, 1]
+
+        if len(unique_keys) == 1:
+            return [unique_keys[0]]
+
+        chosen = []
+        chosen_idxs = set()
+
+        i_max0 = int(np.argmax(p0))  # extreme towards source 1
+        i_max1 = int(np.argmax(p1))  # extreme towards source 2
+        for i in [i_max0, i_max1]:
+            if i not in chosen_idxs and len(chosen) < n:
+                chosen.append(unique_keys[i])
+                chosen_idxs.add(i)
+        if len(chosen) >= n:
+            return chosen[:n]
+
+        # Most balanced (closest to 0.5/0.5)
+        bal_idx = int(np.argmin(np.abs(p0 - 0.5)))
+        if bal_idx not in chosen_idxs and len(chosen) < n:
+            chosen.append(unique_keys[bal_idx])
+            chosen_idxs.add(bal_idx)
+        if len(chosen) >= n:
+            return chosen[:n]
+
+        # Fill remaining by spreading across spectrum (quantiles)
+        remaining = [i for i in range(len(unique_keys)) if i not in chosen_idxs]
+        if remaining:
+            k_need = n - len(chosen)
+            qs = np.linspace(0, 1, k_need + 2)[1:-1]  # internal quantiles
+            order_all = np.argsort(p0[remaining])
+            cand = [remaining[i] for i in order_all]
+            for q in qs:
+                target = np.quantile(p0, q)
+                best, best_d = None, np.inf
+                for i in cand:
+                    d = abs(p0[i] - target)
+                    if d < best_d:
+                        best_d, best = d, i
+                if best is not None:
+                    chosen.append(unique_keys[best])
+                    cand.remove(best)
+                if len(chosen) >= n:
+                    break
+        return chosen[:n]
+
+    def _select_ratios_generic(unique_keys, n):
+        if n <= 0 or len(unique_keys) == 0:
+            return []
+        U = np.array(unique_keys)  # (U, M)
+        M = U.shape[1]
+        chosen_idxs = set()
+
+        # Extremes: for each source, argmax of that component
+        for m in range(M):
+            idx = int(np.argmax(U[:, m]))
+            chosen_idxs.add(idx)
+            if len(chosen_idxs) >= n:
+                return [unique_keys[i] for i in list(chosen_idxs)[:n]]
+
+        # Most balanced: closest to uniform
+        uniform = np.ones(M) / M
+        bal_idx = int(np.argmin(np.linalg.norm(U - uniform, axis=1)))
+        chosen_idxs.add(bal_idx)
+        if len(chosen_idxs) >= n:
+            return [unique_keys[i] for i in list(chosen_idxs)[:n]]
+
+        # Farthest-point sampling for remaining
+        chosen = list(chosen_idxs)
+        while len(chosen) < min(n, len(unique_keys)):
+            dists = np.full(U.shape[0], np.inf)
+            for i in range(U.shape[0]):
+                d = np.min([np.linalg.norm(U[i] - U[j]) for j in chosen])
+                dists[i] = d
+            next_idx = int(np.argmax(dists))
+            if next_idx in chosen:
+                break
+            chosen.append(next_idx)
+        return [unique_keys[i] for i in chosen[:n]]
+
+    def _find_idx_for_ratio(lookup, ratio_key, dn_series):
+        idxs = lookup.get(ratio_key, [])
+        if not idxs:
+            return None
+        if dn_series is not None:
+            dns = pd.to_numeric(dn_series.loc[idxs], errors='coerce')
+            if dns.notna().any():
+                return dns.idxmax()
+        return idxs[0]
+
+    # --------- Geometry helpers for placement ----------
+    def _ray_rect_intersection(cx, cy, dx, dy, rect):
+        """
+        Intersect a ray from (cx,cy) in direction (dx,dy) with axis-aligned rectangle.
+        Returns (x, y, t) where t>0 and (cx+ t*dx, cy+ t*dy) lies on the rectangle boundary.
+        Returns (None, None, None) if no valid intersection (shouldn't happen for finite dx,dy).
+        """
+        minx, miny, maxx, maxy = rect
+        ts = []
+        # vertical sides
+        if dx > 0:
+            t = (maxx - cx) / dx
+            y = cy + t * dy
+            if t > 0 and miny - 1e-9 <= y <= maxy + 1e-9:
+                ts.append((t, maxx, y))
+        elif dx < 0:
+            t = (minx - cx) / dx
+            y = cy + t * dy
+            if t > 0 and miny - 1e-9 <= y <= maxy + 1e-9:
+                ts.append((t, minx, y))
+        # horizontal sides
+        if dy > 0:
+            t = (maxy - cy) / dy
+            x = cx + t * dx
+            if t > 0 and minx - 1e-9 <= x <= maxx + 1e-9:
+                ts.append((t, x, maxy))
+        elif dy < 0:
+            t = (miny - cy) / dy
+            x = cx + t * dx
+            if t > 0 and minx - 1e-9 <= x <= maxx + 1e-9:
+                ts.append((t, x, miny))
+        if not ts:
+            return None, None, None
+        tmin, xhit, yhit = min(ts, key=lambda z: z[0])
+        return xhit, yhit, tmin
+
+    def _expand_rect(rect, pad):
+        minx, miny, maxx, maxy = rect
+        return (minx - pad, miny - pad, maxx + pad, maxy + pad)
+
+    def _rect_overlap(a, b):
+        ax0, ay0, ax1, ay1 = a
+        bx0, by0, bx1, by1 = b
+        return not (ax1 < bx0 or bx1 < ax0 or ay1 < by0 or by1 < ay0)
+
+    def _draw_pie(ax, center_xy, proportions, base_colors, radius,
+                  zorder=10, edgecolor='white', linewidth=0.5,
+                  clip_on=False):
+        """Draw a pie at data coordinates using Wedge patches."""
+        x0, y0 = center_xy
+        start_angle = 90.0  # 12 o'clock
+        for p, col in zip(proportions, base_colors):
+            if p <= 0:
+                continue
+            theta = 360.0 * float(p)
+            wedge = mpatches.Wedge(center=(x0, y0),
+                                   r=radius,
+                                   theta1=start_angle,
+                                   theta2=start_angle + theta,
+                                   facecolor=_to_rgb01(col),
+                                   edgecolor=edgecolor,
+                                   linewidth=linewidth,
+                                   zorder=zorder,
+                                   clip_on=clip_on)
+            ax.add_patch(wedge)
+            start_angle += theta
+
+    def _label_two_sources(ax, ex, ey, theta, r, pcts, **kw):
+        """
+        Place two labels on opposite sides of the pie, perpendicular to connector direction.
+        pcts: (p0, p1) in percent.
+        """
+        nx, ny = -sin(theta), cos(theta)  # normal vector (unit)
+        offset = 0.6 * r
+        posA = (ex - (r + offset) * nx, ey - (r + offset) * ny)
+        posB = (ex + (r + offset) * nx, ey + (r + offset) * ny)
+
+        def _ha_va(dx, dy):
+            # choose alignment based on vector direction for better anchoring
+            ha = 'left' if dx > 0 else 'right' if dx < 0 else 'center'
+            va = 'bottom' if dy > 0 else 'top' if dy < 0 else 'center'
+            # if mostly horizontal, center vertically
+            if abs(dx) > abs(dy):
+                va = 'center'
+            else:
+                ha = 'center'
+            return ha, va
+
+        haA, vaA = _ha_va(-nx, -ny)
+        haB, vaB = _ha_va(nx, ny)
+
+        ax.text(*posA, f"{pcts[0]:.{label_decimals}f}%", ha=haA, va=vaA, **kw)
+        ax.text(*posB, f"{pcts[1]:.{label_decimals}f}%", ha=haB, va=vaB, **kw)
+
+    def _label_multi_sources(ax, ex, ey, theta, r, pcts, **kw):
+        """
+        Place one combined label offset perpendicular to the connector.
+        pcts: sequence of percents.
+        """
+        nx, ny = -sin(theta), cos(theta)
+        offset = 0.7 * r
+        pos = (ex + (r + offset) * nx, ey + (r + offset) * ny)
+        s = "/".join([f"{p:.{label_decimals}f}%" for p in pcts])
+        ha = 'center'
+        va = 'center'
+        ax.text(*pos, s, ha=ha, va=va, **kw)
 
     try:
+        # --- Axis ---
         if ax is None:
-            fig, ax = plt.subplots(figsize=Rm.DINA3q)  # Adjusted to A3 size
-            logger.debug("{0:s}{1:s}".format(logStr, 'Created new axis.'))
+            fig, ax = plt.subplots(figsize=_get_figsize())
+            _logger.debug(f"{logStr}Created new axis.")
 
         if gdf is None or gdf.empty:
-            logger.debug("{0:s}{1:s}".format(logStr, 'No plot data provided.'))
-            return
+            _logger.debug(f"{logStr}No plot data provided.")
+            return ax
 
-        gdf['mixed_color'] = gdf[attribute].apply(lambda x: mix_colors(x, colors))
-        gdf['mixed_color_hex'] = gdf['mixed_color'].apply(lambda x: convert_to_hex(np.array(x).clip(0, 255)))
+        if attribute is None or colors is None:
+            raise ValueError("Both 'attribute' and 'colors' must be provided.")
+        n_sources = len(colors)
 
-        for idx, row in gdf.iterrows():
-            x, y = row['geometry'].xy
+        # --- Build normalized mixture series (vector per row) ---
+        mix_ser = _extract_mix_series(gdf, attribute, n_sources)  # Series of arrays or None
+
+        # For color mixing, use a safe fallback color if a row has no valid vector
+        def _safe_mix(v):
+            vn = _normalize_ratio(v) if v is not None else None
+            if vn is None or len(vn) != n_sources:
+                return np.array([200, 200, 200])  # light gray fallback
+            return _mix_colors(vn, colors)
+
+        gdf = gdf.copy()  # avoid mutating original
+        gdf['mixed_color'] = mix_ser.apply(_safe_mix)
+        gdf['mixed_color_hex'] = gdf['mixed_color'].apply(
+            lambda x: _convert_to_hex(np.array(x).clip(0, 255))
+        )
+
+        # --- Validate linewidth bounds ---
+        try:
+            lw_min_val = float(lw_min)
+            lw_max_val = float(lw_max)
+        except Exception:
+            _logger.warning(f"{logStr}Invalid lw_min/lw_max; falling back to defaults.")
+            lw_min_val, lw_max_val = 0.5, 6.0
+
+        if lw_min_val <= 0:
+            _logger.warning(f"{logStr}lw_min <= 0; clamping to 0.1.")
+            lw_min_val = 0.1
+        if lw_max_val <= 0:
+            _logger.warning(f"{logStr}lw_max <= 0; clamping to 0.2.")
+            lw_max_val = 0.2
+        if lw_min_val > lw_max_val:
+            _logger.warning(f"{logStr}lw_min > lw_max; swapping values.")
+            lw_min_val, lw_max_val = lw_max_val, lw_min_val
+
+        # --- DN-based linewidths (fallback to constant) ---
+        widths = None
+        if dn_col in gdf.columns:
+            dn_series = pd.to_numeric(gdf[dn_col], errors='coerce')
+            valid = dn_series.dropna()
+            if not valid.empty:
+                dn_min, dn_max = valid.min(), valid.max()
+                if dn_max > dn_min:
+                    widths = np.interp(dn_series.fillna(dn_min),
+                                       (dn_min, dn_max), (lw_min_val, lw_max_val))
+                    _logger.debug(f"{logStr}Line widths scaled by '{dn_col}' in range "
+                                  f"[{lw_min_val}, {lw_max_val}]. DN range: [{dn_min}, {dn_max}]")
+                else:
+                    mid = 0.5 * (lw_min_val + lw_max_val)
+                    widths = np.full(len(gdf), mid)
+                    _logger.debug(f"{logStr}'{dn_col}' has no variation; using mid width {mid}.")
+            else:
+                _logger.warning(f"{logStr}'{dn_col}' exists but contains no numeric values; using fixed line_width.")
+        else:
+            _logger.debug(f"{logStr}'{dn_col}' not found; using fixed line_width.")
+
+        if widths is None:
+            widths = np.full(len(gdf), float(line_width))
+
+        # --- Plot the network (lines) ---
+        for (idx, row), lw in zip(gdf.iterrows(), widths):
+            geom = row['geometry']
             color = row['mixed_color_hex']
-            ax.plot(x, y, color=color, linewidth=line_width)
+            try:
+                if geom.geom_type == 'LineString':
+                    x, y = geom.xy
+                    ax.plot(x, y, color=color, linewidth=lw)
+                elif geom.geom_type == 'MultiLineString':
+                    for part in geom.geoms:
+                        x, y = part.xy
+                        ax.plot(x, y, color=color, linewidth=lw)
+                else:
+                    _logger.debug(f"{logStr}Unsupported geometry '{geom.geom_type}' at index {idx}; skipped.")
+            except Exception as e:
+                _logger.debug(f"{logStr}Failed plotting index {idx}: {e}")
 
-        # Create a legend for the colors
+        # --- Legend for source colors ---
         legend_handles = []
         for i, color in enumerate(colors):
-            color_hex = convert_to_hex(color.clip(0, 255))
-            legend_handles.append(plt.Line2D([0], [0], color=color_hex, lw=line_width, label=f"Source {i+1}"))
-
+            color_hex = _convert_to_hex(np.array(color).clip(0, 255))
+            legend_handles.append(
+                plt.Line2D([0], [0], color=color_hex, lw=max(1.0, lw_min_val), label=f"Source {i+1}")
+            )
         ax.legend(handles=legend_handles, loc='best')
-        
-        # Add mixture scale inset (2-source gradient, 3-source ternary, or samples)
-        _add_mixture_scale(ax, colors)
 
-        ax.set_axis_off() 
+        # --- Mixture scale inset (if available) ---
+        if draw_mixture_scale:
+            try:
+                _add_mixture_scale  # noqa
+                try:
+                    _add_mixture_scale(ax, colors)
+                except Exception as e:
+                    _logger.debug(f"{logStr}_add_mixture_scale failed: {e}")
+            except NameError:
+                pass  # silently skip if not available
+        else:
+            pass
+
+        ax.set_axis_off()
+
+        # --- Pie chart annotations (optional) ---
+        if plot_pies and n_pies > 0:
+            _logger.debug(f"{logStr}Pie annotations requested: n_pies={n_pies}")
+
+            # Unique normalized ratios (rounded) with index lists
+            ratio_map = _get_unique_ratios(mix_ser, ratio_decimals)
+            unique_ratio_keys = list(ratio_map.keys())
+            if len(unique_ratio_keys) == 0:
+                _logger.warning(f"{logStr}No valid ratios found for pie selection.")
+                return ax
+
+            # Select which ratios to annotate
+            if n_sources == 2:
+                chosen_ratios = _select_ratios_two_sources(unique_ratio_keys, n_pies)
+            else:
+                chosen_ratios = _select_ratios_generic(unique_ratio_keys, n_pies)
+
+            if not chosen_ratios:
+                _logger.warning(f"{logStr}No ratios selected for pies.")
+                return ax
+
+            # Layout: pies outside bbox
+            minx, miny, maxx, maxy = gdf.total_bounds
+            max_dim = max(maxx - minx, maxy - miny)
+            margin = 0.04 * max_dim
+            pie_radius = float(pie_radius_rel) * max_dim
+            pie_gap = float(pie_gap_rel) * max_dim
+
+            dn_series_for_rep = gdf[dn_col] if dn_col in gdf.columns else None
+            if connector_kwargs is None:
+                _ckw = dict(color='grey', lw=1.2, ls='--', alpha=0.9)
+            else:
+                _ckw = dict(color='grey', lw=1.2, ls='--', alpha=0.9)
+                _ckw.update(dict(connector_kwargs))
+
+            base_colors = [np.array(c, dtype=float) for c in colors]
+            placed_pies = []   # list of dicts: {'center':(ex,ey), 'bbox':(x0,y0,x1,y1), 'theta':theta}
+            pie_boxes = []     # for axis expansion
+
+            # Legend bbox in data coords (optional avoidance)
+            legend_rect_data = None
+            if avoid_legend:
+                # force a draw so legend has a window extent
+                try:
+                    ax.figure.canvas.draw()
+                    leg = ax.get_legend()
+                    if leg is not None:
+                        renderer = ax.figure.canvas.get_renderer()
+                        wb = leg.get_window_extent(renderer=renderer)
+                        # transform display -> data coords
+                        inv = ax.transData.inverted()
+                        (x0, y0) = inv.transform((wb.x0, wb.y0))
+                        (x1, y1) = inv.transform((wb.x1, wb.y1))
+                        legend_rect_data = (min(x0, x1), min(y0, y1), max(x0, x1), max(y0, y1))
+                except Exception:
+                    legend_rect_data = None
+
+            inner_rect = (minx, miny, maxx, maxy)
+            outer_rect = _expand_rect(inner_rect, margin + pie_radius + pie_gap)
+
+            # Precompute candidate angles
+            angles = np.linspace(0, 2 * pi, max(4, int(n_angle_samples)), endpoint=False)
+
+            for rkey in chosen_ratios:
+                rep_idx = _find_idx_for_ratio(ratio_map, rkey, dn_series_for_rep)
+                if rep_idx is None:
+                    continue
+
+                geom = gdf.at[rep_idx, 'geometry']
+                try:
+                    cpt = geom.centroid
+                    cx, cy = float(cpt.x), float(cpt.y)
+                except Exception:
+                    continue
+
+                # Choose best angle by minimizing a cost function:
+                # cost = inside_exit_distance + penalties (pie overlap, legend overlap)
+                best = None  # (cost, ex, ey, theta)
+                for theta in angles:
+                    dx, dy = cos(theta), sin(theta)
+
+                    # where ray exits inner rect (distance inside network)
+                    _, _, t_exit_inner = _ray_rect_intersection(cx, cy, dx, dy, inner_rect)
+                    if t_exit_inner is None:
+                        continue
+                    # where ray hits outer rect (pie center location)
+                    ex, ey, t_outer = _ray_rect_intersection(cx, cy, dx, dy, outer_rect)
+                    if t_outer is None:
+                        continue
+
+                    # candidate pie bbox
+                    pb = (ex - pie_radius, ey - pie_radius, ex + pie_radius, ey + pie_radius)
+
+                    # overlap penalty with already placed pies
+                    penalty = 0.0
+                    for pp in placed_pies:
+                        (px, py) = pp['center']
+                        d2 = (ex - px) ** 2 + (ey - py) ** 2
+                        min_sep = (pie_radius + pie_radius + pie_gap)
+                        if d2 < (min_sep ** 2):
+                            # quadratic penalty as overlap severity grows
+                            penalty += 1e6 * (min_sep ** 2 - d2)
+
+                    # penalty for overlapping legend
+                    if legend_rect_data is not None and _rect_overlap(pb, legend_rect_data):
+                        penalty += 1e8
+
+                    cost = t_exit_inner + penalty  # prefer short exit; avoid overlaps
+
+                    if (best is None) or (cost < best[0]):
+                        best = (cost, ex, ey, theta)
+
+                if best is None:
+                    # fallback to nearest side (original)
+                    # choose nearest side endpoint axis-aligned
+                    d_left, d_right = cx - minx, maxx - cx
+                    d_bottom, d_top = cy - miny, maxy - cy
+                    side = np.argmin([d_left, d_right, d_bottom, d_top])
+                    if side == 0:
+                        theta = pi  # left
+                    elif side == 1:
+                        theta = 0.0  # right
+                    elif side == 2:
+                        theta = -pi/2  # down
+                    else:
+                        theta = pi/2   # up
+                    dx, dy = cos(theta), sin(theta)
+                    ex, ey, _ = _ray_rect_intersection(cx, cy, dx, dy, outer_rect)
+                else:
+                    _, ex, ey, theta = (best[0], best[1], best[2], best[3])
+
+                # record and draw
+                pb = (ex - pie_radius, ey - pie_radius, ex + pie_radius, ey + pie_radius)
+                placed_pies.append({'center': (ex, ey), 'bbox': pb, 'theta': theta})
+                pie_boxes.append(pb)
+
+                # connector (no clipping)
+                ax.plot([cx, ex], [cy, ey], zorder=pie_zorder, clip_on=False, **_ckw)
+
+                if debug_pie_centers:
+                    ax.scatter([ex], [ey], s=30, color='k', zorder=pie_zorder+1, clip_on=False)
+
+                # pie (no clipping)
+                _draw_pie(ax, (ex, ey), rkey, base_colors, pie_radius,
+                          zorder=pie_zorder, edgecolor='white', linewidth=0.6, clip_on=False)
+
+                # labels
+                if show_pie_labels and pie_label_inside:
+                    _label_inside_pie(
+                        ax, (ex, ey), rkey, base_colors, pie_radius,
+                        pie_label_r_rel=pie_label_r_rel,
+                        label_decimals=label_decimals,
+                        label_fontsize=label_fontsize,
+                        label_color=label_color,
+                        auto_contrast=auto_contrast_labels,
+                        min_label_pct=min_label_pct,
+                        start_angle_deg=90.0,
+                        zorder=pie_zorder + 2,
+                    )
+
+
+            # Expand axis limits so pies are visible
+            if expand_limits_for_pies and pie_boxes:
+                pxmin = min(b[0] for b in pie_boxes)
+                pymin = min(b[1] for b in pie_boxes)
+                pxmax = max(b[2] for b in pie_boxes)
+                pymax = max(b[3] for b in pie_boxes)
+                gap = 0.02 * max_dim  # small extra gap
+
+                new_xmin = min(minx, pxmin) - gap
+                new_xmax = max(maxx, pxmax) + gap
+                new_ymin = min(miny, pymin) - gap
+                new_ymax = max(maxy, pymax) + gap
+
+                ax.set_xlim(new_xmin, new_xmax)
+                ax.set_ylim(new_ymin, new_ymax)
+
+            if force_equal_aspect:
+                ax.set_aspect('equal', adjustable='datalim')
+
+            _logger.debug(f"{logStr}Pie annotations complete.")
+
+        return ax
 
     except Exception as e:
-        logger.error("{0:s}{1:s} - {2}".format(logStr, 'Error.', str(e)))
+        _logger.error(f"{logStr}Error. - {e}")
+
 
 def plot_ttr_network(
     df: pd.DataFrame,
