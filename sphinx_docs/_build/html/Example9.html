@@ -218,7 +218,7 @@ When running this example for the first time on your machine, please execute the
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span>
@@ -243,7 +243,7 @@ INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:
 +..\PT3S\Examples\WDExample7_2\B1\V0\BZ1\M-1-0-1.1.MX1:
 +SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
 +in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\3S\SIR 3S\SirCalc-90-14-02-12_Potsdam.fix1_x64\SirCalc.exe
+INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\\3S\SIR 3S Entwicklung\SirCalc-90-15-02-16_Quebec_x64\SirCalc.exe
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\PT3S\Examples\WDExample7_2\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 </pre></div></div>
@@ -401,144 +401,12 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>pk</th>
-      <th>fkDE</th>
-      <th>rk</th>
-      <th>tk</th>
-      <th>tki</th>
-      <th>tkk</th>
-      <th>fkDTRO_ROWD</th>
-      <th>fkLTGR</th>
-      <th>fkSTRASSE</th>
-      <th>L</th>
-      <th>...</th>
-      <th>MAV</th>
-      <th>geometry</th>
-      <th>TTR_KI</th>
-      <th>TTR_KK</th>
-      <th>XKOR_KI</th>
-      <th>XKOR_KK</th>
-      <th>YKOR_KI</th>
-      <th>YKOR_KK</th>
-      <th>KVR_KI</th>
-      <th>KVR_KK</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4762947358005495341</td>
-      <td>5639119000213664939</td>
-      <td>4762947358005495341</td>
-      <td>4762947358005495341</td>
-      <td>5136506604482101815</td>
-      <td>5174640379525019821</td>
-      <td>5483606883489245746</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>55.583332</td>
-      <td>LINESTRING (150 500, 350 600)</td>
-      <td>0.000000</td>
-      <td>0.628318</td>
-      <td>149.999857</td>
-      <td>349.999964</td>
-      <td>500.000119</td>
-      <td>600.000024</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>5479123649362439650</td>
-      <td>5639119000213664939</td>
-      <td>5479123649362439650</td>
-      <td>5479123649362439650</td>
-      <td>5665004361761998834</td>
-      <td>5185493728872360834</td>
-      <td>5039092643857877455</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>27.791666</td>
-      <td>LINESTRING (550 600, 750 650)</td>
-      <td>0.726493</td>
-      <td>1.217367</td>
-      <td>550.000072</td>
-      <td>749.999881</td>
-      <td>600.000024</td>
-      <td>649.999976</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>5367303884852200682</td>
-      <td>5639119000213664939</td>
-      <td>5367303884852200682</td>
-      <td>5367303884852200682</td>
-      <td>5665004361761998834</td>
-      <td>4776931467066465913</td>
-      <td>5039092643857877455</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>27.791666</td>
-      <td>LINESTRING (550 600, 750 550)</td>
-      <td>0.726493</td>
-      <td>1.217367</td>
-      <td>550.000072</td>
-      <td>749.999881</td>
-      <td>600.000024</td>
-      <td>550.000072</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<p>3 rows × 134 columns</p>
-</div></div>
-</div>
 </section>
 </section>
 <section id="Plotting">
 <h3>Plotting<a class="headerlink" href="#Plotting" title="Permalink to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">plot_ttr_network</span><span class="p">(</span>
@@ -565,7 +433,7 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example9_42_0.png" src="_images/Example9_42_0.png" />
+<img alt="_images/Example9_41_0.png" src="_images/Example9_41_0.png" />
 </div>
 </div>
 <p>The network has a constant pressure of 100 bar on the left-most node. And equal constant negative volume flow on all right-most nodes. Simulating a source on the left and consumers on the right.</p>
@@ -580,7 +448,7 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 <section id="Algorithm-Implmentation">
 <h3>Algorithm Implmentation<a class="headerlink" href="#Algorithm-Implmentation" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMAX_DETECT</span> <span class="o">=</span> <span class="mf">1.0e12</span>
@@ -588,7 +456,7 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">setup_graph</span><span class="p">(</span><span class="n">df_data_results_edges</span><span class="p">):</span>
@@ -633,7 +501,7 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bfs_observedNodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">tmax</span><span class="p">):</span>
@@ -678,7 +546,7 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">setup_travelTimeMatrix</span><span class="p">(</span><span class="n">df_data_results_edges</span><span class="p">):</span>
@@ -765,7 +633,7 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 <section id="Calculation">
 <h3>Calculation<a class="headerlink" href="#Calculation" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span> <span class="o">=</span> <span class="n">setup_travelTimeMatrix</span><span class="p">(</span><span class="n">dfROHR</span><span class="p">)</span>
@@ -773,7 +641,7 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="o">=</span><span class="n">TMat</span><span class="o">/</span><span class="mi">3600</span>
@@ -781,7 +649,7 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
@@ -790,27 +658,28 @@ INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.  , 0.  , 1.22, 0.59, 0.  , 0.  , 0.  , 0.  , 0.49],
+array([[0.  , 0.  , 1.34, 0.54, 0.  , 0.  , 0.  , 0.  , 0.49],
        [0.  , 0.  , 1.59, 0.  , 0.  , 0.8 , 0.  , 0.  , 0.  ],
        [0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.63, 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 1.22, 0.59, 0.  , 0.  , 0.  , 0.  , 0.49],
+       [0.  , 0.  , 0.8 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
+       [0.  , 0.  , 1.34, 0.54, 0.  , 0.  , 0.  , 0.  , 0.49],
        [0.  , 0.  , 0.8 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
        [0.  , 1.59, 3.18, 0.  , 0.  , 2.39, 0.  , 0.  , 0.  ],
        [0.  , 1.59, 3.18, 0.  , 0.  , 2.39, 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.73, 0.1 , 0.  , 0.  , 0.  , 0.  , 0.  ]])
+       [0.  , 0.  , 0.84, 0.05, 0.  , 0.  , 0.  , 0.  , 0.  ]])
 </pre></div></div>
 </div>
+<p>This travel time matrix differs to the fluid age calculated by SIR 3S already in the sense that we can only consider one source at a time. In our given example model this is the case. If we had two sources we would need to consider them (two differnt cols) seperatley.</p>
 </section>
 <section id="id2">
 <h3>Plotting<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose a source by tk (preferred)</span>
@@ -857,7 +726,7 @@ array([[0.  , 0.  , 1.22, 0.59, 0.  , 0.  , 0.  , 0.  , 0.49],
 <section id="Read-Model-and-Results">
 <h2>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example9_2&quot;</span>
@@ -870,7 +739,7 @@ array([[0.  , 0.  , 1.22, 0.59, 0.  , 0.  , 0.  , 0.  , 0.49],
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span>
@@ -895,7 +764,7 @@ INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:
 +..\PT3S\Examples\WDExample9_2\B1\V0\BZ1\M-1-0-1.1.MX1:
 +SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
 +in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\3S\SIR 3S\SirCalc-90-14-02-12_Potsdam.fix1_x64\SirCalc.exe
+INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\\3S\SIR 3S Entwicklung\SirCalc-90-15-02-16_Quebec_x64\SirCalc.exe
 INFO    ; Mx.setResultsToMxsFile: Mxs: ..\PT3S\Examples\WDExample9_2\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
 INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </pre></div></div>
@@ -906,7 +775,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 <section id="id4">
 <h3>Preparing Data<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
@@ -914,7 +783,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span>
@@ -924,7 +793,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 <section id="TTR">
 <h4>TTR<a class="headerlink" href="#TTR" title="Permalink to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build lookup Series from dfKNOT</span>
@@ -933,7 +802,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to TTR</span>
@@ -946,7 +815,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 <section id="id5">
 <h4>Node coords<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lookup_XKOR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">)[</span><span class="s1">&#39;XKOR&#39;</span><span class="p">]</span>
@@ -955,7 +824,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to XKOR</span>
@@ -965,7 +834,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to YKOR</span>
@@ -978,7 +847,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 <section id="id6">
 <h4>KVR<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;KVR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -986,143 +855,11 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>pk</th>
-      <th>fkDE</th>
-      <th>rk</th>
-      <th>tk</th>
-      <th>fkKI</th>
-      <th>fkKK</th>
-      <th>fkDTRO_ROWD</th>
-      <th>fkLTGR</th>
-      <th>fkSTRASSE</th>
-      <th>L</th>
-      <th>...</th>
-      <th>MAV</th>
-      <th>geometry</th>
-      <th>TTR_KI</th>
-      <th>TTR_KK</th>
-      <th>XKOR_KI</th>
-      <th>XKOR_KK</th>
-      <th>YKOR_KI</th>
-      <th>YKOR_KK</th>
-      <th>KVR_KI</th>
-      <th>KVR_KK</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4762947358005495341</td>
-      <td>5639119000213664939</td>
-      <td>4762947358005495341</td>
-      <td>4762947358005495341</td>
-      <td>5136506604482101815</td>
-      <td>5174640379525019821</td>
-      <td>5483606883489245746</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>40.745613</td>
-      <td>LINESTRING (150 500, 350 600)</td>
-      <td>0.000000</td>
-      <td>0.857124</td>
-      <td>149.999857</td>
-      <td>349.999964</td>
-      <td>500.000119</td>
-      <td>600.000024</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>5479123649362439650</td>
-      <td>5639119000213664939</td>
-      <td>5479123649362439650</td>
-      <td>5479123649362439650</td>
-      <td>5665004361761998834</td>
-      <td>5185493728872360834</td>
-      <td>5039092643857877455</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>27.791666</td>
-      <td>LINESTRING (550 600, 750 650)</td>
-      <td>1.171553</td>
-      <td>1.662427</td>
-      <td>550.000072</td>
-      <td>749.999881</td>
-      <td>600.000024</td>
-      <td>649.999976</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>5367303884852200682</td>
-      <td>5639119000213664939</td>
-      <td>5367303884852200682</td>
-      <td>5367303884852200682</td>
-      <td>5665004361761998834</td>
-      <td>4776931467066465913</td>
-      <td>5039092643857877455</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>27.791666</td>
-      <td>LINESTRING (550 600, 750 550)</td>
-      <td>1.171553</td>
-      <td>1.662427</td>
-      <td>550.000072</td>
-      <td>749.999881</td>
-      <td>600.000024</td>
-      <td>550.000072</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<p>3 rows × 134 columns</p>
-</div></div>
-</div>
 </section>
 <section id="id7">
 <h4>dt<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dt_abs</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
@@ -1133,7 +870,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">dt_abs</span><span class="p">:</span> <span class="s1">&#39;dt_abs&#39;</span><span class="p">})</span>
@@ -1141,7 +878,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt_abs&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt_abs&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">3600</span>
@@ -1152,7 +889,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 <section id="id8">
 <h4>v<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
@@ -1163,7 +900,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">v</span><span class="p">:</span><span class="s1">&#39;v&#39;</span><span class="p">})</span>
@@ -1171,7 +908,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
@@ -1183,7 +920,7 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 <section id="id9">
 <h3>Plotting<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">plot_ttr_network</span><span class="p">(</span>
@@ -1210,14 +947,14 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example9_87_0.png" src="_images/Example9_87_0.png" />
+<img alt="_images/Example9_86_0.png" src="_images/Example9_86_0.png" />
 </div>
 </div>
 <p>We can observe that due to the inserted connection between the upper and lower branch the travel time in the upper branch changes, because water flows from the lower to the upper branch.</p>
-<p>Why does the node in the upper branch that is connected to the lower branch have a water age of 1.17 h? This node receives water from two pipes, therefore its water age is the water age coming from both pipes weighted by the volume flow.</p>
+<p>Why does the node in the upper branch that is connected to the lower branch have a water age of 1.30 h? This node receives water from two pipes, therefore its water age is the water age coming from both pipes weighted by the volume flow.</p>
 <p>Example Calculation:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;QMAVAbs&#39;</span><span class="p">]</span>
@@ -1225,25 +962,26 @@ INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0    146.610901
+0    154.124557
 1    100.000000
 2    100.000000
-3    253.389099
-4    253.389099
+3    245.875443
+4    245.875443
 5    100.000000
 6    100.000000
-7    146.610901
-8     53.389103
+7    154.124557
+8     45.875450
 Name: QMAVAbs, dtype: float64
 </pre></div></div>
 </div>
-<p>The pipe reaching the node from the left has a volume flow of 147 m^3/h The pipe reaching the node from the bottom has a volume flow of 53 m^3/h</p>
-<p>Fluid age = ((0,86+0,07)<em>147+(1,26+0,6)</em>53) / (53+147) = 1,17</p>
+<p>The pipe reaching the node from the left has a volume flow of 154 m^3/h The pipe reaching the node from the bottom has a volume flow of 46 m^3/h</p>
+<p>Fluid age = ((1.03h+0.06h) * 154m^3/h + (1.29h+0.69h) * 46m^3/h) / (154m^3/h + 46m^3/h) = 1.30 (approx due to rounding error)</p>
+<p>This approach also works for nodes not supplied 100% by one source.</p>
 </section>
 </section>
 <section id="id10">
@@ -1251,7 +989,7 @@ Name: QMAVAbs, dtype: float64
 <section id="id11">
 <h3>Preparing Data<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fkKI&#39;</span><span class="p">:</span> <span class="s1">&#39;tki&#39;</span><span class="p">,</span> <span class="s1">&#39;fkKK&#39;</span><span class="p">:</span> <span class="s1">&#39;tkk&#39;</span><span class="p">})</span>
@@ -1266,7 +1004,7 @@ Name: QMAVAbs, dtype: float64
 <section id="id13">
 <h3>Calculation<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span> <span class="o">=</span> <span class="n">setup_travelTimeMatrix</span><span class="p">(</span><span class="n">dfROHR</span><span class="p">)</span>
@@ -1274,7 +1012,7 @@ Name: QMAVAbs, dtype: float64
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="o">=</span><span class="n">TMat</span><span class="o">/</span><span class="mi">3600</span>
@@ -1282,7 +1020,7 @@ Name: QMAVAbs, dtype: float64
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
@@ -1291,27 +1029,27 @@ Name: QMAVAbs, dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.  , 1.09, 1.41, 0.56, 0.  , 1.71, 0.  , 0.  , 0.49],
-       [0.  , 0.  , 1.26, 0.  , 0.  , 0.63, 0.  , 0.  , 0.  ],
+array([[0.  , 1.18, 1.59, 0.55, 0.  , 1.83, 0.  , 0.  , 0.49],
+       [0.  , 0.  , 1.29, 0.  , 0.  , 0.65, 0.  , 0.  , 0.  ],
        [0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.86, 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
-       [0.  , 1.09, 1.41, 0.56, 0.  , 1.71, 0.  , 0.  , 0.49],
-       [0.  , 0.  , 0.63, 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
-       [0.  , 1.59, 2.85, 0.  , 0.  , 2.22, 0.  , 0.  , 0.  ],
-       [0.  , 1.59, 2.85, 0.  , 0.  , 2.22, 0.  , 0.  , 0.  ],
-       [0.  , 0.6 , 0.92, 0.07, 0.  , 1.22, 0.  , 0.  , 0.  ]])
+       [0.  , 0.  , 1.03, 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
+       [0.  , 1.18, 1.59, 0.55, 0.  , 1.83, 0.  , 0.  , 0.49],
+       [0.  , 0.  , 0.65, 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
+       [0.  , 1.59, 2.88, 0.  , 0.  , 2.24, 0.  , 0.  , 0.  ],
+       [0.  , 1.59, 2.88, 0.  , 0.  , 2.24, 0.  , 0.  , 0.  ],
+       [0.  , 0.69, 1.1 , 0.06, 0.  , 1.34, 0.  , 0.  , 0.  ]])
 </pre></div></div>
 </div>
 </section>
 <section id="id14">
 <h3>Plotting<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose a source by tk (preferred)</span>
@@ -1348,817 +1086,8 @@ array([[0.  , 1.09, 1.41, 0.56, 0.  , 1.71, 0.  , 0.  , 0.49],
 <img alt="_images/Example9_104_0.png" src="_images/Example9_104_0.png" />
 </div>
 </div>
-<p>If we compare this plot to the previous one, that used the fluid age calculated by SIR 3S directley, we observe that they the travel time values do not equal the fluid age. The reason for that is that the travel time algorithm uses a Dijkstra algorithm on a graph that has edges that are weighted by the time spent in each pipe. If we now consider the node connected to four pipes in the upper branch. We see that the travel time is higher than the fluid age calculated, that is unexpected and gives
-a wrong fluid age at the node. As the travel time algorithm does not consider flow this is not unexpected.</p>
-</section>
-</section>
-</section>
-<section id="Below-ist-WORK-IN-PROGRESS">
-<h1>Below ist WORK IN PROGRESS<a class="headerlink" href="#Below-ist-WORK-IN-PROGRESS" title="Permalink to this heading"></a></h1>
-</section>
-<section id="Branched-with-pipe-differnt-direction">
-<h1>Branched with pipe differnt direction<a class="headerlink" href="#Branched-with-pipe-differnt-direction" title="Permalink to this heading"></a></h1>
-<p>The model 9_3 differs to 9_1 only in that the upper horizontal pipe is modeled from rigt to left instead of left to right. So against the calculated flow.</p>
-<section id="id15">
-<h2>Read Model and Results<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example9_3&quot;</span>
-<span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
-                    <span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span>
-                    <span class="o">+</span><span class="n">dbFilename</span>
-                    <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span>
-                                <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span>
-                                <span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span>
-                                <span class="c1">#,SirCalcExePath=r&quot;C:\3S\SIR 3S\SirCalc-90-14-02-12_Potsdam.fix1_x64\SirCalc.exe&quot;</span>
-                                <span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:25832&quot;</span> <span class="c1"># random EPSG</span>
-                                <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\PT3S\Examples\Example9_3.db3 exists readable ...
-INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value(ID=3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined ...
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used ...
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:
-+..\PT3S\Examples\Example9_3.db3 is newer than
-+..\PT3S\Examples\WDExample9_3\B1\V0\BZ1\M-1-0-1.1.MX1:
-+SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
-+in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\3S\SIR 3S\SirCalc-90-14-02-12_Potsdam.fix1_x64\SirCalc.exe
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\PT3S\Examples\WDExample9_3\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-INFO    ; dxWithMx.__init__: Example9_3: processing dx and mx ...
-</pre></div></div>
-</div>
-</section>
-<section id="id16">
-<h2>SIR 3S results<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h2>
-<section id="id17">
-<h3>Preparing Data<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span>
-</pre></div>
-</div>
-</div>
-<section id="id18">
-<h4>TTR<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build lookup Series from dfKNOT</span>
-<span class="n">lookup_TTR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">)[</span><span class="s1">&#39;TTR&#39;</span><span class="p">]</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to TTR</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;TTR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_TTR</span><span class="p">)</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;TTR_KK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_TTR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="id19">
-<h4>Node coords<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lookup_XKOR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">)[</span><span class="s1">&#39;XKOR&#39;</span><span class="p">]</span>
-<span class="n">lookup_YKOR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">)[</span><span class="s1">&#39;YKOR&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to XKOR</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;XKOR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_XKOR</span><span class="p">)</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;XKOR_KK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_XKOR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to YKOR</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;YKOR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_YKOR</span><span class="p">)</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;YKOR_KK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_YKOR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="id20">
-<h4>KVR<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;KVR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;KVR_KK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>pk</th>
-      <th>fkDE</th>
-      <th>rk</th>
-      <th>tk</th>
-      <th>fkKI</th>
-      <th>fkKK</th>
-      <th>fkDTRO_ROWD</th>
-      <th>fkLTGR</th>
-      <th>fkSTRASSE</th>
-      <th>L</th>
-      <th>...</th>
-      <th>MAV</th>
-      <th>geometry</th>
-      <th>TTR_KI</th>
-      <th>TTR_KK</th>
-      <th>XKOR_KI</th>
-      <th>XKOR_KK</th>
-      <th>YKOR_KI</th>
-      <th>YKOR_KK</th>
-      <th>KVR_KI</th>
-      <th>KVR_KK</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4762947358005495341</td>
-      <td>5639119000213664939</td>
-      <td>4762947358005495341</td>
-      <td>4762947358005495341</td>
-      <td>5136506604482101815</td>
-      <td>5174640379525019821</td>
-      <td>5483606883489245746</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>55.583332</td>
-      <td>LINESTRING (150 500, 350 600)</td>
-      <td>0.000000</td>
-      <td>0.628318</td>
-      <td>149.999857</td>
-      <td>349.999964</td>
-      <td>500.000119</td>
-      <td>600.000024</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>5479123649362439650</td>
-      <td>5639119000213664939</td>
-      <td>5479123649362439650</td>
-      <td>5479123649362439650</td>
-      <td>5665004361761998834</td>
-      <td>5185493728872360834</td>
-      <td>5039092643857877455</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>27.791666</td>
-      <td>LINESTRING (550 600, 750 650)</td>
-      <td>0.787362</td>
-      <td>1.278236</td>
-      <td>550.000072</td>
-      <td>749.999881</td>
-      <td>600.000024</td>
-      <td>649.999976</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>5367303884852200682</td>
-      <td>5639119000213664939</td>
-      <td>5367303884852200682</td>
-      <td>5367303884852200682</td>
-      <td>5665004361761998834</td>
-      <td>4776931467066465913</td>
-      <td>5039092643857877455</td>
-      <td>5502864303090671858</td>
-      <td>-1</td>
-      <td>1000.0</td>
-      <td>...</td>
-      <td>27.791666</td>
-      <td>LINESTRING (550 600, 750 550)</td>
-      <td>0.787362</td>
-      <td>1.278236</td>
-      <td>550.000072</td>
-      <td>749.999881</td>
-      <td>600.000024</td>
-      <td>550.000072</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<p>3 rows × 134 columns</p>
-</div></div>
-</div>
-</section>
-<section id="id21">
-<h4>dt<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dt_abs</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;ROHR~*~*~*~DTTR&#39;</span><span class="p">,</span>
-  <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2025-06-05 13:27:46&#39;</span><span class="p">),</span>
-  <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2025-06-05 13:27:46&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">dt_abs</span><span class="p">:</span> <span class="s1">&#39;dt_abs&#39;</span><span class="p">})</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt_abs&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt_abs&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">3600</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="id22">
-<h4>v<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;ROHR~*~*~*~VAV&#39;</span><span class="p">,</span>
-  <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2025-06-05 13:27:46&#39;</span><span class="p">),</span>
-  <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2025-06-05 13:27:46&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">v</span><span class="p">:</span><span class="s1">&#39;v&#39;</span><span class="p">})</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0    2261.946539
-1    1767.145898
-2    1767.145898
-3    2862.776291
-4    2862.776291
-5    5725.552581
-6    5725.552581
-7    -572.555564
-Name: dt, dtype: float64
-</pre></div></div>
-</div>
-<p>We can see that the dt for the flipped pipe has a negative. I do not understand how the magnitude comes to be.</p>
-</section>
-</section>
-<section id="id23">
-<h3>Plotting<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">plot_ttr_network</span><span class="p">(</span>
-    <span class="n">dfROHR</span><span class="p">,</span>
-    <span class="n">dn_col</span><span class="o">=</span><span class="s2">&quot;DN&quot;</span><span class="p">,</span>
-    <span class="n">fk_ki_col</span><span class="o">=</span><span class="s1">&#39;fkKI&#39;</span><span class="p">,</span>
-    <span class="n">fk_kk_col</span><span class="o">=</span><span class="s1">&#39;fkKK&#39;</span><span class="p">,</span>
-    <span class="n">geometry_col</span><span class="o">=</span><span class="s2">&quot;geometry&quot;</span><span class="p">,</span>
-    <span class="n">ttr_norm</span><span class="o">=</span><span class="s2">&quot;percentile&quot;</span><span class="p">,</span> <span class="n">ttr_percentiles</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span>
-    <span class="n">linewidth_range</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-    <span class="n">node_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-    <span class="n">highlight_keys</span><span class="o">=</span><span class="p">[</span><span class="mi">5136506604482101815</span><span class="p">],</span> <span class="c1"># source tk</span>
-    <span class="n">highlight_marker_size</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
-    <span class="n">show_values</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">dt_col</span><span class="o">=</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span>
-    <span class="n">show_edge_dt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">annotation_fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example9_137_0.png" src="_images/Example9_137_0.png" />
-</div>
-</div>
-<p>We can observe that the magnitude of the dt in the upper horizontal pipe differs due to the pipe being modeled in a differnt direction. And that leads also to a differnt fluid age after this pipe. This not good, because a different modeling direction should not imply a change in calculated result. There appears to be something we are not considering.</p>
-</section>
-</section>
-<section id="id24">
-<h2>Comparision: Travel Time Matrix<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h2>
-<section id="id25">
-<h3>Preparing Data<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fkKI&#39;</span><span class="p">:</span> <span class="s1">&#39;tki&#39;</span><span class="p">,</span> <span class="s1">&#39;fkKK&#39;</span><span class="p">:</span> <span class="s1">&#39;tkk&#39;</span><span class="p">})</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="id26">
-<h3>Algorithm Implmentation<a class="headerlink" href="#id26" title="Permalink to this heading"></a></h3>
-<p>We reuse the algorithm already implemented</p>
-</section>
-<section id="id27">
-<h3>Calculation<a class="headerlink" href="#id27" title="Permalink to this heading"></a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span> <span class="o">=</span> <span class="n">setup_travelTimeMatrix</span><span class="p">(</span><span class="n">dfROHR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="o">=</span><span class="n">TMat</span><span class="o">/</span><span class="mi">3600</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-<span class="n">TMat</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-array([[0.  , 0.  , 1.28, 0.65, 0.  , 0.  , 0.  , 0.  , 0.49],
-       [0.  , 0.  , 1.59, 0.  , 0.  , 0.8 , 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.63, 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 1.28, 0.65, 0.  , 0.  , 0.  , 0.  , 0.49],
-       [0.  , 0.  , 0.8 , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ],
-       [0.  , 1.59, 3.18, 0.  , 0.  , 2.39, 0.  , 0.  , 0.  ],
-       [0.  , 1.59, 3.18, 0.  , 0.  , 2.39, 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.79, 0.16, 0.  , 0.  , 0.  , 0.  , 0.  ]])
-</pre></div></div>
-</div>
-</section>
-<section id="id28">
-<h3>Plotting<a class="headerlink" href="#id28" title="Permalink to this heading"></a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[82]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose a source by tk (preferred)</span>
-<span class="n">source_tk</span> <span class="o">=</span> <span class="s2">&quot;5136506604482101815&quot;</span>
-
-<span class="n">ax</span><span class="p">,</span> <span class="n">nodes_tt</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">plot_travel_time_from_source</span><span class="p">(</span>
-    <span class="n">dfROHR</span><span class="p">,</span>
-    <span class="n">TMat</span><span class="o">=</span><span class="n">TMat</span><span class="p">,</span>
-    <span class="n">map_nodes_tk_ind</span><span class="o">=</span><span class="n">map_nodes_tk_ind</span><span class="p">,</span>
-    <span class="n">source</span><span class="o">=</span><span class="n">source_tk</span><span class="p">,</span>                         <span class="c1"># or pass an integer matrix index</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span>
-    <span class="n">linewidth_range</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-    <span class="n">node_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-    <span class="n">ttr_norm</span><span class="o">=</span><span class="s2">&quot;percentile&quot;</span><span class="p">,</span> <span class="n">ttr_percentiles</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span>
-    <span class="n">treat_zero_as_unreachable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># hides unreachable nodes; source remains at 0.0</span>
-    <span class="n">highlight_keys</span><span class="o">=</span><span class="p">[</span><span class="n">source_tk</span><span class="p">],</span>               <span class="c1"># star the source (and any others you pass)</span>
-    <span class="n">highlight_match</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
-    <span class="n">colorbar_label</span><span class="o">=</span><span class="s2">&quot;Travel time [h]&quot;</span><span class="p">,</span>
-    <span class="n">show_axis</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">show_values</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">dt_col</span><span class="o">=</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span>
-    <span class="n">show_edge_dt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">annotation_fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example9_149_0.png" src="_images/Example9_149_0.png" />
-</div>
-</div>
-<p>If we compare this plot to the previos one, that used the fluid age calculated by SIR 3S directley, we observe that they are identical.</p>
-</section>
-</section>
-</section>
-<section id="Travel-Time-for-real-DH-network">
-<h1>Travel Time for real DH network<a class="headerlink" href="#Travel-Time-for-real-DH-network" title="Permalink to this heading"></a></h1>
-<p>WORK IN PROGRESS: Change from dfROHR do dfVBEL and give values needed</p>
-<section id="id29">
-<h2>Read Model and Results<a class="headerlink" href="#id29" title="Permalink to this heading"></a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[83]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example5&quot;</span>
-<span class="n">dbFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
-                    <span class="o">+</span><span class="s1">&#39;/Examples/&#39;</span>
-                    <span class="o">+</span><span class="n">dbFilename</span>
-                    <span class="o">+</span><span class="s1">&#39;.db3&#39;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[84]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span>
-                                <span class="p">,</span><span class="n">preventPklDump</span><span class="o">=</span><span class="kc">True</span>
-                                <span class="p">,</span><span class="n">maxRecords</span><span class="o">=-</span><span class="mi">1</span>
-                                <span class="p">,</span><span class="n">SirCalcExePath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\3S\SIR 3S\SirCalc-90-14-02-12_Potsdam.fix1_x64\SirCalc.exe&quot;</span>
-                                <span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:25832&quot;</span> <span class="c1"># random EPSG</span>
-                                <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO    ; Dx.__init__: dbFile (abspath): c:\users\aUserName\3s\pt3s\PT3S\Examples\Example5.db3 exists readable ...
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:
-+..\PT3S\Examples\Example5.db3 is newer than
-+..\PT3S\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
-+SIR 3S&#39; dbFile is newer than SIR 3S&#39; mx1File
-+in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:
-+..\PT3S\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.XML is newer than
-+..\PT3S\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MX1:
-+SirCalc&#39;s xmlFile is newer than SIR 3S&#39; mx1File
-+in this case the results are maybe dated or (worse) incompatible to the model
-INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\3S\SIR 3S\SirCalc-90-14-02-12_Potsdam.fix1_x64\SirCalc.exe
-INFO    ; Mx.setResultsToMxsFile: Mxs: ..\PT3S\Examples\WDExample5\B1\V0\BZ1\M-1-0-1.1.MXS reading ...
-INFO    ; dxWithMx.__init__: Example5: processing dx and mx ...
-</pre></div></div>
-</div>
-</section>
-<section id="id30">
-<h2>SIR 3S results<a class="headerlink" href="#id30" title="Permalink to this heading"></a></h2>
-<section id="id31">
-<h3>Preparing Data<a class="headerlink" href="#id31" title="Permalink to this heading"></a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[85]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_KNOT</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[86]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span>
-</pre></div>
-</div>
-</div>
-<section id="id32">
-<h4>TTR<a class="headerlink" href="#id32" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[87]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build lookup Series from dfKNOT</span>
-<span class="n">lookup_TTR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">)[</span><span class="s1">&#39;TTR&#39;</span><span class="p">]</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[88]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to TTR</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;TTR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_TTR</span><span class="p">)</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;TTR_KK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_TTR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="id33">
-<h4>Node coords<a class="headerlink" href="#id33" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[89]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lookup_XKOR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">)[</span><span class="s1">&#39;XKOR&#39;</span><span class="p">]</span>
-<span class="n">lookup_YKOR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;pk&#39;</span><span class="p">)[</span><span class="s1">&#39;YKOR&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[90]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to XKOR</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;XKOR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_XKOR</span><span class="p">)</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;XKOR_KK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_XKOR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map fkKI and fkKK to YKOR</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;YKOR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_YKOR</span><span class="p">)</span>
-<span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;YKOR_KK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_YKOR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="id34">
-<h4>KVR<a class="headerlink" href="#id34" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[92]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lookup_KVR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;KVR&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[93]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;KVR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_KVR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;KVR_KK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_KVR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="id35">
-<h4>v<a class="headerlink" href="#id35" title="Permalink to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;ROHR~*~*~*~VAV&#39;</span><span class="p">,</span>
-  <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2025-09-23 22:00:00&#39;</span><span class="p">),</span>
-  <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2025-09-23 22:00:00&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">v</span><span class="p">:</span><span class="s1">&#39;v&#39;</span><span class="p">})</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[97]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[98]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[98]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0        159.817275
-1         -78.38908
-2         398.71896
-3        292.486113
-4       -221.322437
-           ...
-1667      74.339757
-1668     -90.884267
-1669     116.361948
-1670    5031.605761
-1671     219.045758
-Name: dt, Length: 1672, dtype: object
-</pre></div></div>
-</div>
-<p>We can see that the dt for the flipped pipe has a negative. I do not understand how the magnitude comes to be.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[99]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">dfROHR</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fkKI&#39;</span><span class="p">:</span> <span class="s1">&#39;tki&#39;</span><span class="p">,</span> <span class="s1">&#39;fkKK&#39;</span><span class="p">:</span> <span class="s1">&#39;tkk&#39;</span><span class="p">})</span>
-</pre></div>
-</div>
-</div>
-</section>
-</section>
-<section id="id36">
-<h3>Algorithm Implmentation<a class="headerlink" href="#id36" title="Permalink to this heading"></a></h3>
-<p>We reuse the algorithm already implemented</p>
-</section>
-<section id="id37">
-<h3>Calculation<a class="headerlink" href="#id37" title="Permalink to this heading"></a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[100]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="p">,</span> <span class="n">map_nodes_tk_ind</span> <span class="o">=</span> <span class="n">setup_travelTimeMatrix</span><span class="p">(</span><span class="n">dfROHR</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[101]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMat</span><span class="o">=</span><span class="n">TMat</span><span class="o">/</span><span class="mi">3600</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[102]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-<span class="n">TMat</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[102]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-array([[0.  , 0.  , 0.  , ..., 0.  , 0.41, 0.  ],
-       [0.  , 0.  , 0.  , ..., 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.  , ..., 0.  , 0.  , 0.  ],
-       ...,
-       [0.  , 0.  , 0.  , ..., 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.  , ..., 0.  , 0.  , 0.  ],
-       [0.  , 0.  , 0.  , ..., 0.  , 0.  , 0.  ]])
-</pre></div></div>
-</div>
-</section>
-<section id="id38">
-<h3>Plotting<a class="headerlink" href="#id38" title="Permalink to this heading"></a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[103]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose a source by tk (preferred)</span>
-<span class="n">source_tk</span> <span class="o">=</span> <span class="s2">&quot;5011622445515665493&quot;</span>
-
-<span class="n">ax</span><span class="p">,</span> <span class="n">nodes_tt</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">plot_travel_time_from_source</span><span class="p">(</span>
-    <span class="n">dfROHR</span><span class="p">,</span>
-    <span class="n">TMat</span><span class="o">=</span><span class="n">TMat</span><span class="p">,</span>
-    <span class="n">map_nodes_tk_ind</span><span class="o">=</span><span class="n">map_nodes_tk_ind</span><span class="p">,</span>
-    <span class="n">source</span><span class="o">=</span><span class="n">source_tk</span><span class="p">,</span>                         <span class="c1"># or pass an integer matrix index</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span>
-    <span class="n">linewidth_range</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
-    <span class="n">node_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-    <span class="n">ttr_norm</span><span class="o">=</span><span class="s2">&quot;percentile&quot;</span><span class="p">,</span> <span class="n">ttr_percentiles</span><span class="o">=</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span>
-    <span class="n">treat_zero_as_unreachable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>           <span class="c1"># hides unreachable nodes; source remains at 0.0</span>
-    <span class="n">highlight_keys</span><span class="o">=</span><span class="p">[</span><span class="n">source_tk</span><span class="p">],</span>               <span class="c1"># star the source (and any others you pass)</span>
-    <span class="n">highlight_match</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
-    <span class="n">colorbar_label</span><span class="o">=</span><span class="s2">&quot;Travel time [h]&quot;</span><span class="p">,</span>
-    <span class="n">show_axis</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">annotation_fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/Example9_185_0.png" src="_images/Example9_185_0.png" />
-</div>
-</div>
+<p>If we compare this plot to the previous one, that used the fluid age calculated by SIR 3S directley, we observe that they the travel time values do not equal the fluid age. The reason for that is that the travel time algorithm uses a Dijkstra algorithm on a graph that has edges that are weighted by the time spent in each pipe. If we now consider the node connected to four pipes in the upper branch. We see that the travel time is lower than the fluid age calculated. As the travel time algorithm
+does not consider flow this is not unexpected. The travel time algorithm only considers the upper branch for the calculation of the travel time and not the contribution of the lower branch.</p>
 </section>
 </section>
 </section>

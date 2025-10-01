@@ -491,19 +491,93 @@ For all objects fkDE is finally set to fkBASIS(fkBZ) of the SYSTEMKONFIG(3)-Mode
 <h2>Plot Source Spectrum<a class="headerlink" href="#plot-source-spectrum" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="ncd.plot_src_spectrum">
-<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">plot_src_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#plot_src_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.plot_src_spectrum" title="Permalink to this definition"></a></dt>
-<dd><p>Plots the source spectrum based on the provided GeoDataFrame and attributes.</p>
+<span class="sig-prename descclassname"><span class="pre">ncd.</span></span><span class="sig-name descname"><span class="pre">plot_src_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dn_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_pies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_pies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pie_radius_rel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connector_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pie_zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expand_limits_for_pies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_equal_aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug_pie_centers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_angle_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pie_gap_rel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avoid_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_pie_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_mixture_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pie_label_inside</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pie_label_r_rel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_contrast_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_label_pct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncd.html#plot_src_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncd.plot_src_spectrum" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the source spectrum for a district heating network with optional pie annotations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em>) – The axis to plot on. If None, a new axis is created.</p></li>
-<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – The GeoDataFrame containing the data to plot.</p></li>
-<li><p><strong>attribute</strong> (<em>str</em>) – The attribute column in the GeoDataFrame to use for color mixing.</p></li>
-<li><p><strong>colors</strong> (<em>list of np.ndarray</em>) – The colors to use for mixing.</p></li>
-<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=2</em>) – The width of the lines in the plot.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em>, </em><em>optional</em>) – Matplotlib axis object. If None, a new axis is created.</p></li>
+<li><p><strong>gdf</strong> (<em>geopandas.GeoDataFrame</em>) – Geospatial DataFrame containing the network geometries to plot. Must include a ‘geometry’
+column with LineString or MultiLineString objects.</p></li>
+<li><p><strong>attribute</strong> (<em>str</em><em> or </em><em>list</em><em>[</em><em>str</em><em>]</em>) – Mixture information per row. If a string, it is the name of a column whose entries are
+vector-like mixtures (e.g., [96, 4] or [0.96, 0.04]). If a list of strings, these columns
+are combined row-wise (in the given order) into a mixture vector. Values may be absolute
+contributions or percentages; they are normalized internally to sum to 1. If the sum is
+~100, values are treated as percentages.</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em>[</em><em>numpy.ndarray</em><em>] or </em><em>list</em><em>[</em><em>Sequence</em><em>[</em><em>float</em><em>]</em><em>]</em><em>, </em><em>length == number of sources</em>) – Base RGB colors used for color mixing and pie wedges. Each color is a 3-component RGB
+sequence in the 0–255 range (alpha optional, ignored for mixing).</p></li>
+<li><p><strong>line_width</strong> (<em>float</em><em>, </em><em>optional</em>) – Fallback line width applied when DN-based scaling is unavailable or invalid.</p></li>
+<li><p><strong>dn_col</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the diameter (or similar) column used to scale line widths and to select
+representative pipes for pie placement.</p></li>
+<li><p><strong>lw_min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum line width used when scaling by <code class="docutils literal notranslate"><span class="pre">dn_col</span></code>.</p></li>
+<li><p><strong>lw_max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum line width used when scaling by <code class="docutils literal notranslate"><span class="pre">dn_col</span></code>.</p></li>
+<li><p><strong>plot_pies</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, annotate selected unique mixture ratios with pie charts positioned outside the
+network bounding box and connected via a line from a representative pipe.</p></li>
+<li><p><strong>n_pies</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of pie annotations to place. For two sources: choose extremes (max per source),
+then the most balanced (closest to 50/50), then additional values spread across the spectrum.
+For more than two sources: one extreme per source, then most balanced (closest to uniform),
+then farthest-point sampling for diversity.</p></li>
+<li><p><strong>ratio_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Rounding applied to normalized ratios for de-duplication of unique mixtures.</p></li>
+<li><p><strong>pie_radius_rel</strong> (<em>float</em><em>, </em><em>optional</em>) – Pie radius as a fraction of the larger side of the network bounding box. Adjust to
+tune visual size across differently scaled coordinate systems.</p></li>
+<li><p><strong>connector_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Keyword arguments passed to <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.plot</span></code> for connector styling
+(e.g., <code class="docutils literal notranslate"><span class="pre">dict(color='grey',</span> <span class="pre">lw=1.2,</span> <span class="pre">ls='--',</span> <span class="pre">alpha=0.9)</span></code>).</p></li>
+<li><p><strong>pie_zorder</strong> (<em>int</em><em>, </em><em>optional</em>) – Z-order for pie wedges and their connectors.</p></li>
+<li><p><strong>expand_limits_for_pies</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, expands the axis limits to fully include all pies (and a small
+margin), ensuring they remain visible even when placed outside the original
+data extent.</p></li>
+<li><p><strong>force_equal_aspect</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, forces equal aspect ratio so circular pies are rendered as circles.</p></li>
+<li><p><strong>debug_pie_centers</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, draws small markers at pie centers to aid debugging of placement.</p></li>
+<li><p><strong>n_angle_samples</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of candidate connector angles to test per pie. The chosen angle minimizes
+the interior crossing distance and penalizes overlap with other pies and with the
+legend/mix-scale area (when avoidance is enabled).</p></li>
+<li><p><strong>pie_gap_rel</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum gap between pie outer circles, expressed as a fraction of the larger side of
+the network bounding box. Helps avoid pie‑pie overlap.</p></li>
+<li><p><strong>avoid_legend</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, pie placement avoids overlapping the existing legend and/or mixture scale
+axes when possible (requires a canvas draw to measure extents).</p></li>
+<li><p><strong>show_pie_labels</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, draw ratio labels next to each pie. For two sources, two labels are
+shown on opposite sides; for three or more sources, a single combined label
+(e.g., “30/50/20%”) is placed.</p></li>
+<li><p><strong>label_decimals</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimal places to show in percentage labels.</p></li>
+<li><p><strong>label_color</strong> (<em>str</em><em>, </em><em>optional</em>) – Text color for pie labels.</p></li>
+<li><p><strong>label_fontsize</strong> (<em>float</em><em>, </em><em>optional</em>) – Font size for pie labels.</p></li>
+<li><p><strong>draw_mixture_scale</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, draw the mixture scale (e.g., gradient/ternary inset) for the color
+scheme. If False, suppresses this inset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The axis used for plotting (useful for further chaining/customization).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>matplotlib.axes.Axes</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If required parameters are missing, if the number of attribute columns does not match
+the number of colors/sources, or if color specifications are malformed.</p></li>
+<li><p><strong>KeyError</strong> – If the specified <code class="docutils literal notranslate"><span class="pre">attribute</span></code> column(s) or <code class="docutils literal notranslate"><span class="pre">dn_col</span></code> are not present in <code class="docutils literal notranslate"><span class="pre">gdf</span></code>.</p></li>
+<li><p><strong>TypeError</strong> – If <code class="docutils literal notranslate"><span class="pre">attribute</span></code> is neither a string nor a list of strings.</p></li>
 </ul>
 </dd>
 </dl>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Mixtures are normalized to sum to 1. If the raw sum is approximately 100, values are interpreted</dt><dd><p>as percentages. Rows with invalid/empty mixtures fallback to a neutral light-gray color.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>DN-based width scaling maps the observed <code class="docutils literal notranslate"><span class="pre">dn_col</span></code> range linearly into <code class="docutils literal notranslate"><span class="pre">[lw_min,</span> <span class="pre">lw_max]</span></code>. If</dt><dd><p><code class="docutils literal notranslate"><span class="pre">dn_col</span></code> has no numeric variation, a midpoint width is used.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Pie placement samples multiple angles and chooses the one minimizing interior travel distance while</dt><dd><p>avoiding overlap with other pies and the legend/mixture scale (when enabled). Axes limits are expanded
+to include pies when requested.</p>
+</dd>
+</dl>
+</li>
+</ul>
 </dd></dl>
 
 <p>Refer to <a class="reference internal" href="examples.html#ex7"><span class="std std-ref">Example 7: Source Spectrum and Fluid Age</span></a>. It uses this function.</p>

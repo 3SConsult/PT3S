@@ -95,7 +95,7 @@
 <section id="PT3S-Release">
 <h2>PT3S Release<a class="headerlink" href="#PT3S-Release" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install PT3S -U --no-deps</span>
@@ -107,7 +107,7 @@
 <h2>Necessary packages for this Example<a class="headerlink" href="#Necessary-packages-for-this-Example" title="Permalink to this heading"></a></h2>
 <p>When running this example for the first time on your machine, please execute the cell below. Afterward, you may need to restart the kernel (using the ‘fast-forward’ button).</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install -q shapely ipywidgets</span>
@@ -118,7 +118,7 @@
 <section id="Imports">
 <h2>Imports<a class="headerlink" href="#Imports" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -167,7 +167,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
@@ -176,7 +176,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#importlib.reload(ncd)</span>
@@ -187,7 +187,7 @@
 <section id="Logging">
 <h2>Logging<a class="headerlink" href="#Logging" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
@@ -217,7 +217,7 @@
 <section id="Read-Model-and-Results">
 <h2>Read Model and Results<a class="headerlink" href="#Read-Model-and-Results" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbFilename</span><span class="o">=</span><span class="s2">&quot;Example7&quot;</span>
@@ -226,7 +226,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">dxAndMxHelperFcts</span><span class="o">.</span><span class="n">readDxAndMx</span><span class="p">(</span><span class="n">dbFile</span><span class="o">=</span><span class="n">dbFile</span>
@@ -241,7 +241,7 @@
 <section id="Preparing-Data">
 <h2>Preparing Data<a class="headerlink" href="#Preparing-Data" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfKNOT</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_KNOT</span>
@@ -249,7 +249,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">gdf_ROHR</span>
@@ -257,7 +257,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get soure signatures for start and end knot</span>
@@ -267,7 +267,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">QM</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;STAT&#39;</span><span class="p">,</span>
@@ -278,7 +278,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_plot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dfROHR</span><span class="p">[</span><span class="n">QM</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKI&#39;</span><span class="p">],</span> <span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;srcvector_fkKK&#39;</span><span class="p">])</span>
@@ -286,7 +286,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfROHR</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="p">[</span><span class="n">dfROHR</span><span class="p">[</span><span class="s1">&#39;KVR&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">2.0</span><span class="p">]</span>
@@ -297,7 +297,7 @@
 <section id="Plotting">
 <h2>Plotting<a class="headerlink" href="#Plotting" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">])]</span>
@@ -307,7 +307,7 @@
 <section id="DH-Feeder">
 <h3>DH Feeder<a class="headerlink" href="#DH-Feeder" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pA</span><span class="o">=</span><span class="n">dfKNOT</span><span class="p">[</span><span class="n">dfKNOT</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;5130118215602471518&quot;</span><span class="p">][</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
@@ -315,7 +315,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pB</span><span class="o">=</span><span class="n">dfKNOT</span><span class="p">[</span><span class="n">dfKNOT</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;5428490852894646653&quot;</span><span class="p">][</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
@@ -323,7 +323,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">src_A_coords</span> <span class="o">=</span> <span class="p">(</span><span class="n">pA</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pA</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
@@ -332,7 +332,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">/</span> <span class="mf">255.0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">colors</span><span class="p">]</span>
@@ -343,11 +343,11 @@
 <section id="Plot">
 <h3>Plot<a class="headerlink" href="#Plot" title="Permalink to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">Rm</span><span class="o">.</span><span class="n">DINA3q</span><span class="p">)</span>
-<span class="n">ncd</span><span class="o">.</span><span class="n">plot_src_spectrum</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">dfROHR</span><span class="p">,</span><span class="s1">&#39;srcvector_plot&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+<span class="n">ncd</span><span class="o">.</span><span class="n">plot_src_spectrum</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">dfROHR</span><span class="p">,</span><span class="s1">&#39;srcvector_plot&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">dn_col</span><span class="o">=</span><span class="s1">&#39;DN&#39;</span><span class="p">,</span> <span class="n">lw_min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lw_max</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
 
 <span class="c1"># Points</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">src_A_coords</span><span class="p">,</span> <span class="n">src_B_coords</span><span class="p">])</span>
@@ -375,6 +375,34 @@
 </div>
 </div>
 <p>For each pipe a color (between A: red and B: blue) is mixed based on the srcvector present in its start and end node.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">plot_src_spectrum</span><span class="p">(</span>
+    <span class="n">gdf</span><span class="o">=</span><span class="n">dfROHR</span><span class="p">,</span>
+    <span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;srcvector_plot&quot;</span><span class="p">,</span>
+    <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">])],</span>
+    <span class="n">dn_col</span><span class="o">=</span><span class="s1">&#39;DN&#39;</span><span class="p">,</span> <span class="n">lw_min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lw_max</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+    <span class="n">plot_pies</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">n_pies</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">ratio_decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">pie_radius_rel</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
+    <span class="n">connector_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">),</span>
+    <span class="n">debug_pie_centers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">force_equal_aspect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_mixture_scale</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Example7_35_0.png" src="_images/Example7_35_0.png" />
+</div>
+</div>
 </section>
 </section>
 </section>
@@ -383,7 +411,7 @@
 <section id="id1">
 <h2>Preparing Data<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">V3_VBEL</span>
@@ -391,7 +419,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="o">=</span><span class="n">dfVBEL</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -399,7 +427,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lookup_TTR</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;TTR&#39;</span><span class="p">]</span>
@@ -407,7 +435,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;TTR_KI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_TTR</span><span class="p">)</span>
@@ -418,7 +446,7 @@
 <section id="Geometry">
 <h3>Geometry<a class="headerlink" href="#Geometry" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lookup_geometry</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
@@ -428,7 +456,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;OBJID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_geometry</span><span class="p">)</span>
@@ -440,7 +468,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfVBEL</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
@@ -454,7 +482,7 @@
 <section id="KVR">
 <h3>KVR<a class="headerlink" href="#KVR" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lookup_kvr</span> <span class="o">=</span> <span class="n">dfKNOT</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;KVR&#39;</span><span class="p">]</span>
@@ -462,7 +490,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;KVR_KI&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;fkKI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_kvr</span><span class="p">)</span>
@@ -470,7 +498,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;KVR_KK&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;fkKK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_kvr</span><span class="p">)</span>
@@ -481,7 +509,7 @@
 <section id="DN">
 <h3>DN<a class="headerlink" href="#DN" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lookup_DN</span> <span class="o">=</span> <span class="n">dfROHR</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tk&#39;</span><span class="p">)[</span><span class="s1">&#39;DN&#39;</span><span class="p">]</span>
@@ -489,7 +517,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[82]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;DN&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;OBJID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lookup_DN</span><span class="p">)</span>
@@ -497,7 +525,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[83]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;DN&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;DN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># assume DN=100mm for all non-pipe edges</span>
@@ -505,7 +533,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[84]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span> <span class="o">=</span> <span class="n">dfVBEL</span><span class="p">[(</span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;XKOR_KI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span> <span class="o">|</span> <span class="p">(</span><span class="n">dfVBEL</span><span class="p">[</span><span class="s1">&#39;XKOR_KI&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">40000</span><span class="p">)]</span>
@@ -514,7 +542,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[85]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfVBEL</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -522,7 +550,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[85]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -581,8 +609,8 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>88.575161</td>
-      <td>0.388924</td>
+      <td>88.827044</td>
+      <td>0.388912</td>
       <td>0.0</td>
       <td>LINESTRING (48964.7865681636 97889.1867773421,...</td>
       <td>48964.786568</td>
@@ -605,8 +633,8 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>95.542115</td>
-      <td>1.894632</td>
+      <td>95.780795</td>
+      <td>1.873637</td>
       <td>0.0</td>
       <td>LINESTRING (46651.6069416646 97713.81722454, 4...</td>
       <td>46651.606942</td>
@@ -629,9 +657,9 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>82.312968</td>
-      <td>1.232166</td>
-      <td>0.35337</td>
+      <td>82.566185</td>
+      <td>1.233922</td>
+      <td>0.353222</td>
       <td>LINESTRING (54845.3976874947 97480.8326112069,...</td>
       <td>54845.397687</td>
       <td>54845.397687</td>
@@ -650,7 +678,7 @@
 <section id="id2">
 <h2>Plotting<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[86]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">plot_ttr_network</span><span class="p">(</span>
@@ -671,7 +699,7 @@
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Example7_56_0.png" src="_images/Example7_56_0.png" />
+<img alt="_images/Example7_57_0.png" src="_images/Example7_57_0.png" />
 </div>
 </div>
 </section>
