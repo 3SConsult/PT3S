@@ -209,7 +209,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 9,
    "id": "20f2e2d5",
    "metadata": {},
    "outputs": [
@@ -225,7 +225,7 @@
       "+..\\PT3S\\Examples\\WDExample7_2\\B1\\V0\\BZ1\\M-1-0-1.1.MX1:\n",
       "+SIR 3S' dbFile is newer than SIR 3S' mx1File\n",
       "+in this case the results are maybe dated or (worse) incompatible to the model\n",
-      "INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\\3S\\SIR 3S\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe\n",
+      "INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\\\\3S\\SIR 3S Entwicklung\\SirCalc-90-15-02-16_Quebec_x64\\SirCalc.exe\n",
       "INFO    ; Mx.setResultsToMxsFile: Mxs: ..\\PT3S\\Examples\\WDExample7_2\\B1\\V0\\BZ1\\M-1-0-1.1.MXS reading ...\n",
       "INFO    ; dxWithMx.__init__: Example9_1: processing dx and mx ...\n"
      ]
@@ -903,7 +903,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 57,
+   "execution_count": 35,
    "id": "f8b5221c-0fd1-4fbc-abaf-81325ad2629d",
    "metadata": {},
    "outputs": [
@@ -914,7 +914,12 @@
       "INFO    ; Dx.__init__: dbFile (abspath): c:\\users\\aUserName\\3s\\pt3s\\PT3S\\Examples\\Example9_2.db3 exists readable ...\n",
       "INFO    ; Dx.__init__:  SYSTEMKONFIG ID 3 not defined. Value(ID=3) is supposed to define the Model which is used in QGIS. Now QGISmodelXk is undefined ...\n",
       "INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx:  QGISmodelXk not defined. Now the MX of 1st Model in VIEW_MODELLE is used ...\n",
-      "INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\\3S\\SIR 3S\\SirCalc-90-14-02-12_Potsdam.fix1_x64\\SirCalc.exe\n",
+      "INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: \n",
+      "+..\\PT3S\\Examples\\Example9_2.db3 is newer than\n",
+      "+..\\PT3S\\Examples\\WDExample9_2\\B1\\V0\\BZ1\\M-1-0-1.1.MX1:\n",
+      "+SIR 3S' dbFile is newer than SIR 3S' mx1File\n",
+      "+in this case the results are maybe dated or (worse) incompatible to the model\n",
+      "INFO    ; PT3S.dxAndMxHelperFcts.readDxAndMx: Model is being recalculated using C:\\\\3S\\SIR 3S Entwicklung\\SirCalc-90-15-02-16_Quebec_x64\\SirCalc.exe\n",
       "INFO    ; Mx.setResultsToMxsFile: Mxs: ..\\PT3S\\Examples\\WDExample9_2\\B1\\V0\\BZ1\\M-1-0-1.1.MXS reading ...\n",
       "INFO    ; dxWithMx.__init__: Example9_2: processing dx and mx ...\n"
      ]
@@ -947,7 +952,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 58,
+   "execution_count": 36,
    "id": "525cbdd0",
    "metadata": {},
    "outputs": [],
@@ -957,7 +962,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 59,
+   "execution_count": 37,
    "id": "cf17f907",
    "metadata": {},
    "outputs": [],
@@ -975,7 +980,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 60,
+   "execution_count": 38,
    "id": "bcd9442f",
    "metadata": {},
    "outputs": [],
@@ -986,7 +991,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 61,
+   "execution_count": 39,
    "id": "5351a31d",
    "metadata": {},
    "outputs": [],
@@ -1006,7 +1011,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 62,
+   "execution_count": 40,
    "id": "448ef6c9",
    "metadata": {},
    "outputs": [],
@@ -1017,7 +1022,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 63,
+   "execution_count": 41,
    "id": "e98db88d",
    "metadata": {},
    "outputs": [],
@@ -1029,7 +1034,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 64,
+   "execution_count": 42,
    "id": "b260a11c",
    "metadata": {},
    "outputs": [],
@@ -1049,7 +1054,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 65,
+   "execution_count": 43,
    "id": "d8aa4b0f",
    "metadata": {},
    "outputs": [],
@@ -1068,7 +1073,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 66,
+   "execution_count": 44,
    "id": "c45544c8",
    "metadata": {},
    "outputs": [],
@@ -1081,7 +1086,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 67,
+   "execution_count": 45,
    "id": "cd01fae8",
    "metadata": {},
    "outputs": [],
@@ -1091,7 +1096,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 68,
+   "execution_count": 46,
    "id": "10057b10",
    "metadata": {},
    "outputs": [],
@@ -1109,7 +1114,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 69,
+   "execution_count": 47,
    "id": "79e8f5dd",
    "metadata": {},
    "outputs": [],
@@ -1122,7 +1127,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 70,
+   "execution_count": 48,
    "id": "9c48fb8e",
    "metadata": {},
    "outputs": [],
@@ -1132,7 +1137,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 71,
+   "execution_count": 49,
    "id": "5b5bddec",
    "metadata": {},
    "outputs": [],
@@ -1150,7 +1155,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 72,
+   "execution_count": 50,
    "id": "233da37b",
    "metadata": {},
    "outputs": [
@@ -1212,7 +1217,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 73,
+   "execution_count": 51,
    "id": "a04bf687",
    "metadata": {},
    "outputs": [
@@ -1231,7 +1236,7 @@
        "Name: QMAVAbs, dtype: float64"
       ]
      },
-     "execution_count": 73,
+     "execution_count": 51,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1283,7 +1288,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 74,
+   "execution_count": 52,
    "id": "370604c2",
    "metadata": {},
    "outputs": [],
@@ -1317,7 +1322,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 75,
+   "execution_count": 53,
    "id": "0f689cfe",
    "metadata": {},
    "outputs": [],
@@ -1327,7 +1332,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 76,
+   "execution_count": 54,
    "id": "5d87a40b",
    "metadata": {},
    "outputs": [],
@@ -1337,7 +1342,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 77,
+   "execution_count": 55,
    "id": "0c6eb0ad",
    "metadata": {},
    "outputs": [
@@ -1355,7 +1360,7 @@
        "       [0.  , 1.49, 2.22, 0.52, 0.  , 2.01, 0.  , 0.  , 0.  ]])"
       ]
      },
-     "execution_count": 77,
+     "execution_count": 55,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1375,7 +1380,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 78,
+   "execution_count": 56,
    "id": "755c1b67",
    "metadata": {},
    "outputs": [

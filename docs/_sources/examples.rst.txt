@@ -1,6 +1,12 @@
 Examples
 ========
 
+.. note::
+
+    PT3S has been the main interface between SIR 3S and Python, but will now be replaced with the newer and in many aspects more powerful `SIR 3S Python Toolkit <https://3sconsult.github.io/sir3stoolkit/index.html>`_.
+    Many of the features that PT3S offers have been reimplemented and new features will continuously be added to the Toolkit while PT3S will no longer receive updates. PT3S is still compatible with SIR 3S 90.15 Quebec.
+
+
 Welcome to the Examples Page! Here, you will find a variety of examples that demonstrate the capabilities and usage of PT3S. Each example is available for both **viewing** and **downloading** as an `.ipynb` file. 
 
 In the Example-Notebooks the corresponding SIR 3S Example-Models are (re-)calculated using your local SirCalc.

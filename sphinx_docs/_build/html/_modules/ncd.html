@@ -335,12 +335,12 @@
             <span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
             <span class="n">axins</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 
-            <span class="c1"># bottom ticks (Source 2)</span>
+            <span class="c1"># bottom ticks (Source B)</span>
             <span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
             <span class="n">perc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
             <span class="n">axins</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
             <span class="n">axins</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">%&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">perc</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-            <span class="n">axins</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Share of Source 2&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+            <span class="n">axins</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Share of Source B&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 
             <span class="c1"># style: no frame, no tick marks, transparent bg</span>
             <span class="n">axins</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
@@ -348,12 +348,12 @@
             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">axins</span><span class="o">.</span><span class="n">spines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="n">s</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-            <span class="c1"># top ticks (Source 1)</span>
+            <span class="c1"># top ticks (Source A)</span>
             <span class="n">axins_top</span> <span class="o">=</span> <span class="n">axins</span><span class="o">.</span><span class="n">twiny</span><span class="p">()</span>
             <span class="n">axins_top</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">axins</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">())</span>
             <span class="n">axins_top</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
             <span class="n">axins_top</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="si">}</span><span class="s2">%&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">perc</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-            <span class="n">axins_top</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Share of Source 1&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+            <span class="n">axins_top</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Share of Source A&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
             <span class="n">axins_top</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">axins_top</span><span class="o">.</span><span class="n">set_frame_on</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">axins_top</span><span class="o">.</span><span class="n">spines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -768,8 +768,8 @@
         <span class="n">chosen</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">chosen_idxs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-        <span class="n">i_max0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p0</span><span class="p">))</span>  <span class="c1"># extreme towards source 1</span>
-        <span class="n">i_max1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p1</span><span class="p">))</span>  <span class="c1"># extreme towards source 2</span>
+        <span class="n">i_max0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p0</span><span class="p">))</span>  <span class="c1"># extreme towards source A</span>
+        <span class="n">i_max1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p1</span><span class="p">))</span>  <span class="c1"># extreme towards source B</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i_max0</span><span class="p">,</span> <span class="n">i_max1</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">chosen_idxs</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
                 <span class="n">chosen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
@@ -2249,7 +2249,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 1986-2025, 3S Consult GmbH.</p>
+    <p>&#169; Copyright 1986-2026, 3S Consult GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
