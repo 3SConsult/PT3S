@@ -1,6 +1,11 @@
 For Developers
 ==============
 
+.. note::
+
+    PT3S has been the main interface between SIR 3S and Python, but will now be replaced with the newer and in many aspects more powerful `SIR 3S Python Toolkit <https://3sconsult.github.io/sir3stoolkit/index.html>`_.
+    Many of the features that PT3S offers have been reimplemented and new features will continuously be added to the Toolkit while PT3S will no longer receive updates. PT3S is still compatible with SIR 3S 90.15 Quebec.
+
 Welcome to the Developers page! This section provides resources and instructions for developers who want to contribute to PT3S. 
 
 - **Contact**: For additional information regarding PT3S, this documentation, and contribution inquiries, please contact `jablonski@3sconsult.de <mailto:jablonski@3sconsult.de>`_. If you need feedback on a specific issue with PT3S, please include the PT3S version you are using and, if available, the Jupyter Notebook you are working with.

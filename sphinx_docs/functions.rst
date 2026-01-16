@@ -1,6 +1,11 @@
 Functions
 ================================
 
+.. note::
+
+    PT3S has been the main interface between SIR 3S and Python, but will now be replaced with the newer and in many aspects more powerful `SIR 3S Python Toolkit <https://3sconsult.github.io/sir3stoolkit/index.html>`_.
+    Many of the features that PT3S offers have been reimplemented and new features will continuously be added to the Toolkit while PT3S will no longer receive updates. PT3S is still compatible with SIR 3S 90.15 Quebec.
+
 Welcome to the Functions page! Here, we will delve into the details of each function, its purpose, parameters and returns. Links to the description of returned objects on the :doc:`objects` page will be provided.
 
 .. note::
